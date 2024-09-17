@@ -52,6 +52,7 @@ import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -766,19 +767,27 @@ public class GsFileUtils {
     }
 
     public static void sortFiles(
-            final List<File> filesToSort,
+            final Collection<File> filesToSort,
             final String sortBy,
             final boolean folderFirst,
             final boolean reverse
     ) {
         if (filesToSort != null && !filesToSort.isEmpty()) {
             try {
-                GsCollectionUtils.keySort(filesToSort, (f) -> makeSortKey(sortBy, f));
+                final boolean copy = !(filesToSort instanceof List);
+                final List<File> sortable = copy ? new ArrayList<>(filesToSort) : (List<File>) filesToSort;
+
+                GsCollectionUtils.keySort(sortable, (f) -> makeSortKey(sortBy, f));
                 if (reverse) {
-                    Collections.reverse(filesToSort);
+                    Collections.reverse(sortable);
                 }
                 if (folderFirst) {
-                    GsCollectionUtils.keySort(filesToSort, (f) -> !f.isDirectory());
+                    GsCollectionUtils.keySort(sortable, (f) -> !f.isDirectory());
+                }
+
+                if (copy) {
+                    filesToSort.clear();
+                    filesToSort.addAll(sortable);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

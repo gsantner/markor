@@ -15,6 +15,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.text.Editable;
+import android.text.Selection;
+import android.text.Spannable;
 import android.text.TextUtils;
 import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
@@ -47,7 +49,6 @@ import net.gsantner.opoc.frontend.GsSearchOrCustomTextDialog;
 import net.gsantner.opoc.util.GsCollectionUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
-import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -88,7 +89,7 @@ public abstract class ActionButtonBase {
         _document = document;
         _appSettings = ApplicationObject.settings();
         _buttonHorizontalMargin = GsContextUtils.instance.convertDpToPx(context, _appSettings.getEditorActionButtonItemPadding());
-        _indent = _appSettings.getDocumentIndentSize(_document != null ? _document.getPath() : null);
+        _indent = _appSettings.getDocumentIndentSize(_document != null ? _document.path : null);
     }
 
     // Override to implement custom onClick
@@ -473,36 +474,48 @@ public abstract class ActionButtonBase {
 
     private static void runRegexReplaceAction(final Editable editable, final List<ReplacePattern> patterns) {
 
-        TextViewUtils.withKeepSelection(editable, (selStart, selEnd) -> {
+        final int[] sel = TextViewUtils.getSelection(editable);
+        if (sel[0] < 0) {
+            return;
+        }
+        final int[][] offsets = TextViewUtils.getLineOffsetFromIndex(editable, sel);
 
-            final TextViewUtils.ChunkedEditable text = TextViewUtils.ChunkedEditable.wrap(editable);
-            // Start of line on which sel begins
-            final int selStartStart = TextViewUtils.getLineStart(text, selStart);
+        final TextViewUtils.ChunkedEditable text = TextViewUtils.ChunkedEditable.wrap(editable);
+        // Start of line on which sel begins
+        final int selStartStart = TextViewUtils.getLineStart(text, sel[0]);
 
-            // Number of lines we will be modifying
-            final int lineCount = GsTextUtils.countChars(text, selStart, selEnd, '\n')[0] + 1;
-            int lineStart = selStartStart;
+        // Number of lines we will be modifying
+        final int lineCount = GsTextUtils.countChars(text, sel[0], sel[1], '\n')[0] + 1;
+        int lineStart = selStartStart;
 
 
-            for (int i = 0; i < lineCount; i++) {
+        for (int i = 0; i < lineCount; i++) {
 
-                int lineEnd = TextViewUtils.getLineEnd(text, lineStart);
-                final String line = TextViewUtils.toString(text, lineStart, lineEnd);
+            int lineEnd = TextViewUtils.getLineEnd(text, lineStart);
+            final String line = TextViewUtils.toString(text, lineStart, lineEnd);
 
-                for (final ReplacePattern pattern : patterns) {
-                    if (pattern.matcher.reset(line).find()) {
-                        if (!pattern.isSameReplace()) {
-                            text.replace(lineStart, lineEnd, pattern.replace());
-                        }
-                        break;
+            for (final ReplacePattern pattern : patterns) {
+                if (pattern.matcher.reset(line).find()) {
+                    if (!pattern.isSameReplace()) {
+                        text.replace(lineStart, lineEnd, pattern.replace());
                     }
+                    break;
                 }
-
-                lineStart = TextViewUtils.getLineEnd(text, lineStart) + 1;
             }
 
-            text.applyChanges();
-        });
+            lineStart = TextViewUtils.getLineEnd(text, lineStart) + 1;
+        }
+
+        text.applyChanges();
+        TextViewUtils.setSelectionFromOffsets(editable, offsets);
+    }
+
+    public static void surroundBlock(final Editable text, final String delim) {
+        final int[] sel = TextViewUtils.getLineSelection(text);
+        if (text != null && sel[0] >= 0) {
+            final CharSequence line = text.subSequence(sel[0], sel[1]);
+            text.replace(sel[0], sel[1], delim + "\n" + line + "\n" + delim);
+        }
     }
 
     protected void runSurroundAction(final String delim) {
@@ -519,14 +532,14 @@ public abstract class ActionButtonBase {
      */
     protected void runSurroundAction(final String open, final String close, final boolean trim) {
         final Editable text = _hlEditor.getText();
-        if (text == null) {
+        final int[] sel = TextViewUtils.getSelection(text);
+        if (sel[0] < 0) {
             return;
         }
 
         // Detect if delims within or around selection
         // If so, remove it
         // -------------------------------------------------------------------------
-        final int[] sel = TextViewUtils.getSelection(_hlEditor);
         final int ss = sel[0], se = sel[1];
         final int ol = open.length(), cl = close.length(), sl = se - ss;
         // Left as a CharSequence to help maintain spans
@@ -640,15 +653,15 @@ public abstract class ActionButtonBase {
                 return true;
             }
             case R.string.abid_common_insert_audio: {
-                AttachLinkOrFileDialog.showInsertImageOrLinkDialog(AttachLinkOrFileDialog.AUDIO_ACTION, _document.getFormat(), _activity, text, _document.getFile());
+                AttachLinkOrFileDialog.showInsertImageOrLinkDialog(AttachLinkOrFileDialog.AUDIO_ACTION, _document.getFormat(), _activity, text, _document.file);
                 return true;
             }
             case R.string.abid_common_insert_link: {
-                AttachLinkOrFileDialog.showInsertImageOrLinkDialog(AttachLinkOrFileDialog.FILE_OR_LINK_ACTION, _document.getFormat(), _activity, text, _document.getFile());
+                AttachLinkOrFileDialog.showInsertImageOrLinkDialog(AttachLinkOrFileDialog.FILE_OR_LINK_ACTION, _document.getFormat(), _activity, text, _document.file);
                 return true;
             }
             case R.string.abid_common_insert_image: {
-                AttachLinkOrFileDialog.showInsertImageOrLinkDialog(AttachLinkOrFileDialog.IMAGE_ACTION, _document.getFormat(), _activity, text, _document.getFile());
+                AttachLinkOrFileDialog.showInsertImageOrLinkDialog(AttachLinkOrFileDialog.IMAGE_ACTION, _document.getFormat(), _activity, text, _document.file);
                 return true;
             }
             case R.string.abid_common_ordered_list_renumber: {
@@ -669,13 +682,17 @@ public abstract class ActionButtonBase {
             }
             case R.string.abid_common_insert_snippet: {
                 MarkorDialogFactory.showInsertSnippetDialog(_activity, (snip) -> {
-                    _hlEditor.insertOrReplaceTextOnCursor(TextViewUtils.interpolateSnippet(snip, _document.getTitle(), TextViewUtils.getSelectedText(_hlEditor)));
+                    _hlEditor.insertOrReplaceTextOnCursor(TextViewUtils.interpolateSnippet(snip, _document.title, TextViewUtils.getSelectedText(_hlEditor)));
                     _lastSnip = snip;
                 });
                 return true;
             }
             case R.string.abid_common_open_link_browser: {
                 final int sel = TextViewUtils.getSelection(_hlEditor)[0];
+                if (sel < 0) {
+                    return true;
+                }
+
                 final String line = TextViewUtils.getSelectedLines(_hlEditor, sel);
                 final int cursor = sel - TextViewUtils.getLineStart(_hlEditor.getText(), sel);
 
@@ -686,13 +703,12 @@ public abstract class ActionButtonBase {
                     if (WEB_URL.matcher(resource).matches()) {
                         url = resource;
                     } else {
-                        final File f = GsFileUtils.makeAbsolute(resource, _document.getFile().getParentFile());
+                        final File f = GsFileUtils.makeAbsolute(resource, _document.file.getParentFile());
                         if (f.canRead()) {
                             DocumentActivity.launch(getActivity(), f, null, null);
                             return true;
                         }
                     }
-
                 }
 
                 // Then try to pull a tag
@@ -703,6 +719,7 @@ public abstract class ActionButtonBase {
                     }
                     _cu.openWebpageInExternalBrowser(getContext(), url);
                 }
+
                 return true;
             }
             case R.string.abid_common_special_key: {
@@ -711,15 +728,20 @@ public abstract class ActionButtonBase {
             }
             case R.string.abid_common_new_line_below: {
                 // Go to end of line, works with wrapped lines too
-                _hlEditor.setSelection(TextViewUtils.getLineEnd(text, TextViewUtils.getSelection(_hlEditor)[1]));
-                _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_ENTER);
+                final int sel = TextViewUtils.getSelection(_hlEditor)[1];
+                if (sel > 0) {
+                    _hlEditor.setSelection(TextViewUtils.getLineEnd(text, sel));
+                    _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_ENTER);
+                }
                 return true;
             }
             case R.string.abid_common_delete_lines: {
-                final int[] sel = TextViewUtils.getLineSelection(_hlEditor);
-                final boolean lastLine = sel[1] == text.length();
-                final boolean firstLine = sel[0] == 0;
-                text.delete(sel[0] - (lastLine && !firstLine ? 1 : 0), sel[1] + (lastLine ? 0 : 1));
+                final int[] sel = TextViewUtils.getLineSelection(text);
+                if (GsTextUtils.isValidSelection(text, sel)) {
+                    final boolean lastLine = sel[1] == text.length();
+                    final boolean firstLine = sel[0] == 0;
+                    text.delete(sel[0] - (lastLine && !firstLine ? 1 : 0), sel[1] + (lastLine ? 0 : 1));
+                }
                 return true;
             }
             case R.string.abid_common_duplicate_lines: {
@@ -740,7 +762,7 @@ public abstract class ActionButtonBase {
                 return true;
             }
             case R.string.abid_common_view_file_in_other_app: {
-                _cu.viewFileInOtherApp(getContext(), _document.getFile(), GsFileUtils.getMimeType(_document.getFile()));
+                _cu.viewFileInOtherApp(getContext(), _document.file, GsFileUtils.getMimeType(_document.file));
                 return true;
             }
             case R.string.abid_common_rotate_screen: {
@@ -760,7 +782,7 @@ public abstract class ActionButtonBase {
             case R.string.abid_common_indent: {
                 MarkorDialogFactory.showIndentSizeDialog(_activity, _indent, (size) -> {
                     _indent = Integer.parseInt(size);
-                    _appSettings.setDocumentIndentSize(_document.getPath(), _indent);
+                    _appSettings.setDocumentIndentSize(_document.path, _indent);
                 });
                 return true;
             }
@@ -789,20 +811,20 @@ public abstract class ActionButtonBase {
             }
             case R.string.abid_common_insert_snippet: {
                 if (!TextUtils.isEmpty(_lastSnip)) {
-                    _hlEditor.insertOrReplaceTextOnCursor(TextViewUtils.interpolateSnippet(_lastSnip, _document.getTitle(), TextViewUtils.getSelectedText(_hlEditor)));
+                    _hlEditor.insertOrReplaceTextOnCursor(TextViewUtils.interpolateSnippet(_lastSnip, _document.title, TextViewUtils.getSelectedText(_hlEditor)));
                 }
                 return true;
             }
             case R.string.abid_common_insert_audio: {
-                AttachLinkOrFileDialog.insertAudioRecording(_activity, _document.getFormat(), _hlEditor.getText(), _document.getFile());
+                AttachLinkOrFileDialog.insertAudioRecording(_activity, _document.getFormat(), _hlEditor.getText(), _document.file);
                 return true;
             }
             case R.string.abid_common_insert_link: {
-                AttachLinkOrFileDialog.insertGalleryPhoto(_activity, _document.getFormat(), _hlEditor.getText(), _document.getFile());
+                AttachLinkOrFileDialog.insertGalleryPhoto(_activity, _document.getFormat(), _hlEditor.getText(), _document.file);
                 return true;
             }
             case R.string.abid_common_insert_image: {
-                AttachLinkOrFileDialog.insertCameraPhoto(_activity, _document.getFormat(), _hlEditor.getText(), _document.getFile());
+                AttachLinkOrFileDialog.insertCameraPhoto(_activity, _document.getFormat(), _hlEditor.getText(), _document.file);
                 return true;
             }
             case R.string.abid_common_new_line_below: {
@@ -810,9 +832,11 @@ public abstract class ActionButtonBase {
                 final Editable text = _hlEditor.getText();
                 if (text != null) {
                     final int sel = TextViewUtils.getSelection(text)[0];
-                    final int lineStart = TextViewUtils.getLineStart(text, sel);
-                    text.insert(lineStart, "\n");
-                    _hlEditor.setSelection(lineStart);
+                    if (sel >= 0) {
+                        final int lineStart = TextViewUtils.getLineStart(text, sel);
+                        text.insert(lineStart, "\n");
+                        _hlEditor.setSelection(lineStart);
+                    }
                 }
                 return true;
             }
@@ -852,32 +876,30 @@ public abstract class ActionButtonBase {
 
     public static void moveLineSelectionBy1(final HighlightingEditor hlEditor, final boolean isUp) {
         final Editable text = hlEditor.getText();
+        final int[] sel = TextViewUtils.getSelection(text);
+        if (text == null || sel[0] < 0) {
+            return;
+        }
 
-        final int[] sel = TextViewUtils.getSelection(hlEditor);
-        final int linesStart = TextViewUtils.getLineStart(text, sel[0]);
-        final int linesEnd = TextViewUtils.getLineEnd(text, sel[1]);
+        final int[] lineSel = TextViewUtils.getLineSelection(text, sel);
 
-        if ((isUp && linesStart > 0) || (!isUp && linesEnd < text.length())) {
-            final CharSequence lines = text.subSequence(linesStart, linesEnd);
+        if ((isUp && lineSel[0] > 0) || (!isUp && lineSel[1] < text.length())) {
+            final CharSequence lines = text.subSequence(lineSel[0], lineSel[1]);
 
-            final int altStart = isUp ? TextViewUtils.getLineStart(text, linesStart - 1) : linesEnd + 1;
-            final int altEnd = TextViewUtils.getLineEnd(text, altStart);
-            final CharSequence altLine = text.subSequence(altStart, altEnd);
+            final int[] altSel = TextViewUtils.getLineSelection(text, isUp ? lineSel[0] - 1 : lineSel[1] + 1);
+            final CharSequence altLine = text.subSequence(altSel[0], altSel[1]);
 
-            final int[] selStart = TextViewUtils.getLineOffsetFromIndex(text, sel[0]);
-            final int[] selEnd = TextViewUtils.getLineOffsetFromIndex(text, sel[1]);
+            final int[][] offsets = TextViewUtils.getLineOffsetFromIndex(text, sel);
 
             hlEditor.withAutoFormatDisabled(() -> {
                 final String newPair = String.format("%s\n%s", isUp ? lines : altLine, isUp ? altLine : lines);
-                text.replace(Math.min(linesStart, altStart), Math.max(altEnd, linesEnd), newPair);
+                text.replace(Math.min(lineSel[0], altSel[0]), Math.max(lineSel[1], altSel[1]), newPair);
             });
 
-            selStart[0] += isUp ? -1 : 1;
-            selEnd[0] += isUp ? -1 : 1;
+            offsets[0][0] += isUp ? -1 : 1;
+            offsets[1][0] += isUp ? -1 : 1;
 
-            hlEditor.setSelection(
-                    TextViewUtils.getIndexFromLineOffset(text, selStart),
-                    TextViewUtils.getIndexFromLineOffset(text, selEnd));
+            TextViewUtils.setSelectionFromOffsets(text, offsets);
         }
     }
 
@@ -886,38 +908,28 @@ public abstract class ActionButtonBase {
         // cursor is preserved regarding column position (helpful for editing the
         // newly created line at the selected position right away).
         final Editable text = hlEditor.getText();
+        final int[] sel = TextViewUtils.getSelection(text);
+        if (sel[0] >= 0) {
+            final int linesStart = TextViewUtils.getLineStart(text, sel[0]);
+            final int linesEnd = TextViewUtils.getLineEnd(text, sel[1]);
 
-        final int[] sel = TextViewUtils.getSelection(hlEditor);
-        final int linesStart = TextViewUtils.getLineStart(text, sel[0]);
-        final int linesEnd = TextViewUtils.getLineEnd(text, sel[1]);
+            final CharSequence lines = text.subSequence(linesStart, linesEnd);
 
-        final CharSequence lines = text.subSequence(linesStart, linesEnd);
+            final int[][] offsets = TextViewUtils.getLineOffsetFromIndex(text, sel);
 
-        final int[] selStart = TextViewUtils.getLineOffsetFromIndex(text, sel[0]);
-        final int[] selEnd = TextViewUtils.getLineOffsetFromIndex(text, sel[1]);
+            hlEditor.withAutoFormatDisabled(() -> {
+                // Prepending the newline instead of appending it is required for making
+                // this logic work even if it's about the last line in the given file.
+                final String lines_final = String.format("\n%s", lines);
+                text.insert(linesEnd, lines_final);
+            });
 
-        hlEditor.withAutoFormatDisabled(() -> {
-            // Prepending the newline instead of appending it is required for making
-            // this logic work even if it's about the last line in the given file.
-            final String lines_final = String.format("\n%s", lines);
-            text.insert(linesEnd, lines_final);
-        });
+            final int lineCount = offsets[1][0] - offsets[0][0] + 1;
+            offsets[0][0] += lineCount;
+            offsets[1][0] += lineCount;
 
-        final int sel_offset = selEnd[0] - selStart[0] + 1;
-        selStart[0] += sel_offset;
-        selEnd[0] += sel_offset;
-
-        hlEditor.setSelection(
-                TextViewUtils.getIndexFromLineOffset(text, selStart),
-                TextViewUtils.getIndexFromLineOffset(text, selEnd));
-    }
-
-    public void withKeepSelection(final GsCallback.a2<Integer, Integer> action) {
-        _hlEditor.withAutoFormatDisabled(() -> TextViewUtils.withKeepSelection(_hlEditor.getText(), action));
-    }
-
-    public void withKeepSelection(final GsCallback.a0 action) {
-        withKeepSelection((start, end) -> action.callback());
+            TextViewUtils.setSelectionFromOffsets(text, offsets);
+        }
     }
 
     // Derived classes should override this to implement format-specific renumber logic
@@ -940,12 +952,6 @@ public abstract class ActionButtonBase {
     }
 
     public void runSpecialKeyAction() {
-        // Needed to prevent selection from being overwritten on refocus
-        final int[] sel = TextViewUtils.getSelection(_hlEditor);
-        _hlEditor.clearFocus();
-        _hlEditor.requestFocus();
-        _hlEditor.setSelection(sel[0], sel[1]);
-
         MarkorDialogFactory.showSpecialKeyDialog(getActivity(), _specialKeyDialogState, (callbackPayload) -> {
             if (!_hlEditor.hasSelection() && _hlEditor.length() > 0) {
                 _hlEditor.requestFocus();
@@ -967,7 +973,7 @@ public abstract class ActionButtonBase {
             } else if (callbackPayload.equals(rstr(R.string.move_text_one_line_down))) {
                 ActionButtonBase.moveLineSelectionBy1(_hlEditor, false);
             } else if (callbackPayload.equals(rstr(R.string.select_current_line))) {
-                _hlEditor.setSelectionExpandWholeLines();
+                selectWholeLines(_hlEditor.getText());
             } else if (callbackPayload.equals(rstr(R.string.key_ctrl_a))) {
                 _hlEditor.setSelection(0, _hlEditor.length());
             } else if (callbackPayload.equals(rstr(R.string.key_tab))) {
@@ -990,6 +996,13 @@ public abstract class ActionButtonBase {
                 _hlEditor.insertOrReplaceTextOnCursor("¯\\_(ツ)_/¯");
             }
         });
+    }
+
+    public static void selectWholeLines(final @Nullable Spannable text) {
+        final int[] sel = TextViewUtils.getLineSelection(text);
+        if (sel[0] >= 0) {
+            Selection.setSelection(text, sel[0], sel[1]);
+        }
     }
 
     public void runJumpBottomTopAction(ActionItem.DisplayMode displayMode) {

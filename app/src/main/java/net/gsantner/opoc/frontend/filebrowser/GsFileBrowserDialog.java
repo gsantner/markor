@@ -21,6 +21,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.ColorRes;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -80,6 +82,20 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
     //########################
     //## Methods
     //########################
+
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        return new Dialog(getActivity()) {
+            @Override
+            public void onBackPressed() {
+                if (_filesystemViewerAdapter == null || !_filesystemViewerAdapter.goBack()) {
+                    this.dismiss();
+                }
+            }
+        };
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.opoc_filesystem_dialog, container, false);
@@ -127,6 +143,7 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         _toolBar.setTitleTextColor(rcolor(_dopt.titleTextColor));
         _toolBar.setTitle(_dopt.titleText);
         _toolBar.setSubtitleTextColor(rcolor(_dopt.secondaryTextColor));
+        setSubtitleApprearance(_toolBar);
 
         _homeButton.setImageResource(_dopt.homeButtonImage);
         _homeButton.setVisibility(_dopt.homeButtonEnable ? View.VISIBLE : View.GONE);
@@ -149,9 +166,9 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
 
         root.setBackgroundColor(rcolor(_dopt.backgroundColor));
 
-        // final LinearLayoutManager lam = (LinearLayoutManager) _recyclerList.getLayoutManager();
-        // final DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(activity, lam.getOrientation());
-        // _recyclerList.addItemDecoration(dividerItemDecoration);
+        final LinearLayoutManager lam = (LinearLayoutManager) _recyclerList.getLayoutManager();
+        final DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(activity, lam.getOrientation());
+        _recyclerList.addItemDecoration(dividerItemDecoration);
         _recyclerList.setItemViewCacheSize(20);
 
         _filesystemViewerAdapter = new GsFileBrowserListAdapter(_dopt, activity);
@@ -229,6 +246,8 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         dopt.textColor = rcolor(_dopt.primaryTextColor);
         dopt.searchHintText = android.R.string.untitled;
         dopt.searchInputFilter = GsContextUtils.instance.makeFilenameInputFilter();
+        dopt.isSearchEnabled = true;
+        dopt.isSoftInputVisible = true;
         dopt.callback = name -> _filesystemViewerAdapter.createDirectoryHere(name);
 
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
@@ -280,7 +299,7 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
             _callback.onFsViewerDoUiUpdate(adapter);
         }
         if (adapter.getCurrentFolder() != null) {
-            _toolBar.setSubtitle(adapter.getCurrentFolder().getName());
+            _toolBar.setSubtitle(adapter.getCurrentFolder().getPath());
         }
     }
 
@@ -298,5 +317,31 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         if (getDialog() != null && (w = getDialog().getWindow()) != null) {
             w.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
         }
+    }
+
+    private static void setSubtitleApprearance(final Toolbar toolbar) {
+        final String test = "__%%SUBTITLE%%__";
+        toolbar.setSubtitle(test);
+
+        for (int i = 0; i < toolbar.getChildCount(); i++) {
+            final View child = toolbar.getChildAt(i);
+            if (child instanceof TextView) {
+                final TextView tv = (TextView) child;
+                if (test.contentEquals(tv.getText())) {
+
+                    tv.setEllipsize(TextUtils.TruncateAt.START);
+                    tv.setSingleLine(true);
+                    final Toolbar.LayoutParams params = new Toolbar.LayoutParams(
+                            Toolbar.LayoutParams.MATCH_PARENT,
+                            Toolbar.LayoutParams.WRAP_CONTENT
+                    );
+                    tv.setLayoutParams(params);
+
+                    break;
+                }
+            }
+        }
+
+        toolbar.setSubtitle("");
     }
 }

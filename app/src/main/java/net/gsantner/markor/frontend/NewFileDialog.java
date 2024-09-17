@@ -95,19 +95,12 @@ public class NewFileDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final File file = (File) getArguments().getSerializable(EXTRA_DIR);
         final boolean allowCreateDir = getArguments().getBoolean(EXTRA_ALLOW_CREATE_DIR);
-
-        LayoutInflater inflater = LayoutInflater.from(getActivity());
-        AlertDialog.Builder dialogBuilder = makeDialog(file, allowCreateDir, inflater);
-        AlertDialog dialog = dialogBuilder.show();
-        Window w;
-        if ((w = dialog.getWindow()) != null) {
-            w.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        }
-        return dialog;
+        final LayoutInflater inflater = LayoutInflater.from(getActivity());
+        return makeDialog(file, allowCreateDir, inflater);
     }
 
     @SuppressLint("SetTextI18n")
-    private AlertDialog.Builder makeDialog(final File basedir, final boolean allowCreateDir, LayoutInflater inflater) {
+    private AlertDialog makeDialog(final File basedir, final boolean allowCreateDir, LayoutInflater inflater) {
         final Activity activity = getActivity();
         final AppSettings appSettings = ApplicationObject.settings();
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(inflater.getContext(), R.style.Theme_AppCompat_DayNight_Dialog_Rounded);
@@ -303,8 +296,8 @@ public class NewFileDialog extends DialogFragment {
                 document.saveContent(activity, content.first, cu, true);
 
                 // We only make these changes if the file did not already exist
-                appSettings.setDocumentFormat(document.getPath(), fmt.format);
-                appSettings.setLastEditPosition(document.getPath(), content.second);
+                appSettings.setDocumentFormat(document.path, fmt.format);
+                appSettings.setLastEditPosition(document.path, content.second);
 
                 callback(file);
 
@@ -349,9 +342,15 @@ public class NewFileDialog extends DialogFragment {
         final List<Integer> indices = GsCollectionUtils.indices(formats, f -> f.format == lastUsedType);
         typeSpinner.setSelection(indices.isEmpty() ? 0 : indices.get(0));
 
-        titleEdit.requestFocus();
+        final AlertDialog dialog = dialogBuilder.show();
+        final Window win = dialog.getWindow();
+        if (win != null) {
+            win.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+            win.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+        titleEdit.post(titleEdit::requestFocus);
 
-        return dialogBuilder;
+        return dialog;
     }
 
     private void callback(final File file) {
@@ -368,11 +367,11 @@ public class NewFileDialog extends DialogFragment {
     private Pair<String, Integer> getTemplateContent(final String template, final String name) {
         String text = TextViewUtils.interpolateSnippet(template, name, "");
 
-        final int startingIndex = template.indexOf(HighlightingEditor.PLACE_CURSOR_HERE_TOKEN);
-        text = text.replace(HighlightingEditor.PLACE_CURSOR_HERE_TOKEN, "");
+        final int startingIndex = text.indexOf(HighlightingEditor.PLACE_CURSOR_HERE_TOKEN);
+        text = text.replaceAll(HighlightingEditor.PLACE_CURSOR_HERE_TOKEN, "");
 
         // Has no utility in a new file
-        text = text.replace(HighlightingEditor.INSERT_SELECTION_HERE_TOKEN, "");
+        text = text.replaceAll(HighlightingEditor.INSERT_SELECTION_HERE_TOKEN, "");
 
         return Pair.create(text, startingIndex);
     }

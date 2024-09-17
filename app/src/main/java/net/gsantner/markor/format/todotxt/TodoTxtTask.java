@@ -64,26 +64,26 @@ public class TodoTxtTask {
         return DATEF_YYYY_MM_DD.format(new Date());
     }
 
-    public static List<TodoTxtTask> getTasks(final CharSequence text, final int selStart, final int selEnd) {
-        final String[] lines = text.subSequence(
-                TextViewUtils.getLineStart(text, selStart),
-                TextViewUtils.getLineEnd(text, selEnd)
-        ).toString().split("\n");
-
+    public static List<TodoTxtTask> getTasks(final CharSequence text, final int[] sel) {
         final List<TodoTxtTask> tasks = new ArrayList<>();
-        for (final String line : lines) {
-            tasks.add(new TodoTxtTask(line));
+        if (GsTextUtils.isValidSelection(text, sel)) {
+
+            final int[] lsel = TextViewUtils.getLineSelection(text, sel);
+            final String[] lines = text.subSequence(lsel[0], lsel[1]).toString().split("\n");
+
+            for (final String line : lines) {
+                tasks.add(new TodoTxtTask(line));
+            }
         }
         return tasks;
     }
 
     public static List<TodoTxtTask> getSelectedTasks(final TextView view) {
-        final int[] sel = TextViewUtils.getSelection(view);
-        return getTasks(view.getText(), sel[0], sel[1]);
+        return getTasks(view.getText(), TextViewUtils.getSelection(view));
     }
 
     public static List<TodoTxtTask> getAllTasks(final CharSequence text) {
-        return getTasks(text, 0, text.length());
+        return getTasks(text, new int[] {0, text.length()});
     }
 
     public static List<String> getProjects(final List<TodoTxtTask> tasks) {
