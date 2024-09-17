@@ -130,10 +130,10 @@ public abstract class GsFragmentBase<AS extends GsSharedPreferencesPropertyBacke
     /**
      * This will be called when this fragment gets the first time visible
      */
-    public void onFragmentFirstTimeVisible() {
+    protected void onFragmentFirstTimeVisible() {
     }
 
-    private synchronized void checkRunFirstTimeVisible() {
+    private void checkRunFirstTimeVisible() {
         if (_fragmentFirstTimeVisible && isVisible() && isResumed()) {
             _fragmentFirstTimeVisible = false;
             onFragmentFirstTimeVisible();
@@ -173,7 +173,7 @@ public abstract class GsFragmentBase<AS extends GsSharedPreferencesPropertyBacke
         super.onResume();
         final View view = getView();
         if (view != null) {
-            view.postDelayed(this::checkRunFirstTimeVisible, 200);
+            view.post(this::checkRunFirstTimeVisible);
             // Add any remaining tasks
             while (!_postTasks.isEmpty()) {
                 view.post(_postTasks.remove());

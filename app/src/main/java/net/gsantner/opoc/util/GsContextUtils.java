@@ -58,6 +58,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.IBinder;
 import android.os.ParcelFileDescriptor;
 import android.os.SystemClock;
@@ -2741,12 +2742,14 @@ public class GsContextUtils {
         }
     }
 
-    public static void windowAspectRatio(final Window window,
-                                         final DisplayMetrics displayMetrics,
-                                         float portraitWidthRatio,
-                                         float portraitHeightRatio,
-                                         float landscapeWidthRatio,
-                                         float landscapeHeightRatio) {
+    public static void windowAspectRatio(
+        final Window window,
+        final DisplayMetrics displayMetrics,
+        float portraitWidthRatio,
+        float portraitHeightRatio,
+        float landscapeWidthRatio,
+        float landscapeHeightRatio
+    ) {
         if (window == null) {
             return;
         }
