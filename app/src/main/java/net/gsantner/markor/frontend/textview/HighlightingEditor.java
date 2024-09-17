@@ -34,6 +34,12 @@ import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 @SuppressWarnings("UnusedReturnValue")
 public class HighlightingEditor extends AppCompatEditText {
 
@@ -58,7 +64,8 @@ public class HighlightingEditor extends AppCompatEditText {
     private boolean _autoFormatEnabled;
     private boolean _saveInstanceState = true;
     private final LineNumbersDrawer _lineNumbersDrawer = new LineNumbersDrawer(this);
-
+    private final ExecutorService executor = new ThreadPoolExecutor(0, 3, 60, TimeUnit.SECONDS, new SynchronousQueue<>());
+    private final AtomicBoolean _textUnchangedWhileHighlighting = new AtomicBoolean(true);
 
     public HighlightingEditor(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -82,6 +89,7 @@ public class HighlightingEditor extends AppCompatEditText {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (_hlEnabled && _hl != null) {
+                    _textUnchangedWhileHighlighting.set(false);
                     _hl.fixup(start, before, count);
                 }
             }
@@ -96,8 +104,8 @@ public class HighlightingEditor extends AppCompatEditText {
 
         // Listen to and update highlighting
         final ViewTreeObserver observer = getViewTreeObserver();
-        observer.addOnScrollChangedListener(() -> updateHighlighting(false));
-        observer.addOnGlobalLayoutListener(() -> updateHighlighting(false));
+        observer.addOnScrollChangedListener(this::updateHighlighting);
+        observer.addOnGlobalLayoutListener(this::updateHighlighting);
 
         // Fix for Android 12 perf issues - https://github.com/gsantner/markor/discussions/1794
         setEmojiCompatEnabled(false);
@@ -121,33 +129,73 @@ public class HighlightingEditor extends AppCompatEditText {
     // Highlighting
     // ---------------------------------------------------------------------------------------------
 
-    private boolean isScrollSignificant() {
-        return (_oldHlRect.top - _hlRect.top) > _hlShiftThreshold ||
-                (_hlRect.bottom - _oldHlRect.bottom) > _hlShiftThreshold;
+    // Batch edit spans (or anything else, really)
+    // This triggers a reflow which will bring focus back to the cursor.
+    // Therefore it cannot be used for updating the highlighting as one scrolls
+    private void batch(final Runnable runnable) {
+        try {
+            beginBatchEdit();
+            runnable.run();
+        } finally {
+            endBatchEdit();
+        }
     }
 
-    private void updateHighlighting(final boolean recompute) {
-        if (_hlEnabled && _hl != null && getLayout() != null) {
+    private boolean isScrollSignificant() {
+        return Math.abs(_oldHlRect.top - _hlRect.top) > _hlShiftThreshold ||
+                Math.abs(_hlRect.bottom - _oldHlRect.bottom) > _hlShiftThreshold;
+    }
 
-            final boolean visible = getLocalVisibleRect(_hlRect);
+    // The order of tests here is important
+    // - we want to run getLocalVisibleRect even if recompute is true
+    // - we want to run isScrollSignificant after getLocalVisibleRect
+    // - We don't care about the presence of spans or scroll significance if recompute is true
+    private boolean runHighlight(final boolean recompute) {
+        return _hlEnabled && _hl != null && getLayout() != null &&
+                (getLocalVisibleRect(_hlRect) || recompute) &&
+                (recompute || _hl.hasSpans()) &&
+                (recompute || isScrollSignificant());
+    }
 
-            // Don't highlight unless shifted sufficiently or a recompute is required
-            if (recompute || (visible && _hl.hasSpans() && isScrollSignificant())) {
-                _oldHlRect.set(_hlRect);
-
-                final int[] newHlRegion = hlRegion(_hlRect); // Compute this _before_ clear
-                _hl.clearDynamic();
-                if (recompute) {
-                    _hl.clearStatic().recompute().applyStatic();
-                }
-                _hl.applyDynamic(newHlRegion);
-            }
+    private void updateHighlighting() {
+        if (runHighlight(false)) {
+            // Do not batch as we do not want to reflow
+           _hl.clearDynamic().applyDynamic(hlRegion());
+            _oldHlRect.set(_hlRect);
         }
+    }
+
+    public void recomputeHighlighting() {
+        if (runHighlight(true)) {
+            batch(() -> _hl.clearAll().recompute().applyStatic().applyDynamic(hlRegion()));
+        }
+    }
+
+    /**
+     * Computing the highlighting spans for a lot of text can be slow so we do it async
+     * 1. We set a flag to check that the text did not change when we were computing
+     * 2. We trigger the computation to a buffer
+     * 3. If the text did not change during computation, we apply the highlighting
+     */
+    private void recomputeHighlightingAsync() {
+        if (runHighlight(true)) {
+            executor.execute(this::_recomputeHighlightingWorker);
+        }
+    }
+
+    private synchronized void _recomputeHighlightingWorker() {
+        _textUnchangedWhileHighlighting.set(true);
+        _hl.compute();
+        post(() -> {
+            if (_textUnchangedWhileHighlighting.get()) {
+                batch(() -> _hl.clearAll().setComputed().applyStatic().applyDynamic(hlRegion()));
+            }
+        });
     }
 
     public void setDynamicHighlightingEnabled(final boolean enable) {
         _isDynamicHighlightingEnabled = enable;
-        updateHighlighting(true);
+        recomputeHighlighting();
     }
 
     public boolean isDynamicHighlightingEnabled() {
@@ -163,8 +211,8 @@ public class HighlightingEditor extends AppCompatEditText {
 
         if (_hl != null) {
             initHighlighter();
-            _hlDebounced = TextViewUtils.makeDebounced(getHandler(), _hl.getHighlightingDelay(), () -> updateHighlighting(true));
-            _hlDebounced.run();
+            _hlDebounced = TextViewUtils.makeDebounced(getHandler(), _hl.getHighlightingDelay(), this::recomputeHighlightingAsync);
+            recomputeHighlighting();
         } else {
             _hlDebounced = null;
         }
@@ -221,11 +269,11 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     // Region to highlight
-    private int[] hlRegion(final Rect rect) {
+    private int[] hlRegion() {
         if (_isDynamicHighlightingEnabled) {
-            final int hlSize = Math.round(HIGHLIGHT_REGION_SIZE * rect.height()) + _hlShiftThreshold;
-            final int startY = rect.centerY() - hlSize;
-            final int endY = rect.centerY() + hlSize;
+            final int hlSize = Math.round(HIGHLIGHT_REGION_SIZE * _hlRect.height()) + _hlShiftThreshold;
+            final int startY = _hlRect.centerY() - hlSize;
+            final int endY = _hlRect.centerY() + hlSize;
             return new int[]{rowStart(startY), rowEnd(endY)};
         } else {
             return new int[]{0, length()};
@@ -266,7 +314,7 @@ public class HighlightingEditor extends AppCompatEditText {
     protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
         super.onVisibilityChanged(changedView, visibility);
         if (changedView == this && visibility == View.VISIBLE) {
-            updateHighlighting(true);
+            recomputeHighlighting();
         }
     }
 
@@ -444,18 +492,6 @@ public class HighlightingEditor extends AppCompatEditText {
         simulateKeyPress(KeyEvent.KEYCODE_MOVE_HOME);
         setSelection(getSelectionStart() + offset);
         return getSelectionStart();
-    }
-
-    // Set selection to fill whole lines
-    // Returns original selectionStart
-    public int setSelectionExpandWholeLines() {
-        final int[] sel = TextViewUtils.getSelection(this);
-        final CharSequence text = getText();
-        setSelection(
-                TextViewUtils.getLineStart(text, sel[0]),
-                TextViewUtils.getLineEnd(text, sel[1])
-        );
-        return sel[0];
     }
 
     public boolean indexesValid(int... indexes) {

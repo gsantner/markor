@@ -161,15 +161,18 @@ public class MarkdownActionButtons extends ActionButtonBase {
      * Used to surround selected text with a given delimiter (and remove it if present)
      * <p>
      * Not super intelligent about how patterns can be combined.
-     * Current regexes just look for the litera delimiters.
+     * Current regexes just look for the literal delimiters.
      *
      * @param pattern - Pattern to match if delimiter is present
      * @param delim   - Delimiter to surround text with
      */
     private void runLineSurroundAction(final Pattern pattern, final String delim) {
         final int[] sel = TextViewUtils.getSelection(_hlEditor);
-        final String lineBefore = sel[0] == sel[1] ? TextViewUtils.getSelectedLines(_hlEditor, sel[0]) : null;
+        if (sel[0] < 0) {
+            return;
+        }
 
+        final String lineBefore = sel[0] == sel[1] ? TextViewUtils.getSelectedLines(_hlEditor, sel[0]) : null;
         runRegexReplaceAction(
                 new ReplacePattern(pattern, "$1$2$4$6"),
                 new ReplacePattern(LINE_NONE, "$1$2" + delim + "$3" + delim + "$4")
@@ -197,12 +200,7 @@ public class MarkdownActionButtons extends ActionButtonBase {
                 return true;
             }
             case R.string.abid_markdown_code_inline: {
-                _hlEditor.withAutoFormatDisabled(() -> {
-                    final int c = _hlEditor.setSelectionExpandWholeLines();
-                    _hlEditor.getText().insert(_hlEditor.getSelectionStart(), "\n```\n");
-                    _hlEditor.getText().insert(_hlEditor.getSelectionEnd(), "\n```\n");
-                    _hlEditor.setSelection(c + "\n```\n".length());
-                });
+                _hlEditor.withAutoFormatDisabled(() -> surroundBlock(_hlEditor.getText(), "```"));
                 return true;
             }
             case R.string.abid_markdown_bold: {
@@ -278,7 +276,7 @@ public class MarkdownActionButtons extends ActionButtonBase {
                 GsContextUtils.instance.openWebpageInExternalBrowser(getActivity(), link.link);
                 return true;
             } else {
-                final File f = GsFileUtils.makeAbsolute(link.link, _document.getFile().getParentFile());
+                final File f = GsFileUtils.makeAbsolute(link.link, _document.file.getParentFile());
                 if (GsFileUtils.canCreate(f)) {
                     DocumentActivity.launch(getActivity(), f, null, null);
                     return true;

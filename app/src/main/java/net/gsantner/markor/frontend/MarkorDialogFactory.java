@@ -289,6 +289,7 @@ public class MarkorDialogFactory {
 
                 // Delete view
                 doptView.neutralButtonText = R.string.delete;
+                doptView.isSoftInputVisible = false;
                 doptView.neutralButtonCallback = viewDialog -> {
                     final DialogOptions confirmDopt = new DialogOptions();
                     baseConf(activity, confirmDopt);

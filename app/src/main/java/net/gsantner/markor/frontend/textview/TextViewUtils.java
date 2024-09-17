@@ -18,6 +18,7 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Layout;
 import android.text.Selection;
+import android.text.Spannable;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -29,7 +30,6 @@ import androidx.annotation.NonNull;
 
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.util.GsContextUtils;
-import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -48,14 +48,10 @@ public final class TextViewUtils {
         throw new AssertionError();
     }
 
-    public static int getLineStart(CharSequence s, int start) {
-        return getLineStart(s, start, 0);
-    }
-
-    public static int getLineStart(CharSequence s, int start, int minRange) {
-        int i = start;
-        if (GsTextUtils.isValidIndex(s, start - 1, minRange)) {
-            for (; i > minRange; i--) {
+    public static int getLineStart(final CharSequence s, final int sel) {
+        int i = sel;
+        if (GsTextUtils.isValidSelection(s, i)) {
+            for (; i > 0; i--) {
                 if (s.charAt(i - 1) == '\n') {
                     break;
                 }
@@ -65,14 +61,10 @@ public final class TextViewUtils {
         return i;
     }
 
-    public static int getLineEnd(CharSequence s, int start) {
-        return getLineEnd(s, start, s.length());
-    }
-
-    public static int getLineEnd(CharSequence s, int start, int maxRange) {
-        int i = start;
-        if (GsTextUtils.isValidIndex(s, start, maxRange - 1)) {
-            for (; i < maxRange; i++) {
+    public static int getLineEnd(final CharSequence s, final int sel) {
+        int i = sel;
+        if (GsTextUtils.isValidSelection(s, i)) {
+            for (; i < s.length(); i++) {
                 if (s.charAt(i) == '\n') {
                     break;
                 }
@@ -122,31 +114,18 @@ public final class TextViewUtils {
 
     // CharSequence must be an instance of _Spanned_
     public static int[] getSelection(final CharSequence text) {
-
-        final int selectionStart = Selection.getSelectionStart(text);
-        final int selectionEnd = Selection.getSelectionEnd(text);
-
-        if (selectionEnd >= selectionStart) {
-            return new int[]{selectionStart, selectionEnd};
-        } else {
-            return new int[]{selectionEnd, selectionStart};
+        if (text == null) {
+            return new int[]{-1, -1};
         }
-    }
 
-    public static void withKeepSelection(final Editable text, final GsCallback.a2<Integer, Integer> action) {
-        final int[] sel = TextViewUtils.getSelection(text);
-        final int[] selStart = TextViewUtils.getLineOffsetFromIndex(text, sel[0]);
-        final int[] selEnd = TextViewUtils.getLineOffsetFromIndex(text, sel[1]);
+        final int start = Selection.getSelectionStart(text);
+        final int end = Selection.getSelectionEnd(text);
 
-        action.callback(sel[0], sel[1]);
-
-        Selection.setSelection(text,
-                TextViewUtils.getIndexFromLineOffset(text, selStart),
-                TextViewUtils.getIndexFromLineOffset(text, selEnd));
-    }
-
-    public static void withKeepSelection(final Editable text, final GsCallback.a0 action) {
-        withKeepSelection(text, (start, end) -> action.callback());
+        if (end >= start) {
+            return new int[]{start, end};
+        } else {
+            return new int[]{end, start};
+        }
     }
 
     public static String getSelectedText(final CharSequence text) {
@@ -159,7 +138,7 @@ public final class TextViewUtils {
     }
 
     public static int[] getLineSelection(final CharSequence text, final int[] sel) {
-        return sel != null && sel.length >= 2 ? new int[]{getLineStart(text, sel[0]), getLineEnd(text, sel[1])} : null;
+        return sel != null && sel.length >= 2 ? new int[]{getLineStart(text, sel[0]), getLineEnd(text, sel[1])} : new int[]{-1, -1};
     }
 
     public static int[] getLineSelection(final CharSequence text, final int sel) {
@@ -173,7 +152,6 @@ public final class TextViewUtils {
     public static int[] getLineSelection(final CharSequence seq) {
         return getLineSelection(seq, getSelection(seq));
     }
-
 
     /**
      * Get lines of text in which sel[0] -> sel[1] is contained
@@ -190,15 +168,12 @@ public final class TextViewUtils {
      * Get lines of text in which sel[0] -> sel[1] is contained
      **/
     public static String getSelectedLines(final CharSequence seq, final int... sel) {
-        if (sel == null || sel.length == 0) {
+        if (sel != null && sel.length > 0 && GsTextUtils.isValidSelection(seq, sel)) {
+            return seq.subSequence(getLineStart(seq, sel[0]), getLineEnd(seq, sel[1])).toString();
+        } else {
             return "";
         }
-
-        final int start = Math.min(Math.max(sel[0], 0), seq.length());
-        final int end = Math.min(Math.max(start, sel[sel.length - 1]), seq.length());
-        return seq.subSequence(getLineStart(seq, start), getLineEnd(seq, end)).toString();
     }
-
 
     /**
      * Convert a char index to a line index + offset from end of line
@@ -207,13 +182,39 @@ public final class TextViewUtils {
      * @param p position in text
      * @return int[2] where index 0 is line and index 1 is position from end of line
      */
-    public static int[] getLineOffsetFromIndex(final CharSequence s, int p) {
-        p = Math.min(Math.max(p, 0), s.length());
-        final int line = GsTextUtils.countChars(s, 0, p, '\n')[0];
-        final int offset = getLineEnd(s, p) - p;
+    public static int[][] getLineOffsetFromIndex(final CharSequence text, final int ... sel) {
+        final int[][] offsets = new int[sel.length][2];
 
-        return new int[]{line, offset};
+        for (int i = 0; i < sel.length; i++) {
+            offsets[i] = new int[] {-1, -1};
+            final int p = sel[i];
+            if (p >= 0 && p <= text.length()) {
+                offsets[i][0] = GsTextUtils.countChars(text, 0, p, '\n')[0];
+                offsets[i][1] = getLineEnd(text, p) - p;
+            }
+        }
+
+        return offsets;
     }
+
+    public static void setSelectionFromOffsets(final TextView text, final int[][] offsets) {
+        setSelectionFromOffsets((Spannable) text.getText(), offsets);
+    }
+
+    public static void setSelectionFromOffsets(final Spannable text, final int[][] offsets) {
+        if (offsets != null && offsets.length >= 2 &&
+            offsets[0] != null && offsets[0].length == 2 &&
+            offsets[1] != null && offsets[1].length == 2 &&
+            text != null
+        ) {
+            final int start = getIndexFromLineOffset(text, offsets[0]);
+            final int end = getIndexFromLineOffset(text, offsets[1]);
+            if (GsTextUtils.isValidSelection(text, start, end)) {
+                Selection.setSelection(text, start, end);
+            }
+        }
+    }
+
 
     public static int getIndexFromLineOffset(final CharSequence s, final int[] le) {
         return getIndexFromLineOffset(s, le[0], le[1]);
@@ -228,6 +229,10 @@ public final class TextViewUtils {
      * @return index in s
      */
     public static int getIndexFromLineOffset(final CharSequence s, final int l, final int e) {
+        if (l < 0 || e < 0) {
+            return -1;
+        }
+
         int i = 0, count = 0;
         if (s != null) {
             if (l > 0) {
@@ -309,15 +314,13 @@ public final class TextViewUtils {
 
         final int _start = Math.min(start, end);
         final int _end = Math.max(start, end);
-        if (start < 0 || end > text.length()) {
+        if (_start < 0 || _end > text.length()) {
             return;
         }
         final int lineStart = TextViewUtils.getLineStart(text.getText(), _start);
 
         final Rect viewSize = new Rect();
-        if (!text.getLocalVisibleRect(viewSize)) {
-            return;
-        }
+        text.getLocalVisibleRect(viewSize);
 
         // Region in Y
         // ------------------------------------------------------------
@@ -347,8 +350,7 @@ public final class TextViewUtils {
         region.left = startLeft - halfWidth;
         region.right = startLeft + halfWidth;
 
-        // Call in post to try to make sure we run after any pending actions
-        text.post(() -> text.requestRectangleOnScreen(region));
+        text.requestRectangleOnScreen(region);
     }
 
     public static void setSelectionAndShow(final EditText edit, final int... sel) {
@@ -360,14 +362,12 @@ public final class TextViewUtils {
         final int end = sel.length > 1 ? sel[1] : start;
 
         if (GsTextUtils.inRange(0, edit.length(), start, end)) {
-            edit.post(() -> {
-                if (!edit.hasFocus() && edit.getVisibility() != View.GONE) {
-                    edit.requestFocus();
-                }
+            if (!edit.hasFocus() && edit.getVisibility() != View.GONE) {
+                edit.requestFocus();
+            }
 
-                edit.setSelection(start, end);
-                edit.postDelayed(() -> showSelection(edit, start, end), 250);
-            });
+            edit.setSelection(start, end);
+            showSelection(edit, start, end);
         }
     }
 
@@ -731,15 +731,6 @@ public final class TextViewUtils {
         final char[] buf = new char[end - start];
         TextUtils.getChars(source, start, end, buf, 0);
         return new String(buf);
-    }
-
-    // Check if a range is valid
-    public static boolean checkRange(final CharSequence seq, final int... indices) {
-        return checkRange(seq.length(), indices);
-    }
-
-    public static boolean checkRange(final int length, final int... indices) {
-        return indices != null && indices.length >= 2 && GsTextUtils.inRange(0, length, indices) && indices[1] > indices[0];
     }
 
     public static boolean isViewVisible(final View view) {
