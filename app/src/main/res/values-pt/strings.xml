@@ -180,15 +180,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="asciidoc_special_key">Conteúdo especial AsciiDoc</string>
     <string name="key_page_up">Página acima (Page Up)</string>
     <string name="key_page_down">Página abaixo (Page Down)</string>
-    <string name="move_text_one_line_up">Mover texto uma linha acima</string>
-    <string name="move_text_one_line_down">Mover texto uma linha abaixo</string>
-    <string name="start_new_line_below">Iniciar nova linha abaixo</string>
     <string name="key_pos_1">Início de linha (Home)</string>
     <string name="key_pos_end">Fim de linha (End)</string>
     <string name="key_pos_1_document">Início do documento</string>
     <string name="key_pos_end_document">Fim do documento</string>
     <string name="key_ctrl_a">Selecionar tudo (Ctrl+A)</string>
     <string name="key_tab">Tabulação</string>
+    <string name="zero_width_space">Espaço Zero-width</string>
     <string name="start_on_bottom">Iniciar no fim</string>
     <string name="start_on_bottom_when_loading_document">Ao carregar um documento, colocar o cursor no final</string>
     <string name="unordered_list_character">Carácter de lista não ordenada</string>
@@ -230,6 +228,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_license">Licença</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Contribua com código. Todos os contributos serão bem-vindos.</string>
     <string name="project_team">Equipa do projeto</string>
+    <string name="community">Comunidade</string>
     <string name="contributors_public_add_yourself_description">Mostrar informação sobre os colaboradores. Apenas serão visíveis se autorizadas pelos próprios.</string>
     <string name="descending">descendente</string>
     <string name="ascending">ascendente</string>
@@ -258,7 +257,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_calendar_app_is_installed">Não tem uma aplicação de calendário!</string>
     <string name="popular_documents">Documentos populares</string>
     <string name="color">Cor</string>
-    <string name="zero_width_space">Espaço Zero-width</string>
     <string name="basic_color_scheme">Esquema de cores</string>
     <string name="background_foreground_color_in_editor_works_dark_light">Altera a cor secundária e a cor principal do editor de texto. Apenas estão disponíveis os temas escuro e claro. As cores de destaque da sintaxe não são alteradas.</string>
     <string name="preset">Predefinição</string>
