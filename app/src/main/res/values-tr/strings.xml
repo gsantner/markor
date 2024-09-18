@@ -179,15 +179,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="asciidoc_special_key">Özel AsciiDoc İçeriği</string>
     <string name="key_page_up">Sayfa Yukarı (Page Up)</string>
     <string name="key_page_down">Sayfa Aşağı (Page Down)</string>
-    <string name="move_text_one_line_up">Metni bir satır yukarı taşı</string>
-    <string name="move_text_one_line_down">Metni bir satır aşağı taşı</string>
-    <string name="start_new_line_below">Aşağıda yeni satıra başla</string>
     <string name="key_pos_1">Satır Başlangıcı (Pos Home)</string>
     <string name="key_pos_end">Satır Sonu (Pos End)</string>
     <string name="key_pos_1_document">Belge Başlangıcı</string>
     <string name="key_pos_end_document">Belge Sonu</string>
     <string name="key_ctrl_a">Tümünü seç (Ctrl + A)</string>
     <string name="key_tab">Tabulator</string>
+    <string name="zero_width_space">Genişliksiz boşluk</string>
     <string name="start_on_bottom">Alttan başla</string>
     <string name="start_on_bottom_when_loading_document">Bir belge yüklendikten sonra, İmleci belge sonuna yerleştir.</string>
     <string name="unordered_list_character">Sırasız liste karakteri</string>
@@ -229,6 +227,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_license">Proje Lisansı</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Projeye kod yazarak katkıda bulunun. Yeni gelenler de dahil olmak üzere herkes kabul edilir</string>
     <string name="project_team">Proje Ekibi</string>
+    <string name="community">Topluluk</string>
     <string name="contributors_public_add_yourself_description">Katkıda bulunanlarla ilgili bilgileri gösterin. Katkıda bulunanlar, katkıdan bulunduktan sonra burada gösterilmeleri için bilgilerini sağlayabilir</string>
     <string name="descending">azalan</string>
     <string name="ascending">artan</string>
@@ -257,7 +256,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_calendar_app_is_installed">Hiçbir takvim uygulaması yüklü değil!</string>
     <string name="popular_documents">Popüler belgeler</string>
     <string name="color">Renk</string>
-    <string name="zero_width_space">Genişliksiz boşluk</string>
     <string name="basic_color_scheme">Temel renk düzeni</string>
     <string name="background_foreground_color_in_editor_works_dark_light">Metin düzenleyicinin arka plan ve ön plan rengini değiştirir. Açık ve koyu uygulama temalarında kullanılabilir. Sözdizimi vurgulama renkleri aynı kalır.</string>
     <string name="preset">Hazır ayar</string>
