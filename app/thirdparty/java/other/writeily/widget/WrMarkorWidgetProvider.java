@@ -65,6 +65,7 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
 
             // Open Folder
             final Intent goToFolder = new Intent(context, MainActivity.class)
+                    .addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT)
                     .setAction(Intent.ACTION_VIEW)
                     .putExtra(Document.EXTRA_FILE, directoryF);
             views.setOnClickPendingIntent(R.id.widget_header, PendingIntent.getActivity(context, requestCode++, goToFolder, staticFlags));
@@ -87,6 +88,7 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
 
             // Open Notebook
             final Intent goHome = new Intent(context, MainActivity.class)
+                    .addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT)
                     .setAction(Intent.ACTION_VIEW)
                     .putExtra(Document.EXTRA_FILE, appSettings.getNotebookDirectory());
             views.setOnClickPendingIntent(R.id.widget_main, PendingIntent.getActivity(context, requestCode++, goHome, staticFlags));

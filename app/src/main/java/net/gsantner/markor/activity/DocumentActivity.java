@@ -90,23 +90,27 @@ public class DocumentActivity extends MarkorBaseActivity {
         final Intent intent;
         if (GsFileBrowserListAdapter.isVirtualFolder(file) || file.isDirectory()) {
             intent = new Intent(activity, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
         } else {
             intent = new Intent(activity, DocumentActivity.class);
+
+            if (!(activity instanceof DocumentActivity) &&
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
+                as.isMultiWindowEnabled()
+            ) {
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+            }
+
+            if (lineNumber != null) {
+                intent.putExtra(Document.EXTRA_FILE_LINE_NUMBER, lineNumber);
+            }
+
+            if (doPreview != null) {
+                intent.putExtra(Document.EXTRA_DO_PREVIEW, doPreview);
+            }
         }
 
         intent.putExtra(Document.EXTRA_FILE, file);
-
-        if (lineNumber != null) {
-            intent.putExtra(Document.EXTRA_FILE_LINE_NUMBER, lineNumber);
-        }
-
-        if (doPreview != null) {
-            intent.putExtra(Document.EXTRA_DO_PREVIEW, doPreview);
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && as.isMultiWindowEnabled()) {
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-        }
 
         nextLaunchTransparentBg = (activity instanceof MainActivity);
         GsContextUtils.instance.animateToActivity(activity, intent, false, null);
