@@ -174,15 +174,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="special_key">مفتاح خاص</string>
     <string name="key_page_up">صفحة لأعلى</string>
     <string name="key_page_down">صفحة لأسفل</string>
-    <string name="move_text_one_line_up">نقل النص سطر واحد لأعلى</string>
-    <string name="move_text_one_line_down">نقل النص سطر واحد للأسفل</string>
-    <string name="start_new_line_below">بدء سطر جديد أدناه</string>
     <string name="key_pos_1">بداية السطر</string>
     <string name="key_pos_end">نهاية السطر</string>
     <string name="key_pos_1_document">بداية المستند</string>
     <string name="key_pos_end_document">نهاية المستند</string>
     <string name="key_ctrl_a">اختيار الكل (Ctrl + A)</string>
     <string name="key_tab">جهاز التبويب</string>
+    <string name="zero_width_space">بدون مسافات بين الأحرف</string>
     <string name="start_on_bottom">البدء في نهاية الوثيقة</string>
     <string name="start_on_bottom_when_loading_document">عند فتح وثيقة، يتم توجيه مؤشر الكتابة عند نهاية النص</string>
     <string name="unordered_list_character">حرف القائمة غير مطلوب</string>
@@ -246,7 +244,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_calendar_app_is_installed">لا يوجد تطبيق تقويم!</string>
     <string name="popular_documents">المستندات الشائعة</string>
     <string name="color">اللون</string>
-    <string name="zero_width_space">بدون مسافات بين الأحرف</string>
     <string name="basic_color_scheme">نظام الألوان الأساسي</string>
     <string name="background_foreground_color_in_editor_works_dark_light">تغيير لون الخط والخلفية للمحرر. يتم ضبطه بالنسبة لألوان التطبيق وهو متاح في المظهر المظلم والمضئ. تبقى الوان تظليل النصوص كما هي.</string>
     <string name="preset">اعدادات جاهزة</string>
