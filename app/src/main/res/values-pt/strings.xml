@@ -184,9 +184,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_pos_end">Fim de linha (End)</string>
     <string name="key_pos_1_document">Início do documento</string>
     <string name="key_pos_end_document">Fim do documento</string>
+    <string name="move_text_one_line_up">Mover linha para cima</string>
+    <string name="move_text_one_line_down">Mover linha para baixo</string>
+    <string name="start_new_line_below">Iniciar nova linha</string>
+    <string name="select_current_line">Selecionar linha atual</string>
     <string name="key_ctrl_a">Selecionar tudo (Ctrl+A)</string>
     <string name="key_tab">Tabulação</string>
     <string name="zero_width_space">Espaço Zero-width</string>
+    <string name="em_space">Em espaço (&amp;emsp;)</string>
     <string name="start_on_bottom">Iniciar no fim</string>
     <string name="start_on_bottom_when_loading_document">Ao carregar um documento, colocar o cursor no final</string>
     <string name="unordered_list_character">Carácter de lista não ordenada</string>
