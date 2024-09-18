@@ -184,9 +184,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_pos_end">Final de línia (Pos End)</string>
     <string name="key_pos_1_document">Inici del documento</string>
     <string name="key_pos_end_document">Final del document</string>
+    <string name="move_text_one_line_up">Mou la línia cap amunt</string>
+    <string name="move_text_one_line_down">Mou la línia cap avall</string>
+    <string name="start_new_line_below">Comença una nova línia</string>
+    <string name="select_current_line">Selecciona la línia actual</string>
     <string name="key_ctrl_a">Selecciona-ho tot (Ctrl+A)</string>
     <string name="key_tab">Tabulador</string>
     <string name="zero_width_space">Espai d\'ample zero</string>
+    <string name="em_space">Espai ema (&amp;emsp;)</string>
     <string name="start_on_bottom">Comença a la part inferior</string>
     <string name="start_on_bottom_when_loading_document">En carregar un document, ubica el cursor al final</string>
     <string name="unordered_list_character">Caràcter de llista desordenada</string>
@@ -317,6 +322,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wrap_words">Ajusta les paraules</string>
     <string name="line_numbers">Números de línies</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Salt suau si el text no s\'ajusta a l\'amplada de la pantalla. En cas contrari, activeu el desplaçament horitzontal.</string>
+    <string name="recursive_search_in_location">Cerca recursiva a %s</string>
     <string name="always_open_with_this_app">Obre sempre amb aquesta aplicació</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Obre sempre els fitxers amb aquesta aplicació quan la llista conté l\'extensió del fitxer. Utilitzeu «None, .html, .css , .js» per exemple, si voleu editar fitxers web i aquells que no tinguin extensió de fitxer.</string>
     <string name="open_file_with">Obre fitxer amb</string>
