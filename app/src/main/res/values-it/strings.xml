@@ -191,7 +191,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_ctrl_a">Seleziona tutto (Ctrl + A)</string>
     <string name="key_tab">Tabulatore</string>
     <string name="zero_width_space">Spazio a larghezza zero</string>
-    <string name="em_space">Em space (&amp;emsp;)</string>
+    <string name="em_space">Spaziatura em (&amp;emsp;)</string>
     <string name="start_on_bottom">Inizia dal basso</string>
     <string name="start_on_bottom_when_loading_document">Dopo che un documento è stato caricato, posiziona il cursore alla fine</string>
     <string name="unordered_list_character">Carattere per liste non ordinate</string>
