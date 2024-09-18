@@ -184,9 +184,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_pos_end">В кінець рядка (End)</string>
     <string name="key_pos_1_document">Початок документа</string>
     <string name="key_pos_end_document">Кінець документа</string>
+    <string name="move_text_one_line_up">Пересунути рядок вгору</string>
+    <string name="move_text_one_line_down">Пересунути рядок вниз</string>
+    <string name="start_new_line_below">Почати новий рядок</string>
+    <string name="select_current_line">Позначити поточний рядок</string>
     <string name="key_ctrl_a">Обрати все (Ctrl + A)</string>
     <string name="key_tab">Табуляція</string>
     <string name="zero_width_space">Пробіл нульової ширини</string>
+    <string name="em_space">Пробіл \"m\" (&amp;emsp;)</string>
     <string name="start_on_bottom">Починати внизу</string>
     <string name="start_on_bottom_when_loading_document">Після завантаження документа встановити курсор в кінець</string>
     <string name="unordered_list_character">Символ для невпорядкованих списків</string>
