@@ -171,15 +171,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="special_key">Specijalni ključ</string>
     <string name="key_page_up">Prethodna stranica (Page Up)</string>
     <string name="key_page_down">Sljedeća stranica (Page Down)</string>
-    <string name="move_text_one_line_up">Pomjeri tekst gore za jedan red</string>
-    <string name="move_text_one_line_down">Pomjeri tekst dolje za jedan red</string>
-    <string name="start_new_line_below">Započni novi red ispod</string>
     <string name="key_pos_1">Početak reda (Pos Home)</string>
     <string name="key_pos_end">Kraj reda (Pos End)</string>
     <string name="key_pos_1_document">Početak dokumenta</string>
     <string name="key_pos_end_document">Kraj dokumenta</string>
     <string name="key_ctrl_a">Označi sve (Ctrl+A)</string>
     <string name="key_tab">Tabulator</string>
+    <string name="zero_width_space">Bjelina nulte širine</string>
     <string name="start_on_bottom">Počni na dnu</string>
     <string name="start_on_bottom_when_loading_document">Nakon otvaranja dokumenta, kursor pozicioniraj na kraj</string>
     <string name="unordered_list_character">Znak za nenumerisana nabrajanja</string>
@@ -215,6 +213,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_license">Licenca projekta</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Doprinesite projektu vlastitim kōdom. Svačiji je doprinos dobrodošao.</string>
     <string name="project_team">Tim</string>
+    <string name="community">Zajednica</string>
     <string name="contributors_public_add_yourself_description">Prikaži informacije o saradnicima. Priložite informacije o sebi ako želite da budu prikazane ovdje nakon Vašeg doprinosa</string>
     <string name="descending">inverzno</string>
     <string name="ascending">redom</string>
@@ -242,7 +241,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_calendar_app_is_installed">Nije instalirana aplikacija za upravljanje kalendarima.</string>
     <string name="popular_documents">Popularni dokumenti</string>
     <string name="color">Boja</string>
-    <string name="zero_width_space">Bjelina nulte širine</string>
     <string name="basic_color_scheme">Boje</string>
     <string name="background_foreground_color_in_editor_works_dark_light">Mijenja boju pozadine i teksta u tekstnom uređivaču. Prilagođava se bojama programa kako bi odgovaralo svijetloj i tamnoj temi. Boje kojima se obilježava sintaksa ostaju nepromijenjene.</string>
     <string name="preset">Šablon</string>
