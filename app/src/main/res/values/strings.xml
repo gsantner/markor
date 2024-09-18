@@ -191,15 +191,18 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="asciidoc_special_key">Special AsciiDoc Content</string>
     <string name="key_page_up">Page Up (Page Up)</string>
     <string name="key_page_down">Page Down (Page Down)</string>
-    <string name="move_text_one_line_up">Move text one line up</string>
-    <string name="move_text_one_line_down">Move text one line down</string>
-    <string name="start_new_line_below">Start new line below</string>
     <string name="key_pos_1">Line Start (Pos Home)</string>
     <string name="key_pos_end">Line End (Pos End)</string>
     <string name="key_pos_1_document">Document Start</string>
     <string name="key_pos_end_document">Document End</string>
+    <string name="move_text_one_line_up">Move line up</string>
+    <string name="move_text_one_line_down">Move line down</string>
+    <string name="start_new_line_below">Start new line</string>
+    <string name="select_current_line">Select current line</string>
     <string name="key_ctrl_a">Select all (Ctrl+A)</string>
     <string name="key_tab">Tabulator</string>
+    <string name="zero_width_space">Zero-width space</string>
+    <string name="em_space">Em space (&amp;emsp;)</string>
     <string name="start_on_bottom">Start on bottom</string>
     <string name="start_on_bottom_when_loading_document">Upon loading a document, position cursor at its end</string>
     <string name="unordered_list_character">Unordered list character</string>
@@ -243,6 +246,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_license">Project License</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Contribute code to the project. Everybody is welcome to do so, including newcomers</string>
     <string name="project_team">Project Team</string>
+    <string name="community">Community</string>
     <string name="contributors_public_add_yourself_description">Show contributor info. Provide it to be shown here on an opt-in basis after contributing</string>
 
     <string name="descending">descending</string>
@@ -274,7 +278,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_calendar_app_is_installed">No calendar app is installed!</string>
     <string name="popular_documents">Popular documents</string>
     <string name="color">Color</string>
-    <string name="zero_width_space">Zero-width space</string>
     <string name="basic_color_scheme">Basic color scheme</string>
     <string name="background_foreground_color_in_editor_works_dark_light">Changes background and foreground color of the text editor. Adjusts to app theme so available in light and dark theme. Syntax highlighting colors remain the same.</string>
     <string name="preset">Preset</string>
