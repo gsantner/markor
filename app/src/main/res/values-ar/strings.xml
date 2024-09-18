@@ -59,6 +59,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="last_modified">آخر تعديل</string>
     <string name="select_this_folder">اختر هذا المجلد</string>
     <string name="select">اختيار</string>
+    <string name="select_all">تحديد الكل</string>
     <string name="create">إنشاء</string>
     <string name="select_entries">تحديد الإدخال</string>
     <string name="one_item_selected">تم اختيار عنصر واحد</string>
@@ -67,9 +68,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">إخفاء شريط الحالة</string>
     <string name="name">الإسم</string>
     <string name="url_or_path">الرابط \ المسار</string>
+    <string name="insert_link">إدراج رابط</string>
+    <string name="format_link">تنسيق الرابط</string>
     <string name="insert_image">إضافة صورة</string>
     <string name="contributors">المساهمون</string>
     <string name="save_location">حفظ المسار</string>
+    <string name="saved_location_to">تم الحفظ إلى %s</string>
     <string name="select_storage_folder">اختر مجلد حفظ</string>
     <string name="licenses">التراخيص</string>
     <string name="changelog">سِجل التغييرات</string>
@@ -78,6 +82,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">إظهار تراخيص الطرف الثالث</string>
     <string name="language_change_restart_description">تغيير لغة التطبيق. اعد فتح التطبيق لتفعيل التغيير</string>
     <string name="language">اللّغة</string>
+    <string name="storage_permission_required">مطلوب إذن التخزين لقراءة الملفات وكتابتها</string>
     <string name="open_with">فتح بواسطة</string>
     <string name="sort_by">فرز حسب</string>
     <string name="date">التاريخ</string>
