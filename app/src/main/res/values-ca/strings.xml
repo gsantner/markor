@@ -180,15 +180,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="asciidoc_special_key">Contingut AsciiDoc especial</string>
     <string name="key_page_up">Pàgina anterior (Page Up)</string>
     <string name="key_page_down">Pàgina següent (Page Down)</string>
-    <string name="move_text_one_line_up">Mou el text una línia cap amunt</string>
-    <string name="move_text_one_line_down">Mou el text una línia cap avall</string>
-    <string name="start_new_line_below">Comença una nova línia a continuació</string>
     <string name="key_pos_1">Inici de línia (Pos Home)</string>
     <string name="key_pos_end">Final de línia (Pos End)</string>
     <string name="key_pos_1_document">Inici del documento</string>
     <string name="key_pos_end_document">Final del document</string>
     <string name="key_ctrl_a">Selecciona-ho tot (Ctrl+A)</string>
     <string name="key_tab">Tabulador</string>
+    <string name="zero_width_space">Espai d\'ample zero</string>
     <string name="start_on_bottom">Comença a la part inferior</string>
     <string name="start_on_bottom_when_loading_document">En carregar un document, ubica el cursor al final</string>
     <string name="unordered_list_character">Caràcter de llista desordenada</string>
@@ -230,6 +228,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_license">Llicència del projecte</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Col·laboreu amb el projecte. Qualsevol pot fer-ho, fins i tot els que fan servir l\'aplicació des de fa poc</string>
     <string name="project_team">L\'equip de projecte</string>
+    <string name="community">Comunitat</string>
     <string name="contributors_public_add_yourself_description">Mostra informació sobre els col·laboradors. Aquests poden decidir si la seva informació ha de ser inclosa amb les seves col·laboracions</string>
     <string name="descending">descendent</string>
     <string name="ascending">ascendent</string>
@@ -258,7 +257,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_calendar_app_is_installed">No hi ha cap aplicació de calendari instal·lada!</string>
     <string name="popular_documents">Documents populars</string>
     <string name="color">Color</string>
-    <string name="zero_width_space">Espai d\'ample zero</string>
     <string name="basic_color_scheme">Esquema de color bàsic</string>
     <string name="background_foreground_color_in_editor_works_dark_light">Canvia el color secundari i primari de l\'editor de text. S\'ajusta al tema de l\'aplicació, així que està disponible el tema clar i fosc. Els colors de destacament de sintaxi segueixen sent els mateixos.</string>
     <string name="preset">Predefinit</string>
