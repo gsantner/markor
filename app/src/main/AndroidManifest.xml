@@ -62,7 +62,7 @@
             android:name=".activity.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:launchMode="standard"
+            android:launchMode="singleTask"
             android:taskAffinity=".activity.MainActivity"
             android:windowSoftInputMode="stateUnchanged|adjustResize">
             <intent-filter>
