@@ -169,7 +169,8 @@ public final class TextViewUtils {
      **/
     public static String getSelectedLines(final CharSequence seq, final int... sel) {
         if (sel != null && sel.length > 0 && GsTextUtils.isValidSelection(seq, sel)) {
-            return seq.subSequence(getLineStart(seq, sel[0]), getLineEnd(seq, sel[1])).toString();
+            final int start = sel[0], end = sel.length > 1 ? sel[1] : sel[0];
+            return seq.subSequence(getLineStart(seq, start), getLineEnd(seq, end)).toString();
         } else {
             return "";
         }
@@ -178,9 +179,7 @@ public final class TextViewUtils {
     /**
      * Convert a char index to a line index + offset from end of line
      *
-     * @param s text to parse
-     * @param p position in text
-     * @return int[2] where index 0 is line and index 1 is position from end of line
+     * @return int[n][2] where for each input, index 0 is line and index 1 is position from end of line
      */
     public static int[][] getLineOffsetFromIndex(final CharSequence text, final int ... sel) {
         final int[][] offsets = new int[sel.length][2];
