@@ -813,6 +813,11 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         // Document is written iff writeable && content has changed
         final CharSequence text = _hlEditor.getText();
         if (!_document.isContentSame(text)) {
+            // Touch parent folder on edit
+            File current_parent_folder = _document.file.getAbsoluteFile().getParentFile();
+            long currentTime = System.currentTimeMillis();
+            current_parent_folder.setLastModified(currentTime);
+
             final int minLength = GsContextUtils.TEXTFILE_OVERWRITE_MIN_TEXT_LENGTH;
             if (!forceSaveEmpty && text != null && text.length() < minLength) {
                 final String message = activity.getString(R.string.wont_save_min_length, minLength);
