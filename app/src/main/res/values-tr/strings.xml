@@ -127,7 +127,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_note" needed="false">Not Oluştur</string>
     <string name="special_documents" needed="false">Özel belgeler</string>
     <string name="keep_screen_on" needed="false">Ekranı açık tut</string>
-    <string name="disallow_screenshots">Ekran görüntülerine izin verme</string>
+    <string name="disallow_screenshots">ekran alıntılarına izin verme</string>
     <string name="back_to_previous_folder" needed="false">Önceki klasöre dön</string>
     <string name="app_settings" needed="false">Uygulama Ayarları</string>
     <string name="editor_settings" needed="false">Düzenleyici Ayarları</string>
@@ -196,7 +196,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor sadece yerel, çevrimdışı kullanılabilir belgeleri düzenleyebilir ve tam dosya yolunu sağlamayan dosya yöneticilerini desteklemez.</string>
     <string name="file_does_not_exist_and_cant_be_created">Dosya veya dizin mevcut değil ve oluşturulamıyor</string>
     <string name="permissions">İzinler</string>
-    <string name="permission_paths_revert">Varsayılan dizin\'e geri gidilsin mi ?</string>
+    <string name="permission_paths_revert">Varsayılan dizin\'e geri gidilsin mi?</string>
     <string name="permission_not_granted">İzin verilmedi</string>
     <string name="sync_to_local_folder_notice">Not: Bir eşitleme uygulaması kullanırsanız, dosyalar bilinen veya özel klasörlerde bulunabilir, Markor\'un belge klasörünü değiştirerek dosyaları açabilir veya dosyayı farklı bir dosya yöneticisi ile açabilirsiniz.</string>
     <string name="vertical_alignment">Dikey hizalama</string>
@@ -208,7 +208,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="bottom">Alt</string>
     <string name="center">Merkez</string>
     <string name="actionbutton_spacing">EtkileşimTuşu aralığı</string>
-    <string name="horizontal_space_between_actionbuttons">EtkileşimTuşları arasındaki yatay boşluk</string>
+    <string name="horizontal_space_between_actionbuttons">Etkileşim Tuşları arasındaki yatay boşluk</string>
     <string name="center_text">Metni ortala</string>
     <string name="edit_text_in_center_of_screen">Metni ekranın ortasında düzenleyin</string>
     <string name="clipboard">Pano</string>
