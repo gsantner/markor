@@ -287,7 +287,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _appSettings.setDocumentPreviewState(_document.path, _isPreviewVisible);
         _appSettings.setLastEditPosition(_document.path, TextViewUtils.getSelection(_hlEditor)[0]);
 
-        if(_document.path().equals(_appSettings.getTodoFile().getAbsolutePath())){
+        if(_document.path.equals(_appSettings.getTodoFile().getAbsolutePath())){
             TodoWidgetProvider.updateTodoWidgets();
         }
         super.onPause();
