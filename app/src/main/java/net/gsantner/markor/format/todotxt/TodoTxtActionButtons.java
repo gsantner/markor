@@ -162,7 +162,7 @@ public class TodoTxtActionButtons extends ActionButtonBase {
                 final int[] sel = TextViewUtils.getSelection(_hlEditor);
                 final int lineStart = TextViewUtils.getLineStart(text, sel[0]);
                 final int lineEnd = TextViewUtils.getLineEnd(text, sel[1]);
-                final List<TodoTxtTask> tasks = TodoTxtTask.getTasks(text, sel[0], sel[1]);
+                final List<TodoTxtTask> tasks = TodoTxtTask.getTasks(text, new int[]{sel[0], sel[1]});
                 char prevPriority = '\0', nextPriority = '\0';
                 boolean areAllSamePriority = true;
                 if (lineStart != 0) {
