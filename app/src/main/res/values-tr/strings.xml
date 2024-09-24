@@ -69,6 +69,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="name">Adı</string>
     <string name="url_or_path">URL / Yol</string>
     <string name="insert_link">Bağlantı ekle</string>
+    <string name="format_link">Linki düzenle</string>
     <string name="insert_image">Resim Ekle</string>
     <string name="contributors">Katkıda Bulunanlar</string>
     <string name="save_location">Kayıt konumu</string>
@@ -183,9 +184,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_pos_end">Satır Sonu (Pos End)</string>
     <string name="key_pos_1_document">Belge Başlangıcı</string>
     <string name="key_pos_end_document">Belge Sonu</string>
+    <string name="move_text_one_line_up">Satırı yukarı taşı</string>
+    <string name="move_text_one_line_down">Satırı aşağı taşı</string>
+    <string name="start_new_line_below">Yeni satıra başla</string>
+    <string name="select_current_line">Şu anki satırı seç</string>
     <string name="key_ctrl_a">Tümünü seç (Ctrl + A)</string>
     <string name="key_tab">Tabulator</string>
     <string name="zero_width_space">Genişliksiz boşluk</string>
+    <string name="em_space">Em boşluğu (&amp;emsp;)</string>
     <string name="start_on_bottom">Alttan başla</string>
     <string name="start_on_bottom_when_loading_document">Bir belge yüklendikten sonra, İmleci belge sonuna yerleştir.</string>
     <string name="unordered_list_character">Sırasız liste karakteri</string>
