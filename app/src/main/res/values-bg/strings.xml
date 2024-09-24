@@ -43,6 +43,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_license">Лиценз на проекта</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Допринесете с код към проекта. Всеки е добре дошъл да го направи, включително новодошлите</string>
     <string name="project_team">Екип на проекта</string>
+    <string name="community">Общност</string>
     <string name="contributors_public_add_yourself_description">Показване на информация за сътрудника. Предоставете го, за да бъде показано тук на базата на включване, след като допринесете</string>
     <string name="error_picture_selection">Няма избрана, заснета или запазена снимка.</string>
     <string name="edit_picture">Редактиране на снимка</string>

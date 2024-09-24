@@ -117,6 +117,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_license">Licencia de proxecto</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Contribuír código ao proxecto. Todo o mundo é benvido para facelo, incluídos os recén chegados</string>
     <string name="project_team">Equipo de proxecto</string>
+    <string name="community">Comunidade</string>
     <string name="contributors_public_add_yourself_description">Amosar información do colaborador. Proporcione que se mostre aquí de xeito opt-in despois de contribuír</string>
     <string name="error_picture_selection">Non hai ningunha imaxe seleccionada, tomada ou gardada.</string>
     <string name="edit_picture">Editar imaxe</string>

@@ -176,15 +176,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="special_key">Znaki specjalne</string>
     <string name="key_page_up">Strona w górę (Page Up)</string>
     <string name="key_page_down">Strona w dół (Page Down)</string>
-    <string name="move_text_one_line_up">Przenieś tekst o jedną linię w górę</string>
-    <string name="move_text_one_line_down">Przenieś tekst o jedną linię w dół</string>
-    <string name="start_new_line_below">Rozpocznij nową linię poniżej</string>
     <string name="key_pos_1">Początek Linii (Pos Home)</string>
     <string name="key_pos_end">Koniec Linii (Pos End)</string>
     <string name="key_pos_1_document">Koniec Dokumentu</string>
     <string name="key_pos_end_document">Początek Dokumentu</string>
     <string name="key_ctrl_a">Zaznacz wszystko (Ctrl + A)</string>
     <string name="key_tab">Tabulator</string>
+    <string name="zero_width_space">Spacja o zerowej szerokości</string>
     <string name="start_on_bottom">Zacznij od dołu</string>
     <string name="start_on_bottom_when_loading_document">Po załadowaniu dokumentu ustaw kursor na jego końcu</string>
     <string name="unordered_list_character">Znak listy nieuporządkowanej</string>
@@ -220,6 +218,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_license">Licencja Projektu</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Współtwórz kod projektu. Każdy może to zrobić w tym nowicjusze</string>
     <string name="project_team">Zespół Projektu</string>
+    <string name="community">Społeczność</string>
     <string name="contributors_public_add_yourself_description">Pokaż informacje o współtwórcy. Podaj je tutaj, korzystając z opcji \"opt-in\" po dołączeniu</string>
     <string name="descending">malejąco</string>
     <string name="ascending">rosnąco</string>
@@ -248,7 +247,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_calendar_app_is_installed">Brak aplikacji Kalendarza!</string>
     <string name="popular_documents">Popularne dokumenty</string>
     <string name="color">Kolor</string>
-    <string name="zero_width_space">Spacja o zerowej szerokości</string>
     <string name="basic_color_scheme">Podstawowy schemat kolorów</string>
     <string name="background_foreground_color_in_editor_works_dark_light">Zmienia kolor tła i pierwszego planu edytora tekstu. Dostosowuje do motywu aplikacji dostępnego w jasnym i ciemnym temacie. Kolory podświetlania składni pozostają takie same.</string>
     <string name="preset">Gotowe ustawienia</string>
@@ -266,7 +264,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Wybierz datę</string>
     <string name="pick_time">Wybierz godzinę</string>
     <string name="get_format_instead_date_or_time">Pobierz format zamiast daty lub godziny</string>
-    <string name="always_use_current_date_and_time">Zawsze używaj bieżącej daty i godziny</string>
+    <string name="use_current_date_and_time">Zawsze używaj bieżącej daty i godziny</string>
     <string name="result">Wynik</string>
     <string name="just_time">Tylko godzina</string>
     <string name="just_date">Tylko data</string>

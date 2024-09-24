@@ -546,7 +546,7 @@ public abstract class ActionButtonBase {
         final CharSequence selection = text.subSequence(ss, se);
 
         // Case delims around selection
-        if ((ss > ol) && ((se + cl) <= text.length())) {
+        if ((ss >= ol) && ((se + cl) <= text.length())) {
             final String before = text.subSequence(ss - ol, ss).toString();
             final String after = text.subSequence(se, se + cl).toString();
             if (before.equals(open) && after.equals(close)) {
@@ -966,32 +966,34 @@ public abstract class ActionButtonBase {
                 _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_MOVE_END);
             } else if (callbackPayload.equals(rstr(R.string.key_pos_1_document))) {
                 _hlEditor.setSelection(0);
+            } else if (callbackPayload.equals(rstr(R.string.key_pos_end_document))) {
+                _hlEditor.setSelection(_hlEditor.length());
             } else if (callbackPayload.equals(rstr(R.string.move_text_one_line_up))) {
                 ActionButtonBase.moveLineSelectionBy1(_hlEditor, true);
             } else if (callbackPayload.equals(rstr(R.string.move_text_one_line_down))) {
                 ActionButtonBase.moveLineSelectionBy1(_hlEditor, false);
-            } else if (callbackPayload.equals(rstr(R.string.key_pos_end_document))) {
-                _hlEditor.setSelection(_hlEditor.length());
+            } else if (callbackPayload.equals(rstr(R.string.select_current_line))) {
+                selectWholeLines(_hlEditor.getText());
             } else if (callbackPayload.equals(rstr(R.string.key_ctrl_a))) {
                 _hlEditor.setSelection(0, _hlEditor.length());
             } else if (callbackPayload.equals(rstr(R.string.key_tab))) {
                 _hlEditor.insertOrReplaceTextOnCursor("\u0009");
             } else if (callbackPayload.equals(rstr(R.string.zero_width_space))) {
                 _hlEditor.insertOrReplaceTextOnCursor("\u200B");
-            } else if (callbackPayload.equals(rstr(R.string.search))) {
-                onSearch();
+            } else if (callbackPayload.equals(rstr(R.string.em_space))) {
+                _hlEditor.insertOrReplaceTextOnCursor("\u2003");
             } else if (callbackPayload.equals(rstr(R.string.break_page_pdf_print))) {
                 _hlEditor.insertOrReplaceTextOnCursor("<div style='page-break-after:always;'></div>");
+            } else if (callbackPayload.equals(rstr(R.string.search))) {
+                onSearch();
             } else if (callbackPayload.equals(rstr(R.string.ohm))) {
                 _hlEditor.insertOrReplaceTextOnCursor("Ω");
+            } else if (callbackPayload.equals(rstr(R.string.char_punctation_mark_arrows))) {
+                _hlEditor.insertOrReplaceTextOnCursor("»«");
             } else if (callbackPayload.equals(rstr(R.string.continued_overline))) {
                 _hlEditor.insertOrReplaceTextOnCursor("‾‾‾‾‾");
             } else if (callbackPayload.equals(rstr(R.string.shrug))) {
                 _hlEditor.insertOrReplaceTextOnCursor("¯\\_(ツ)_/¯");
-            } else if (callbackPayload.equals(rstr(R.string.char_punctation_mark_arrows))) {
-                _hlEditor.insertOrReplaceTextOnCursor("»«");
-            } else if (callbackPayload.equals(rstr(R.string.select_current_line))) {
-                selectWholeLines(_hlEditor.getText());
             }
         });
     }

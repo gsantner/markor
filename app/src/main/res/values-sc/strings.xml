@@ -180,15 +180,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="asciidoc_special_key">Cuntenutu ispetziale AsciiDoc</string>
     <string name="key_page_up">Pàgina in subra (Page Up)</string>
     <string name="key_page_down">Pàgina in suta (Page Down)</string>
-    <string name="move_text_one_line_up">Tràmuda su testu de una riga cara a susu</string>
-    <string name="move_text_one_line_down">Tràmuda su testu de una riga cara a giosso</string>
-    <string name="start_new_line_below">Incumintza cun una lìnia noa in suta</string>
     <string name="key_pos_1">Incumintzu de sa lìnia (tecla Home)</string>
     <string name="key_pos_end">Fine de sa lìnia (tecla End)</string>
     <string name="key_pos_1_document">Incumintzu de su documentu</string>
     <string name="key_pos_end_document">Fine de su documentu</string>
     <string name="key_ctrl_a">Ischerta totu (Ctrl+A)</string>
     <string name="key_tab">Tabuladore</string>
+    <string name="zero_width_space">Ispàtziu a largària zero</string>
     <string name="start_on_bottom">Incumintza dae bassu</string>
     <string name="start_on_bottom_when_loading_document">A pustis de àere carrigadu unu documentu,  pone su cursore a s\'acabu suo</string>
     <string name="unordered_list_character">Caràtere pro listas disordinadas</string>
@@ -230,6 +228,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_license">Litzèntzia de su progetu</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Contribui cun còdighe a su progetu. Totus sunt invitados a lu fàghere, fintzas sos ùrtimos arribbados</string>
     <string name="project_team">Iscuadra de su progetu</string>
+    <string name="community">Comunidade</string>
     <string name="contributors_public_add_yourself_description">Ammustra informatziones a pitzu de sos contribuidores. Fruni·las pro las fàghere ammustrare inoghe si l\'ant isseberadu a pustis de sa contributzione</string>
     <string name="descending">achirrante</string>
     <string name="ascending">ascendente</string>
@@ -258,7 +257,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_calendar_app_is_installed">Non b\'at peruna aplicatzione de calendàriu installada!</string>
     <string name="popular_documents">Documentos populares</string>
     <string name="color">Colore</string>
-    <string name="zero_width_space">Ispàtziu a largària zero</string>
     <string name="basic_color_scheme">Ischema de colores de base</string>
     <string name="background_foreground_color_in_editor_works_dark_light">Mudat su colore de s\'isfundu e de primu pianu de s\'editore de testu. S\'adatat a su tema de s\'aplicatzione, a su tema craru o iscuru. Sos colores de s\'evidentziatzione de sa sintassi abarrant sos matessi.</string>
     <string name="preset">Predefinitziones</string>
@@ -276,7 +274,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Issèbera sa data</string>
     <string name="pick_time">Issèbera s\'ora</string>
     <string name="get_format_instead_date_or_time">Otene su formadu in logu de sa data o de s\'ora</string>
-    <string name="always_use_current_date_and_time">Imprea semper sa data e s\'ora atuales</string>
+    <string name="use_current_date_and_time">Imprea semper sa data e s\'ora atuales</string>
     <string name="result">Risultadu</string>
     <string name="just_time">Ora ebbia</string>
     <string name="just_date">Data ebbia</string>
