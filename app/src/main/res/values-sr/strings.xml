@@ -54,6 +54,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_license">Пројектна лиценца</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Допринос кода пројекту. Сви су добродошли на то, укључујући и придошлице</string>
     <string name="project_team">Пројектни тим</string>
+    <string name="community">Заједница</string>
     <string name="contributors_public_add_yourself_description">Покажите информације о сараднику. Омогућите да се овде прикаже на бази за пријаву након доприноса</string>
     <string name="location">Локација</string>
     <string name="error_picture_selection">Nijedna slika nije oznacena.</string>

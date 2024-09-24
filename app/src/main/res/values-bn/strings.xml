@@ -119,6 +119,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_license">প্রকল্প লাইসেন্স</string>
     <string name="contribute_code_to_this_project_anybody_welcome">প্রকল্পে কোড অবদান. নতুনদের সহ সবাইকে তা করতে স্বাগত জানাই</string>
     <string name="project_team">প্রকল্পের দল</string>
+    <string name="community">সমাজ</string>
     <string name="contributors_public_add_yourself_description">অবদানকারীর তথ্য দেখান। অবদান করার পরে একটি অপ্ট-ইন ভিত্তিতে এটি এখানে দেখানোর জন্য প্রদান করুন</string>
     <string name="error_picture_selection">কোনো ছবি নির্বাচিত, তোলা বা সংরক্ষণ করা হয়নি।.</string>
     <string name="edit_picture">ছবি সম্পাদনা করুন</string>

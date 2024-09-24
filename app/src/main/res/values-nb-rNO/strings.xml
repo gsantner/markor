@@ -178,15 +178,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="asciidoc_special_key">Spesielt AsciiDoc-innhold</string>
     <string name="key_page_up">Side opp (Page Up)</string>
     <string name="key_page_down">Side ned (Page Down)</string>
-    <string name="move_text_one_line_up">Flytt teksten en linje opp</string>
-    <string name="move_text_one_line_down">Flytt teksten en linje ned</string>
-    <string name="start_new_line_below">Start ny linje under</string>
     <string name="key_pos_1">Linjestart (Pos Home)</string>
     <string name="key_pos_end">Linjeslutt (Pos End)</string>
     <string name="key_pos_1_document">Dokumentbegynnelse</string>
     <string name="key_pos_end_document">Dokumentslutt</string>
     <string name="key_ctrl_a">Velg alt (Ctrl+A)</string>
     <string name="key_tab">Tab</string>
+    <string name="zero_width_space">Null bredde område</string>
     <string name="start_on_bottom">Start på bunnen</string>
     <string name="start_on_bottom_when_loading_document">Etter at et dokument lastes, posisjoner pekeren ved dets slutt</string>
     <string name="unordered_list_character">Usortert liste-tegn</string>
@@ -255,7 +253,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_calendar_app_is_installed">Ingen kalenderapp installert!</string>
     <string name="popular_documents">Populære dokumenter</string>
     <string name="color">Farge</string>
-    <string name="zero_width_space">Null bredde område</string>
     <string name="basic_color_scheme">Grunnleggende fargevalg</string>
     <string name="background_foreground_color_in_editor_works_dark_light">Endrer bakgrunn og forgrunnsfarge i tekstbehandleren. Tilpasser seg til apptemaet, og er dermed tilgjengelig i lyst og mørkt tema. Syntaksutheving er de samme som før.</string>
     <string name="preset">Preset</string>
@@ -273,7 +270,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Velg dato</string>
     <string name="pick_time">Velg tid</string>
     <string name="get_format_instead_date_or_time">Hent format i stedet dato eller klokkeslett</string>
-    <string name="always_use_current_date_and_time">Alltid bruk nåværende dato &amp; tid</string>
+    <string name="use_current_date_and_time">Alltid bruk nåværende dato &amp; tid</string>
     <string name="result">Resultat</string>
     <string name="just_time">Kun tid</string>
     <string name="just_date">Kun dato</string>

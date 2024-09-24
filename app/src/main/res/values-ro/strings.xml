@@ -174,15 +174,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="special_key">Cheie specială</string>
     <string name="key_page_up">Pagina în sus (Pagina sus)</string>
     <string name="key_page_down">Pagină în jos (Pagina Jos)</string>
-    <string name="move_text_one_line_up">Mutați textul cu o linie în sus</string>
-    <string name="move_text_one_line_down">Mutați textul cu o linie în jos</string>
-    <string name="start_new_line_below">Pornește linia nouă de mai jos</string>
     <string name="key_pos_1">Pornire linie (Paca pos)</string>
     <string name="key_pos_end">Sfârșit linie (Pos Sfârșit)</string>
     <string name="key_pos_1_document">Pornire document</string>
     <string name="key_pos_end_document">Sfârșit Document</string>
     <string name="key_ctrl_a">Selectează tot (Ctrl+A)</string>
     <string name="key_tab">Tabel</string>
+    <string name="zero_width_space">Spațiu cu lățimea maximă</string>
     <string name="start_on_bottom">Pornire jos</string>
     <string name="start_on_bottom_when_loading_document">La încărcarea unui document, cursorul de poziție la sfârșit</string>
     <string name="unordered_list_character">Caracter listă neordonat</string>
@@ -246,7 +244,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_calendar_app_is_installed">Nicio aplicație din calendar nu este instalată!</string>
     <string name="popular_documents">Documente populare</string>
     <string name="color">Culoare</string>
-    <string name="zero_width_space">Spațiu cu lățimea maximă</string>
     <string name="basic_color_scheme">Schema de culori de bază</string>
     <string name="background_foreground_color_in_editor_works_dark_light">Schimbă culoarea de fundal și cea din prim-plan a editorului de text. Ajustează tema aplicației astfel disponibilă în tema deschisă și întunecată. Culorile de evidențiere a sintaxei rămân aceleași.</string>
     <string name="preset">Preset</string>
@@ -264,7 +261,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Alege data</string>
     <string name="pick_time">Alege ora</string>
     <string name="get_format_instead_date_or_time">Obțineți formatul în loc de data sau ora</string>
-    <string name="always_use_current_date_and_time">Utilizaţi întotdeauna data curentă &amp; ora</string>
+    <string name="use_current_date_and_time">Utilizaţi întotdeauna data curentă &amp; ora</string>
     <string name="result">Rezultat</string>
     <string name="just_time">Doar timp</string>
     <string name="just_date">Doar data</string>

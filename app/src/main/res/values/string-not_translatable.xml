@@ -35,7 +35,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="front_matter" translatable="false">Front Matter</string>
     <string name="mime_type" translatable="false">MIME type</string>
 
-    <string name="community" translatable="false">Community</string>
     <string name="default_font_family" translatable="false">sans-serif-regular</string>
     <string name="start" translatable="false">Start</string>
     <string name="quicknote" translatable="false">QuickNote</string>
@@ -345,7 +344,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="abid_todotxt_add_project" translatable="false">abid_todotxt_add_project</string>
     <string name="abid_todotxt_priority" translatable="false">abid_todotxt_priority</string>
     <string name="abid_todotxt_archive_done_tasks" translatable="false">abid_todotxt_archive_done_tasks</string>
-    <string name="abid_todotxt_current_date" translatable="false">abid_todotxt_current_date</string>
+    <string name="abid_todotxt_due_date" translatable="false">abid_todotxt_due_date</string>
     <string name="abid_todotxt_sort_todo" translatable="false">abid_todotxt_sort_todo</string>
 
 
@@ -391,7 +390,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__new_file_dialog_lastused_extension" translatable="false">pref_key__new_file_dialog_lastused_extension</string>
     <string name="pref_key__new_file_dialog_lastused_type" translatable="false">pref_key__new_file_dialog_lastused_type</string>
     <string name="pref_key__file_browser_last_browsed_folder" translatable="false">pref_key__file_browser_last_browsed_folder</string>
-    <string name="select_current_line" translatable="false">Select current line(s)</string>
     <string name="pref_key__file_description_format" translatable="false">pref_key__file_description_format</string>
     <string name="pref_key__wikitext_bigger_headings" translatable="false">pref_key__wikitext_bigger_headings</string>
     <string name="pref_key__asciidoc_bigger_headings" translatable="false">pref_key__asciidoc_bigger_headings</string>
