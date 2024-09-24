@@ -261,7 +261,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Kies datum</string>
     <string name="pick_time">Kies tijd</string>
     <string name="get_format_instead_date_or_time">Ophalen format in plaats van datum of tijd</string>
-    <string name="always_use_current_date_and_time">Altijd de huidige datum &amp; tijd gebruiken</string>
+    <string name="use_current_date_and_time">Altijd de huidige datum &amp; tijd gebruiken</string>
     <string name="result">Resultaat</string>
     <string name="just_time">Alleen tijd</string>
     <string name="just_date">Alleen datum</string>

@@ -113,7 +113,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="miscellaneous">Rôzne</string>
     <string name="background">Pozadie</string>
     <string name="font">Písmo</string>
-    <string name="always_use_current_date_and_time">Vzdycky vyuzivaj sucasny datum a cas</string>
+    <string name="use_current_date_and_time">Vzdycky vyuzivaj sucasny datum a cas</string>
     <string name="close">Zavrieť</string>
     <string name="favourite">Obľúbené</string>
     <string name="amount_of_space_for_tab">Pocet medzier po pouzity tabulatora</string>

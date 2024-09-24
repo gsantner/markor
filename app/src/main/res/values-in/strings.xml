@@ -267,7 +267,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Pilih tanggal</string>
     <string name="pick_time">Pilih waktu</string>
     <string name="get_format_instead_date_or_time">Dapatkan format sebagai gantinya tanggal atau waktu</string>
-    <string name="always_use_current_date_and_time">Selalu gunakan tanggal &amp; waktu saat ini</string>
+    <string name="use_current_date_and_time">Selalu gunakan tanggal &amp; waktu saat ini</string>
     <string name="result">Hasil</string>
     <string name="just_time">Hanya waktu</string>
     <string name="just_date">Hanya tanggal</string>

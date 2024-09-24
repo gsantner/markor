@@ -267,7 +267,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">انتخاب تاریخ</string>
     <string name="pick_time">انتخاب زمان</string>
     <string name="get_format_instead_date_or_time">Get format instead date or time</string>
-    <string name="always_use_current_date_and_time">همیشه از تاریخ و زمان جاری استفاده شود</string>
+    <string name="use_current_date_and_time">همیشه از تاریخ و زمان جاری استفاده شود</string>
     <string name="result">نتیجه</string>
     <string name="just_time">فقط زمان</string>
     <string name="just_date">Date only</string>

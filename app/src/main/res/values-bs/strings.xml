@@ -258,7 +258,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Izaberi datum</string>
     <string name="pick_time">Odredi vrijeme</string>
     <string name="get_format_instead_date_or_time">Format umjesto datuma ili vremena</string>
-    <string name="always_use_current_date_and_time">Uvijek prikaži trenutni datum i vrijeme</string>
+    <string name="use_current_date_and_time">Uvijek prikaži trenutni datum i vrijeme</string>
     <string name="result">Rezultat</string>
     <string name="just_time">Samo vrijeme</string>
     <string name="just_date">Samo datum</string>

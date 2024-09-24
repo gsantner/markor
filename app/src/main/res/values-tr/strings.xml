@@ -279,7 +279,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Tarih Seç</string>
     <string name="pick_time">Saat seç</string>
     <string name="get_format_instead_date_or_time">Tarih veya saat yerine biçimi al</string>
-    <string name="always_use_current_date_and_time">Her zaman geçerli tarih ve saati kullan</string>
+    <string name="use_current_date_and_time">Her zaman geçerli tarih ve saati kullan</string>
     <string name="result">Sonuç</string>
     <string name="just_time">Sadece saat</string>
     <string name="just_date">Sadece tarih</string>
