@@ -258,7 +258,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">בחר תאריך</string>
     <string name="pick_time">בחר שעה</string>
     <string name="get_format_instead_date_or_time">קבל תצורה במקום תאריך או שעה</string>
-    <string name="always_use_current_date_and_time">השתמש תמיד בתאריך והשעה הנוכחית</string>
+    <string name="use_current_date_and_time">השתמש תמיד בתאריך והשעה הנוכחית</string>
     <string name="result">תוצאה</string>
     <string name="just_time">זמן בלבד</string>
     <string name="just_date">תאריך בלבד</string>

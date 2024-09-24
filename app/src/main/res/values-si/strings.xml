@@ -256,7 +256,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">දිනය තෝරන්න</string>
     <string name="pick_time">කාලය තෝරන්න</string>
     <string name="get_format_instead_date_or_time">දිනය හෝ වේලාව වෙනුවට ආකෘතිය ලබා ගන්න</string>
-    <string name="always_use_current_date_and_time">සෑම විටම වත්මන් දිනය &amp; වරක් භාවිතා කරන්න</string>
+    <string name="use_current_date_and_time">සෑම විටම වත්මන් දිනය &amp; වරක් භාවිතා කරන්න</string>
     <string name="result">ප්රතිඵලය</string>
     <string name="just_time">කාලය පමණි</string>
     <string name="just_date">දිනය පමණි</string>

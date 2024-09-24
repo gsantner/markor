@@ -261,7 +261,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Valitse päivämäärä</string>
     <string name="pick_time">Valitse aika</string>
     <string name="get_format_instead_date_or_time">Hanki muoto sen sijaan päivämäärä tai aika</string>
-    <string name="always_use_current_date_and_time">Käytä aina nykyistä päivämäärää &amp; aikaa</string>
+    <string name="use_current_date_and_time">Käytä aina nykyistä päivämäärää &amp; aikaa</string>
     <string name="result">Tulos</string>
     <string name="just_time">Vain aika</string>
     <string name="just_date">Vain päivämäärä</string>
