@@ -69,6 +69,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="name">Adı</string>
     <string name="url_or_path">URL / Yol</string>
     <string name="insert_link">Bağlantı ekle</string>
+    <string name="format_link">Linki düzenle</string>
     <string name="insert_image">Resim Ekle</string>
     <string name="contributors">Katkıda Bulunanlar</string>
     <string name="save_location">Kayıt konumu</string>
@@ -127,7 +128,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_note" needed="false">Not Oluştur</string>
     <string name="special_documents" needed="false">Özel belgeler</string>
     <string name="keep_screen_on" needed="false">Ekranı açık tut</string>
-    <string name="disallow_screenshots">Ekran görüntülerine izin verme</string>
+    <string name="disallow_screenshots">ekran alıntılarına izin verme</string>
     <string name="back_to_previous_folder" needed="false">Önceki klasöre dön</string>
     <string name="app_settings" needed="false">Uygulama Ayarları</string>
     <string name="editor_settings" needed="false">Düzenleyici Ayarları</string>
@@ -179,15 +180,18 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="asciidoc_special_key">Özel AsciiDoc İçeriği</string>
     <string name="key_page_up">Sayfa Yukarı (Page Up)</string>
     <string name="key_page_down">Sayfa Aşağı (Page Down)</string>
-    <string name="move_text_one_line_up">Metni bir satır yukarı taşı</string>
-    <string name="move_text_one_line_down">Metni bir satır aşağı taşı</string>
-    <string name="start_new_line_below">Aşağıda yeni satıra başla</string>
     <string name="key_pos_1">Satır Başlangıcı (Pos Home)</string>
     <string name="key_pos_end">Satır Sonu (Pos End)</string>
     <string name="key_pos_1_document">Belge Başlangıcı</string>
     <string name="key_pos_end_document">Belge Sonu</string>
+    <string name="move_text_one_line_up">Satırı yukarı taşı</string>
+    <string name="move_text_one_line_down">Satırı aşağı taşı</string>
+    <string name="start_new_line_below">Yeni satıra başla</string>
+    <string name="select_current_line">Şu anki satırı seç</string>
     <string name="key_ctrl_a">Tümünü seç (Ctrl + A)</string>
     <string name="key_tab">Tabulator</string>
+    <string name="zero_width_space">Genişliksiz boşluk</string>
+    <string name="em_space">Em boşluğu (&amp;emsp;)</string>
     <string name="start_on_bottom">Alttan başla</string>
     <string name="start_on_bottom_when_loading_document">Bir belge yüklendikten sonra, İmleci belge sonuna yerleştir.</string>
     <string name="unordered_list_character">Sırasız liste karakteri</string>
@@ -198,7 +202,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor sadece yerel, çevrimdışı kullanılabilir belgeleri düzenleyebilir ve tam dosya yolunu sağlamayan dosya yöneticilerini desteklemez.</string>
     <string name="file_does_not_exist_and_cant_be_created">Dosya veya dizin mevcut değil ve oluşturulamıyor</string>
     <string name="permissions">İzinler</string>
-    <string name="permission_paths_revert">Varsayılan dizin\'e geri gidilsin mi ?</string>
+    <string name="permission_paths_revert">Varsayılan dizin\'e geri gidilsin mi?</string>
     <string name="permission_not_granted">İzin verilmedi</string>
     <string name="sync_to_local_folder_notice">Not: Bir eşitleme uygulaması kullanırsanız, dosyalar bilinen veya özel klasörlerde bulunabilir, Markor\'un belge klasörünü değiştirerek dosyaları açabilir veya dosyayı farklı bir dosya yöneticisi ile açabilirsiniz.</string>
     <string name="vertical_alignment">Dikey hizalama</string>
@@ -210,7 +214,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="bottom">Alt</string>
     <string name="center">Merkez</string>
     <string name="actionbutton_spacing">EtkileşimTuşu aralığı</string>
-    <string name="horizontal_space_between_actionbuttons">EtkileşimTuşları arasındaki yatay boşluk</string>
+    <string name="horizontal_space_between_actionbuttons">Etkileşim Tuşları arasındaki yatay boşluk</string>
     <string name="center_text">Metni ortala</string>
     <string name="edit_text_in_center_of_screen">Metni ekranın ortasında düzenleyin</string>
     <string name="clipboard">Pano</string>
@@ -229,6 +233,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_license">Proje Lisansı</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Projeye kod yazarak katkıda bulunun. Yeni gelenler de dahil olmak üzere herkes kabul edilir</string>
     <string name="project_team">Proje Ekibi</string>
+    <string name="community">Topluluk</string>
     <string name="contributors_public_add_yourself_description">Katkıda bulunanlarla ilgili bilgileri gösterin. Katkıda bulunanlar, katkıdan bulunduktan sonra burada gösterilmeleri için bilgilerini sağlayabilir</string>
     <string name="descending">azalan</string>
     <string name="ascending">artan</string>
@@ -257,7 +262,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_calendar_app_is_installed">Hiçbir takvim uygulaması yüklü değil!</string>
     <string name="popular_documents">Popüler belgeler</string>
     <string name="color">Renk</string>
-    <string name="zero_width_space">Genişliksiz boşluk</string>
     <string name="basic_color_scheme">Temel renk düzeni</string>
     <string name="background_foreground_color_in_editor_works_dark_light">Metin düzenleyicinin arka plan ve ön plan rengini değiştirir. Açık ve koyu uygulama temalarında kullanılabilir. Sözdizimi vurgulama renkleri aynı kalır.</string>
     <string name="preset">Hazır ayar</string>

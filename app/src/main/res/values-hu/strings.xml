@@ -171,15 +171,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="special_key">Speciális billentyű</string>
     <string name="key_page_up">Feljebb (Page Up)</string>
     <string name="key_page_down">Lejjebb (Page Down)</string>
-    <string name="move_text_one_line_up">Szöveg mozgatása a felső sorba</string>
-    <string name="move_text_one_line_down">Szöveg mozgatása az alsó sorba</string>
-    <string name="start_new_line_below">Új sor kezdése a jelenlegi alatt</string>
     <string name="key_pos_1">Sor eleje (Home)</string>
     <string name="key_pos_end">Sor vége (End)</string>
     <string name="key_pos_1_document">Dokumentum eleje</string>
     <string name="key_pos_end_document">Dokumentum vége</string>
     <string name="key_ctrl_a">Összes kijelölése (Ctrl+A)</string>
     <string name="key_tab">Tabulátor</string>
+    <string name="zero_width_space">Zero-width space (speciális karakter)</string>
     <string name="start_on_bottom">Kezdés legalul</string>
     <string name="start_on_bottom_when_loading_document">Fájl megnyitásakor a kurzor a dokumentum végére kerül</string>
     <string name="unordered_list_character">Számozatlan lista karaktere</string>
@@ -213,6 +211,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_license">Projekt licensz</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Adja meg a kódot a projekthez. Mindenkit szívesen látunk, az újonnan jövőket is beleértve.</string>
     <string name="project_team">Projekt csapat</string>
+    <string name="community">Közösség</string>
     <string name="contributors_public_add_yourself_description">A közreműködő információk megjelenítése. Add meg, hogy megjelenjen a közreműködés után, egy beleegyezés alapú módon.</string>
     <string name="descending">csökkenő</string>
     <string name="ascending">növekvő</string>
@@ -239,7 +238,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_calendar_app_is_installed">Nincs telepítve naptáralkalmazás!</string>
     <string name="popular_documents">Népszerű dokumentumok</string>
     <string name="color">Szín</string>
-    <string name="zero_width_space">Zero-width space (speciális karakter)</string>
     <string name="basic_color_scheme">Alap színséma</string>
     <string name="background_foreground_color_in_editor_works_dark_light">A szerkesztő háttér- és szövegszínének beállítása. Az alkalmazás témájához alkalmazkodik, sötét és világos módban is elérhető. A szintaxis kiemelő színei ugyanazok maradnak.</string>
     <string name="preset">Előre beállatott</string>

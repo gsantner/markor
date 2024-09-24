@@ -43,6 +43,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_license">Licenca projekta</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Šifra doprinosa projektu. Svi su dobrodošli da to urade, uključujući i pridošlice</string>
     <string name="project_team">Projektni tim</string>
+    <string name="community">Zajednica</string>
     <string name="contributors_public_add_yourself_description">Prikažite informacije o saradniku. Obezbedite da bude prikazan ovde na osnovu saglasnosti nakon doprinosa</string>
     <string name="error_picture_selection">Nijedna slika nije oznacena.</string>
     <string name="edit_picture">Uređivanje slike</string>

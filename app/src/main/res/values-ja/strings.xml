@@ -175,15 +175,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="special_key">特殊キー</string>
     <string name="key_page_up">ページ上移動 (Page Up)</string>
     <string name="key_page_down">ページ下移動 (Page Down)</string>
-    <string name="move_text_one_line_up">テキストを１行上に移動</string>
-    <string name="move_text_one_line_down">テキストを１行下に移動</string>
-    <string name="start_new_line_below">以下の新しい行を開始します</string>
     <string name="key_pos_1">行の先頭 (Pos Home)</string>
     <string name="key_pos_end">行の末尾 (Pos End)</string>
     <string name="key_pos_1_document">ドキュメントの始め</string>
     <string name="key_pos_end_document">ドキュメントの終わり</string>
     <string name="key_ctrl_a">すべて選択 (Ctrl+A)</string>
     <string name="key_tab">タブ</string>
+    <string name="zero_width_space">ゼロ幅スペース</string>
     <string name="start_on_bottom">下部で開始</string>
     <string name="start_on_bottom_when_loading_document">ドキュメントの読み込み時に、カーソル位置は最後になります</string>
     <string name="unordered_list_character">順序なしリスト文字</string>
@@ -247,7 +245,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_calendar_app_is_installed">カレンダーアプリがインストールされていません!</string>
     <string name="popular_documents">人気のあるドキュメント</string>
     <string name="color">色</string>
-    <string name="zero_width_space">ゼロ幅スペース</string>
     <string name="basic_color_scheme">基本的な配色</string>
     <string name="background_foreground_color_in_editor_works_dark_light">テキストエディターの背景と前景の色を変更します。アプリのテーマをライトとダークテーマで利用できるように調整します。構文の強調表示の色は変わりません。</string>
     <string name="preset">プリセット</string>

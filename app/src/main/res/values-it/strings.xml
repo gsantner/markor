@@ -180,15 +180,18 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="asciidoc_special_key">Contenuto speciale AsciiDoc</string>
     <string name="key_page_up">Pagina superiore (tasto Up)</string>
     <string name="key_page_down">Pagina inferiore (tasto Down)</string>
-    <string name="move_text_one_line_up">Sposta il testo una riga in su</string>
-    <string name="move_text_one_line_down">Sposta il testo una riga in giù</string>
-    <string name="start_new_line_below">Inizia una nuova riga sotto</string>
     <string name="key_pos_1">Inizio della linea (tasto Home)</string>
     <string name="key_pos_end">Fine della linea (tasto End)</string>
     <string name="key_pos_1_document">Inizio del documento</string>
     <string name="key_pos_end_document">Fine del documento</string>
+    <string name="move_text_one_line_up">Sposta la riga in su</string>
+    <string name="move_text_one_line_down">Sposta la riga in giù</string>
+    <string name="start_new_line_below">Nuova riga sotto</string>
+    <string name="select_current_line">Seleziona la riga corrente</string>
     <string name="key_ctrl_a">Seleziona tutto (Ctrl + A)</string>
     <string name="key_tab">Tabulatore</string>
+    <string name="zero_width_space">Spazio a larghezza zero</string>
+    <string name="em_space">Spaziatura em (&amp;emsp;)</string>
     <string name="start_on_bottom">Inizia dal basso</string>
     <string name="start_on_bottom_when_loading_document">Dopo che un documento è stato caricato, posiziona il cursore alla fine</string>
     <string name="unordered_list_character">Carattere per liste non ordinate</string>
@@ -230,6 +233,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_license">Licenza del progetto</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Contribuisci al codice del progetto. Tutti sono invitati a farlo, anche i nuovi arrivati</string>
     <string name="project_team">Team del progetto</string>
+    <string name="community">Comunità</string>
     <string name="contributors_public_add_yourself_description">Mostra informazioni sui contributori.
 
   I contributori possono fornire informazioni per essere mostrati qui (opt-in) dopo aver contribuito</string>
@@ -260,7 +264,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_calendar_app_is_installed">Nessuna app calendario installata!</string>
     <string name="popular_documents">Documenti popolari</string>
     <string name="color">Colore</string>
-    <string name="zero_width_space">Spazio a larghezza zero</string>
     <string name="basic_color_scheme">Schema dei colori di base</string>
     <string name="background_foreground_color_in_editor_works_dark_light">Cambia il colore di sfondo e di primo piano dell\'editor di testo. Si adegua al tema dell\'applicazione, al tema chiaro o scuro. I colori dell\'evidenziazione della sintassi rimangono gli stessi.</string>
     <string name="preset">Predefinito</string>

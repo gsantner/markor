@@ -178,15 +178,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="asciidoc_special_key">Contenu spécial AsciiDoc</string>
     <string name="key_page_up">Page précédente</string>
     <string name="key_page_down">Page suivante</string>
-    <string name="move_text_one_line_up">Déplacer le texte une ligne vers le haut</string>
-    <string name="move_text_one_line_down">Déplacer le texte une ligne vers le bas</string>
-    <string name="start_new_line_below">Commencer une nouvelle ligne ci-dessous</string>
     <string name="key_pos_1">Début de ligne</string>
     <string name="key_pos_end">Fin de ligne</string>
     <string name="key_pos_1_document">Début de document</string>
     <string name="key_pos_end_document">Fin de document</string>
     <string name="key_ctrl_a">Tout sélectionner (Ctrl + A)</string>
     <string name="key_tab">Tabulation</string>
+    <string name="zero_width_space">Espace de largeur nulle</string>
     <string name="start_on_bottom">Commencer en haut</string>
     <string name="start_on_bottom_when_loading_document">Après l\'ouverture d\'un document, placer le curseur à la fin</string>
     <string name="unordered_list_character">Caractère de liste non ordonnée</string>
@@ -228,6 +226,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_license">Licence du projet</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Contribuer au code. Tout le monde est le bienvenu, même les débutants</string>
     <string name="project_team">Équipe</string>
+    <string name="community">Communauté</string>
     <string name="contributors_public_add_yourself_description">Informations sur les contributeurs. Les contributeurs peuvent fournir des informations qui s\'afficheront ici (option) après contribution</string>
     <string name="descending">décroissant</string>
     <string name="ascending">croissant</string>
@@ -256,7 +255,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_calendar_app_is_installed">Aucune application de calendrier installée !</string>
     <string name="popular_documents">Documents populaires</string>
     <string name="color">Couleur</string>
-    <string name="zero_width_space">Espace de largeur nulle</string>
     <string name="basic_color_scheme">Thème de couleurs de base</string>
     <string name="background_foreground_color_in_editor_works_dark_light">Changer les couleurs de fond ou du texte dans l\'éditeur de texte. Des ajustements au thème de l\'application sont disponible en thèmes clairs et sombres. Les couleurs qui marque la mise en évidence de la syntaxe reste la même.</string>
     <string name="preset">Préréglages</string>
