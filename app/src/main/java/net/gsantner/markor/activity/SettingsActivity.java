@@ -31,6 +31,7 @@ import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.BackupUtils;
 import net.gsantner.markor.util.MarkorContextUtils;
+import net.gsantner.markor.widget.TodoWidgetProvider;
 import net.gsantner.opoc.frontend.base.GsActivityBase;
 import net.gsantner.opoc.frontend.base.GsPreferenceFragmentBase;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
@@ -231,6 +232,7 @@ public class SettingsActivity extends MarkorBaseActivity {
                 }
             } else if (eq(key, R.string.pref_key__notebook_directory, R.string.pref_key__quicknote_filepath, R.string.pref_key__todo_filepath)) {
                 WrMarkorWidgetProvider.updateLauncherWidgets();
+                TodoWidgetProvider.updateTodoWidgets();
             }
         }
 
