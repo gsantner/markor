@@ -47,6 +47,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_license">Projeklisensie</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Dra kode by tot die projek. Almal is welkom om dit te doen, insluitend nuwelinge</string>
     <string name="project_team">Projekspan</string>
+    <string name="community">Gemeenskap</string>
     <string name="contributors_public_add_yourself_description">Wys bydraerinligting. Verskaf dit om hier op \'n opt-in-basis te wys nadat dit bygedra het</string>
     <string name="error_picture_selection">Geen foto gekies, geneem of gered nie.</string>
     <string name="edit_picture">Bewerk prentjie</string>

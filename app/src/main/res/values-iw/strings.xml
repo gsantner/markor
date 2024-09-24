@@ -172,15 +172,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="special_key">כפתור מיוחד</string>
     <string name="key_page_up">דף מעלה (דף מעלה)</string>
     <string name="key_page_down">דף מטה (דף מטה)</string>
-    <string name="move_text_one_line_up">הזז טקסט שורה אחת למעלה</string>
-    <string name="move_text_one_line_down">הזז טקסט שורה אחת למטֿה</string>
-    <string name="start_new_line_below">שורה חדשה</string>
     <string name="key_pos_1">תחילת שורה (מיקום בית)</string>
     <string name="key_pos_end">סוף שורה (מיקום סוף)</string>
     <string name="key_pos_1_document">תחילת מסמך</string>
     <string name="key_pos_end_document">סוף מסמך</string>
     <string name="key_ctrl_a">בחר הכל (Ctrl+A)</string>
     <string name="key_tab">מחולל טבלאות</string>
+    <string name="zero_width_space">רווח ברוחב אפס</string>
     <string name="start_on_bottom">התחל בתחתית</string>
     <string name="start_on_bottom_when_loading_document">בעת טעינת קובץ, מקם את הסמן בסופו</string>
     <string name="unordered_list_character">סימן עבור רשימות לא ממוספרות</string>
@@ -214,6 +212,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_license">רישיון הפרויקט</string>
     <string name="contribute_code_to_this_project_anybody_welcome">לתרום קוד לפרוייקט. כולם מוזמנים לעשות כן, לרבות מתחילים</string>
     <string name="project_team">צוות הפרויקט</string>
+    <string name="community">קהילה</string>
     <string name="contributors_public_add_yourself_description">הצג פרטי המתנדב. הבא זאת להצגה כאן על בסיס הסכמה מראש לאחר תרומה</string>
     <string name="descending">בסדר יורד</string>
     <string name="ascending">בסדר עולה</string>
@@ -242,7 +241,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_calendar_app_is_installed">לא מותקנת אפליקציית לוח שנה!</string>
     <string name="popular_documents">מסמכים בשימוש נפוץ</string>
     <string name="color">צבע</string>
-    <string name="zero_width_space">רווח ברוחב אפס</string>
     <string name="basic_color_scheme">ערכת הצבעים הבסיסיים</string>
     <string name="background_foreground_color_in_editor_works_dark_light">שינוי צבע הרקע והטקסט בעורך טקסט. מתאים לערכת הנושא של האפליקציה, לכן זמינים בערכת נושא כהה ובהירה. צבעי סימון תחביר נותר ללא שינוי.</string>
     <string name="preset">קבוע מראש</string>

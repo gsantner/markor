@@ -167,14 +167,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="special_key">특수 키</string>
     <string name="key_page_up">페이지 업 (Page Up)</string>
     <string name="key_page_down">페이지 다운 (Page Down)</string>
-    <string name="move_text_one_line_up">텍스트를 한 줄 위로 이동</string>
-    <string name="move_text_one_line_down">텍스트를 한 줄 아래로 이동</string>
     <string name="key_pos_1">줄 시작 (Pos Home)</string>
     <string name="key_pos_end">줄 끝 (Pos End)</string>
     <string name="key_pos_1_document">문서 시작</string>
     <string name="key_pos_end_document">문서 마지막</string>
     <string name="key_ctrl_a">모두 선택 (Ctrl+A)</string>
     <string name="key_tab">탭 (Tab)</string>
+    <string name="zero_width_space">폭 없는 공백 문자(zero-width space)</string>
     <string name="start_on_bottom">문서 하단에서 시작</string>
     <string name="start_on_bottom_when_loading_document">문서를 불러올 때 문서의 맨 끝에 커서를 위치시킴</string>
     <string name="unordered_list_character">순서대로 정렬되지 않은 목록 문자</string>
@@ -208,6 +207,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_license">프로젝트 저작권</string>
     <string name="contribute_code_to_this_project_anybody_welcome">코드에 기여하세요. 누구나 환영합니다. 신참도 포함해서요!</string>
     <string name="project_team">프로젝트 팀</string>
+    <string name="community">커뮤니티 소프트웨어</string>
     <string name="contributors_public_add_yourself_description">기여자 정보를 표시합니다. 기여 후에 옵트-인 방식으로 이 곳에 표시됩니다.</string>
     <string name="descending">내림차순</string>
     <string name="ascending">오름차순</string>
@@ -235,7 +235,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_calendar_app_is_installed">달력 앱이 설치되지 않았습니다!</string>
     <string name="popular_documents">인기 문서</string>
     <string name="color">색상</string>
-    <string name="zero_width_space">폭 없는 공백 문자(zero-width space)</string>
     <string name="basic_color_scheme">기본 색상 배합</string>
     <string name="background_foreground_color_in_editor_works_dark_light">텍스트 편집기의 배경 및 전경 색상을 바꿉니다. 밝은/어두운 앱 테마에 대응합니다. 문법 강조 표시 색상은 그대로 유지됩니다.</string>
     <string name="preset">사전 설정값</string>
