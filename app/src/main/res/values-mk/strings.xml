@@ -140,9 +140,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="special_key">Специјално копче</string>
     <string name="key_page_up">Страна Нагоре (Page Up)</string>
     <string name="key_page_down">Страна Надоле (Page Down)</string>
-    <string name="move_text_one_line_up">Помести текст една линија нагоре</string>
-    <string name="move_text_one_line_down">Помести текст една линија надоле</string>
-    <string name="start_new_line_below">Почни нова линија подоле</string>
     <string name="key_pos_1">Почеток на линија (Home)</string>
     <string name="key_pos_end">Крај на линија (End)</string>
     <string name="key_pos_1_document">Почеток на документ</string>
@@ -172,6 +169,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_license">Лиценца на проект</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Придонесете код во проектот. Секој е добредојден да го стори тоа, вклучително и новодојденците</string>
     <string name="project_team">Проектен тим</string>
+    <string name="community">Заедница</string>
     <string name="contributors_public_add_yourself_description">Прикажи информации за соработниците. Обезбедете да се прикаже овде врз основа на пријавување откако ќе придонесете</string>
     <string name="descending">опаѓачки</string>
     <string name="ascending">растечки</string>

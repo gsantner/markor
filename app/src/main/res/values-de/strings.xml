@@ -180,15 +180,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="asciidoc_special_key">Spezieller AsciiDoc-Inhalt</string>
     <string name="key_page_up">Vorherige Seite (Bild↑)</string>
     <string name="key_page_down">Nächste Seite (Bild↓)</string>
-    <string name="move_text_one_line_up">Text eine Zeile nach oben verschieben</string>
-    <string name="move_text_one_line_down">Text eine Zeile nach unten verschieben</string>
-    <string name="start_new_line_below">Neue Zeile unten starten</string>
     <string name="key_pos_1">Zeilen-Start (Pos 1)</string>
     <string name="key_pos_end">Zeilen-Ende (Ende)</string>
     <string name="key_pos_1_document">Dokumenten Beginn</string>
     <string name="key_pos_end_document">Dokumenten Ende</string>
     <string name="key_ctrl_a">Alles auswählen (Strg + A)</string>
     <string name="key_tab">Tabulator</string>
+    <string name="zero_width_space">Breitenloses Zeichen (Zero-width space)</string>
     <string name="start_on_bottom">Unten beginnen</string>
     <string name="start_on_bottom_when_loading_document">Nachdem ein Dokument geladen wurde, den Cursor ganz unten platzieren</string>
     <string name="unordered_list_character">Unsortiertes Listenzeichen</string>
@@ -230,6 +228,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_license">Projektlizenz</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Projekt mit Code unterstützen. Alle sind eingeladen das zu tun, auch Newcomer</string>
     <string name="project_team">Projekt-Team</string>
+    <string name="community">Community</string>
     <string name="contributors_public_add_yourself_description">Zeige Informationen über Mitwirkende. Mitwirkende können Informationen bereitstellen, die hier angezeigt werden (Opt-in), nach der Mitwirkung.</string>
     <string name="descending">absteigend</string>
     <string name="ascending">aufsteigend</string>
@@ -258,7 +257,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_calendar_app_is_installed">Es ist keine Kalender-App installiert!</string>
     <string name="popular_documents">Beliebte Dokumente</string>
     <string name="color">Farbe</string>
-    <string name="zero_width_space">Breitenloses Zeichen (Zero-width space)</string>
     <string name="basic_color_scheme">Grund-Farbschema</string>
     <string name="background_foreground_color_in_editor_works_dark_light">Ändert die Hintergrund- und Vordergrundfarbe des Texteditors. Passt sich an das App-Thema an, steht also im hellen und dunklen Design zur Verfügung. Die Syntax-Highlighting-Farben bleiben gleich.</string>
     <string name="preset">Voreinstellung</string>

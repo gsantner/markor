@@ -168,15 +168,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="special_key">சிறப்பு விசை</string>
     <string name="key_page_up">பக்கம்  மேலே (மேல்நோக்கி நகர்த்து)</string>
     <string name="key_page_down">பக்கம் கீழ் (கீழ்நோக்கி நகர்த்து)</string>
-    <string name="move_text_one_line_up">உரையை ஒரு வரி மேல் நோக்கி நகர்த்து</string>
-    <string name="move_text_one_line_down">உரையை ஒரு வரி கீழ் நோக்கி நகர்த்து</string>
-    <string name="start_new_line_below">கீழே புதிய வரியை தொடங்கவும்</string>
     <string name="key_pos_1">வரி தொடக்கம் (துவக்க இடம்)</string>
     <string name="key_pos_end">வரி முடிவு (முடியும் இடம்)</string>
     <string name="key_pos_1_document">ஆவணத்தின் ஆரம்பம்</string>
     <string name="key_pos_end_document">ஆவணத்தின் முடிவு</string>
     <string name="key_ctrl_a">அனைத்தையும் தேர்வு செய் (Ctrl+A)</string>
     <string name="key_tab">பட்டியலிடுவோன்</string>
+    <string name="zero_width_space">சுழி அகல இடைவெளி</string>
     <string name="start_on_bottom">கீழிருந்து தொடங்கு</string>
     <string name="start_on_bottom_when_loading_document">ஒரு ஆவணம் ஏற்றப்பட்டவுடன், சுட்டியை அந்த ஆவணம் முடிவடையும் இடத்தில் வைக்கவும்</string>
     <string name="unordered_list_character">வரிசைப்படுத்தப்படாத பட்டியலின் எழுத்துக்குறி</string>
@@ -210,6 +208,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_license">இந்த திட்டத்தின் உரிமம்</string>
     <string name="contribute_code_to_this_project_anybody_welcome">இந்த திட்டத்திற்கு நிரல் எழுதும் பணிக்கு பங்களியுங்கள். அனைவரும் இதற்காக வரவேற்கப்படுகின்றனர், புதுமுகங்கள் உட்பட</string>
     <string name="project_team">திட்டக்குழு</string>
+    <string name="community">சமூகம்</string>
     <string name="contributors_public_add_yourself_description">பங்களிப்பாளரின் விவரத்தை காண்பிக்கவும். தன்னுடைய பங்களிப்பை வழங்கிய பிறகு அந்த நபரின் விருப்பத்தின் படியே இங்கே அவரின் விவரங்கள் காண்பிக்கப்படவேண்டும்</string>
     <string name="descending">இறங்கு வரிசை</string>
     <string name="ascending">ஏறுவரிசை</string>
@@ -237,7 +236,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_calendar_app_is_installed">நாட்காட்டி செயலி நிறுவப்படவில்லை!</string>
     <string name="popular_documents">பிரபலமான ஆவணங்கள்</string>
     <string name="color">நிறம்</string>
-    <string name="zero_width_space">சுழி அகல இடைவெளி</string>
     <string name="basic_color_scheme">அடிப்படை நிற திட்டம்</string>
     <string name="background_foreground_color_in_editor_works_dark_light">உரை திருத்தியின் முன்புறம் மற்றும் பின்புறத்தின் நிறத்தை மாற்றுகிறது. செயலியின் நிற அழகாக்கதற்கு ஏற்ப சரி செய்து கொள்கிறது அதனால் வெளிச்சமுள்ள மற்றும் இருண்ட நிற அழகாகத்தில் கிடைக்கிறது. தொடரியல் தனிப்படுத்தலுக்கான நிறங்களில் எந்த மாற்றமும் இல்லை.</string>
     <string name="preset">முன்னமைவு</string>

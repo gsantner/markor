@@ -146,6 +146,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_license">പ്രോജക്ടു് ലൈസൻസ്</string>
     <string name="contribute_code_to_this_project_anybody_welcome">പ്രോജക്റ്റിലേക്ക് കോഡ് സംഭാവന ചെയ്യുക. തുടക്കക്കാരെ ഉൾപ്പെടെ എല്ലാവരെയും സ്വാഗതം ചെയ്യുന്നു</string>
     <string name="project_team">പ്രോജക്റ്റ് ടീം</string>
+    <string name="community">കമ്മ്യൂണിറ്റി</string>
     <string name="contributors_public_add_yourself_description">സംഭാവക വിവരം കാണിക്കുക. സംഭാവന ചെയ്തതിനുശേഷം ഒരു ഓപ്റ്റ്-ഇൻ അടിസ്ഥാനത്തിൽ ഇത് ഇവിടെ കാണിക്കുന്നതിന് നൽകുക</string>
     <string name="error_picture_selection">ചിത്രം തിരഞ്ഞെടുക്കുകയോ സംരക്ഷിക്കുകയോ ചെയ്തിട്ടില്ല.</string>
     <string name="edit_picture">ചിത്രം എഡിറ്റുചെയ്യുക</string>

@@ -197,10 +197,10 @@ public class TodoTxtTask {
     }
 
     public String getCreationDate() {
-        return getCreationaDate("");
+        return getCreationDate("");
     }
 
-    public String getCreationaDate(final String defaultValue) {
+    public String getCreationDate(final String defaultValue) {
         if (creationDate == null) {
             creationDate = parseOneValueOrDefault(line, PATTERN_CREATION_DATE, defaultValue);
         }

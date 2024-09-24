@@ -178,15 +178,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="asciidoc_special_key">Speciální AsciiDoc Obsah</string>
     <string name="key_page_up">Page Up (Page Up)</string>
     <string name="key_page_down">Page Down (Page Down)</string>
-    <string name="move_text_one_line_up">Přesunout text o jeden řádek nahoru</string>
-    <string name="move_text_one_line_down">Přesunout text o jeden řádek dolů</string>
-    <string name="start_new_line_below">Začít nový řádek níže</string>
     <string name="key_pos_1">Line Start (Pos Home)</string>
     <string name="key_pos_end">Line End (Pos End)</string>
     <string name="key_pos_1_document">Začátek dokumentace</string>
     <string name="key_pos_end_document">Konec Dokumentu</string>
     <string name="key_ctrl_a">Vyberte všechny (Ctrl+A)</string>
     <string name="key_tab">Tabulátor</string>
+    <string name="zero_width_space">Mezera s nulovou šířkou</string>
     <string name="start_on_bottom">Začněme u dna</string>
     <string name="start_on_bottom_when_loading_document">Po načtení dokumentu umístit kurzor na konec souboru</string>
     <string name="unordered_list_character">Znak nečíslovaného seznamu</string>
@@ -254,7 +252,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_calendar_app_is_installed">Žádná aplikace kalendáře není nainstalována!</string>
     <string name="popular_documents">Oblíbené dokumenty</string>
     <string name="color">Barva</string>
-    <string name="zero_width_space">Mezera s nulovou šířkou</string>
     <string name="basic_color_scheme">Základní barevný režim</string>
     <string name="background_foreground_color_in_editor_works_dark_light">Změní barvu pozadí a popředí textového editoru. Přizpůsobí se tématu aplikace, je tedy dostupné světlé a tmavé. Zvýraznění syntaxe zůstává stejné.</string>
     <string name="preset">Předvolba</string>

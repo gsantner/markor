@@ -180,15 +180,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="asciidoc_special_key">特殊 AsciiDoc 內容</string>
     <string name="key_page_up">往上頁 (Page Up)</string>
     <string name="key_page_down">往下頁 (Page Down)</string>
-    <string name="move_text_one_line_up">往上面一行移動文字</string>
-    <string name="move_text_one_line_down">移動文字到下一行</string>
-    <string name="start_new_line_below">在底下開始新的一行</string>
     <string name="key_pos_1">起始行 (Pos Home)</string>
     <string name="key_pos_end">行末 (Pos End)</string>
     <string name="key_pos_1_document">文件起頭</string>
     <string name="key_pos_end_document">文件結尾</string>
     <string name="key_ctrl_a">全選 (Ctrl + A)</string>
     <string name="key_tab">表格</string>
+    <string name="zero_width_space">無間隔空間</string>
     <string name="start_on_bottom">從底端開始</string>
     <string name="start_on_bottom_when_loading_document">當載入文件後，游標位於末尾</string>
     <string name="unordered_list_character">未排序的清單字元</string>
@@ -230,6 +228,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_license">專案許可證</string>
     <string name="contribute_code_to_this_project_anybody_welcome">歡迎每個人都來提供程式碼</string>
     <string name="project_team">專案團隊</string>
+    <string name="community">社群</string>
     <string name="contributors_public_add_yourself_description">顯示 貢獻者的資訊，貢獻者在提供所有後可在此留下訊息（選項）</string>
     <string name="descending">降冪</string>
     <string name="ascending">升羃</string>
@@ -258,7 +257,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_calendar_app_is_installed">未找到日曆應用程式</string>
     <string name="popular_documents">常用文件</string>
     <string name="color">顏色</string>
-    <string name="zero_width_space">無間隔空間</string>
     <string name="basic_color_scheme">基本顏色主題</string>
     <string name="background_foreground_color_in_editor_works_dark_light">Changes background and foreground color of the text editor. Adjusts to app theme so available in light and dark theme. Syntax highlighting colors remain the same.</string>
     <string name="preset">預設值</string>

@@ -180,15 +180,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="asciidoc_special_key">Eriline AsciiDoc sisu</string>
     <string name="key_page_up">Eelmine lehekülg(Page Up)</string>
     <string name="key_page_down">Järgmine lehekülg (Page Down)</string>
-    <string name="move_text_one_line_up">Liiguta tekstirida ülesse</string>
-    <string name="move_text_one_line_down">Liiguta tekstirida alla</string>
-    <string name="start_new_line_below">Alusta uue reaga all</string>
     <string name="key_pos_1">Rea algus(Pos Home)</string>
     <string name="key_pos_end">Rea lõpp(Pos End)</string>
     <string name="key_pos_1_document">Kirjutise algus</string>
     <string name="key_pos_end_document">Kirjutise lõpp</string>
     <string name="key_ctrl_a">Vali kõik (Ctrl+A)</string>
     <string name="key_tab">Tabeldaja</string>
+    <string name="zero_width_space">Ruumi raiskamata</string>
     <string name="start_on_bottom">Alusta lõpus</string>
     <string name="start_on_bottom_when_loading_document">Kirjutist laadides jääb osuti selle lõppu</string>
     <string name="unordered_list_character">Korrastamata nimekirja tähis</string>
@@ -229,6 +227,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_license">Projekti litsents</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Lisage projekti kood. Kõik on oodatud seda tegema, ka uued tulijad</string>
     <string name="project_team">Projekti tiim</string>
+    <string name="community">Kogukond</string>
     <string name="contributors_public_add_yourself_description">Kuva kaastöötajateave. Esitage see, et see kuvatakse siin pärast panuse andmist, kui soovite</string>
     <string name="descending">kahanev</string>
     <string name="ascending">suurenev</string>
@@ -257,7 +256,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_calendar_app_is_installed">Kalendrirakendust pole!</string>
     <string name="popular_documents">Nõutavad dokumendid</string>
     <string name="color">Värv</string>
-    <string name="zero_width_space">Ruumi raiskamata</string>
     <string name="basic_color_scheme">Põhilised värvid</string>
     <string name="background_foreground_color_in_editor_works_dark_light">Muudab tekstiredaktori tausta ja esiplaani värvi. Kohandub rakenduse teemaga, nii et see on saadaval heledas ja tumedas teemas. Süntaksi esiletõstmise värvid jäävad samaks.</string>
     <string name="preset">Eelseadistus</string>
