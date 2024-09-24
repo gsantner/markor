@@ -177,15 +177,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="asciidoc_special_key">Isi AsciiDoc khusus</string>
     <string name="key_page_up">Halaman atas (Halaman atas)</string>
     <string name="key_page_down">Halaman bawah (Halaman bawah)</string>
-    <string name="move_text_one_line_up">Pindah teks ke satu baris atas</string>
-    <string name="move_text_one_line_down">Pindah teks ke satu baris bawah</string>
-    <string name="start_new_line_below">Mulai baris baru dibawah</string>
     <string name="key_pos_1">Baris memulai (Pos beranda)</string>
     <string name="key_pos_end">Baris terakhir (Pos akhir)</string>
     <string name="key_pos_1_document">Memulai dokumen</string>
     <string name="key_pos_end_document">Dokumen akhir</string>
     <string name="key_ctrl_a">Pilih semua (Ctrl+A)</string>
     <string name="key_tab">Tabulator</string>
+    <string name="zero_width_space">Spasi jarak nol</string>
     <string name="start_on_bottom">Mulai dari bawah</string>
     <string name="start_on_bottom_when_loading_document">Setelah memuat dokumen, posisikan kursor di ujungnya</string>
     <string name="unordered_list_character">Karakter daftar yang tidak diurutkan</string>
@@ -224,6 +222,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_license">Lisensi Proyek</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Kode kontribusi untuk proyek. Semua orang dipersilakan untuk melakukannya, termasuk pendatang baru</string>
     <string name="project_team">Tim proyek</string>
+    <string name="community">Komunitas</string>
     <string name="contributors_public_add_yourself_description">Tampilkan info kontributor. Berikan untuk ditampilkan di sini secara opt-in setelah berkontribusi</string>
     <string name="descending">menurun</string>
     <string name="ascending">menaik</string>
@@ -251,7 +250,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_calendar_app_is_installed">Tidak ada aplikasi kalender yang diinstal!</string>
     <string name="popular_documents">Dokumen populer</string>
     <string name="color">Warna</string>
-    <string name="zero_width_space">Spasi jarak nol</string>
     <string name="basic_color_scheme">Skema warna dasar</string>
     <string name="background_foreground_color_in_editor_works_dark_light">Mengubah latar belakang dan warna latar depan editor teks. Menyesuaikan dengan tema aplikasi sehingga tersedia dalam tema terang dan gelap. Sintaks menyoroti warna tetap sama.</string>
     <string name="preset">Pengaturan tersimpan</string>

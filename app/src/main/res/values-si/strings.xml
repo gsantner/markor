@@ -171,15 +171,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="special_key">විශේෂ යතුර</string>
     <string name="key_page_up">පිටුව ඉහළට (පිටුව ඉහළට)</string>
     <string name="key_page_down">පිටුව පහළට (පිටුව පහළට)</string>
-    <string name="move_text_one_line_up">පෙළ එක් පේළියක් ඉහළට ගෙන යන්න</string>
-    <string name="move_text_one_line_down">පෙළ එක පේළියක් පහළට ගෙන යන්න</string>
-    <string name="start_new_line_below">පහත නව රේඛාව ආරම්භ කරන්න</string>
     <string name="key_pos_1">රේඛාව ආරම්භය (Pos Home)</string>
     <string name="key_pos_end">රේඛාව අවසානය (Pos End)</string>
     <string name="key_pos_1_document">ලේඛන ආරම්භය</string>
     <string name="key_pos_end_document">ලේඛන අවසානය</string>
     <string name="key_ctrl_a">සියල්ල තෝරන්න (Ctrl+A)</string>
     <string name="key_tab">ටැබ්ලටර්</string>
+    <string name="zero_width_space">ශුන්‍ය පළල අවකාශය</string>
     <string name="start_on_bottom">පහළින් ආරම්භ කරන්න</string>
     <string name="start_on_bottom_when_loading_document">ලේඛනයක් පූරණය කළ පසු, එහි කෙළවරේ කර්සරය ස්ථානගත කරන්න</string>
     <string name="unordered_list_character">අනුපිළිවෙලක් නැති ලැයිස්තු අක්ෂරය</string>
@@ -212,6 +210,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_license">ව්යාපෘති බලපත්රය</string>
     <string name="contribute_code_to_this_project_anybody_welcome">ව්‍යාපෘතියට කේතය දායක කරන්න. නවකයින් ඇතුළු සියලු දෙනාම එසේ කිරීමට සාදරයෙන් පිළිගනිමු</string>
     <string name="project_team">ව්යාපෘති කණ්ඩායම</string>
+    <string name="community">ප්‍රජාව</string>
     <string name="contributors_public_add_yourself_description">දායක තොරතුරු පෙන්වන්න. දායක වීමෙන් පසු තේරීමේ පදනම මත එය මෙහි පෙන්වීමට සපයන්න</string>
     <string name="descending">බැස යනවා</string>
     <string name="ascending">නැගීම</string>
@@ -240,7 +239,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_calendar_app_is_installed">දින දර්ශන යෙදුමක් ස්ථාපනය කර නැත!</string>
     <string name="popular_documents">ජනප්රිය ලේඛන</string>
     <string name="color">වර්ණය</string>
-    <string name="zero_width_space">ශුන්‍ය පළල අවකාශය</string>
     <string name="basic_color_scheme">මූලික වර්ණ පටිපාටිය</string>
     <string name="background_foreground_color_in_editor_works_dark_light">පෙළ සංස්කාරකයේ පසුබිම සහ පෙරබිම් වර්ණය වෙනස් කරයි. ආලෝක සහ අඳුරු තේමාවෙන් ලබා ගත හැකි යෙදුම් තේමාවට ගළපන්න. සින්ටැක්ස් උද්දීපනය කරන වර්ණ එලෙසම පවතී.</string>
     <string name="preset">පෙරසිටුවයි</string>
