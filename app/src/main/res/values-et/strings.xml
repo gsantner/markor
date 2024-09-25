@@ -273,7 +273,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Vali kuupäev</string>
     <string name="pick_time">Mära kellaaeg</string>
     <string name="get_format_instead_date_or_time">Hankige kuupäeva või kellaaja asemel vorming</string>
-    <string name="use_current_date_and_time">Kasuta alati praegust kuupäeva &amp; aega</string>
     <string name="result">Tulemus</string>
     <string name="just_time">Ainult aeg</string>
     <string name="just_date">Ainult kuupäev</string>
