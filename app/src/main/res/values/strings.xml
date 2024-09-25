@@ -95,7 +95,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="date">Date</string>
     <string name="deleteme____1">Name</string>
     <string name="size">Size</string>
+    <string name="mime_type">MIME type</string>
     <string name="reverse_order">Reverse order</string>
+    <string name="dotfiles">Hidden files</string>
     <string name="contribute">Contribute</string>
     <string name="project_page">Project page</string>
     <string name="press_back_again_to_exit">Press \'Back\' again to exit</string>

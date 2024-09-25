@@ -33,7 +33,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="markdown" translatable="false">Markdown</string>
     <string name="backup" translatable="false">Backup</string>
     <string name="front_matter" translatable="false">Front Matter</string>
-    <string name="mime_type" translatable="false">MIME type</string>
 
     <string name="default_font_family" translatable="false">sans-serif-regular</string>
     <string name="start" translatable="false">Start</string>
@@ -103,7 +102,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     </plurals>
     <string name="tag" translatable="false">Tag</string>
     <string name="tags" translatable="false">Tags</string>
-    <string name="dotfiles" translatable="false">.dotfiles</string>
     <string name="tagging" translatable="false">Tagging</string>
     <string name="regex" translatable="false">Regex</string>
     <string name="multiline" translatable="false">Multiline</string>

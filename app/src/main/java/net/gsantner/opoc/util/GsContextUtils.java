@@ -2538,7 +2538,7 @@ public class GsContextUtils {
                 if (show) {
                     imm.showSoftInput(focus, InputMethodManager.SHOW_IMPLICIT);
                 } else if (token != null) {
-                    imm.hideSoftInputFromWindow(token, 0);
+                    imm.hideSoftInputFromWindow(token, InputMethodManager.HIDE_NOT_ALWAYS);
                 }
             }
         }
