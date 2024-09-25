@@ -184,9 +184,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_pos_end">行末 (End 键)</string>
     <string name="key_pos_1_document">文首</string>
     <string name="key_pos_end_document">文末</string>
+    <string name="move_text_one_line_up">上移行</string>
+    <string name="move_text_one_line_down">下移行</string>
+    <string name="start_new_line_below">开始新行</string>
+    <string name="select_current_line">选中当前行</string>
     <string name="key_ctrl_a">全选 (Ctrl + A)</string>
     <string name="key_tab">制表符</string>
     <string name="zero_width_space">零宽度空格</string>
+    <string name="em_space">全角空格 (&amp;emsp;)</string>
     <string name="start_on_bottom">从文末开始</string>
     <string name="start_on_bottom_when_loading_document">载入文件时将光标置于文件末尾处</string>
     <string name="unordered_list_character">无序列表标示字符</string>
@@ -228,6 +233,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_license">项目开源协议</string>
     <string name="contribute_code_to_this_project_anybody_welcome">为本项目贡献代码。我们欢迎所有人参与进来，包括新手</string>
     <string name="project_team">项目团队</string>
+    <string name="community">社区</string>
     <string name="contributors_public_add_yourself_description">显示贡献者信息。贡献者可自行选择是否被添加到这里。</string>
     <string name="descending">降序排序</string>
     <string name="ascending">升序排序</string>
@@ -273,6 +279,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">选择日期</string>
     <string name="pick_time">选择时间</string>
     <string name="get_format_instead_date_or_time">仅生成格式, 而不是日期或时间</string>
+    <string name="use_current_date_and_time">使用当前日期 &amp; 时间</string>
     <string name="result">结果</string>
     <string name="just_time">仅时间</string>
     <string name="just_date">仅日期</string>
