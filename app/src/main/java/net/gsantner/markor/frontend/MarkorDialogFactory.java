@@ -789,12 +789,6 @@ public class MarkorDialogFactory {
         }
     }
 
-    public static class HeadlineDialogState {
-        public Set<Integer> disabledLevels = new HashSet<>();
-        public String searchQuery = "";
-        public int listPosition = -1;
-    }
-
     /**
      * Show a dialog to select a heading
      *
@@ -808,7 +802,7 @@ public class MarkorDialogFactory {
             final Activity activity,
             final EditText edit,
             final WebView webView,
-            final HeadlineDialogState state,
+            final GsSearchOrCustomTextDialog.DialogState state,
             final GsCallback.r3<Integer, CharSequence, Integer, Integer> levelCallback
     ) {
         // Get all headings and their levels
@@ -836,7 +830,6 @@ public class MarkorDialogFactory {
         dopt.searchHintText = R.string.search;
         dopt.isSearchEnabled = true;
         dopt.isSoftInputVisible = false;
-        dopt.listPosition = state.listPosition;
         dopt.defaultText = state.searchQuery;
 
         dopt.positionCallback = result -> {
@@ -884,11 +877,10 @@ public class MarkorDialogFactory {
         };
 
         dopt.dismissCallback = (d) -> {
-            state.listPosition = dopt.listPosition;
             state.searchQuery = dopt.defaultText;
         };
 
-        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt, state);
     }
 
     public static void showIndentSizeDialog(final Activity activity, final int indent, final GsCallback.a1<String> callback) {

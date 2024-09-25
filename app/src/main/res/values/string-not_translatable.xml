@@ -72,20 +72,21 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="js_css" translatable="false"><![CDATA[html: <head>CSS, JavaScript</head>]]></string>
     <string name="inject_to_head_default" translatable="false"><![CDATA[
     <style>
-    \nhtml,body {
-    \n  /*font-family: sans-serif-condensed;*/
-    \n  /*font-size: 80%;*/
+    \nhtml, body {
+    \n/*
+    \nfont-family: sans-serif-condensed;
+    \nfont-size: 80%;
+    \n*/
     \n}
     \n</style>
     \n
-    \n
     \n<script type=\"text/javascript\">
-    \nfunction onPageLoaded(){
-    \n
-    \n/*if (\'{{ post.text_converter_name }}\' == \'MarkdownTextConverter\') {
-    \n  window.scrollTo(0,document.body.scrollHeight);
-    \n}*/
-    \n
+    \nfunction onPageLoaded() {
+    \n/*
+    \nif (\'{{ post.text_converter_name }}\' == \'MarkdownTextConverter\') {
+    \n  window.scrollTo(0, document.body.scrollHeight);
+    \n}
+    \n*/
     \n}
     \n</script>
     ]]></string>
