@@ -299,7 +299,15 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _appSettings.setDocumentPreviewState(_document.path, _isPreviewVisible);
         _appSettings.setLastEditPosition(_document.path, TextViewUtils.getSelection(_hlEditor)[0]);
 
-        if(_document.path.equals(_appSettings.getTodoFile().getAbsolutePath())){
+        int y;
+        if (_webView.isShown()) {
+            y = _webView.getScrollY();
+        } else {
+            y = _webViewClient.getRestoreScrollY();
+        }
+        _appSettings.setLastViewPositionY(_document.path, y);
+
+        if (_document.path.equals(_appSettings.getTodoFile().getAbsolutePath())) {
             TodoWidgetProvider.updateTodoWidgets();
         }
         super.onPause();
@@ -878,6 +886,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             _webView.requestFocus();
             GsContextUtils.fadeInOut(_webView, _primaryScrollView, animate);
         } else {
+            _webViewClient.setRestoreScrollY(_webView.getScrollY());
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 _webView.evaluateJavascript("preview2Edit();", result -> {
                     if (Character.isDigit(result.charAt(0))) {
@@ -917,7 +926,15 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     @Override
     protected boolean onToolbarLongClicked(View v) {
         if (isVisible() && isResumed()) {
-            _format.getActions().runJumpBottomTopAction(_isPreviewVisible ? ActionButtonBase.ActionItem.DisplayMode.VIEW : ActionButtonBase.ActionItem.DisplayMode.EDIT);
+            if (_isPreviewVisible) {
+                if (_webViewClient.getRestoreScrollY() < 1) {
+                    final int y = _appSettings.getLastViewPositionY(_document.path, 1);
+                    _webViewClient.setRestoreScrollY(y);
+                }
+                _webViewClient.restoreScrollY(_webView);
+            } else {
+                _format.getActions().runJumpBottomTopAction(ActionButtonBase.ActionItem.DisplayMode.EDIT);
+            }
             return true;
         }
         return false;
