@@ -110,6 +110,22 @@
             android:name="other.writeily.widget.WrFilesWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
+        <receiver
+            android:name=".widget.TodoWidgetProvider"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/todo_widget" />
+        </receiver>
+
+        <service
+            android:name=".widget.TodoWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"

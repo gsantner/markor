@@ -171,15 +171,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="special_key">Espesyal na Key</string>
     <string name="key_page_up">Pahina Pataas (Page Up)</string>
     <string name="key_page_down">Pahina Pababa (Page Down)</string>
-    <string name="move_text_one_line_up">Itaas ang text</string>
-    <string name="move_text_one_line_down">Ibaba ang text</string>
-    <string name="start_new_line_below">Magsimula ng bagong linya sa baba</string>
     <string name="key_pos_1">Linya Umpisa (Pos Home)</string>
     <string name="key_pos_end">Linya Dulo (Pos End)</string>
     <string name="key_pos_1_document">Simula ng dokumento</string>
     <string name="key_pos_end_document">Dulo ng dokumento</string>
     <string name="key_ctrl_a">Piliin lahat (Ctrl+A)</string>
     <string name="key_tab">Tab</string>
+    <string name="zero_width_space">Space na walang lapad</string>
     <string name="start_on_bottom">Magsimula sa ibaba</string>
     <string name="start_on_bottom_when_loading_document">Pagka-load ng dokumento, ilagay ang panuro sa dulo nito</string>
     <string name="unordered_list_character">Karakter ng di-nakanumerong listahan</string>
@@ -213,6 +211,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_license">Lisensiya ng Proyekto</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Mag-ambag ng code sa proyekto. Maaring gawin ito ng kahit sinuman, pati na ang mga bagong-pasok</string>
     <string name="project_team">Project Team</string>
+    <string name="community">Komunidad</string>
     <string name="contributors_public_add_yourself_description">Ipakita ang impormasyon ng mga nag-ambag. Nasa opt-in basis ang pagpapakita dito matapos mag-ambag</string>
     <string name="descending">pababa</string>
     <string name="ascending">pataas</string>
@@ -240,7 +239,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_calendar_app_is_installed">Walang naka-install na app na kalendaryo!</string>
     <string name="popular_documents">Mga popular na dokumento</string>
     <string name="color">Kulay</string>
-    <string name="zero_width_space">Space na walang lapad</string>
     <string name="basic_color_scheme">Batayang iskima ng kulay</string>
     <string name="background_foreground_color_in_editor_works_dark_light">Binabago ang kulay likuran at harapan ng text editor. Sumasaayos sa tema ng app kaya mayroon ito sa temang malinaw at madilim. Ganoon pa rin ang mga kulay sa pagha-highlight ng syntax.</string>
     <string name="preset">Preset</string>
@@ -258,7 +256,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Pumili ng petsa</string>
     <string name="pick_time">Pumili ng oras</string>
     <string name="get_format_instead_date_or_time">Kunin mismo ang ayos imbes ang petsa o oras</string>
-    <string name="always_use_current_date_and_time">Palaging gamitin ang petsa ngayon &amp; oras</string>
+    <string name="use_current_date_and_time">Palaging gamitin ang petsa ngayon &amp; oras</string>
     <string name="result">Resulta</string>
     <string name="just_time">Oras lamang</string>
     <string name="just_date">Petsa lamang</string>

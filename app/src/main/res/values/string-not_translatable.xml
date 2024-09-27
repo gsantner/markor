@@ -72,20 +72,21 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="js_css" translatable="false"><![CDATA[html: <head>CSS, JavaScript</head>]]></string>
     <string name="inject_to_head_default" translatable="false"><![CDATA[
     <style>
-    \nhtml,body {
-    \n  /*font-family: sans-serif-condensed;*/
-    \n  /*font-size: 80%;*/
+    \nhtml, body {
+    \n/*
+    \nfont-family: sans-serif-condensed;
+    \nfont-size: 80%;
+    \n*/
     \n}
     \n</style>
     \n
-    \n
     \n<script type=\"text/javascript\">
-    \nfunction onPageLoaded(){
-    \n
-    \n/*if (\'{{ post.text_converter_name }}\' == \'MarkdownTextConverter\') {
-    \n  window.scrollTo(0,document.body.scrollHeight);
-    \n}*/
-    \n
+    \nfunction onPageLoaded() {
+    \n/*
+    \nif (\'{{ post.text_converter_name }}\' == \'MarkdownTextConverter\') {
+    \n  window.scrollTo(0, document.body.scrollHeight);
+    \n}
+    \n*/
     \n}
     \n</script>
     ]]></string>
@@ -343,7 +344,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="abid_todotxt_add_project" translatable="false">abid_todotxt_add_project</string>
     <string name="abid_todotxt_priority" translatable="false">abid_todotxt_priority</string>
     <string name="abid_todotxt_archive_done_tasks" translatable="false">abid_todotxt_archive_done_tasks</string>
-    <string name="abid_todotxt_current_date" translatable="false">abid_todotxt_current_date</string>
+    <string name="abid_todotxt_due_date" translatable="false">abid_todotxt_due_date</string>
     <string name="abid_todotxt_sort_todo" translatable="false">abid_todotxt_sort_todo</string>
 
 

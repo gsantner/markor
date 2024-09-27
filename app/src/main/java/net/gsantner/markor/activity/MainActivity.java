@@ -37,6 +37,7 @@ import net.gsantner.markor.frontend.NewFileDialog;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.MarkorContextUtils;
+import net.gsantner.markor.widget.TodoWidgetProvider;
 import net.gsantner.opoc.format.GsSimpleMarkdownParser;
 import net.gsantner.opoc.frontend.base.GsFragmentBase;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserFragment;
@@ -486,6 +487,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     protected void onPause() {
         super.onPause();
         WrMarkorWidgetProvider.updateLauncherWidgets();
+        TodoWidgetProvider.updateTodoWidgets();
     }
 
     @Override

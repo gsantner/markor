@@ -546,7 +546,7 @@ public abstract class ActionButtonBase {
         final CharSequence selection = text.subSequence(ss, se);
 
         // Case delims around selection
-        if ((ss > ol) && ((se + cl) <= text.length())) {
+        if ((ss >= ol) && ((se + cl) <= text.length())) {
             final String before = text.subSequence(ss - ol, ss).toString();
             final String after = text.subSequence(se, se + cl).toString();
             if (before.equals(open) && after.equals(close)) {
