@@ -180,15 +180,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="asciidoc_special_key">特殊 AsciiDoc 内容</string>
     <string name="key_page_up">上一页 (Page Up)</string>
     <string name="key_page_down">下一页 (Page Down)</string>
-    <string name="move_text_one_line_up">上移一行</string>
-    <string name="move_text_one_line_down">下移一行</string>
-    <string name="start_new_line_below">在下方新建行</string>
     <string name="key_pos_1">行首 (Home 键)</string>
     <string name="key_pos_end">行末 (End 键)</string>
     <string name="key_pos_1_document">文首</string>
     <string name="key_pos_end_document">文末</string>
     <string name="key_ctrl_a">全选 (Ctrl + A)</string>
     <string name="key_tab">制表符</string>
+    <string name="zero_width_space">零宽度空格</string>
     <string name="start_on_bottom">从文末开始</string>
     <string name="start_on_bottom_when_loading_document">载入文件时将光标置于文件末尾处</string>
     <string name="unordered_list_character">无序列表标示字符</string>
@@ -258,7 +256,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_calendar_app_is_installed">没有安装日历应用！</string>
     <string name="popular_documents">常用文档</string>
     <string name="color">颜色</string>
-    <string name="zero_width_space">零宽度空格</string>
     <string name="basic_color_scheme">基本颜色方案</string>
     <string name="background_foreground_color_in_editor_works_dark_light">改变文本编辑器的背景色和前景色。随应用主题调整因此在明亮和黑暗主题中可用。语法高亮颜色保持不变。</string>
     <string name="preset">预设值</string>
@@ -276,7 +273,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">选择日期</string>
     <string name="pick_time">选择时间</string>
     <string name="get_format_instead_date_or_time">仅生成格式, 而不是日期或时间</string>
-    <string name="always_use_current_date_and_time">始终使用当前日期 &amp; 时间</string>
+    <string name="use_current_date_and_time">始终使用当前日期 &amp; 时间</string>
     <string name="result">结果</string>
     <string name="just_time">仅时间</string>
     <string name="just_date">仅日期</string>

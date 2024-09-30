@@ -177,15 +177,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="asciidoc_special_key">Special AsciiDoc Content</string>
     <string name="key_page_up">Página anterior (Page Up)</string>
     <string name="key_page_down">Página seguinte (Page Down)</string>
-    <string name="move_text_one_line_up">Mova o texto uma linha a cima</string>
-    <string name="move_text_one_line_down">Mova o texto uma linha abaixo</string>
-    <string name="start_new_line_below">Iniciar nova linha abaixo</string>
     <string name="key_pos_1">Início da linha (Pos Home)</string>
     <string name="key_pos_end">Fim da linha (Pos End)</string>
     <string name="key_pos_1_document">Início do documento</string>
     <string name="key_pos_end_document">Fim do documento</string>
     <string name="key_ctrl_a">Selecionar tudo (Ctrl + A)</string>
     <string name="key_tab">Tabulação</string>
+    <string name="zero_width_space">Espaço de largura zero (Zero-width)</string>
     <string name="start_on_bottom">Começar na parte inferior</string>
     <string name="start_on_bottom_when_loading_document">Depois que um documento é carregado, posicionar o cursor no final da linha</string>
     <string name="unordered_list_character">Caractere de lista não ordenado</string>
@@ -225,6 +223,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_license">Licença do Projeto</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Contribua programando para o projeto. Todos são bem-vindos, incluindo os novatos.</string>
     <string name="project_team">Equipe do Projeto</string>
+    <string name="community">Comunidade</string>
     <string name="contributors_public_add_yourself_description">Mostrar informações sobre colaboradores. Os colaboradores podem fornecer informação a ser mostrada aqui (opt-in) após a contribuição.</string>
     <string name="descending">decrescente</string>
     <string name="ascending">crescente</string>
@@ -253,7 +252,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_calendar_app_is_installed">Nenhum aplicativo de calendário está instalado!</string>
     <string name="popular_documents">Documentos populares</string>
     <string name="color">Cor</string>
-    <string name="zero_width_space">Espaço de largura zero (Zero-width)</string>
     <string name="basic_color_scheme">Esquema de cores</string>
     <string name="background_foreground_color_in_editor_works_dark_light">Altera a cor secundária e a cor principal do editor de texto. Apenas estão disponíveis os temas escuro e claro. As cores de destaque da sintaxe não são alteradas.</string>
     <string name="preset">Predefinição</string>
@@ -271,7 +269,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Selecionar data</string>
     <string name="pick_time">Selecionar hora</string>
     <string name="get_format_instead_date_or_time">Obter formato inserido ao em vez de data e hora</string>
-    <string name="always_use_current_date_and_time">Utilizar sempre a data &amp; hora atuais</string>
+    <string name="use_current_date_and_time">Utilizar sempre a data &amp; hora atuais</string>
     <string name="result">Resultado</string>
     <string name="just_time">Apenas hora</string>
     <string name="just_date">Apenas data</string>

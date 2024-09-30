@@ -180,15 +180,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="asciidoc_special_key">AsciiDoc особое</string>
     <string name="key_page_up">Листать вверх (Page Up)</string>
     <string name="key_page_down">Листать вниз (Page Down)</string>
-    <string name="move_text_one_line_up">Переместить текст на строку вверх</string>
-    <string name="move_text_one_line_down">Переместить текст на строку вниз</string>
-    <string name="start_new_line_below">Перевод строки</string>
     <string name="key_pos_1">Начало строки (Home)</string>
     <string name="key_pos_end">Конец строки (End)</string>
     <string name="key_pos_1_document">Начало документа</string>
     <string name="key_pos_end_document">Конец документа</string>
     <string name="key_ctrl_a">Выбрать всё (Ctrl+A)</string>
     <string name="key_tab">Табуляция</string>
+    <string name="zero_width_space">Пробел нулевой ширины</string>
     <string name="start_on_bottom">Начать снизу</string>
     <string name="start_on_bottom_when_loading_document">После загрузки ставить курсор в конец документа</string>
     <string name="unordered_list_character">Символ неупорядоченного списка</string>
@@ -230,6 +228,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_license">Лицензия проекта</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Внести вклад в код проекта. Все желающие могут сделать это, в том числе и новички</string>
     <string name="project_team">Команда проекта</string>
+    <string name="community">Сообщество</string>
     <string name="contributors_public_add_yourself_description">Показ информации об участниках. Предоставьте информацию о себе, если вы внесли свой вклад в проект</string>
     <string name="descending">по убыванию</string>
     <string name="ascending">по возрастанию</string>
@@ -258,7 +257,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_calendar_app_is_installed">Приложение календаря не установлено!</string>
     <string name="popular_documents">Частые документы</string>
     <string name="color">Цвет</string>
-    <string name="zero_width_space">Пробел нулевой ширины</string>
     <string name="basic_color_scheme">Палитра приложения</string>
     <string name="background_foreground_color_in_editor_works_dark_light">Изменяет фоновый и основной цвет текстового редактора. Приспосабливается к тёмной и светлой теме приложения. Цвет выделения текста остаётся таким же.</string>
     <string name="preset">Шаблон</string>
@@ -276,7 +274,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Выбрать дату</string>
     <string name="pick_time">Выбор времени</string>
     <string name="get_format_instead_date_or_time">Получить формат вместо даты или времени</string>
-    <string name="always_use_current_date_and_time">Всегда использовать текущую дату &amp; время</string>
+    <string name="use_current_date_and_time">Всегда использовать текущую дату &amp; время</string>
     <string name="result">Результат</string>
     <string name="just_time">Только время</string>
     <string name="just_date">Только дата</string>

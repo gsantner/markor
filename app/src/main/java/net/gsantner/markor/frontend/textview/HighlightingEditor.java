@@ -253,7 +253,7 @@ public class HighlightingEditor extends AppCompatEditText {
         return prev;
     }
 
-    public boolean getLineNumbersEnabled() {
+    public boolean isLineNumbersEnabled() {
         return _numEnabled;
     }
 

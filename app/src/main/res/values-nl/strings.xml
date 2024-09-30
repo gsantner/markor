@@ -174,15 +174,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="special_key">Speciale toets</string>
     <string name="key_page_up">Vorige pagina</string>
     <string name="key_page_down">Volgende pagina</string>
-    <string name="move_text_one_line_up">Verplaats tekst één regel omhoog</string>
-    <string name="move_text_one_line_down">Verplaats tekst één regel omlaag</string>
-    <string name="start_new_line_below">Start nieuwe regel hieronder</string>
     <string name="key_pos_1">Start lijn (Pos Home)</string>
     <string name="key_pos_end">Eind lijn (Pos End)</string>
     <string name="key_pos_1_document">Document Start</string>
     <string name="key_pos_end_document">Document Einde</string>
     <string name="key_ctrl_a">Alles selecteren (Ctrl+A)</string>
     <string name="key_tab">Documenteinde</string>
+    <string name="zero_width_space">Nul breedte ruimte</string>
     <string name="start_on_bottom">Start onderaan</string>
     <string name="start_on_bottom_when_loading_document">Bij het laden van een document, plaats cursor aan het einde</string>
     <string name="unordered_list_character">Ongeordende lijst teken</string>
@@ -246,7 +244,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_calendar_app_is_installed">Geen agenda app is geïnstalleerd!</string>
     <string name="popular_documents">Populaire documenten</string>
     <string name="color">Kleur</string>
-    <string name="zero_width_space">Nul breedte ruimte</string>
     <string name="basic_color_scheme">Basis kleurschema</string>
     <string name="background_foreground_color_in_editor_works_dark_light">Verandert achtergrond- en achtergrondkleur van de teksteditor. Aanpasst aan app thema dat beschikbaar is in licht en donker thema. Syntaxis markeren blijven hetzelfde.</string>
     <string name="preset">Voorinstelling</string>
@@ -264,7 +261,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Kies datum</string>
     <string name="pick_time">Kies tijd</string>
     <string name="get_format_instead_date_or_time">Ophalen format in plaats van datum of tijd</string>
-    <string name="always_use_current_date_and_time">Altijd de huidige datum &amp; tijd gebruiken</string>
+    <string name="use_current_date_and_time">Altijd de huidige datum &amp; tijd gebruiken</string>
     <string name="result">Resultaat</string>
     <string name="just_time">Alleen tijd</string>
     <string name="just_date">Alleen datum</string>

@@ -174,15 +174,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="special_key">Erikoisnäppäin</string>
     <string name="key_page_up">Sivu ylös (Page Up)</string>
     <string name="key_page_down">Sivu alas (Page down)</string>
-    <string name="move_text_one_line_up">Siirrä tekstiä yksi rivi ylöspäin</string>
-    <string name="move_text_one_line_down">Siirrä tekstiä yksi rivi alaspäin</string>
-    <string name="start_new_line_below">Aloita uusi rivi alla</string>
     <string name="key_pos_1">Rivin alku (Pos Home)</string>
     <string name="key_pos_end">Rivin loppu (Pos End)</string>
     <string name="key_pos_1_document">Asiakirjan alku</string>
     <string name="key_pos_end_document">Asiakirjan loppu</string>
     <string name="key_ctrl_a">Valitse kaikki (Ctrl+A)</string>
     <string name="key_tab">Sarkain</string>
+    <string name="zero_width_space">Tila nollaleveydelle</string>
     <string name="start_on_bottom">Aloita alhaalta</string>
     <string name="start_on_bottom_when_loading_document">Kun asiakirja ladataan, aseta osoitin sen päähän</string>
     <string name="unordered_list_character">Järjestämättömän listan kirjoitusmerkki</string>
@@ -246,7 +244,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_calendar_app_is_installed">Kalenterisovellusta ei ole asennettu!</string>
     <string name="popular_documents">Suositut asiakirjat</string>
     <string name="color">Väri</string>
-    <string name="zero_width_space">Tila nollaleveydelle</string>
     <string name="basic_color_scheme">Perusväriteema</string>
     <string name="background_foreground_color_in_editor_works_dark_light">Muuttaa tekstin editorin taustan ja edustan väriä. Mukautukset sovellusteemaan, joten saatavilla vaaleassa ja tummassa teemassa. Syntaksin korostus värit pysyvät samoina.</string>
     <string name="preset">Preset</string>
@@ -264,7 +261,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Valitse päivämäärä</string>
     <string name="pick_time">Valitse aika</string>
     <string name="get_format_instead_date_or_time">Hanki muoto sen sijaan päivämäärä tai aika</string>
-    <string name="always_use_current_date_and_time">Käytä aina nykyistä päivämäärää &amp; aikaa</string>
+    <string name="use_current_date_and_time">Käytä aina nykyistä päivämäärää &amp; aikaa</string>
     <string name="result">Tulos</string>
     <string name="just_time">Vain aika</string>
     <string name="just_date">Vain päivämäärä</string>
