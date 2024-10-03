@@ -274,7 +274,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Issèbera sa data</string>
     <string name="pick_time">Issèbera s\'ora</string>
     <string name="get_format_instead_date_or_time">Otene su formadu in logu de sa data o de s\'ora</string>
-    <string name="use_current_date_and_time">Imprea semper sa data e s\'ora atuales</string>
     <string name="result">Risultadu</string>
     <string name="just_time">Ora ebbia</string>
     <string name="just_date">Data ebbia</string>

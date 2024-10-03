@@ -269,7 +269,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Selecionar data</string>
     <string name="pick_time">Selecionar hora</string>
     <string name="get_format_instead_date_or_time">Obter formato inserido ao em vez de data e hora</string>
-    <string name="use_current_date_and_time">Utilizar sempre a data &amp; hora atuais</string>
     <string name="result">Resultado</string>
     <string name="just_time">Apenas hora</string>
     <string name="just_date">Apenas data</string>

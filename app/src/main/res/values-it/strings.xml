@@ -281,7 +281,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Scegli la data</string>
     <string name="pick_time">Scegli l\'ora</string>
     <string name="get_format_instead_date_or_time">Ottieni il formato invece della data o dell\'ora</string>
-    <string name="use_current_date_and_time">Usa sempre la date e ora attuale</string>
+    <string name="use_current_date_and_time">Usa data e ora attuali</string>
     <string name="result">Risultato</string>
     <string name="just_time">Solo l\'ora</string>
     <string name="just_date">Solo la data</string>
