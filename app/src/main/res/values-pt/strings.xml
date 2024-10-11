@@ -459,4 +459,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wont_save_min_length">Ficheiros com menos de %d caracteres não são salvos automaticamente para prevenir perda de dados.</string>
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Sintaxe de filtragem avançada</a></small>]]></string>
     <string name="filter">Filtro</string>
+    <string name="text_case">Letra do texto</string>
+    <string name="toggle_case">Alterar maiúsculas, minúsculas (Ex: Tamanho-&gt;TAMANHO-&gt;tamanho)</string>
+    <string name="switch_case">Maiúsculas, minúsculas alternadas(Ex: TaMaNhO-&gt;tAmAnHo)</string>
+    <string name="capitalize_words">Palavras com maiúsculas (Ex: a nota-&gt;A Nota)</string>
+    <string name="capitalize_sentences">Frases em maiúsculas (Ex: tamanho-&gt;Tamanho)</string>
 </resources>
