@@ -346,13 +346,13 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         }
 
         if ((item = menu.findItem(R.id.action_sort_by_name)) != null && GsFileUtils.SORT_BY_NAME.equals(_dopt.sortByType)) {
-            item.setChecked(true);
+            item.setChecked(false);
         } else if ((item = menu.findItem(R.id.action_sort_by_date)) != null && GsFileUtils.SORT_BY_MTIME.equals(_dopt.sortByType)) {
             item.setChecked(true);
         } else if ((item = menu.findItem(R.id.action_sort_by_filesize)) != null && GsFileUtils.SORT_BY_FILESIZE.equals(_dopt.sortByType)) {
-            item.setChecked(true);
+            item.setChecked(false);
         } else if ((item = menu.findItem(R.id.action_sort_by_mimetype)) != null && GsFileUtils.SORT_BY_MIMETYPE.equals(_dopt.sortByType)) {
-            item.setChecked(true);
+            item.setChecked(false);
         }
 
         List<Pair<File, String>> sdcardFolders = _cu.getAppDataPublicDirs(getContext(), false, true, true);
@@ -383,7 +383,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                 return true;
             }
             case R.id.action_sort_by_name: {
-                item.setChecked(true);
+                item.setChecked(false);
                 _dopt.sortByType = _appSettings.setFileBrowserSortByType(GsFileUtils.SORT_BY_NAME);
                 reloadCurrentFolder();
                 return true;
@@ -408,12 +408,14 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             }
             case R.id.action_sort_reverse: {
                 item.setChecked(!item.isChecked());
+                item.setChecked(false); // Uncheck other sort options
                 _dopt.sortReverse = _appSettings.setFileBrowserSortReverse(item.isChecked());
                 reloadCurrentFolder();
                 return true;
             }
             case R.id.action_show_dotfiles: {
                 item.setChecked(!item.isChecked());
+                item.setChecked(false);
                 _dopt.filterShowDotFiles = _appSettings.setFileBrowserFilterShowDotFiles(item.isChecked());
                 reloadCurrentFolder();
                 return true;
