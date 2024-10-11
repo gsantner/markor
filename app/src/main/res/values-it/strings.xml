@@ -461,4 +461,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wont_save_min_length">I file di meno di %d caratteri non sono salvati automaticamente, per evitare perdita di dati.</string>
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Sintassi filtri avanzata</a></small>]]></string>
     <string name="filter">Filtro</string>
+    <string name="text_case">maiuscolo/minuscolo</string>
+    <string name="toggle_case">In maiuscolo o minuscolo (Es.: Nota-&gt;NOTA-&gt;nota)</string>
+    <string name="switch_case">Inverti maiuscolo/minuscolo (Es: NoTa-&gt;nOtA)</string>
+    <string name="capitalize_words">Iniziali maiuscole (es.: una nota -&gt; Una Nota)</string>
+    <string name="capitalize_sentences">Prima lettera maiuscola (Es.: noi -&gt;Noi)</string>
 </resources>
