@@ -82,7 +82,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Mostrar licencias de terceras partes</string>
     <string name="language_change_restart_description">Cambiar el idioma de esta aplicación. Reinicie la aplicación para que los cambios surtan efecto</string>
     <string name="language">Idioma</string>
-    <string name="storage_permission_required">Permiso de Almacenamiento necesario para leer y escribir archivos</string>
+    <string name="storage_permission_required">Se requiere permiso de almacenamiento para leer y escribir archivos</string>
     <string name="open_with">Abrir con</string>
     <string name="sort_by">Ordenar por</string>
     <string name="date">Fecha</string>
@@ -447,7 +447,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="match_all">Coincidir todos</string>
     <string name="dynamic_notebook_root_links">Búsqueda dinámica de la raíz del cuaderno</string>
     <string name="search_dynamically_for_notebook_root">Para seguir los enlaces de la wiki, busque dinámicamente el archivo notebook.zim para identificar el directorio raíz del cuaderno actual. Marque esta opción si utiliza múltiples cuadernos zim o el directorio de cuadernos establecido en la aplicación no corresponde a su cuaderno zim.</string>
-    <string name="share_into_format_prefix_for_text_shared">Formato/prefijo para el texto compartido en Markor. Sigue las reglas de SimpleDateFormat.\n\nUtilice el marcador de posición \'{{text}}\' (rodeado por comillas simples) para colocar el texto compartido. Si no se especifica, el texto compartido es añadido y el formato utilizado es el de prefijo.</string>
+    <string name="share_into_format_prefix_for_text_shared">Formato/prefijo para el texto compartido en Markor. Sigue las reglas SimpleDateFormat de Android.\n\nUse el marcador de posición {{text}} para ubicar el texto compartido. Si no se especifica, se agrega el texto compartido y se usa el formato como prefijo.</string>
     <string name="share_into_format">Compartir en - Formato</string>
     <string name="attachment_folder_name">Nombre de la carpeta adjunta</string>
     <string name="attachment_folder_name_desc">Subcarpeta debajo de la carpeta actual donde se guardarán los accesorios. Si se deja en blanco, los accesorios se guardarán en la carpeta actual.</string>
@@ -456,7 +456,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="snippet_directory">Directorio de fragmentos/plantillas</string>
     <string name="error_could_not_open_file">Error: No se pudo abrir el archivo.</string>
     <string name="document_error_clip">Error encontrado: Texto copiado al portapapeles.</string>
-    <string name="wont_save_min_length">Archivos con menos de %d caracteres no guardados automáticamente, para prevenir la perdida de datos.</string>
+    <string name="wont_save_min_length">Los archivos con menos de %d caracteres no se guardan automáticamente para evitar la pérdida de datos.</string>
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Sintaxis de filtrado avanzado</a></small>]]></string>
     <string name="filter">Filtro</string>
+    <string name="text_case">Mayúscula/minúscula</string>
+    <string name="toggle_case">Cambiar mayúsculas y minúsculas (p. ej.: Nota-&gt;NOTA-&gt;nota)</string>
+    <string name="switch_case">Invertir mayúsculas y minúsculas (p. ej.: NoTa-&gt;nOtA)</string>
+    <string name="capitalize_words">Iniciar palabras en mayúscula (p. ej.: una nota-&gt;Una Nota)</string>
+    <string name="capitalize_sentences">Iniciar frases en mayúscula (p. ej.: nota-&gt;Nota)</string>
 </resources>
