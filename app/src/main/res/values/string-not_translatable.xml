@@ -40,6 +40,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="quicknote" translatable="false">QuickNote</string>
     <string name="todo" translatable="false">To-Do</string>
     <string name="todo_txt" translatable="false">todo.txt</string>
+    <string name="storage" translatable="false">Storage</string>
     <string name="quicknote_default_filename" translatable="false">QuickNote.md</string>
     <string name="todo_default_filename" translatable="false">todo.txt</string>
     <string name="web_browser" translatable="false">Web browser</string>

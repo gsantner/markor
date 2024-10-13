@@ -356,7 +356,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         }
 
         List<Pair<File, String>> sdcardFolders = _cu.getAppDataPublicDirs(getContext(), false, true, true);
-        int[] sdcardResIds = {R.id.action_go_to_appdata_sdcard_1, R.id.action_go_to_appdata_sdcard_2};
+        int[] sdcardResIds = {};
         for (int i = 0; i < sdcardResIds.length && i < sdcardFolders.size(); i++) {
             item = menu.findItem(sdcardResIds[i]);
             item.setTitle(item.getTitle().toString().replaceFirst("[)]\\s*$", " " + sdcardFolders.get(i).second) + ")");
@@ -432,16 +432,8 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                 reloadCurrentFolder();
                 return true;
             }
-            case R.id.action_go_to_home:
-            case R.id.action_go_to_popular_files:
-            case R.id.action_go_to_recent_files:
-            case R.id.action_go_to_favourite_files:
-            case R.id.action_go_to_appdata_private:
-            case R.id.action_go_to_storage:
-            case R.id.action_go_to_appdata_sdcard_1:
-            case R.id.action_go_to_appdata_sdcard_2:
-            case R.id.action_go_to_appdata_public: {
-                final File folder = _appSettings.getFolderToLoadByMenuId(_id);
+            case R.id.action_go_to: {
+                final File folder = new File("/storage");
                 _filesystemViewerAdapter.setCurrentFolder(folder);
                 Toast.makeText(getContext(), folder.getAbsolutePath(), Toast.LENGTH_SHORT).show();
                 return true;
