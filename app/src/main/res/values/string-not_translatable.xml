@@ -183,7 +183,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__editor_markdown_bigger_headings_2" translatable="false">pref_key__editor_markdown_bigger_headings_2</string>
     <string name="pref_key__editor_unordered_list_character" translatable="false">pref_key__editor_unordered_list_character</string>
     <string name="pref_key__recent_documents" translatable="false">pref_key__recent_documents</string>
-    <string name="pref_key__storage" translatable="false">pref_key__recent_documents</string>
     <string name="pref_key__popular_documents" translatable="false">pref_key__popular_documents</string>
     <string name="pref_key__favourite_files" translatable="false">pref_key__favourite_files</string>
     <string name="pref_key__select_create_document" translatable="false">pref_key__select_create_document</string>
@@ -424,7 +423,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__template_title_format_map" translatable="false">pref_key__template_title_format_map</string>
     <string name="pref_key__title_format_list" translatable="false">pref_key__title_format_list</string>
     <string name="pref_key__format_share_as_link" translatable="false">pref_key__format_share_as_link</string>
-    <string name="action_go_to_storage" translatable="false">action_go_to_storage</string>
     <string name="squarebrackets" translatable="false">Square Brackets</string>
     <string name="csv" translatable="false">CSV</string>
     <string name="orgmode" translatable="false">OrgMode</string>
