@@ -746,57 +746,6 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return getString(R.string.pref_key__navigationbar_color, "#000000");
     }
 
-    public String getAppStartupFolderMenuId() {
-        return getString(R.string.pref_key__app_start_folder, "notebook");
-    }
-
-    public File getFolderToLoadByMenuId(String itemId) {
-        List<Pair<File, String>> appDataPublicDirs = _cu.getAppDataPublicDirs(_context, false, true, false);
-        switch (itemId) {
-            case "storage": {
-                return new File("/storage");
-            }
-            case "notebook": {
-                return getNotebookDirectory();
-            }
-            case "popular_documents": {
-                return GsFileBrowserListAdapter.VIRTUAL_STORAGE_POPULAR;
-            }
-            case "recently_viewed_documents": {
-                return GsFileBrowserListAdapter.VIRTUAL_STORAGE_RECENTS;
-            }
-            case "favourites": {
-                return GsFileBrowserListAdapter.VIRTUAL_STORAGE_FAVOURITE;
-            }
-            case "appdata_private": {
-                return _cu.getAppDataPrivateDir(_context);
-            }
-            case "internal_storage": {
-                return Environment.getExternalStorageDirectory();
-            }
-            case "appdata_sdcard_1": {
-                if (appDataPublicDirs.size() > 0) {
-                    return appDataPublicDirs.get(0).first;
-                }
-                return Environment.getExternalStorageDirectory();
-            }
-            case "appdata_sdcard_2": {
-                if (appDataPublicDirs.size() > 1) {
-                    return appDataPublicDirs.get(1).first;
-                }
-                return Environment.getExternalStorageDirectory();
-            }
-            case "appdata_public": {
-                appDataPublicDirs = _cu.getAppDataPublicDirs(_context, true, false, false);
-                if (appDataPublicDirs.size() > 0) {
-                    return appDataPublicDirs.get(0).first;
-                }
-                return _cu.getAppDataPrivateDir(_context);
-            }
-        }
-        return getNotebookDirectory();
-    }
-
     public int getTabWidth() {
         return getInt(R.string.pref_key__tab_width_v2, 1);
     }
