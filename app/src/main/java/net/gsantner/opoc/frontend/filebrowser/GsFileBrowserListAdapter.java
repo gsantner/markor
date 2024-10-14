@@ -70,7 +70,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     public static final File VIRTUAL_STORAGE_RECENTS = new File(VIRTUAL_STORAGE_ROOT, "Recent");
     public static final File VIRTUAL_STORAGE_FAVOURITE = new File(VIRTUAL_STORAGE_ROOT, "Favourites");
     public static final File VIRTUAL_STORAGE_POPULAR = new File(VIRTUAL_STORAGE_ROOT, "Popular");
-    public static final File VIRTUAL_STORAGE_APP_DATA_PRIVATE = new File(VIRTUAL_STORAGE_ROOT, "appdata-private");
+    public static final File VIRTUAL_STORAGE_APP_DATA_PRIVATE = new File(VIRTUAL_STORAGE_ROOT, "AppData (data partition)");
     private static final File GO_BACK_SIGNIFIER = new File("__GO_BACK__");
     private static final StrikethroughSpan STRIKE_THROUGH_SPAN = new StrikethroughSpan();
     public static final String EXTRA_CURRENT_FOLDER = "EXTRA_CURRENT_FOLDER";
@@ -151,19 +151,14 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         }
 
         for (final File file : ContextCompat.getExternalFilesDirs(_context, null)) {
-            final File remap = new File(VIRTUAL_STORAGE_ROOT, "appdata-public (" + file.getName() + ")");
+            //noinspection DataFlowIssue
+            final File remap = new File(VIRTUAL_STORAGE_ROOT, "AppData (" + file.getParentFile().toString().replace("/", "-").substring(1) + ")");
             map.put(remap, file);
-        }
-
-        for (final Pair<File, String> p : cu.getAppDataPublicDirs(_context, false, true, false)) {
-            final File remap = new File(VIRTUAL_STORAGE_ROOT, "sdcard (" + p.second + ")");
-            map.put(remap, p.first);
         }
 
         map.put(VIRTUAL_STORAGE_RECENTS, VIRTUAL_STORAGE_RECENTS);
         map.put(VIRTUAL_STORAGE_POPULAR, VIRTUAL_STORAGE_POPULAR);
         map.put(VIRTUAL_STORAGE_FAVOURITE, VIRTUAL_STORAGE_FAVOURITE);
-        map.put(VIRTUAL_STORAGE_EMULATED, VIRTUAL_STORAGE_EMULATED);
 
         return map;
     }
@@ -211,7 +206,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         if (isCurrentFolderVirtual() && "index.html".equals(filename)) {
             titleText += " [" + currentFolderName + "]";
         }
-        if (currentFolderName.equals("storage") && _dopt.storageMaps.containsValue(displayFile)){
+        if (currentFolderName.equals("storage") && _dopt.storageMaps.containsValue(displayFile)) {
             titleText = GsCollectionUtils.reverse(_dopt.storageMaps).get(displayFile).getName();
         }
 
@@ -695,10 +690,27 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
     // This function is not called on the main thread, so post to the UI thread
     private synchronized void _loadFolder(final @NonNull File folder, final @Nullable File toShow) {
-
         final boolean folderChanged = !folder.equals(_currentFolder);
-
         final List<File> newData = new ArrayList<>();
+
+        // Make sure /storage/emulated/0 is browsable, even though filesystem says it's not accessible
+        if (folder.equals(new File("/"))) {
+            newData.add(VIRTUAL_STORAGE_ROOT);
+        } else if (folder.equals(VIRTUAL_STORAGE_ROOT)) {
+            newData.add(VIRTUAL_STORAGE_EMULATED);
+
+            // SD Card and other external storage directories that are also not listable
+            for (final Pair<File, String> p : GsContextUtils.instance.getAppDataPublicDirs(_context, false, true, false)) {
+                File f = p.first;
+                while (f.getParentFile() != null && !f.getParentFile().getName().equals("storage")) {
+                    f = f.getParentFile();
+                }
+                newData.add(f);
+            }
+        } else if (folder.equals(VIRTUAL_STORAGE_EMULATED)) {
+            newData.add(new File(folder, "0"));
+        }
+
 
         if (folder.equals(VIRTUAL_STORAGE_RECENTS)) {
             newData.addAll(_dopt.recentFiles);
@@ -713,17 +725,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         if (folder.equals(VIRTUAL_STORAGE_ROOT)) {
             newData.addAll(_dopt.storageMaps.values());
             newData.addAll(_virtualMapping.keySet());
-        }
-
-        // Add all emulated folders under /storage/emulated
-        if (VIRTUAL_STORAGE_EMULATED.equals(folder)) {
-            newData.add(new File(folder, "0"));
-            for (int i = 1; i < 10; i++) {
-                final File f = new File(folder, String.valueOf(i));
-                if (GsFileUtils.canCreate(f)) {
-                    newData.add(f);
-                }
-            }
         }
 
         if (folder.getAbsolutePath().equals("/")) {
