@@ -35,6 +35,7 @@ import net.gsantner.markor.format.markdown.MarkdownActionButtons;
 import net.gsantner.markor.format.plaintext.PlaintextActionButtons;
 import net.gsantner.markor.format.todotxt.TodoTxtActionButtons;
 import net.gsantner.markor.format.wikitext.WikitextActionButtons;
+import net.gsantner.markor.format.orgmode.OrgmodeActionButtons;
 import net.gsantner.opoc.util.GsCollectionUtils;
 
 import java.util.ArrayList;
@@ -133,6 +134,8 @@ public class ActionButtonSettingsActivity extends MarkorBaseActivity {
             _textActions = new WikitextActionButtons(this, null);
         } else if (documentType == R.string.pref_key__asciidoc__reorder_actions) {
             _textActions = new AsciidocActionButtons(this, null);
+        } else if (documentType == R.string.pref_key__orgmode__reorder_actions) {
+            _textActions = new OrgmodeActionButtons(this, null);
         } else { // Default to Plaintext
             _textActions = new PlaintextActionButtons(this, null);
         }
