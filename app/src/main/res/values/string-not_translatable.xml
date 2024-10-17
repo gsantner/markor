@@ -348,6 +348,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="abid_todotxt_due_date" translatable="false">abid_todotxt_due_date</string>
     <string name="abid_todotxt_sort_todo" translatable="false">abid_todotxt_sort_todo</string>
 
+    
+    <string name="abid_orgmode_bold" translatable="false">abid_orgmode_bold</string>
+    <string name="abid_orgmode_italic" translatable="false">abid_orgmode_italic</string>
+    <string name="abid_orgmode_strikeout" translatable="false">abid_orgmode_strikeout</string>
+    <string name="abid_orgmode_underline" translatable="false">abid_orgmode_underline</string>
+    <string name="abid_orgmode_code_inline" translatable="false">abid_orgmode_code_inline</string>
+
 
     <string name="jekyll_post" translatable="false">Jekyll Post</string>
     <string name="wikitext" translatable="false">Wikitext / Zim</string>
