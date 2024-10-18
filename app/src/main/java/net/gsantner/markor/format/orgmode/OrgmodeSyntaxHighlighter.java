@@ -11,11 +11,11 @@ import java.util.regex.Pattern;
 
 public class OrgmodeSyntaxHighlighter extends SyntaxHighlighterBase {
     public final static String COMMON_EMPHASIS_PATTERN = "(?<=(\\n|^|\\s|\\{|\\())([%s])(?=\\S)(.*?)\\S\\2(?=(\\n|$|\\s|\\.|,|:|;|-|\\}|\\)))";
-    public final static Pattern BOLD = Pattern.compile(String.format(COMMON_EMPHASIS_PATTERN, "\\*"));
-    public final static Pattern ITALICS = Pattern.compile(String.format(COMMON_EMPHASIS_PATTERN, "\\/"));
-    public final static Pattern STRIKETHROUGH = Pattern.compile(String.format(COMMON_EMPHASIS_PATTERN, "\\+"));
-    public final static Pattern UNDERLINE = Pattern.compile(String.format(COMMON_EMPHASIS_PATTERN, "\\_"));
-    public final static Pattern CODE_INLINE = Pattern.compile(String.format(COMMON_EMPHASIS_PATTERN, "\\=~"));
+    public final static Pattern BOLD = Pattern.compile(String.format(COMMON_EMPHASIS_PATTERN, "*"));
+    public final static Pattern ITALICS = Pattern.compile(String.format(COMMON_EMPHASIS_PATTERN, "/"));
+    public final static Pattern STRIKETHROUGH = Pattern.compile(String.format(COMMON_EMPHASIS_PATTERN, "+"));
+    public final static Pattern UNDERLINE = Pattern.compile(String.format(COMMON_EMPHASIS_PATTERN, "_"));
+    public final static Pattern CODE_INLINE = Pattern.compile(String.format(COMMON_EMPHASIS_PATTERN, "=~"));
     public final static Pattern HEADING = Pattern.compile("(?m)^(\\*+)\\s(.*?)(?=\\n|$)");
     public final static Pattern BLOCK = Pattern.compile("(?m)(?<=#\\+BEGIN_.{1,15}$\\s)[\\s\\S]*?(?=#\\+END)");
     public final static Pattern PREAMBLE = Pattern.compile("(?m)^(#\\+)(.*?)(?=\\n|$)");
