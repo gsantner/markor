@@ -162,6 +162,12 @@ public class NewFileDialog extends DialogFragment {
         templateAdapter.addAll(GsCollectionUtils.map(templates, p -> p.first));
         templateSpinner.setAdapter(templateAdapter);
 
+        templateSpinner.setOnItemSelectedListener(new GsAndroidSpinnerOnItemSelectedAdapter(pos -> {
+            final String template = templateAdapter.getItem(pos);
+            final String fmt = appSettings.getTemplateTitleFormat(template);
+            formatEdit.setText(fmt);
+        }));
+
         // Setup type / format spinner and action
         // -----------------------------------------------------------------------------------------
         final ArrayAdapter<String> typeAdapter = new ArrayAdapter<>(activity, android.R.layout.simple_spinner_dropdown_item);
