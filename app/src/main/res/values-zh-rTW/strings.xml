@@ -184,9 +184,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_pos_end">行末 (Pos End)</string>
     <string name="key_pos_1_document">文件起頭</string>
     <string name="key_pos_end_document">文件結尾</string>
+    <string name="move_text_one_line_up">上移行</string>
+    <string name="move_text_one_line_down">下移行</string>
+    <string name="start_new_line_below">開始新的一行</string>
+    <string name="select_current_line">選中當前行</string>
     <string name="key_ctrl_a">全選 (Ctrl + A)</string>
     <string name="key_tab">表格</string>
     <string name="zero_width_space">無間隔空間</string>
+    <string name="em_space">全角空格 (&amp;emsp;)</string>
     <string name="start_on_bottom">從底端開始</string>
     <string name="start_on_bottom_when_loading_document">當載入文件後，游標位於末尾</string>
     <string name="unordered_list_character">未排序的清單字元</string>
@@ -274,7 +279,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">選擇日期</string>
     <string name="pick_time">選擇時間</string>
     <string name="get_format_instead_date_or_time">不含日期或時間的原始格式</string>
-    <string name="use_current_date_and_time">總是使用目前的日期 &amp; 時間</string>
+    <string name="use_current_date_and_time">使用當前日期 &amp; 時間</string>
     <string name="result">結果</string>
     <string name="just_time">僅時間</string>
     <string name="just_date">僅日期</string>

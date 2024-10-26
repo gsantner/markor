@@ -68,6 +68,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">Ocultar la barra de estado</string>
     <string name="name">Ordenar por nombre</string>
     <string name="url_or_path">URL / Ruta</string>
+    <string name="insert_link">Insertar enlace</string>
+    <string name="format_link">Formato de enlace</string>
     <string name="insert_image">Insertar imagen</string>
     <string name="contributors">Colaboradores</string>
     <string name="save_location">Guardar ubicación</string>
@@ -80,7 +82,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Mostrar licencias de terceras partes</string>
     <string name="language_change_restart_description">Cambiar el idioma de esta aplicación. Reinicie la aplicación para que los cambios surtan efecto</string>
     <string name="language">Idioma</string>
-    <string name="storage_permission_required">Permiso de Almacenamiento necesario para leer y escribir archivos</string>
+    <string name="storage_permission_required">Se requiere permiso de almacenamiento para leer y escribir archivos</string>
     <string name="open_with">Abrir con</string>
     <string name="sort_by">Ordenar por</string>
     <string name="date">Fecha</string>
@@ -182,9 +184,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_pos_end">Fin de línea (Pos End)</string>
     <string name="key_pos_1_document">Inicio de documento</string>
     <string name="key_pos_end_document">Fin de documento</string>
+    <string name="move_text_one_line_up">Mover línea hacia arriba</string>
+    <string name="move_text_one_line_down">Mover línea hacia abajo</string>
+    <string name="start_new_line_below">Iniciar nueva linea</string>
+    <string name="select_current_line">Seleccionar línea actual</string>
     <string name="key_ctrl_a">Seleccionar todo (Ctrl + A)</string>
     <string name="key_tab">Tabulador</string>
     <string name="zero_width_space">Espacio de ancho cero</string>
+    <string name="em_space">Espacio eme (&amp;emsp;)</string>
     <string name="start_on_bottom">Iniciar desde abajo</string>
     <string name="start_on_bottom_when_loading_document">Al abrir un documento, posicionar el cursor al final del documento</string>
     <string name="unordered_list_character">Carácter para lista desordenada</string>
@@ -218,6 +225,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Traducir</string>
     <string name="more_info_and_help">Ayuda y más información sobre esta aplicación</string>
     <string name="report_bugs">Informar de fallos</string>
+    <string name="do_you_have_a_question_or_problem">¿Tienes alguna pregunta o algún problema?</string>
     <string name="join_community">Únete a la comunidad</string>
     <string name="bug_reports_suggest_improvements">Da tu opinión, reporta errores o sugiere mejoras</string>
     <string name="help_translating_this_app">Traduce esta aplicación a otros idiomas</string>
@@ -271,7 +279,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Elegir fecha</string>
     <string name="pick_time">Elegir hora</string>
     <string name="get_format_instead_date_or_time">Cambiar formato de fecha y hora</string>
-    <string name="use_current_date_and_time">Utilizar siempre la fecha actual &amp; hora</string>
+    <string name="use_current_date_and_time">Utilizar fecha y hora actual</string>
     <string name="result">Resultado</string>
     <string name="just_time">Sólo hora</string>
     <string name="just_date">Sólo fecha</string>
@@ -439,7 +447,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="match_all">Coincidir todos</string>
     <string name="dynamic_notebook_root_links">Búsqueda dinámica de la raíz del cuaderno</string>
     <string name="search_dynamically_for_notebook_root">Para seguir los enlaces de la wiki, busque dinámicamente el archivo notebook.zim para identificar el directorio raíz del cuaderno actual. Marque esta opción si utiliza múltiples cuadernos zim o el directorio de cuadernos establecido en la aplicación no corresponde a su cuaderno zim.</string>
-    <string name="share_into_format_prefix_for_text_shared">Formato/prefijo para el texto compartido en Markor. Sigue las reglas de SimpleDateFormat.\n\nUtilice el marcador de posición \'{{text}}\' (rodeado por comillas simples) para colocar el texto compartido. Si no se especifica, el texto compartido es añadido y el formato utilizado es el de prefijo.</string>
+    <string name="share_into_format_prefix_for_text_shared">Formato/prefijo para el texto compartido en Markor. Sigue las reglas SimpleDateFormat de Android.\n\nUse el marcador de posición {{text}} para ubicar el texto compartido. Si no se especifica, se agrega el texto compartido y se usa el formato como prefijo.</string>
     <string name="share_into_format">Compartir en - Formato</string>
     <string name="attachment_folder_name">Nombre de la carpeta adjunta</string>
     <string name="attachment_folder_name_desc">Subcarpeta debajo de la carpeta actual donde se guardarán los accesorios. Si se deja en blanco, los accesorios se guardarán en la carpeta actual.</string>
@@ -448,7 +456,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="snippet_directory">Directorio de fragmentos/plantillas</string>
     <string name="error_could_not_open_file">Error: No se pudo abrir el archivo.</string>
     <string name="document_error_clip">Error encontrado: Texto copiado al portapapeles.</string>
-    <string name="wont_save_min_length">Archivos con menos de %d caracteres no guardados automáticamente, para prevenir la perdida de datos.</string>
+    <string name="wont_save_min_length">Los archivos con menos de %d caracteres no se guardan automáticamente para evitar la pérdida de datos.</string>
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Sintaxis de filtrado avanzado</a></small>]]></string>
     <string name="filter">Filtro</string>
+    <string name="text_case">Mayúscula/minúscula</string>
+    <string name="toggle_case">Cambiar mayúsculas y minúsculas (p. ej.: Nota-&gt;NOTA-&gt;nota)</string>
+    <string name="switch_case">Invertir mayúsculas y minúsculas (p. ej.: NoTa-&gt;nOtA)</string>
+    <string name="capitalize_words">Iniciar palabras en mayúscula (p. ej.: una nota-&gt;Una Nota)</string>
+    <string name="capitalize_sentences">Iniciar frases en mayúscula (p. ej.: nota-&gt;Nota)</string>
 </resources>

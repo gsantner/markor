@@ -81,6 +81,9 @@ public class MarkorFileBrowserFactory {
             opts.favouriteFiles = appSettings.getFavouriteFiles();
             opts.recentFiles = appSettings.getRecentFiles();
             opts.popularFiles = appSettings.getPopularFiles();
+            opts.storageMaps.clear();
+            opts.storageMaps.put(new File("/storage", cu.rstr(context, R.string.notebook)), appSettings.getNotebookDirectory());
+            opts.storageMaps.put(new File("/storage/Download"), new File("/storage/emulated/0/Download"));
         };
         opts.refresh.callback();
 

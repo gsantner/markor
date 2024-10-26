@@ -41,6 +41,9 @@
 
         <!-- Android V28 options; ignore IDE warnings -->
         <item name="android:dialogCornerRadius" tools:targetApi="p">@dimen/dialog_corner_radius</item>
+
+        <!-- android-35 Disable window size overlap -->
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
     </style>
 
     <style name="AppTheme.PreferenceTheme" parent="PreferenceThemeOverlay.v14.Material">

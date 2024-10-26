@@ -461,6 +461,8 @@ public class GsFileUtils {
             return "text/markdown";
         } else if (ext.matches("(te?xt)|(taskpaper)")) {
             return "text/plain";
+        } else if (ext.matches("org")) {
+            return "text/org";
         } else if (ext.matches("webp")) {
             return "image/webp";
         } else if (ext.matches("jpe?g")) {

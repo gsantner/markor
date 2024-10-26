@@ -22,6 +22,7 @@ import net.gsantner.opoc.wrapper.GsCallback;
 import java.io.File;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashMap;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class GsFileBrowserOptions {
@@ -122,6 +123,7 @@ public class GsFileBrowserOptions {
         @ColorRes
         public int folderColor = 0;
 
+        public final HashMap<File, File> storageMaps = new HashMap<>();
         public Collection<File> favouriteFiles, recentFiles, popularFiles = null;
         public GsCallback.a1<CharSequence> setTitle = null, setSubtitle = null;
 

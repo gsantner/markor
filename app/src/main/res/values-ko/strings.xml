@@ -252,7 +252,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">날짜 선택</string>
     <string name="pick_time">시간 선택</string>
     <string name="get_format_instead_date_or_time">날짜/시간 대신 형식 가져오기</string>
-    <string name="use_current_date_and_time">항상 현재 날짜 및 시간 사용하기</string>
     <string name="result">결과</string>
     <string name="just_time">시간만</string>
     <string name="just_date">날짜만</string>

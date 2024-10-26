@@ -281,7 +281,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Scegli la data</string>
     <string name="pick_time">Scegli l\'ora</string>
     <string name="get_format_instead_date_or_time">Ottieni il formato invece della data o dell\'ora</string>
-    <string name="use_current_date_and_time">Usa sempre la date e ora attuale</string>
+    <string name="use_current_date_and_time">Usa data e ora attuali</string>
     <string name="result">Risultato</string>
     <string name="just_time">Solo l\'ora</string>
     <string name="just_date">Solo la data</string>
@@ -461,4 +461,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wont_save_min_length">I file di meno di %d caratteri non sono salvati automaticamente, per evitare perdita di dati.</string>
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Sintassi filtri avanzata</a></small>]]></string>
     <string name="filter">Filtro</string>
+    <string name="text_case">maiuscolo/minuscolo</string>
+    <string name="toggle_case">In maiuscolo o minuscolo (Es.: Nota-&gt;NOTA-&gt;nota)</string>
+    <string name="switch_case">Inverti maiuscolo/minuscolo (Es: NoTa-&gt;nOtA)</string>
+    <string name="capitalize_words">Iniziali maiuscole (es.: una nota -&gt; Una Nota)</string>
+    <string name="capitalize_sentences">Prima lettera maiuscola (Es.: noi -&gt;Noi)</string>
 </resources>

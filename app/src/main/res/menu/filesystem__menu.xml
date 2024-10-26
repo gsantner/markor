@@ -72,63 +72,13 @@
         android:title="@string/share"
         android:visible="false"
         app:showAsAction="never" />
+
     <item
         android:id="@+id/action_go_to"
         android:layout_width="match_parent"
         android:icon="@drawable/ic_folder_white_24dp"
         android:title="@string/go_to"
-        app:showAsAction="always">
-
-        <menu>
-            <item
-                android:id="@+id/action_go_to_appdata_sdcard_1"
-                android:icon="@drawable/ic_sd_card_black_24dp"
-                android:title="@string/appdata_sdcard"
-                android:visible="false"
-                app:showAsAction="never" />
-            <item
-                android:id="@+id/action_go_to_appdata_sdcard_2"
-                android:icon="@drawable/ic_sd_card_black_24dp"
-                android:title="@string/appdata_sdcard"
-                android:visible="false"
-                app:showAsAction="never" />
-            <item
-                android:id="@+id/action_go_to_appdata_private"
-                android:icon="@drawable/ic_lock_outline_black_24dp"
-                android:title="@string/appdata_private"
-                app:showAsAction="never" />
-            <item
-                android:id="@+id/action_go_to_appdata_public"
-                android:icon="@drawable/ic_lock_outline_black_24dp"
-                android:title="@string/appdata_public"
-                app:showAsAction="never" />
-            <item
-                android:id="@+id/action_go_to_storage"
-                android:icon="@drawable/ic_storage_black_24dp"
-                android:title="@string/internal_storage"
-                app:showAsAction="never" />
-            <item
-                android:id="@+id/action_go_to_recent_files"
-                android:icon="@drawable/ic_history_black_24dp"
-                android:title="@string/recently_viewed_documents"
-                app:showAsAction="never" />
-            <item
-                android:id="@+id/action_go_to_popular_files"
-                android:icon="@drawable/ic_favorite_black_24dp"
-                android:title="@string/popular_documents"
-                app:showAsAction="never" />
-            <item
-                android:id="@+id/action_go_to_favourite_files"
-                android:icon="@drawable/ic_star_black_24dp"
-                android:title="@string/favourites"
-                app:showAsAction="never" />
-            <item
-                android:id="@+id/action_go_to_home"
-                android:icon="@drawable/ic_home_black_24dp"
-                android:title="@string/notebook"
-                app:showAsAction="never" />
-        </menu>
-    </item>
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/action_sort"
