@@ -2,6 +2,9 @@
 - See [Discussions](https://github.com/gsantner/markor/discussions), [Issues](https://github.com/gsantner/markor/issues) and [Project news](https://github.com/gsantner/markor/blob/master/NEWS.md) to see what is going on.
 - New Updates also visible here: <https://github.com/gsantner/markor/releases>
 
+### v2.13 series
+- [2.13.0](https://github.com/gsantner/markor/compare/v2.12.6...v2.13.0)
+
 ### v2.12 series
 - [2.12.0](https://github.com/gsantner/markor/compare/v2.11.1...v2.12.0)
 - [2.12.1](https://github.com/gsantner/markor/compare/v2.12.0...v2.12.1)
@@ -10,6 +13,60 @@
 - [2.12.4](https://github.com/gsantner/markor/compare/v2.12.3...v2.12.4)
 - [2.12.5](https://github.com/gsantner/markor/compare/v2.12.4...v2.12.5)
 - [2.12.6](https://github.com/gsantner/markor/compare/v2.12.5...v2.12.6)
+
+- Override .org file extension to use text mimetype (*/* unrecognized on older devices) PR#2455
+- android-35 Disable window size overlap, closes #2448 #2387 #2451
+- orgmode: add more text styling syntax and textactions (PR #2450)
+- orgmode: fix action buttons not being loaded correctly (PR #2449)
+- Rework /storage mapped folders (PR #2445 by @gsantner)
+- FileManager: Remove top submenu to open special folders, load storage overview in filemanager instead (PR #2440 by @gsantner)
+- Register chess extension (.fen) for plaintext - https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation closes #2241 (#2439)
+- Open .lrc extension as plaintext by default, closes #2322 (#2438)
+- TextAction: Add text case changing functionality (closes #2390, PR #2426)
+- Bugfix: showAndFlash must be called on UI thread, closes #2427 (#2428)
+- Improvements for HeadlineDialog scroll restoration and copy code block button (PR #2406)
+- Improvements for the action buttons (closes #2386, PR #2388)
+- Create launcher widget for todo (closes #1997, PR #2379)
+- Disable multi-window settings option by default (PR #2420)
+- Fixed checking for indices (#2421)
+- Fix how multiple windows are launched (PR #2419)
+- Add Em Space special key for paragraph indent (#2400)
+- GitHub Actions CI configuration - upgrade upload step, fixes CI build error (PR #2416 by @gsantner)
+- Updated README with dark/light todo.txt format images (PR #2411)
+- Navigation and highlighting improvements (PR #2377 closes #2409 closes #2410)
+- Filebrowser: Fix file modification time not reloaded, closes #2196 (PR #2385)
+- Minor doc improvements
+- Fix inject-head js option not applying, closes #2365, closes #2380 (PR #2383)
+- Add usual yyyy-MM-dd newfile default option
+- DocumentEditAndViewFragment: Fix all warnings, especially related to null pointers
+- Zim: Fix link/attachment format (PR #2147 by @mehw)
+- Add history scroll restoration for scroll views (#2366)
+- Various bugfixes (anchor/toc jumping #2364, snippets folder #2369, wikitext newfile #2362, virtual directory browser #2350) (PR #2370 by @hardhard1)
+- New Color picker, bump Android minSdk from 16 to 18, closes #1428 (PR #2203 by @halfdane)
+- Latest Android SDK/Gradle fixes, by @gsantner #2360
+- Add links to changelog
+- SearchReplace dialog: Use full width, closes #2367, by @gsantner
+- ShareInto: Fix crash when editor is null
+- Appearance improvements (PR #2359 closes #2358)
+- Fix notebook directory not being created, fix NewFileDialog when no last used type, by @gsantner closes #2360
+- Project configuration: upgrade to Android SDK 35, Gradle 8.7, AGP 8.5, Build tools 35, by @gsantner, (closes #2346, closes #2305 PR #2355)
+- Add ACTION_CREATE_NOTE intent filter, closes #2320, by @gsantner
+- Highlight file when going back to filebrowser (PR #2351)
+- View-Mode: Prism codeblock copy to clipboard button, update Mermaid and dark mode, closes #2336 closes #2335  (#2345)
+- File browser: Make Folder and file icons visually better distinct (outlined icon for file),  (PR by @wshoy #2331 fixes #2186)
+- Jump to correct heading via id, other tweaks, bugfixes (PR #2307 by @harshad1, fixes #2312 #2313)
+- FileBrowser: Disable file change options in virtual directories (closes #2287, by @gsantner)
+-  Format detection fixes, headline dialog improvements (PR #2300 closes #2303 closes #2296 closes #2297)
+- Disallow treating openxml (msword) files as textfiles, closes #2285
+- ShareInto: Move link checkbox down
+- ShareInto: Fix missing text at shared links (PR #2282 closes #2294)
+- CI/CD: Update GitHub Actions versions, fixes outdated warnings, force Java from Eclipse
+- Fix crash for unknown filetypes, fix EmbedBinary not detected, related to PR #2277
+- FileBrowser: Fix file copy file (nullpointer in currentfolder), by @gsantner
+- Update year in texts
+- Reformat code of PR #2277, closes #2225, closes #2217, closes #2199, closes #2153
+- Improvements to newfile dialog, open links, other fixes (PR #2277)
+
 
 ### v2.11 ([Details](https://github.com/gsantner/markor/blob/master/NEWS.md#markor-v211---asciidoc-csv-and-org-mode-todotxt-advanced-search-line-numbers))
 - Reworked attachments (PR #2106 by @harshad1)
