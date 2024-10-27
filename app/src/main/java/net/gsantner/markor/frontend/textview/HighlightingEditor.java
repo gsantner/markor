@@ -736,7 +736,7 @@ public class HighlightingEditor extends AppCompatEditText {
             @Override
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
                 // Add custom items programmatically
-                menu.add(0, R.string.option_select_lines, 0, R.string.select_lines);
+                menu.add(0, R.string.option_select_lines, 0, "☰");
                 return true;
             }
 
