@@ -38,7 +38,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Поделиться с…</string>
     <string name="share">Поделиться</string>
     <string name="search">Поиск</string>
-    <string name="display_converted_markup">Показывает результат разметки</string>
+    <string name="display_converted_markup">Рендерить разметку</string>
     <string name="editor">Редактор</string>
     <string name="folders">Папки</string>
     <string name="files">Файлы</string>
@@ -56,10 +56,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Отображать письмо слева направо</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Ошибка: не получилось создать папку блокнота</string>
     <string name="last_modified_witharg">Последнее изменение: %s</string>
-    <string name="last_modified">Был изменён</string>
+    <string name="last_modified">Посл. ред.</string>
     <string name="select_this_folder">Выбрать текущую папку</string>
     <string name="select">Выбрать</string>
-    <string name="select_all">Выбрать всё</string>
+    <string name="select_all">Выбрать все</string>
     <string name="create">Создать</string>
     <string name="select_entries">Выбрать элементы</string>
     <string name="one_item_selected">Один элемент выбран</string>
@@ -69,7 +69,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="name">Имя</string>
     <string name="url_or_path">URL/путь</string>
     <string name="insert_link">Вставить ссылку</string>
-    <string name="format_link">Форматировать ссылку</string>
+    <string name="format_link">Формат ссылки</string>
     <string name="insert_image">Вставить изображение</string>
     <string name="contributors">Разработчики</string>
     <string name="save_location">Сохранить расположение</string>
@@ -82,7 +82,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Показать сторонние лицензии</string>
     <string name="language_change_restart_description">Изменить язык этого приложения. Перезапустите приложение, чтобы изменения вступили в силу</string>
     <string name="language">Язык</string>
-    <string name="storage_permission_required">Необходимо разрешение для чтения и записи файлов</string>
+    <string name="storage_permission_required">Нужно разрешение для чтения и записи файлов</string>
     <string name="open_with">Открыть с помощью</string>
     <string name="sort_by">Сортировать по</string>
     <string name="date">Дата</string>
@@ -184,9 +184,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_pos_end">Конец строки (End)</string>
     <string name="key_pos_1_document">Начало документа</string>
     <string name="key_pos_end_document">Конец документа</string>
+    <string name="move_text_one_line_up">Строку вверх</string>
+    <string name="move_text_one_line_down">Строку вниз</string>
+    <string name="start_new_line_below">Новая строка</string>
+    <string name="select_current_line">Выбрать эту строку</string>
     <string name="key_ctrl_a">Выбрать всё (Ctrl+A)</string>
     <string name="key_tab">Табуляция</string>
     <string name="zero_width_space">Пробел нулевой ширины</string>
+    <string name="em_space">Длинный пробел (&amp;emsp;)</string>
     <string name="start_on_bottom">Начать снизу</string>
     <string name="start_on_bottom_when_loading_document">После загрузки ставить курсор в конец документа</string>
     <string name="unordered_list_character">Символ неупорядоченного списка</string>
@@ -274,6 +279,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Выбрать дату</string>
     <string name="pick_time">Выбор времени</string>
     <string name="get_format_instead_date_or_time">Получить формат вместо даты или времени</string>
+    <string name="use_current_date_and_time">Вставить дату и время</string>
     <string name="result">Результат</string>
     <string name="just_time">Только время</string>
     <string name="just_date">Только дата</string>
@@ -453,4 +459,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wont_save_min_length">Файлы содержащие менее %d символов не сохраняются автоматически во избежание случайного удаления данных.</string>
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Расширенный синтаксис фильтрации</a></small>]]></string>
     <string name="filter">Фильтр</string>
+    <string name="text_case">Регистр</string>
+    <string name="toggle_case">Переключать регистр (напр., Слово-&gt;СЛОВО-&gt;слово)</string>
+    <string name="switch_case">Чередовать регистр (напр., СлОвО-&gt;сЛоВо)</string>
+    <string name="capitalize_words">Слова с заглавной (напр., слово-&gt;Слово)</string>
+    <string name="capitalize_sentences">Предложения с заглавных (напр., слово-&gt;Слово)</string>
 </resources>
