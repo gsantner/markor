@@ -216,7 +216,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="actionbutton_spacing">Интервал между кнопками действий</string>
     <string name="horizontal_space_between_actionbuttons">Горизонтальный интервал между кнопками действий</string>
     <string name="center_text">Центрировать текст</string>
-    <string name="edit_text_in_center_of_screen">Начинать редактирование текста по центру</string>
+    <string name="edit_text_in_center_of_screen">Работать с текстом в центре экрана</string>
     <string name="clipboard">Буфер обмена</string>
     <string name="select_existing_document">Выберите существующий документ</string>
     <string name="select_create_document">Выбрать или создать документ</string>
@@ -225,7 +225,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Перевод</string>
     <string name="more_info_and_help">Дополнительная информация и помощь</string>
     <string name="report_bugs">Сообщить об ошибках</string>
-    <string name="do_you_have_a_question_or_problem">У вас есть вопрос или проблема?</string>
+    <string name="do_you_have_a_question_or_problem">Есть вопрос или замечание?</string>
     <string name="join_community">Присоединиться к сообществу</string>
     <string name="bug_reports_suggest_improvements">Оставить отзыв, сообщить об ошибках или предложить идеи по улучшению</string>
     <string name="help_translating_this_app">Перевести это приложение на другие языки</string>
@@ -240,7 +240,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="disable_spelling_underline">Отключить подчёркивание ошибок</string>
     <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Оставить подсказки клавиатуры, но выключить красное подчёркивание</string>
     <string name="location">Местоположение</string>
-    <string name="text_lines">Строк</string>
+    <string name="text_lines">Строки</string>
     <string name="text_characters">Знаков</string>
     <string name="text_words">Слов</string>
     <string name="directory">Папка</string>
@@ -262,12 +262,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_calendar_app_is_installed">Приложение календаря не установлено!</string>
     <string name="popular_documents">Частые документы</string>
     <string name="color">Цвет</string>
-    <string name="basic_color_scheme">Палитра приложения</string>
+    <string name="basic_color_scheme">Основная палитра</string>
     <string name="background_foreground_color_in_editor_works_dark_light">Изменяет фоновый и основной цвет текстового редактора. Приспосабливается к тёмной и светлой теме приложения. Цвет выделения текста остаётся таким же.</string>
     <string name="preset">Шаблон</string>
     <string name="foreground">Передний план</string>
     <string name="background">Фон</string>
-    <string name="set_foreground_or_background_color_hexcolor_also_possible">Установить цвет текста или фона? Также возможна вставка hexcode #цвета.</string>
+    <string name="set_foreground_or_background_color_hexcolor_also_possible">Выбрать цвет текста или фона? Можно использовать также цветовой hex-код.</string>
     <string name="type">Тип</string>
     <string name="folder">Папка</string>
     <string name="folder_is_created_without_extension">— Папка создаётся без расширения</string>
@@ -277,7 +277,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_new_documents_always_in_new_window">Открывать документы в отдельных окнах. Переключайтесь между ними с помощью кнопки «Обзор» на устройстве</string>
     <string name="enter_or_select_format">Введите или выберите формат</string>
     <string name="pick_date">Выбрать дату</string>
-    <string name="pick_time">Выбор времени</string>
+    <string name="pick_time">Выбрать время</string>
     <string name="get_format_instead_date_or_time">Получить формат вместо даты или времени</string>
     <string name="use_current_date_and_time">Вставить дату и время</string>
     <string name="result">Результат</string>
