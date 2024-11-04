@@ -140,7 +140,7 @@ dependencies {
     // UI libs
     implementation 'com.github.Pixplicity:gene-rate:v1.1.8'
     implementation 'com.github.AppIntro:AppIntro:6.2.0'
-    implementation 'com.github.kailash09dabhi:OmRecorder:1.1.5'
+    implementation 'com.kailashdabhi:om-recorder:1.1.5'
     implementation 'com.github.mertakdut:EpubParser:1.0.95'
     implementation 'com.github.martin-stone:hsv-alpha-color-picker-android:3.1.0'
 
