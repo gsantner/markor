@@ -151,7 +151,9 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         }
 
         for (final File file : ContextCompat.getExternalFilesDirs(_context, null)) {
-            //noinspection DataFlowIssue
+            if (file == null || file.getParentFile() == null) {
+                continue;
+            }
             final File remap = new File(VIRTUAL_STORAGE_ROOT, "AppData (" + file.getParentFile().toString().replace("/", "-").substring(1) + ")");
             map.put(remap, file);
         }
@@ -750,7 +752,10 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             }
         }
 
-        if (folderChanged || modSumChanged || !newData.equals(_adapterData)) {
+        if (_recyclerView == null) {
+            //noinspection UnnecessaryReturnStatement
+            return;
+        } else if (folderChanged || modSumChanged || !newData.equals(_adapterData)) {
             _recyclerView.post(() -> {
                 // Modify all these values in the UI thread
                 _adapterData.clear();

@@ -375,7 +375,7 @@ public abstract class SyntaxHighlighterBase {
 
             boolean hasStatic = false;
             for (final SpanGroup group : _groups) {
-                if (group.isStatic) {
+                if (group != null && group.isStatic) {
                     hasStatic = true;
                     _spannable.setSpan(group.span, group.start, group.end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
