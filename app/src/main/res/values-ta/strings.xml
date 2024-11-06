@@ -253,7 +253,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">தேதியைத் தேர்ந்தெடு</string>
     <string name="pick_time">நேரத்தை தேர்வுசெய்</string>
     <string name="get_format_instead_date_or_time">தேதி அல்லது நேரத்திற்கு பதிலாக அதன் வடிவத்தை பெறுக</string>
-    <string name="use_current_date_and_time">எப்போதும் தற்போதைய தேதி &amp; நேரத்தை பயன்படுத்தவும்</string>
     <string name="result">முடிவு</string>
     <string name="just_time">நேரம் மட்டும்</string>
     <string name="just_date">தேதி மட்டும்</string>

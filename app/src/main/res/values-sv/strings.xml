@@ -271,7 +271,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Välj datum</string>
     <string name="pick_time">Välj tid</string>
     <string name="get_format_instead_date_or_time">Hämta format i stället för datum eller tid</string>
-    <string name="use_current_date_and_time">Använd alltid aktuellt datum &amp; tid</string>
     <string name="result">Resultat</string>
     <string name="just_time">Endast tid</string>
     <string name="just_date">Endast datum</string>

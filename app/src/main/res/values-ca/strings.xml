@@ -279,7 +279,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Tria la data</string>
     <string name="pick_time">Tria l\'hora</string>
     <string name="get_format_instead_date_or_time">Obtén el format en lloc de la data o l\'hora</string>
-    <string name="use_current_date_and_time">Utilitza sempre la data i l\'hora actual</string>
+    <string name="use_current_date_and_time">Utilitza la data i hora actual</string>
     <string name="result">Resultat</string>
     <string name="just_time">Només l\'hora</string>
     <string name="just_date">Només la data</string>
@@ -459,4 +459,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wont_save_min_length">Els fitxers amb menys de %d caràcters no es desaran automàticament per evitar la pèrdua de dades.</string>
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Sintaxi de filtratge avançat</a></small>]]></string>
     <string name="filter">Filtre</string>
+    <string name="text_case">Majúscula/minúscula</string>
+    <string name="toggle_case">Canvia majúscules i minúscules (p. ex.: Nota-&gt;NOTA-&gt;nota)</string>
+    <string name="switch_case">Inverteix majúscules i minúscules (p. ex.: NoTa-&gt;nOtA)</string>
+    <string name="capitalize_words">Inicia paraules en majúscula (p. ex.: una nota-&gt;Una Nota)</string>
+    <string name="capitalize_sentences">Inicia frases en majúscula (p. ex.: nota-&gt;Nota)</string>
 </resources>

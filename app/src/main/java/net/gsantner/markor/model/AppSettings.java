@@ -760,59 +760,47 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return getString(R.string.pref_key__navigationbar_color, "#000000");
     }
 
-    public @IdRes
-    Integer getAppStartupFolderMenuId() {
-        switch (getString(R.string.pref_key__app_start_folder, "notebook")) {
-            case "favourites":
-                return R.id.action_go_to_favourite_files;
-            case "internal_storage":
-                return R.id.action_go_to_storage;
-            case "appdata_public":
-                return R.id.action_go_to_appdata_public;
-            case "appdata_private":
-                return R.id.action_go_to_appdata_private;
-            case "popular_documents":
-                return R.id.action_go_to_popular_files;
-            case "recently_viewed_documents":
-                return R.id.action_go_to_recent_files;
-        }
-        return R.id.action_go_to_home;
+    public String getAppStartupFolderMenuId() {
+        return getString(R.string.pref_key__app_start_folder, "notebook");
     }
 
-    public File getFolderToLoadByMenuId(int itemId) {
+    public File getFolderToLoadByMenuId(String itemId) {
         List<Pair<File, String>> appDataPublicDirs = _cu.getAppDataPublicDirs(_context, false, true, false);
         switch (itemId) {
-            case R.id.action_go_to_home: {
+            case "storage": {
+                return new File("/storage");
+            }
+            case "notebook": {
                 return getNotebookDirectory();
             }
-            case R.id.action_go_to_popular_files: {
+            case "popular_documents": {
                 return GsFileBrowserListAdapter.VIRTUAL_STORAGE_POPULAR;
             }
-            case R.id.action_go_to_recent_files: {
+            case "recently_viewed_documents": {
                 return GsFileBrowserListAdapter.VIRTUAL_STORAGE_RECENTS;
             }
-            case R.id.action_go_to_favourite_files: {
+            case "favourites": {
                 return GsFileBrowserListAdapter.VIRTUAL_STORAGE_FAVOURITE;
             }
-            case R.id.action_go_to_appdata_private: {
+            case "appdata_private": {
                 return _cu.getAppDataPrivateDir(_context);
             }
-            case R.id.action_go_to_storage: {
+            case "internal_storage": {
                 return Environment.getExternalStorageDirectory();
             }
-            case R.id.action_go_to_appdata_sdcard_1: {
+            case "appdata_sdcard_1": {
                 if (appDataPublicDirs.size() > 0) {
                     return appDataPublicDirs.get(0).first;
                 }
                 return Environment.getExternalStorageDirectory();
             }
-            case R.id.action_go_to_appdata_sdcard_2: {
+            case "appdata_sdcard_2": {
                 if (appDataPublicDirs.size() > 1) {
                     return appDataPublicDirs.get(1).first;
                 }
                 return Environment.getExternalStorageDirectory();
             }
-            case R.id.action_go_to_appdata_public: {
+            case "appdata_public": {
                 appDataPublicDirs = _cu.getAppDataPublicDirs(_context, true, false, false);
                 if (appDataPublicDirs.size() > 0) {
                     return appDataPublicDirs.get(0).first;

@@ -479,4 +479,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wont_save_min_length">Files with fewer than %d characters not saved automatically in order to prevent data loss.</string>
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Advanced filtering syntax</a></small>]]></string>
     <string name="filter">Filter</string>
+    <string name="text_case">Text Case</string>
+    <string name="toggle_case">Toggle Case (Ex: Case->CASE->case)</string>
+    <string name="switch_case">Switch Case (Ex: CaSe->cAsE)</string>
+    <string name="capitalize_words">Capitalize Words (Ex: a note->A Note)</string>
+    <string name="capitalize_sentences">Capitalize Sentences (Ex: case->Case)</string>
 </resources>

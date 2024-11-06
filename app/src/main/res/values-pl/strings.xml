@@ -264,7 +264,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Wybierz datę</string>
     <string name="pick_time">Wybierz godzinę</string>
     <string name="get_format_instead_date_or_time">Pobierz format zamiast daty lub godziny</string>
-    <string name="use_current_date_and_time">Zawsze używaj bieżącej daty i godziny</string>
     <string name="result">Wynik</string>
     <string name="just_time">Tylko godzina</string>
     <string name="just_date">Tylko data</string>
