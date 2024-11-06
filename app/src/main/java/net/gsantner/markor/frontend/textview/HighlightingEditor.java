@@ -30,10 +30,10 @@ import androidx.appcompat.widget.AppCompatEditText;
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.model.AppSettings;
+import net.gsantner.markor.util.TextCasingUtils;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
-import net.gsantner.markor.util.TextCasingUtils;
 
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
@@ -65,7 +65,6 @@ public class HighlightingEditor extends AppCompatEditText {
     private TextWatcher _autoFormatModifier;
     private boolean _autoFormatEnabled;
     private boolean _saveInstanceState = true;
-    private final LineNumbersDrawer _lineNumbersDrawer = new LineNumbersDrawer(this);
     private final ExecutorService executor = new ThreadPoolExecutor(0, 3, 60, TimeUnit.SECONDS, new SynchronousQueue<>());
     private final AtomicBoolean _textUnchangedWhileHighlighting = new AtomicBoolean(true);
 
@@ -115,17 +114,12 @@ public class HighlightingEditor extends AppCompatEditText {
 
     @Override
     public boolean onPreDraw() {
-        _lineNumbersDrawer.setTextSize(getTextSize());
         return super.onPreDraw();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
-        if (_numEnabled) {
-            _lineNumbersDrawer.draw(canvas);
-        }
     }
 
     // Highlighting
@@ -251,23 +245,6 @@ public class HighlightingEditor extends AppCompatEditText {
             }
         }
         return prev;
-    }
-
-    public boolean isLineNumbersEnabled() {
-        return _numEnabled;
-    }
-
-    public void setLineNumbersEnabled(final boolean enable) {
-        if (enable ^ _numEnabled) {
-            post(this::invalidate);
-        }
-        _numEnabled = enable;
-        if (_numEnabled) {
-            _lineNumbersDrawer.startLineTracking();
-        } else {
-            _lineNumbersDrawer.reset();
-            _lineNumbersDrawer.stopLineTracking();
-        }
     }
 
     // Region to highlight
@@ -552,175 +529,5 @@ public class HighlightingEditor extends AppCompatEditText {
 
     public boolean indexesValid(int... indexes) {
         return GsTextUtils.inRange(0, length(), indexes);
-    }
-
-    static class LineNumbersDrawer {
-
-        private final AppCompatEditText _editor;
-        private final Paint _paint = new Paint();
-
-        private final int _defaultPaddingLeft;
-        private static final int LINE_NUMBER_PADDING_LEFT = 18;
-        private static final int LINE_NUMBER_PADDING_RIGHT = 12;
-
-        private final Rect _visibleArea = new Rect();
-        private final Rect _lineNumbersArea = new Rect();
-
-        private int _numberX;
-        private int _gutterX;
-        private int _maxNumber = 1; // to gauge gutter width
-        private int _maxNumberDigits;
-        private float _oldTextSize;
-        private final int[] _startLine = {0, 1}; // {line index, actual line number}
-
-        private final GsTextWatcherAdapter _lineTrackingWatcher = new GsTextWatcherAdapter() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                _maxNumber -= GsTextUtils.countChar(s, start, start + count, '\n');
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                _maxNumber += GsTextUtils.countChar(s, start, start + count, '\n');
-            }
-        };
-
-        public LineNumbersDrawer(final AppCompatEditText editor) {
-            _editor = editor;
-            _paint.setColor(0xFF999999);
-            _paint.setTextAlign(Paint.Align.RIGHT);
-            _defaultPaddingLeft = editor.getPaddingLeft();
-        }
-
-        public void setTextSize(final float textSize) {
-            _paint.setTextSize(textSize);
-        }
-
-        public boolean isTextSizeChanged() {
-            if (_paint.getTextSize() == _oldTextSize) {
-                return false;
-            } else {
-                _oldTextSize = _paint.getTextSize();
-                return true;
-            }
-        }
-
-        public boolean isMaxNumberDigitsChanged() {
-            final int oldDigits = _maxNumberDigits;
-
-            if (_maxNumber < 10) {
-                _maxNumberDigits = 1;
-            } else if (_maxNumber < 100) {
-                _maxNumberDigits = 2;
-            } else if (_maxNumber < 1000) {
-                _maxNumberDigits = 3;
-            } else if (_maxNumber < 10000) {
-                _maxNumberDigits = 4;
-            } else {
-                _maxNumberDigits = 5;
-            }
-            return _maxNumberDigits != oldDigits;
-        }
-
-        public boolean isOutOfLineNumbersArea() {
-            final int margin = (int) (_visibleArea.height() * 0.5f);
-            final int top = _visibleArea.top - margin;
-            final int bottom = _visibleArea.bottom + margin;
-
-            if (top < _lineNumbersArea.top || bottom > _lineNumbersArea.bottom) {
-                // Reset line numbers area
-                // height of line numbers area = (1.5 + 1 + 1.5) * height of visible area
-                _lineNumbersArea.top = top - _visibleArea.height();
-                _lineNumbersArea.bottom = bottom + _visibleArea.height();
-                return true;
-            } else {
-                return false;
-            }
-        }
-
-        public void startLineTracking() {
-            _editor.removeTextChangedListener(_lineTrackingWatcher);
-            _maxNumber = 1;
-            final CharSequence text = _editor.getText();
-            if (text != null) {
-                _maxNumber += GsTextUtils.countChar(text, 0, text.length(), '\n');
-            }
-            _editor.addTextChangedListener(_lineTrackingWatcher);
-        }
-
-        public void stopLineTracking() {
-            _editor.removeTextChangedListener(_lineTrackingWatcher);
-        }
-
-        /**
-         * Draw line numbers.
-         *
-         * @param canvas The canvas on which the line numbers will be drawn.
-         */
-        public void draw(final Canvas canvas) {
-            if (!_editor.getLocalVisibleRect(_visibleArea)) {
-                return;
-            }
-
-            final CharSequence text = _editor.getText();
-            final Layout layout = _editor.getLayout();
-            if (text == null || layout == null) {
-                return;
-            }
-
-            // If text size or the max line number of digits changed,
-            // update the variables and reset padding
-            if (isTextSizeChanged() || isMaxNumberDigitsChanged()) {
-                _numberX = LINE_NUMBER_PADDING_LEFT + (int) _paint.measureText(String.valueOf(_maxNumber));
-                _gutterX = _numberX + LINE_NUMBER_PADDING_RIGHT;
-                _editor.setPadding(_gutterX + 12, _editor.getPaddingTop(), _editor.getPaddingRight(), _editor.getPaddingBottom());
-            }
-
-            int i = _startLine[0], number = _startLine[1];
-            // If current visible area is out of current line numbers area,
-            // iterate from the first line to recalculate the start line
-            if (isOutOfLineNumbersArea()) {
-                i = 0;
-                number = 1;
-                _startLine[0] = -1;
-            }
-
-            // Draw border of the gutter
-            canvas.drawLine(_gutterX, _lineNumbersArea.top, _gutterX, _lineNumbersArea.bottom, _paint);
-
-            // Draw line numbers
-            final int count = layout.getLineCount();
-            final int offsetY = _editor.getPaddingTop();
-            for (; i < count; i++) {
-                int start;
-                try {
-                    start = layout.getLineStart(i);
-                } catch (IndexOutOfBoundsException ex) {
-                    break; // Even though the drawing is against count, might throw IndexOutOfBounds during drawing
-                }
-                if (start == 0 || text.charAt(start - 1) == '\n') {
-                    final int y = layout.getLineBaseline(i);
-                    if (y > _lineNumbersArea.bottom) {
-                        break;
-                    }
-                    if (y > _lineNumbersArea.top) {
-                        if (_startLine[0] < 0) {
-                            _startLine[0] = i;
-                            _startLine[1] = number;
-                        }
-                        canvas.drawText(String.valueOf(number), _numberX, y + offsetY, _paint);
-                    }
-                    number++;
-                }
-            }
-        }
-
-        /**
-         * Reset to the state without line numbers.
-         */
-        public void reset() {
-            _editor.setPadding(_defaultPaddingLeft, _editor.getPaddingTop(), _editor.getPaddingRight(), _editor.getPaddingBottom());
-            _maxNumberDigits = 0;
-        }
     }
 }
