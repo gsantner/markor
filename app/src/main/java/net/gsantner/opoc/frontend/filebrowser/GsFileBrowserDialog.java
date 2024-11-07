@@ -173,7 +173,6 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
 
         _filesystemViewerAdapter = new GsFileBrowserListAdapter(_dopt, activity);
         _recyclerList.setAdapter(_filesystemViewerAdapter);
-        _filesystemViewerAdapter.getFilter().filter("");
         onFsViewerDoUiUpdate(_filesystemViewerAdapter);
 
         // Setup callbacks

@@ -597,7 +597,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             return;
         }
 
-        if (getFilePosition(file) < 0) {
+        if (_adapterDataFiltered.contains(file)) {
             final File dir = file.getParentFile();
             if (dir != null) {
                 loadFolder(dir, file);
@@ -623,7 +623,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
      * @param file File to blink
      */
     public boolean scrollToAndFlash(final File file) {
-        final int pos = getFilePosition(file);
+        final int pos = _adapterDataFiltered.indexOf(file);
         if (pos >= 0 && _layoutManager != null) {
             _layoutManager.scrollToPosition(pos);
             _recyclerView.post(() ->
@@ -636,19 +636,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             return true;
         }
         return false;
-    }
-
-    // Get the position of a file in the current view
-    // -1 if file is not a child of the current directory
-    public int getFilePosition(final File file) {
-        if (file != null) {
-            for (int i = 0; i < _adapterDataFiltered.size(); i++) {
-                if (_adapterDataFiltered.get(i).equals(file)) {
-                    return i;
-                }
-            }
-        }
-        return -1;
     }
 
     private static final ExecutorService executorService = new ThreadPoolExecutor(0, 3, 60, TimeUnit.SECONDS, new SynchronousQueue<>());
@@ -751,12 +738,16 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         }
 
         if (folderChanged || modSumChanged || !newData.equals(_adapterData)) {
+            final ArrayList<File> filteredData = new ArrayList<>();
+            _filter._filter(newData, filteredData);
+
             _recyclerView.post(() -> {
                 // Modify all these values in the UI thread
                 _adapterData.clear();
                 _adapterData.addAll(newData);
+                _adapterDataFiltered.clear();
+                _adapterDataFiltered.addAll(filteredData);
                 _currentSelection.retainAll(_adapterData);
-                _filter.filter(_filter._lastFilter);
                 _currentFolder = folder;
                 _prevModSum = modSum;
 
@@ -775,7 +766,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
                         _recyclerView.post(() -> scrollToAndFlash(toShow));
                     });
-                } else if (toShow != null && _adapterDataFiltered.contains(toShow)) {
+                } else {
                     _recyclerView.post(() -> scrollToAndFlash(toShow));
                 }
 
@@ -783,7 +774,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                     _dopt.listener.onFsViewerDoUiUpdate(GsFileBrowserListAdapter.this);
                 }
             });
-        } else if (toShow != null && _adapterDataFiltered.contains(toShow)) {
+        } else {
             _recyclerView.post(() -> scrollToAndFlash(toShow));
         }
     }
@@ -828,7 +819,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         private final GsFileBrowserListAdapter _adapter;
         private final List<File> _originalList;
         private final List<File> _filteredList;
-        public CharSequence _lastFilter = "";
+        public String _lastFilter = "";
 
         private StringFilter(GsFileBrowserListAdapter adapter, List<File> adapterData) {
             super();
@@ -840,23 +831,26 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             final FilterResults results = new FilterResults();
-            constraint = constraint.toString().toLowerCase(Locale.getDefault()).trim();
-            _filteredList.clear();
 
-            if (constraint.length() == 0) {
-                _filteredList.addAll(_originalList);
-            } else {
-                for (File file : _originalList) {
-                    if (file.getName().toLowerCase(Locale.getDefault()).contains(constraint)) {
-                        _filteredList.add(file);
-                    }
-                }
-            }
+            _lastFilter = constraint.toString().toLowerCase().trim();
+            _filter(_originalList, _filteredList);
 
-            _lastFilter = constraint;
             results.values = _filteredList;
             results.count = _filteredList.size();
             return results;
+        }
+
+        public void _filter(final List<File> all, final List<File> filtered) {
+            filtered.clear();
+            if (_lastFilter.isEmpty()) {
+                filtered.addAll(all);
+            } else {
+                for (final File file : all) {
+                    if (file.getName().toLowerCase().contains(_lastFilter)) {
+                        filtered.add(file);
+                    }
+                }
+            }
         }
 
         @Override
