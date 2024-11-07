@@ -67,7 +67,7 @@ public class LineNumbersTextView extends AppCompatTextView {
 
         private final Paint paint = new Paint();
 
-        private static final int NUMBER_PADDING_LEFT = 18;
+        private static final int NUMBER_PADDING_LEFT = 16;
         private static final int NUMBER_PADDING_RIGHT = 14;
         private static final int PADDING_LEFT_NUMBERS_ENABLED = 10;
         private final int paddingLeft;
