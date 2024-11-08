@@ -88,7 +88,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     private File _fileToShowAfterNextLoad;
     private File _currentFolder;
     private final Context _context;
-    private StringFilter _filter;
+    private final StringFilter _filter;
     private RecyclerView _recyclerView;
     private LinearLayoutManager _layoutManager;
     private final Map<File, File> _virtualMapping;
@@ -138,6 +138,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         _virtualMapping = Collections.unmodifiableMap(getVirtualFolders());
         _reverseVirtualMapping = Collections.unmodifiableMap(GsCollectionUtils.reverse(_virtualMapping));
         loadFolder(_dopt.startFolder != null ? _dopt.startFolder : _dopt.rootFolder, null);
+        _filter = new StringFilter(this);
     }
 
     public Map<File, File> getVirtualFolders() {
@@ -364,9 +365,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
     @Override
     public Filter getFilter() {
-        if (_filter == null) {
-            _filter = new StringFilter(this, _adapterData);
-        }
         return _filter;
     }
 
@@ -817,14 +815,12 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     //########################
     private static class StringFilter extends Filter {
         private final GsFileBrowserListAdapter _adapter;
-        private final List<File> _originalList;
         private final List<File> _filteredList;
         public String _lastFilter = "";
 
-        private StringFilter(GsFileBrowserListAdapter adapter, List<File> adapterData) {
+        private StringFilter(final GsFileBrowserListAdapter adapter) {
             super();
             _adapter = adapter;
-            _originalList = adapterData;
             _filteredList = new ArrayList<>();
         }
 
@@ -833,7 +829,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             final FilterResults results = new FilterResults();
 
             _lastFilter = constraint.toString().toLowerCase().trim();
-            _filter(_originalList, _filteredList);
+            _filter(_adapter._adapterData, _filteredList);
 
             results.values = _filteredList;
             results.count = _filteredList.size();
