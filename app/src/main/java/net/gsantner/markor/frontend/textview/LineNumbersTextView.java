@@ -69,8 +69,8 @@ public class LineNumbersTextView extends AppCompatTextView {
 
         private static final int NUMBER_PADDING_LEFT = 16;
         private static final int NUMBER_PADDING_RIGHT = 14;
-        private static final int PADDING_LEFT_NUMBERS_ENABLED = 10;
-        private final int paddingLeft;
+        private static final int EDITOR_PADDING_LEFT = 8;
+        private final int ORIGINAL_PADDING_LEFT;
 
         private final Rect visibleArea = new Rect();
         private final Rect lineNumbersArea = new Rect();
@@ -107,7 +107,7 @@ public class LineNumbersTextView extends AppCompatTextView {
         public LineNumbersDrawer(final EditText editText, final LineNumbersTextView textView) {
             this.editText = editText;
             this.textView = textView;
-            this.paddingLeft = editText.getPaddingLeft();
+            ORIGINAL_PADDING_LEFT = editText.getPaddingLeft();
             paint.setColor(0xFF999999);
             paint.setTextAlign(Paint.Align.RIGHT);
         }
@@ -213,7 +213,7 @@ public class LineNumbersTextView extends AppCompatTextView {
         public void prepare() {
             lineTracking(true);
             textView.setVisibility(VISIBLE);
-            editText.setPadding(PADDING_LEFT_NUMBERS_ENABLED, editText.getPaddingTop(), editText.getPaddingRight(), editText.getPaddingBottom());
+            editText.setPadding(EDITOR_PADDING_LEFT, editText.getPaddingTop(), editText.getPaddingRight(), editText.getPaddingBottom());
         }
 
         /**
@@ -296,7 +296,7 @@ public class LineNumbersTextView extends AppCompatTextView {
             maxNumberDigits = 0;
             textView.setWidth(0);
             textView.setVisibility(GONE);
-            editText.setPadding(paddingLeft, editText.getPaddingTop(), editText.getPaddingRight(), editText.getPaddingBottom());
+            editText.setPadding(ORIGINAL_PADDING_LEFT, editText.getPaddingTop(), editText.getPaddingRight(), editText.getPaddingBottom());
         }
     }
 }
