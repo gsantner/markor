@@ -595,7 +595,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             return;
         }
 
-        if (_adapterDataFiltered.contains(file)) {
+        if (!_adapterDataFiltered.contains(file)) {
             final File dir = file.getParentFile();
             if (dir != null) {
                 loadFolder(dir, file);
