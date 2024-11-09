@@ -152,7 +152,9 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         }
 
         for (final File file : ContextCompat.getExternalFilesDirs(_context, null)) {
-            //noinspection DataFlowIssue
+            if (file == null || file.getParentFile() == null) {
+                continue;
+            }
             final File remap = new File(VIRTUAL_STORAGE_ROOT, "AppData (" + file.getParentFile().toString().replace("/", "-").substring(1) + ")");
             map.put(remap, file);
         }
@@ -615,6 +617,12 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         });
     }
 
+    private void postScrollToAndFlash(final File file) {
+        if (_recyclerView != null && file != null) {
+            _recyclerView.post(() -> scrollToAndFlash(file));
+        }
+    }
+
     /**
      * Scroll to a file in current folder and flash
      *
@@ -675,6 +683,11 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
     // This function is not called on the main thread, so post to the UI thread
     private synchronized void _loadFolder(final @NonNull File folder, final @Nullable File toShow) {
+
+        if (_recyclerView == null) {
+            return;
+        }
+
         final boolean folderChanged = !folder.equals(_currentFolder);
         final List<File> newData = new ArrayList<>();
 
@@ -695,7 +708,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         } else if (folder.equals(VIRTUAL_STORAGE_EMULATED)) {
             newData.add(new File(folder, "0"));
         }
-
 
         if (folder.equals(VIRTUAL_STORAGE_RECENTS)) {
             newData.addAll(_dopt.recentFiles);
@@ -762,10 +774,10 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                             _layoutManager.onRestoreInstanceState(_folderScrollMap.remove(_currentFolder));
                         }
 
-                        _recyclerView.post(() -> scrollToAndFlash(toShow));
+                        postScrollToAndFlash(toShow);
                     });
                 } else {
-                    _recyclerView.post(() -> scrollToAndFlash(toShow));
+                    postScrollToAndFlash(toShow);
                 }
 
                 if (_dopt.listener != null) {
@@ -773,7 +785,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                 }
             });
         } else {
-            _recyclerView.post(() -> scrollToAndFlash(toShow));
+            postScrollToAndFlash(toShow);
         }
     }
 

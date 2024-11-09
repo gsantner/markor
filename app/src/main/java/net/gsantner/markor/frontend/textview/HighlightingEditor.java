@@ -169,7 +169,7 @@ public class HighlightingEditor extends AppCompatEditText {
     private void updateHighlighting() {
         if (runHighlight(false)) {
             // Do not batch as we do not want to reflow
-           _hl.clearDynamic().applyDynamic(hlRegion());
+            _hl.clearDynamic().applyDynamic(hlRegion());
             _oldHlRect.set(_hlRect);
         }
     }
@@ -704,7 +704,12 @@ public class HighlightingEditor extends AppCompatEditText {
             final int count = layout.getLineCount();
             final int offsetY = _editor.getPaddingTop();
             for (; i < count; i++) {
-                final int start = layout.getLineStart(i);
+                int start;
+                try {
+                    start = layout.getLineStart(i);
+                } catch (IndexOutOfBoundsException ex) {
+                    break; // Even though the drawing is against count, might throw IndexOutOfBounds during drawing
+                }
                 if (start == 0 || text.charAt(start - 1) == '\n') {
                     final int y = layout.getLineBaseline(i);
                     if (y > _lineNumbersArea.bottom) {
