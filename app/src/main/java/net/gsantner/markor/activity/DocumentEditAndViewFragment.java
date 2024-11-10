@@ -107,7 +107,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     private MenuItem _saveMenuItem, _undoMenuItem, _redoMenuItem;
     private boolean _isPreviewVisible;
     private boolean _nextConvertToPrintMode = false;
-    private long _lineNumbersRefreshTime; // Line numbers refresh time on scroll changed
 
 
     public DocumentEditAndViewFragment() {
@@ -141,19 +140,8 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _textActionsBar = view.findViewById(R.id.document__fragment__edit__text_actions_bar);
         _webView = view.findViewById(R.id.document__fragment_view_webview);
         _primaryScrollView = view.findViewById(R.id.document__fragment__edit__content_editor__scrolling_parent);
-        _primaryScrollView.getViewTreeObserver().addOnScrollChangedListener(() ->
-        {
-            if (_lineNumbersView.isLineNumbersEnabled()) {
-                final long time = System.currentTimeMillis();
-                if (time - _lineNumbersRefreshTime > 125) {
-                    _lineNumbersRefreshTime = time;
-                    _lineNumbersView.forceRefresh();
-                }
-            }
-        });
         _lineNumbersView = view.findViewById(R.id.document__fragment__edit__line_numbers_view);
-        _lineNumbersView.setEditText(_hlEditor);
-        _lineNumbersView.setLineNumbersEnabled(_appSettings.getDocumentLineNumbersEnabled(_document.path));
+
         _cu = new MarkorContextUtils(activity);
 
         // Using `if (_document != null)` everywhere is dangerous
@@ -267,6 +255,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 }
             });
         }
+
+        _lineNumbersView.setup(_hlEditor, _primaryScrollView);
+        _lineNumbersView.setLineNumbersEnabled(_appSettings.getDocumentLineNumbersEnabled(_document.path));
     }
 
     @Override

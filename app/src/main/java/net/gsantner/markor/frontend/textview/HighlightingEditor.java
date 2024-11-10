@@ -57,7 +57,6 @@ public class HighlightingEditor extends AppCompatEditText {
     private boolean _isDynamicHighlightingEnabled = true;
     private Runnable _hlDebounced;        // Debounced runnable which recomputes highlighting
     private boolean _hlEnabled;           // Whether highlighting is enabled
-    private boolean _numEnabled;          // Whether show line numbers is enabled
     private final Rect _oldHlRect;        // Rect highlighting was previously applied to
     private final Rect _hlRect;           // Current rect
     private int _hlShiftThreshold = -1;   // How much to scroll before re-apply highlight
@@ -81,7 +80,6 @@ public class HighlightingEditor extends AppCompatEditText {
         }
 
         _hlEnabled = false;
-        _numEnabled = false;
         _oldHlRect = new Rect();
         _hlRect = new Rect();
 
@@ -194,9 +192,7 @@ public class HighlightingEditor extends AppCompatEditText {
         recomputeHighlighting();
     }
 
-    public boolean isDynamicHighlightingEnabled() {
-        return _isDynamicHighlightingEnabled;
-    }
+    // public boolean isDynamicHighlightingEnabled() { return _isDynamicHighlightingEnabled; }
 
     public void setHighlighter(final SyntaxHighlighterBase newHighlighter) {
         if (_hl != null) {
