@@ -155,6 +155,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             return;
         }
 
+        _lineNumbersView.setup(_hlEditor, _primaryScrollView);
+        _lineNumbersView.setLineNumbersEnabled(_appSettings.getDocumentLineNumbersEnabled(_document.path));
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && _appSettings.getSetWebViewFulldrawing()) {
             WebView.enableSlowWholeDocumentDraw();
         }
@@ -255,9 +258,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 }
             });
         }
-
-        _lineNumbersView.setup(_hlEditor, _primaryScrollView);
-        _lineNumbersView.setLineNumbersEnabled(_appSettings.getDocumentLineNumbersEnabled(_document.path));
     }
 
     @Override
