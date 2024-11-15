@@ -375,7 +375,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             }
 
             // Put the shared text in the right place
-            parts.add(1, shared);
+            parts.add(parts.isEmpty() ? 0 : 1, shared);
 
             return TextUtils.join("", parts);
         }
