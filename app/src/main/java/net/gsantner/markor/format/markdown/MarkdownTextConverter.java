@@ -345,6 +345,9 @@ public class MarkdownTextConverter extends TextConverterBase {
             onLoadJs += "enableLineNumbers(); adjustLineNumbers();";
         }
 
+        // For scroll sync
+        head += JS_PREFIX + "scroll-sync/scroll-sync.js" + JS_POSTFIX;
+
         // Deliver result
         return putContentIntoTemplate(context, converted, lightMode, file, onLoadJs, head);
     }
@@ -386,7 +389,7 @@ public class MarkdownTextConverter extends TextConverterBase {
         sb.append(CSS_PREFIX + "prism/plugins/toolbar/prism-toolbar.css" + CSS_POSTFIX);
 
         sb.append(JS_PREFIX + "prism/prism.js" + JS_POSTFIX);
-        sb.append(JS_PREFIX + "prism/main.js" + JS_POSTFIX);
+        sb.append(JS_PREFIX + "prism/util.js" + JS_POSTFIX);
         sb.append(JS_PREFIX + "prism/plugins/autoloader/prism-autoloader.min.js" + JS_POSTFIX);
         sb.append(JS_PREFIX + "prism/plugins/toolbar/prism-toolbar.min.js" + JS_POSTFIX);
         sb.append(JS_PREFIX + "prism/plugins/copy-to-clipboard/prism-copy-to-clipboard.js" + JS_POSTFIX);
@@ -394,7 +397,7 @@ public class MarkdownTextConverter extends TextConverterBase {
         if (isLineNumbersEnabled) {
             sb.append(CSS_PREFIX + "prism/plugins/line-numbers/style.css" + CSS_POSTFIX);
             sb.append(JS_PREFIX + "prism/plugins/line-numbers/prism-line-numbers.min.js" + JS_POSTFIX);
-            sb.append(JS_PREFIX + "prism/plugins/line-numbers/main.js" + JS_POSTFIX);
+            sb.append(JS_PREFIX + "prism/plugins/line-numbers/util.js" + JS_POSTFIX);
         }
 
         return sb.toString();
@@ -457,8 +460,8 @@ public class MarkdownTextConverter extends TextConverterBase {
         @Override
         public void setAttributes(Node node, AttributablePart part, Attributes attributes) {
             final Document document = node.getDocument();
-            final int lineNumber = document.getLineNumber(node.getStartOffset());
-            attributes.addValue("line", "" + lineNumber);
+            final int lineNumber = document.getLineNumber(node.getStartOffset()) + 1;
+            attributes.addValue("data-line", "" + lineNumber);
         }
     }
 
