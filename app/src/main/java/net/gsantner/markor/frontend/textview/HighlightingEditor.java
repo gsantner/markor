@@ -18,10 +18,12 @@ import android.text.InputFilter;
 import android.text.Layout;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.accessibility.AccessibilityEvent;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -37,6 +39,7 @@ import net.gsantner.markor.util.TextCasingUtils;
 
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -121,7 +124,13 @@ public class HighlightingEditor extends AppCompatEditText {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
+        try {
+            super.onDraw(canvas);
+        } catch (Exception e) {
+            // Hinder drawing from crashing the app
+            Log.e(getClass().getName(), "HighlightingEdtior onDraw->super.onDraw crash" + e);
+            Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
+        }
 
         if (_numEnabled) {
             _lineNumbersDrawer.draw(canvas);
@@ -162,7 +171,7 @@ public class HighlightingEditor extends AppCompatEditText {
     private void updateHighlighting() {
         if (runHighlight(false)) {
             // Do not batch as we do not want to reflow
-           _hl.clearDynamic().applyDynamic(hlRegion());
+            _hl.clearDynamic().applyDynamic(hlRegion());
             _oldHlRect.set(_hlRect);
         }
     }
@@ -181,7 +190,10 @@ public class HighlightingEditor extends AppCompatEditText {
      */
     private void recomputeHighlightingAsync() {
         if (runHighlight(true)) {
-            executor.execute(this::_recomputeHighlightingWorker);
+            try {
+                executor.execute(this::_recomputeHighlightingWorker);
+            } catch (RejectedExecutionException ignored) {
+            }
         }
     }
 
@@ -289,14 +301,12 @@ public class HighlightingEditor extends AppCompatEditText {
 
     private int rowStart(final int y) {
         final Layout layout = getLayout();
-        final int line = layout.getLineForVertical(y);
-        return layout.getLineStart(line);
+        return layout == null ? 0 : layout.getLineStart(layout.getLineForVertical(y));
     }
 
     private int rowEnd(final int y) {
         final Layout layout = getLayout();
-        final int line = layout.getLineForVertical(y);
-        return layout.getLineEnd(line);
+        return layout == null ? 0 : layout.getLineEnd(layout.getLineForVertical(y));
     }
 
     // Text-Casing
@@ -398,7 +408,12 @@ public class HighlightingEditor extends AppCompatEditText {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && id == android.R.id.paste) {
             id = android.R.id.pasteAsPlainText;
         }
-        return super.onTextContextMenuItem(id);
+        try {
+            // i.e. DeadSystemRuntimeException can happen here
+            return super.onTextContextMenuItem(id);
+        } catch (Exception ignored) {
+            return true;
+        }
     }
 
     // Accessibility code is blocked during rapid update events
@@ -692,7 +707,12 @@ public class HighlightingEditor extends AppCompatEditText {
             final int count = layout.getLineCount();
             final int offsetY = _editor.getPaddingTop();
             for (; i < count; i++) {
-                final int start = layout.getLineStart(i);
+                int start;
+                try {
+                    start = layout.getLineStart(i);
+                } catch (IndexOutOfBoundsException ex) {
+                    break; // Even though the drawing is against count, might throw IndexOutOfBounds during drawing
+                }
                 if (start == 0 || text.charAt(start - 1) == '\n') {
                     final int y = layout.getLineBaseline(i);
                     if (y > _lineNumbersArea.bottom) {
