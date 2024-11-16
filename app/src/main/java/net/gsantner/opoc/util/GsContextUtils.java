@@ -1861,7 +1861,7 @@ public class GsContextUtils {
                 if (resultCode == Activity.RESULT_OK && intent != null && intent.getData() != null) {
                     final Uri uri = intent.getData();
                     final String uriPath = uri.getPath();
-                    final String ext = uriPath.substring(uriPath.lastIndexOf("."));
+                    final String ext = uriPath == null || !uriPath.contains(".") ? "" : uriPath.substring(uriPath.lastIndexOf("."));
                     final String datestr = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss", Locale.ENGLISH).format(new Date());
                     final File temp = new File(context.getCacheDir(), datestr + ext);
                     GsFileUtils.copyUriToFile(context, uri, temp);
@@ -2743,12 +2743,12 @@ public class GsContextUtils {
     }
 
     public static void windowAspectRatio(
-        final Window window,
-        final DisplayMetrics displayMetrics,
-        float portraitWidthRatio,
-        float portraitHeightRatio,
-        float landscapeWidthRatio,
-        float landscapeHeightRatio
+            final Window window,
+            final DisplayMetrics displayMetrics,
+            float portraitWidthRatio,
+            float portraitHeightRatio,
+            float landscapeWidthRatio,
+            float landscapeHeightRatio
     ) {
         if (window == null) {
             return;

@@ -151,7 +151,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         }
 
         for (final File file : ContextCompat.getExternalFilesDirs(_context, null)) {
-            if (file == null || file.getParentFile() == null) {
+            if (file == null || (file != null && file.getParentFile() == null)) {
                 continue;
             }
             final File remap = new File(VIRTUAL_STORAGE_ROOT, "AppData (" + file.getParentFile().toString().replace("/", "-").substring(1) + ")");

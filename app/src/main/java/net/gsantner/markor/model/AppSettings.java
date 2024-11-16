@@ -869,7 +869,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     public boolean isHighlightBiggerHeadings() {
-        return getBool(R.string.pref_key__editor_markdown_bigger_headings_2, false);
+        return getBool(R.string.pref_key__editor_markdown_bigger_headings_3, false);
     }
 
     public String getViewModeLinkColor() {
