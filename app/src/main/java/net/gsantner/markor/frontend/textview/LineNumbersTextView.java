@@ -11,27 +11,15 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.EditText;
-import android.widget.ScrollView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
 
 @SuppressWarnings("UnusedReturnValue")
 public class LineNumbersTextView extends AppCompatTextView {
+    private EditText editText;
     private LineNumbersDrawer lineNumbersDrawer;
     private boolean lineNumbersEnabled;
-    private ScrollView scrollView;
-    private final ViewTreeObserver.OnScrollChangedListener onScrollChangedListener = new ViewTreeObserver.OnScrollChangedListener() {
-        private long lastTime;
-
-        @Override
-        public void onScrollChanged() {
-            final long time = System.currentTimeMillis();
-            if (time - lastTime > 125) {
-                lastTime = time;
-                refresh();
-            }
-        }
-    };
 
     public LineNumbersTextView(Context context) {
         super(context);
@@ -68,23 +56,27 @@ public class LineNumbersTextView extends AppCompatTextView {
         }
     }
 
-    public void setup(final EditText editText, ScrollView scrollView) {
-        this.scrollView = scrollView;
-        lineNumbersDrawer = new LineNumbersDrawer(editText, this);
+    public void setup(final @NonNull EditText editText) {
+        if (lineNumbersEnabled) {
+            setLineNumbersEnabled(false);
+        }
+        this.editText = editText;
+        this.lineNumbersDrawer = null;
     }
 
     public void setLineNumbersEnabled(final boolean enabled) {
         lineNumbersEnabled = enabled;
-        if (lineNumbersEnabled) {
+
+        if (enabled) {
+            if (lineNumbersDrawer == null) {
+                lineNumbersDrawer = new LineNumbersDrawer(editText, this);
+            }
             lineNumbersDrawer.prepare();
-            if (scrollView != null) {
-                scrollView.getViewTreeObserver().addOnScrollChangedListener(onScrollChangedListener);
-            }
         } else {
-            lineNumbersDrawer.done();
-            if (scrollView != null) {
-                scrollView.getViewTreeObserver().removeOnScrollChangedListener(onScrollChangedListener);
+            if (lineNumbersDrawer == null) {
+                return;
             }
+            lineNumbersDrawer.done();
         }
         refresh();
     }
@@ -136,7 +128,20 @@ public class LineNumbersTextView extends AppCompatTextView {
             }
         };
 
-        public LineNumbersDrawer(final EditText editText, final LineNumbersTextView textView) {
+        private final ViewTreeObserver.OnScrollChangedListener onScrollChangedListener = new ViewTreeObserver.OnScrollChangedListener() {
+            private long lastTime;
+
+            @Override
+            public void onScrollChanged() {
+                final long time = System.currentTimeMillis();
+                if (time - lastTime > 125) {
+                    lastTime = time;
+                    textView.refresh();
+                }
+            }
+        };
+
+        public LineNumbersDrawer(final @NonNull EditText editText, final @NonNull LineNumbersTextView textView) {
             this.editText = editText;
             this.textView = textView;
             ORIGINAL_PADDING_LEFT = editText.getPaddingLeft();
@@ -243,11 +248,20 @@ public class LineNumbersTextView extends AppCompatTextView {
             }
         }
 
+        private void setRefreshOnScrollChanged(final boolean enabled) {
+            if (enabled) {
+                editText.getViewTreeObserver().addOnScrollChangedListener(onScrollChangedListener);
+            } else {
+                editText.getViewTreeObserver().removeOnScrollChangedListener(onScrollChangedListener);
+            }
+        }
+
         /**
          * Prepare for drawing line numbers.
          */
         public void prepare() {
             setLineTracking(true);
+            setRefreshOnScrollChanged(true);
             textView.setVisibility(VISIBLE);
             editText.setPadding(EDITOR_PADDING_LEFT, editText.getPaddingTop(), editText.getPaddingRight(), editText.getPaddingBottom());
         }
@@ -329,6 +343,7 @@ public class LineNumbersTextView extends AppCompatTextView {
          */
         public void done() {
             setLineTracking(false);
+            setRefreshOnScrollChanged(false);
             maxNumberDigits = 0;
             textView.setWidth(0);
             textView.setVisibility(GONE);
