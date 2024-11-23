@@ -56,6 +56,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -687,7 +688,10 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         final File toShow = show == null ? _fileToShowAfterNextLoad : show;
         _fileToShowAfterNextLoad = null;
 
-        executorService.execute(() -> _loadFolder(toLoad, toShow));
+        try {
+            executorService.execute(() -> _loadFolder(toLoad, toShow));
+        } catch (RejectedExecutionException ignored) { // during exit
+        }
     }
 
     // This function is not called on the main thread, so post to the UI thread

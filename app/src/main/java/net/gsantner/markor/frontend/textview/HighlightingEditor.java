@@ -119,7 +119,11 @@ public class HighlightingEditor extends AppCompatEditText {
     @Override
     public boolean onPreDraw() {
         _lineNumbersDrawer.setTextSize(getTextSize());
-        return super.onPreDraw();
+        try {
+            return super.onPreDraw();
+        } catch (OutOfMemoryError ignored) {
+            return false; // return false to cancel current drawing pass/round
+        }
     }
 
     @Override

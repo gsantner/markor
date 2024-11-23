@@ -62,9 +62,9 @@ import java.util.regex.Pattern;
  * Spans are further divided into two categories: dynamic and static.
  * - Dynamic spans are updated as one scrolls, as described above
  * - Static spans are applied once and never updated. These are typically used for
- *   spans which affect the text layout.
- *   - For example, a span which makes text bigger.
- *   - Updating these dynamically would make the text jump around as one scrolls
+ * spans which affect the text layout.
+ * - For example, a span which makes text bigger.
+ * - Updating these dynamically would make the text jump around as one scrolls
  * <p>
  * Fixup:
  * - As the user types we shift all spans to accomodate the changed text.
@@ -75,19 +75,19 @@ import java.util.regex.Pattern;
  * - Derived classes should override generateSpans() to generate all spans
  * - New spans are added by calling addSpanGroup()
  * - The HighlightingEditor will trigger the generation of spans when the text changes.
- *   - This is debounced so that changes are batched
- *   - Span generation is done on a background thread
+ * - This is debounced so that changes are batched
+ * - Span generation is done on a background thread
  * <p>
  * Other performance tips:
  * - Performance is heavily dependent on the number of spans applied to the text.
  * - Combine related spans into a single span if possible
- *   - HighlightSpan is a helper class which can be used to create a span with multiple attributes
- *   - For example, a span which makes text bold and italic
+ * - HighlightSpan is a helper class which can be used to create a span with multiple attributes
+ * - For example, a span which makes text bold and italic
  * - Absolutely minimize the number of spans implementing `UpdateLayout`
- *   - These spans trigger a text layout update when changed in any way
- *   - Instead consider using a span implementing `StaticSpan`
- *     - If StaticSpans are present, the text is reflowed after applying them
- *     - This happens once, and not for each span, which is much more efficient
+ * - These spans trigger a text layout update when changed in any way
+ * - Instead consider using a span implementing `StaticSpan`
+ * - If StaticSpans are present, the text is reflowed after applying them
+ * - This happens once, and not for each span, which is much more efficient
  */
 public abstract class SyntaxHighlighterBase {
 
@@ -230,7 +230,7 @@ public abstract class SyntaxHighlighterBase {
         boolean hasStatic = false;
         for (int i = _groups.size() - 1; i >= 0; i--) {
             final SpanGroup group = _groups.get(i);
-            if (group.isStatic) {
+            if (group != null && group.isStatic) {
                 hasStatic = true;
                 _spannable.removeSpan(group.span);
             }
@@ -348,7 +348,7 @@ public abstract class SyntaxHighlighterBase {
             for (int i = 0; i < _groups.size(); i++) {
                 final SpanGroup group = _groups.get(i);
 
-                if (group.isStatic) {
+                if (group == null || group.isStatic) {
                     continue;
                 }
 
@@ -366,7 +366,6 @@ public abstract class SyntaxHighlighterBase {
         }
         return this;
     }
-
 
 
     public SyntaxHighlighterBase applyStatic() {
