@@ -16,6 +16,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 
@@ -95,8 +96,8 @@ public class DocumentActivity extends MarkorBaseActivity {
             intent = new Intent(activity, DocumentActivity.class);
 
             if (!(activity instanceof DocumentActivity) &&
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
-                as.isMultiWindowEnabled()
+                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
+                    as.isMultiWindowEnabled()
             ) {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
             }
@@ -254,7 +255,8 @@ public class DocumentActivity extends MarkorBaseActivity {
         }
         try {
             return super.dispatchTouchEvent(event);
-        } catch (IndexOutOfBoundsException ignored) {
+        } catch (Exception e) {
+            Log.e(getClass().getName(), "Error in super.dispatchTouchEvent: " + e);
             return false;
         }
     }

@@ -297,7 +297,7 @@ public abstract class ActionButtonBase {
     @SuppressLint("ClickableViewAccessibility")
     private void setupRepeat(final View btn) {
         // Velocity and acceleration parameters
-        final int INITIAL_DELAY = 400, DELTA_DELAY = 50, MIN_DELAY = 100;
+        final int INITIAL_DELAY = 300, DELTA_DELAY = 100, MIN_DELAY = 100;
         final Handler handler = new Handler();
 
         final Runnable repeater = new Runnable() {
