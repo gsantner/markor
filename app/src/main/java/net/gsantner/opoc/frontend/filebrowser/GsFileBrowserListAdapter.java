@@ -89,7 +89,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     private File _fileToShowAfterNextLoad;
     private File _currentFolder;
     private final Context _context;
-    private StringFilter _filter;
+    private final StringFilter _filter;
     private RecyclerView _recyclerView;
     private LinearLayoutManager _layoutManager;
     private final Map<File, File> _virtualMapping;
@@ -139,6 +139,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         _virtualMapping = Collections.unmodifiableMap(getVirtualFolders());
         _reverseVirtualMapping = Collections.unmodifiableMap(GsCollectionUtils.reverse(_virtualMapping));
         loadFolder(_dopt.startFolder != null ? _dopt.startFolder : _dopt.rootFolder, null);
+        _filter = new StringFilter(this);
     }
 
     public Map<File, File> getVirtualFolders() {
@@ -367,9 +368,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
     @Override
     public Filter getFilter() {
-        if (_filter == null) {
-            _filter = new StringFilter(this, _adapterData);
-        }
         return _filter;
     }
 
@@ -600,7 +598,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             return;
         }
 
-        if (getFilePosition(file) < 0) {
+        if (!_adapterDataFiltered.contains(file)) {
             final File dir = file.getParentFile();
             if (dir != null) {
                 loadFolder(dir, file);
@@ -620,13 +618,19 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         });
     }
 
+    private void postScrollToAndFlash(final File file) {
+        if (_recyclerView != null && file != null) {
+            _recyclerView.post(() -> scrollToAndFlash(file));
+        }
+    }
+
     /**
      * Scroll to a file in current folder and flash
      *
      * @param file File to blink
      */
     public boolean scrollToAndFlash(final File file) {
-        final int pos = getFilePosition(file);
+        final int pos = _adapterDataFiltered.indexOf(file);
         if (pos >= 0 && _layoutManager != null) {
             _layoutManager.scrollToPosition(pos);
             _recyclerView.post(() ->
@@ -639,19 +643,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             return true;
         }
         return false;
-    }
-
-    // Get the position of a file in the current view
-    // -1 if file is not a child of the current directory
-    public int getFilePosition(final File file) {
-        if (file != null) {
-            for (int i = 0; i < _adapterDataFiltered.size(); i++) {
-                if (_adapterDataFiltered.get(i).equals(file)) {
-                    return i;
-                }
-            }
-        }
-        return -1;
     }
 
     private static final ExecutorService executorService = new ThreadPoolExecutor(0, 3, 60, TimeUnit.SECONDS, new SynchronousQueue<>());
@@ -696,6 +687,11 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
     // This function is not called on the main thread, so post to the UI thread
     private synchronized void _loadFolder(final @NonNull File folder, final @Nullable File toShow) {
+
+        if (_recyclerView == null) {
+            return;
+        }
+
         final boolean folderChanged = !folder.equals(_currentFolder);
         final List<File> newData = new ArrayList<>();
 
@@ -716,7 +712,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         } else if (folder.equals(VIRTUAL_STORAGE_EMULATED)) {
             newData.add(new File(folder, "0"));
         }
-
 
         if (folder.equals(VIRTUAL_STORAGE_RECENTS)) {
             newData.addAll(_dopt.recentFiles);
@@ -756,16 +751,17 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             }
         }
 
-        if (_recyclerView == null) {
-            //noinspection UnnecessaryReturnStatement
-            return;
-        } else if (folderChanged || modSumChanged || !newData.equals(_adapterData)) {
+        if (folderChanged || modSumChanged || !newData.equals(_adapterData)) {
+            final ArrayList<File> filteredData = new ArrayList<>();
+            _filter._filter(newData, filteredData);
+
             _recyclerView.post(() -> {
                 // Modify all these values in the UI thread
                 _adapterData.clear();
                 _adapterData.addAll(newData);
+                _adapterDataFiltered.clear();
+                _adapterDataFiltered.addAll(filteredData);
                 _currentSelection.retainAll(_adapterData);
-                _filter.filter(_filter._lastFilter);
                 _currentFolder = folder;
                 _prevModSum = modSum;
 
@@ -782,18 +778,18 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                             _layoutManager.onRestoreInstanceState(_folderScrollMap.remove(_currentFolder));
                         }
 
-                        _recyclerView.post(() -> scrollToAndFlash(toShow));
+                        postScrollToAndFlash(toShow);
                     });
-                } else if (toShow != null && _adapterDataFiltered.contains(toShow)) {
-                    _recyclerView.post(() -> scrollToAndFlash(toShow));
+                } else {
+                    postScrollToAndFlash(toShow);
                 }
 
                 if (_dopt.listener != null) {
                     _dopt.listener.onFsViewerDoUiUpdate(GsFileBrowserListAdapter.this);
                 }
             });
-        } else if (toShow != null && _adapterDataFiltered.contains(toShow)) {
-            _recyclerView.post(() -> scrollToAndFlash(toShow));
+        } else {
+            postScrollToAndFlash(toShow);
         }
     }
 
@@ -835,37 +831,38 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     //########################
     private static class StringFilter extends Filter {
         private final GsFileBrowserListAdapter _adapter;
-        private final List<File> _originalList;
         private final List<File> _filteredList;
-        public CharSequence _lastFilter = "";
+        public String _lastFilter = "";
 
-        private StringFilter(GsFileBrowserListAdapter adapter, List<File> adapterData) {
+        private StringFilter(final GsFileBrowserListAdapter adapter) {
             super();
             _adapter = adapter;
-            _originalList = adapterData;
             _filteredList = new ArrayList<>();
         }
 
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             final FilterResults results = new FilterResults();
-            constraint = constraint.toString().toLowerCase(Locale.getDefault()).trim();
-            _filteredList.clear();
 
-            if (constraint.length() == 0) {
-                _filteredList.addAll(_originalList);
-            } else {
-                for (File file : _originalList) {
-                    if (file.getName().toLowerCase(Locale.getDefault()).contains(constraint)) {
-                        _filteredList.add(file);
-                    }
-                }
-            }
+            _lastFilter = constraint.toString().toLowerCase().trim();
+            _filter(_adapter._adapterData, _filteredList);
 
-            _lastFilter = constraint;
             results.values = _filteredList;
             results.count = _filteredList.size();
             return results;
+        }
+
+        public void _filter(final List<File> all, final List<File> filtered) {
+            filtered.clear();
+            if (_lastFilter.isEmpty()) {
+                filtered.addAll(all);
+            } else {
+                for (final File file : all) {
+                    if (file.getName().toLowerCase().contains(_lastFilter)) {
+                        filtered.add(file);
+                    }
+                }
+            }
         }
 
         @Override
