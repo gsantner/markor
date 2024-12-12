@@ -2935,4 +2935,30 @@ public class GsContextUtils {
 
         return true;
     }
+
+    public static boolean openFolderInFileManager(final Context context, final File folder) {
+        if (!folder.canRead() || !folder.isDirectory()) {
+            return false;
+        }
+
+        final Intent intent = new Intent(Intent.ACTION_VIEW);
+
+        Uri uri = Uri.fromFile(folder);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            uri = Uri.parse(folder.toURI().toString()); // Use the correct URI for Android Nougat and above
+            intent.setDataAndType(uri, "*/*");
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        } else {
+            intent.setDataAndType(uri, "resource/folder");
+        }
+
+        intent.addCategory(Intent.CATEGORY_DEFAULT);
+
+        if (intent.resolveActivity(context.getPackageManager()) != null) {
+            context.startActivity(intent);
+            return true;
+        }
+
+        return false;
+    }
 }
