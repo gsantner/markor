@@ -22,7 +22,6 @@ import net.gsantner.opoc.wrapper.GsCallback;
 import java.io.File;
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -125,7 +124,7 @@ public class GsFileBrowserOptions {
         @ColorRes
         public int folderColor = 0;
 
-        public final Map<File, File> virtualMaps = new LinkedHashMap<>();
+        public final Map<File, File> storageMaps = new LinkedHashMap<>();
         public Collection<File> favouriteFiles, recentFiles, popularFiles = null;
         public GsCallback.a1<CharSequence> setTitle = null, setSubtitle = null;
 
