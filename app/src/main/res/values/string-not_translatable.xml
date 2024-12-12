@@ -180,7 +180,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__editor_disable_spelling_red_underline" translatable="false">pref_key__editor_disable_spelling_red_underline</string>
     <string name="pref_key__highlight_code_monospace_font" translatable="false">pref_key__highlight_code_monospace_font</string>
     <string name="pref_key__highlight_code_block_disabled" translatable="false">pref_key__highlight_code_block_disabled</string>
-    <string name="pref_key__editor_markdown_bigger_headings_2" translatable="false">pref_key__editor_markdown_bigger_headings_2</string>
+    <string name="pref_key__editor_markdown_bigger_headings_3" translatable="false">pref_key__editor_markdown_bigger_headings_3</string>
     <string name="pref_key__editor_unordered_list_character" translatable="false">pref_key__editor_unordered_list_character</string>
     <string name="pref_key__recent_documents" translatable="false">pref_key__recent_documents</string>
     <string name="pref_key__popular_documents" translatable="false">pref_key__popular_documents</string>
@@ -348,6 +348,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="abid_todotxt_due_date" translatable="false">abid_todotxt_due_date</string>
     <string name="abid_todotxt_sort_todo" translatable="false">abid_todotxt_sort_todo</string>
 
+    
+    <string name="abid_orgmode_bold" translatable="false">abid_orgmode_bold</string>
+    <string name="abid_orgmode_italic" translatable="false">abid_orgmode_italic</string>
+    <string name="abid_orgmode_strikeout" translatable="false">abid_orgmode_strikeout</string>
+    <string name="abid_orgmode_underline" translatable="false">abid_orgmode_underline</string>
+    <string name="abid_orgmode_code_inline" translatable="false">abid_orgmode_code_inline</string>
+
 
     <string name="jekyll_post" translatable="false">Jekyll Post</string>
     <string name="wikitext" translatable="false">Wikitext / Zim</string>
@@ -426,4 +433,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="squarebrackets" translatable="false">Square Brackets</string>
     <string name="csv" translatable="false">CSV</string>
     <string name="orgmode" translatable="false">OrgMode</string>
+    <string name="option_select_lines" translatable="false">option_select_lines</string>
 </resources>

@@ -25,8 +25,8 @@ android {
     defaultConfig {
         resValue "string", "manifest_package_id", "net.gsantner.markor"
         applicationId "net.gsantner.markor"
-        versionName "2.12.5"
-        versionCode 154
+        versionName "2.13.1"
+        versionCode 156
 
         multiDexEnabled true
         minSdkVersion rootProject.ext.version_minSdk
@@ -140,7 +140,6 @@ dependencies {
     // UI libs
     implementation 'com.github.Pixplicity:gene-rate:v1.1.8'
     implementation 'com.github.AppIntro:AppIntro:6.2.0'
-    implementation 'com.github.kailash09dabhi:OmRecorder:1.1.5'
     implementation 'com.github.mertakdut:EpubParser:1.0.95'
     implementation 'com.github.martin-stone:hsv-alpha-color-picker-android:3.1.0'
 

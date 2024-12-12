@@ -18,16 +18,22 @@ import android.text.InputFilter;
 import android.text.Layout;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.view.ActionMode;
+import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.accessibility.AccessibilityEvent;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatEditText;
 
 import net.gsantner.markor.ApplicationObject;
+import net.gsantner.markor.R;
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.format.GsTextUtils;
@@ -37,6 +43,7 @@ import net.gsantner.markor.util.TextCasingUtils;
 
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -111,17 +118,30 @@ public class HighlightingEditor extends AppCompatEditText {
 
         // Fix for Android 12 perf issues - https://github.com/gsantner/markor/discussions/1794
         setEmojiCompatEnabled(false);
+
+        // Custom options
+        setupCustomOptions();
     }
 
     @Override
     public boolean onPreDraw() {
         _lineNumbersDrawer.setTextSize(getTextSize());
-        return super.onPreDraw();
+        try {
+            return super.onPreDraw();
+        } catch (OutOfMemoryError ignored) {
+            return false; // return false to cancel current drawing pass/round
+        }
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
+        try {
+            super.onDraw(canvas);
+        } catch (Exception e) {
+            // Hinder drawing from crashing the app
+            Log.e(getClass().getName(), "HighlightingEdtior onDraw->super.onDraw crash" + e);
+            Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
+        }
 
         if (_numEnabled) {
             _lineNumbersDrawer.draw(canvas);
@@ -162,7 +182,7 @@ public class HighlightingEditor extends AppCompatEditText {
     private void updateHighlighting() {
         if (runHighlight(false)) {
             // Do not batch as we do not want to reflow
-           _hl.clearDynamic().applyDynamic(hlRegion());
+            _hl.clearDynamic().applyDynamic(hlRegion());
             _oldHlRect.set(_hlRect);
         }
     }
@@ -181,7 +201,10 @@ public class HighlightingEditor extends AppCompatEditText {
      */
     private void recomputeHighlightingAsync() {
         if (runHighlight(true)) {
-            executor.execute(this::_recomputeHighlightingWorker);
+            try {
+                executor.execute(this::_recomputeHighlightingWorker);
+            } catch (RejectedExecutionException ignored) {
+            }
         }
     }
 
@@ -289,14 +312,12 @@ public class HighlightingEditor extends AppCompatEditText {
 
     private int rowStart(final int y) {
         final Layout layout = getLayout();
-        final int line = layout.getLineForVertical(y);
-        return layout.getLineStart(line);
+        return layout == null ? 0 : layout.getLineStart(layout.getLineForVertical(y));
     }
 
     private int rowEnd(final int y) {
         final Layout layout = getLayout();
-        final int line = layout.getLineForVertical(y);
-        return layout.getLineEnd(line);
+        return layout == null ? 0 : layout.getLineEnd(layout.getLineForVertical(y));
     }
 
     // Text-Casing
@@ -398,7 +419,12 @@ public class HighlightingEditor extends AppCompatEditText {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && id == android.R.id.paste) {
             id = android.R.id.pasteAsPlainText;
         }
-        return super.onTextContextMenuItem(id);
+        try {
+            // i.e. DeadSystemRuntimeException can happen here
+            return super.onTextContextMenuItem(id);
+        } catch (Exception ignored) {
+            return true;
+        }
     }
 
     // Accessibility code is blocked during rapid update events
@@ -502,6 +528,11 @@ public class HighlightingEditor extends AppCompatEditText {
 
     // Utility functions for interaction
     // ---------------------------------------------------------------------------------------------
+
+    public void selectLines() {
+        final int[] sel = TextViewUtils.getLineSelection(this);
+        setSelection(sel[0], sel[1]);
+    }
 
     public void simulateKeyPress(int keyEvent_KEYCODE_SOMETHING) {
         dispatchKeyEvent(new KeyEvent(0, 0, KeyEvent.ACTION_DOWN, keyEvent_KEYCODE_SOMETHING, 0));
@@ -692,7 +723,12 @@ public class HighlightingEditor extends AppCompatEditText {
             final int count = layout.getLineCount();
             final int offsetY = _editor.getPaddingTop();
             for (; i < count; i++) {
-                final int start = layout.getLineStart(i);
+                int start;
+                try {
+                    start = layout.getLineStart(i);
+                } catch (IndexOutOfBoundsException ex) {
+                    break; // Even though the drawing is against count, might throw IndexOutOfBounds during drawing
+                }
                 if (start == 0 || text.charAt(start - 1) == '\n') {
                     final int y = layout.getLineBaseline(i);
                     if (y > _lineNumbersArea.bottom) {
@@ -717,5 +753,38 @@ public class HighlightingEditor extends AppCompatEditText {
             _editor.setPadding(_defaultPaddingLeft, _editor.getPaddingTop(), _editor.getPaddingRight(), _editor.getPaddingBottom());
             _maxNumberDigits = 0;
         }
+    }
+
+    private void setupCustomOptions() {
+        setCustomSelectionActionModeCallback(new ActionMode.Callback() {
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                // Add custom items programmatically
+                menu.add(0, R.string.option_select_lines, 0, "☰");
+                return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                // Modify menu items here if necessary
+                return true;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.string.option_select_lines:
+                        HighlightingEditor.this.selectLines();
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+                // Cleanup if needed
+            }
+        });
     }
 }

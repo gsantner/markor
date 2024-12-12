@@ -17,6 +17,7 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Pair;
 import android.util.Patterns;
 import android.util.TypedValue;
@@ -375,7 +376,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             }
 
             // Put the shared text in the right place
-            parts.add(1, shared);
+            parts.add(parts.isEmpty() ? 0 : 1, shared);
 
             return TextUtils.join("", parts);
         }
@@ -433,7 +434,9 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
 
                 @Override
                 public void onFsViewerSelected(final String request, final File sel, final Integer lineNumber) {
-                    if (sel.isDirectory()) {
+                    if (sel == null) {
+                        Log.e(getClass().getName(), "onFsViewerSelected: selected file is null");
+                    } else if (sel.isDirectory()) {
                         NewFileDialog.newInstance(sel, false, f -> {
                             if (f.isFile()) {
                                 appendToExistingDocumentAndClose(f, true);

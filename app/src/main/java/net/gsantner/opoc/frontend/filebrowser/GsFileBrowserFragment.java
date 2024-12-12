@@ -124,7 +124,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
 
         _filesystemViewerAdapter = new GsFileBrowserListAdapter(_dopt, context);
         _recyclerList.setAdapter(_filesystemViewerAdapter);
-        _filesystemViewerAdapter.getFilter().filter("");
         onFsViewerDoUiUpdate(_filesystemViewerAdapter);
 
         _swipe.setOnRefreshListener(() -> {

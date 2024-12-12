@@ -30,7 +30,12 @@ public class OrgmodeActionButtons extends ActionButtonBase {
                 new ActionItem(R.string.abid_common_deindent, R.drawable.ic_format_indent_decrease_black_24dp, R.string.deindent),
                 new ActionItem(R.string.abid_common_insert_link, R.drawable.ic_link_black_24dp, R.string.insert_link),
                 new ActionItem(R.string.abid_common_insert_image, R.drawable.ic_image_black_24dp, R.string.insert_image),
-                new ActionItem(R.string.abid_common_insert_audio, R.drawable.ic_keyboard_voice_black_24dp, R.string.audio)
+                new ActionItem(R.string.abid_common_insert_audio, R.drawable.ic_keyboard_voice_black_24dp, R.string.audio),
+                new ActionItem(R.string.abid_orgmode_bold, R.drawable.ic_format_bold_black_24dp, R.string.bold),
+                new ActionItem(R.string.abid_orgmode_italic, R.drawable.ic_format_italic_black_24dp, R.string.italic),
+                new ActionItem(R.string.abid_orgmode_strikeout, R.drawable.ic_format_strikethrough_black_24dp, R.string.strikeout),
+                new ActionItem(R.string.abid_orgmode_underline, R.drawable.ic_format_underlined_black_24dp, R.string.underline),
+                new ActionItem(R.string.abid_orgmode_code_inline, R.drawable.ic_code_black_24dp, R.string.inline_code)
         );
     }
 
@@ -44,5 +49,34 @@ public class OrgmodeActionButtons extends ActionButtonBase {
     protected void renumberOrderedList() {
         // Use markdown format for orgmode too
         AutoTextFormatter.renumberOrderedList(_hlEditor.getText(), MarkdownReplacePatternGenerator.formatPatterns);
+    }
+
+    @Override
+    public boolean onActionClick(final @StringRes int action) {
+        switch (action) {
+            case R.string.abid_orgmode_bold: {
+                runSurroundAction("*");
+                return true;
+            }
+            case R.string.abid_orgmode_italic: {
+                runSurroundAction("/");
+                return true;
+            }
+            case R.string.abid_orgmode_strikeout: {
+                runSurroundAction("+");
+                return true;
+            }
+            case R.string.abid_orgmode_underline: {
+                runSurroundAction("_");
+                return true;
+            }
+            case R.string.abid_orgmode_code_inline: {
+                runSurroundAction("=");
+                return true;
+            }
+            default: {
+                return runCommonAction(action);
+            }
+        }
     }
 }
