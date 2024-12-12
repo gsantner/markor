@@ -236,7 +236,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         // Check if is a favourite
         boolean selTextFilesOnly = true;
         boolean selDirectoriesOnly = true;
-        boolean selWritable = (!curFilepath.equals("/storage") && !curFilepath.equals("/storage/emulated"));
+        boolean selWritable = true;
         boolean allSelectedFav = true;
         final Collection<File> favFiles = _dopt.favouriteFiles != null ? _dopt.favouriteFiles : Collections.emptySet();
         for (final File f : selFiles) {
