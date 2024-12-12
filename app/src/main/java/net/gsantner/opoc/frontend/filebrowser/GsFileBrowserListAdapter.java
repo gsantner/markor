@@ -73,7 +73,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     public static final File VIRTUAL_STORAGE_RECENTS = new File(VIRTUAL_STORAGE_ROOT, "Recent");
     public static final File VIRTUAL_STORAGE_FAVOURITE = new File(VIRTUAL_STORAGE_ROOT, "Favourites");
     public static final File VIRTUAL_STORAGE_POPULAR = new File(VIRTUAL_STORAGE_ROOT, "Popular");
-    public static final File VIRTUAL_STORAGE_APP_DATA_PRIVATE = new File(VIRTUAL_STORAGE_ROOT, "appdata-private");
+    public static final File VIRTUAL_STORAGE_APP_DATA_PRIVATE = new File(VIRTUAL_STORAGE_ROOT, "AppData (data partition)");
     private static final File GO_BACK_SIGNIFIER = new File("__GO_BACK__");
     private static final StrikethroughSpan STRIKE_THROUGH_SPAN = new StrikethroughSpan();
     public static final String EXTRA_CURRENT_FOLDER = "EXTRA_CURRENT_FOLDER";
@@ -160,13 +160,11 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         }
 
         for (final File file : ContextCompat.getExternalFilesDirs(_context, null)) {
-            final File remap = new File(VIRTUAL_STORAGE_ROOT, "appdata-public (" + file.getName() + ")");
+            if (file == null || (file != null && file.getParentFile() == null)) {
+                continue;
+            }
+            final File remap = new File(VIRTUAL_STORAGE_ROOT, "AppData (" + file.getParentFile().toString().replace("/", "-").substring(1) + ")");
             _virtualMapping.put(remap, file);
-        }
-
-        for (final Pair<File, String> p : cu.getAppDataPublicDirs(_context, false, true, false)) {
-            final File remap = new File(VIRTUAL_STORAGE_ROOT, "sdcard (" + p.second + ")");
-            _virtualMapping.put(remap, p.first);
         }
 
         final File download = getDownloadFolder();
@@ -598,7 +596,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
         final String trimmed = name.toString().trim();
 
-        if (trimmed.length() == 0) {
+        if (trimmed.isEmpty()) {
             return null;
         }
 
@@ -709,26 +707,27 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         final File toShow = show == null ? _fileToShowAfterNextLoad : show;
         _fileToShowAfterNextLoad = null;
 
+        _currentFolder = folder;
+
         try {
-            executorService.execute(() -> _loadFolder(toLoad, toShow));
+            executorService.execute(() -> _loadFolder(folderChanged, toShow));
         } catch (RejectedExecutionException ignored) { // during exit
         }
     }
 
-    // This function is not called on the main thread, so post to the UI thread
-    private synchronized void _loadFolder(final @NonNull File folder, final @Nullable File toShow) {
+    // This function is not called on the main thread
+    private synchronized void _loadFolder(final boolean folderChanged, final @Nullable File toShow) {
 
-        if (_recyclerView == null) {
+        if (_recyclerView == null || _currentFolder == null) {
             return;
         }
 
-        final boolean folderChanged = !folder.equals(_currentFolder);
         final List<File> newData = new ArrayList<>();
 
         // Make sure /storage/emulated/0 is browsable, even though filesystem says it's not accessible
-        if (folder.equals(new File("/"))) {
+        if (_currentFolder.equals(new File("/"))) {
             newData.add(VIRTUAL_STORAGE_ROOT);
-        } else if (folder.equals(VIRTUAL_STORAGE_ROOT)) {
+        } else if (_currentFolder.equals(VIRTUAL_STORAGE_ROOT)) {
             newData.addAll(_virtualMapping.keySet());
 
             // SD Card and other external storage directories that are also not listable
@@ -739,22 +738,24 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                 }
                 newData.add(f);
             }
-        } else if (folder.equals(VIRTUAL_STORAGE_EMULATED)) {
-            newData.add(new File(folder, "" + _userId));
-        } else if (folder.equals(VIRTUAL_STORAGE_RECENTS)) {
+        } else if (_currentFolder.equals(VIRTUAL_STORAGE_EMULATED)) {
+            newData.add(new File(_currentFolder, "" + _userId));
+        } else if (_currentFolder.equals(VIRTUAL_STORAGE_RECENTS)) {
             newData.addAll(_dopt.recentFiles);
-        } else if (folder.equals(VIRTUAL_STORAGE_POPULAR)) {
+        } else if (_currentFolder.equals(VIRTUAL_STORAGE_POPULAR)) {
             newData.addAll(_dopt.popularFiles);
-        } else if (folder.equals(VIRTUAL_STORAGE_FAVOURITE)) {
+        } else if (_currentFolder.equals(VIRTUAL_STORAGE_FAVOURITE)) {
             newData.addAll(_dopt.favouriteFiles);
-        } else if (folder.isDirectory()) {
-            GsCollectionUtils.addAll(newData, folder.listFiles(GsFileBrowserListAdapter.this));
+        }
+
+        if (_currentFolder.isDirectory() && _currentFolder.canRead()) {
+            GsCollectionUtils.addAll(newData, _currentFolder.listFiles(GsFileBrowserListAdapter.this));
         }
 
         GsCollectionUtils.deduplicate(newData);
 
         // Don't sort recent or virtual root items - use the default order
-        if (!Arrays.asList(VIRTUAL_STORAGE_RECENTS, VIRTUAL_STORAGE_ROOT).contains(folder)) {
+        if (!Arrays.asList(VIRTUAL_STORAGE_RECENTS, VIRTUAL_STORAGE_ROOT).contains(_currentFolder)) {
             GsFileUtils.sortFiles(newData, _dopt.sortByType, _dopt.sortFolderFirst, _dopt.sortReverse);
         }
 
@@ -762,11 +763,11 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         final long modSum = GsCollectionUtils.accumulate(newData, (f, s) -> s + f.lastModified(), 0L);
         final boolean modSumChanged = modSum != _prevModSum;
 
-        if (canGoUp(folder)) {
-            if (isVirtualFolder(folder) || _virtualMapping.containsValue(folder) || GsFileUtils.isChild(VIRTUAL_STORAGE_ROOT, folder)) {
+        if (canGoUp(_currentFolder)) {
+            if (isVirtualFolder(_currentFolder) || _virtualMapping.containsValue(_currentFolder) || GsFileUtils.isChild(VIRTUAL_STORAGE_ROOT, _currentFolder)) {
                 newData.add(0, VIRTUAL_STORAGE_ROOT);
             } else {
-                newData.add(0, folder.getParentFile());
+                newData.add(0, _currentFolder.getParentFile());
             }
         }
 
@@ -781,7 +782,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                 _adapterDataFiltered.clear();
                 _adapterDataFiltered.addAll(filteredData);
                 _currentSelection.retainAll(_adapterData);
-                _currentFolder = folder;
                 _prevModSum = modSum;
 
                 if (folderChanged) {
