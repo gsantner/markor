@@ -462,6 +462,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="text_case">文本大小写</string>
     <string name="toggle_case">转换大小写 (如: Case-&gt;CASE-&gt;case)</string>
     <string name="switch_case">切换大小写 (如: CaSe-&gt;cAsE)</string>
-    <string name="capitalize_words">大写单词 (如: a note-&gt;A Note)</string>
+    <string name="capitalize_words">大写词首 (如: a note-&gt;A Note)</string>
     <string name="capitalize_sentences">大写句首 (如: case-&gt;Case)</string>
 </resources>
