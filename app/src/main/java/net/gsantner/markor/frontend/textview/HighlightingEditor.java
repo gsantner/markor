@@ -18,8 +18,11 @@ import android.text.InputFilter;
 import android.text.Layout;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.view.ActionMode;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.accessibility.AccessibilityEvent;
@@ -30,6 +33,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatEditText;
 
 import net.gsantner.markor.ApplicationObject;
+import net.gsantner.markor.R;
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.TextCasingUtils;
@@ -111,11 +115,18 @@ public class HighlightingEditor extends AppCompatEditText {
 
         // Fix for Android 12 perf issues - https://github.com/gsantner/markor/discussions/1794
         setEmojiCompatEnabled(false);
+
+        // Custom options
+        setupCustomOptions();
     }
 
     @Override
     public boolean onPreDraw() {
-        return super.onPreDraw();
+        try {
+            return super.onPreDraw();
+        } catch (OutOfMemoryError ignored) {
+            return false; // return false to cancel current drawing pass/round
+        }
     }
 
     @Override
@@ -491,6 +502,11 @@ public class HighlightingEditor extends AppCompatEditText {
 
     // Utility functions for interaction
     // ---------------------------------------------------------------------------------------------
+
+    public void selectLines() {
+        final int[] sel = TextViewUtils.getLineSelection(this);
+        setSelection(sel[0], sel[1]);
+    }
 
     public void simulateKeyPress(int keyEvent_KEYCODE_SOMETHING) {
         dispatchKeyEvent(new KeyEvent(0, 0, KeyEvent.ACTION_DOWN, keyEvent_KEYCODE_SOMETHING, 0));

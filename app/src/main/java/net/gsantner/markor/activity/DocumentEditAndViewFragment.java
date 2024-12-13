@@ -868,7 +868,12 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     public void updateViewModeText() {
-        _format.getConverter().convertMarkupShowInWebView(_document, getTextString(), getActivity(), _webView, _nextConvertToPrintMode, _lineNumbersView.isLineNumbersEnabled());
+        // Don't let text to view mode crash app
+        try {
+            _format.getConverter().convertMarkupShowInWebView(_document, getTextString(), getActivity(), _webView, _nextConvertToPrintMode, _lineNumbersView.isLineNumbersEnabled());
+        } catch (OutOfMemoryError e) {
+            _format.getConverter().convertMarkupShowInWebView(_document, "updateViewModeText getTextString(): OutOfMemory  " + e, getActivity(), _webView, _nextConvertToPrintMode, _lineNumbersView.isLineNumbersEnabled());
+        }
     }
 
     public void setViewModeVisibility(final boolean show) {
