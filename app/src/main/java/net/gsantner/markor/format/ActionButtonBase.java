@@ -251,11 +251,6 @@ public abstract class ActionButtonBase {
     public List<String> getActionOrder() {
         final Set<String> order = new LinkedHashSet<>(loadActionPreference(ORDER_SUFFIX));
 
-        // Handle the case where order was stored without suffix. i.e. before this release.
-        if (order.isEmpty()) {
-            order.addAll(loadActionPreference(""));
-        }
-
         final Set<String> defined = new LinkedHashSet<>(getActiveActionKeys());
         final Set<String> disabled = new LinkedHashSet<>(getDisabledActions());
 
@@ -302,7 +297,7 @@ public abstract class ActionButtonBase {
     @SuppressLint("ClickableViewAccessibility")
     private void setupRepeat(final View btn) {
         // Velocity and acceleration parameters
-        final int INITIAL_DELAY = 400, DELTA_DELAY = 50, MIN_DELAY = 100;
+        final int INITIAL_DELAY = 300, DELTA_DELAY = 100, MIN_DELAY = 100;
         final Handler handler = new Handler();
 
         final Runnable repeater = new Runnable() {
