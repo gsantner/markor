@@ -431,4 +431,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="squarebrackets" translatable="false">Square Brackets</string>
     <string name="csv" translatable="false">CSV</string>
     <string name="orgmode" translatable="false">OrgMode</string>
+    <string name="option_select_lines" translatable="false">option_select_lines</string>
 </resources>
