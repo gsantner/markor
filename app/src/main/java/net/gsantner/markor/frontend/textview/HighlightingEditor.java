@@ -18,8 +18,8 @@ import android.text.InputFilter;
 import android.text.Layout;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.view.ActionMode;
 import android.util.Log;
+import android.view.ActionMode;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -131,7 +131,6 @@ public class HighlightingEditor extends AppCompatEditText {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
         try {
             super.onDraw(canvas);
         } catch (Exception e) {
@@ -216,7 +215,9 @@ public class HighlightingEditor extends AppCompatEditText {
         recomputeHighlighting();
     }
 
-    // public boolean isDynamicHighlightingEnabled() { return _isDynamicHighlightingEnabled; }
+    public boolean isDynamicHighlightingEnabled() {
+        return _isDynamicHighlightingEnabled;
+    }
 
     public void setHighlighter(final SyntaxHighlighterBase newHighlighter) {
         if (_hl != null) {
@@ -557,5 +558,38 @@ public class HighlightingEditor extends AppCompatEditText {
 
     public boolean indexesValid(int... indexes) {
         return GsTextUtils.inRange(0, length(), indexes);
+    }
+
+    private void setupCustomOptions() {
+        setCustomSelectionActionModeCallback(new ActionMode.Callback() {
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                // Add custom items programmatically
+                menu.add(0, R.string.option_select_lines, 0, "☰");
+                return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                // Modify menu items here if necessary
+                return true;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.string.option_select_lines:
+                        HighlightingEditor.this.selectLines();
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+                // Cleanup if needed
+            }
+        });
     }
 }
