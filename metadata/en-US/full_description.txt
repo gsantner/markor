@@ -17,9 +17,9 @@
 👌 No ads or unnecessary permissions
 🌎 Language selection -- use other language than on the system
 
-💡 Unlike other office suites (like <a href="fdroid.app:org.documentfoundation.libreoffice">LibreOffice</a>) or to-do apps (like Wunderlist), Markor has one streamlined text editor with no other editing UI. Markor shows how powerful and expressive simple text can be. View, edit, manipulate and convert plaintext!
+💡 Unlike other office suites (like <a href="https://f-droid.org/packages/org.documentfoundation.libreoffice/">LibreOffice</a>) or to-do apps (like Wunderlist), Markor has one streamlined text editor with no other editing UI. Markor shows how powerful and expressive simple text can be. View, edit, manipulate and convert plaintext!
 
-🔃 Markor works with sync apps, but they have to do syncing respectively. Sync clients known to work in combination include BitTorrent Sync, Dropbox, FolderSync, <a href="fdroid.app:com.owncloud.android">OwnCloud</a>, <a href="fdroid.app:com.nextcloud.client">NextCloud</a>, <a href="fdroid.app:com.seafile.seadroid2">Seafile</a>, <a href="fdroid.app:com.nutomic.syncthingandroid">Syncthing</a>, <a href="fdroid.app:org.amoradi.syncopoli">Syncopoli</a>
+🔃 Markor works with sync apps, but they have to do syncing respectively. Sync clients known to work in combination include BitTorrent Sync, Dropbox, FolderSync, <a href="https://f-droid.org/packages/com.owncloud.android/">OwnCloud</a>, <a href="https://f-droid.org/packages/com.nextcloud.client/">NextCloud</a>, <a href="https://f-droid.org/packages/com.seafile.seadroid2/">Seafile</a>, <a href="https://f-droid.org/packages/com.nutomic.syncthingandroid/">Syncthing</a>, <a href="https://f-droid.org/packages/org.amoradi.syncopoli/">Syncopoli</a>
 
 👀 These apps may also be in your interest if you like Markor: OneNote, EverNote, Google Keep, Wunderlist, Read-It-Later, Pocket, Epsilon Notes, iA Writer, Todoist, Shaarli, Wallabag, Simple Notes, Simpletask, Share to clipboard, NextCloud Bookmarks, Easy Open Link
 

@@ -43,7 +43,9 @@ import android.text.Editable;
 import android.text.Selection;
 import android.text.TextWatcher;
 import android.text.style.UnderlineSpan;
+import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 
@@ -150,8 +152,10 @@ public class TextViewUndoRedo {
         mIsUndoOrRedo = true;
         try {
             text.replace(start, end, edit.before);
-        } catch (Exception ex){
+        } catch (Exception ex) {
             // In case a undo would crash the app, don't do it instead
+            Log.e(getClass().getName(), "undo() Error in text.replace" + ex);
+            Toast.makeText(mTextView.getContext(), "undo() Error in text.replace" + ex, Toast.LENGTH_LONG).show();
             return;
         }
         mIsUndoOrRedo = false;
