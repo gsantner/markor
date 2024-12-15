@@ -148,11 +148,11 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
         _virtualMapping.clear();
 
-        _virtualMapping.put(VIRTUAL_STORAGE_EMULATED, VIRTUAL_STORAGE_EMULATED);
-
         if (_dopt.storageMaps != null) {
             _virtualMapping.putAll(_dopt.storageMaps);
         }
+
+        _virtualMapping.put(VIRTUAL_STORAGE_EMULATED, VIRTUAL_STORAGE_EMULATED);
 
         final File appDataFolder = _context.getFilesDir();
         if (appDataFolder.exists() || appDataFolder.mkdir()) {
