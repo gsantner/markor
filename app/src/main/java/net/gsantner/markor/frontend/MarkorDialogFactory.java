@@ -834,10 +834,12 @@ public class MarkorDialogFactory {
 
         dopt.positionCallback = result -> {
             final int index = filtered.get(result.get(0));
-            final int line = headings.get(index).line + 1;
+            final int line = headings.get(index).line;
 
             if (edit.isShown()) {
-                TextViewUtils.selectLines(edit, false, Collections.singletonList(line));
+                final List<Integer> positions = Collections.singletonList(line);
+                TextViewUtils.selectLines(edit, positions);
+                TextViewUtils.selectLines(edit, positions);
             }
 
             if (webView.isShown()) {

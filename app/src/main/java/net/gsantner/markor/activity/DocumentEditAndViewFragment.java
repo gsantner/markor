@@ -67,7 +67,6 @@ import net.gsantner.opoc.web.GsWebViewClient;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
 import java.io.File;
-import java.util.Collections;
 
 @SuppressWarnings({"UnusedReturnValue"})
 @SuppressLint("NonConstantResourceId")
@@ -912,7 +911,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                     if (Character.isDigit(result.charAt(0))) {
                         final int lineNumber = Integer.parseInt(result);
                         if (lineNumber > 0 && (lineNumber < _firstVisibleLineNumber - 2 || lineNumber > _firstVisibleLineNumber + 2)) {
-                            TextViewUtils.selectLines(_hlEditor, false, Collections.singletonList(lineNumber));
+                            TextViewUtils.jumpToLine(_hlEditor, lineNumber);
                         }
                     }
                 });
