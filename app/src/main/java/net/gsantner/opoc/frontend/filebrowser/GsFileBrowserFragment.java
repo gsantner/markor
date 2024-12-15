@@ -91,7 +91,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     private Menu _fragmentMenu;
     private MarkorContextUtils _cu;
     private Toolbar _toolbar;
-    private File _lastSelectedFile;
 
     //########################
     //## Methods
