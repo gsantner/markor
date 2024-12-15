@@ -377,6 +377,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     private static final String PREF_PREFIX_EDIT_POS_CHAR = "PREF_PREFIX_EDIT_POS_CHAR";
+    private static final String PREF_PREFIX_LAST_VIEW_POS_Y = "PREF_PREFIX_LAST_VIEW_POS_Y";
     private static final String PREF_PREFIX_WRAP_STATE = "PREF_PREFIX_WRAP_STATE";
     private static final String PREF_PREFIX_HIGHLIGHT_STATE = "PREF_PREFIX_HIGHLIGHT_STATE";
     private static final String PREF_PREFIX_PREVIEW_STATE = "PREF_PREFIX_PREVIEW_STATE";
@@ -426,6 +427,19 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
             setInt(PREF_PREFIX_VIEW_SCROLL_X + Document.getPath(file), scrollX, _prefCache);
             setInt(PREF_PREFIX_VIEW_SCROLL_Y + Document.getPath(file), scrollY, _prefCache);
         }
+    }
+
+    public void setLastViewPositionY(final String path, final int scrollY) {
+        if (fexists(path)) {
+            setInt(PREF_PREFIX_LAST_VIEW_POS_Y + path, scrollY);
+        }
+    }
+
+    public int getLastViewPositionY(final String path, final int defaultValue) {
+        if (fexists(path)) {
+            return getInt(PREF_PREFIX_LAST_VIEW_POS_Y + path, defaultValue);
+        }
+        return defaultValue;
     }
 
     public void setDocumentWrapState(final String path, final boolean state) {

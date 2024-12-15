@@ -320,6 +320,32 @@ public class HighlightingEditor extends AppCompatEditText {
         return layout == null ? 0 : layout.getLineEnd(layout.getLineForVertical(y));
     }
 
+    public int getFirstVisibleLineNumber() {
+        final Rect visibleRect = new Rect();
+        if (!getLocalVisibleRect(visibleRect)) {
+            return -1;
+        }
+
+        final CharSequence text = getText();
+        final Layout layout = getLayout();
+        if (text == null || layout == null) {
+            return -1;
+        }
+
+        // Calculate the first visible line number
+        final int count = layout.getLineCount();
+        for (int i = 1, number = 1; i < count; i++) {
+            if (text.charAt(layout.getLineStart(i) - 1) == '\n') {
+                if (layout.getLineTop(i) > visibleRect.top) {
+                    return number;
+                }
+                number++;
+            }
+        }
+
+        return 1;
+    }
+
     // Text-Casing
     // ---------------------------------------------------------------------------------------------
     public void toggleCase() {
