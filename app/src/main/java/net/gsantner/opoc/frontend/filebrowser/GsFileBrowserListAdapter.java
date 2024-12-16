@@ -679,21 +679,20 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             _folderScrollMap.put(_currentFolder, _layoutManager.onSaveInstanceState());
         }
 
-        final File toLoad;
         if (GO_BACK_SIGNIFIER == folder) {
-            toLoad = _backStack.pop();
+            _currentFolder = _backStack.pop();
         } else {
             if (folderChanged && _currentFolder != null) {
                 _backStack.push(_currentFolder);
             }
-            toLoad = folder;
+            _currentFolder = folder;
         }
 
         if (_dopt.refresh != null) {
             _dopt.refresh.callback();
         }
 
-        if (VIRTUAL_STORAGE_ROOT.equals(toLoad)) {
+        if (VIRTUAL_STORAGE_ROOT.equals(_currentFolder)) {
             updateVirtualFolders();
         }
 
@@ -706,8 +705,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
         final File toShow = show == null ? _fileToShowAfterNextLoad : show;
         _fileToShowAfterNextLoad = null;
-
-        _currentFolder = folder;
 
         try {
             executorService.execute(() -> _loadFolder(folderChanged, toShow));
