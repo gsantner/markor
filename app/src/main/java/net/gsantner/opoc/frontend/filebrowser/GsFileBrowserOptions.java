@@ -14,6 +14,7 @@ import android.os.Environment;
 
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
+import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
 import net.gsantner.opoc.util.GsFileUtils;
@@ -21,8 +22,10 @@ import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.File;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
@@ -40,6 +43,13 @@ public class GsFileBrowserOptions {
         void onFsViewerDoUiUpdate(final GsFileBrowserListAdapter adapter);
 
         void onFsViewerItemLongPressed(final File file, boolean doSelectMultiple);
+    }
+
+    public static class VirtualDir {
+        String title;
+        @Nullable File location;
+        @DrawableRes int icon;
+        @Nullable Collection<File> contents;
     }
 
     public static class Options {
@@ -124,10 +134,8 @@ public class GsFileBrowserOptions {
         @ColorRes
         public int folderColor = 0;
 
-        public final Map<File, File> storageMaps = new LinkedHashMap<>();
-        public Collection<File> favouriteFiles, recentFiles, popularFiles = null;
+        public final List<VirtualDir> virtualDirs = new ArrayList<>();
         public GsCallback.a1<CharSequence> setTitle = null, setSubtitle = null;
-
         public GsCallback.a0 refresh = null;
     }
 
