@@ -71,13 +71,11 @@ public class MarkorFileBrowserFactory {
         opts.titleText = R.string.select;
         opts.mountedStorageFolder = cu.getStorageAccessFolder(context);
 
-        opts.virtualDirs.add(new GsFileBrowserOptions.VirtualDir())
-
         opts.popularImage = R.drawable.ic_favorite_black_24dp;
         opts.favouriteImage = R.drawable.ic_star_black_24dp;
         opts.recentImage = R.drawable.ic_history_black_24dp;
         opts.downloadImage = R.drawable.baseline_download_24;
-        opts.homeImage = R.drawable.ic_home_black_24dp;
+        opts.notebookImage = R.drawable.ic_home_black_24dp;
 
         opts.refresh = () -> {
             opts.sortFolderFirst = appSettings.isFileBrowserSortFolderFirst();
@@ -87,7 +85,7 @@ public class MarkorFileBrowserFactory {
             opts.favouriteFiles = appSettings.getFavouriteFiles();
             opts.recentFiles = appSettings.getRecentFiles();
             opts.popularFiles = appSettings.getPopularFiles();
-            opts.homeFolder = appSettings.getNotebookDirectory();
+            opts.notebookFolder = appSettings.getNotebookDirectory();
         };
         opts.refresh.callback();
 

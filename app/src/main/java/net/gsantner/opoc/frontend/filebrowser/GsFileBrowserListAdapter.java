@@ -75,7 +75,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     public static final File VIRTUAL_STORAGE_POPULAR = new File(VIRTUAL_STORAGE_ROOT, "Popular");
     public static final File VIRTUAL_STORAGE_APP_DATA_PRIVATE = new File(VIRTUAL_STORAGE_ROOT, "AppData (data partition)");
     public static final File VIRTUAL_STORAGE_DOWNLOAD = new File(VIRTUAL_STORAGE_ROOT, "Download");
-    public static final File VIRTUAL_STORAGE_HOME = new File(VIRTUAL_STORAGE_ROOT, "Notebook");
+    public static final File VIRTUAL_STORAGE_NOTEBOOK = new File(VIRTUAL_STORAGE_ROOT, "Notebook");
     private static final File GO_BACK_SIGNIFIER = new File("__GO_BACK__");
     private static final StrikethroughSpan STRIKE_THROUGH_SPAN = new StrikethroughSpan();
     public static final String EXTRA_CURRENT_FOLDER = "EXTRA_CURRENT_FOLDER";
@@ -167,8 +167,8 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             }
         }
 
-        if (_dopt.virtualMaps != null) {
-            _virtualMapping.putAll(_dopt.virtualMaps);
+        if (_dopt.virtualDirs != null) {
+            _virtualMapping.putAll(_dopt.virtualDirs);
         }
 
         final File download = getDownloadFolder();
@@ -180,8 +180,8 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         _virtualMapping.put(VIRTUAL_STORAGE_POPULAR, VIRTUAL_STORAGE_POPULAR);
         _virtualMapping.put(VIRTUAL_STORAGE_FAVOURITE, VIRTUAL_STORAGE_FAVOURITE);
 
-        if (_dopt.homeFolder != null) {
-            _virtualMapping.put(VIRTUAL_STORAGE_HOME, _dopt.homeFolder);
+        if (_dopt.notebookFolder != null) {
+            _virtualMapping.put(VIRTUAL_STORAGE_NOTEBOOK, _dopt.notebookFolder);
         }
     }
 
@@ -231,13 +231,12 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
         if (isGoUp) {
             holder.title.setText("..", TextView.BufferType.SPANNABLE);
-        } else if (VIRTUAL_STORAGE_HOME.equals(displayFile) && _dopt.homeDirTitle != 0) {
-            holder.title.setText(_context.getString(R.string.home), TextView.BufferType.SPANNABLE);
+        } else if (VIRTUAL_STORAGE_NOTEBOOK.equals(displayFile) && _dopt.notebookDirTitle != 0) {
+            holder.title.setText(_context.getString(_dopt.notebookDirTitle), TextView.BufferType.SPANNABLE);
         } else {
             holder.title.setText(titleText, TextView.BufferType.SPANNABLE);
         }
 
-        holder.title.setText(isGoUp ? ".." : titleText, );
         holder.title.setTextColor(ContextCompat.getColor(_context, _dopt.primaryTextColor));
 
         if (!isFileWriteable(displayFile, isGoUp) && !isVirtualFolder(displayFile) && holder.title.length() > 0) {
@@ -254,7 +253,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         holder.description.setTextColor(ContextCompat.getColor(_context, _dopt.secondaryTextColor));
 
         if (isSelected) {
-            holder.image.setImageResource(isSelected ? _dopt.selectedItemImage : isFile ? _dopt.fileImage : _dopt.folderImage);
+            holder.image.setImageResource(isSelected ? _dopt.selectedItemImage : isFile ? _dopt.downloadImage : _dopt.folderImage);
         } else if (VIRTUAL_STORAGE_FAVOURITE.equals(displayFile) && _dopt.favouriteImage != 0) {
             holder.image.setImageResource(_dopt.favouriteImage);
         } else if (VIRTUAL_STORAGE_POPULAR.equals(displayFile) && _dopt.popularImage != 0) {
@@ -263,8 +262,8 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             holder.image.setImageResource(_dopt.recentImage);
         } else if (VIRTUAL_STORAGE_DOWNLOAD.equals(displayFile) && _dopt.downloadImage != 0) {
             holder.image.setImageResource(_dopt.downloadImage);
-        } else if (VIRTUAL_STORAGE_HOME.equals(displayFile) && _dopt.homeImage != 0) {
-            holder.image.setImageResource(_dopt.homeImage);
+        } else if (VIRTUAL_STORAGE_NOTEBOOK.equals(displayFile) && _dopt.notebookImage != 0) {
+            holder.image.setImageResource(_dopt.notebookImage);
         } else {
             holder.image.setImageResource(isFile ? _dopt.fileImage : _dopt.folderImage);
         }
