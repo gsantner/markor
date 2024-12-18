@@ -8,6 +8,7 @@
 package net.gsantner.markor.frontend.filebrowser;
 
 import android.content.Context;
+import android.os.Environment;
 
 import androidx.fragment.app.FragmentManager;
 
@@ -16,6 +17,7 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserDialog;
+import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
@@ -71,23 +73,21 @@ public class MarkorFileBrowserFactory {
         opts.titleText = R.string.select;
         opts.mountedStorageFolder = cu.getStorageAccessFolder(context);
 
-        opts.popularImage = R.drawable.ic_favorite_black_24dp;
-        opts.favouriteImage = R.drawable.ic_star_black_24dp;
-        opts.recentImage = R.drawable.ic_history_black_24dp;
-        opts.downloadImage = R.drawable.baseline_download_24;
-        opts.notebookImage = R.drawable.ic_home_black_24dp;
+        // These should be refreshed in onFsViewerConfig
+        opts.sortFolderFirst = appSettings.isFileBrowserSortFolderFirst();
+        opts.sortByType = appSettings.getFileBrowserSortByType();
+        opts.sortReverse = appSettings.isFileBrowserSortReverse();
+        opts.filterShowDotFiles = appSettings.isFileBrowserFilterShowDotFiles();
+        opts.favouriteFiles = appSettings.getFavouriteFiles();
+        opts.recentFiles = appSettings.getRecentFiles();
+        opts.popularFiles = appSettings.getPopularFiles();
 
-        opts.refresh = () -> {
-            opts.sortFolderFirst = appSettings.isFileBrowserSortFolderFirst();
-            opts.sortByType = appSettings.getFileBrowserSortByType();
-            opts.sortReverse = appSettings.isFileBrowserSortReverse();
-            opts.filterShowDotFiles = appSettings.isFileBrowserFilterShowDotFiles();
-            opts.favouriteFiles = appSettings.getFavouriteFiles();
-            opts.recentFiles = appSettings.getRecentFiles();
-            opts.popularFiles = appSettings.getPopularFiles();
-            opts.notebookFolder = appSettings.getNotebookDirectory();
-        };
-        opts.refresh.callback();
+        opts.addVirtualFile("Download", Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), R.drawable.baseline_download_24);
+        opts.addVirtualFile(cu.rstr(context, R.string.notebook), appSettings.getNotebookDirectory(), R.drawable.ic_home_black_24dp);
+
+        opts.iconMaps.put(GsFileBrowserListAdapter.VIRTUAL_STORAGE_FAVOURITE, R.drawable.ic_star_black_24dp);
+        opts.iconMaps.put(GsFileBrowserListAdapter.VIRTUAL_STORAGE_RECENTS, R.drawable.ic_history_black_24dp);
+        opts.iconMaps.put(GsFileBrowserListAdapter.VIRTUAL_STORAGE_POPULAR, R.drawable.ic_favorite_black_24dp);
 
         return opts;
     }

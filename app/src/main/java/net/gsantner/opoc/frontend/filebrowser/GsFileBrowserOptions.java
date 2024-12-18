@@ -22,6 +22,7 @@ import net.gsantner.opoc.wrapper.GsCallback;
 import java.io.File;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -47,7 +48,6 @@ public class GsFileBrowserOptions {
         public File
                 rootFolder = Environment.getExternalStorageDirectory(),
                 mountedStorageFolder = null,
-                notebookFolder = null,
                 startFolder = null;
         public String requestId = "show_dialog";
         public String sortByType = GsFileUtils.SORT_BY_NAME;
@@ -96,9 +96,6 @@ public class GsFileBrowserOptions {
         public int contentDescriptionFile = 0;
         @StringRes
         public int newDirButtonText = 0;
-        @StringRes
-        public int notebookDirTitle = 0;
-
         @DrawableRes
         public int homeButtonImage = android.R.drawable.star_big_on;
         @DrawableRes
@@ -111,16 +108,6 @@ public class GsFileBrowserOptions {
         public int selectedItemImage = android.R.drawable.checkbox_on_background;
         @DrawableRes
         public int fileImage = android.R.drawable.ic_menu_edit;
-        @DrawableRes
-        public int notebookImage = 0;
-        @DrawableRes
-        public int favouriteImage = 0;
-        @DrawableRes
-        public int recentImage = 0;
-        @DrawableRes
-        public int popularImage = 0;
-        @DrawableRes
-        public int downloadImage = 0;
 
         @ColorRes
         public int backgroundColor = android.R.color.background_light;
@@ -139,12 +126,18 @@ public class GsFileBrowserOptions {
         @ColorRes
         public int folderColor = 0;
 
-        public final Map<File, File> virtualDirs = new LinkedHashMap<>();
+        public final Map<File, File> storageMaps = new LinkedHashMap<>();
+        public final Map<File, Integer> iconMaps = new HashMap<>();
         public Collection<File> favouriteFiles, recentFiles, popularFiles = null;
         public GsCallback.a1<CharSequence> setTitle = null, setSubtitle = null;
 
-        public GsCallback.a0 refresh = null;
+        public void addVirtualFile(final String name, final File target, final int icon) {
+            final File file = new File(GsFileBrowserListAdapter.VIRTUAL_STORAGE_ROOT, name);
+            storageMaps.put(file, target);
+            iconMaps.put(file, icon);
+        }
     }
+
 
     public static class SelectionListenerAdapter implements SelectionListener, Serializable {
         @Override

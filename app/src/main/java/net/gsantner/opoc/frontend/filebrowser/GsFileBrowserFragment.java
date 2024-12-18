@@ -206,6 +206,14 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         if (_callback != null) {
             _callback.onFsViewerConfig(dopt);
         }
+
+        dopt.sortFolderFirst = _appSettings.isFileBrowserSortFolderFirst();
+        dopt.sortByType = _appSettings.getFileBrowserSortByType();
+        dopt.sortReverse = _appSettings.isFileBrowserSortReverse();
+        dopt.filterShowDotFiles = _appSettings.isFileBrowserFilterShowDotFiles();
+        dopt.favouriteFiles = _appSettings.getFavouriteFiles();
+        dopt.recentFiles = _appSettings.getRecentFiles();
+        dopt.popularFiles = _appSettings.getPopularFiles();
     }
 
     @Override
@@ -313,10 +321,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     @Override
     public void onResume() {
         super.onResume();
-        if (_dopt.refresh != null) {
-            _dopt.refresh.callback();
-        }
-
+        _dopt.listener.onFsViewerConfig(_dopt);
         final File folder = getCurrentFolder();
         final Activity activity = getActivity();
         if (isVisible() && folder != null && activity != null) {

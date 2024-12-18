@@ -74,14 +74,13 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     public static final File VIRTUAL_STORAGE_FAVOURITE = new File(VIRTUAL_STORAGE_ROOT, "Favourites");
     public static final File VIRTUAL_STORAGE_POPULAR = new File(VIRTUAL_STORAGE_ROOT, "Popular");
     public static final File VIRTUAL_STORAGE_APP_DATA_PRIVATE = new File(VIRTUAL_STORAGE_ROOT, "AppData (data partition)");
-    public static final File VIRTUAL_STORAGE_DOWNLOAD = new File(VIRTUAL_STORAGE_ROOT, "Download");
-    public static final File VIRTUAL_STORAGE_NOTEBOOK = new File(VIRTUAL_STORAGE_ROOT, "Notebook");
-    private static final File GO_BACK_SIGNIFIER = new File("__GO_BACK__");
-    private static final StrikethroughSpan STRIKE_THROUGH_SPAN = new StrikethroughSpan();
     public static final String EXTRA_CURRENT_FOLDER = "EXTRA_CURRENT_FOLDER";
     public static final String EXTRA_DOPT = "EXTRA_DOPT";
     public static final String EXTRA_RECYCLER_SCROLL_STATE = "EXTRA_RECYCLER_SCROLL_STATE";
     public static final String EXTRA_REQ_FOLDER = "EXTRA_REQ_FOLDER";
+
+    private static final File GO_BACK_SIGNIFIER = new File("__GO_BACK__");
+    private static final StrikethroughSpan STRIKE_THROUGH_SPAN = new StrikethroughSpan();
 
     //########################
     //## Members
@@ -167,22 +166,11 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             }
         }
 
-        if (_dopt.virtualDirs != null) {
-            _virtualMapping.putAll(_dopt.virtualDirs);
-        }
-
-        final File download = getDownloadFolder();
-        if (download != null) {
-            _virtualMapping.put(VIRTUAL_STORAGE_DOWNLOAD, download);
-        }
+        _virtualMapping.putAll(_dopt.storageMaps);
 
         _virtualMapping.put(VIRTUAL_STORAGE_RECENTS, VIRTUAL_STORAGE_RECENTS);
         _virtualMapping.put(VIRTUAL_STORAGE_POPULAR, VIRTUAL_STORAGE_POPULAR);
         _virtualMapping.put(VIRTUAL_STORAGE_FAVOURITE, VIRTUAL_STORAGE_FAVOURITE);
-
-        if (_dopt.notebookFolder != null) {
-            _virtualMapping.put(VIRTUAL_STORAGE_NOTEBOOK, _dopt.notebookFolder);
-        }
     }
 
     @NonNull
@@ -204,66 +192,51 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     @SuppressWarnings("ConstantConditions")
     public void onBindViewHolder(@NonNull FilesystemViewerViewHolder holder, int position) {
         final File displayFile = _adapterDataFiltered.get(position);
-        final File file;
+
         if (displayFile == null) {
             holder.title.setText("????");
             return;
-        } else if (_virtualMapping.containsKey(displayFile)) {
-            file = _virtualMapping.get(displayFile);
-        } else {
-            file = displayFile;
         }
 
-        final String filename = displayFile.getName();
-        final String currentFolderName = _currentFolder != null ? _currentFolder.getName() : "";
-        final File currentFolderParent = _currentFolder != null ? _currentFolder.getParentFile() : null;
+        final File file = GsCollectionUtils.getOrDefault(_virtualMapping, displayFile, displayFile);
 
-        final boolean isGoUp = VIRTUAL_STORAGE_ROOT.equals(displayFile) || file.equals(currentFolderParent);
+        final boolean isGoUp = displayFile instanceof GoUpFile;
+        final boolean isVirtual = _virtualMapping.containsKey(displayFile);
         final boolean isSelected = _currentSelection.contains(displayFile);
         final boolean isFavourite = _dopt.favouriteFiles != null && _dopt.favouriteFiles.contains(displayFile);
         final boolean isPopular = _dopt.popularFiles != null && _dopt.popularFiles.contains(displayFile);
-        final int descriptionRes = isSelected ? _dopt.contentDescriptionSelected : (displayFile.isDirectory() ? _dopt.contentDescriptionFolder : _dopt.contentDescriptionFile);
+        final boolean isFile = displayFile.isFile();
 
-        String titleText = filename;
-        if (isCurrentFolderVirtual() && "index.html".equals(filename)) {
+        String titleText = displayFile.getName();
+        if (isCurrentFolderVirtual() && "index.html".equals(titleText)) {
+            final String currentFolderName = _currentFolder != null ? _currentFolder.getName() : "";
             titleText += " [" + currentFolderName + "]";
         }
 
-        if (isGoUp) {
-            holder.title.setText("..", TextView.BufferType.SPANNABLE);
-        } else if (VIRTUAL_STORAGE_NOTEBOOK.equals(displayFile) && _dopt.notebookDirTitle != 0) {
-            holder.title.setText(_context.getString(_dopt.notebookDirTitle), TextView.BufferType.SPANNABLE);
-        } else {
-            holder.title.setText(titleText, TextView.BufferType.SPANNABLE);
-        }
-
+        // Set title
+        holder.title.setText(isGoUp ? ".." : titleText, TextView.BufferType.SPANNABLE);
         holder.title.setTextColor(ContextCompat.getColor(_context, _dopt.primaryTextColor));
 
-        if (!isFileWriteable(displayFile, isGoUp) && !isVirtualFolder(displayFile) && holder.title.length() > 0) {
+        if (!isFileWriteable(displayFile, isGoUp) && !isVirtual && holder.title.length() > 0) {
             try {
                 ((Spannable) holder.title.getText()).setSpan(STRIKE_THROUGH_SPAN, 0, holder.title.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             } catch (Exception ignored) {
             }
         }
 
-        final boolean isFile = displayFile.isFile();
-
-        holder.description.setText(!_dopt.descModtimeInsteadOfParent || isGoUp
-                ? file.getAbsolutePath() : formatFileDescription(file, _dopt.descriptionFormat));
+        // Set description
+        if (!_dopt.descModtimeInsteadOfParent || isGoUp) {
+            holder.description.setText(file.getAbsolutePath());
+        } else {
+            holder.description.setText(formatFileDescription(file, _dopt.descriptionFormat));
+        }
         holder.description.setTextColor(ContextCompat.getColor(_context, _dopt.secondaryTextColor));
 
+        // Set icon
         if (isSelected) {
-            holder.image.setImageResource(isSelected ? _dopt.selectedItemImage : isFile ? _dopt.downloadImage : _dopt.folderImage);
-        } else if (VIRTUAL_STORAGE_FAVOURITE.equals(displayFile) && _dopt.favouriteImage != 0) {
-            holder.image.setImageResource(_dopt.favouriteImage);
-        } else if (VIRTUAL_STORAGE_POPULAR.equals(displayFile) && _dopt.popularImage != 0) {
-            holder.image.setImageResource(_dopt.popularImage);
-        } else if (VIRTUAL_STORAGE_RECENTS.equals(displayFile) && _dopt.recentImage != 0) {
-            holder.image.setImageResource(_dopt.recentImage);
-        } else if (VIRTUAL_STORAGE_DOWNLOAD.equals(displayFile) && _dopt.downloadImage != 0) {
-            holder.image.setImageResource(_dopt.downloadImage);
-        } else if (VIRTUAL_STORAGE_NOTEBOOK.equals(displayFile) && _dopt.notebookImage != 0) {
-            holder.image.setImageResource(_dopt.notebookImage);
+            holder.image.setImageResource(_dopt.selectedItemImage);
+        } else if (_dopt.iconMaps != null && _dopt.iconMaps.containsKey(displayFile)) {
+            holder.image.setImageResource(_dopt.iconMaps.get(displayFile));
         } else {
             holder.image.setImageResource(isFile ? _dopt.fileImage : _dopt.folderImage);
         }
@@ -278,16 +251,19 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             holder.image.setColorFilter(0xFFE3B51B);
         }
 
+        // Some extras
         if (_dopt.itemSidePadding > 0) {
             int dp = (int) (_dopt.itemSidePadding * _context.getResources().getDisplayMetrics().density);
             holder.itemRoot.setPadding(dp, holder.itemRoot.getPaddingTop(), dp, holder.itemRoot.getPaddingBottom());
         }
 
-        holder.itemRoot.setContentDescription((descriptionRes != 0 ? (_context.getString(descriptionRes) + " ") : "") + holder.title.getText().toString() + " " + holder.description.getText().toString());
+        final int descriptionRes = isSelected ? _dopt.contentDescriptionSelected : (displayFile.isDirectory() ? _dopt.contentDescriptionFolder : _dopt.contentDescriptionFile);
+        holder.itemRoot.setContentDescription((descriptionRes != 0 ? (_context.getString(descriptionRes) + " ") : "") + titleText + " " + holder.description.getText().toString());
         holder.image.setOnLongClickListener(view -> {
             Toast.makeText(_context, displayFile.getAbsolutePath(), Toast.LENGTH_SHORT).show();
             return true;
         });
+
         holder.itemRoot.setTag(new TagContainer(displayFile, position));
         holder.itemRoot.setOnClickListener(this);
         holder.itemRoot.setOnLongClickListener(this);
@@ -331,15 +307,16 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             return;
         }
 
+        if (_dopt != null && _dopt.listener != null) {
+            _dopt.listener.onFsViewerConfig(_dopt);
+        }
+
         if (savedInstanceState.containsKey(EXTRA_CURRENT_FOLDER)) {
             final String path = savedInstanceState.getString(EXTRA_CURRENT_FOLDER);
             if (path != null) {
                 final File f = new File(path);
-                final boolean isVirtualDirectory = _virtualMapping.containsKey(f) || isVirtualFolder(f);
+                final boolean isVirtualDirectory = _virtualMapping.containsKey(f);
 
-                if (isVirtualDirectory && _dopt != null && _dopt.listener != null) {
-                    _dopt.listener.onFsViewerConfig(_dopt);
-                }
                 if (f.isDirectory() || isVirtualDirectory) {
                     loadFolder(f, null);
                 }
@@ -358,13 +335,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     public void setCurrentFolder(final File folder) {
         if (folder != null && !folder.equals(_currentFolder)) {
             loadFolder(folder, GsFileUtils.isChild(_currentFolder, folder) ? folder : null);
-        }
-    }
-
-    public void reconfigure() {
-        if (_dopt.listener != null) {
-            _dopt.listener.onFsViewerConfig(_dopt);
-            reloadCurrentFolder();
         }
     }
 
@@ -439,19 +409,17 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             case R.id.opoc_filesystem_item__root: {
                 // A own item was clicked
                 if (data.file != null) {
-                    final File file = GsCollectionUtils.getOrDefault(_virtualMapping, data.file, data.file);
-
                     if (areItemsSelected()) {
                         // There are 1 or more items selected yet
-                        if (!toggleSelection(data) && file != null && file.isDirectory()) {
-                            loadFolder(file, null);
+                        if (!toggleSelection(data) && data.file.isDirectory()) {
+                            loadFolder(data.file, null);
                         }
-                    } else if (file != null) {
+                    } else {
                         // No pre-selection
-                        if (file.isDirectory() || isVirtualFolder(file)) {
-                            loadFolder(file, isParent(file, _currentFolder) ? _currentFolder : null);
-                        } else if (file.isFile()) {
-                            _dopt.listener.onFsViewerSelected(_dopt.requestId, file, null);
+                        if (data.file.isDirectory() || _virtualMapping.containsKey(data.file)) {
+                            loadFolder(data.file, _currentFolder);
+                        } else if (data.file.isFile()) {
+                            _dopt.listener.onFsViewerSelected(_dopt.requestId, data.file, null);
                         }
                     }
                 }
@@ -527,7 +495,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         }
 
         boolean clickHandled = false;
-        if (data.file != null && _currentFolder != null && !isParent(data.file, _currentFolder)) {
+        if (data.file != null && _currentFolder != null && !(data.file instanceof GoUpFile)) {
             if (_currentSelection.contains(data.file)) {
                 // Single selection
                 _currentSelection.remove(data.file);
@@ -690,22 +658,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             if (folderChanged && _currentFolder != null) {
                 _backStack.push(_currentFolder);
             }
-            _currentFolder = folder;
-        }
-
-        if (_dopt.refresh != null) {
-            _dopt.refresh.callback();
-        }
-
-        if (VIRTUAL_STORAGE_ROOT.equals(_currentFolder)) {
-            updateVirtualFolders();
-        }
-
-        if (_fileToShowAfterNextLoad != null) {
-            _recyclerView.post(() -> {
-                scrollToAndFlash(_fileToShowAfterNextLoad);
-                _fileToShowAfterNextLoad = null;
-            });
+            _currentFolder = GsCollectionUtils.getOrDefault(_virtualMapping, folder, folder);
         }
 
         final File toShow = show == null ? _fileToShowAfterNextLoad : show;
@@ -767,7 +720,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
         final File parent = getCurrentParent();
         if (parent != null) {
-            newData.add(0, parent);
+            newData.add(0, new GoUpFile(parent));
         }
 
         if (folderChanged || modSumChanged || !newData.equals(_adapterData)) {
@@ -919,11 +872,8 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                 VIRTUAL_STORAGE_FAVOURITE.equals(file) ||
                 VIRTUAL_STORAGE_POPULAR.equals(file) ||
                 VIRTUAL_STORAGE_APP_DATA_PRIVATE.equals(file) ||
-                VIRTUAL_STORAGE_EMULATED.equals(file);
-    }
-
-    private boolean isParent(File parent, File child) {
-        return (VIRTUAL_STORAGE_ROOT.equals(parent) && _virtualMapping.containsKey(child)) || GsFileUtils.isChild(parent, child);
+                VIRTUAL_STORAGE_EMULATED.equals(file) ||
+                (file != null && VIRTUAL_STORAGE_ROOT.equals(file.getParentFile()) && !file.exists());
     }
 
     public void showFileAfterNextLoad(final File file) {
@@ -940,11 +890,9 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         }
     }
 
-    private File getDownloadFolder() {
-        File dl = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-        if (dl == null) {
-            dl = new File(VIRTUAL_STORAGE_EMULATED, _userId + "/Download");
+    private static class GoUpFile extends File {
+        GoUpFile(final File f) {
+            super(f.getPath());
         }
-        return (dl.isDirectory() && dl.canRead()) ? dl : null;
     }
 }
