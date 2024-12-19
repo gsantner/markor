@@ -43,6 +43,7 @@ public class MarkorFileBrowserFactory {
         if (listener != null) {
             opts.listener = listener;
         }
+
         opts.doSelectFolder = doSelectFolder;
         opts.doSelectFile = !doSelectFolder;
 
@@ -69,11 +70,21 @@ public class MarkorFileBrowserFactory {
         opts.folderColor = R.color.folder;
         opts.fileImage = R.drawable.ic_file_white_24dp;
         opts.folderImage = R.drawable.ic_folder_white_24dp;
-        opts.descriptionFormat = appSettings.getString(R.string.pref_key__file_description_format, "");
         opts.titleText = R.string.select;
         opts.mountedStorageFolder = cu.getStorageAccessFolder(context);
 
-        // These should be refreshed in onFsViewerConfig
+        updateFsViewerOpts(opts, context, appSettings);
+
+        return opts;
+    }
+
+    public static void updateFsViewerOpts(
+        final GsFileBrowserOptions.Options opts,
+        final Context context,
+        AppSettings appSettings
+    ) {
+        appSettings = appSettings != null ? appSettings : ApplicationObject.settings();
+
         opts.sortFolderFirst = appSettings.isFileBrowserSortFolderFirst();
         opts.sortByType = appSettings.getFileBrowserSortByType();
         opts.sortReverse = appSettings.isFileBrowserSortReverse();
@@ -82,15 +93,26 @@ public class MarkorFileBrowserFactory {
         opts.recentFiles = appSettings.getRecentFiles();
         opts.popularFiles = appSettings.getPopularFiles();
 
-        opts.addVirtualFile("Download", Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), R.drawable.baseline_download_24);
-        opts.addVirtualFile(cu.rstr(context, R.string.notebook), appSettings.getNotebookDirectory(), R.drawable.ic_home_black_24dp);
+        opts.descriptionFormat = appSettings.getString(R.string.pref_key__file_description_format, "");
+
+        opts.storageMaps.clear();
+        opts.iconMaps.clear();
+
+        final File downloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        opts.addVirtualFile("Download", downloads, R.drawable.baseline_download_24);
+
+        final File notebook = appSettings.getNotebookDirectory();
+        opts.addVirtualFile(context.getString(R.string.notebook), notebook, R.drawable.ic_home_black_24dp);
 
         opts.iconMaps.put(GsFileBrowserListAdapter.VIRTUAL_STORAGE_FAVOURITE, R.drawable.ic_star_black_24dp);
         opts.iconMaps.put(GsFileBrowserListAdapter.VIRTUAL_STORAGE_RECENTS, R.drawable.ic_history_black_24dp);
         opts.iconMaps.put(GsFileBrowserListAdapter.VIRTUAL_STORAGE_POPULAR, R.drawable.ic_favorite_black_24dp);
-
-        return opts;
+        opts.iconMaps.put(notebook, R.drawable.ic_home_black_24dp);
+        opts.iconMaps.put(downloads, R.drawable.baseline_download_24);
+        opts.iconMaps.put(appSettings.getQuickNoteFile(), R.drawable.ic_lightning_black_24dp);
+        opts.iconMaps.put(appSettings.getTodoFile(), R.drawable.ic_assignment_turned_in_black_24dp);
     }
+
 
     public static File[] strlistToArray(List<String> strlist) {
         File[] files = new File[strlist.size()];

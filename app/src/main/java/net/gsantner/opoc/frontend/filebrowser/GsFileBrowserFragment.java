@@ -207,13 +207,10 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             _callback.onFsViewerConfig(dopt);
         }
 
-        dopt.sortFolderFirst = _appSettings.isFileBrowserSortFolderFirst();
-        dopt.sortByType = _appSettings.getFileBrowserSortByType();
-        dopt.sortReverse = _appSettings.isFileBrowserSortReverse();
-        dopt.filterShowDotFiles = _appSettings.isFileBrowserFilterShowDotFiles();
-        dopt.favouriteFiles = _appSettings.getFavouriteFiles();
-        dopt.recentFiles = _appSettings.getRecentFiles();
-        dopt.popularFiles = _appSettings.getPopularFiles();
+        final Context context = getContext();
+        if (context != null) {
+            MarkorFileBrowserFactory.updateFsViewerOpts(dopt, context, _appSettings);
+        }
     }
 
     @Override
