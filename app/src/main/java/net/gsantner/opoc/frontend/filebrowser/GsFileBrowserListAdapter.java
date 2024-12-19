@@ -21,6 +21,7 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.style.StrikethroughSpan;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -140,7 +141,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         }
 
         updateVirtualFolders();
-        loadFolder(_dopt.startFolder != null ? _dopt.startFolder : _dopt.rootFolder, null);
         _filter = new StringFilter(this);
     }
 
@@ -279,6 +279,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         super.onAttachedToRecyclerView(view);
         _recyclerView = view;
         _layoutManager = (LinearLayoutManager) view.getLayoutManager();
+        loadFolder(_dopt.startFolder != null ? _dopt.startFolder : _dopt.rootFolder, null);
     }
 
     public String formatFileDescription(final File file, String format) {
@@ -329,7 +330,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     }
 
     public void reloadCurrentFolder() {
-        loadFolder(_currentFolder, null);
+        loadFolder(_currentFolder != null ? _currentFolder : _dopt.rootFolder, null);
     }
 
     public void setCurrentFolder(final File folder) {
@@ -642,7 +643,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     private static final ExecutorService executorService = new ThreadPoolExecutor(0, 3, 60, TimeUnit.SECONDS, new SynchronousQueue<>());
 
     private void loadFolder(final File folder, final File show) {
-        if (folder == null) {
+        if (folder == null || _recyclerView == null) {
             return;
         }
 
@@ -661,21 +662,20 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             _currentFolder = GsCollectionUtils.getOrDefault(_virtualMapping, folder, folder);
         }
 
-        final File toShow = show == null ? _fileToShowAfterNextLoad : show;
-        _fileToShowAfterNextLoad = null;
+        if (_currentFolder != null) {
+            final File toShow = show == null ? _fileToShowAfterNextLoad : show;
+            _fileToShowAfterNextLoad = null;
 
-        try {
-            executorService.execute(() -> _loadFolder(folderChanged, toShow));
-        } catch (RejectedExecutionException ignored) { // during exit
+            try {
+                executorService.execute(() -> _loadFolder(folderChanged, toShow));
+            } catch (RejectedExecutionException err) { // during exit
+                Log.d(GsFileBrowserListAdapter.class.getName(), err.toString());
+            }
         }
     }
 
     // This function is not called on the main thread
     private synchronized void _loadFolder(final boolean folderChanged, final @Nullable File toShow) {
-
-        if (_recyclerView == null || _currentFolder == null) {
-            return;
-        }
 
         final List<File> newData = new ArrayList<>();
 
