@@ -124,7 +124,6 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         }
     }
 
-
     @Override
     public void onSaveInstanceState(@NonNull final Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -334,7 +333,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     }
 
     public String getFileBrowserTitle() {
-        final File file = _notebook.getCurrentFolder();
+        final File file = _notebook != null ? _notebook.getCurrentFolder() : null;
         if (file != null && !_appSettings.getNotebookDirectory().equals(file)) {
             return "> " + file.getName();
         } else {

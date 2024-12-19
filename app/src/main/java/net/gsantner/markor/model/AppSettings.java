@@ -61,8 +61,6 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     public static Boolean _isDeviceGoodHardware = null;
     private MarkorContextUtils _cu;
 
-    private static final File LOCAL_TESTFOLDER_FILEPATH = new File("/storage/emulated/0/00_sync/documents/special");
-
     @Override
     public AppSettings init(final Context context) {
         super.init(context);

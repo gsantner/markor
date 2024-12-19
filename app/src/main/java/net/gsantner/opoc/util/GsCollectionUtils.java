@@ -272,6 +272,15 @@ public class GsCollectionUtils {
         return map.containsKey(key) ? map.get(key) : defaultValue;
     }
 
+    public static <K, V> K reverseSearch(final Map<K, V> map, final V value) {
+        for (final Map.Entry<K, V> entry : map.entrySet()) {
+            if (entry.getValue().equals(value)) {
+                return entry.getKey();
+            }
+        }
+        return null;
+    }
+
     public static <T> void deduplicate(final Collection<T> data) {
         if (!(data instanceof Set)) {
             final LinkedHashSet<T> deduped = new LinkedHashSet<>(data);
