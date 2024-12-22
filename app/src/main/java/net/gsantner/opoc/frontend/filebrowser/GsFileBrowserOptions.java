@@ -23,6 +23,8 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class GsFileBrowserOptions {
@@ -106,6 +108,7 @@ public class GsFileBrowserOptions {
         public int selectedItemImage = android.R.drawable.checkbox_on_background;
         @DrawableRes
         public int fileImage = android.R.drawable.ic_menu_edit;
+
         @ColorRes
         public int backgroundColor = android.R.color.background_light;
         @ColorRes
@@ -123,12 +126,18 @@ public class GsFileBrowserOptions {
         @ColorRes
         public int folderColor = 0;
 
-        public final HashMap<File, File> storageMaps = new HashMap<>();
+        public final Map<File, File> storageMaps = new LinkedHashMap<>();
+        public final Map<File, Integer> iconMaps = new HashMap<>();
         public Collection<File> favouriteFiles, recentFiles, popularFiles = null;
         public GsCallback.a1<CharSequence> setTitle = null, setSubtitle = null;
 
-        public GsCallback.a0 refresh = null;
+        public void addVirtualFile(final String name, final File target, final int icon) {
+            final File file = new File(GsFileBrowserListAdapter.VIRTUAL_STORAGE_ROOT, name);
+            storageMaps.put(file, target);
+            iconMaps.put(file, icon);
+        }
     }
+
 
     public static class SelectionListenerAdapter implements SelectionListener, Serializable {
         @Override
