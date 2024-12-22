@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -98,6 +99,7 @@ public class AttachLinkOrFileDialog {
         final Button buttonPictureGallery = view.findViewById(R.id.ui__select_path_dialog__gallery_picture);
         final Button buttonPictureCamera = view.findViewById(R.id.ui__select_path_dialog__camera_picture);
         final Button buttonPictureEdit = view.findViewById(R.id.ui__select_path_dialog__edit_picture);
+        final Button buttonAudioRecord = view.findViewById(R.id.ui__select_path_dialog__record_audio);
 
         // Extract filepath if using Markdown
         if (textFormatId == FormatRegistry.FORMAT_MARKDOWN) {
@@ -133,6 +135,11 @@ public class AttachLinkOrFileDialog {
             dialog.setTitle(R.string.insert_image);
             browseType = InsertType.IMAGE_BROWSE;
             okType = InsertType.IMAGE_DIALOG;
+        } else if (action == AUDIO_ACTION) {
+            dialog.setTitle(R.string.audio);
+            buttonAudioRecord.setVisibility(View.VISIBLE);
+            browseType = InsertType.AUDIO_BROWSE;
+            okType = InsertType.AUDIO_DIALOG;
         } else {
             dialog.setTitle(R.string.insert_link);
             buttonSelectSpecial.setVisibility(View.VISIBLE);
@@ -148,6 +155,7 @@ public class AttachLinkOrFileDialog {
         buttonSearch.setOnClickListener(v -> _insertItem.callback(InsertType.LINK_SEARCH));
         buttonPictureCamera.setOnClickListener(b -> _insertItem.callback(InsertType.IMAGE_CAMERA));
         buttonPictureGallery.setOnClickListener(v -> _insertItem.callback(InsertType.IMAGE_GALLERY));
+        buttonAudioRecord.setOnClickListener(v -> _insertItem.callback(InsertType.AUDIO_RECORDING));
         buttonPictureEdit.setOnClickListener(v -> _insertItem.callback(InsertType.IMAGE_EDIT));
 
         dialog.show();
@@ -400,7 +408,7 @@ public class AttachLinkOrFileDialog {
             }
             case AUDIO_RECORDING: {
                 if (!cu.requestAudioRecording(activity, insertFileLink)) {
-                    // noop, OM library is outdated and so voice recording feature removed
+                    Toast.makeText(activity, "❌", Toast.LENGTH_SHORT).show();
                 }
                 break;
             }

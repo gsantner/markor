@@ -91,7 +91,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     private Menu _fragmentMenu;
     private MarkorContextUtils _cu;
     private Toolbar _toolbar;
-    private File _lastSelectedFile;
 
     //########################
     //## Methods
@@ -207,6 +206,11 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         if (_callback != null) {
             _callback.onFsViewerConfig(dopt);
         }
+
+        final Context context = getContext();
+        if (context != null) {
+            MarkorFileBrowserFactory.updateFsViewerOpts(dopt, context, _appSettings);
+        }
     }
 
     @Override
@@ -235,7 +239,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         // Check if is a favourite
         boolean selTextFilesOnly = true;
         boolean selDirectoriesOnly = true;
-        boolean selWritable = (!curFilepath.equals("/storage") && !curFilepath.equals("/storage/emulated"));
+        boolean selWritable = true;
         boolean allSelectedFav = true;
         final Collection<File> favFiles = _dopt.favouriteFiles != null ? _dopt.favouriteFiles : Collections.emptySet();
         for (final File f : selFiles) {
@@ -314,10 +318,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     @Override
     public void onResume() {
         super.onResume();
-        if (_dopt.refresh != null) {
-            _dopt.refresh.callback();
-        }
-
+        _dopt.listener.onFsViewerConfig(_dopt);
         final File folder = getCurrentFolder();
         final Activity activity = getActivity();
         if (isVisible() && folder != null && activity != null) {
