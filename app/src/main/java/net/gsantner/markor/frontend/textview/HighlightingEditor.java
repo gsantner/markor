@@ -18,8 +18,11 @@ import android.text.InputFilter;
 import android.text.Layout;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.view.ActionMode;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.accessibility.AccessibilityEvent;
@@ -30,14 +33,13 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatEditText;
 
 import net.gsantner.markor.ApplicationObject;
+import net.gsantner.markor.R;
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
-import net.gsantner.markor.util.TextCasingUtils;
 
-import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.SynchronousQueue;
@@ -114,12 +116,19 @@ public class HighlightingEditor extends AppCompatEditText {
 
         // Fix for Android 12 perf issues - https://github.com/gsantner/markor/discussions/1794
         setEmojiCompatEnabled(false);
+
+        // Custom options
+        setupCustomOptions();
     }
 
     @Override
     public boolean onPreDraw() {
         _lineNumbersDrawer.setTextSize(getTextSize());
-        return super.onPreDraw();
+        try {
+            return super.onPreDraw();
+        } catch (OutOfMemoryError ignored) {
+            return false; // return false to cancel current drawing pass/round
+        }
     }
 
     @Override
@@ -309,60 +318,6 @@ public class HighlightingEditor extends AppCompatEditText {
         return layout == null ? 0 : layout.getLineEnd(layout.getLineForVertical(y));
     }
 
-    // Text-Casing
-    // ---------------------------------------------------------------------------------------------
-    public void toggleCase() {
-        String text = getSelectedText();
-        if (text.isEmpty()) {
-            text = Objects.requireNonNull(getText()).toString();
-        }
-        String newText = TextCasingUtils.toggleCase(text);
-        replaceSelection(newText);
-    }
-
-    public void switchCase() {
-        String text = getSelectedText();
-        if (text.isEmpty()) {
-            text = Objects.requireNonNull(getText()).toString();
-        }
-        String newText = TextCasingUtils.switchCase(text);
-        replaceSelection(newText);
-    }
-
-    public void capitalizeWords() {
-        String text = getSelectedText();
-        if (text.isEmpty()) {
-            text = Objects.requireNonNull(getText()).toString();
-        }
-        String newText = TextCasingUtils.capitalizeWords(text);
-        replaceSelection(newText);
-    }
-
-    public void capitalizeSentences() {
-        String text = getSelectedText();
-        if (text.isEmpty()) {
-            text = Objects.requireNonNull(getText()).toString();
-        }
-        String newText = TextCasingUtils.capitalizeSentences(text);
-        replaceSelection(newText);
-    }
-
-    private String getSelectedText() {
-        int start = Math.max(0, getSelectionStart());
-        int end = Math.max(0, getSelectionEnd());
-        return Objects.requireNonNull(getText()).toString().substring(start, end);
-    }
-
-    private void replaceSelection(String replacement) {
-        int start = Math.max(0, getSelectionStart());
-        int end = Math.max(0, getSelectionEnd());
-        if (start == end) { // If no selection is made, replace all the text in the document
-            setText(replacement);
-        } else { // Replace only the selected text
-            Objects.requireNonNull(getText()).replace(start, end, replacement);
-        }
-    }
-
     // Various overrides
     // ---------------------------------------------------------------------------------------------
     public void setSaveInstanceState(final boolean save) {
@@ -517,6 +472,11 @@ public class HighlightingEditor extends AppCompatEditText {
 
     // Utility functions for interaction
     // ---------------------------------------------------------------------------------------------
+
+    public void selectLines() {
+        final int[] sel = TextViewUtils.getLineSelection(this);
+        setSelection(sel[0], sel[1]);
+    }
 
     public void simulateKeyPress(int keyEvent_KEYCODE_SOMETHING) {
         dispatchKeyEvent(new KeyEvent(0, 0, KeyEvent.ACTION_DOWN, keyEvent_KEYCODE_SOMETHING, 0));
@@ -737,5 +697,38 @@ public class HighlightingEditor extends AppCompatEditText {
             _editor.setPadding(_defaultPaddingLeft, _editor.getPaddingTop(), _editor.getPaddingRight(), _editor.getPaddingBottom());
             _maxNumberDigits = 0;
         }
+    }
+
+    private void setupCustomOptions() {
+        setCustomSelectionActionModeCallback(new ActionMode.Callback() {
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                // Add custom items programmatically
+                menu.add(0, R.string.option_select_lines, 0, "☰");
+                return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                // Modify menu items here if necessary
+                return true;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.string.option_select_lines:
+                        HighlightingEditor.this.selectLines();
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+                // Cleanup if needed
+            }
+        });
     }
 }

@@ -150,7 +150,7 @@
             android:text="@string/template"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
-        <Spinner
+        <view class="net.gsantner.markor.frontend.NewFileDialog$ReselectSpinner"
             android:id="@+id/new_file_dialog__template"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
