@@ -835,10 +835,21 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return getBool(R.string.pref_key__editor_enable_line_breaking, true);
     }
 
-    public synchronized boolean isExtOpenWithThisApp(final String ext) {
-        final String pref = getString(R.string.pref_key__exts_to_always_open_in_this_app, "");
-        final List<String> exts = Arrays.asList(pref.toLowerCase().replace(" ", "").split(","));
-        return exts.contains(ext.toLowerCase().trim()) || exts.contains(".*");
+    private List<String> _extSettingCache = null;
+
+    public synchronized boolean isExtOpenWithThisApp(String ext) {
+        if (_extSettingCache == null) {
+            String pref = getString(R.string.pref_key__exts_to_always_open_in_this_app, "");
+            _extSettingCache = Arrays.asList(pref.toLowerCase()
+                    .replace("none", "")   // none == no ext
+                    .replace(" ", "")      // remove spaces
+                    .replace(",.", ",")    // remove leading dot
+                    .split(","));
+        }
+
+        ext = ext.trim();
+        ext = ext.startsWith(".") ? ext.substring(1) : ext;
+        return _extSettingCache.contains(ext) || _extSettingCache.contains("*");
     }
 
     public boolean isExperimentalFeaturesEnabled() {

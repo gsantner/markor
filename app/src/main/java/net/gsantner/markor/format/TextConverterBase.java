@@ -200,10 +200,11 @@ public abstract class TextConverterBase {
     }
 
     public boolean isFileOutOfThisFormat(final @NonNull File file) {
-        final String fname = file.getName().toLowerCase().replace(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION, "");
-        final String name = GsFileUtils.getNameWithoutExtension(fname);
-        final String ext = GsFileUtils.getExtension(fname);
-        return isFileOutOfThisFormat(file, name, ext);
+        final String name = file.getName().toLowerCase().replace(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION, "").trim();
+        String ext = GsFileUtils.getExtension(name);
+        ext = !ext.isEmpty() ? ext.substring(1) : ext;
+        final boolean ret = isFileOutOfThisFormat(file, name, ext);
+        return ret;
     }
 
     protected abstract boolean isFileOutOfThisFormat(final File file, final String name, final String ext);

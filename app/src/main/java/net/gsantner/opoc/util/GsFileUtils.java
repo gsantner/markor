@@ -707,7 +707,7 @@ public class GsFileUtils {
     /// Get the file extension of the file, including dot
     public static String getExtension(final String fileName) {
         final String name = fileName.replace(".jenc", "");
-        final int doti = name.lastIndexOf(".");
+        final int doti = name.indexOf(".");
         return (doti < 0) ? "" : name.substring(doti).toLowerCase();
     }
 

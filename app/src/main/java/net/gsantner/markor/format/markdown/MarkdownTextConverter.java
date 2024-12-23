@@ -78,7 +78,7 @@ public class MarkdownTextConverter extends TextConverterBase {
     public static final String EXT_MARKDOWN__TEXT = ".text";
     public static final String EXT_MARKDOWN__RMD = ".rmd";
 
-    public static final String MD_EXTENSIONS_PATTERN_LIST = "((md)|(markdown)|(mkd)|(mdown)|(mkdn)|(txt)|(mdwn)|(mdx)|(text)|(rmd))";
+    public static final String MD_EXTENSIONS_PATTERN_LIST = "((md)|(markdown)|(mkd)|(mdown)|(mkdn)|(mdwn)|(mdx)|(md\\.txt)|(rmd))";
     public static final Pattern PATTERN_HAS_FILE_EXTENSION_FOR_THIS_FORMAT = Pattern.compile("((?i).*\\." + MD_EXTENSIONS_PATTERN_LIST + "$)");
     public static final Pattern MD_EXTENSION_PATTERN = Pattern.compile("((?i)\\." + MD_EXTENSIONS_PATTERN_LIST + "$)");
     public static final String[] MD_EXTENSIONS = new String[]{
@@ -402,7 +402,7 @@ public class MarkdownTextConverter extends TextConverterBase {
 
     @Override
     protected boolean isFileOutOfThisFormat(final File file, final String name, final String ext) {
-        return (MarkdownTextConverter.PATTERN_HAS_FILE_EXTENSION_FOR_THIS_FORMAT.matcher(name).matches() && !name.endsWith(".txt")) || name.endsWith(".md.txt");
+        return MarkdownTextConverter.PATTERN_HAS_FILE_EXTENSION_FOR_THIS_FORMAT.matcher(name).matches();
     }
 
     private Map<String, List<String>> extractYamlAttributes(final String markup) {
