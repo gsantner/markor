@@ -44,13 +44,9 @@ public class AutoTextFormatter implements InputFilter {
 
         final OrderedListLine oLine = new OrderedListLine(dest, dstart, _patterns);
         final UnOrderedOrCheckListLine uLine = new UnOrderedOrCheckListLine(dest, dstart, _patterns);
-        final String indent;
-        if (oLine.indent < 0 || oLine.indent > oLine.line.length()) {
-            indent = source.toString();
-        } else {
-            // Copy indent from previous line
-            indent = source + oLine.line.substring(0, oLine.indent);
-        }
+
+        final int iEnd = Math.min(Math.max(oLine.textOffset, 0), oLine.line.length());
+        final String indent = oLine.line.substring(0, iEnd);
 
         final String result;
         if (oLine.isOrderedList && oLine.lineEnd != oLine.groupEnd && dend >= oLine.groupEnd) {
@@ -88,9 +84,10 @@ public class AutoTextFormatter implements InputFilter {
 
         public final int lineStart, lineEnd;
         public final String line;
-        public final int indent;
+        public final int textOffset;
         public final boolean isEmpty;
         public final boolean isTopLevel;
+        public final int indent;
 
         public ListLine(CharSequence text, int position, FormatPatterns patterns) {
             this.text = text;
@@ -98,9 +95,11 @@ public class AutoTextFormatter implements InputFilter {
 
             lineStart = TextViewUtils.getLineStart(text, position);
             lineEnd = TextViewUtils.getLineEnd(text, position);
-            indent = TextViewUtils.getNextNonWhitespace(text, lineStart) - lineStart;
+            textOffset = TextViewUtils.getNextNonWhitespace(text, lineStart);
             line = text.subSequence(lineStart, lineEnd).toString();
-            isEmpty = (lineEnd - lineStart) == indent;
+            isEmpty = line.trim().isEmpty();
+            final int[] counts = GsTextUtils.countChars(line, 0, textOffset, ' ', '\t');
+            indent = counts[0] + counts[1] * 4;
             isTopLevel = indent <= patterns.indentSlack;
         }
 

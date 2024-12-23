@@ -188,7 +188,7 @@ public abstract class TextConverterBase {
                 .replace(TOKEN_ACCENT_COLOR, GsTextUtils.colorToHexString(ContextCompat.getColor(context, R.color.accent)))
                 .replace(TOKEN_TEXT_DIRECTION, _appSettings.isRenderRtl() ? "right" : "left")
                 .replace(TOKEN_FONT, font)
-                .replace(TOKEN_TEXT_CONVERTER_CSS_CLASS, "format-" + getClass().getSimpleName().toLowerCase().replace("textconverter", "").replace("converter", "") + " fileext-" + GsFileUtils.getFilenameExtension(file).replace(".", ""))
+                .replace(TOKEN_TEXT_CONVERTER_CSS_CLASS, "format-" + getClass().getSimpleName().toLowerCase().replace("textconverter", "").replace("converter", "") + " fileext-" + GsFileUtils.getExtension(file).replace(".", ""))
                 .replace(TOKEN_POST_TODAY_DATE, DateFormat.getDateFormat(context).format(new Date()))
                 .replace(TOKEN_FILEURI_VIEWED_FILE, (file != null ? Uri.fromFile(file.getAbsoluteFile()).toString() : "file:///dummy").replace("'", "\\'").replace("\"", "\\\""));
 
@@ -200,8 +200,9 @@ public abstract class TextConverterBase {
     }
 
     public boolean isFileOutOfThisFormat(final @NonNull File file) {
-        final String name = file.getName().toLowerCase().replace(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION, "");
-        final String ext = name.replaceAll(".*\\.", ".");
+        final String fname = file.getName().toLowerCase().replace(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION, "");
+        final String name = GsFileUtils.getNameWithoutExtension(fname);
+        final String ext = GsFileUtils.getExtension(fname);
         return isFileOutOfThisFormat(file, name, ext);
     }
 

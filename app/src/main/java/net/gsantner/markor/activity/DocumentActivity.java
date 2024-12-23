@@ -38,7 +38,6 @@ import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 
 import java.io.File;
-import java.util.Stack;
 
 import other.so.AndroidBug5497Workaround;
 
@@ -76,7 +75,7 @@ public class DocumentActivity extends MarkorBaseActivity {
             return;
         }
 
-        if (GsFileUtils.getFilenameExtension(file).equals(".apk")) {
+        if (GsFileUtils.getExtension(file).equals(".apk")) {
             GsContextUtils.instance.requestApkInstallation(activity, file);
             return;
         }

@@ -75,7 +75,7 @@ public class Document implements Serializable {
         path = getPath(f);
         file = new File(path);
         title = GsFileUtils.getFilenameWithoutExtension(file);
-        extension = GsFileUtils.getFilenameExtension(file);
+        extension = GsFileUtils.getExtension(file);
 
         // Set initial format
         for (final FormatRegistry.Format format : FormatRegistry.FORMATS) {

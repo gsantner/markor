@@ -450,7 +450,7 @@ public class GsFileUtils {
             return "*/*";
         }
 
-        final String ext = getFilenameExtension(file).replace(".", "");
+        final String ext = getExtension(file).replace(".", "");
         if (file.isDirectory()) {
             return "inode/directory";
         } else if (ext.matches("ya?ml")) {
@@ -699,9 +699,14 @@ public class GsFileUtils {
         return (doti < 0) ? fileName : fileName.substring(0, doti);
     }
 
+
+    public static String getExtension(final File file) {
+        return getExtension(file.getName());
+    }
+
     /// Get the file extension of the file, including dot
-    public static String getFilenameExtension(final File file) {
-        final String name = file.getName().replace(".jenc", "");
+    public static String getExtension(final String fileName) {
+        final String name = fileName.replace(".jenc", "");
         final int doti = name.lastIndexOf(".");
         return (doti < 0) ? "" : name.substring(doti).toLowerCase();
     }
