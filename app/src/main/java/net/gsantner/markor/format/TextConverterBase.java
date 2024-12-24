@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.text.format.DateFormat;
+import android.view.KeyEvent;
 import android.webkit.WebView;
 
 import androidx.annotation.NonNull;
@@ -200,9 +201,9 @@ public abstract class TextConverterBase {
     }
 
     public boolean isFileOutOfThisFormat(final @NonNull File file) {
-        final String name = file.getName().toLowerCase().replace(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION, "");
-        final String ext = name.replaceAll(".*\\.", ".");
-        return isFileOutOfThisFormat(file, name, ext);
+        final String name = file.getName().toLowerCase().replace(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION, "").trim();
+        final String extWithDot = GsFileUtils.getFilenameExtension(name);
+        return isFileOutOfThisFormat(file, name, extWithDot);
     }
 
     protected abstract boolean isFileOutOfThisFormat(final File file, final String name, final String ext);
