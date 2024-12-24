@@ -34,7 +34,6 @@ import net.gsantner.opoc.util.GsContextUtils;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -191,11 +190,11 @@ public final class TextViewUtils {
      *
      * @return int[n][2] where for each input, index 0 is line and index 1 is position from end of line
      */
-    public static int[][] getLineOffsetFromIndex(final CharSequence text, final int ... sel) {
+    public static int[][] getLineOffsetFromIndex(final CharSequence text, final int... sel) {
         final int[][] offsets = new int[sel.length][2];
 
         for (int i = 0; i < sel.length; i++) {
-            offsets[i] = new int[] {-1, -1};
+            offsets[i] = new int[]{-1, -1};
             final int p = sel[i];
             if (p >= 0 && p <= text.length()) {
                 offsets[i][0] = GsTextUtils.countChars(text, 0, p, '\n')[0];
@@ -212,9 +211,9 @@ public final class TextViewUtils {
 
     public static void setSelectionFromOffsets(final Spannable text, final int[][] offsets) {
         if (offsets != null && offsets.length >= 2 &&
-            offsets[0] != null && offsets[0].length == 2 &&
-            offsets[1] != null && offsets[1].length == 2 &&
-            text != null
+                offsets[0] != null && offsets[0].length == 2 &&
+                offsets[1] != null && offsets[1].length == 2 &&
+                text != null
         ) {
             final int start = getIndexFromLineOffset(text, offsets[0]);
             final int end = getIndexFromLineOffset(text, offsets[1]);
@@ -264,11 +263,6 @@ public final class TextViewUtils {
         return i;
     }
 
-
-    public static void selectLines(final EditText edit, final Integer... positions) {
-        selectLines(edit, Arrays.asList(positions));
-    }
-
     /**
      * Select the given indices.
      * Case 1: Only one index -> Put cursor on that line
@@ -283,8 +277,8 @@ public final class TextViewUtils {
         }
         final CharSequence text = edit.getText();
         if (positions.size() == 1) { // Case 1 index
-            final int posn = TextViewUtils.getIndexFromLineOffset(text, positions.get(0), 0);
-            setSelectionAndShow(edit, posn);
+            final int sel = TextViewUtils.getIndexFromLineOffset(text, positions.get(0), 0);
+            setSelectionAndShow(edit, sel);
         } else if (positions.size() > 1) {
             final TreeSet<Integer> pSet = new TreeSet<>(positions);
             final int selStart, selEnd;
@@ -308,12 +302,7 @@ public final class TextViewUtils {
         }
     }
 
-    public static void showSelection(final TextView text) {
-        showSelection(text, text.getSelectionStart(), text.getSelectionEnd());
-    }
-
     public static void showSelection(final TextView text, final int start, final int end) {
-
         // Get view info
         // ------------------------------------------------------------
         final Layout layout = text.getLayout();
@@ -362,6 +351,10 @@ public final class TextViewUtils {
         text.requestRectangleOnScreen(region);
     }
 
+    public static void showSelection(final TextView text) {
+        showSelection(text, text.getSelectionStart(), text.getSelectionEnd());
+    }
+
     public static void setSelectionAndShow(final EditText edit, final int... sel) {
         if (sel == null || sel.length == 0) {
             return;
@@ -374,9 +367,15 @@ public final class TextViewUtils {
             if (!edit.hasFocus() && edit.getVisibility() != View.GONE) {
                 edit.requestFocus();
             }
-
             edit.setSelection(start, end);
             showSelection(edit, start, end);
+        }
+    }
+
+    public static void jumpToLine(final EditText edit, final int number) {
+        final int selection = TextViewUtils.getIndexFromLineOffset(edit.getText(), number, 0);
+        if (GsTextUtils.inRange(0, edit.length(), selection, selection)) {
+            showSelection(edit, selection, selection);
         }
     }
 

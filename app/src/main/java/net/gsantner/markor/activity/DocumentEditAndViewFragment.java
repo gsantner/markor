@@ -63,6 +63,7 @@ import net.gsantner.opoc.frontend.textview.TextViewUndoRedo;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsCoolExperimentalStuff;
 import net.gsantner.opoc.web.GsWebViewChromeClient;
+import net.gsantner.opoc.web.GsWebViewClient;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
 import java.io.File;
@@ -71,7 +72,7 @@ import java.io.File;
 @SuppressLint("NonConstantResourceId")
 public class DocumentEditAndViewFragment extends MarkorBaseFragment implements FormatRegistry.TextFormatApplier {
     public static final String FRAGMENT_TAG = "DocumentEditAndViewFragment";
-    public static final String SAVESTATE_DOCUMENT = "DOCUMENT";
+    public static final String SAVE_STATE_DOCUMENT = "DOCUMENT";
     public static final String START_PREVIEW = "START_PREVIEW";
 
     public static DocumentEditAndViewFragment newInstance(final @NonNull Document document, final Integer lineNumber, final Boolean preview) {
@@ -103,6 +104,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     private MenuItem _saveMenuItem, _undoMenuItem, _redoMenuItem;
     private boolean _isPreviewVisible;
     private boolean _nextConvertToPrintMode = false;
+    private int _firstVisibleLineNumber = 1;
 
 
     public DocumentEditAndViewFragment() {
@@ -113,8 +115,8 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final Bundle args = getArguments();
-        if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_DOCUMENT)) {
-            _document = (Document) savedInstanceState.getSerializable(SAVESTATE_DOCUMENT);
+        if (savedInstanceState != null && savedInstanceState.containsKey(SAVE_STATE_DOCUMENT)) {
+            _document = (Document) savedInstanceState.getSerializable(SAVE_STATE_DOCUMENT);
         } else if (args != null && args.containsKey(Document.EXTRA_DOCUMENT)) {
             _document = (Document) args.get(Document.EXTRA_DOCUMENT);
         }
@@ -153,6 +155,16 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         }
 
         _webViewClient = new MarkorWebViewClient(_webView, activity);
+        _webViewClient.setOnPageFinishedListener(new GsWebViewClient.OnPageFinishedListener() {
+            @Override
+            public void onPageFinished(WebView v) {
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+                    return;
+                }
+                _firstVisibleLineNumber = _hlEditor.getFirstVisibleLineNumber();
+                _webView.evaluateJavascript("edit2Preview(" + _firstVisibleLineNumber + ");", null);
+            }
+        });
         _webView.setWebChromeClient(new GsWebViewChromeClient(_webView, activity, view.findViewById(R.id.document__fragment_fullscreen_overlay)));
         _webView.setWebViewClient(_webViewClient);
         _webView.addJavascriptInterface(this, "Android");
@@ -286,6 +298,14 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _appSettings.setDocumentPreviewState(_document.path, _isPreviewVisible);
         _appSettings.setLastEditPosition(_document.path, TextViewUtils.getSelection(_hlEditor)[0]);
 
+        int y;
+        if (_webView.isShown()) {
+            y = _webView.getScrollY();
+        } else {
+            y = _webViewClient.getRestoreScrollY();
+        }
+        _appSettings.setLastViewPositionY(_document.path, y);
+
         if (_document.path.equals(_appSettings.getTodoFile().getAbsolutePath())) {
             TodoWidgetProvider.updateTodoWidgets();
         }
@@ -294,7 +314,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putSerializable(SAVESTATE_DOCUMENT, _document);
+        outState.putSerializable(SAVE_STATE_DOCUMENT, _document);
         super.onSaveInstanceState(outState);
     }
 
@@ -878,17 +898,26 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         if (show) {
             updateViewModeText();
             _cu.showSoftKeyboard(activity, false, _hlEditor);
-            _hlEditor.clearFocus();
             _hlEditor.postDelayed(() -> _cu.showSoftKeyboard(activity, false, _hlEditor), 300);
+            _webView.requestFocus();
             GsContextUtils.fadeInOut(_webView, _primaryScrollView, animate);
         } else {
             _webViewClient.setRestoreScrollY(_webView.getScrollY());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                _webView.evaluateJavascript("preview2Edit();", result -> {
+                    if (Character.isDigit(result.charAt(0))) {
+                        final int lineNumber = Integer.parseInt(result);
+                        if (lineNumber > 0 && (lineNumber < _firstVisibleLineNumber - 2 || lineNumber > _firstVisibleLineNumber + 2)) {
+                            TextViewUtils.jumpToLine(_hlEditor, lineNumber);
+                        }
+                    }
+                });
+            }
+            _hlEditor.requestFocus();
             GsContextUtils.fadeInOut(_primaryScrollView, _webView, animate);
         }
-
-        _nextConvertToPrintMode = false;
         _isPreviewVisible = show;
-
+        _nextConvertToPrintMode = false;
         ((AppCompatActivity) activity).supportInvalidateOptionsMenu();
     }
 
@@ -913,7 +942,15 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     @Override
     protected boolean onToolbarLongClicked(View v) {
         if (isVisible() && isResumed()) {
-            _format.getActions().runJumpBottomTopAction(_isPreviewVisible ? ActionButtonBase.ActionItem.DisplayMode.VIEW : ActionButtonBase.ActionItem.DisplayMode.EDIT);
+            if (_isPreviewVisible) {
+                if (_webViewClient.getRestoreScrollY() < 1) {
+                    final int y = _appSettings.getLastViewPositionY(_document.path, 1);
+                    _webViewClient.setRestoreScrollY(y);
+                }
+                _webViewClient.restoreScrollY(_webView);
+            } else {
+                _format.getActions().runJumpBottomTopAction(ActionButtonBase.ActionItem.DisplayMode.EDIT);
+            }
             return true;
         }
         return false;
