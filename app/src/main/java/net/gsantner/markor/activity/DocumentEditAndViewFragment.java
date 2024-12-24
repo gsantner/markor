@@ -365,6 +365,10 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     @Override
     public boolean onReceiveKeyPress(int keyCode, KeyEvent event) {
+        if (_format != null && _format.getActions().onReceiveKeyPress(keyCode, event)) {
+            return true;
+        }
+
         if (event.isCtrlPressed()) {
             if (event.isShiftPressed() && keyCode == KeyEvent.KEYCODE_Z) {
                 if (_editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanRedo()) {

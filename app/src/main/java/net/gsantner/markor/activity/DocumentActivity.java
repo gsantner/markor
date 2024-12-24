@@ -75,7 +75,7 @@ public class DocumentActivity extends MarkorBaseActivity {
             return;
         }
 
-        if (GsFileUtils.getExtension(file).equals(".apk")) {
+        if (GsFileUtils.getFilenameExtension(file).equals("apk")) {
             GsContextUtils.instance.requestApkInstallation(activity, file);
             return;
         }

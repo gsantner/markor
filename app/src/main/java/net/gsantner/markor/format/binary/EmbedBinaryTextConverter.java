@@ -60,7 +60,7 @@ public class EmbedBinaryTextConverter extends TextConverterBase {
         }
         head = CSS_EMBED_STYLE + CSS_EMBED_TABLE_LIMITS + CSS_EMBED_STICKY_STYLE;
         converted = HTML100_BODY_BEGIN;
-        final String extWithDot = GsFileUtils.getExtension(file);
+        final String extWithDot = GsFileUtils.getFilenameExtension(file);
 
         // Sticky header with content depending on type
         if (true) {

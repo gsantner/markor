@@ -46,7 +46,7 @@ public class PlaintextTextConverter extends TextConverterBase {
     @Override
     public String convertMarkup(String markup, Context context, boolean lightMode, boolean lineNum, File file) {
         String converted = "", onLoadJs = "", head = "";
-        final String extWithDot = GsFileUtils.getExtension(file);
+        final String extWithDot = GsFileUtils.getFilenameExtension(file);
         String tmp;
 
         ///////////////////////////////////////////

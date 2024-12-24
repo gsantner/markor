@@ -482,4 +482,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="switch_case">Switch Case (Ex: CaSe->cAsE)</string>
     <string name="capitalize_words">Capitalize Words (Ex: a note->A Note)</string>
     <string name="capitalize_sentences">Capitalize Sentences (Ex: case->Case)</string>
+    <string name="use_tab_to_indent">Indent lines with TAB key</string>
 </resources>

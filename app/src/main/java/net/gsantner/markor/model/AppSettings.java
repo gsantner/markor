@@ -852,6 +852,10 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return _extSettingCache.contains(ext) || _extSettingCache.contains("*");
     }
 
+    public boolean isIndentWithTabKey() {
+        return getBool(R.string.pref_key__editor_tab_to_indent, false);
+    }
+
     public boolean isExperimentalFeaturesEnabled() {
         return getBool(R.string.pref_key__is_enable_experimental_features, BuildConfig.IS_TEST_BUILD);
     }

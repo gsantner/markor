@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.text.format.DateFormat;
+import android.view.KeyEvent;
 import android.webkit.WebView;
 
 import androidx.annotation.NonNull;
@@ -188,7 +189,7 @@ public abstract class TextConverterBase {
                 .replace(TOKEN_ACCENT_COLOR, GsTextUtils.colorToHexString(ContextCompat.getColor(context, R.color.accent)))
                 .replace(TOKEN_TEXT_DIRECTION, _appSettings.isRenderRtl() ? "right" : "left")
                 .replace(TOKEN_FONT, font)
-                .replace(TOKEN_TEXT_CONVERTER_CSS_CLASS, "format-" + getClass().getSimpleName().toLowerCase().replace("textconverter", "").replace("converter", "") + " fileext-" + GsFileUtils.getExtension(file).replace(".", ""))
+                .replace(TOKEN_TEXT_CONVERTER_CSS_CLASS, "format-" + getClass().getSimpleName().toLowerCase().replace("textconverter", "").replace("converter", "") + " fileext-" + GsFileUtils.getFilenameExtension(file).replace(".", ""))
                 .replace(TOKEN_POST_TODAY_DATE, DateFormat.getDateFormat(context).format(new Date()))
                 .replace(TOKEN_FILEURI_VIEWED_FILE, (file != null ? Uri.fromFile(file.getAbsoluteFile()).toString() : "file:///dummy").replace("'", "\\'").replace("\"", "\\\""));
 
@@ -201,10 +202,8 @@ public abstract class TextConverterBase {
 
     public boolean isFileOutOfThisFormat(final @NonNull File file) {
         final String name = file.getName().toLowerCase().replace(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION, "").trim();
-        String ext = GsFileUtils.getExtension(name);
-        ext = !ext.isEmpty() ? ext.substring(1) : ext;
-        final boolean ret = isFileOutOfThisFormat(file, name, ext);
-        return ret;
+        final String extWithDot = GsFileUtils.getFilenameExtension(name);
+        return isFileOutOfThisFormat(file, name, extWithDot);
     }
 
     protected abstract boolean isFileOutOfThisFormat(final File file, final String name, final String ext);
