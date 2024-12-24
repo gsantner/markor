@@ -28,6 +28,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import net.gsantner.markor.util.TextCasingUtils;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 
@@ -39,7 +40,7 @@ import java.util.Locale;
 import java.util.TreeSet;
 import java.util.UUID;
 
-@SuppressWarnings({"CharsetObjectCanBeUsed", "WeakerAccess", "unused"})
+@SuppressWarnings({"WeakerAccess", "unused"})
 public final class TextViewUtils {
 
     // Suppress default constructor for noninstantiability
@@ -127,13 +128,22 @@ public final class TextViewUtils {
         }
     }
 
-    public static String getSelectedText(final CharSequence text) {
+    public static CharSequence getSelectedText(final CharSequence text) {
         final int[] sel = getSelection(text);
-        return (sel[0] >= 0 && sel[1] >= 0) ? text.subSequence(sel[0], sel[1]).toString() : "";
+        return (sel[0] >= 0 && sel[1] >= 0) ? text.subSequence(sel[0], sel[1]) : "";
     }
 
-    public static String getSelectedText(final TextView text) {
+    public static CharSequence getSelectedText(final TextView text) {
         return getSelectedText(text.getText());
+    }
+
+    public static void replaceSelection(final Editable text, final CharSequence replace) {
+        if (text != null && replace != null) {
+            final int[] sel = getSelection(text);
+            if (sel[0] >= 0 && sel[1] >= 0) {
+                text.replace(sel[0], sel[1], replace);
+            }
+        }
     }
 
     public static int[] getLineSelection(final CharSequence text, final int[] sel) {
@@ -379,7 +389,7 @@ public final class TextViewUtils {
      * @param title        Title of note (for {{title}})
      * @param selectedText Currently selected text
      */
-    public static String interpolateSnippet(String text, final String title, final String selectedText) {
+    public static String interpolateSnippet(String text, final CharSequence title, final CharSequence selectedText) {
         final long current = System.currentTimeMillis();
         final String time = GsContextUtils.instance.formatDateTime((Locale) null, "HH:mm", current);
         final String date = GsContextUtils.instance.formatDateTime((Locale) null, "yyyy-MM-dd", current);
@@ -751,5 +761,35 @@ public final class TextViewUtils {
             }
         }
         return null; // Uncertain
+    }
+
+    // Text-Casing
+    // ---------------------------------------------------------------------------------------------
+    public static void toggleSelectionCase(final Editable edit) {
+        final String text = getSelectedText(edit).toString();
+        if (!text.isEmpty()) {
+            replaceSelection(edit, TextCasingUtils.toggleCase(text));
+        }
+    }
+
+    public static void switchSelectionCase(final Editable edit) {
+        final String text = getSelectedText(edit).toString();
+        if (!text.isEmpty()) {
+            replaceSelection(edit, TextCasingUtils.switchCase(text));
+        }
+    }
+
+    public static void capitalizeSelectionWords(final Editable edit) {
+        final String text = getSelectedText(edit).toString();
+        if (!text.isEmpty()) {
+            replaceSelection(edit, TextCasingUtils.capitalizeWords(text));
+        }
+    }
+
+    public static void capitalizeSelectionSentences(final Editable edit) {
+        final String text = getSelectedText(edit).toString();
+        if (!text.isEmpty()) {
+            replaceSelection(edit, TextCasingUtils.capitalizeSentences(text));
+        }
     }
 }

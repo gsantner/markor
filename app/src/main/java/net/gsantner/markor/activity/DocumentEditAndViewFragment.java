@@ -673,24 +673,16 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 return true;
             }
             case R.id.action_toggle_case:
-                if (_hlEditor != null) {
-                    _hlEditor.toggleCase();
-                }
+                TextViewUtils.toggleSelectionCase(_hlEditor.getText());
                 return true;
             case R.id.action_switch_case:
-                if (_hlEditor != null) {
-                    _hlEditor.switchCase();
-                }
+                TextViewUtils.switchSelectionCase(_hlEditor.getText());
                 return true;
             case R.id.action_capitalize_words:
-                if (_hlEditor != null) {
-                    _hlEditor.capitalizeWords();
-                }
+                TextViewUtils.capitalizeSelectionWords(_hlEditor.getText());
                 return true;
             case R.id.action_capitalize_sentences:
-                if (_hlEditor != null) {
-                    _hlEditor.capitalizeSentences();
-                }
+                TextViewUtils.capitalizeSelectionSentences(_hlEditor.getText());
                 return true;
             default: {
                 return super.onOptionsItemSelected(item);
