@@ -1015,7 +1015,7 @@ public abstract class ActionButtonBase {
     }
 
     public boolean onReceiveKeyPress(final int keyCode, final KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_TAB && _appSettings.isIndentWithTabKey()) {
+        if (keyCode == KeyEvent.KEYCODE_TAB) {
             runIndentLines(event.isShiftPressed());
             runRenumberOrderedListIfRequired();
             return true;

@@ -44,9 +44,7 @@ public class AutoTextFormatter implements InputFilter {
 
         final OrderedListLine oLine = new OrderedListLine(dest, dstart, _patterns);
         final UnOrderedOrCheckListLine uLine = new UnOrderedOrCheckListLine(dest, dstart, _patterns);
-
-        final int iEnd = Math.min(Math.max(oLine.textOffset, 0), oLine.line.length());
-        final String indent = oLine.line.substring(0, iEnd);
+        final String indent = oLine.line.substring(0, oLine.indentEnd);
 
         final String result;
         if (oLine.isOrderedList && oLine.lineEnd != oLine.groupEnd && dend >= oLine.groupEnd) {
@@ -82,9 +80,8 @@ public class AutoTextFormatter implements InputFilter {
         protected final FormatPatterns patterns;
         protected final CharSequence text;
 
-        public final int lineStart, lineEnd;
+        public final int lineStart, lineEnd, indentEnd;
         public final String line;
-        public final int textOffset;
         public final boolean isEmpty;
         public final boolean isTopLevel;
         public final int indent;
@@ -95,10 +92,11 @@ public class AutoTextFormatter implements InputFilter {
 
             lineStart = TextViewUtils.getLineStart(text, position);
             lineEnd = TextViewUtils.getLineEnd(text, position);
-            textOffset = TextViewUtils.getNextNonWhitespace(text, lineStart);
             line = text.subSequence(lineStart, lineEnd).toString();
             isEmpty = line.trim().isEmpty();
-            final int[] counts = GsTextUtils.countChars(line, 0, textOffset, ' ', '\t');
+
+            indentEnd = isEmpty ? 0 : TextViewUtils.getFirstNonWhitespace(line);
+            final int[] counts = GsTextUtils.countChars(line, 0, indentEnd, ' ', '\t');
             indent = counts[0] + counts[1] * 4;
             isTopLevel = indent <= patterns.indentSlack;
         }
