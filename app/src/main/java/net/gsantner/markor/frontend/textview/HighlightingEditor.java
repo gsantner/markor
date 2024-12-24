@@ -18,8 +18,8 @@ import android.text.InputFilter;
 import android.text.Layout;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.view.ActionMode;
 import android.util.Log;
+import android.view.ActionMode;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -342,60 +342,6 @@ public class HighlightingEditor extends AppCompatEditText {
         }
 
         return 1;
-    }
-
-    // Text-Casing
-    // ---------------------------------------------------------------------------------------------
-    public void toggleCase() {
-        String text = getSelectedText();
-        if (text.isEmpty()) {
-            text = Objects.requireNonNull(getText()).toString();
-        }
-        String newText = TextCasingUtils.toggleCase(text);
-        replaceSelection(newText);
-    }
-
-    public void switchCase() {
-        String text = getSelectedText();
-        if (text.isEmpty()) {
-            text = Objects.requireNonNull(getText()).toString();
-        }
-        String newText = TextCasingUtils.switchCase(text);
-        replaceSelection(newText);
-    }
-
-    public void capitalizeWords() {
-        String text = getSelectedText();
-        if (text.isEmpty()) {
-            text = Objects.requireNonNull(getText()).toString();
-        }
-        String newText = TextCasingUtils.capitalizeWords(text);
-        replaceSelection(newText);
-    }
-
-    public void capitalizeSentences() {
-        String text = getSelectedText();
-        if (text.isEmpty()) {
-            text = Objects.requireNonNull(getText()).toString();
-        }
-        String newText = TextCasingUtils.capitalizeSentences(text);
-        replaceSelection(newText);
-    }
-
-    private String getSelectedText() {
-        int start = Math.max(0, getSelectionStart());
-        int end = Math.max(0, getSelectionEnd());
-        return Objects.requireNonNull(getText()).toString().substring(start, end);
-    }
-
-    private void replaceSelection(String replacement) {
-        int start = Math.max(0, getSelectionStart());
-        int end = Math.max(0, getSelectionEnd());
-        if (start == end) { // If no selection is made, replace all the text in the document
-            setText(replacement);
-        } else { // Replace only the selected text
-            Objects.requireNonNull(getText()).replace(start, end, replacement);
-        }
     }
 
     // Various overrides
