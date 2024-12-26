@@ -193,10 +193,11 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         if (_notebook != null && file != null) {
             _viewPager.setCurrentItem(tabIdToPos(R.id.nav_notebook), false);
             if (file.isDirectory() || GsFileBrowserListAdapter.isVirtualFolder(file)) {
-                _notebook.setCurrentFolder(file);
+                _notebook.getAdapter().setCurrentFolder(file);
             } else {
                 _notebook.getAdapter().showFile(file);
             }
+            _notebook.setReloadRequiredOnResume(false);
         }
     }
 

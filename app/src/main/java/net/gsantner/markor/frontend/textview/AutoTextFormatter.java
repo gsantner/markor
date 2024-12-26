@@ -44,7 +44,7 @@ public class AutoTextFormatter implements InputFilter {
 
         final OrderedListLine oLine = new OrderedListLine(dest, dstart, _patterns);
         final UnOrderedOrCheckListLine uLine = new UnOrderedOrCheckListLine(dest, dstart, _patterns);
-        final String indent = oLine.line.substring(0, oLine.indentEnd);
+        final String indent = source + oLine.line.substring(0, oLine.indentEnd);
 
         final String result;
         if (oLine.isOrderedList && oLine.lineEnd != oLine.groupEnd && dend >= oLine.groupEnd) {
@@ -93,9 +93,9 @@ public class AutoTextFormatter implements InputFilter {
             lineStart = TextViewUtils.getLineStart(text, position);
             lineEnd = TextViewUtils.getLineEnd(text, position);
             line = text.subSequence(lineStart, lineEnd).toString();
-            isEmpty = line.trim().isEmpty();
-
-            indentEnd = isEmpty ? 0 : TextViewUtils.getFirstNonWhitespace(line);
+            final int firstChar = TextViewUtils.getFirstNonWhitespace(line);
+            isEmpty = firstChar < 0;
+            indentEnd = Math.max(firstChar, 0);
             final int[] counts = GsTextUtils.countChars(line, 0, indentEnd, ' ', '\t');
             indent = counts[0] + counts[1] * 4;
             isTopLevel = indent <= patterns.indentSlack;

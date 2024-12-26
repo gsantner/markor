@@ -92,6 +92,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     private final Set<File> _currentSelection;
     private File _fileToShowAfterNextLoad;
     private File _currentFolder;
+    private File _goUpFile;
     private final Context _context;
     private final StringFilter _filter;
     private RecyclerView _recyclerView;
@@ -200,7 +201,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
         final File file = GsCollectionUtils.getOrDefault(_virtualMapping, displayFile, displayFile);
 
-        final boolean isGoUp = displayFile instanceof GoUpFile;
+        final boolean isGoUp = displayFile.equals(_goUpFile);
         final boolean isVirtual = _virtualMapping.containsKey(displayFile);
         final boolean isSelected = _currentSelection.contains(displayFile);
         final boolean isFavourite = _dopt.favouriteFiles != null && _dopt.favouriteFiles.contains(displayFile);
@@ -418,7 +419,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                     } else {
                         // No pre-selection
                         if (data.file.isDirectory() || _virtualMapping.containsKey(data.file)) {
-                            loadFolder(data.file, _currentFolder);
+                            loadFolder(data.file, data.file.equals(_goUpFile) ? _currentFolder : null);
                         } else if (data.file.isFile()) {
                             _dopt.listener.onFsViewerSelected(_dopt.requestId, data.file, null);
                         }
@@ -496,7 +497,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         }
 
         boolean clickHandled = false;
-        if (data.file != null && _currentFolder != null && !(data.file instanceof GoUpFile)) {
+        if (data.file != null && _currentFolder != null && !data.file.equals(_goUpFile)) {
             if (_currentSelection.contains(data.file)) {
                 // Single selection
                 _currentSelection.remove(data.file);
@@ -593,13 +594,9 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             return;
         }
 
-        if (!_adapterDataFiltered.contains(file)) {
-            final File dir = file.getParentFile();
-            if (dir != null) {
-                loadFolder(dir, file);
-            }
-        } else {
-            scrollToAndFlash(file);
+        final File dir = file.getParentFile();
+        if (dir != null) {
+            loadFolder(dir, file);
         }
     }
 
@@ -718,10 +715,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         final long modSum = GsCollectionUtils.accumulate(newData, (f, s) -> s + f.lastModified(), 0L);
         final boolean modSumChanged = modSum != _prevModSum;
 
-        final File parent = getCurrentParent();
-        if (parent != null) {
-            newData.add(0, new GoUpFile(parent));
-        }
+        final File goUp = getCurrentParent();
 
         if (folderChanged || modSumChanged || !newData.equals(_adapterData)) {
             final ArrayList<File> filteredData = new ArrayList<>();
@@ -729,11 +723,16 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
             _recyclerView.post(() -> {
                 // Modify all these values in the UI thread
+                _goUpFile = goUp;
                 _adapterData.clear();
-                _adapterData.addAll(newData);
                 _adapterDataFiltered.clear();
+                if (_goUpFile != null) {
+                    _adapterData.add(_goUpFile);
+                    _adapterDataFiltered.add(_goUpFile);
+                }
+                _adapterData.addAll(newData);
                 _adapterDataFiltered.addAll(filteredData);
-                _currentSelection.retainAll(_adapterData);
+                _currentSelection.retainAll(_adapterDataFiltered);
                 _prevModSum = modSum;
 
                 if (folderChanged) {
@@ -887,12 +886,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             return Integer.parseInt(parts[parts.length - 1]);
         } catch (Exception ignored) {
             return 0;
-        }
-    }
-
-    private static class GoUpFile extends File {
-        GoUpFile(final File f) {
-            super(f.getPath());
         }
     }
 }

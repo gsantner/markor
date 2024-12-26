@@ -275,7 +275,7 @@ public class WikitextActionButtons extends ActionButtonBase {
 
     @Override
     public boolean onReceiveKeyPress(final int keyCode, final KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_TAB) {
+        if (keyCode == KeyEvent.KEYCODE_TAB && _appSettings.isIndentWithTabKey()) {
             if (event.isShiftPressed()) {
                 runRegexReplaceAction(WikitextReplacePatternGenerator.deindentOneTab());
             } else {
