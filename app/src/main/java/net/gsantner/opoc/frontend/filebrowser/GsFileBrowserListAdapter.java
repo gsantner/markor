@@ -280,7 +280,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         super.onAttachedToRecyclerView(view);
         _recyclerView = view;
         _layoutManager = (LinearLayoutManager) view.getLayoutManager();
-        loadFolder(_dopt.startFolder != null ? _dopt.startFolder : _dopt.rootFolder, null);
+        reloadCurrentFolder();
     }
 
     public String formatFileDescription(final File file, String format) {
@@ -331,13 +331,17 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     }
 
     public void reloadCurrentFolder() {
-        loadFolder(_currentFolder != null ? _currentFolder : _dopt.rootFolder, null);
+        if (_currentFolder != null) {
+            loadFolder(_currentFolder, null);
+        } else if (_dopt.startFolder != null) {
+            loadFolder(_dopt.startFolder, null);
+        } else {
+            loadFolder(_dopt.rootFolder, null);
+        }
     }
 
     public void setCurrentFolder(final File folder) {
-        if (folder != null && !folder.equals(_currentFolder)) {
-            loadFolder(folder, GsFileUtils.isChild(_currentFolder, folder) ? folder : null);
-        }
+        loadFolder(folder, GsFileUtils.isChild(_currentFolder, folder) ? folder : null);
     }
 
     public boolean isCurrentFolderVirtual() {
