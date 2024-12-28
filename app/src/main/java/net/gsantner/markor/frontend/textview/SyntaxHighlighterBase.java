@@ -153,12 +153,14 @@ public abstract class SyntaxHighlighterBase {
         int start, end;
         final Object span;
         final boolean isStatic;
+        final boolean needsReflow;
 
         SpanGroup(Object o, int s, int e) {
             span = o;
             start = s;
             end = e;
-            isStatic = (span instanceof UpdateLayout || span instanceof StaticSpan);
+            needsReflow = span instanceof StaticSpan;
+            isStatic = needsReflow || span instanceof UpdateLayout;
         }
 
         @Override
@@ -227,16 +229,16 @@ public abstract class SyntaxHighlighterBase {
             return this;
         }
 
-        boolean hasStatic = false;
+        boolean needsReflow = false;
         for (int i = _groups.size() - 1; i >= 0; i--) {
             final SpanGroup group = _groups.get(i);
             if (group != null && group.isStatic) {
-                hasStatic = true;
+                needsReflow |= group.needsReflow;
                 _spannable.removeSpan(group.span);
             }
         }
 
-        if (hasStatic) {
+        if (needsReflow) {
             reflow();
         }
 
@@ -372,15 +374,15 @@ public abstract class SyntaxHighlighterBase {
         if (_spannable != null && !_staticApplied) {
             applyFixup();
 
-            boolean hasStatic = false;
+            boolean needsReflow = false;
             for (final SpanGroup group : _groups) {
                 if (group != null && group.isStatic) {
-                    hasStatic = true;
+                    needsReflow |= group.needsReflow;
                     _spannable.setSpan(group.span, group.start, group.end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
             }
 
-            if (hasStatic) {
+            if (needsReflow) {
                 reflow();
             }
 
