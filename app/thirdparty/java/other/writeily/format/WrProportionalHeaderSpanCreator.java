@@ -38,6 +38,8 @@ public class WrProportionalHeaderSpanCreator {
 
         @Override
         public void updateMeasureState(@NonNull TextPaint textPaint) {
+            textPaint.setFakeBoldText(true);
+            textPaint.setColor(_color);
             textPaint.setTextSize(textPaint.getTextSize() * _proportion);
         }
 
@@ -45,6 +47,7 @@ public class WrProportionalHeaderSpanCreator {
         public void updateDrawState(@NonNull TextPaint textPaint) {
             textPaint.setFakeBoldText(true);
             textPaint.setColor(_color);
+            textPaint.setTextSize(textPaint.getTextSize() * _proportion);
         }
     }
 }
