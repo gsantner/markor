@@ -196,10 +196,6 @@ public abstract class SyntaxHighlighterBase {
 
     // ---------------------------------------------------------------------------------------------
 
-    public SyntaxHighlighterBase clearAll() {
-        return clearDynamic().clearStatic();
-    }
-
     /**
      * Removes all dynamic spans applied by this highlighter to the currently set spannable
      *
@@ -224,7 +220,7 @@ public abstract class SyntaxHighlighterBase {
      *
      * @return this
      */
-    public SyntaxHighlighterBase clearStatic() {
+    public SyntaxHighlighterBase clearStatic(final boolean reflow) {
         if (_spannable == null) {
             return this;
         }
@@ -238,7 +234,7 @@ public abstract class SyntaxHighlighterBase {
             }
         }
 
-        if (needsReflow) {
+        if (reflow && needsReflow) {
             reflow();
         }
 
@@ -330,10 +326,6 @@ public abstract class SyntaxHighlighterBase {
         _fixupDelta = 0;
     }
 
-    public SyntaxHighlighterBase applyAll() {
-        return applyDynamic().applyStatic();
-    }
-
     public SyntaxHighlighterBase applyDynamic() {
         return applyDynamic(new int[]{0, _spannable.length()});
     }
@@ -350,7 +342,7 @@ public abstract class SyntaxHighlighterBase {
             for (int i = 0; i < _groups.size(); i++) {
                 final SpanGroup group = _groups.get(i);
 
-                if (group == null || group.isStatic) {
+                if (group.isStatic) {
                     continue;
                 }
 
