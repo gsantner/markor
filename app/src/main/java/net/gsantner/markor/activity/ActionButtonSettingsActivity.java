@@ -32,10 +32,10 @@ import net.gsantner.markor.format.ActionButtonBase;
 import net.gsantner.markor.format.ActionButtonBase.ActionItem.DisplayMode;
 import net.gsantner.markor.format.asciidoc.AsciidocActionButtons;
 import net.gsantner.markor.format.markdown.MarkdownActionButtons;
+import net.gsantner.markor.format.orgmode.OrgmodeActionButtons;
 import net.gsantner.markor.format.plaintext.PlaintextActionButtons;
 import net.gsantner.markor.format.todotxt.TodoTxtActionButtons;
 import net.gsantner.markor.format.wikitext.WikitextActionButtons;
-import net.gsantner.markor.format.orgmode.OrgmodeActionButtons;
 import net.gsantner.opoc.util.GsCollectionUtils;
 
 import java.util.ArrayList;

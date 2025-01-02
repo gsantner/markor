@@ -18,8 +18,8 @@ import android.text.InputFilter;
 import android.text.Layout;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.view.ActionMode;
 import android.util.Log;
+import android.view.ActionMode;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -187,7 +187,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
     public void recomputeHighlighting() {
         if (runHighlight(true)) {
-            batch(() -> _hl.clearAll().recompute().applyStatic().applyDynamic(hlRegion()));
+            batch(() -> _hl.clearDynamic().clearStatic(false).recompute().applyStatic().applyDynamic(hlRegion()));
         }
     }
 
@@ -211,7 +211,7 @@ public class HighlightingEditor extends AppCompatEditText {
         _hl.compute();
         post(() -> {
             if (_textUnchangedWhileHighlighting.get()) {
-                batch(() -> _hl.clearAll().setComputed().applyStatic().applyDynamic(hlRegion()));
+                batch(() -> _hl.clearStatic(false).clearDynamic().setComputed().applyStatic().applyDynamic(hlRegion()));
             }
         });
     }
@@ -227,7 +227,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
     public void setHighlighter(final SyntaxHighlighterBase newHighlighter) {
         if (_hl != null) {
-            _hl.clearAll();
+            _hl.clearDynamic().clearStatic(true);
         }
 
         _hl = newHighlighter;
@@ -268,7 +268,7 @@ public class HighlightingEditor extends AppCompatEditText {
         } else if (!enable && _hlEnabled) {
             _hlEnabled = false;
             if (_hl != null) {
-                _hl.clearAll();
+                _hl.clearDynamic().clearStatic(true);
             }
         }
         return prev;

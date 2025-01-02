@@ -83,7 +83,7 @@ public class TodoTxtTask {
     }
 
     public static List<TodoTxtTask> getAllTasks(final CharSequence text) {
-        return getTasks(text, new int[] {0, text.length()});
+        return getTasks(text, new int[]{0, text.length()});
     }
 
     public static List<String> getProjects(final List<TodoTxtTask> tasks) {

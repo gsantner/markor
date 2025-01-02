@@ -191,11 +191,11 @@ public final class TextViewUtils {
      *
      * @return int[n][2] where for each input, index 0 is line and index 1 is position from end of line
      */
-    public static int[][] getLineOffsetFromIndex(final CharSequence text, final int ... sel) {
+    public static int[][] getLineOffsetFromIndex(final CharSequence text, final int... sel) {
         final int[][] offsets = new int[sel.length][2];
 
         for (int i = 0; i < sel.length; i++) {
-            offsets[i] = new int[] {-1, -1};
+            offsets[i] = new int[]{-1, -1};
             final int p = sel[i];
             if (p >= 0 && p <= text.length()) {
                 offsets[i][0] = GsTextUtils.countChars(text, 0, p, '\n')[0];
@@ -212,9 +212,9 @@ public final class TextViewUtils {
 
     public static void setSelectionFromOffsets(final Spannable text, final int[][] offsets) {
         if (offsets != null && offsets.length >= 2 &&
-            offsets[0] != null && offsets[0].length == 2 &&
-            offsets[1] != null && offsets[1].length == 2 &&
-            text != null
+                offsets[0] != null && offsets[0].length == 2 &&
+                offsets[1] != null && offsets[1].length == 2 &&
+                text != null
         ) {
             final int start = getIndexFromLineOffset(text, offsets[0]);
             final int end = getIndexFromLineOffset(text, offsets[1]);

@@ -757,7 +757,7 @@ public class MarkorDialogFactory {
     // Get a callback which applies highligting spans to a todo.txt line
     private static GsCallback.a1<Spannable> getSttHighlighter() {
         final SyntaxHighlighterBase h = new TodoTxtBasicSyntaxHighlighter(as()).configure();
-        return s -> h.setSpannable(s).recompute().applyAll();
+        return s -> h.setSpannable(s).recompute().applyStatic().applyDynamic();
     }
 
     // Basic search dialog

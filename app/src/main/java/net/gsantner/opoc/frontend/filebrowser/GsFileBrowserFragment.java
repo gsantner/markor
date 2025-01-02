@@ -91,6 +91,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     private Menu _fragmentMenu;
     private MarkorContextUtils _cu;
     private Toolbar _toolbar;
+    private boolean _reloadRequiredOnResume = true;
 
     //########################
     //## Methods
@@ -123,6 +124,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
 
         _filesystemViewerAdapter = new GsFileBrowserListAdapter(_dopt, context);
         _recyclerList.setAdapter(_filesystemViewerAdapter);
+        setReloadRequiredOnResume(false); // setAdapter will trigger a load
         onFsViewerDoUiUpdate(_filesystemViewerAdapter);
 
         _swipe.setOnRefreshListener(() -> {
@@ -315,16 +317,20 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         _filesystemViewerAdapter.restoreSavedInstanceState(savedInstanceState);
     }
 
+    public void setReloadRequiredOnResume(boolean reloadRequiredOnResume) {
+        _reloadRequiredOnResume = reloadRequiredOnResume;
+    }
+
     @Override
     public void onResume() {
         super.onResume();
         _dopt.listener.onFsViewerConfig(_dopt);
         final File folder = getCurrentFolder();
         final Activity activity = getActivity();
-        if (isVisible() && folder != null && activity != null) {
-            activity.setTitle(folder.getName());
+        if (_reloadRequiredOnResume && isVisible() && folder != null && activity != null) {
             reloadCurrentFolder();
         }
+        _reloadRequiredOnResume = true;
     }
 
     @Override
@@ -435,7 +441,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             case R.id.action_go_to: {
                 final File folder = new File("/storage");
                 _filesystemViewerAdapter.setCurrentFolder(folder);
-                Toast.makeText(getContext(), folder.getAbsolutePath(), Toast.LENGTH_SHORT).show();
                 return true;
             }
             case R.id.action_favourite: {
@@ -566,7 +571,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             @Override
             public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
                 dopt.titleText = isMove ? R.string.move : R.string.copy;
-                dopt.rootFolder = _appSettings.getNotebookDirectory();
+                dopt.rootFolder = GsFileBrowserListAdapter.VIRTUAL_STORAGE_ROOT;
                 dopt.startFolder = getCurrentFolder();
                 // Directories cannot be moved into themselves. Don't give users the option
                 final Set<String> selSet = new HashSet<>();
@@ -630,12 +635,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     private void importFileToCurrentDirectory(Context context, File sourceFile) {
         GsFileUtils.copyFile(sourceFile, new File(getCurrentFolder().getAbsolutePath(), sourceFile.getName()));
         Toast.makeText(context, getString(R.string.import_) + ": " + sourceFile.getName(), Toast.LENGTH_LONG).show();
-    }
-
-    public void setCurrentFolder(final File folder) {
-        if (folder != null && (folder.canRead() || GsFileBrowserListAdapter.isVirtualFolder(folder)) && _filesystemViewerAdapter != null) {
-            _filesystemViewerAdapter.setCurrentFolder(folder);
-        }
     }
 
     public GsFileBrowserOptions.Options getOptions() {

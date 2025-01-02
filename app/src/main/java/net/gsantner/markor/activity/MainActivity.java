@@ -193,10 +193,11 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         if (_notebook != null && file != null) {
             _viewPager.setCurrentItem(tabIdToPos(R.id.nav_notebook), false);
             if (file.isDirectory() || GsFileBrowserListAdapter.isVirtualFolder(file)) {
-                _notebook.setCurrentFolder(file);
+                _notebook.getAdapter().setCurrentFolder(file);
             } else {
                 _notebook.getAdapter().showFile(file);
             }
+            _notebook.setReloadRequiredOnResume(false);
         }
     }
 
@@ -296,7 +297,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
             return;
         }
 
-        if (_notebook.getAdapter().isCurrentFolderVirtual()) {
+        if (!_notebook.getAdapter().isCurrentFolderWriteable()) {
             _notebook.getAdapter().setCurrentFolder(_appSettings.getNotebookDirectory());
             return;
         }
@@ -304,10 +305,6 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         if (view.getId() == R.id.fab_add_new_item) {
             if (_cu.isUnderStorageAccessFolder(this, _notebook.getCurrentFolder(), true) && _cu.getStorageAccessFrameworkTreeUri(this) == null) {
                 _cu.showMountSdDialog(this);
-                return;
-            }
-
-            if (!_notebook.getAdapter().isCurrentFolderWriteable()) {
                 return;
             }
 

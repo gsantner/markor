@@ -38,7 +38,6 @@ import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 
 import java.io.File;
-import java.util.Stack;
 
 import other.so.AndroidBug5497Workaround;
 
