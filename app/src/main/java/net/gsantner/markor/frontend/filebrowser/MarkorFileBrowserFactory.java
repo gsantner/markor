@@ -79,9 +79,9 @@ public class MarkorFileBrowserFactory {
     }
 
     public static void updateFsViewerOpts(
-        final GsFileBrowserOptions.Options opts,
-        final Context context,
-        AppSettings appSettings
+            final GsFileBrowserOptions.Options opts,
+            final Context context,
+            AppSettings appSettings
     ) {
         appSettings = appSettings != null ? appSettings : ApplicationObject.settings();
 

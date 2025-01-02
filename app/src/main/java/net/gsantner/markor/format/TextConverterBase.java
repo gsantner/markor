@@ -11,7 +11,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.text.format.DateFormat;
-import android.view.KeyEvent;
 import android.webkit.WebView;
 
 import androidx.annotation.NonNull;

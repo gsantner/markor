@@ -161,7 +161,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                 final File parent = file.getParentFile();
                 if (parent != null) {
                     final String name = parent.toString().replace("/", "-").substring(1);
-                    final File remap = new File(VIRTUAL_STORAGE_ROOT, "AppData (" +  name + ")");
+                    final File remap = new File(VIRTUAL_STORAGE_ROOT, "AppData (" + name + ")");
                     _virtualMapping.put(remap, file);
                 }
             }
@@ -243,9 +243,9 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         }
 
         holder.image.setColorFilter(ContextCompat.getColor(
-            _context,
-            isSelected ? _dopt.accentColor : isFile ? _dopt.fileColor : _dopt.folderColor),
-            android.graphics.PorterDuff.Mode.SRC_ATOP
+                        _context,
+                        isSelected ? _dopt.accentColor : isFile ? _dopt.fileColor : _dopt.folderColor),
+                android.graphics.PorterDuff.Mode.SRC_ATOP
         );
 
         if (!isSelected && isFavourite) {
