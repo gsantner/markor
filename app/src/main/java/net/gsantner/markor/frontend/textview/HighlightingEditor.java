@@ -1,6 +1,6 @@
 /*#######################################################
  *
- *   Maintained 2017-2024 by Gregor Santner <gsantner AT mailbox DOT org>
+ *   Maintained 2017-2025 by Gregor Santner <gsantner AT mailbox DOT org>
  *   License of this file: Apache 2.0
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
@@ -180,7 +180,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
     public void recomputeHighlighting() {
         if (runHighlight(true)) {
-            batch(() -> _hl.clearAll().recompute().applyStatic().applyDynamic(hlRegion()));
+            batch(() -> _hl.clearDynamic().clearStatic(false).recompute().applyStatic().applyDynamic(hlRegion()));
         }
     }
 
@@ -204,7 +204,7 @@ public class HighlightingEditor extends AppCompatEditText {
         _hl.compute();
         post(() -> {
             if (_textUnchangedWhileHighlighting.get()) {
-                batch(() -> _hl.clearAll().setComputed().applyStatic().applyDynamic(hlRegion()));
+                batch(() -> _hl.clearStatic(false).clearDynamic().setComputed().applyStatic().applyDynamic(hlRegion()));
             }
         });
     }
@@ -220,7 +220,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
     public void setHighlighter(final SyntaxHighlighterBase newHighlighter) {
         if (_hl != null) {
-            _hl.clearAll();
+            _hl.clearDynamic().clearStatic(true);
         }
 
         _hl = newHighlighter;
@@ -261,7 +261,7 @@ public class HighlightingEditor extends AppCompatEditText {
         } else if (!enable && _hlEnabled) {
             _hlEnabled = false;
             if (_hl != null) {
-                _hl.clearAll();
+                _hl.clearDynamic().clearStatic(true);
             }
         }
         return prev;

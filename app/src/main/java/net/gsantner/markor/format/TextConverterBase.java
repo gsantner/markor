@@ -1,6 +1,6 @@
 /*#######################################################
  *
- *   Maintained 2018-2024 by Gregor Santner <gsantner AT mailbox DOT org>
+ *   Maintained 2018-2025 by Gregor Santner <gsantner AT mailbox DOT org>
  *   License of this file: Apache 2.0
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
@@ -200,9 +200,9 @@ public abstract class TextConverterBase {
     }
 
     public boolean isFileOutOfThisFormat(final @NonNull File file) {
-        final String name = file.getName().toLowerCase().replace(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION, "");
-        final String ext = name.replaceAll(".*\\.", ".");
-        return isFileOutOfThisFormat(file, name, ext);
+        final String name = file.getName().toLowerCase().replace(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION, "").trim();
+        final String extWithDot = GsFileUtils.getFilenameExtension(name);
+        return isFileOutOfThisFormat(file, name, extWithDot);
     }
 
     protected abstract boolean isFileOutOfThisFormat(final File file, final String name, final String ext);
