@@ -1,9 +1,9 @@
 /*#######################################################
  *
- * SPDX-FileCopyrightText: 2017-2024 Gregor Santner <gsantner AT mailbox DOT org>
+ * SPDX-FileCopyrightText: 2017-2025 Gregor Santner <gsantner AT mailbox DOT org>
  * SPDX-License-Identifier: Unlicense OR CC0-1.0
  *
- * Written 2018-2024 by Gregor Santner <gsantner AT mailbox DOT org>
+ * Written 2018-2025 by Gregor Santner <gsantner AT mailbox DOT org>
  * To the extent possible under law, the author(s) have dedicated all copyright and related and neighboring rights to this software to the public domain worldwide. This software is distributed without any warranty.
  * You should have received a copy of the CC0 Public Domain Dedication along with this software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
 #########################################################*/
@@ -699,11 +699,15 @@ public class GsFileUtils {
         return (doti < 0) ? fileName : fileName.substring(0, doti);
     }
 
-    /// Get the file extension of the file, including dot
     public static String getFilenameExtension(final File file) {
-        final String name = file.getName().replace(".jenc", "");
-        final int doti = name.lastIndexOf(".");
-        return (doti < 0) ? "" : name.substring(doti).toLowerCase();
+        return getFilenameExtension(file.getName());
+    }
+
+    /// Get the file extension of the file, with dot
+    public static String getFilenameExtension(String name) {
+        name = name.replace(".jenc", "");
+        final int doti = name.indexOf(".");
+        return (doti < 0) ? "" : name.substring(doti).toLowerCase().trim();
     }
 
     public static String getFilteredFilenameWithoutDisallowedChars(String str, final boolean... a1NoRCEguard) {

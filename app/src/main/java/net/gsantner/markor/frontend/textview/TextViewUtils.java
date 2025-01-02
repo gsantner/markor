@@ -1,9 +1,9 @@
 /*#######################################################
  *
- * SPDX-FileCopyrightText: 2018-2024 Gregor Santner <gsantner AT mailbox DOT org>
+ * SPDX-FileCopyrightText: 2018-2025 Gregor Santner <gsantner AT mailbox DOT org>
  * SPDX-License-Identifier: Unlicense OR CC0-1.0
  *
- * Written 2018-2024 by Gregor Santner <gsantner AT mailbox DOT org>
+ * Written 2018-2025 by Gregor Santner <gsantner AT mailbox DOT org>
  * To the extent possible under law, the author(s) have dedicated all copyright and related and neighboring rights to this software to the public domain worldwide. This software is distributed without any warranty.
  * You should have received a copy of the CC0 Public Domain Dedication along with this software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
 #########################################################*/
@@ -191,11 +191,11 @@ public final class TextViewUtils {
      *
      * @return int[n][2] where for each input, index 0 is line and index 1 is position from end of line
      */
-    public static int[][] getLineOffsetFromIndex(final CharSequence text, final int ... sel) {
+    public static int[][] getLineOffsetFromIndex(final CharSequence text, final int... sel) {
         final int[][] offsets = new int[sel.length][2];
 
         for (int i = 0; i < sel.length; i++) {
-            offsets[i] = new int[] {-1, -1};
+            offsets[i] = new int[]{-1, -1};
             final int p = sel[i];
             if (p >= 0 && p <= text.length()) {
                 offsets[i][0] = GsTextUtils.countChars(text, 0, p, '\n')[0];
@@ -212,9 +212,9 @@ public final class TextViewUtils {
 
     public static void setSelectionFromOffsets(final Spannable text, final int[][] offsets) {
         if (offsets != null && offsets.length >= 2 &&
-            offsets[0] != null && offsets[0].length == 2 &&
-            offsets[1] != null && offsets[1].length == 2 &&
-            text != null
+                offsets[0] != null && offsets[0].length == 2 &&
+                offsets[1] != null && offsets[1].length == 2 &&
+                text != null
         ) {
             final int start = getIndexFromLineOffset(text, offsets[0]);
             final int end = getIndexFromLineOffset(text, offsets[1]);

@@ -1,6 +1,6 @@
 /*#######################################################
  *
- *   Maintained 2017-2024 by Gregor Santner <gsantner AT mailbox DOT org>
+ *   Maintained 2017-2025 by Gregor Santner <gsantner AT mailbox DOT org>
  *   License of this file: Apache 2.0
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
@@ -9,6 +9,7 @@ package net.gsantner.markor.format.wikitext;
 
 import android.content.Context;
 import android.os.Build;
+import android.view.KeyEvent;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
@@ -270,5 +271,20 @@ public class WikitextActionButtons extends ActionButtonBase {
     @Override
     protected void renumberOrderedList() {
         AutoTextFormatter.renumberOrderedList(_hlEditor.getText(), WikitextReplacePatternGenerator.formatPatterns);
+    }
+
+    @Override
+    public boolean onReceiveKeyPress(final int keyCode, final KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_TAB && _appSettings.isIndentWithTabKey()) {
+            if (event.isShiftPressed()) {
+                runRegexReplaceAction(WikitextReplacePatternGenerator.deindentOneTab());
+            } else {
+                runRegexReplaceAction(WikitextReplacePatternGenerator.indentOneTab());
+            }
+            runRenumberOrderedListIfRequired();
+            return true;
+        }
+
+        return super.onReceiveKeyPress(keyCode, event);
     }
 }
