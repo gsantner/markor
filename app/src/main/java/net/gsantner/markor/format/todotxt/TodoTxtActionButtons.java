@@ -1,6 +1,6 @@
 /*#######################################################
  *
- *   Maintained 2018-2024 by Gregor Santner <gsantner AT mailbox DOT org>
+ *   Maintained 2018-2025 by Gregor Santner <gsantner AT mailbox DOT org>
  *   License of this file: Apache 2.0
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
@@ -184,17 +184,15 @@ public class TodoTxtActionButtons extends ActionButtonBase {
                     }
                 }
                 if (areAllSamePriority) {
-                    if(prevPriority != tasks.get(0).getPriority() && prevPriority != '\0') {
+                    if (prevPriority != tasks.get(0).getPriority() && prevPriority != '\0') {
                         setPriority(prevPriority);
-                    }
-                    else if(nextPriority != tasks.get(tasks.size() - 1).getPriority() && nextPriority != '\0') {
+                    } else if (nextPriority != tasks.get(tasks.size() - 1).getPriority() && nextPriority != '\0') {
                         setPriority(nextPriority);
-                    }
-                    else {
+                    } else {
                         setPriority(TodoTxtTask.PRIORITY_NONE);
                     }
                 } else {
-                    if(prevPriority != '\0') {
+                    if (prevPriority != '\0') {
                         setPriority(prevPriority);
                     } else {
                         setPriority(tasks.get(0).getPriority());
@@ -236,7 +234,7 @@ public class TodoTxtActionButtons extends ActionButtonBase {
             }
 
             if (!move.isEmpty() && _document.testCreateParent()) {
-                final File doneFile = new File(_document.file.getParentFile(),  doneName);
+                final File doneFile = new File(_document.file.getParentFile(), doneName);
                 final StringBuilder doneContents = new StringBuilder();
                 if (doneFile.exists() && doneFile.canRead()) {
                     doneContents.append(GsFileUtils.readTextFileFast(doneFile).first.trim()).append("\n");
@@ -250,7 +248,7 @@ public class TodoTxtActionButtons extends ActionButtonBase {
                     TextViewUtils.setSelectionFromOffsets(_hlEditor, offsets);
                 }
             }
-            _appSettings.setLastTodoDoneName(_document.path,  doneName);
+            _appSettings.setLastTodoDoneName(_document.path, doneName);
         });
     }
 
