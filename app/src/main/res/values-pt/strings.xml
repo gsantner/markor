@@ -464,4 +464,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="switch_case">Maiúsculas, minúsculas alternadas(Ex: TaMaNhO-&gt;tAmAnHo)</string>
     <string name="capitalize_words">Palavras com maiúsculas (Ex: a nota-&gt;A Nota)</string>
     <string name="capitalize_sentences">Frases em maiúsculas (Ex: tamanho-&gt;Tamanho)</string>
+    <string name="use_tab_to_indent">Recuar linhas com a tecla TAB</string>
 </resources>
