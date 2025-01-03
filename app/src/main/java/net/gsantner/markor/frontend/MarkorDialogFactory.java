@@ -1,6 +1,6 @@
 /*#######################################################
  *
- *   Maintained 2017-2024 by Gregor Santner <gsantner AT mailbox DOT org>
+ *   Maintained 2017-2025 by Gregor Santner <gsantner AT mailbox DOT org>
  *   License of this file: Apache 2.0
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
@@ -757,7 +757,7 @@ public class MarkorDialogFactory {
     // Get a callback which applies highligting spans to a todo.txt line
     private static GsCallback.a1<Spannable> getSttHighlighter() {
         final SyntaxHighlighterBase h = new TodoTxtBasicSyntaxHighlighter(as()).configure();
-        return s -> h.setSpannable(s).recompute().applyAll();
+        return s -> h.setSpannable(s).recompute().applyStatic().applyDynamic();
     }
 
     // Basic search dialog

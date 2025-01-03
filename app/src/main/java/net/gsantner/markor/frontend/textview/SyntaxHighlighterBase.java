@@ -1,6 +1,6 @@
 /*#######################################################
  *
- *   Maintained 2017-2024 by Gregor Santner <gsantner AT mailbox DOT org>
+ *   Maintained 2017-2025 by Gregor Santner <gsantner AT mailbox DOT org>
  *   License of this file: Apache 2.0
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
@@ -153,12 +153,14 @@ public abstract class SyntaxHighlighterBase {
         int start, end;
         final Object span;
         final boolean isStatic;
+        final boolean needsReflow;
 
         SpanGroup(Object o, int s, int e) {
             span = o;
             start = s;
             end = e;
-            isStatic = (span instanceof UpdateLayout || span instanceof StaticSpan);
+            needsReflow = span instanceof StaticSpan;
+            isStatic = needsReflow || span instanceof UpdateLayout;
         }
 
         @Override
@@ -194,10 +196,6 @@ public abstract class SyntaxHighlighterBase {
 
     // ---------------------------------------------------------------------------------------------
 
-    public SyntaxHighlighterBase clearAll() {
-        return clearDynamic().clearStatic();
-    }
-
     /**
      * Removes all dynamic spans applied by this highlighter to the currently set spannable
      *
@@ -222,21 +220,21 @@ public abstract class SyntaxHighlighterBase {
      *
      * @return this
      */
-    public SyntaxHighlighterBase clearStatic() {
+    public SyntaxHighlighterBase clearStatic(final boolean reflow) {
         if (_spannable == null) {
             return this;
         }
 
-        boolean hasStatic = false;
+        boolean needsReflow = false;
         for (int i = _groups.size() - 1; i >= 0; i--) {
             final SpanGroup group = _groups.get(i);
             if (group != null && group.isStatic) {
-                hasStatic = true;
+                needsReflow |= group.needsReflow;
                 _spannable.removeSpan(group.span);
             }
         }
 
-        if (hasStatic) {
+        if (reflow && needsReflow) {
             reflow();
         }
 
@@ -328,10 +326,6 @@ public abstract class SyntaxHighlighterBase {
         _fixupDelta = 0;
     }
 
-    public SyntaxHighlighterBase applyAll() {
-        return applyDynamic().applyStatic();
-    }
-
     public SyntaxHighlighterBase applyDynamic() {
         return applyDynamic(new int[]{0, _spannable.length()});
     }
@@ -348,7 +342,7 @@ public abstract class SyntaxHighlighterBase {
             for (int i = 0; i < _groups.size(); i++) {
                 final SpanGroup group = _groups.get(i);
 
-                if (group == null || group.isStatic) {
+                if (group.isStatic) {
                     continue;
                 }
 
@@ -372,15 +366,15 @@ public abstract class SyntaxHighlighterBase {
         if (_spannable != null && !_staticApplied) {
             applyFixup();
 
-            boolean hasStatic = false;
+            boolean needsReflow = false;
             for (final SpanGroup group : _groups) {
                 if (group != null && group.isStatic) {
-                    hasStatic = true;
+                    needsReflow |= group.needsReflow;
                     _spannable.setSpan(group.span, group.start, group.end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
             }
 
-            if (hasStatic) {
+            if (needsReflow) {
                 reflow();
             }
 

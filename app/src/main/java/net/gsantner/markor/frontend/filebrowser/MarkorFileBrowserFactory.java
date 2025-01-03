@@ -1,6 +1,6 @@
 /*#######################################################
  *
- *   Maintained 2017-2024 by Gregor Santner <gsantner AT mailbox DOT org>
+ *   Maintained 2017-2025 by Gregor Santner <gsantner AT mailbox DOT org>
  *   License of this file: Apache 2.0
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
@@ -79,9 +79,9 @@ public class MarkorFileBrowserFactory {
     }
 
     public static void updateFsViewerOpts(
-        final GsFileBrowserOptions.Options opts,
-        final Context context,
-        AppSettings appSettings
+            final GsFileBrowserOptions.Options opts,
+            final Context context,
+            AppSettings appSettings
     ) {
         appSettings = appSettings != null ? appSettings : ApplicationObject.settings();
 
