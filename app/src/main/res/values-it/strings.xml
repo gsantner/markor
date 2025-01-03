@@ -466,4 +466,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="switch_case">Inverti maiuscolo/minuscolo (Es: NoTa-&gt;nOtA)</string>
     <string name="capitalize_words">Iniziali maiuscole (es.: una nota -&gt; Una Nota)</string>
     <string name="capitalize_sentences">Prima lettera maiuscola (Es.: noi -&gt;Noi)</string>
+    <string name="use_tab_to_indent">Indenta le righe col tasto TAB</string>
 </resources>

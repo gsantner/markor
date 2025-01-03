@@ -464,4 +464,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="switch_case">Invertir mayúsculas y minúsculas (p. ej.: NoTa-&gt;nOtA)</string>
     <string name="capitalize_words">Iniciar palabras en mayúscula (p. ej.: una nota-&gt;Una Nota)</string>
     <string name="capitalize_sentences">Iniciar frases en mayúscula (p. ej.: nota-&gt;Nota)</string>
+    <string name="use_tab_to_indent">Sangrar líneas con la tecla TAB</string>
 </resources>
