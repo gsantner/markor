@@ -13,6 +13,7 @@ import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Environment;
+import android.text.TextUtils;
 import android.util.Pair;
 
 import androidx.annotation.ColorRes;
@@ -44,6 +45,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -85,7 +87,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     public void setNotebookDirectory(final File file) {
-        setString(R.string.pref_key__notebook_directory, Document.getPath(file));
+        setString(R.string.pref_key__notebook_directory, GsFileUtils.getPath(file));
     }
 
     public File getNotebookDirectory() {
@@ -104,7 +106,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     public void setQuickNoteFile(final File file) {
-        setString(R.string.pref_key__quicknote_filepath, Document.getPath(file));
+        setString(R.string.pref_key__quicknote_filepath, GsFileUtils.getPath(file));
     }
 
     public File getDefaultQuickNoteFile() {
@@ -116,7 +118,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     public void setTodoFile(final File file) {
-        setString(R.string.pref_key__todo_filepath, Document.getPath(file));
+        setString(R.string.pref_key__todo_filepath, GsFileUtils.getPath(file));
     }
 
     public File getDefaultTodoFile() {
@@ -130,7 +132,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     public void setSnippetDirectory(final File folder) {
-        setString(R.string.pref_key__snippet_directory_path, Document.getPath(folder));
+        setString(R.string.pref_key__snippet_directory_path, GsFileUtils.getPath(folder));
     }
 
     public String getFontFamily() {
@@ -259,6 +261,62 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return ret;
     }
 
+    private final String PREF_PREFIX_FOLDER_SORT_ORDER = "PREF_PREFIX_FOLDER_SORT_ORDER";
+
+    public static class FolderSortOrder {
+        private final static String SORT_BY_KEY = "SORT_BY";
+        private final static String REVERSE_KEY = "REVERSE";
+        private final static String SHOW_DOT_FILES_KEY = "SHOW_DOT_FILES";
+        private final static String FOLDER_FIRST_KEY = "FOLDER_FIRST";
+
+        public String sortByType = GsFileUtils.SORT_BY_NAME;
+        public boolean reverse = false;
+        public boolean showDotFiles = false;
+        public boolean folderFirst = true;
+    }
+
+    public void setFolderSortOrder(final String canonicalPath, final @Nullable FolderSortOrder sortOrder) {
+        if (TextUtils.isEmpty(canonicalPath)) {
+            return;
+        }
+
+        final String key = PREF_PREFIX_FOLDER_SORT_ORDER + canonicalPath;
+
+        if (sortOrder == null) {
+            remove(key);
+            return;
+        }
+
+        final Map<String, String> order = new HashMap<>();
+        order.put(FolderSortOrder.SORT_BY_KEY, sortOrder.sortByType != null ? sortOrder.sortByType : GsFileUtils.SORT_BY_NAME);
+        order.put(FolderSortOrder.REVERSE_KEY, String.valueOf(sortOrder.reverse));
+        order.put(FolderSortOrder.SHOW_DOT_FILES_KEY, String.valueOf(sortOrder.showDotFiles));
+        order.put(FolderSortOrder.FOLDER_FIRST_KEY, String.valueOf(sortOrder.folderFirst));
+
+        setString(key, mapToJsonString(order));
+    }
+
+    public @Nullable FolderSortOrder getFolderSortOrder(final String canonicalPath) {
+        if (TextUtils.isEmpty(canonicalPath)) {
+            return null;
+        }
+
+        final String key = PREF_PREFIX_FOLDER_SORT_ORDER + canonicalPath;
+        final String json = getString(key, null);
+        if (json == null) {
+            return null;
+        }
+        final Map<String, String> order = jsonStringToMap(getString(key, "{}"));
+
+        final FolderSortOrder sortOrder = new FolderSortOrder();
+        sortOrder.sortByType = order.get(FolderSortOrder.SORT_BY_KEY);
+        sortOrder.reverse = Boolean.parseBoolean(order.get(FolderSortOrder.REVERSE_KEY));
+        sortOrder.showDotFiles = Boolean.parseBoolean(order.get(FolderSortOrder.SHOW_DOT_FILES_KEY));
+        sortOrder.folderFirst = Boolean.parseBoolean(order.get(FolderSortOrder.FOLDER_FIRST_KEY));
+
+        return sortOrder;
+    }
+
     public String setFileBrowserSortByType(String v) {
         setString(R.string.pref_key__file_browser__sort_by_type, v);
         return v;
@@ -338,12 +396,12 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         if (!listFileInRecents(file)) {
             return;
         }
-        final String path = Document.getPath(file);
+        final String path = GsFileUtils.getPath(file);
         if (!file.equals(getTodoFile()) && !file.equals(getQuickNoteFile())) {
             ArrayList<String> recent = getRecentDocuments();
             recent.add(0, path);
-            recent.remove(Document.getPath(getTodoFile()));
-            recent.remove(Document.getPath(getQuickNoteFile()));
+            recent.remove(GsFileUtils.getPath(getTodoFile()));
+            recent.remove(GsFileUtils.getPath(getQuickNoteFile()));
             recent.remove("");
             recent.remove(null);
 
@@ -357,7 +415,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         final Set<String> set = new LinkedHashSet<>();
         for (final File f : files) {
             if (f != null && (f.exists() || GsFileBrowserListAdapter.isVirtualFolder(f))) {
-                set.add(Document.getPath(f));
+                set.add(GsFileUtils.getPath(f));
             }
         }
         setStringList(R.string.pref_key__favourite_files, GsCollectionUtils.map(set, p -> p));
@@ -421,8 +479,8 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
             return;
         }
         if (!file.equals(getTodoFile()) && !file.equals(getQuickNoteFile())) {
-            setInt(PREF_PREFIX_VIEW_SCROLL_X + Document.getPath(file), scrollX, _prefCache);
-            setInt(PREF_PREFIX_VIEW_SCROLL_Y + Document.getPath(file), scrollY, _prefCache);
+            setInt(PREF_PREFIX_VIEW_SCROLL_X + GsFileUtils.getPath(file), scrollX, _prefCache);
+            setInt(PREF_PREFIX_VIEW_SCROLL_Y + GsFileUtils.getPath(file), scrollY, _prefCache);
         }
     }
 
@@ -549,14 +607,14 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         if (file == null || !file.exists()) {
             return -1;
         }
-        return getInt(PREF_PREFIX_VIEW_SCROLL_X + Document.getPath(file), -3, _prefCache);
+        return getInt(PREF_PREFIX_VIEW_SCROLL_X + GsFileUtils.getPath(file), -3, _prefCache);
     }
 
     public int getLastViewPositionY(File file) {
         if (file == null || !file.exists()) {
             return -1;
         }
-        return getInt(PREF_PREFIX_VIEW_SCROLL_Y + Document.getPath(file), -3, _prefCache);
+        return getInt(PREF_PREFIX_VIEW_SCROLL_Y + GsFileUtils.getPath(file), -3, _prefCache);
     }
 
     private List<String> getPopularDocumentsSorted() {
@@ -800,16 +858,16 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     public boolean listFileInRecents(File file) {
-        return getBool(Document.getPath(file) + "_list_in_recents", true);
+        return getBool(GsFileUtils.getPath(file) + "_list_in_recents", true);
     }
 
     public void setListFileInRecents(File file, boolean value) {
-        setBool(Document.getPath(file) + "_list_in_recents", value);
+        setBool(GsFileUtils.getPath(file) + "_list_in_recents", value);
 
         if (!value) {
             ArrayList<String> recent = getRecentDocuments();
-            if (recent.contains(Document.getPath(file))) {
-                recent.remove(Document.getPath(file));
+            if (recent.contains(GsFileUtils.getPath(file))) {
+                recent.remove(GsFileUtils.getPath(file));
                 setRecentDocuments(recent);
             }
         }
@@ -824,11 +882,11 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }*/
 
     public int getRating(File file) {
-        return getInt(Document.getPath(file) + "_rating", 0);
+        return getInt(GsFileUtils.getPath(file) + "_rating", 0);
     }
 
     public void setRating(File file, int value) {
-        setInt(Document.getPath(file) + "_rating", value);
+        setInt(GsFileUtils.getPath(file) + "_rating", value);
     }
 
     public boolean isEditorLineBreakingEnabled() {
@@ -918,7 +976,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     public void setFileBrowserLastBrowsedFolder(File f) {
-        setString(R.string.pref_key__file_browser_last_browsed_folder, Document.getPath(f));
+        setString(R.string.pref_key__file_browser_last_browsed_folder, GsFileUtils.getPath(f));
     }
 
     public File getFileBrowserLastBrowsedFolder() {

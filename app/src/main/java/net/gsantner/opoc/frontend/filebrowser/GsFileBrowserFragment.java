@@ -21,6 +21,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.Menu;
@@ -178,6 +179,31 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         }
     }
 
+    @Override
+    public void onFsViewerFolderChanged(final File newFolder) {
+        if (_callback != null) {
+            _callback.onFsViewerFolderChanged(newFolder);
+        }
+
+        final AppSettings.FolderSortOrder order = _appSettings.getFolderSortOrder(GsFileUtils.getPath(newFolder));
+        if (order != null) {
+            _dopt.sortByType = order.sortByType;
+            _dopt.sortFolderFirst = order.folderFirst;
+            _dopt.sortReverse = order.reverse;
+            _dopt.filterShowDotFiles = order.showDotFiles;
+        } else {
+            _dopt.sortByType = _appSettings.getFileBrowserSortByType();
+            _dopt.sortFolderFirst = _appSettings.isFileBrowserSortFolderFirst();
+            _dopt.sortReverse = _appSettings.isFileBrowserSortReverse();
+            _dopt.filterShowDotFiles = _appSettings.isFileBrowserFilterShowDotFiles();
+        }
+
+        // final MenuItem sortItem = _fragmentMenu.findItem(R.id.action_sort);
+        // if (sortItem != null) {
+        //     sortItem.setChecked(order != null);
+        //     _cu.tintDrawable(sortItem.getIcon(), order != null ? 0xFFE3B51B : Color.WHITE);
+        // }
+    }
 
     @Override
     public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
@@ -508,6 +534,21 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                         Toast.makeText(getContext(), R.string.clipboard, Toast.LENGTH_SHORT).show();
                     }
                 }
+                return true;
+            }
+            case R.id.action_save_sort_settings: {
+                item.setChecked(!item.isChecked());
+                final AppSettings.FolderSortOrder order;
+                if (item.isChecked()) {
+                    order = new AppSettings.FolderSortOrder();
+                    order.sortByType = _dopt.sortByType;
+                    order.folderFirst = _dopt.sortFolderFirst;
+                    order.reverse = _dopt.sortReverse;
+                    order.showDotFiles = _dopt.filterShowDotFiles;
+                } else {
+                    order = null;
+                }
+                _appSettings.setFolderSortOrder(GsFileUtils.getPath(getCurrentFolder()), order);
                 return true;
             }
         }

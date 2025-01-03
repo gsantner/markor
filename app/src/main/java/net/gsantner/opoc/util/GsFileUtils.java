@@ -74,6 +74,16 @@ public class GsFileUtils {
     private final static int BUFFER_SIZE = 4096;
     private final static Map<String, String> MIME_TYPE_CACHE = new ConcurrentHashMap<>();
 
+    public static String getPath(final File file) {
+        try {
+            return file.getCanonicalPath();
+        } catch (IOException e) {
+            return file.getAbsolutePath();
+        } catch (NullPointerException e) {
+            return "";
+        }
+    }
+
     /**
      * Info of various types about a file
      */

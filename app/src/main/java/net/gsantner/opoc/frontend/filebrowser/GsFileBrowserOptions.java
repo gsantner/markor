@@ -41,6 +41,8 @@ public class GsFileBrowserOptions {
         void onFsViewerDoUiUpdate(final GsFileBrowserListAdapter adapter);
 
         void onFsViewerItemLongPressed(final File file, boolean doSelectMultiple);
+
+        void onFsViewerFolderChanged(final File newFolder);
     }
 
     public static class Options {
@@ -164,6 +166,11 @@ public class GsFileBrowserOptions {
 
         @Override
         public void onFsViewerItemLongPressed(File file, boolean doSelectMultiple) {
+
+        }
+
+        @Override
+        public void onFsViewerFolderChanged(File newFolder) {
 
         }
     }

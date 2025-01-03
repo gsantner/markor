@@ -247,7 +247,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             android.graphics.PorterDuff.Mode.SRC_ATOP
         );
 
-        if (!isSelected && isFavourite) {
+        if (!isSelected && !isGoUp && isFavourite) {
             holder.image.setColorFilter(0xFFE3B51B);
         }
 
@@ -662,6 +662,10 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             _currentFolder = GsCollectionUtils.getOrDefault(_virtualMapping, folder, folder);
         }
 
+        if (folderChanged) {
+            _dopt.listener.onFsViewerFolderChanged(_currentFolder);
+        }
+
         if (_currentFolder != null) {
             final File toShow = show == null ? _fileToShowAfterNextLoad : show;
             _fileToShowAfterNextLoad = null;
@@ -709,10 +713,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
         GsCollectionUtils.deduplicate(newData);
 
-        // Don't sort recent or virtual root items - use the default order
-        if (!Arrays.asList(VIRTUAL_STORAGE_RECENTS, VIRTUAL_STORAGE_ROOT).contains(_currentFolder)) {
-            GsFileUtils.sortFiles(newData, _dopt.sortByType, _dopt.sortFolderFirst, _dopt.sortReverse);
-        }
+        GsFileUtils.sortFiles(newData, _dopt.sortByType, _dopt.sortFolderFirst, _dopt.sortReverse);
 
         // Testing if modtimes have changed (modtimes generally only increase)
         final long modSum = GsCollectionUtils.accumulate(newData, (f, s) -> s + f.lastModified(), 0L);
