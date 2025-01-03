@@ -270,9 +270,13 @@ public class MarkdownTextConverter extends TextConverterBase {
         }
 
         // Enable Math / KaTex
-        if (_appSettings.isMarkdownMathEnabled() && markup.contains("$")) {
-            head += HTML_KATEX_INCLUDE;
-            head += CSS_KATEX;
+        if (markup.contains("$")) {
+            if (_appSettings.isMarkdownMathEnabled()) {
+                head += HTML_KATEX_INCLUDE;
+                head += CSS_KATEX;
+            } else {
+                markup = markup.replace("$", "\\$");
+            }
         }
 
         // Enable View (block) code syntax highlighting

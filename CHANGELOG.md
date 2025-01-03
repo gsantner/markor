@@ -2,8 +2,19 @@
 - See [Discussions](https://github.com/gsantner/markor/discussions), [Issues](https://github.com/gsantner/markor/issues) and [Project news](https://github.com/gsantner/markor/blob/master/NEWS.md) to see what is going on.
 - New Updates also visible here: <https://github.com/gsantner/markor/releases>
 
-### v2.13 series
-- [2.13.0](https://github.com/gsantner/markor/compare/v2.12.6...v2.13.0)
+### v2.13-14
+- [2.13.0 - 2.14.0](https://github.com/gsantner/markor/compare/v2.13.0...v2.14.0)
+- Markdown: Fix rendering of '$' in non-math view mode (PR #2485 closes #2085 #2236)
+- Android Studio latest version support
+- Keyboard TAB key handling, syntax highlighting performance, filebrowser navigation (PR #2487 closes #2469 #2484)
+- Restore audio action  (PR #2481)
+- Multi user file browsing, closes #2479 (PR #2482)
+- Select lines (PR #2443 by @harshad1)
+- Fix various crashes of v2.13.1, by @gsantner
+- Fix lots of minor issues and crashes in v2.13.0, by @gsantner
+- Update F-Droid metadata links (#2466)
+- (wshoy/storageButton, wshoy/master) Update translations (#2467)
+- Remove OmRecorder (Voice/Audio recording feature), library outdated and download broken. (PR #2468)
 
 ### v2.12 series
 - [2.12.0](https://github.com/gsantner/markor/compare/v2.11.1...v2.12.0)
