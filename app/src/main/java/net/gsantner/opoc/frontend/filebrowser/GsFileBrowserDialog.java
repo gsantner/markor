@@ -311,9 +311,9 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
     }
 
     @Override
-    public void onFsViewerFolderChanged(File newFolder) {
+    public void onFsViewerFolderChange(File newFolder) {
         if (_callback != null) {
-            _callback.onFsViewerFolderChanged(newFolder);
+            _callback.onFsViewerFolderChange(newFolder);
         }
     }
 

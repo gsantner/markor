@@ -21,7 +21,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.Menu;
@@ -90,6 +89,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     private GsFileBrowserOptions.SelectionListener _callback;
     private AppSettings _appSettings;
     private Menu _fragmentMenu;
+    private MenuItem _saveSortState;
     private MarkorContextUtils _cu;
     private Toolbar _toolbar;
     private boolean _reloadRequiredOnResume = true;
@@ -182,29 +182,17 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     }
 
     @Override
-    public void onFsViewerFolderChanged(final File newFolder) {
+    public void onFsViewerFolderChange(final File newFolder) {
         if (_callback != null) {
-            _callback.onFsViewerFolderChanged(newFolder);
+            _callback.onFsViewerFolderChange(newFolder);
         }
 
-        final AppSettings.FolderSortOrder order = _appSettings.getFolderSortOrder(GsFileUtils.getPath(newFolder));
-        if (order != null) {
-            _dopt.sortByType = order.sortByType;
-            _dopt.sortFolderFirst = order.folderFirst;
-            _dopt.sortReverse = order.reverse;
-            _dopt.filterShowDotFiles = order.showDotFiles;
-        } else {
-            _dopt.sortByType = _appSettings.getFileBrowserSortByType();
-            _dopt.sortFolderFirst = _appSettings.isFileBrowserSortFolderFirst();
-            _dopt.sortReverse = _appSettings.isFileBrowserSortReverse();
-            _dopt.filterShowDotFiles = _appSettings.isFileBrowserFilterShowDotFiles();
-        }
-
-        // final MenuItem sortItem = _fragmentMenu.findItem(R.id.action_sort);
-        // if (sortItem != null) {
-        //     sortItem.setChecked(order != null);
-        //     _cu.tintDrawable(sortItem.getIcon(), order != null ? 0xFFE3B51B : Color.WHITE);
-        // }
+        final String path = getSortKey();
+        _dopt.sortByType = _appSettings.getFileBrowserSortByType(path);
+        _dopt.sortFolderFirst = _appSettings.getFileBrowserSortFolderFirst(path);
+        _dopt.sortReverse = _appSettings.getFileBrowserSortReverse(path);
+        _dopt.filterShowDotFiles = _appSettings.getFileBrowserFilterShowDotFiles(path);
+        updateSortMenuStates();
     }
 
     @Override
@@ -254,7 +242,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     }
 
     private void updateMenuItems() {
-        final String curFilepath = (getCurrentFolder() != null ? getCurrentFolder() : new File("/")).getAbsolutePath();
         final Set<File> selFiles = _filesystemViewerAdapter.getCurrentSelection();
         final int selCount = selFiles.size();
         final int totalCount = _filesystemViewerAdapter.getItemCount() - 1;   // Account for ".."
@@ -305,6 +292,8 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                 _toolbar.setSubtitle("");
             }
         }
+
+        updateSortMenuStates();
     }
 
     @Override
@@ -359,6 +348,33 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         _reloadRequiredOnResume = true;
     }
 
+    private void updateSortMenuStates() {
+        if (_fragmentMenu == null) {
+            return;
+        }
+
+        MenuItem item;
+        if ((item = _fragmentMenu.findItem(R.id.action_folder_first)) != null) {
+            item.setChecked(_dopt.sortFolderFirst);
+        }
+        if ((item = _fragmentMenu.findItem(R.id.action_sort_reverse)) != null) {
+            item.setChecked(_dopt.sortReverse);
+        }
+        if ((item = _fragmentMenu.findItem(R.id.action_show_dotfiles)) != null) {
+            item.setChecked(_dopt.filterShowDotFiles);
+        }
+
+        if ((item = _fragmentMenu.findItem(R.id.action_sort_by_name)) != null && GsFileUtils.SORT_BY_NAME.equals(_dopt.sortByType)) {
+            item.setChecked(true);
+        } else if ((item = _fragmentMenu.findItem(R.id.action_sort_by_date)) != null && GsFileUtils.SORT_BY_MTIME.equals(_dopt.sortByType)) {
+            item.setChecked(true);
+        } else if ((item = _fragmentMenu.findItem(R.id.action_sort_by_filesize)) != null && GsFileUtils.SORT_BY_FILESIZE.equals(_dopt.sortByType)) {
+            item.setChecked(true);
+        } else if ((item = _fragmentMenu.findItem(R.id.action_sort_by_mimetype)) != null && GsFileUtils.SORT_BY_MIMETYPE.equals(_dopt.sortByType)) {
+            item.setChecked(true);
+        }
+    }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -366,31 +382,10 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         _cu.tintMenuItems(menu, true, Color.WHITE);
         _cu.setSubMenuIconsVisibility(menu, true);
 
-        MenuItem item;
-        if ((item = menu.findItem(R.id.action_folder_first)) != null) {
-            item.setChecked(_dopt.sortFolderFirst);
-        }
-        if ((item = menu.findItem(R.id.action_sort_reverse)) != null) {
-            item.setChecked(_dopt.sortReverse);
-        }
-        if ((item = menu.findItem(R.id.action_show_dotfiles)) != null) {
-            item.setChecked(_dopt.filterShowDotFiles);
-        }
-
-        if ((item = menu.findItem(R.id.action_sort_by_name)) != null && GsFileUtils.SORT_BY_NAME.equals(_dopt.sortByType)) {
-            item.setChecked(true);
-        } else if ((item = menu.findItem(R.id.action_sort_by_date)) != null && GsFileUtils.SORT_BY_MTIME.equals(_dopt.sortByType)) {
-            item.setChecked(true);
-        } else if ((item = menu.findItem(R.id.action_sort_by_filesize)) != null && GsFileUtils.SORT_BY_FILESIZE.equals(_dopt.sortByType)) {
-            item.setChecked(true);
-        } else if ((item = menu.findItem(R.id.action_sort_by_mimetype)) != null && GsFileUtils.SORT_BY_MIMETYPE.equals(_dopt.sortByType)) {
-            item.setChecked(true);
-        }
-
         List<Pair<File, String>> sdcardFolders = _cu.getAppDataPublicDirs(getContext(), false, true, true);
         int[] sdcardResIds = {};
         for (int i = 0; i < sdcardResIds.length && i < sdcardFolders.size(); i++) {
-            item = menu.findItem(sdcardResIds[i]);
+            final MenuItem item = menu.findItem(sdcardResIds[i]);
             item.setTitle(item.getTitle().toString().replaceFirst("[)]\\s*$", " " + sdcardFolders.get(i).second) + ")");
             item.setVisible(true);
         }
@@ -401,6 +396,18 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
 
     public GsFileBrowserListAdapter getAdapter() {
         return _filesystemViewerAdapter;
+    }
+
+    private boolean isSortSaved() {
+        if (_fragmentMenu != null) {
+            final MenuItem item = _fragmentMenu.findItem(R.id.action_save_sort_settings);
+            return item != null && item.isChecked();
+        }
+        return false;
+    }
+
+    private String getSortKey() {
+        return isSortSaved() ? GsFileUtils.getPath(getCurrentFolder()) : null;
     }
 
     @Override
@@ -416,37 +423,39 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             }
             case R.id.action_sort_by_name: {
                 item.setChecked(true);
-                _dopt.sortByType = _appSettings.setFileBrowserSortByType(GsFileUtils.SORT_BY_NAME);
+                _dopt.sortByType = _appSettings.setFileBrowserSortByType(getSortKey(), GsFileUtils.SORT_BY_NAME);
                 reloadCurrentFolder();
                 return true;
             }
             case R.id.action_sort_by_date: {
                 item.setChecked(true);
-                _dopt.sortByType = _appSettings.setFileBrowserSortByType(GsFileUtils.SORT_BY_MTIME);
+                _dopt.sortByType = _appSettings.setFileBrowserSortByType(getSortKey(), GsFileUtils.SORT_BY_MTIME);
                 reloadCurrentFolder();
                 return true;
             }
             case R.id.action_sort_by_filesize: {
                 item.setChecked(true);
-                _dopt.sortByType = _appSettings.setFileBrowserSortByType(GsFileUtils.SORT_BY_FILESIZE);
+                final String path = GsFileUtils.getPath(getCurrentFolder());
+                _dopt.sortByType = _appSettings.setFileBrowserSortByType(getSortKey(), GsFileUtils.SORT_BY_FILESIZE);
                 reloadCurrentFolder();
                 return true;
             }
             case R.id.action_sort_by_mimetype: {
                 item.setChecked(true);
-                _dopt.sortByType = _appSettings.setFileBrowserSortByType(GsFileUtils.SORT_BY_MIMETYPE);
+                final String path = GsFileUtils.getPath(getCurrentFolder());
+                _dopt.sortByType = _appSettings.setFileBrowserSortByType(getSortKey(), GsFileUtils.SORT_BY_MIMETYPE);
                 reloadCurrentFolder();
                 return true;
             }
             case R.id.action_sort_reverse: {
                 item.setChecked(!item.isChecked());
-                _dopt.sortReverse = _appSettings.setFileBrowserSortReverse(item.isChecked());
+                _dopt.sortReverse = _appSettings.setFileBrowserSortReverse(getSortKey(), item.isChecked());
                 reloadCurrentFolder();
                 return true;
             }
             case R.id.action_show_dotfiles: {
                 item.setChecked(!item.isChecked());
-                _dopt.filterShowDotFiles = _appSettings.setFileBrowserFilterShowDotFiles(item.isChecked());
+                _dopt.filterShowDotFiles = _appSettings.setFileBrowserFilterShowDotFiles(getSortKey(), item.isChecked());
                 reloadCurrentFolder();
                 return true;
             }
@@ -460,7 +469,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             }
             case R.id.action_folder_first: {
                 item.setChecked(!item.isChecked());
-                _dopt.sortFolderFirst = _appSettings.setFileBrowserSortFolderFirst(item.isChecked());
+                _dopt.sortFolderFirst = _appSettings.setFileBrowserSortFolderFirst(getSortKey(), item.isChecked());
                 reloadCurrentFolder();
                 return true;
             }
@@ -543,17 +552,18 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             }
             case R.id.action_save_sort_settings: {
                 item.setChecked(!item.isChecked());
-                final AppSettings.FolderSortOrder order;
+                final String path = GsFileUtils.getPath(getCurrentFolder());
                 if (item.isChecked()) {
-                    order = new AppSettings.FolderSortOrder();
-                    order.sortByType = _dopt.sortByType;
-                    order.folderFirst = _dopt.sortFolderFirst;
-                    order.reverse = _dopt.sortReverse;
-                    order.showDotFiles = _dopt.filterShowDotFiles;
+                    _appSettings.setFileBrowserSortByType(path, _dopt.sortByType);
+                    _appSettings.setFileBrowserSortFolderFirst(path, _dopt.sortFolderFirst);
+                    _appSettings.setFileBrowserFilterShowDotFiles(path, _dopt.filterShowDotFiles);
+                    _appSettings.setFileBrowserSortReverse(path, _dopt.sortReverse);
                 } else {
-                    order = null;
+                    _appSettings.clearFileBrowserSortByType(path);
+                    _appSettings.clearFileBrowserSortFolderFirst(path);
+                    _appSettings.clearFileBrowserFilterShowDotFiles(path);
+                    _appSettings.clearFileBrowserSortReverse(path);
                 }
-                _appSettings.setFolderSortOrder(GsFileUtils.getPath(getCurrentFolder()), order);
                 return true;
             }
         }

@@ -49,7 +49,6 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -664,7 +663,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         }
 
         if (folderChanged) {
-            _dopt.listener.onFsViewerFolderChanged(_currentFolder);
+            _dopt.listener.onFsViewerFolderChange(_currentFolder);
         }
 
         if (_currentFolder != null) {
