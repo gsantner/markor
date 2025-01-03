@@ -1,6 +1,6 @@
 /*#######################################################
  *
- *   Maintained 2018-2024 by Gregor Santner <gsantner AT mailbox DOT org>
+ *   Maintained 2018-2025 by Gregor Santner <gsantner AT mailbox DOT org>
  *   License of this file: Apache 2.0
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
@@ -267,9 +267,13 @@ public class MarkdownTextConverter extends TextConverterBase {
         }
 
         // Enable Math / KaTex
-        if (_appSettings.isMarkdownMathEnabled() && markup.contains("$")) {
-            head += HTML_KATEX_INCLUDE;
-            head += CSS_KATEX;
+        if (markup.contains("$")) {
+            if (_appSettings.isMarkdownMathEnabled()) {
+                head += HTML_KATEX_INCLUDE;
+                head += CSS_KATEX;
+            } else {
+                markup = markup.replace("$", "\\$");
+            }
         }
 
         // Enable View (block) code syntax highlighting

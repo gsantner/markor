@@ -195,7 +195,6 @@ public class WikitextLinkResolver {
      *
      * @param currentPage Current wiki file's path.
      * @return {@code currentPage}'s path without suffix.
-     *
      * @see GsFileUtils#getFilenameWithoutExtension(File)
      */
     public static File findAttachmentDir(File currentPage) {
@@ -218,13 +217,12 @@ public class WikitextLinkResolver {
      * Root Directory different than where the Notebook was organized
      * originally.</p>
      *
-     * @param notebookRootDir Root Directory when {@code shouldDynamicallyDetermineRoot == false}.
-     * @param currentPage Current wiki file's path used to determine the current directory.
+     * @param notebookRootDir                Root Directory when {@code shouldDynamicallyDetermineRoot == false}.
+     * @param currentPage                    Current wiki file's path used to determine the current directory.
      * @param shouldDynamicallyDetermineRoot If {@code true}, return the closest ancestor of the
-     * {@code currentPage} with a notebook.zim file in it, or fall back to the current directory
-     * on failure.  If {@code false}, return {@code notebookRootDir}.
+     *                                       {@code currentPage} with a notebook.zim file in it, or fall back to the current directory
+     *                                       on failure.  If {@code false}, return {@code notebookRootDir}.
      * @return Identified Notebook's Root Directory.
-     *
      * @see WikitextLinkResolver#findNotebookRootDir(File)
      */
     public static File findNotebookRootDir(File notebookRootDir, File currentPage, boolean shouldDynamicallyDetermineRoot) {
@@ -249,17 +247,16 @@ public class WikitextLinkResolver {
      * Directory the {@code currentPage}'s directory before anything
      * else.</p>
      *
-     * @param file System file's path to resolve as wiki attachment's path.
-     * @param notebookRootDir Root Directory when {@code shouldDynamicallyDetermineRoot == false}.
-     * @param currentPage Current wiki file's path used to determine the current Attachment Directory.
+     * @param file                           System file's path to resolve as wiki attachment's path.
+     * @param notebookRootDir                Root Directory when {@code shouldDynamicallyDetermineRoot == false}.
+     * @param currentPage                    Current wiki file's path used to determine the current Attachment Directory.
      * @param shouldDynamicallyDetermineRoot If {@code true}, the Root Directory is the closest ancestor
-     * of the {@code currentPage} with a notebook.zim file in it, or the {@code currentPage}'s directory
-     * on failure.  If {@code false}, the Root Directory is {@code notebookRootDir}.  In either cases, a
-     * {@code currentPage}'s directory is always considered as Root Directory before anything else.
+     *                                       of the {@code currentPage} with a notebook.zim file in it, or the {@code currentPage}'s directory
+     *                                       on failure.  If {@code false}, the Root Directory is {@code notebookRootDir}.  In either cases, a
+     *                                       {@code currentPage}'s directory is always considered as Root Directory before anything else.
      * @return {@code file}'s path relative to the {@code currentPage}'s Attachment Directory, when both
      * {@code file} and {@code currentPage} are children of the identified Notebook's Root Directory, or
      * the original {@code file}'s path otherwise.
-     *
      * @see WikitextLinkResolver#findAttachmentDir(File)
      * @see WikitextLinkResolver#findNotebookRootDir(File, File, boolean)
      */
@@ -268,7 +265,7 @@ public class WikitextLinkResolver {
         notebookRootDir = findNotebookRootDir(notebookRootDir, currentPage, shouldDynamicallyDetermineRoot);
 
         if (GsFileUtils.isChild(currentDir, file) ||
-            (GsFileUtils.isChild(notebookRootDir, file) && GsFileUtils.isChild(notebookRootDir, currentPage))) {
+                (GsFileUtils.isChild(notebookRootDir, file) && GsFileUtils.isChild(notebookRootDir, currentPage))) {
             final File attachmentDir = findAttachmentDir(currentPage);
             String path = GsFileUtils.relativePath(attachmentDir, file);
 
@@ -295,16 +292,15 @@ public class WikitextLinkResolver {
      * Directory the {@code currentPage}'s directory before anything
      * else.</p>
      *
-     * @param path Path that might be relative to the {@code currentPage}'s Attachment Directory.
-     * @param notebookRootDir Root Directory when {@code shouldDynamicallyDetermineRoot == false}.
-     * @param currentPage Current wiki file's path used to determine the current Attachment Directory.
+     * @param path                           Path that might be relative to the {@code currentPage}'s Attachment Directory.
+     * @param notebookRootDir                Root Directory when {@code shouldDynamicallyDetermineRoot == false}.
+     * @param currentPage                    Current wiki file's path used to determine the current Attachment Directory.
      * @param shouldDynamicallyDetermineRoot If {@code true}, the Root Directory is the closest ancestor
-     * of the {@code currentPage} with a notebook.zim file in it, or the {@code currentPage}'s directory
-     * on failure.  If {@code false}, the Root Directory is {@code notebookRootDir}.  In either cases, a
-     * {@code currentPage}'s directory is always considered as Root Directory before anything else.
+     *                                       of the {@code currentPage} with a notebook.zim file in it, or the {@code currentPage}'s directory
+     *                                       on failure.  If {@code false}, the Root Directory is {@code notebookRootDir}.  In either cases, a
+     *                                       {@code currentPage}'s directory is always considered as Root Directory before anything else.
      * @return {@code path} as a system absolute path, if it can be resolved as a relative path to the
      * {@code currentPage}'s Attachment Directory, or the original {@code path} otherwise.
-     *
      * @see WikitextLinkResolver#findAttachmentDir(File)
      * @see WikitextLinkResolver#resolveSystemFilePath(File, File, File, boolean)
      */

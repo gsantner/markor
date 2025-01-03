@@ -1,6 +1,6 @@
 /*#######################################################
  *
- *   Maintained 2017-2024 by Gregor Santner <gsantner AT mailbox DOT org>
+ *   Maintained 2017-2025 by Gregor Santner <gsantner AT mailbox DOT org>
  *   License of this file: Apache 2.0
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
@@ -385,6 +385,10 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     @Override
     public boolean onReceiveKeyPress(int keyCode, KeyEvent event) {
+        if (_format != null && _format.getActions().onReceiveKeyPress(keyCode, event)) {
+            return true;
+        }
+
         if (event.isCtrlPressed()) {
             if (event.isShiftPressed() && keyCode == KeyEvent.KEYCODE_Z) {
                 if (_editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanRedo()) {

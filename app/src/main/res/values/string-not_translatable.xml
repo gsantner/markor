@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-Maintained 2017-2024 by Gregor Santner <gsantner AT mailbox DOT org>
+Maintained 2017-2025 by Gregor Santner <gsantner AT mailbox DOT org>
 
 To the extent possible under law, the person who associated CC0 with
 this file has waived all copyright and related or neighboring rights
@@ -61,7 +61,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 
     <!-- About Screen -->
     <string name="copyright_license_text_official" translatable="false"><![CDATA[
-        ### Copyright © 2017-2024
+        ### Copyright © 2017-2025
         **Gregor Santner**
         \n**Official project sources:**
         [Project page](https://github.com/gsantner/markor#readme) | [Source code](https://github.com/gsantner/markor) | [F-Droid](https://f-droid.org/repository/browse/?fdid=net.gsantner.markor)
@@ -410,6 +410,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__is_only_first_content_match" translatable="false">pref_key__is_only_first_content_match</string>
     <string name="pref_key__restore_settings" translatable="false">pref_key__restore_settings</string>
     <string name="pref_key__backup_settings" translatable="false">pref_key__backup_settings</string>
+    <string name="pref_key__editor_tab_to_indent" translatable="false">pref_key__editor_tab_to_indent</string>
     <string name="hidden_password" translatable="false">****</string>
     <string name="pref_key__todotxt__additional_projects_contexts" translatable="false">"pref_key__todotxt__additional_projects_contexts"</string>
     <string name="pref_key__todotxt__due_date_offset" translatable="false">pref_key__todotxt_due_date_offset</string>

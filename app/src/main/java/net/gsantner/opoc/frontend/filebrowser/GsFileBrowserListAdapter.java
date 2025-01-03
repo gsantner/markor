@@ -1,9 +1,9 @@
 /*#######################################################
  *
- * SPDX-FileCopyrightText: 2017-2024 Gregor Santner <gsantner AT mailbox DOT org>
+ * SPDX-FileCopyrightText: 2017-2025 Gregor Santner <gsantner AT mailbox DOT org>
  * SPDX-License-Identifier: Unlicense OR CC0-1.0
  *
- * Written 2018-2024 by Gregor Santner <gsantner AT mailbox DOT org>
+ * Written 2018-2025 by Gregor Santner <gsantner AT mailbox DOT org>
  * To the extent possible under law, the author(s) have dedicated all copyright and related and neighboring rights to this software to the public domain worldwide. This software is distributed without any warranty.
  * You should have received a copy of the CC0 Public Domain Dedication along with this software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
 #########################################################*/
@@ -92,6 +92,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     private final Set<File> _currentSelection;
     private File _fileToShowAfterNextLoad;
     private File _currentFolder;
+    private File _goUpFile;
     private final Context _context;
     private final StringFilter _filter;
     private RecyclerView _recyclerView;
@@ -160,7 +161,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                 final File parent = file.getParentFile();
                 if (parent != null) {
                     final String name = parent.toString().replace("/", "-").substring(1);
-                    final File remap = new File(VIRTUAL_STORAGE_ROOT, "AppData (" +  name + ")");
+                    final File remap = new File(VIRTUAL_STORAGE_ROOT, "AppData (" + name + ")");
                     _virtualMapping.put(remap, file);
                 }
             }
@@ -200,7 +201,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
         final File file = GsCollectionUtils.getOrDefault(_virtualMapping, displayFile, displayFile);
 
-        final boolean isGoUp = displayFile instanceof GoUpFile;
+        final boolean isGoUp = displayFile.equals(_goUpFile);
         final boolean isVirtual = _virtualMapping.containsKey(displayFile);
         final boolean isSelected = _currentSelection.contains(displayFile);
         final boolean isFavourite = _dopt.favouriteFiles != null && _dopt.favouriteFiles.contains(displayFile);
@@ -242,9 +243,9 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         }
 
         holder.image.setColorFilter(ContextCompat.getColor(
-            _context,
-            isSelected ? _dopt.accentColor : isFile ? _dopt.fileColor : _dopt.folderColor),
-            android.graphics.PorterDuff.Mode.SRC_ATOP
+                        _context,
+                        isSelected ? _dopt.accentColor : isFile ? _dopt.fileColor : _dopt.folderColor),
+                android.graphics.PorterDuff.Mode.SRC_ATOP
         );
 
         if (!isSelected && isFavourite) {
@@ -279,7 +280,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         super.onAttachedToRecyclerView(view);
         _recyclerView = view;
         _layoutManager = (LinearLayoutManager) view.getLayoutManager();
-        loadFolder(_dopt.startFolder != null ? _dopt.startFolder : _dopt.rootFolder, null);
+        reloadCurrentFolder();
     }
 
     public String formatFileDescription(final File file, String format) {
@@ -330,13 +331,17 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     }
 
     public void reloadCurrentFolder() {
-        loadFolder(_currentFolder != null ? _currentFolder : _dopt.rootFolder, null);
+        if (_currentFolder != null) {
+            loadFolder(_currentFolder, null);
+        } else if (_dopt.startFolder != null) {
+            loadFolder(_dopt.startFolder, null);
+        } else {
+            loadFolder(_dopt.rootFolder, null);
+        }
     }
 
     public void setCurrentFolder(final File folder) {
-        if (folder != null && !folder.equals(_currentFolder)) {
-            loadFolder(folder, GsFileUtils.isChild(_currentFolder, folder) ? folder : null);
-        }
+        loadFolder(folder, GsFileUtils.isChild(_currentFolder, folder) ? folder : null);
     }
 
     public boolean isCurrentFolderVirtual() {
@@ -418,7 +423,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                     } else {
                         // No pre-selection
                         if (data.file.isDirectory() || _virtualMapping.containsKey(data.file)) {
-                            loadFolder(data.file, _currentFolder);
+                            loadFolder(data.file, data.file.equals(_goUpFile) ? _currentFolder : null);
                         } else if (data.file.isFile()) {
                             _dopt.listener.onFsViewerSelected(_dopt.requestId, data.file, null);
                         }
@@ -496,7 +501,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         }
 
         boolean clickHandled = false;
-        if (data.file != null && _currentFolder != null && !(data.file instanceof GoUpFile)) {
+        if (data.file != null && _currentFolder != null && !data.file.equals(_goUpFile)) {
             if (_currentSelection.contains(data.file)) {
                 // Single selection
                 _currentSelection.remove(data.file);
@@ -593,13 +598,9 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             return;
         }
 
-        if (!_adapterDataFiltered.contains(file)) {
-            final File dir = file.getParentFile();
-            if (dir != null) {
-                loadFolder(dir, file);
-            }
-        } else {
-            scrollToAndFlash(file);
+        final File dir = file.getParentFile();
+        if (dir != null) {
+            loadFolder(dir, file);
         }
     }
 
@@ -718,10 +719,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         final long modSum = GsCollectionUtils.accumulate(newData, (f, s) -> s + f.lastModified(), 0L);
         final boolean modSumChanged = modSum != _prevModSum;
 
-        final File parent = getCurrentParent();
-        if (parent != null) {
-            newData.add(0, new GoUpFile(parent));
-        }
+        final File goUp = getCurrentParent();
 
         if (folderChanged || modSumChanged || !newData.equals(_adapterData)) {
             final ArrayList<File> filteredData = new ArrayList<>();
@@ -729,11 +727,16 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
             _recyclerView.post(() -> {
                 // Modify all these values in the UI thread
+                _goUpFile = goUp;
                 _adapterData.clear();
-                _adapterData.addAll(newData);
                 _adapterDataFiltered.clear();
+                if (_goUpFile != null) {
+                    _adapterData.add(_goUpFile);
+                    _adapterDataFiltered.add(_goUpFile);
+                }
+                _adapterData.addAll(newData);
                 _adapterDataFiltered.addAll(filteredData);
-                _currentSelection.retainAll(_adapterData);
+                _currentSelection.retainAll(_adapterDataFiltered);
                 _prevModSum = modSum;
 
                 if (folderChanged) {
@@ -887,12 +890,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             return Integer.parseInt(parts[parts.length - 1]);
         } catch (Exception ignored) {
             return 0;
-        }
-    }
-
-    private static class GoUpFile extends File {
-        GoUpFile(final File f) {
-            super(f.getPath());
         }
     }
 }

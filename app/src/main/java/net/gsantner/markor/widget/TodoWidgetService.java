@@ -1,4 +1,3 @@
-
 package net.gsantner.markor.widget;
 
 import android.content.Intent;
