@@ -1035,6 +1035,7 @@ public class MarkorDialogFactory {
         dopt.isMultiSelectEnabled = true;
         dopt.isSearchEnabled = false;
         dopt.titleText = R.string.sort_by;
+        dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
 
         dopt.positionCallback = (selection) -> {
             final boolean reverse = selection.contains(6);

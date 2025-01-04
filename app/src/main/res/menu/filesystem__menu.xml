@@ -85,64 +85,7 @@
         android:layout_width="match_parent"
         android:icon="@drawable/ic_sort_black_24dp"
         android:title="@string/sort_by"
-        app:showAsAction="always">
-
-        <menu>
-            <group
-                android:id="@+id/action_grp_sort1"
-                android:checkableBehavior="single">
-
-                <item
-                    android:id="@+id/action_sort_by_name"
-                    android:icon="@drawable/ic_sort_by_alpha_black_24dp"
-                    android:title="@string/deleteme____1"
-                    app:showAsAction="never" />
-                <item
-                    android:id="@+id/action_sort_by_date"
-                    android:icon="@drawable/ic_date_range_black_24dp"
-                    android:title="@string/date"
-                    app:showAsAction="never" />
-                <item
-                    android:id="@+id/action_sort_by_filesize"
-                    android:icon="@drawable/ic_sort_black_24dp"
-                    android:title="@string/size"
-                    app:showAsAction="never" />
-                <item
-                    android:id="@+id/action_sort_by_mimetype"
-                    android:icon="@drawable/ic_extension_black_24dp"
-                    android:title="@string/mime_type"
-                    app:showAsAction="never" />
-            </group>
-            <group
-                android:id="@+id/action_grp_sort2"
-                android:checkableBehavior="all">
-                <item
-                    android:id="@+id/action_folder_first"
-                    android:checkable="true"
-                    android:icon="@drawable/ic_folder_white_24dp"
-                    android:title="@string/folder_first"
-                    app:showAsAction="never" />
-                <item
-                    android:id="@+id/action_sort_reverse"
-                    android:checkable="true"
-                    android:icon="@drawable/ic_rotate_left_black_24dp"
-                    android:title="@string/reverse_order"
-                    app:showAsAction="never" />
-                <item
-                    android:id="@+id/action_show_dotfiles"
-                    android:checkable="true"
-                    android:icon="@drawable/ic_visibility_black_24dp"
-                    android:title="@string/dotfiles"
-                    app:showAsAction="never" />
-            </group>
-            <item
-                android:id="@+id/action_save_sort_settings"
-                android:checkable="true"
-                android:icon="@drawable/ic_save_black_24dp"
-                android:title="@string/save"
-                app:showAsAction="never" />
-        </menu>
-    </item>
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/action_search"

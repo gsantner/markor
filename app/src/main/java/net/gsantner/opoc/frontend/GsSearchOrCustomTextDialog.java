@@ -136,8 +136,6 @@ public class GsSearchOrCustomTextDialog {
     }
 
     public static class Adapter extends BaseAdapter {
-        @LayoutRes
-        private final int _layout;
         private final int _layoutHeight;
         private final LayoutInflater _inflater;
         private final DialogOptions _dopt;
@@ -165,12 +163,23 @@ public class GsSearchOrCustomTextDialog {
         private Adapter(final Context context, final DialogOptions dopt) {
             super();
             _filteredItems = new ArrayList<>();
-            _layout = dopt.isMultiSelectEnabled ? android.R.layout.simple_list_item_multiple_choice : android.R.layout.simple_list_item_1;
             _inflater = LayoutInflater.from(context);
             _dopt = dopt;
             _extraPattern = (_dopt.extraFilter == null ? null : Pattern.compile(_dopt.extraFilter).matcher(""));
             _selectedItems = new HashSet<>(_dopt.preSelected != null ? _dopt.preSelected : Collections.emptyList());
             _layoutHeight = GsContextUtils.instance.convertDpToPx(context, 36);
+        }
+
+        private int chooseLayout(final int pos) {
+            if (_dopt.isMultiSelectEnabled) {
+                if (_dopt.radioSet != null && _dopt.radioSet.contains(pos)) {
+                    return android.R.layout.simple_list_item_single_choice;
+                } else {
+                    return android.R.layout.simple_list_item_multiple_choice;
+                }
+            } else {
+                return android.R.layout.simple_list_item_1;
+            }
         }
 
         @NonNull
@@ -180,7 +189,7 @@ public class GsSearchOrCustomTextDialog {
 
             final TextView textView;
             if (convertView == null) {
-                textView = (TextView) _inflater.inflate(_layout, parent, false);
+                textView = (TextView) _inflater.inflate(chooseLayout(pos), parent, false);
                 textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
                 textView.setMinHeight(_layoutHeight);
             } else {
@@ -518,7 +527,7 @@ public class GsSearchOrCustomTextDialog {
                     LinearLayout.LayoutParams.WRAP_CONTENT));
         }
 
-        if (dopt.isMultiSelectEnabled && dopt.radioSet != null) {
+        if (dopt.isMultiSelectEnabled && dopt.radioSet == null) {
             // Using a multiple choice text view as a selectable checkbox button
             // Requires no styling to match the existing check boxes
             final LayoutInflater inflater = LayoutInflater.from(context);

@@ -280,6 +280,11 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             _fragmentMenu.findItem(R.id.action_create_shortcut).setVisible(selMulti1 && (selFilesOnly || selDirectoriesOnly));
             _fragmentMenu.findItem(R.id.action_check_all).setVisible(_filesystemViewerAdapter.areItemsSelected() && selCount < totalCount);
             _fragmentMenu.findItem(R.id.action_clear_selection).setVisible(_filesystemViewerAdapter.areItemsSelected());
+
+            final MenuItem sortItem = _fragmentMenu.findItem(R.id.action_sort);
+            if (sortItem != null) {
+                _cu.tintDrawable(sortItem.getIcon(), _isSortOrderSaved ? GsFileBrowserListAdapter.FAVOURITE_COLOR : Color.WHITE);
+            }
         }
 
         // Update subtitle with count
@@ -290,8 +295,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                 _toolbar.setSubtitle("");
             }
         }
-
-        updateSortMenuStates();
     }
 
     @Override
@@ -345,39 +348,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         _reloadRequiredOnResume = true;
     }
 
-    private void updateSortMenuStates() {
-        if (_fragmentMenu == null) {
-            return;
-        }
-
-        MenuItem item;
-        if ((item = _fragmentMenu.findItem(R.id.action_folder_first)) != null) {
-            item.setChecked(_dopt.sortFolderFirst);
-        }
-        if ((item = _fragmentMenu.findItem(R.id.action_sort_reverse)) != null) {
-            item.setChecked(_dopt.sortReverse);
-        }
-        if ((item = _fragmentMenu.findItem(R.id.action_show_dotfiles)) != null) {
-            item.setChecked(_dopt.filterShowDotFiles);
-        }
-        if ((item = _fragmentMenu.findItem(R.id.action_save_sort_settings)) != null) {
-            item.setChecked(_isSortOrderSaved);
-        }
-        if ((item = _fragmentMenu.findItem(R.id.action_sort)) != null) {
-            _cu.tintDrawable(item.getIcon(), _isSortOrderSaved ? GsFileBrowserListAdapter.FAVOURITE_COLOR : Color.WHITE);
-        }
-
-        if ((item = _fragmentMenu.findItem(R.id.action_sort_by_name)) != null && GsFileUtils.SORT_BY_NAME.equals(_dopt.sortByType)) {
-            item.setChecked(true);
-        } else if ((item = _fragmentMenu.findItem(R.id.action_sort_by_date)) != null && GsFileUtils.SORT_BY_MTIME.equals(_dopt.sortByType)) {
-            item.setChecked(true);
-        } else if ((item = _fragmentMenu.findItem(R.id.action_sort_by_filesize)) != null && GsFileUtils.SORT_BY_FILESIZE.equals(_dopt.sortByType)) {
-            item.setChecked(true);
-        } else if ((item = _fragmentMenu.findItem(R.id.action_sort_by_mimetype)) != null && GsFileUtils.SORT_BY_MIMETYPE.equals(_dopt.sortByType)) {
-            item.setChecked(true);
-        }
-    }
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -401,24 +371,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         return _filesystemViewerAdapter;
     }
 
-    private void updateSortSettingsAndReload() {
-        if (_isSortOrderSaved) {
-            final AppSettings.FolderSortOrder order = new AppSettings.FolderSortOrder();
-            order.sortByType = _dopt.sortByType;
-            order.reverse = _dopt.sortReverse;
-            order.folderFirst = _dopt.sortFolderFirst;
-            order.showDotFiles = _dopt.filterShowDotFiles;
-            _appSettings.setFolderSortOrder(getCurrentFolder(), order);
-        } else {
-            _appSettings.setFolderSortOrder(getCurrentFolder(), null);
-            _appSettings.setFileBrowserSortByType(_dopt.sortByType);
-            _appSettings.setFileBrowserSortReverse(_dopt.sortReverse);
-            _appSettings.setFileBrowserSortFolderFirst(_dopt.sortFolderFirst);
-            _appSettings.setFileBrowserFilterShowDotFiles(_dopt.filterShowDotFiles);
-        }
-        reloadCurrentFolder(); // onFsViewerFolderChange will update the UI
-    }
-
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         final int _id = item.getItemId();
@@ -430,39 +382,8 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                 _cu.createLauncherDesktopShortcut(getContext(), file);
                 return true;
             }
-            case R.id.action_sort_by_name: {
-                _dopt.sortByType = GsFileUtils.SORT_BY_NAME;
-                updateSortSettingsAndReload();
-                return true;
-            }
-            case R.id.action_sort_by_date: {
-                _dopt.sortByType = GsFileUtils.SORT_BY_MTIME;
-                updateSortSettingsAndReload();
-                return true;
-            }
-            case R.id.action_sort_by_filesize: {
-                _dopt.sortByType = GsFileUtils.SORT_BY_FILESIZE;
-                updateSortSettingsAndReload();
-                return true;
-            }
-            case R.id.action_sort_by_mimetype: {
-                _dopt.sortByType = GsFileUtils.SORT_BY_MIMETYPE;
-                updateSortSettingsAndReload();
-                return true;
-            }
-            case R.id.action_sort_reverse: {
-                _dopt.sortReverse = !_dopt.sortReverse;
-                updateSortSettingsAndReload();
-                return true;
-            }
-            case R.id.action_show_dotfiles: {
-                _dopt.filterShowDotFiles = !_dopt.filterShowDotFiles;
-                updateSortSettingsAndReload();
-                return true;
-            }
-            case R.id.action_folder_first: {
-                _dopt.sortFolderFirst = !_dopt.sortFolderFirst;
-                updateSortSettingsAndReload();
+            case R.id.action_sort: {
+                updateSortSettings();
                 return true;
             }
             case R.id.action_import: {
@@ -548,11 +469,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                         Toast.makeText(getContext(), R.string.clipboard, Toast.LENGTH_SHORT).show();
                     }
                 }
-                return true;
-            }
-            case R.id.action_save_sort_settings: {
-                _isSortOrderSaved = !_isSortOrderSaved;
-                updateSortSettingsAndReload();
                 return true;
             }
         }
@@ -695,7 +611,21 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                     _dopt.sortFolderFirst = sortFolderFirst;
                     _dopt.filterShowDotFiles = filterShowDotFiles;
                     _isSortOrderSaved = saved;
-                    updateSortSettingsAndReload();
+                    if (_isSortOrderSaved) {
+                        final AppSettings.FolderSortOrder order = new AppSettings.FolderSortOrder();
+                        order.sortByType = _dopt.sortByType;
+                        order.reverse = _dopt.sortReverse;
+                        order.folderFirst = _dopt.sortFolderFirst;
+                        order.showDotFiles = _dopt.filterShowDotFiles;
+                        _appSettings.setFolderSortOrder(getCurrentFolder(), order);
+                    } else {
+                        _appSettings.setFolderSortOrder(getCurrentFolder(), null);
+                        _appSettings.setFileBrowserSortByType(_dopt.sortByType);
+                        _appSettings.setFileBrowserSortReverse(_dopt.sortReverse);
+                        _appSettings.setFileBrowserSortFolderFirst(_dopt.sortFolderFirst);
+                        _appSettings.setFileBrowserFilterShowDotFiles(_dopt.filterShowDotFiles);
+                    }
+                    reloadCurrentFolder(); // Ui will be updated by onFsViewerDoUiUpdate after the load
                 });
     }
 }
