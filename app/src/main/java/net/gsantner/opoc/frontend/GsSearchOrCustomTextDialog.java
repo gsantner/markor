@@ -43,7 +43,6 @@ import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
-import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -84,11 +83,15 @@ public class GsSearchOrCustomTextDialog {
         @Nullable
         public GsCallback.a1<List<Integer>> positionCallback = null;
 
+        // For multi select
         public boolean isMultiSelectEnabled = false;
+        public Collection<Integer> preSelected = null;  // Indices of pre-selected items
+        public Collection<Integer> radioIndices = null; // Only one item can be selected among these
+        public boolean showCountInOkButton = true;
+
         public List<? extends CharSequence> data = null;
         public List<? extends CharSequence> highlightData = null;
         public List<Integer> iconsForData;
-        public Collection<Integer> radioSet = null;
         public CharSequence messageText = "";
         public String defaultText = "";
         public boolean isDarkDialog = false;
@@ -100,7 +103,6 @@ public class GsSearchOrCustomTextDialog {
         public int dialogHeightDp = WindowManager.LayoutParams.WRAP_CONTENT;
         public int searchInputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS;
         public String extraFilter = null;
-        public Collection<Integer> preSelected = null;
         public GsCallback.a1<Spannable> highlighter = null;
         public GsCallback.a1<AlertDialog> neutralButtonCallback = null;
         public GsCallback.a1<DialogInterface> dismissCallback = null;
@@ -172,7 +174,7 @@ public class GsSearchOrCustomTextDialog {
 
         private int chooseLayout(final int pos) {
             if (_dopt.isMultiSelectEnabled) {
-                if (_dopt.radioSet != null && _dopt.radioSet.contains(pos)) {
+                if (_dopt.radioIndices != null && _dopt.radioIndices.contains(pos)) {
                     return android.R.layout.simple_list_item_single_choice;
                 } else {
                     return android.R.layout.simple_list_item_multiple_choice;
@@ -289,7 +291,6 @@ public class GsSearchOrCustomTextDialog {
         // SearchView is currently constructed even if it isn't needed
         final View searchView = makeSearchView(activity, dopt);
         final EditText searchEditText = searchView.findViewWithTag("EDIT");
-        searchEditText.addTextChangedListener(GsTextWatcherAdapter.after(listAdapter::filter));
 
         if (dopt.isSearchEnabled) {
             mainLayout.addView(searchView);
@@ -334,6 +335,18 @@ public class GsSearchOrCustomTextDialog {
                 .setNegativeButton(dopt.cancelButtonText, (dialogInterface, i) -> dialogInterface.dismiss());
 
         // =========================================================================================
+
+        final GsCallback.a0 setSelectAllButtonState = () -> {
+            if (selectAll != null) {
+                final boolean allVisibleSelected = listAdapter._selectedItems.containsAll(listAdapter._filteredItems);
+                ((Checkable) selectAll).setChecked(allVisibleSelected);
+            }
+        };
+
+        searchEditText.addTextChangedListener(GsTextWatcherAdapter.after((constraint) -> {
+            listAdapter.filter(constraint);
+            setSelectAllButtonState.callback();
+        }));
 
         // Ok button only present under these circumstances
         final boolean isSearchOk = dopt.callback != null && dopt.isSearchEnabled;
@@ -418,7 +431,7 @@ public class GsSearchOrCustomTextDialog {
         final Button okButton = dialog.getButton(Dialog.BUTTON_POSITIVE);
         final GsCallback.a0 setOkButtonState = () -> {
             if (okButton != null) {
-                if (dopt.isMultiSelectEnabled) {
+                if (dopt.isMultiSelectEnabled && dopt.showCountInOkButton) {
                     okButton.setText(okString + String.format(" (%d)", listAdapter._selectedItems.size()));
                 } else {
                     okButton.setText(okString);
@@ -428,21 +441,17 @@ public class GsSearchOrCustomTextDialog {
 
         // Set ok button text initially
         setOkButtonState.callback();
-        final GsCallback.a0 setSelectAllButtonState = () -> {
-            if (selectAll != null) {
-                ((Checkable) selectAll).setChecked(listAdapter._selectedItems.size() >= dopt.data.size());
-            }
-        };
 
         // Set select all button state initially
         setSelectAllButtonState.callback();
 
         if (selectAll != null && dopt.isMultiSelectEnabled) {
             selectAll.setOnClickListener((v) -> {
-                if (listAdapter._selectedItems.size() < dopt.data.size()) {
-                    listAdapter._selectedItems.addAll(GsCollectionUtils.range(dopt.data.size()));
+                final boolean allVisibleSelected = listAdapter._selectedItems.containsAll(listAdapter._filteredItems);
+                if (!allVisibleSelected) {
+                    listAdapter._selectedItems.addAll(listAdapter._filteredItems);
                 } else {
-                    listAdapter._selectedItems.clear();
+                    listAdapter._selectedItems.removeAll(listAdapter._filteredItems);
                 }
                 listAdapter.notifyDataSetChanged();
                 setOkButtonState.callback();
@@ -460,8 +469,8 @@ public class GsSearchOrCustomTextDialog {
                     listAdapter._selectedItems.remove(index);
                 } else {
                     listAdapter._selectedItems.add(index);
-                    if (dopt.radioSet != null && dopt.radioSet.contains(index)) {
-                        for (int i : dopt.radioSet) {
+                    if (dopt.radioIndices != null && dopt.radioIndices.contains(index)) {
+                        for (int i : dopt.radioIndices) {
                             if (i != index) {
                                 listAdapter._selectedItems.remove(i);
                             }
@@ -527,7 +536,7 @@ public class GsSearchOrCustomTextDialog {
                     LinearLayout.LayoutParams.WRAP_CONTENT));
         }
 
-        if (dopt.isMultiSelectEnabled && dopt.radioSet == null) {
+        if (dopt.isMultiSelectEnabled && dopt.radioIndices == null) {
             // Using a multiple choice text view as a selectable checkbox button
             // Requires no styling to match the existing check boxes
             final LayoutInflater inflater = LayoutInflater.from(context);

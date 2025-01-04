@@ -1031,11 +1031,12 @@ public class MarkorDialogFactory {
         else if (GsFileUtils.SORT_BY_FILESIZE.equals(sortType)) dopt.preSelected.add(3);
         else if (GsFileUtils.SORT_BY_MIMETYPE.equals(sortType)) dopt.preSelected.add(4);
 
-        dopt.radioSet = new HashSet<>(Arrays.asList(1, 2, 3, 4));
+        dopt.radioIndices = new HashSet<>(Arrays.asList(1, 2, 3, 4));
         dopt.isMultiSelectEnabled = true;
         dopt.isSearchEnabled = false;
         dopt.titleText = R.string.sort_by;
         dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
+        dopt.showCountInOkButton = false;
 
         dopt.positionCallback = (selection) -> {
             final boolean reverse = selection.contains(6);
