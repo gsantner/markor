@@ -51,8 +51,8 @@ public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFacto
         _widgetFilesList.clear();
         final File dir = WrWidgetConfigure.getWidgetDirectory(_context, _appWidgetId);
         final AppSettings as = ApplicationObject.settings();
+        final AppSettings.FolderSortOrder order = as.getFolderSortOrder(dir);
 
-        final String path = GsFileUtils.getPath(dir);
         if (dir.equals(GsFileBrowserListAdapter.VIRTUAL_STORAGE_RECENTS)) {
             _widgetFilesList.addAll(ApplicationObject.settings().getRecentFiles());
         } else if (dir.equals(GsFileBrowserListAdapter.VIRTUAL_STORAGE_POPULAR)) {
@@ -60,17 +60,11 @@ public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFacto
         } else if (dir.equals(GsFileBrowserListAdapter.VIRTUAL_STORAGE_FAVOURITE)) {
             _widgetFilesList.addAll(ApplicationObject.settings().getFavouriteFiles());
         } else if (dir.exists() && dir.canRead()) {
-            final boolean showDot = as.getFileBrowserFilterShowDotFiles(path);
-            final File[] all = dir.listFiles(file -> showDot || !file.getName().startsWith("."));
+            final File[] all = dir.listFiles(file -> order.showDotFiles || !file.getName().startsWith("."));
             _widgetFilesList.addAll(all != null ? Arrays.asList(all) : Collections.emptyList());
         }
 
-        GsFileUtils.sortFiles(
-                _widgetFilesList,
-                as.getFileBrowserSortByType(path),
-                as.getFileBrowserSortFolderFirst(path),
-                as.getFileBrowserSortReverse(path)
-        );
+        GsFileUtils.sortFiles(_widgetFilesList, order.sortByType, order.folderFirst, order.reverse);
     }
 
     @Override

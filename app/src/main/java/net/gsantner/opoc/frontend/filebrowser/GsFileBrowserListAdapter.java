@@ -49,6 +49,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -78,6 +79,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     public static final String EXTRA_DOPT = "EXTRA_DOPT";
     public static final String EXTRA_RECYCLER_SCROLL_STATE = "EXTRA_RECYCLER_SCROLL_STATE";
     public static final String EXTRA_REQ_FOLDER = "EXTRA_REQ_FOLDER";
+    public static final int FAVOURITE_COLOR = 0xFFE3B51B;
 
     private static final File GO_BACK_SIGNIFIER = new File("__GO_BACK__");
     private static final StrikethroughSpan STRIKE_THROUGH_SPAN = new StrikethroughSpan();
@@ -248,7 +250,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         );
 
         if (!isSelected && !isGoUp && isFavourite) {
-            holder.image.setColorFilter(0xFFE3B51B);
+            holder.image.setColorFilter(FAVOURITE_COLOR);
         }
 
         // Some extras
@@ -713,7 +715,10 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
         GsCollectionUtils.deduplicate(newData);
 
-        GsFileUtils.sortFiles(newData, _dopt.sortByType, _dopt.sortFolderFirst, _dopt.sortReverse);
+        // Don't sort recent or virtual root items - use the default order
+        if (isCurrentFolderSortable()) {
+            GsFileUtils.sortFiles(newData, _dopt.sortByType, _dopt.sortFolderFirst, _dopt.sortReverse);
+        }
 
         // Testing if modtimes have changed (modtimes generally only increase)
         final long modSum = GsCollectionUtils.accumulate(newData, (f, s) -> s + f.lastModified(), 0L);
@@ -891,5 +896,9 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         } catch (Exception ignored) {
             return 0;
         }
+    }
+
+    public boolean isCurrentFolderSortable() {
+        return _currentFolder != null && !VIRTUAL_STORAGE_ROOT.equals(_currentFolder) && !VIRTUAL_STORAGE_RECENTS.equals(_currentFolder);
     }
 }

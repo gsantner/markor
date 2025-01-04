@@ -998,6 +998,60 @@ public class MarkorDialogFactory {
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
+    public static void showFolderSortDialog(
+            final Activity activity,
+            final String sortType,
+            final boolean isReverse,
+            final boolean isFoldersFirst,
+            final boolean isDotFiles,
+            final boolean isSaved,
+            final GsCallback.a5<String, Boolean, Boolean, Boolean, Boolean> callback
+    ) {
+        final DialogOptions dopt = new DialogOptions();
+        baseConf(activity, dopt);
+
+        final List<String> data = new ArrayList<>();
+        data.add(activity.getString(R.string.save));
+        data.add(activity.getString(R.string.name));
+        data.add(activity.getString(R.string.date));
+        data.add(activity.getString(R.string.size));
+        data.add(activity.getString(R.string.mime_type));
+        data.add(activity.getString(R.string.folder_first));
+        data.add(activity.getString(R.string.reverse_order));
+        data.add(activity.getString(R.string.dotfiles));
+        dopt.data = data;
+
+        dopt.preSelected = new HashSet<>();
+        if (isReverse) dopt.preSelected.add(6);
+        if (isFoldersFirst) dopt.preSelected.add(5);
+        if (isDotFiles) dopt.preSelected.add(7);
+        if (isSaved) dopt.preSelected.add(0);
+        if (GsFileUtils.SORT_BY_NAME.equals(sortType)) dopt.preSelected.add(1);
+        else if (GsFileUtils.SORT_BY_MTIME.equals(sortType)) dopt.preSelected.add(2);
+        else if (GsFileUtils.SORT_BY_FILESIZE.equals(sortType)) dopt.preSelected.add(3);
+        else if (GsFileUtils.SORT_BY_MIMETYPE.equals(sortType)) dopt.preSelected.add(4);
+
+        dopt.radioSet = new HashSet<>(Arrays.asList(1, 2, 3, 4));
+        dopt.isMultiSelectEnabled = true;
+        dopt.isSearchEnabled = false;
+        dopt.titleText = R.string.sort_by;
+
+        dopt.positionCallback = (selection) -> {
+            final boolean reverse = selection.contains(6);
+            final boolean foldersFirst = selection.contains(5);
+            final boolean dotFiles = selection.contains(7);
+            final String sortBy;
+            if (selection.contains(2)) sortBy = GsFileUtils.SORT_BY_MTIME;
+            else if (selection.contains(3)) sortBy = GsFileUtils.SORT_BY_FILESIZE;
+            else if (selection.contains(4)) sortBy = GsFileUtils.SORT_BY_MIMETYPE;
+            else sortBy = GsFileUtils.SORT_BY_NAME;
+            final boolean save = selection.contains(0);
+            callback.callback(sortBy, reverse, foldersFirst, dotFiles, save);
+        };
+
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+    }
+
     public static void baseConf(Activity activity, DialogOptions dopt) {
         dopt.isDarkDialog = GsContextUtils.instance.isDarkModeEnabled(activity);
         dopt.clearInputIcon = R.drawable.ic_baseline_clear_24;

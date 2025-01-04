@@ -88,6 +88,7 @@ public class GsSearchOrCustomTextDialog {
         public List<? extends CharSequence> data = null;
         public List<? extends CharSequence> highlightData = null;
         public List<Integer> iconsForData;
+        public Collection<Integer> radioSet = null;
         public CharSequence messageText = "";
         public String defaultText = "";
         public boolean isDarkDialog = false;
@@ -450,10 +451,15 @@ public class GsSearchOrCustomTextDialog {
                     listAdapter._selectedItems.remove(index);
                 } else {
                     listAdapter._selectedItems.add(index);
+                    if (dopt.radioSet != null && dopt.radioSet.contains(index)) {
+                        for (int i : dopt.radioSet) {
+                            if (i != index) {
+                                listAdapter._selectedItems.remove(i);
+                            }
+                        }
+                    }
                 }
-                if (textView instanceof Checkable) {
-                    ((Checkable) textView).setChecked(listAdapter._selectedItems.contains(index));
-                }
+                listAdapter.notifyDataSetChanged();
                 setOkButtonState.callback();
                 setSelectAllButtonState.callback();
             } else {
@@ -512,7 +518,7 @@ public class GsSearchOrCustomTextDialog {
                     LinearLayout.LayoutParams.WRAP_CONTENT));
         }
 
-        if (dopt.isMultiSelectEnabled) {
+        if (dopt.isMultiSelectEnabled && dopt.radioSet != null) {
             // Using a multiple choice text view as a selectable checkbox button
             // Requires no styling to match the existing check boxes
             final LayoutInflater inflater = LayoutInflater.from(context);

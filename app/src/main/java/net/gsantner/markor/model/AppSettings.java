@@ -45,6 +45,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -260,73 +261,93 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return ret;
     }
 
-    private final String PREF_PREFIX_FOLDER_SORT_TYPE = "PREF_PREFIX_FOLDER_SORT_TYPE";
-    private final String PREF_PREFIX_FOLDER_SORT_REVERSE = "PREF_PREFIX_FOLDER_SORT_REVERSE";
-    private final String PREF_PREFIX_FOLDER_SORT_SHOW_DOT = "PREF_PREFIX_FOLDER_SORT_SHOW_DOT";
-    private final String PREF_PREFIX_FOLDER_SORT_FOLDER_FIRST = "PREF_PREFIX_FOLDER_SORT_FOLDER_FIRST";
+    private final String PREF_PREFIX_FOLDER_SORT_ORDER = "PREF_PREFIX_FOLDER_SORT_ORDER";
 
-    private String cleanPath(final String path) {
-        return GsTextUtils.isNullOrEmpty(path) ? "" : path.trim();
+    public static class FolderSortOrder {
+        private final static String SORT_BY_KEY = "SORT_BY";
+        private final static String REVERSE_KEY = "REVERSE";
+        private final static String SHOW_DOT_FILES_KEY = "SHOW_DOT_FILES";
+        private final static String FOLDER_FIRST_KEY = "FOLDER_FIRST";
+
+        public String sortByType = GsFileUtils.SORT_BY_NAME;
+        public boolean reverse = false;
+        public boolean showDotFiles = false;
+        public boolean folderFirst = true;
+        public boolean hasCustomOrder = false;
     }
 
-    public String setFileBrowserSortByType(final String path, final String type) {
-        setString(PREF_PREFIX_FOLDER_SORT_TYPE + cleanPath(path), type);
-        return type;
-    }
+    public void setFolderSortOrder(final File folder, final @Nullable FolderSortOrder sortOrder) {
+        final String canonicalPath = GsFileUtils.getPath(folder);
 
-    public String getFileBrowserSortByType(final String path) {
-        return getString(PREF_PREFIX_FOLDER_SORT_TYPE + cleanPath(path), getString(PREF_PREFIX_FOLDER_SORT_TYPE, GsFileUtils.SORT_BY_NAME));
-    }
-
-    public void clearFileBrowserSortByType(final String path) {
-        if (!GsTextUtils.isNullOrEmpty(path.trim())) {
-            remove(PREF_PREFIX_FOLDER_SORT_TYPE + cleanPath(path));
+        if (TextUtils.isEmpty(canonicalPath)) {
+            return;
         }
+
+        final String key = PREF_PREFIX_FOLDER_SORT_ORDER + canonicalPath;
+
+        if (sortOrder == null) {
+            remove(key);
+            return;
+        }
+
+        final Map<String, String> order = new HashMap<>();
+        order.put(FolderSortOrder.SORT_BY_KEY, sortOrder.sortByType != null ? sortOrder.sortByType : GsFileUtils.SORT_BY_NAME);
+        order.put(FolderSortOrder.REVERSE_KEY, String.valueOf(sortOrder.reverse));
+        order.put(FolderSortOrder.SHOW_DOT_FILES_KEY, String.valueOf(sortOrder.showDotFiles));
+        order.put(FolderSortOrder.FOLDER_FIRST_KEY, String.valueOf(sortOrder.folderFirst));
+
+        setString(key, mapToJsonString(order));
     }
 
-    public boolean setFileBrowserSortReverse(final String path, final boolean value) {
-        setBool(PREF_PREFIX_FOLDER_SORT_REVERSE + cleanPath(path), value);
+    public FolderSortOrder getFolderSortOrder(final File folder) {
+        final String path = GsFileUtils.getPath(folder);
+        final String key = PREF_PREFIX_FOLDER_SORT_ORDER + path;
+        final String json = getString(key, null);
+
+        final FolderSortOrder sortOrder = new FolderSortOrder();
+        if (GsTextUtils.isNullOrEmpty(path) || json == null) {
+            sortOrder.sortByType = getFileBrowserSortByType();
+            sortOrder.reverse = isFileBrowserSortReverse();
+            sortOrder.folderFirst = isFileBrowserSortFolderFirst();
+            sortOrder.showDotFiles = isFileBrowserFilterShowDotFiles();
+            sortOrder.hasCustomOrder = false;
+        } else {
+            final Map<String, String> order = jsonStringToMap(getString(key, "{}"));
+            sortOrder.sortByType = order.get(FolderSortOrder.SORT_BY_KEY);
+            sortOrder.reverse = Boolean.parseBoolean(order.get(FolderSortOrder.REVERSE_KEY));
+            sortOrder.showDotFiles = Boolean.parseBoolean(order.get(FolderSortOrder.SHOW_DOT_FILES_KEY));
+            sortOrder.folderFirst = Boolean.parseBoolean(order.get(FolderSortOrder.FOLDER_FIRST_KEY));
+            sortOrder.hasCustomOrder = true;
+        }
+
+        return sortOrder;
+    }
+
+    public String setFileBrowserSortByType(String v) {
+        setString(R.string.pref_key__file_browser__sort_by_type, v);
+        return v;
+    }
+
+    public String getFileBrowserSortByType() {
+        return getString(R.string.pref_key__file_browser__sort_by_type, GsFileUtils.SORT_BY_NAME);
+    }
+
+    public boolean setFileBrowserSortReverse(boolean value) {
+        setBool(R.string.pref_key__sort_reverse, value);
         return value;
     }
 
-    public boolean getFileBrowserSortReverse(final String path) {
-        return getBool(PREF_PREFIX_FOLDER_SORT_REVERSE + cleanPath(path), getBool(PREF_PREFIX_FOLDER_SORT_REVERSE, false));
+    public boolean isFileBrowserSortReverse() {
+        return getBool(R.string.pref_key__sort_reverse, false);
     }
 
-    public void clearFileBrowserSortReverse(final String path) {
-        if (!GsTextUtils.isNullOrEmpty(path.trim())) {
-            remove(PREF_PREFIX_FOLDER_SORT_REVERSE + cleanPath(path));
-        }
-    }
-
-    public boolean setFileBrowserFilterShowDotFiles(final String path, final boolean v) {
-        setBool(PREF_PREFIX_FOLDER_SORT_SHOW_DOT + cleanPath(path), v);
+    public boolean setFileBrowserFilterShowDotFiles(boolean v) {
+        setBool(R.string.pref_key__show_dot_files_v2, v);
         return v;
     }
 
-    public boolean getFileBrowserFilterShowDotFiles(final String path) {
-        return getBool(PREF_PREFIX_FOLDER_SORT_SHOW_DOT + cleanPath(path), getBool(PREF_PREFIX_FOLDER_SORT_SHOW_DOT, true));
-    }
-
-    public void clearFileBrowserFilterShowDotFiles(final String path) {
-        if (!GsTextUtils.isNullOrEmpty(path.trim())) {
-            remove(PREF_PREFIX_FOLDER_SORT_SHOW_DOT + cleanPath(path));
-        }
-    }
-
-    public boolean setFileBrowserSortFolderFirst(final String path, final boolean v) {
-        setBool(PREF_PREFIX_FOLDER_SORT_FOLDER_FIRST + cleanPath(path), v);
-        return v;
-    }
-
-    public boolean getFileBrowserSortFolderFirst(final String path) {
-        return getBool(PREF_PREFIX_FOLDER_SORT_FOLDER_FIRST + cleanPath(path), getBool(PREF_PREFIX_FOLDER_SORT_FOLDER_FIRST, true));
-    }
-
-    public void clearFileBrowserSortFolderFirst(final String path) {
-        if (!GsTextUtils.isNullOrEmpty(path.trim())) {
-            remove(PREF_PREFIX_FOLDER_SORT_FOLDER_FIRST + cleanPath(path));
-        }
+    public boolean isFileBrowserFilterShowDotFiles() {
+        return getBool(R.string.pref_key__show_dot_files_v2, true);
     }
 
     public boolean isShowSettingsOptionInMainToolbar() {
@@ -771,6 +792,16 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
 
     public boolean isSwipeToChangeMode() {
         return getBool(R.string.pref_key__swipe_to_change_mode, false);
+    }
+
+    public boolean setFileBrowserSortFolderFirst(boolean v) {
+        setBool(R.string.pref_key__filesystem_folder_first, v);
+        return v;
+    }
+
+
+    public boolean isFileBrowserSortFolderFirst() {
+        return getBool(R.string.pref_key__filesystem_folder_first, true);
     }
 
     public String getNavigationBarColor() {
