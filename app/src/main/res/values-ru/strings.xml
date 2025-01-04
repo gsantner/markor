@@ -419,7 +419,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="do_not_search_specified_files_and_folders">Не искать указанные файлы и папки.\nИспользуйте новую строку в качестве разделителя.\nИспользуйте кавычки для точных имен каталога: \"Тест\".\nИли используйте Regex \'^[.].*\'\nпримеры: ^\\..*\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
     <string name="regex_search">Поиск по выражениям</string>
     <string name="case_sensitive">Учитывать регистр</string>
-    <string name="stop_search_after_first_match">Остановить поиск после первого матча</string>
+    <string name="stop_search_after_first_match">Остановить поиск с первым совпадением</string>
     <string name="regex_can_not_be_compiled">Не удалось скомпилировать Regex</string>
     <string name="keep_both">Оставить оба</string>
     <string name="skip">Пропустить</string>
@@ -434,7 +434,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="browse_by_project">Просмотр по проектам</string>
     <string name="browse_by_context">Просмотр по контексту</string>
     <string name="insert_project">Вставить проекты</string>
-    <string name="insert_context">Insert contexts</string>
+    <string name="insert_context">Вставить контекст</string>
     <string name="browse_todo">Обзор задачи</string>
     <string name="browse_by_priority">Просмотр по приоритету</string>
     <string name="browse_by_due_date">Просмотр по дате выполнения</string>
@@ -443,8 +443,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_future">Выполнить в будущем</string>
     <string name="completed">Выполнено</string>
     <string name="advanced_filtering">Продвинутая фильтрация</string>
-    <string name="match_any">Совпадение любой</string>
-    <string name="match_all">Совпадение всех</string>
+    <string name="match_any">Любое совпадение</string>
+    <string name="match_all">Полное совпадение</string>
     <string name="dynamic_notebook_root_links">Динамический поиск корня блокнота</string>
     <string name="search_dynamically_for_notebook_root">Чтобы перейти по вики-ссылкам, необходимо динамически искать файл notebook.zim для определения корневого каталога текущей записной книжки. Установите флажок, если вы используете несколько цим-блокнотов или установленный в приложении каталог блокнота не соответствует вашему блокноту zim.</string>
     <string name="share_into_format_prefix_for_text_shared">Формат/Префикс для текста, отправленного в Markor. Соответствует правилам Android SimpleDateFormat. \n\nИспользуйте переменную \'{{text}}\' (с одинарными кавычками) для размещения отправленного текста. Если не указано, отправленный текст добавляется и формат используется в качестве префикса.</string>
