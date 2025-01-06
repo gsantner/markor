@@ -35,9 +35,6 @@ import net.gsantner.opoc.util.GsCollectionUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -45,9 +42,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
@@ -263,91 +257,53 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
 
     private final String PREF_PREFIX_FOLDER_SORT_ORDER = "PREF_PREFIX_FOLDER_SORT_ORDER";
 
-    public static class FolderSortOrder {
-        private final static String SORT_BY_KEY = "SORT_BY";
-        private final static String REVERSE_KEY = "REVERSE";
-        private final static String SHOW_DOT_FILES_KEY = "SHOW_DOT_FILES";
-        private final static String FOLDER_FIRST_KEY = "FOLDER_FIRST";
-
-        public String sortByType = GsFileUtils.SORT_BY_NAME;
-        public boolean reverse = false;
-        public boolean showDotFiles = false;
-        public boolean folderFirst = true;
-        public boolean hasCustomOrder = false;
-    }
-
-    public void setFolderSortOrder(final File folder, final @Nullable FolderSortOrder sortOrder) {
-        final String canonicalPath = GsFileUtils.getPath(folder);
-
-        if (TextUtils.isEmpty(canonicalPath)) {
+    /**
+     * Set sort order for a folder or globally.
+     * Passing null as folder will set the global sort order.
+     * Passing null as sortOrder will remove the sort order for the folder (revert to global).
+     *
+     * @param folder    Folder to set the sort order for
+     * @param sortOrder Sort order to set
+     */
+    public void setFolderSortOrder(final @Nullable File folder, final @Nullable GsFileUtils.SortOrder sortOrder) {
+        if (folder == null && sortOrder == null) {
             return;
         }
 
-        final String key = PREF_PREFIX_FOLDER_SORT_ORDER + canonicalPath;
+        // Null folders have empty suffix
+        final String key = PREF_PREFIX_FOLDER_SORT_ORDER + GsFileUtils.getPath(folder);
 
         if (sortOrder == null) {
             remove(key);
             return;
         }
 
-        final Map<String, String> order = new HashMap<>();
-        order.put(FolderSortOrder.SORT_BY_KEY, sortOrder.sortByType != null ? sortOrder.sortByType : GsFileUtils.SORT_BY_NAME);
-        order.put(FolderSortOrder.REVERSE_KEY, String.valueOf(sortOrder.reverse));
-        order.put(FolderSortOrder.SHOW_DOT_FILES_KEY, String.valueOf(sortOrder.showDotFiles));
-        order.put(FolderSortOrder.FOLDER_FIRST_KEY, String.valueOf(sortOrder.folderFirst));
-
-        setString(key, mapToJsonString(order));
+        setString(key, sortOrder.toString());
     }
 
-    public FolderSortOrder getFolderSortOrder(final File folder) {
+    /**
+     * Get sort order for a folder or globally.
+     * If no sort order is set for the folder, the global sort order is returned.
+     * If folder is null, the global sort order is returned.
+     *
+     * @param folder
+     * @return
+     */
+    public GsFileUtils.SortOrder getFolderSortOrder(final @Nullable File folder) {
+        // Null folders have empty suffix
         final String path = GsFileUtils.getPath(folder);
         final String key = PREF_PREFIX_FOLDER_SORT_ORDER + path;
-        final String json = getString(key, null);
+        String json = getString(key, null);
 
-        final FolderSortOrder sortOrder = new FolderSortOrder();
-        if (GsTextUtils.isNullOrEmpty(path) || json == null) {
-            sortOrder.sortByType = getFileBrowserSortByType();
-            sortOrder.reverse = isFileBrowserSortReverse();
-            sortOrder.folderFirst = isFileBrowserSortFolderFirst();
-            sortOrder.showDotFiles = isFileBrowserFilterShowDotFiles();
-            sortOrder.hasCustomOrder = false;
-        } else {
-            final Map<String, String> order = jsonStringToMap(getString(key, "{}"));
-            sortOrder.sortByType = order.get(FolderSortOrder.SORT_BY_KEY);
-            sortOrder.reverse = Boolean.parseBoolean(order.get(FolderSortOrder.REVERSE_KEY));
-            sortOrder.showDotFiles = Boolean.parseBoolean(order.get(FolderSortOrder.SHOW_DOT_FILES_KEY));
-            sortOrder.folderFirst = Boolean.parseBoolean(order.get(FolderSortOrder.FOLDER_FIRST_KEY));
-            sortOrder.hasCustomOrder = true;
+        final boolean isFolderLocal = !GsTextUtils.isNullOrEmpty(path) && json != null;
+
+        if (!isFolderLocal) {
+            json = getString(PREF_PREFIX_FOLDER_SORT_ORDER, null);
         }
 
-        return sortOrder;
-    }
-
-    public String setFileBrowserSortByType(String v) {
-        setString(R.string.pref_key__file_browser__sort_by_type, v);
-        return v;
-    }
-
-    public String getFileBrowserSortByType() {
-        return getString(R.string.pref_key__file_browser__sort_by_type, GsFileUtils.SORT_BY_NAME);
-    }
-
-    public boolean setFileBrowserSortReverse(boolean value) {
-        setBool(R.string.pref_key__sort_reverse, value);
-        return value;
-    }
-
-    public boolean isFileBrowserSortReverse() {
-        return getBool(R.string.pref_key__sort_reverse, false);
-    }
-
-    public boolean setFileBrowserFilterShowDotFiles(boolean v) {
-        setBool(R.string.pref_key__show_dot_files_v2, v);
-        return v;
-    }
-
-    public boolean isFileBrowserFilterShowDotFiles() {
-        return getBool(R.string.pref_key__show_dot_files_v2, true);
+        final GsFileUtils.SortOrder order = GsFileUtils.SortOrder.fromString(json);
+        order.isFolderLocal = isFolderLocal;
+        return order;
     }
 
     public boolean isShowSettingsOptionInMainToolbar() {
@@ -1078,33 +1034,33 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
 
     public void setTypeTemplate(final @StringRes int format, final String template) {
         final String js = getString(R.string.pref_key__filetype_template_map, "{}");
-        final Map<String, String> map = jsonStringToMap(js);
+        final Map<String, String> map = GsTextUtils.jsonStringToMap(js);
         map.put(_context.getString(format), template);
-        setString(R.string.pref_key__filetype_template_map, mapToJsonString(map));
+        setString(R.string.pref_key__filetype_template_map, GsTextUtils.mapToJsonString(map));
     }
 
     public @Nullable String getTypeTemplate(final @StringRes int format) {
         final String js = getString(R.string.pref_key__filetype_template_map, "{}");
-        final Map<String, String> map = jsonStringToMap(js);
+        final Map<String, String> map = GsTextUtils.jsonStringToMap(js);
         return map.get(format == 0 ? "" : _context.getString(format));
     }
 
     public void setTemplateTitleFormat(final String templateName, final String titleFormat) {
         final String js = getString(R.string.pref_key__template_title_format_map, "{}");
-        final Map<String, String> map = jsonStringToMap(js);
+        final Map<String, String> map = GsTextUtils.jsonStringToMap(js);
         map.put(templateName, titleFormat);
-        setString(R.string.pref_key__template_title_format_map, mapToJsonString(map));
+        setString(R.string.pref_key__template_title_format_map, GsTextUtils.mapToJsonString(map));
     }
 
     public @Nullable String getTemplateTitleFormat(final String templateName) {
         final String js = getString(R.string.pref_key__template_title_format_map, "{}");
-        final Map<String, String> map = jsonStringToMap(js);
+        final Map<String, String> map = GsTextUtils.jsonStringToMap(js);
         return map.get(templateName);
     }
 
     public Set<String> getTitleFormats() {
         final String js = getString(R.string.pref_key__title_format_list, "[]");
-        final Set<String> formats = new LinkedHashSet<>(jsonStringToList(js));
+        final Set<String> formats = new LinkedHashSet<>(GsTextUtils.jsonStringToList(js));
         formats.addAll(Arrays.asList(
                 "`yyyy-MM-dd`-{{title}}",
                 "{{date}}_{{title}}",
@@ -1124,7 +1080,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
                 break;
             }
         }
-        setString(R.string.pref_key__title_format_list, toJsonString(updated));
+        setString(R.string.pref_key__title_format_list, GsTextUtils.listToJsonString(updated));
     }
 
     public void setFormatShareAsLink(final boolean asLink) {
@@ -1133,44 +1089,5 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
 
     public boolean getFormatShareAsLink() {
         return getBool(R.string.pref_key__format_share_as_link, true);
-    }
-
-    private static String mapToJsonString(final Map<String, String> map) {
-        return new JSONObject(map).toString();
-    }
-
-    private static Map<String, String> jsonStringToMap(final String jsonString) {
-        final Map<String, String> map = new LinkedHashMap<>();
-        try {
-            final JSONObject jsonObject = new JSONObject(jsonString);
-            final Iterator<String> keys = jsonObject.keys();
-
-            while (keys.hasNext()) {
-                String key = keys.next();
-                String value = jsonObject.getString(key);
-                map.put(key, value);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return map;
-    }
-
-    public String toJsonString(final Collection<String> list) {
-        final JSONArray jsonArray = new JSONArray(list);
-        return jsonArray.toString();
-    }
-
-    public List<String> jsonStringToList(final String jsonString) {
-        final List<String> list = new ArrayList<>();
-        try {
-            final JSONArray jsonArray = new JSONArray(jsonString);
-            for (int i = 0; i < jsonArray.length(); i++) {
-                list.add(jsonArray.getString(i));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return list;
     }
 }

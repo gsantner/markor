@@ -52,7 +52,6 @@ public class GsFileBrowserOptions {
                 mountedStorageFolder = null,
                 startFolder = null;
         public String requestId = "show_dialog";
-        public String sortByType = GsFileUtils.SORT_BY_NAME;
 
         public String descriptionFormat = null;
 
@@ -62,10 +61,7 @@ public class GsFileBrowserOptions {
                 doSelectFile = false,
                 doSelectMultiple = false;
 
-        public boolean sortFolderFirst = true,
-                sortReverse = false,
-                descModtimeInsteadOfParent = false,
-                filterShowDotFiles = true;
+        public boolean descModtimeInsteadOfParent = false;
 
         public int itemSidePadding = 16; // dp
 
@@ -79,6 +75,8 @@ public class GsFileBrowserOptions {
                 okButtonEnable = true,
                 newDirButtonEnable = true,
                 dismissAfterCallback = true;
+
+        public GsFileUtils.SortOrder sortOrder = new GsFileUtils.SortOrder();
 
         public GsCallback.b2<Context, File> fileOverallFilter = (context, file) -> true;
 

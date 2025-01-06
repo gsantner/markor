@@ -246,14 +246,13 @@ public class MarkdownActionButtons extends ActionButtonBase {
 
         public static Link extract(final CharSequence text, final int pos) {
             final int[] sel = TextViewUtils.getLineSelection(text, pos);
-            if (sel != null && sel[0] != -1 && sel[1] != -1) {
+            if (sel[0] != -1 && sel[1] != -1) {
                 final String line = text.subSequence(sel[0], sel[1]).toString();
                 final Matcher m = MarkdownSyntaxHighlighter.LINK.matcher(line);
-                final int po = pos - sel[0];
 
                 while (m.find()) {
-                    final int start = m.start(), end = m.end();
-                    if (start <= po && end >= po) {
+                    final int start = m.start() + sel[0], end = m.end() + sel[0];
+                    if (start <= pos && end >= pos) {
                         final boolean isImage = m.group(1) != null;
                         return new Link(m.group(2), m.group(3), isImage, start, end);
                     }

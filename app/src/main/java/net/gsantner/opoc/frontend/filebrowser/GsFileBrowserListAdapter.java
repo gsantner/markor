@@ -49,7 +49,6 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -717,7 +716,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
         // Don't sort recent or virtual root items - use the default order
         if (isCurrentFolderSortable()) {
-            GsFileUtils.sortFiles(newData, _dopt.sortByType, _dopt.sortFolderFirst, _dopt.sortReverse);
+            GsFileUtils.sortFiles(newData, _dopt.sortOrder);
         }
 
         // Testing if modtimes have changed (modtimes generally only increase)
@@ -784,7 +783,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     public boolean accept(File dir, String filename) {
         final File f = new File(dir, filename);
         final boolean filterYes = f.isDirectory() || _dopt.fileOverallFilter == null || _dopt.fileOverallFilter.callback(_context, f);
-        final boolean dotYes = _dopt.filterShowDotFiles || !filename.startsWith(".") && !isAccessoryFolder(dir, filename, f);
+        final boolean dotYes = _dopt.sortOrder.showDotFiles || !filename.startsWith(".") && !isAccessoryFolder(dir, filename, f);
         final boolean selFileYes = _dopt.doSelectFile || f.isDirectory();
         return filterYes && dotYes && selFileYes;
     }

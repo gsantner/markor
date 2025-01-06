@@ -92,7 +92,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     private MarkorContextUtils _cu;
     private Toolbar _toolbar;
     private boolean _reloadRequiredOnResume = true;
-    private boolean _isSortOrderSaved = false;
 
     //########################
     //## Methods
@@ -186,12 +185,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             _callback.onFsViewerFolderChange(newFolder);
         }
 
-        final AppSettings.FolderSortOrder order = _appSettings.getFolderSortOrder(newFolder);
-        _dopt.sortByType = order.sortByType;
-        _dopt.sortFolderFirst = order.folderFirst;
-        _dopt.sortReverse = order.reverse;
-        _dopt.filterShowDotFiles = order.showDotFiles;
-        _isSortOrderSaved = order.hasCustomOrder;
+        _dopt.sortOrder = _appSettings.getFolderSortOrder(newFolder);
     }
 
     @Override
@@ -283,7 +277,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
 
             final MenuItem sortItem = _fragmentMenu.findItem(R.id.action_sort);
             if (sortItem != null) {
-                _cu.tintDrawable(sortItem.getIcon(), _isSortOrderSaved ? GsFileBrowserListAdapter.FAVOURITE_COLOR : Color.WHITE);
+                _cu.tintDrawable(sortItem.getIcon(), _dopt.sortOrder.isFolderLocal ? GsFileBrowserListAdapter.FAVOURITE_COLOR : Color.WHITE);
             }
         }
 
@@ -598,33 +592,20 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     }
 
     private void updateSortSettings() {
-        MarkorDialogFactory.showFolderSortDialog(
-                getActivity(),
-                _dopt.sortByType,
-                _dopt.sortReverse,
-                _dopt.sortFolderFirst,
-                _dopt.filterShowDotFiles,
-                _isSortOrderSaved,
-                (sortByType, sortReverse, sortFolderFirst, filterShowDotFiles, saved) -> {
-                    _dopt.sortByType = sortByType;
-                    _dopt.sortReverse = sortReverse;
-                    _dopt.sortFolderFirst = sortFolderFirst;
-                    _dopt.filterShowDotFiles = filterShowDotFiles;
-                    _isSortOrderSaved = saved;
-                    if (_isSortOrderSaved) {
-                        final AppSettings.FolderSortOrder order = new AppSettings.FolderSortOrder();
-                        order.sortByType = _dopt.sortByType;
-                        order.reverse = _dopt.sortReverse;
-                        order.folderFirst = _dopt.sortFolderFirst;
-                        order.showDotFiles = _dopt.filterShowDotFiles;
-                        _appSettings.setFolderSortOrder(getCurrentFolder(), order);
-                    } else {
-                        _appSettings.setFolderSortOrder(getCurrentFolder(), null);
-                        _appSettings.setFileBrowserSortByType(_dopt.sortByType);
-                        _appSettings.setFileBrowserSortReverse(_dopt.sortReverse);
-                        _appSettings.setFileBrowserSortFolderFirst(_dopt.sortFolderFirst);
-                        _appSettings.setFileBrowserFilterShowDotFiles(_dopt.filterShowDotFiles);
+        final GsFileUtils.SortOrder globalOrder = _appSettings.getFolderSortOrder(null);
+        MarkorDialogFactory.showFolderSortDialog(getActivity(), _dopt.sortOrder, globalOrder,
+                (order) -> {
+                    final File currentFolder = getCurrentFolder();
+
+                    // Erase local sort order if local is unset
+                    if (_dopt.sortOrder.isFolderLocal && !order.isFolderLocal) {
+                        _appSettings.setFolderSortOrder(currentFolder, null);
                     }
+
+                    // Set new sort order to folder or global as needed
+                    _appSettings.setFolderSortOrder(order.isFolderLocal ? currentFolder : null, _dopt.sortOrder);
+
+                    _dopt.sortOrder = order;
                     reloadCurrentFolder(); // Ui will be updated by onFsViewerDoUiUpdate after the load
                 });
     }
