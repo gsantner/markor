@@ -353,9 +353,9 @@ public class GsSearchOrCustomTextDialog {
         final boolean isMultiSelOk = dopt.positionCallback != null && dopt.isMultiSelectEnabled;
         final boolean isPlainDialog = dopt.callback != null && (dopt.data == null || dopt.data.isEmpty());
         if (isSearchOk || isMultiSelOk || isPlainDialog) {
-            final boolean selectionChanged = !GsCollectionUtils.setEquals(dopt.preSelected, listAdapter._selectedItems);
             dialogBuilder.setPositiveButton(dopt.okButtonText, (dialogInterface, i) -> {
                 final String searchText = dopt.isSearchEnabled ? searchEditText.getText().toString() : null;
+                final boolean selectionChanged = !GsCollectionUtils.setEquals(dopt.preSelected, listAdapter._selectedItems);
                 if (dopt.positionCallback != null && (selectionChanged || dopt.callback == null)) {
                     dopt.positionCallback.callback(new ArrayList<>(listAdapter._selectedItems));
                 } else if (dopt.callback != null && !TextUtils.isEmpty(searchText)) {
