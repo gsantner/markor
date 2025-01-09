@@ -23,7 +23,7 @@ public class OrgmodeReplacePatternGenerator {
     // TODO: write tests
 
     public static final Pattern PREFIX_ORDERED_LIST = Pattern.compile("^(\\s*)((\\d+)(\\.|\\))(\\s))");
-    public static final Pattern PREFIX_ATX_HEADING = Pattern.compile("^(\\s{0,3})(\\*{1,6}\\s)");
+    public static final Pattern PREFIX_ATX_HEADING = Pattern.compile("^(\\s{0,3})(\\*+\\s)");
     public static final Pattern PREFIX_CHECKED_LIST = Pattern.compile("^(\\s*)((-|\\+)\\s\\[(X)]\\s)");
     public static final Pattern PREFIX_CHECKBOX_LIST = Pattern.compile("^(\\s*)(([-+]\\s\\[)[\\sX](]\\s))");
     public static final Pattern PREFIX_UNCHECKED_LIST = Pattern.compile("^(\\s*)((-|\\+)\\s\\[\\s]\\s)");
