@@ -20,7 +20,7 @@ public class OrgmodeSyntaxHighlighter extends SyntaxHighlighterBase {
     public final static Pattern BLOCK = Pattern.compile("(?m)(?<=#\\+BEGIN_.{1,15}$\\s)[\\s\\S]*?(?=#\\+END)");
     public final static Pattern PREAMBLE = Pattern.compile("(?m)^(#\\+)(.*?)(?=\\n|$)");
     public final static Pattern COMMENT = Pattern.compile("(?m)^(#+)\\s(.*?)(?=\\n|$)");
-    public final static Pattern LIST_UNORDERED = Pattern.compile("(\\n|^)\\s{0,16}([*+-])( \\[[ xX]\\])?(?= )");
+    public final static Pattern LIST_UNORDERED = Pattern.compile("(\\n|^)\\s{0,16}([+-])( \\[[ X]\\])?(?= )");
     public final static Pattern LIST_ORDERED = Pattern.compile("(?m)^\\s{0,16}(\\d+)(:?\\.|\\))\\s");
     public final static Pattern LINK = Pattern.compile("\\[\\[.*?]]|<.*?>|https?://\\S+|\\[.*?]\\[.*?]|\\[.*?]\n");
     private static final int ORG_COLOR_HEADING = 0xffef6D00;
