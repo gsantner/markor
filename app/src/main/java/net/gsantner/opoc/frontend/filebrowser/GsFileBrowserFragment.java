@@ -595,18 +595,18 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         final GsFileUtils.SortOrder globalOrder = _appSettings.getFolderSortOrder(null);
         MarkorDialogFactory.showFolderSortDialog(getActivity(), _dopt.sortOrder, globalOrder,
                 (order) -> {
-                    final File currentFolder = getCurrentFolder();
-
                     // Erase local sort order if local is unset
+                    final File currentFolder = getCurrentFolder();
                     if (_dopt.sortOrder.isFolderLocal && !order.isFolderLocal) {
                         _appSettings.setFolderSortOrder(currentFolder, null);
                     }
 
                     // Set new sort order to folder or global as needed
+                    _dopt.sortOrder = order;
                     _appSettings.setFolderSortOrder(order.isFolderLocal ? currentFolder : null, _dopt.sortOrder);
 
-                    _dopt.sortOrder = order;
-                    reloadCurrentFolder(); // Ui will be updated by onFsViewerDoUiUpdate after the load
+                    // Ui will be updated by onFsViewerDoUiUpdate after the load
+                    reloadCurrentFolder();
                 });
     }
 }
