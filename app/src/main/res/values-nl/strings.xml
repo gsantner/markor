@@ -59,6 +59,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="last_modified">Laatst gewijzigd</string>
     <string name="select_this_folder">Selecteer deze map</string>
     <string name="select">Selecteer</string>
+    <string name="select_all">Alles selecteren</string>
     <string name="create">Aanmaken</string>
     <string name="select_entries">Selecteer invoeren</string>
     <string name="one_item_selected">1 item geselecteerd</string>
@@ -67,9 +68,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">Verberg statusbalk</string>
     <string name="name">Naam</string>
     <string name="url_or_path">URL / Pad</string>
+    <string name="insert_link">Link invoegen</string>
+    <string name="format_link">Link opmaken</string>
     <string name="insert_image">Voeg afbeelding toe</string>
     <string name="contributors">Bijdragers</string>
     <string name="save_location">Locatie opslaan</string>
+    <string name="saved_location_to">Opgeslagen in %s</string>
     <string name="select_storage_folder">Kies opslagmap</string>
     <string name="licenses">Licenties</string>
     <string name="changelog">Logboekwijzigingen</string>
@@ -78,6 +82,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">3rd Party Bibliotheken</string>
     <string name="language_change_restart_description">Taal wijzigen van deze app. Opnieuw opstarten om wijzigingen te activeren</string>
     <string name="language">Taal</string>
+    <string name="storage_permission_required">Opslagpermissie vereist om bestanden te kunnen inlezen en schrijven</string>
     <string name="open_with">Open met</string>
     <string name="sort_by">Sorteren</string>
     <string name="date">Sorteer op datum</string>
