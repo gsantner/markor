@@ -1042,7 +1042,7 @@ public class MarkorDialogFactory {
         layouts.add(android.R.layout.simple_list_item_multiple_choice);
 
         data.add(activity.getString(R.string.dotfiles));
-        icons.add(R.drawable.ic_filter_center_focus_black_24dp);
+        icons.add(R.drawable.ic_regex_black_24dp);
         layouts.add(android.R.layout.simple_list_item_multiple_choice);
 
         dopt.data = data;
