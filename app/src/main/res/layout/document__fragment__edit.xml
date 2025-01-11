@@ -39,9 +39,6 @@
             android:paddingTop="@dimen/activity_vertical_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingBottom="@dimen/editor_bottom_margin"
-            android:breakStrategy="balanced"
-            android:lineBreakStyle="normal"
-            android:hyphenationFrequency="normalFast"
             android:scrollbars="none"
             android:textCursorDrawable="@drawable/cursor_accent" />
     </net.gsantner.markor.frontend.DraggableScrollbarScrollView>

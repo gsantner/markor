@@ -207,6 +207,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // Do not need to send contents to accessibility
             _hlEditor.setImportantForAccessibility(View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
+
         }
 
         // Various settings
