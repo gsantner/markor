@@ -211,6 +211,7 @@
 
                 <data android:mimeType="text/plain" />
                 <data android:mimeType="text/*" />
+                <data android:mimeType="*/*" />
             </intent-filter>
 
             <intent-filter tools:ignore="AppLinkUrlError">

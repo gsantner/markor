@@ -89,25 +89,32 @@ public class MarkorContextUtils extends GsContextUtils {
         return thisp();
     }
 
-    // Get intent file
-    public static File getIntentFile(final Intent intent, final File fallback) {
+    public static File getIntentFile(final Intent intent) {
+        return getIntentFile(intent, null);
+    }
+
+    public static File getIntentFile(final Intent intent, final @Nullable Context context) {
         if (intent == null) {
-            return fallback;
+            return null;
         }
 
         // By extra path
-        final File file = (File) intent.getSerializableExtra(Document.EXTRA_FILE);
-        if (file != null) {
-            return file;
-        }
+        File file = (File) intent.getSerializableExtra(Document.EXTRA_FILE);
 
         // By url in data
-        try {
-            return new File(intent.getData().getPath());
-        } catch (NullPointerException ignored) {
+        if (file == null) {
+            try {
+                file = new File(intent.getData().getPath());
+            } catch (NullPointerException ignored) {
+            }
         }
 
-        return fallback;
+        // By stream etc
+        if (file == null && context != null) {
+            file = GsContextUtils.extractFileFromIntent(intent, context);
+        }
+
+        return file;
     }
 
     public static File getValidIntentFile(final Intent intent, final File fallback) {
