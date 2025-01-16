@@ -2911,7 +2911,7 @@ public class GsContextUtils {
 
     public static boolean fadeInOut(final View in, final View out, final boolean animate) {
         // Do nothing if we are already in the correct state
-        if (in.getVisibility() == View.VISIBLE && out.getVisibility() == View.GONE) {
+        if (in.getVisibility() == View.VISIBLE && out.getVisibility() == View.INVISIBLE) {
             return false;
         }
 
@@ -2925,11 +2925,11 @@ public class GsContextUtils {
                     .setListener(new AnimatorListenerAdapter() {
                         @Override
                         public void onAnimationEnd(Animator animation) {
-                            out.setVisibility(View.GONE);
+                            out.setVisibility(View.INVISIBLE);
                         }
                     });
         } else {
-            out.setVisibility(View.GONE);
+            out.setVisibility(View.INVISIBLE);
         }
 
         return true;
