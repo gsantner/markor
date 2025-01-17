@@ -2915,21 +2915,20 @@ public class GsContextUtils {
             return false;
         }
 
-        in.setVisibility(View.VISIBLE);
         if (animate) {
-            in.setAlpha(0);
-            in.animate().alpha(1).setDuration(200).setListener(null);
             out.animate()
-                    .alpha(0)
-                    .setDuration(200)
-                    .setListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            out.setVisibility(View.INVISIBLE);
-                        }
-                    });
+                    .alpha(0f)
+                    .setDuration(300)
+                    .withEndAction(() -> out.setVisibility(View.INVISIBLE));
+
+            in.setAlpha(0f);
+            in.setVisibility(View.VISIBLE);
+            in.animate()
+                    .alpha(1f)
+                    .setDuration(300);
         } else {
             out.setVisibility(View.INVISIBLE);
+            in.setVisibility(View.VISIBLE);
         }
 
         return true;

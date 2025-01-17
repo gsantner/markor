@@ -29,7 +29,7 @@
         <net.gsantner.markor.frontend.textview.HighlightingEditor
             android:id="@+id/document__fragment__edit__highlighting_editor"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@color/background"
             android:gravity="top"
             android:imeOptions="flagNoExtractUi"
@@ -65,7 +65,7 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/textactions_bar_height"
         android:background="@color/background"
-        android:visibility="gone" />
+        android:visibility="invisible" />
 
     <FrameLayout
         android:id="@+id/document__fragment_fullscreen_overlay"

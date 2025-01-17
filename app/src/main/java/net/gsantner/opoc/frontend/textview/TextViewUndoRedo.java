@@ -82,18 +82,14 @@ public class TextViewUndoRedo {
     // =================================================================== //
 
     /**
-     * Create a new TextViewUndoRedo and attach it to the specified TextView.
-     *
-     * @param textView The text view for which the undo/redo is implemented.
+     * Create a new TextViewUndoRedo
      */
-    public TextViewUndoRedo(TextView textView) {
-        mTextView = textView;
+    public TextViewUndoRedo() {
         mEditHistory = new EditHistory();
         mChangeListener = new EditTextChangeListener();
-        mTextView.addTextChangedListener(mChangeListener);
     }
 
-    public void setTextView(TextView textView) {
+    public void setTextView(final TextView textView) {
         disconnect();
         mTextView = textView;
         mTextView.addTextChangedListener(mChangeListener);
@@ -111,6 +107,7 @@ public class TextViewUndoRedo {
     public void disconnect() {
         if (mTextView != null) {
             mTextView.removeTextChangedListener(mChangeListener);
+            clearHistory();
         }
     }
 

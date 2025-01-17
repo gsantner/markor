@@ -94,7 +94,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     private ViewGroup _textActionsBar;
 
     private DraggableScrollbarScrollView _primaryScrollView;
-    private HorizontalScrollView _hsView;
+    private HorizontalScrollView _horizontalScrollView;
     private SearchView _menuSearchViewForViewMode;
     private Document _document;
     private FormatRegistry _format;
@@ -136,6 +136,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _webView = view.findViewById(R.id.document__fragment_view_webview);
         _primaryScrollView = view.findViewById(R.id.document__fragment__edit__content_editor__scrolling_parent);
         _cu = new MarkorContextUtils(activity);
+        _editTextUndoRedoHelper = new TextViewUndoRedo();
 
         // Using `if (_document != null)` everywhere is dangerous
         // It may cause reads or writes to _silently fail_
@@ -204,6 +205,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _hlEditor.setHighlightingEnabled(_appSettings.getDocumentHighlightState(_document.path, _hlEditor.getText()));
         _hlEditor.setLineNumbersEnabled(_appSettings.getDocumentLineNumbersEnabled(_document.path));
         _hlEditor.setAutoFormatEnabled(_appSettings.getDocumentAutoFormatEnabled(_document.path));
+        _hlEditor.setSaveInstanceState(false); // We will reload from disk
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // Do not need to send contents to accessibility
             _hlEditor.setImportantForAccessibility(View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
@@ -214,13 +216,8 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         updateMenuToggleStates(0);
         // ---------------------------------------------------------
 
-        _hlEditor.setSaveInstanceState(false); // We will reload from disk
         _document.resetChangeTracking(); // Force next reload
         loadDocument();
-        // If not set the undo-redo helper by loadDocument, set it here
-        if (_editTextUndoRedoHelper == null) {
-            _editTextUndoRedoHelper = new TextViewUndoRedo(_hlEditor);
-        }
 
         final Runnable debounced = TextViewUtils.makeDebounced(500, () -> {
             checkTextChangeState();
@@ -430,25 +427,19 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
             if (!_document.isContentSame(_hlEditor.getText())) {
 
-                final int[] sel = TextViewUtils.getSelection(_hlEditor);
-                sel[0] = Math.min(sel[0], content.length());
-                sel[1] = Math.min(sel[1], content.length());
-
                 if (_editTextUndoRedoHelper != null) {
                     _editTextUndoRedoHelper.disconnect();
-                    _editTextUndoRedoHelper.clearHistory();
                 }
 
-                _hlEditor.withAutoFormatDisabled(() -> _hlEditor.setText(content));
+                _hlEditor.withAutoFormatDisabled(() -> _hlEditor.setTextKeepState(content));
 
-                if (_editTextUndoRedoHelper == null) {
-                    _editTextUndoRedoHelper = new TextViewUndoRedo(_hlEditor);
-                } else {
+                if (_editTextUndoRedoHelper != null) {
                     _editTextUndoRedoHelper.setTextView(_hlEditor);
                 }
 
-                TextViewUtils.setSelectionAndShow(_hlEditor, sel);
+                TextViewUtils.showSelection(_hlEditor);
             }
+
             checkTextChangeState();
 
             if (_isPreviewVisible) {
@@ -756,7 +747,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     private boolean isWrapped() {
-        return _hsView == null || (_hlEditor.getParent() == _primaryScrollView);
+        return _horizontalScrollView == null || (_hlEditor.getParent() == _primaryScrollView);
     }
 
     private void setHorizontalScrollMode(final boolean wrap) {
@@ -769,16 +760,16 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             _hlEditor.setHighlightingEnabled(false);
 
             _primaryScrollView.removeAllViews();
-            if (_hsView != null) {
-                _hsView.removeAllViews();
+            if (_horizontalScrollView != null) {
+                _horizontalScrollView.removeAllViews();
             }
             if (!wrap) {
-                if (_hsView == null) {
-                    _hsView = new HorizontalScrollView(context);
-                    _hsView.setFillViewport(true);
+                if (_horizontalScrollView == null) {
+                    _horizontalScrollView = new HorizontalScrollView(context);
+                    _horizontalScrollView.setFillViewport(true);
                 }
-                _hsView.addView(_hlEditor);
-                _primaryScrollView.addView(_hsView);
+                _horizontalScrollView.addView(_hlEditor);
+                _primaryScrollView.addView(_horizontalScrollView);
             } else {
                 _primaryScrollView.addView(_hlEditor);
             }
@@ -786,7 +777,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             _hlEditor.setHighlightingEnabled(hlEnabled);
 
             // Run after layout() of immediate parent completes
-            (wrap ? _primaryScrollView : _hsView).post(() -> TextViewUtils.setSelectionAndShow(_hlEditor, sel));
+            (wrap ? _primaryScrollView : _horizontalScrollView).post(() -> TextViewUtils.setSelectionAndShow(_hlEditor, sel));
         }
     }
 
