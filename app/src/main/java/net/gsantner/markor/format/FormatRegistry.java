@@ -29,6 +29,7 @@ import net.gsantner.markor.format.markdown.MarkdownReplacePatternGenerator;
 import net.gsantner.markor.format.markdown.MarkdownSyntaxHighlighter;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.format.orgmode.OrgmodeActionButtons;
+import net.gsantner.markor.format.orgmode.OrgmodeReplacePatternGenerator;
 import net.gsantner.markor.format.orgmode.OrgmodeSyntaxHighlighter;
 import net.gsantner.markor.format.orgmode.OrgmodeTextConverter;
 import net.gsantner.markor.format.plaintext.PlaintextActionButtons;
@@ -184,8 +185,8 @@ public class FormatRegistry {
                 format._converter = CONVERTER_ORGMODE;
                 format._highlighter = new OrgmodeSyntaxHighlighter(appSettings);
                 format._textActions = new OrgmodeActionButtons(context, document);
-                format._autoFormatInputFilter = new AutoTextFormatter(MarkdownReplacePatternGenerator.formatPatterns);
-                format._autoFormatTextWatcher = new ListHandler(MarkdownReplacePatternGenerator.formatPatterns);
+                format._autoFormatInputFilter = new AutoTextFormatter(OrgmodeReplacePatternGenerator.formatPatterns);
+                format._autoFormatTextWatcher = new ListHandler(OrgmodeReplacePatternGenerator.formatPatterns);
                 break;
             }
             default:
