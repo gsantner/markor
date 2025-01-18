@@ -2919,10 +2919,10 @@ public class GsContextUtils {
             out.animate()
                     .alpha(0f)
                     .setDuration(300)
-                    .withEndAction(() -> out.setVisibility(View.GONE));
+                    .withEndAction(() -> out.setVisibility(View.INVISIBLE));
 
             in.setAlpha(0f);
-            in.setVisibility(View.INVISIBLE);
+            in.setVisibility(View.VISIBLE);
             in.animate()
                     .alpha(1f)
                     .setDuration(300);
