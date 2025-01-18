@@ -24,7 +24,6 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewParent;
 import android.view.ViewTreeObserver;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.Toast;
@@ -120,21 +119,6 @@ public class HighlightingEditor extends AppCompatEditText {
 
         // Custom options
         setupCustomOptions();
-    }
-
-    private boolean isGone() {
-        if (getVisibility() == View.GONE) {
-            return true;
-        }
-
-        ViewParent parent = this.getParent();
-        while (parent instanceof View) {
-            if (((View) parent).getVisibility() == View.GONE) {
-                return true;
-            }
-            parent = parent.getParent();
-        }
-        return false;
     }
 
     @Override

@@ -194,7 +194,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             setViewModeVisibility(startInPreview, false);
         }
 
-        // Configure the editor. Doing so after load helps prevent some errors
+        // Configure the editor
         // ---------------------------------------------------------
         _hlEditor.setLineSpacing(0, _appSettings.getEditorLineSpacing());
         _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getDocumentFontSize(_document.path));
@@ -206,18 +206,18 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _hlEditor.setLineNumbersEnabled(_appSettings.getDocumentLineNumbersEnabled(_document.path));
         _hlEditor.setAutoFormatEnabled(_appSettings.getDocumentAutoFormatEnabled(_document.path));
         _hlEditor.setSaveInstanceState(false); // We will reload from disk
+        _hlEditor.setOverScrollMode(View.OVER_SCROLL_ALWAYS);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // Do not need to send contents to accessibility
             _hlEditor.setImportantForAccessibility(View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
         }
 
         // Various settings
-        setHorizontalScrollMode(isDisplayedAtMainActivity() || _appSettings.getDocumentWrapState(_document.path));
+        setWrapState(isDisplayedAtMainActivity() || _appSettings.getDocumentWrapState(_document.path));
         updateMenuToggleStates(0);
-        // ---------------------------------------------------------
 
-        _document.resetChangeTracking(); // Force next reload
-        loadDocument();
+        // ---------------------------------------------------------
+        _document.resetChangeTracking(); // Force next reload in onResume
 
         final Runnable debounced = TextViewUtils.makeDebounced(500, () -> {
             checkTextChangeState();
@@ -270,8 +270,8 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     @Override
     public void onResume() {
-        loadDocument();
         _webView.onResume();
+        loadDocument();
         super.onResume();
     }
 
@@ -601,7 +601,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             case R.id.action_wrap_words: {
                 final boolean newState = !isWrapped();
                 _appSettings.setDocumentWrapState(_document.path, newState);
-                setHorizontalScrollMode(newState);
+                setWrapState(newState);
                 updateMenuToggleStates(0);
                 return true;
             }
@@ -750,7 +750,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         return _horizontalScrollView == null || (_hlEditor.getParent() == _primaryScrollView);
     }
 
-    private void setHorizontalScrollMode(final boolean wrap) {
+    private void setWrapState(final boolean wrap) {
         final Context context = getContext();
         if (context != null && _hlEditor != null && isWrapped() != wrap) {
 
