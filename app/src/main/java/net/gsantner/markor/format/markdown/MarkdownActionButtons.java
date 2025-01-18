@@ -254,7 +254,8 @@ public class MarkdownActionButtons extends ActionButtonBase {
                     final int start = m.start() + sel[0], end = m.end() + sel[0];
                     if (start <= pos && end >= pos) {
                         final boolean isImage = m.group(1) != null;
-                        return new Link(m.group(2), m.group(3), isImage, start, end);
+                        final String link = m.group(3);
+                        return new Link(m.group(2), link == null ? null : link.trim(), isImage, start, end);
                     }
                 }
             }
