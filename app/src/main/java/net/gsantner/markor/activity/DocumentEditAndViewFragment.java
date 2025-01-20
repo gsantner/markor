@@ -756,31 +756,32 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     private boolean isWrapped() {
-        return _horizontalScrollView == null || (_hlEditor.getParent() == _verticalScrollView);
+        return _horizontalScrollView == null || (_hlEditor.getParent() == _horizontalScrollView);
     }
 
     private void setWrapState(final boolean wrap) {
         final Context context = getContext();
         if (context != null && _hlEditor != null && isWrapped() != wrap) {
             final int[] sel = TextViewUtils.getSelection(_hlEditor);
-            final boolean hlEnabled = _hlEditor.getHighlightingEnabled();
-            _hlEditor.setHighlightingEnabled(false);
-            _verticalScrollView.removeAllViews();
-            if (_horizontalScrollView != null) {
+            final boolean hlEnabled = _hlEditor.setHighlightingEnabled(false);
+
+            _editorHolder.removeAllViews();
+            if (_horizontalScrollView == null) {
+                _horizontalScrollView = new HorizontalScrollView(context);
+                _horizontalScrollView.setFillViewport(true);
+            } else {
                 _horizontalScrollView.removeAllViews();
             }
+
             if (!wrap) {
-                if (_horizontalScrollView == null) {
-                    _horizontalScrollView = new HorizontalScrollView(context);
-                    _horizontalScrollView.setFillViewport(true);
-                }
                 _horizontalScrollView.addView(_hlEditor);
-                _verticalScrollView.addView(_horizontalScrollView);
+                _editorHolder.addView(_horizontalScrollView);
             } else {
-                _verticalScrollView.addView(_hlEditor);
+                _editorHolder.addView(_hlEditor);
             }
 
             _hlEditor.setHighlightingEnabled(hlEnabled);
+
             // Do as soon as layout of parent completes
             final View parent = (View) _hlEditor.getParent();
             parent.post(() -> TextViewUtils.setSelectionAndShow(_hlEditor, sel));
