@@ -12,6 +12,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings">การตั้งค่าโปรไฟล์</string>
     <string name="light">สว่าง</string>
+    <string name="dark"></string>
+    <string name="delete">Delete</string>
+    <string name="appearance"></string>
     <string name="rename">เปลี่ยนชื่อ</string>
     <string name="name">ชื่อเรื่อง</string>
     <string name="deleteme____1">ชื่อเรื่อง</string>
