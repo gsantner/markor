@@ -93,7 +93,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     private HighlightingEditor _hlEditor;
     private WebView _webView;
     private MarkorWebViewClient _webViewClient;
-    private FrameLayout _editorHolder;
+    private ViewGroup _editorHolder;
     private ViewGroup _textActionsBar;
 
     private DraggableScrollbarScrollView _verticalScrollView;
@@ -756,7 +756,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     private boolean isWrapped() {
-        return _horizontalScrollView == null || (_hlEditor.getParent() == _horizontalScrollView);
+        return _horizontalScrollView == null || (_hlEditor.getParent() != _horizontalScrollView);
     }
 
     private void setWrapState(final boolean wrap) {
@@ -765,19 +765,19 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             final int[] sel = TextViewUtils.getSelection(_hlEditor);
             final boolean hlEnabled = _hlEditor.setHighlightingEnabled(false);
 
-            _editorHolder.removeAllViews();
             if (_horizontalScrollView == null) {
                 _horizontalScrollView = new HorizontalScrollView(context);
                 _horizontalScrollView.setFillViewport(true);
-            } else {
-                _horizontalScrollView.removeAllViews();
             }
 
-            if (!wrap) {
-                _horizontalScrollView.addView(_hlEditor);
-                _editorHolder.addView(_horizontalScrollView);
+            if (wrap) {
+                _horizontalScrollView.removeView(_hlEditor);
+                _editorHolder.removeView(_horizontalScrollView);
+                _editorHolder.addView(_hlEditor, 1);
             } else {
-                _editorHolder.addView(_hlEditor);
+                _editorHolder.removeView(_hlEditor);
+                _horizontalScrollView.addView(_hlEditor);
+                _editorHolder.addView(_horizontalScrollView, 1);
             }
 
             _hlEditor.setHighlightingEnabled(hlEnabled);

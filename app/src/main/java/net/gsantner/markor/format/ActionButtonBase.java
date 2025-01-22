@@ -17,6 +17,8 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
@@ -887,7 +889,10 @@ public abstract class ActionButtonBase {
             final int[][] offsets = TextViewUtils.getLineOffsetFromIndex(text, sel);
 
             hlEditor.withAutoFormatDisabled(() -> {
-                final String newPair = String.format("%s\n%s", isUp ? lines : altLine, isUp ? altLine : lines);
+                final SpannableStringBuilder newPair = new SpannableStringBuilder()
+                        .append(isUp ? lines : altLine)
+                        .append("\n")
+                        .append(isUp ? altLine : lines);
                 text.replace(Math.min(lineSel[0], altSel[0]), Math.max(lineSel[1], altSel[1]), newPair);
             });
 

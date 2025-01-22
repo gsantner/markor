@@ -13,8 +13,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
-    android:descendantFocusability="beforeDescendants"
-    android:focusableInTouchMode="true"
     tools:context="net.gsantner.markor.activity.DocumentEditAndViewFragment"
     tools:showIn="@layout/document__activity">
 
@@ -27,6 +25,7 @@
         android:fillViewport="true">
 
         <LinearLayout
+            android:id="@+id/document__fragment__edit__editor_holder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
@@ -38,27 +37,21 @@
                 android:layout_weight="0"
                 android:text="" />
 
-            <FrameLayout
-                android:id="@+id/document__fragment__edit__editor_holder"
+            <net.gsantner.markor.frontend.textview.HighlightingEditor
+                android:id="@+id/document__fragment__edit__highlighting_editor"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <net.gsantner.markor.frontend.textview.HighlightingEditor
-                    android:id="@+id/document__fragment__edit__highlighting_editor"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/background"
-                    android:gravity="top"
-                    android:imeOptions="flagNoExtractUi"
-                    android:inputType="textMultiLine|textCapSentences"
-                    android:minHeight="1dp"
-                    android:paddingLeft="@dimen/activity_horizontal_margin"
-                    android:paddingTop="@dimen/activity_vertical_margin"
-                    android:paddingRight="@dimen/activity_horizontal_margin"
-                    android:paddingBottom="@dimen/editor_bottom_margin"
-                    android:scrollbars="none"
-                    android:textCursorDrawable="@drawable/cursor_accent" />
-            </FrameLayout>
+                android:layout_height="wrap_content"
+                android:background="@color/background"
+                android:gravity="top"
+                android:imeOptions="flagNoExtractUi"
+                android:inputType="textMultiLine|textCapSentences"
+                android:minHeight="1dp"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingBottom="@dimen/editor_bottom_margin"
+                android:scrollbars="none"
+                android:textCursorDrawable="@drawable/cursor_accent" />
         </LinearLayout>
     </net.gsantner.markor.frontend.DraggableScrollbarScrollView>
 
