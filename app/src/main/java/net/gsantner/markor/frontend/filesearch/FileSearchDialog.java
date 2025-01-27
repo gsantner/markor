@@ -78,7 +78,7 @@ public class FileSearchDialog {
         dialogLayout.addView(searchEditText, margins);
 
         // Spinner: History
-        if (FileSearchEngine.queryHistory.size() > 0) {
+        if (!FileSearchEngine.queryHistory.isEmpty()) {
             ArrayAdapter<String> adapter = new ArrayAdapter<>(activity, R.layout.list_group_history_item, FileSearchEngine.queryHistory);
             queryHistorySpinner.setAdapter(adapter);
 
@@ -178,6 +178,25 @@ public class FileSearchDialog {
                 return true;
             }
             return false;
+        });
+
+        dialog.setButton(AlertDialog.BUTTON_NEUTRAL, "All", (di, i) -> {
+            if (dialogCallback != null) {
+                final FileSearchEngine.SearchOptions opt = new FileSearchEngine.SearchOptions();
+                opt.query = "";
+                opt.isRegexQuery = false;
+                opt.isCaseSensitiveQuery = false;
+                opt.isSearchInContent = false;
+                opt.isOnlyFirstContentMatch = false;
+                opt.ignoredDirectories = appSettings.getFileSearchIgnorelist();
+                opt.maxSearchDepth = appSettings.getSearchMaxDepth();
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                    opt.password = appSettings.getDefaultPassword();
+                }
+
+                dialog.dismiss();
+                dialogCallback.callback(opt);
+            }
         });
 
         dialog.show();

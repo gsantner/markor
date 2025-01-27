@@ -45,6 +45,7 @@ import net.gsantner.markor.frontend.FileInfoDialog;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.frontend.filesearch.FileSearchEngine;
+import net.gsantner.markor.frontend.filesearch.FileSearchResultSelectorDialog;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.frontend.base.GsFragmentBase;
@@ -228,7 +229,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     }
 
     private void updateMenuItems() {
-        final String curFilepath = (getCurrentFolder() != null ? getCurrentFolder() : new File("/")).getAbsolutePath();
         final Set<File> selFiles = _filesystemViewerAdapter.getCurrentSelection();
         final int selCount = selFiles.size();
         final int totalCount = _filesystemViewerAdapter.getItemCount() - 1;   // Account for ".."
