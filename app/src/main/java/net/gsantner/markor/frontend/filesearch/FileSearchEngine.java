@@ -188,7 +188,7 @@ public class FileSearchEngine {
         protected List<FitFile> doInBackground(final Void... ignored) {
             final Stack<Pair<File, Integer>> stack = new Stack<>();
             stack.add(Pair.create(_config.rootSearchDir, 0));
-            final int trimLength = GsFileUtils.getPath(_config.rootSearchDir).length() + 1;
+            final int trimLength = _config.rootSearchDir.getAbsolutePath().length() + 1;
 
             while (!stack.isEmpty() && !isCancelled() && !_isCanceled) {
                 final Pair<File, Integer> p = stack.pop();
@@ -230,12 +230,12 @@ public class FileSearchEngine {
 
                 if (!isIgnored(name)) {
 
-                    final String path = GsFileUtils.getPath(file).substring(trimSize);
+                    final String path = file.getAbsolutePath().substring(trimSize);
                     final boolean isDir = file.isDirectory();
 
                     final int beforeContentCount = _result.size();
                     if (_config.isSearchInContent && !isDir && file.canRead() && GsFileUtils.isTextFile(file)) {
-                        getContentMatches(file, _config.isOnlyFirstContentMatch, trimSize);
+                        getContentMatches(file, path, _config.isOnlyFirstContentMatch, trimSize);
                     }
 
                     // Search name if director or not already included due to content
@@ -243,7 +243,7 @@ public class FileSearchEngine {
                         addFileIfNameMatches(name, path, isDir);
                     }
 
-                    if (isDir) {
+                    if (isDir && depth < _config.maxSearchDepth) {
                         stack.add(Pair.create(file, depth + 1));
                     }
                 }
@@ -310,18 +310,6 @@ public class FileSearchEngine {
             }
         }
 
-        private boolean isFileContainSymbolicLinks(File file, File expectedParentDir) {
-            try {
-                File realParentDir = file.getCanonicalFile().getParentFile();
-                if (realParentDir != null && expectedParentDir.getCanonicalPath().equals(realParentDir.getCanonicalPath())) {
-                    return false;
-                }
-            } catch (Exception ignored) {
-            }
-
-            return true;
-        }
-
         private void addFileIfNameMatches(final String name, final String path, final boolean isDir) {
             try {
                 if (_config.isRegexQuery ? _matcher.reset(name).matches() : name.contains(_config.query)) {
@@ -329,22 +317,6 @@ public class FileSearchEngine {
                 }
             } catch (Exception ignored) {
             }
-        }
-
-        private int getDirectoryDepth(File parentDir, File childDir) {
-            try {
-                String parentPath = parentDir.getCanonicalPath();
-                String childPath = childDir.getCanonicalPath();
-                if (!childPath.startsWith(parentPath)) {
-                    return -1;
-                }
-
-                String res = childPath.replace(parentPath, "");
-                return res.split("/").length;
-            } catch (Exception ignored) {
-            }
-
-            return -1;
         }
 
         private void preCancel() {
@@ -390,7 +362,12 @@ public class FileSearchEngine {
             return null;
         }
 
-        private void getContentMatches(final File file, final boolean isFirstMatchOnly, final int trim) {
+        private void getContentMatches(
+                final File file,
+                final String path,
+                final boolean isFirstMatchOnly,
+                final int trim
+        ) {
             List<Pair<String, Integer>> contentMatches = null;
 
             try (final BufferedReader br = new BufferedReader(new InputStreamReader(getInputStream(file)))) {
@@ -406,8 +383,6 @@ public class FileSearchEngine {
                         // And therefore avoid creating it for _every_ file
                         if (contentMatches == null) {
                             contentMatches = new ArrayList<>();
-
-                            final String path = file.getCanonicalPath().substring(trim);
                             _result.add(new FitFile(path, false, contentMatches));
                         }
 
@@ -448,7 +423,6 @@ public class FileSearchEngine {
             }
         }
     }
-
 
     private static boolean isEncryptedFile(File file) {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && file.getName().endsWith(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION);

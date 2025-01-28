@@ -354,10 +354,12 @@ public class GsSearchOrCustomTextDialog {
             return false;
         });
 
-        dialog.show();
-
         final Window win = dialog.getWindow();
         if (win != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                win.setDecorFitsSystemWindows(true);
+            }
+
             if (dopt.isSearchEnabled) {
                 if (dopt.isSoftInputVisible) {
                     win.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
@@ -366,12 +368,12 @@ public class GsSearchOrCustomTextDialog {
                 } else {
                     win.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
                 }
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    win.setDecorFitsSystemWindows(true);
-                }
             }
+        }
 
+        dialog.show();
+
+        if (win != null) {
             win.setLayout(
                     dopt.dialogWidthDp < 0 ? dopt.dialogWidthDp : GsContextUtils.instance.convertDpToPx(activity, dopt.dialogWidthDp),
                     dopt.dialogHeightDp < 0 ? dopt.dialogHeightDp : GsContextUtils.instance.convertDpToPx(activity, dopt.dialogHeightDp)
@@ -550,7 +552,8 @@ public class GsSearchOrCustomTextDialog {
         searchEditText.setTextColor(dopt.textColor);
         searchEditText.setHintTextColor((dopt.textColor & 0x00FFFFFF) | 0x99000000);
         searchEditText.setHint(dopt.searchHintText);
-        searchEditText.setInputType(dopt.searchInputType == 0 ? searchEditText.getInputType() : dopt.searchInputType);
+        searchEditText.setInputType(dopt.searchInputType == 0 ? EditorInfo.TYPE_CLASS_TEXT : dopt.searchInputType);
+        searchEditText.onCheckIsTextEditor();
         searchEditText.setTag("EDIT"); // So we can easily find the search edit text
 
         final LinearLayout.LayoutParams editLp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 1);
