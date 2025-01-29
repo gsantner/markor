@@ -51,6 +51,7 @@ import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.TooltipCompat;
+import androidx.core.view.WindowCompat;
 import androidx.core.widget.TextViewCompat;
 
 import net.gsantner.opoc.util.GsCollectionUtils;
@@ -356,9 +357,7 @@ public class GsSearchOrCustomTextDialog {
 
         final Window win = dialog.getWindow();
         if (win != null) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                win.setDecorFitsSystemWindows(true);
-            }
+            WindowCompat.setDecorFitsSystemWindows(win, true);
 
             if (dopt.isSearchEnabled) {
                 if (dopt.isSoftInputVisible) {
@@ -552,8 +551,7 @@ public class GsSearchOrCustomTextDialog {
         searchEditText.setTextColor(dopt.textColor);
         searchEditText.setHintTextColor((dopt.textColor & 0x00FFFFFF) | 0x99000000);
         searchEditText.setHint(dopt.searchHintText);
-        searchEditText.setInputType(dopt.searchInputType == 0 ? EditorInfo.TYPE_CLASS_TEXT : dopt.searchInputType);
-        searchEditText.onCheckIsTextEditor();
+        searchEditText.setInputType(dopt.searchInputType == 0 ? searchEditText.getInputType() : dopt.searchInputType);
         searchEditText.setTag("EDIT"); // So we can easily find the search edit text
 
         final LinearLayout.LayoutParams editLp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 1);
