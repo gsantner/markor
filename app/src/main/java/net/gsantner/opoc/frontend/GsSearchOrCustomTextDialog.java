@@ -534,7 +534,7 @@ public class GsSearchOrCustomTextDialog {
         return titleLayout;
     }
 
-    private static View makeSearchView(final Context context, final DialogOptions dopt) {
+    public static View makeSearchView(final Context context, final DialogOptions dopt) {
         final int margin = GsContextUtils.instance.convertDpToPx(context, 8);
 
         // Main layout

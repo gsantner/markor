@@ -45,6 +45,7 @@ import net.gsantner.markor.frontend.FileInfoDialog;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.frontend.filesearch.FileSearchEngine;
+import net.gsantner.markor.frontend.filesearch.FileSearchResultSelectorDialog;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.frontend.base.GsFragmentBase;
@@ -172,6 +173,11 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             }
 
         }
+    }
+
+    @Override
+    protected void onToolbarClicked(View v) {
+        executeFilterNotebookAction();
     }
 
     private void checkOptions() {
@@ -520,20 +526,43 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         return false;
     }
 
-    private void executeSearchAction() {
-        final File currentFolder = getCurrentFolder();
-        MarkorDialogFactory.showSearchFilesDialog(getActivity(), currentFolder, (relPath, lineNumber, longPress) -> {
-            final File load = new File(currentFolder, relPath);
-            if (!longPress) {
-                if (load.isDirectory()) {
-                    _filesystemViewerAdapter.setCurrentFolder(load);
-                } else {
-                    onFsViewerSelected("", load, lineNumber);
-                }
+    private void searchCallback(final File load, final Integer lineNumber, final boolean longPress) {
+        if (!longPress) {
+            if (load.isDirectory()) {
+                _filesystemViewerAdapter.setCurrentFolder(load);
             } else {
-                _filesystemViewerAdapter.showFile(load);
+                onFsViewerSelected("", load, lineNumber);
             }
-        });
+        } else {
+            _filesystemViewerAdapter.showFile(load);
+        }
+    }
+
+    private void executeSearchAction() {
+        MarkorDialogFactory.showSearchFilesDialog(getActivity(), getCurrentFolder(), this::searchCallback);
+    }
+
+    private void executeFilterNotebookAction() {
+        final Activity activity = getActivity();
+        if (activity == null) {
+            return;
+        }
+
+        final FileSearchEngine.SearchOptions opt = new FileSearchEngine.SearchOptions();
+        opt.rootSearchDir = _appSettings.getNotebookDirectory();
+        opt.query = "";
+        opt.isRegexQuery = false;
+        opt.isCaseSensitiveQuery = false;
+        opt.isSearchInContent = false;
+        opt.isOnlyFirstContentMatch = false;
+        opt.ignoredDirectories = _appSettings.getFileSearchIgnorelist();
+        opt.maxSearchDepth = _appSettings.getSearchMaxDepth();
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            opt.password = _appSettings.getDefaultPassword();
+        }
+
+        FileSearchEngine.queueFileSearch(activity, opt, searchResults ->
+                FileSearchResultSelectorDialog.showDialog(activity, searchResults, this::searchCallback));
     }
 
     public void clearSelection() {

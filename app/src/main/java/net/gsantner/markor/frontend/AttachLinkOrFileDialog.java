@@ -438,16 +438,15 @@ public class AttachLinkOrFileDialog {
                 break;
             }
             case LINK_SEARCH: {
-                final File nb = _appSettings.getNotebookDirectory();
                 final FileSearchDialog.Options options = new FileSearchDialog.Options();
                 options.enableSearchInContent = false;
                 options.searchLocation = R.string.notebook;
                 if (!FileSearchEngine.isSearchExecuting.get()) {
                     FileSearchDialog.showDialog(activity, options, searchOptions -> {
-                        searchOptions.rootSearchDir = nb;
+                        searchOptions.rootSearchDir = _appSettings.getNotebookDirectory();
                         FileSearchEngine.queueFileSearch(activity, searchOptions, searchResults ->
                                 FileSearchResultSelectorDialog.showDialog(activity, searchResults, (file, line, isLong) ->
-                                        setFields.callback(new File(nb, file))));
+                                        setFields.callback(file)));
                     });
                 }
             }
