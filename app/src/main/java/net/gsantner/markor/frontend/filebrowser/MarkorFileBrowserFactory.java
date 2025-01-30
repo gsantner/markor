@@ -7,6 +7,7 @@
 #########################################################*/
 package net.gsantner.markor.frontend.filebrowser;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Environment;
 
@@ -14,6 +15,7 @@ import androidx.fragment.app.FragmentManager;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
+import net.gsantner.markor.frontend.filesearch.FileSearchEngine;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserDialog;
@@ -111,15 +113,6 @@ public class MarkorFileBrowserFactory {
         opts.iconMaps.put(downloads, R.drawable.baseline_download_24);
         opts.iconMaps.put(appSettings.getQuickNoteFile(), R.drawable.ic_lightning_black_24dp);
         opts.iconMaps.put(appSettings.getTodoFile(), R.drawable.ic_assignment_turned_in_black_24dp);
-    }
-
-
-    public static File[] strlistToArray(List<String> strlist) {
-        File[] files = new File[strlist.size()];
-        for (int i = 0; i < files.length; i++) {
-            files[i] = new File(strlist.get(i));
-        }
-        return files;
     }
 
     private static GsFileBrowserDialog showDialog(final FragmentManager fm, final GsFileBrowserOptions.Options opts) {

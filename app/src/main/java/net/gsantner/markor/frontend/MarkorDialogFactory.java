@@ -39,7 +39,7 @@ import androidx.core.content.ContextCompat;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
-import net.gsantner.markor.activity.DocumentActivity;
+import net.gsantner.markor.format.ActionButtonBase;
 import net.gsantner.markor.format.todotxt.TodoTxtBasicSyntaxHighlighter;
 import net.gsantner.markor.format.todotxt.TodoTxtFilter;
 import net.gsantner.markor.format.todotxt.TodoTxtTask;
@@ -62,10 +62,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
@@ -86,7 +84,8 @@ public class MarkorDialogFactory {
         dopt.titleText = R.string.special_key;
         dopt.isSearchEnabled = false;
         dopt.okButtonText = 0;
-        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt, state);
+        dopt.state.copyFrom(state);
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
     public static void showAsciidocSpecialKeyDialog(Activity activity, GsCallback.a1<String> callback) {
@@ -166,7 +165,7 @@ public class MarkorDialogFactory {
             if (!availableData.contains(lastName)) {
                 availableData.add(lastName);
             }
-            dopt.defaultText = lastName;
+            dopt.state.defaultText = lastName;
         }
 
         dopt.data = availableData;
@@ -704,7 +703,7 @@ public class MarkorDialogFactory {
         final DialogOptions dopt = baseConf(activity);
         dopt.titleText = R.string.search_documents;
         dopt.isSearchEnabled = true;
-        dopt.defaultText = "**/[!.]*.*";
+        dopt.state.defaultText = "**/[!.]*.*";
         dopt.callback = (query) -> {
             final List<File> found = GsFileUtils.searchFiles(searchDir, query);
             final DialogOptions dopt2 = baseConf(activity);
@@ -790,7 +789,7 @@ public class MarkorDialogFactory {
             final Activity activity,
             final EditText edit,
             final WebView webView,
-            final GsSearchOrCustomTextDialog.DialogState state,
+            final ActionButtonBase.HeadlineState state,
             final GsCallback.r3<Integer, CharSequence, Integer, Integer> levelCallback
     ) {
         // Get all headings and their levels
@@ -812,12 +811,12 @@ public class MarkorDialogFactory {
         final List<String> data = GsCollectionUtils.map(filtered, i -> headings.get(i).str);
 
         final DialogOptions dopt = baseConf(activity);
+        dopt.state.copyFrom(state);
         dopt.data = data;
         dopt.titleText = R.string.table_of_contents;
         dopt.searchHintText = R.string.search;
         dopt.isSearchEnabled = true;
         dopt.isSoftInputVisible = false;
-        dopt.defaultText = state.searchQuery;
 
         dopt.positionCallback = result -> {
             final int index = filtered.get(result.get(0));
@@ -856,11 +855,9 @@ public class MarkorDialogFactory {
             GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
         };
 
-        dopt.dismissCallback = (d) -> {
-            state.searchQuery = dopt.defaultText;
-        };
+        dopt.dismissCallback = (d) -> state.copyFrom(dopt.state);
 
-        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt, state);
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
     public static void showIndentSizeDialog(final Activity activity, final int indent, final GsCallback.a1<String> callback) {
@@ -881,7 +878,7 @@ public class MarkorDialogFactory {
         final int maxFontSize = 36;
         final List<String> sizes = new ArrayList<>();
         for (int i = minFontSize; i <= maxFontSize; i++) {
-            if (i == currentSize) dopt.listPosition = i - minFontSize - 2;
+            if (i == currentSize) dopt.state.listPosition = i - minFontSize - 2;
             sizes.add(Integer.toString(i));
         }
         dopt.data = sizes;
@@ -979,6 +976,29 @@ public class MarkorDialogFactory {
         dopt.positionCallback = (ind) -> callback.callback(GsFileUtils.readTextFileFast(snippets.get(ind.get(0)).second).first);
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
+
+    public static void showNotebookFilterDialog(
+            final Activity activity,
+            final List<FileSearchEngine.FitFile> searchResults,
+            final GsSearchOrCustomTextDialog.DialogState state,
+            final GsCallback.a1<File> openFileCallback
+    ) {
+        final DialogOptions dopt = baseConf(activity);
+        final AppSettings as = ApplicationObject.settings();
+        dopt.titleText = R.string.filter;
+        dopt.messageText = as.getNotebookDirectory().getName();
+        dopt.data = GsCollectionUtils.map(searchResults, f -> f.relPath);
+        dopt.isMultiSelectEnabled = false;
+        dopt.isSearchEnabled = true;
+        dopt.state.copyFrom(state);
+        dopt.positionCallback = (pos) -> openFileCallback.callback(searchResults.get(pos.get(0)).file);
+        dopt.dismissCallback = (dialog) -> {
+            state.copyFrom(dopt.state);
+        };
+
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+    }
+
     public static DialogOptions baseConf(final Context context) {
         return baseConf(context, null);
     }

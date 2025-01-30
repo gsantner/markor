@@ -48,6 +48,7 @@ import net.gsantner.markor.frontend.filesearch.FileSearchEngine;
 import net.gsantner.markor.frontend.filesearch.FileSearchResultSelectorDialog;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.MarkorContextUtils;
+import net.gsantner.opoc.frontend.GsSearchOrCustomTextDialog;
 import net.gsantner.opoc.frontend.base.GsFragmentBase;
 import net.gsantner.opoc.model.GsSharedPreferencesPropertyBackend;
 import net.gsantner.opoc.util.GsCollectionUtils;
@@ -542,6 +543,8 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         MarkorDialogFactory.showSearchFilesDialog(getActivity(), getCurrentFolder(), this::searchCallback);
     }
 
+    final GsSearchOrCustomTextDialog.DialogState _filterDialogState = new GsSearchOrCustomTextDialog.DialogState();
+
     private void executeFilterNotebookAction() {
         final Activity activity = getActivity();
         if (activity == null) {
@@ -561,8 +564,9 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             opt.password = _appSettings.getDefaultPassword();
         }
 
-        FileSearchEngine.queueFileSearch(activity, opt, searchResults ->
-                FileSearchResultSelectorDialog.showDialog(activity, searchResults, this::searchCallback));
+        FileSearchEngine.queueFileSearch(activity, opt, searchResults
+                -> MarkorDialogFactory.showNotebookFilterDialog(activity, searchResults, _filterDialogState,
+                    (file) -> searchCallback(file, null, false)));
     }
 
     public void clearSelection() {

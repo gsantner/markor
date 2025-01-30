@@ -1022,4 +1022,8 @@ public abstract class ActionButtonBase {
         }
         return false;
     }
+
+    public static class HeadlineState extends GsSearchOrCustomTextDialog.DialogState {
+        public final List<Integer> disabledLevels = new ArrayList<>();
+    }
 }

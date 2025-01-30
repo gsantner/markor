@@ -36,8 +36,6 @@ public class MarkdownActionButtons extends ActionButtonBase {
 
     private static final Pattern WEB_URL = Pattern.compile("https?://[^\\s/$.?#].[^\\s]*");
 
-    private final GsSearchOrCustomTextDialog.DialogState _headlineDialogState = new GsSearchOrCustomTextDialog.DialogState();
-
     public static final String LINE_PREFIX = "^(>\\s|#{1,6}\\s|\\s*[-*+](?:\\s\\[[ xX]\\])?\\s|\\s*\\d+[.)]\\s)?";
 
     // Patterns used for surrounding entire lines
@@ -317,6 +315,8 @@ public class MarkdownActionButtons extends ActionButtonBase {
             _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_DPAD_UP);
         }
     }
+
+    private final HeadlineState _headlineDialogState = new HeadlineState();
 
     @Override
     public boolean runTitleClick() {
