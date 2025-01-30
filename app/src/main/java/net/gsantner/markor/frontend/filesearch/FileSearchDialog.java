@@ -1,6 +1,7 @@
 package net.gsantner.markor.frontend.filesearch;
 
 import android.app.Activity;
+import android.content.Context;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -78,7 +79,7 @@ public class FileSearchDialog {
         dialogLayout.addView(searchEditText, margins);
 
         // Spinner: History
-        if (FileSearchEngine.queryHistory.size() > 0) {
+        if (!FileSearchEngine.queryHistory.isEmpty()) {
             ArrayAdapter<String> adapter = new ArrayAdapter<>(activity, R.layout.list_group_history_item, FileSearchEngine.queryHistory);
             queryHistorySpinner.setAdapter(adapter);
 

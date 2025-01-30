@@ -11,21 +11,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.AppCompatEditText;
-import androidx.core.content.ContextCompat;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.filesearch.FileSearchEngine.FitFile;
+import net.gsantner.opoc.frontend.GsSearchOrCustomTextDialog;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -44,7 +46,7 @@ public class FileSearchResultSelectorDialog {
     public static void showDialog(
             final Activity activity,
             final List<FileSearchEngine.FitFile> searchResults,
-            final GsCallback.a3<String, Integer, Boolean> callback
+            final GsCallback.a3<File, Integer, Boolean> callback
     ) {
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, R.style.Theme_AppCompat_DayNight_Dialog_Rounded);
 
@@ -52,22 +54,14 @@ public class FileSearchResultSelectorDialog {
         dialogLayout.setOrientation(LinearLayout.VERTICAL);
 
         final ExpandableListView expandableListView = new ExpandableListView(activity);
-        final AppCompatEditText searchEditText = new AppCompatEditText(activity);
 
-        final int dp4px = GsContextUtils.instance.convertDpToPx(activity, 4);
-        final int textColor = ContextCompat.getColor(activity, R.color.primary_text);
-        final LinearLayout.LayoutParams margins = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        margins.setMargins(dp4px * 5, dp4px, dp4px * 5, dp4px);
-
-        // EdiText: Search query input
-        searchEditText.setHint(R.string.search);
-        searchEditText.setSingleLine(true);
-        searchEditText.setMaxLines(1);
-        searchEditText.setTextColor(textColor);
-        searchEditText.setHintTextColor((textColor & 0x00FFFFFF) | 0x99000000);
+        final GsSearchOrCustomTextDialog.DialogOptions opts = MarkorDialogFactory.baseConf(activity);
+        opts.searchHintText = R.string.search;
+        final View searchLayout = GsSearchOrCustomTextDialog.makeSearchView(activity, opts);
+        final EditText searchEditText = searchLayout.findViewWithTag("EDIT");
 
         if (!searchResults.isEmpty()) {
-            dialogLayout.addView(searchEditText, margins);
+            dialogLayout.addView(searchLayout, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         }
 
         // List filling
@@ -76,9 +70,9 @@ public class FileSearchResultSelectorDialog {
         searchEditText.addTextChangedListener(new GsTextWatcherAdapter() {
             @Override
             public void afterTextChanged(final Editable arg0) {
-                String filterText = searchEditText.getText() == null ? "" : searchEditText.getText().toString();
-                List<FitFile> filteredGroups = filter(searchResults, filterText);
-                ExpandableSearchResultsListAdapter adapter = new ExpandableSearchResultsListAdapter(activity, filteredGroups);
+                final String filterText = searchEditText.getText() == null ? "" : searchEditText.getText().toString();
+                final List<FitFile> filteredGroups = filter(searchResults, filterText);
+                final ExpandableSearchResultsListAdapter adapter = new ExpandableSearchResultsListAdapter(activity, filteredGroups);
                 expandableListView.setAdapter(adapter);
             }
         });
@@ -100,7 +94,7 @@ public class FileSearchResultSelectorDialog {
             final FitFile groupItem = (FitFile) parent.getExpandableListAdapter().getGroup(groupPosition);
             if (groupItem.children.isEmpty()) {
                 dialog.dismiss();
-                callback.callback(groupItem.path, null, false);
+                callback.callback(groupItem.file, null, false);
             }
             return false;
         });
@@ -111,7 +105,7 @@ public class FileSearchResultSelectorDialog {
             final Pair<String, Integer> childItem = (Pair<String, Integer>) _adapter.getChild(groupPos, childPos);
             if (childItem != null && childItem.second != null && childItem.second >= 0) {
                 dialog.dismiss();
-                callback.callback(groupItem.path, childItem.second, false);
+                callback.callback(groupItem.file, childItem.second, false);
             }
             return false;
         };
@@ -124,9 +118,9 @@ public class FileSearchResultSelectorDialog {
                 final long packed = expandableListView.getExpandableListPosition(position);
                 if (ExpandableListView.getPackedPositionType(packed) == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
                     final int group = ExpandableListView.getPackedPositionGroup(packed);
-                    final String path = ((FitFile) expandableListView.getExpandableListAdapter().getGroup(group)).path;
+                    final File file = ((FitFile) expandableListView.getExpandableListAdapter().getGroup(group)).file;
                     dialog.dismiss();
-                    callback.callback(path, null, true);
+                    callback.callback(file, null, true);
                 } else {
                     final int groupPos = ExpandableListView.getPackedPositionGroup(packed);
                     final int childPos = ExpandableListView.getPackedPositionChild(packed);
@@ -138,6 +132,7 @@ public class FileSearchResultSelectorDialog {
         });
 
         dialog.show();
+
         final Window window = dialog.getWindow();
         if (window != null) {
             window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
@@ -154,7 +149,7 @@ public class FileSearchResultSelectorDialog {
         query = query.toLowerCase();
 
         for (final FileSearchEngine.FitFile fitFile : searchResults) {
-            final boolean isPathContainsQuery = query.isEmpty() || fitFile.path.toLowerCase().contains(query);
+            final boolean isPathContainsQuery = query.isEmpty() || fitFile.relPath.toLowerCase().contains(query);
             final ArrayList<Pair<String, Integer>> groupChildItems = new ArrayList<>();
 
             for (final Pair<String, Integer> contentMatch : fitFile.children) {
@@ -162,8 +157,9 @@ public class FileSearchResultSelectorDialog {
                     groupChildItems.add(contentMatch);
                 }
             }
+
             if (isPathContainsQuery || !groupChildItems.isEmpty()) {
-                groupItemsData.add(new FitFile(fitFile.path, fitFile.isDirectory, groupChildItems));
+                groupItemsData.add(new FitFile(fitFile.file, fitFile.relPath, fitFile.isDirectory, groupChildItems));
             }
         }
         return groupItemsData;
