@@ -20,8 +20,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.core.content.ContextCompat;
 
-import com.google.android.material.textfield.TextInputLayout;
-
 import net.gsantner.markor.R;
 import net.gsantner.markor.frontend.filesearch.FileSearchEngine.FitFile;
 import net.gsantner.opoc.util.GsContextUtils;
@@ -68,23 +66,9 @@ public class FileSearchResultSelectorDialog {
         searchEditText.setTextColor(textColor);
         searchEditText.setHintTextColor((textColor & 0x00FFFFFF) | 0x99000000);
 
-        final TextInputLayout textInputLayout = new TextInputLayout(activity);
-        textInputLayout.setLayoutParams(new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        ));
-
-        textInputLayout.addView(searchEditText);
-        textInputLayout.setEndIconMode(TextInputLayout.END_ICON_CLEAR_TEXT);
-        textInputLayout.setEndIconDrawable(R.drawable.ic_baseline_clear_24);
-        textInputLayout.setEndIconActivated(true);
-        textInputLayout.setEndIconVisible(true);
-
         if (!searchResults.isEmpty()) {
-            dialogLayout.addView(textInputLayout, margins);
+            dialogLayout.addView(searchEditText, margins);
         }
-
-        searchEditText.post(searchEditText::requestFocus);
 
         // List filling
         final List<FitFile> groupItemsData = filter(searchResults, "");
@@ -154,7 +138,6 @@ public class FileSearchResultSelectorDialog {
         });
 
         dialog.show();
-
         final Window window = dialog.getWindow();
         if (window != null) {
             window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
