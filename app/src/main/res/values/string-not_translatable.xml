@@ -346,7 +346,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="abid_todotxt_due_date" translatable="false">abid_todotxt_due_date</string>
     <string name="abid_todotxt_sort_todo" translatable="false">abid_todotxt_sort_todo</string>
 
-    
+
+    <string name="abid_orgmode_h1" translatable="false">abid_orgmode_h1</string>
+    <string name="abid_orgmode_h2" translatable="false">abid_orgmode_h2</string>
+    <string name="abid_orgmode_h3" translatable="false">abid_orgmode_h3</string>
     <string name="abid_orgmode_bold" translatable="false">abid_orgmode_bold</string>
     <string name="abid_orgmode_italic" translatable="false">abid_orgmode_italic</string>
     <string name="abid_orgmode_strikeout" translatable="false">abid_orgmode_strikeout</string>
