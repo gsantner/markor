@@ -552,6 +552,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         }
 
         final FileSearchEngine.SearchOptions opt = new FileSearchEngine.SearchOptions();
+        final File current = getCurrentFolder();
         opt.rootSearchDir = _appSettings.getNotebookDirectory();
         opt.query = "";
         opt.isRegexQuery = false;
@@ -559,7 +560,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         opt.isSearchInContent = false;
         opt.isOnlyFirstContentMatch = false;
         opt.ignoredDirectories = _appSettings.getFileSearchIgnorelist();
-        opt.maxSearchDepth = _appSettings.getSearchMaxDepth();
+        opt.maxSearchDepth = Integer.MAX_VALUE;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             opt.password = _appSettings.getDefaultPassword();
         }

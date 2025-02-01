@@ -985,8 +985,8 @@ public class MarkorDialogFactory {
     ) {
         final DialogOptions dopt = baseConf(activity);
         final AppSettings as = ApplicationObject.settings();
-        dopt.titleText = R.string.filter;
-        dopt.messageText = as.getNotebookDirectory().getName();
+        dopt.titleText = R.string.notebook;
+        dopt.messageText = as.getNotebookDirectory().getPath();
         dopt.data = GsCollectionUtils.map(searchResults, f -> f.relPath);
         dopt.isMultiSelectEnabled = false;
         dopt.isSearchEnabled = true;
