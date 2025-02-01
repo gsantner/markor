@@ -128,17 +128,21 @@ public class GsSearchOrCustomTextDialog {
         @StyleRes
         public int dialogStyle = 0;
 
+        /**
+         * Initial state of the dialog. Will be updated when the dialog is dismissed.
+         */
         public final DialogState state = new DialogState();
     }
 
     public static class DialogState {
         public int listPosition = -1;
-        public String defaultText = "";
-        public Parcelable listState = null;
+        public String searchText = "";
+
+        private Parcelable listState = null;
 
         public void copyFrom(final DialogState other) {
             listPosition = other.listPosition;
-            defaultText = other.defaultText;
+            searchText = other.searchText;
             listState = other.listState;
         }
     }
@@ -151,7 +155,6 @@ public class GsSearchOrCustomTextDialog {
         private final Matcher _extraPattern;
         private final ArrayList<Integer> _filteredItems;
         private String _lastConstraint = "";
-
 
         @Override
         public int getCount() {
@@ -317,7 +320,7 @@ public class GsSearchOrCustomTextDialog {
         }
 
         final GsCallback.a0 updateState = () -> {
-            dopt.state.defaultText = searchEditText.getText().toString();
+            dopt.state.searchText = searchEditText.getText().toString();
             dopt.state.listPosition = listView.getFirstVisiblePosition();
             dopt.state.listState = listView.onSaveInstanceState();
         };
@@ -362,8 +365,10 @@ public class GsSearchOrCustomTextDialog {
                 final String searchText = dopt.isSearchEnabled ? searchEditText.getText().toString() : null;
                 final boolean selectionChanged = !GsCollectionUtils.setEquals(dopt.preSelected, listAdapter._selectedItems);
                 if (dopt.positionCallback != null && (selectionChanged || dopt.callback == null)) {
+                    updateState.callback();
                     dopt.positionCallback.callback(new ArrayList<>(listAdapter._selectedItems));
                 } else if (dopt.callback != null && !TextUtils.isEmpty(searchText)) {
+                    updateState.callback();
                     dopt.callback.callback(searchText);
                 }
             });
@@ -413,7 +418,7 @@ public class GsSearchOrCustomTextDialog {
             neutralButton.setOnClickListener((button) -> dopt.neutralButtonCallback.callback(dialog));
         }
 
-        if (dopt.state.defaultText != null) {
+        if (dopt.state.searchText != null) {
             listAdapter.filter(searchEditText.getText());
         }
 
@@ -534,7 +539,8 @@ public class GsSearchOrCustomTextDialog {
                     LinearLayout.LayoutParams.WRAP_CONTENT));
         }
 
-        if (dopt.isMultiSelectEnabled) {
+        // Add select all button
+        if (dopt.isMultiSelectEnabled && dopt.showSelectAllButton) {
             // Using a multiple choice text view as a selectable checkbox button
             // Requires no styling to match the existing check boxes
             final LayoutInflater inflater = LayoutInflater.from(context);
@@ -567,7 +573,7 @@ public class GsSearchOrCustomTextDialog {
 
         // Edit text
         final AppCompatEditText searchEditText = new AppCompatEditText(context);
-        searchEditText.setText(dopt.state.defaultText);
+        searchEditText.setText(dopt.state.searchText);
         searchEditText.setSingleLine(true);
         searchEditText.setTextColor(dopt.textColor);
         searchEditText.setHintTextColor((dopt.textColor & 0x00FFFFFF) | 0x99000000);

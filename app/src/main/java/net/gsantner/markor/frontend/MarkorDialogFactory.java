@@ -165,7 +165,7 @@ public class MarkorDialogFactory {
             if (!availableData.contains(lastName)) {
                 availableData.add(lastName);
             }
-            dopt.state.defaultText = lastName;
+            dopt.state.searchText = lastName;
         }
 
         dopt.data = availableData;
@@ -703,7 +703,7 @@ public class MarkorDialogFactory {
         final DialogOptions dopt = baseConf(activity);
         dopt.titleText = R.string.search_documents;
         dopt.isSearchEnabled = true;
-        dopt.state.defaultText = "**/[!.]*.*";
+        dopt.state.searchText = "**/[!.]*.*";
         dopt.callback = (query) -> {
             final List<File> found = GsFileUtils.searchFiles(searchDir, query);
             final DialogOptions dopt2 = baseConf(activity);
