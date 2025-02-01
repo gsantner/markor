@@ -552,7 +552,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         }
 
         final FileSearchEngine.SearchOptions opt = new FileSearchEngine.SearchOptions();
-        final File current = getCurrentFolder();
         opt.rootSearchDir = _appSettings.getNotebookDirectory();
         opt.query = "";
         opt.isRegexQuery = false;

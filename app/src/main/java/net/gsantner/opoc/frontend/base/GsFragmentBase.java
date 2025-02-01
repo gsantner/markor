@@ -144,18 +144,8 @@ public abstract class GsFragmentBase<AS extends GsSharedPreferencesPropertyBacke
     protected void attachToolbarClickListenersToFragment() {
         final Toolbar toolbar = getToolbar();
         if (toolbar != null) {
-            toolbar.setOnLongClickListener(clickView -> {
-                if (isVisible() && isResumed()) {
-                    return onToolbarLongClicked(clickView);
-                }
-                return false;
-            });
-            toolbar.setOnClickListener(clickView -> {
-                if (isVisible() && isResumed()) {
-                    onToolbarClicked(clickView);
-                }
-            });
-
+            toolbar.setOnLongClickListener(this::onToolbarLongClicked);
+            toolbar.setOnClickListener(this::onToolbarClicked);
         }
     }
 
@@ -200,7 +190,7 @@ public abstract class GsFragmentBase<AS extends GsSharedPreferencesPropertyBacke
     protected Toolbar getToolbar() {
         try {
             Activity a = getActivity();
-            return (Toolbar) a.findViewById(GsContextUtils.instance.getResId(a, GsContextUtils.ResType.ID, "toolbar"));
+            return a.findViewById(GsContextUtils.instance.getResId(a, GsContextUtils.ResType.ID, "toolbar"));
         } catch (Exception e) {
             return null;
         }
