@@ -137,15 +137,6 @@ public abstract class GsFragmentBase<AS extends GsSharedPreferencesPropertyBacke
         if (_fragmentFirstTimeVisible && isVisible() && isResumed()) {
             _fragmentFirstTimeVisible = false;
             onFragmentFirstTimeVisible();
-            attachToolbarClickListenersToFragment();
-        }
-    }
-
-    protected void attachToolbarClickListenersToFragment() {
-        final Toolbar toolbar = getToolbar();
-        if (toolbar != null) {
-            toolbar.setOnLongClickListener(this::onToolbarLongClicked);
-            toolbar.setOnClickListener(this::onToolbarClicked);
         }
     }
 
@@ -182,19 +173,6 @@ public abstract class GsFragmentBase<AS extends GsSharedPreferencesPropertyBacke
         return _fragmentMenu;
     }
 
-    /**
-     * Get the toolbar from activity
-     * Requires id to be set to @+id/toolbar
-     */
-    @SuppressWarnings("ConstantConditions")
-    protected Toolbar getToolbar() {
-        try {
-            Activity a = getActivity();
-            return a.findViewById(GsContextUtils.instance.getResId(a, GsContextUtils.ResType.ID, "toolbar"));
-        } catch (Exception e) {
-            return null;
-        }
-    }
 
     public boolean onReceiveKeyPress(int keyCode, KeyEvent event) {
         return false;

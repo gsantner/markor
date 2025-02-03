@@ -108,7 +108,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     private boolean _isPreviewVisible;
     private boolean _nextConvertToPrintMode = false;
 
-
     public DocumentEditAndViewFragment() {
         super();
     }
@@ -141,7 +140,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _webView = view.findViewById(R.id.document__fragment_view_webview);
         _primaryScrollView = view.findViewById(R.id.document__fragment__edit__content_editor__scrolling_parent);
         _lineNumbersView = view.findViewById(R.id.document__fragment__edit__line_numbers_view);
-
         _cu = new MarkorContextUtils(activity);
 
         // Using `if (_document != null)` everywhere is dangerous
@@ -284,6 +282,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     public void onResume() {
         loadDocument();
         _webView.onResume();
+        if (_editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getTextView() != _hlEditor) {
+            _editTextUndoRedoHelper.setTextView(_hlEditor);
+        }
         super.onResume();
     }
 
@@ -438,25 +439,8 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             }
 
             if (!_document.isContentSame(_hlEditor.getText())) {
-
-                final int[] sel = TextViewUtils.getSelection(_hlEditor);
-                sel[0] = Math.min(sel[0], content.length());
-                sel[1] = Math.min(sel[1], content.length());
-
-                if (_editTextUndoRedoHelper != null) {
-                    _editTextUndoRedoHelper.disconnect();
-                    _editTextUndoRedoHelper.clearHistory();
-                }
-
-                _hlEditor.withAutoFormatDisabled(() -> _hlEditor.setText(content));
-
-                if (_editTextUndoRedoHelper == null) {
-                    _editTextUndoRedoHelper = new TextViewUndoRedo(_hlEditor);
-                } else {
-                    _editTextUndoRedoHelper.setTextView(_hlEditor);
-                }
-
-                TextViewUtils.setSelectionAndShow(_hlEditor, sel);
+                _hlEditor.withAutoFormatDisabled(() -> _hlEditor.setTextKeepState(content));
+                TextViewUtils.showSelection(_hlEditor);
             }
             checkTextChangeState();
 
