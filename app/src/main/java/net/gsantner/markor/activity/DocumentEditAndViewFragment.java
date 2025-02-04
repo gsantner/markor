@@ -108,7 +108,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     private boolean _isPreviewVisible;
     private boolean _nextConvertToPrintMode = false;
 
-
     public DocumentEditAndViewFragment() {
         super();
     }
@@ -141,7 +140,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _webView = view.findViewById(R.id.document__fragment_view_webview);
         _verticalScrollView = view.findViewById(R.id.document__fragment__edit__content_editor__scrolling_parent);
         _lineNumbersView = view.findViewById(R.id.document__fragment__edit__line_numbers_view);
-
         _cu = new MarkorContextUtils(activity);
         _editTextUndoRedoHelper = new TextViewUndoRedo();
 
@@ -281,6 +279,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     public void onResume() {
         _webView.onResume();
         loadDocument();
+        if (_editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getTextView() != _hlEditor) {
+            _editTextUndoRedoHelper.setTextView(_hlEditor);
+        }
         super.onResume();
     }
 
@@ -435,18 +436,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             }
 
             if (!_document.isContentSame(_hlEditor.getText())) {
-
-                if (_editTextUndoRedoHelper != null) {
-                    _editTextUndoRedoHelper.disconnect();
-                }
-
                 _hlEditor.withAutoFormatDisabled(() -> _hlEditor.setTextKeepState(content));
-
-                if (_editTextUndoRedoHelper != null) {
-                    _editTextUndoRedoHelper.setTextView(_hlEditor);
-                }
-
-                TextViewUtils.showSelection(_hlEditor);
             }
 
             checkTextChangeState();
@@ -454,6 +444,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             if (_isPreviewVisible) {
                 updateViewModeText();
             }
+
             return true;
         }
         return false;

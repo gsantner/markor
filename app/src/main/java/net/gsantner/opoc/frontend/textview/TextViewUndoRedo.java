@@ -47,6 +47,8 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 
 import java.io.File;
@@ -77,7 +79,7 @@ public class TextViewUndoRedo {
     /**
      * The edit text.
      */
-    private TextView mTextView;
+    private TextView mTextView = null;
 
     // =================================================================== //
 
@@ -109,6 +111,13 @@ public class TextViewUndoRedo {
             mTextView.removeTextChangedListener(mChangeListener);
             clearHistory();
         }
+    }
+
+    /**
+     * Get the currently attached TextView
+     */
+    public @Nullable TextView getTextView() {
+        return mTextView;
     }
 
     /**
