@@ -440,13 +440,14 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
             if (!_document.isContentSame(_hlEditor.getText())) {
                 _hlEditor.withAutoFormatDisabled(() -> _hlEditor.setTextKeepState(content));
-                TextViewUtils.showSelection(_hlEditor);
             }
+
             checkTextChangeState();
 
             if (_isPreviewVisible) {
                 updateViewModeText();
             }
+
             return true;
         }
         return false;

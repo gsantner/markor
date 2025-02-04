@@ -45,7 +45,6 @@ import net.gsantner.markor.frontend.FileInfoDialog;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.frontend.filesearch.FileSearchEngine;
-import net.gsantner.markor.frontend.filesearch.FileSearchResultSelectorDialog;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.frontend.GsSearchOrCustomTextDialog;
@@ -579,13 +578,8 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     ///////////////
     public void askForDeletingFilesRecursive(WrConfirmDialog.ConfirmDialogCallback confirmCallback) {
         final ArrayList<File> itemsToDelete = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection());
-        final StringBuilder message = new StringBuilder(String.format(getString(R.string.do_you_really_want_to_delete_this_witharg), getResources().getQuantityString(R.plurals.documents, itemsToDelete.size())) + "\n\n");
 
-        for (final File f : itemsToDelete) {
-            message.append("\n").append(f.getName());
-        }
-
-        final WrConfirmDialog confirmDialog = WrConfirmDialog.newInstance(getString(R.string.confirm_delete), message.toString(), itemsToDelete, confirmCallback);
+        final WrConfirmDialog confirmDialog = WrConfirmDialog.newInstance(getString(R.string.confirm_delete), "", itemsToDelete, confirmCallback);
         confirmDialog.show(getChildFragmentManager(), WrConfirmDialog.FRAGMENT_TAG);
     }
 

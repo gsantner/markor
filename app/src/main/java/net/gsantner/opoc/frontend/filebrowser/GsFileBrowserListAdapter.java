@@ -778,9 +778,10 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     @Override
     public boolean accept(File dir, String filename) {
         final File f = new File(dir, filename);
-        final boolean filterYes = f.isDirectory() || _dopt.fileOverallFilter == null || _dopt.fileOverallFilter.callback(_context, f);
+        final boolean isDirectory = f.isDirectory() || isVirtualFolder(dir);
+        final boolean filterYes = isDirectory || _dopt.fileOverallFilter == null || _dopt.fileOverallFilter.callback(_context, f);
         final boolean dotYes = _dopt.filterShowDotFiles || !filename.startsWith(".") && !isAccessoryFolder(dir, filename, f);
-        final boolean selFileYes = _dopt.doSelectFile || f.isDirectory();
+        final boolean selFileYes = _dopt.doSelectFile || isDirectory;
         return filterYes && dotYes && selFileYes;
     }
 

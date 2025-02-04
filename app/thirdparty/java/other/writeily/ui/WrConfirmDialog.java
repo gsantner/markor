@@ -30,7 +30,6 @@ public class WrConfirmDialog extends DialogFragment {
 
     private Serializable _data;
     private ConfirmDialogCallback[] _callbacks;
-    private String _summary;
 
     public static WrConfirmDialog newInstance(String title, String message,
                                               Serializable data, ConfirmDialogCallback... callbacks) {
