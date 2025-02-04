@@ -62,8 +62,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
@@ -992,8 +994,116 @@ public class MarkorDialogFactory {
         dopt.isSearchEnabled = true;
         dopt.state.copyFrom(state);
         dopt.positionCallback = (pos) -> openFileCallback.callback(searchResults.get(pos.get(0)).file);
-        dopt.dismissCallback = (dialog) -> {
-            state.copyFrom(dopt.state);
+        dopt.dismissCallback = (dialog) -> state.copyFrom(dopt.state);
+
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+    }
+
+    public static void showFolderSortDialog(
+            final Activity activity,
+            final GsFileUtils.SortOrder currentOrder,
+            final GsFileUtils.SortOrder globalOrder,
+            final GsCallback.a1<GsFileUtils.SortOrder> callback
+    ) {
+        final DialogOptions dopt = new DialogOptions();
+        baseConf(activity, dopt);
+
+        final List<String> data = new ArrayList<>();
+        final List<Integer> icons = new ArrayList<>();
+        final List<Integer> layouts = new ArrayList<>();
+
+        data.add(activity.getString(R.string.folder_local));
+        icons.add(R.drawable.ic_save_black_24dp);
+        layouts.add(android.R.layout.simple_list_item_multiple_choice);
+
+        data.add(activity.getString(R.string.name));
+        icons.add(R.drawable.ic_sort_by_alpha_black_24dp);
+        layouts.add(android.R.layout.simple_list_item_single_choice);
+
+        data.add(activity.getString(R.string.date));
+        icons.add(R.drawable.ic_date_range_black_24dp);
+        layouts.add(android.R.layout.simple_list_item_single_choice);
+
+        data.add(activity.getString(R.string.size));
+        icons.add(R.drawable.ic_sd_card_black_24dp);
+        layouts.add(android.R.layout.simple_list_item_single_choice);
+
+        data.add(activity.getString(R.string.mime_type));
+        icons.add(R.drawable.ic_baseline_plagiarism_24);
+        layouts.add(android.R.layout.simple_list_item_single_choice);
+
+        data.add(activity.getString(R.string.folder_first));
+        icons.add(R.drawable.ic_baseline_rule_folder_24);
+        layouts.add(android.R.layout.simple_list_item_multiple_choice);
+
+        data.add(activity.getString(R.string.reverse_order));
+        icons.add(R.drawable.ic_baseline_arrow_upward_24);
+        layouts.add(android.R.layout.simple_list_item_multiple_choice);
+
+        data.add(activity.getString(R.string.dotfiles));
+        icons.add(R.drawable.ic_regex_black_24dp);
+        layouts.add(android.R.layout.simple_list_item_multiple_choice);
+
+        dopt.data = data;
+        dopt.iconsForData = icons;
+        dopt.listItemLayouts = layouts;
+
+        dopt.preSelected = new HashSet<>();
+        if (currentOrder.isFolderLocal) dopt.preSelected.add(0);
+        if (currentOrder.folderFirst) dopt.preSelected.add(5);
+        if (currentOrder.reverse) dopt.preSelected.add(6);
+        if (currentOrder.showDotFiles) dopt.preSelected.add(7);
+
+        final Map<String, Integer> typeToPos = new HashMap<>();
+        typeToPos.put(GsFileUtils.SORT_BY_NAME, 1);
+        typeToPos.put(GsFileUtils.SORT_BY_MTIME, 2);
+        typeToPos.put(GsFileUtils.SORT_BY_FILESIZE, 3);
+        typeToPos.put(GsFileUtils.SORT_BY_MIMETYPE, 4);
+        dopt.preSelected.add(GsCollectionUtils.getOrDefault(typeToPos, currentOrder.sortByType, 1));
+
+        dopt.isMultiSelectEnabled = true;
+        dopt.isSearchEnabled = false;
+        dopt.titleText = R.string.sort_by;
+        dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
+        dopt.showCountInOkButton = false;
+        dopt.showSelectAllButton = false;
+
+        final Set<Integer> prevSelection = new HashSet<>(dopt.preSelected);
+        final boolean[] resetGlobal = {false};
+        final Set<Integer> radioSet = new HashSet<>(Arrays.asList(1, 2, 3, 4));
+        dopt.selectionChangedCallback = (selection) -> {
+            final Set<Integer> added = GsCollectionUtils.setDiff(selection, prevSelection);
+            final Set<Integer> removed = GsCollectionUtils.setDiff(prevSelection, selection);
+            if (globalOrder != null && currentOrder.isFolderLocal && removed.contains(0)) {
+                // Reset to global if folder local is unchecked
+                resetGlobal[0] = true;
+                selection.clear();
+                if (globalOrder.folderFirst) selection.add(5);
+                if (globalOrder.reverse) selection.add(6);
+                if (globalOrder.showDotFiles) selection.add(7);
+                selection.add(GsCollectionUtils.getOrDefault(typeToPos, globalOrder.sortByType, 1));
+            } else if (!Collections.disjoint(removed, radioSet)) {
+                // If a radio button is unchecked add it back
+                selection.addAll(removed);
+            } else if (!Collections.disjoint(added, radioSet)) {
+                // If a radio button is checked, remove all other radio buttons
+                selection.removeAll(GsCollectionUtils.setDiff(radioSet, added));
+            }
+            prevSelection.clear();
+            prevSelection.addAll(selection);
+        };
+
+        dopt.positionCallback = (selection) -> {
+            final GsFileUtils.SortOrder order = new GsFileUtils.SortOrder();
+            order.isFolderLocal = selection.contains(0);
+            order.folderFirst = selection.contains(5);
+            order.reverse = selection.contains(6);
+            order.showDotFiles = selection.contains(7);
+            if (selection.contains(2)) order.sortByType = GsFileUtils.SORT_BY_MTIME;
+            else if (selection.contains(3)) order.sortByType = GsFileUtils.SORT_BY_FILESIZE;
+            else if (selection.contains(4)) order.sortByType = GsFileUtils.SORT_BY_MIMETYPE;
+            else order.sortByType = GsFileUtils.SORT_BY_NAME;
+            callback.callback(order);
         };
 
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);

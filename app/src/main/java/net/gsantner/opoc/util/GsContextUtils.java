@@ -130,6 +130,7 @@ import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.format.GsSimpleMarkdownParser;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
@@ -869,7 +870,11 @@ public class GsContextUtils {
     /**
      * Try to tint all {@link Menu}s {@link MenuItem}s with given color
      */
-    public void tintMenuItems(final Menu menu, final boolean recurse, @ColorInt final int iconColor) {
+    public void tintMenuItems(final @Nullable Menu menu, final boolean recurse, @ColorInt final int iconColor) {
+        if (menu == null) {
+            return;
+        }
+
         for (int i = 0; i < menu.size(); i++) {
             MenuItem item = menu.getItem(i);
             try {
@@ -1571,7 +1576,7 @@ public class GsContextUtils {
      * @return A file or null if extraction did not succeed
      */
     @SuppressWarnings({"ResultOfMethodCallIgnored", "ConstantConditions"})
-    public File extractFileFromIntent(final Context context, final Intent receivingIntent) {
+    public static File extractFileFromIntent(final Intent receivingIntent, final Context context) {
         final String action = receivingIntent.getAction();
         final String type = receivingIntent.getType();
         final String extPath = Environment.getExternalStorageDirectory().getAbsolutePath();
@@ -1579,7 +1584,12 @@ public class GsContextUtils {
         String fileStr;
         File result = null;
 
-        if ((Intent.ACTION_VIEW.equals(action) || Intent.ACTION_EDIT.equals(action)) || Intent.ACTION_SEND.equals(action)) {
+        if (
+                Intent.ACTION_VIEW.equals(action) ||
+                Intent.ACTION_EDIT.equals(action) ||
+                Intent.ACTION_SEND.equals(action) ||
+                Intent.ACTION_SEND_MULTIPLE.equals(action)
+        ) {
 
             // Màrkor, SimpleMobileTools FileManager
             if (receivingIntent.hasExtra((tmps = EXTRA_FILEPATH))) {
@@ -1741,11 +1751,6 @@ public class GsContextUtils {
         return false;
     }
 
-    public String extractFileFromIntentStr(final Context context, final Intent receivingIntent) {
-        File f = extractFileFromIntent(context, receivingIntent);
-        return f != null ? f.getAbsolutePath() : null;
-    }
-
     /**
      * Request a picture from camera-like apps
      * Result ({@link String}) will be available from {@link Activity}.onActivityResult.
@@ -1829,7 +1834,7 @@ public class GsContextUtils {
 
                     // Try to grab via file extraction method
                     intent.setAction(Intent.ACTION_VIEW);
-                    picturePath = picturePath != null ? picturePath : extractFileFromIntentStr(context, intent);
+                    picturePath = picturePath != null ? picturePath : GsFileUtils.getPath(extractFileFromIntent(intent, context));
 
                     // Retrieve image from file descriptor / Cloud, e.g.: Google Drive, Picasa
                     if (picturePath == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

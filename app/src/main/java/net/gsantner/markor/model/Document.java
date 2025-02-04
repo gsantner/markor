@@ -72,7 +72,7 @@ public class Document implements Serializable {
     private int _lastLength = -1;
 
     public Document(@NonNull final File f) {
-        path = getPath(f);
+        path = GsFileUtils.getPath(f);
         file = new File(path);
         title = GsFileUtils.getFilenameWithoutExtension(file);
         extension = GsFileUtils.getFilenameExtension(file);
@@ -83,16 +83,6 @@ public class Document implements Serializable {
                 setFormat(format.format);
                 break;
             }
-        }
-    }
-
-    public static String getPath(final File file) {
-        try {
-            return file.getCanonicalPath();
-        } catch (IOException e) {
-            return file.getAbsolutePath();
-        } catch (NullPointerException e) {
-            return "";
         }
     }
 

@@ -128,14 +128,8 @@ public class GsCollectionUtils {
     /**
      * Check if 2 collections have the same elements
      */
-    public static <T> boolean setEquals(Collection<T> a, Collection<T> b) {
-        a = a != null ? a : Collections.emptySet();
-        b = b != null ? b : Collections.emptySet();
-
-        a = a instanceof Set ? a : new HashSet<>(a);
-        b = b instanceof Set ? b : new HashSet<>(b);
-
-        return a.equals(b);
+    public static <T> boolean setEquals(final Collection<T> a, final Collection<T> b) {
+        return (a == b) || (a != null && b != null && a.size() == b.size() && a.containsAll(b));
     }
 
     /**
