@@ -43,7 +43,6 @@ import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
-import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -84,9 +83,16 @@ public class GsSearchOrCustomTextDialog {
         @Nullable
         public GsCallback.a1<List<Integer>> positionCallback = null;
 
+        // For multi select
         public boolean isMultiSelectEnabled = false;
+        public Collection<Integer> preSelected = null;  // Indices of pre-selected items
+        public boolean showSelectAllButton = true;
+        public boolean showCountInOkButton = true;
+        public GsCallback.a1<Set<Integer>> selectionChangedCallback = null;
+
         public List<? extends CharSequence> data = null;
         public List<? extends CharSequence> highlightData = null;
+        public List<Integer> listItemLayouts = null;
         public List<Integer> iconsForData;
         public CharSequence messageText = "";
         public String defaultText = "";
@@ -99,7 +105,6 @@ public class GsSearchOrCustomTextDialog {
         public int dialogHeightDp = WindowManager.LayoutParams.WRAP_CONTENT;
         public int searchInputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS;
         public String extraFilter = null;
-        public Collection<Integer> preSelected = null;
         public GsCallback.a1<Spannable> highlighter = null;
         public GsCallback.a1<AlertDialog> neutralButtonCallback = null;
         public GsCallback.a1<DialogInterface> dismissCallback = null;
@@ -135,8 +140,6 @@ public class GsSearchOrCustomTextDialog {
     }
 
     public static class Adapter extends BaseAdapter {
-        @LayoutRes
-        private final int _layout;
         private final int _layoutHeight;
         private final LayoutInflater _inflater;
         private final DialogOptions _dopt;
@@ -164,12 +167,21 @@ public class GsSearchOrCustomTextDialog {
         private Adapter(final Context context, final DialogOptions dopt) {
             super();
             _filteredItems = new ArrayList<>();
-            _layout = dopt.isMultiSelectEnabled ? android.R.layout.simple_list_item_multiple_choice : android.R.layout.simple_list_item_1;
             _inflater = LayoutInflater.from(context);
             _dopt = dopt;
             _extraPattern = (_dopt.extraFilter == null ? null : Pattern.compile(_dopt.extraFilter).matcher(""));
             _selectedItems = new HashSet<>(_dopt.preSelected != null ? _dopt.preSelected : Collections.emptyList());
             _layoutHeight = GsContextUtils.instance.convertDpToPx(context, 36);
+        }
+
+        private int chooseLayout(final int pos) {
+            if (_dopt.listItemLayouts != null && pos < _dopt.listItemLayouts.size()) {
+                return _dopt.listItemLayouts.get(pos);
+            } else if (_dopt.isMultiSelectEnabled) {
+                return android.R.layout.simple_list_item_multiple_choice;
+            } else {
+                return android.R.layout.simple_list_item_1;
+            }
         }
 
         @NonNull
@@ -179,7 +191,7 @@ public class GsSearchOrCustomTextDialog {
 
             final TextView textView;
             if (convertView == null) {
-                textView = (TextView) _inflater.inflate(_layout, parent, false);
+                textView = (TextView) _inflater.inflate(chooseLayout(pos), parent, false);
                 textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
                 textView.setMinHeight(_layoutHeight);
             } else {
@@ -279,7 +291,6 @@ public class GsSearchOrCustomTextDialog {
         // SearchView is currently constructed even if it isn't needed
         final View searchView = makeSearchView(activity, dopt);
         final EditText searchEditText = searchView.findViewWithTag("EDIT");
-        searchEditText.addTextChangedListener(GsTextWatcherAdapter.after(listAdapter::filter));
 
         if (dopt.isSearchEnabled) {
             mainLayout.addView(searchView);
@@ -325,6 +336,18 @@ public class GsSearchOrCustomTextDialog {
 
         // =========================================================================================
 
+        final GsCallback.a0 setSelectAllButtonState = () -> {
+            if (selectAll != null) {
+                final boolean allVisibleSelected = listAdapter._selectedItems.containsAll(listAdapter._filteredItems);
+                ((Checkable) selectAll).setChecked(allVisibleSelected);
+            }
+        };
+
+        searchEditText.addTextChangedListener(GsTextWatcherAdapter.after((constraint) -> {
+            listAdapter.filter(constraint);
+            setSelectAllButtonState.callback();
+        }));
+
         // Ok button only present under these circumstances
         final boolean isSearchOk = dopt.callback != null && dopt.isSearchEnabled;
         final boolean isMultiSelOk = dopt.positionCallback != null && dopt.isMultiSelectEnabled;
@@ -332,10 +355,10 @@ public class GsSearchOrCustomTextDialog {
         if (isSearchOk || isMultiSelOk || isPlainDialog) {
             dialogBuilder.setPositiveButton(dopt.okButtonText, (dialogInterface, i) -> {
                 final String searchText = dopt.isSearchEnabled ? searchEditText.getText().toString() : null;
-                if (dopt.positionCallback != null && !GsCollectionUtils.setEquals(dopt.preSelected, listAdapter._selectedItems)) {
-                    // Position callback triggered when selection changed
+                final boolean selectionChanged = !GsCollectionUtils.setEquals(dopt.preSelected, listAdapter._selectedItems);
+                if (dopt.positionCallback != null && (selectionChanged || dopt.callback == null)) {
                     dopt.positionCallback.callback(new ArrayList<>(listAdapter._selectedItems));
-                } else if (dopt.callback != null && (!dopt.isSearchEnabled || !TextUtils.isEmpty(searchText))) {
+                } else if (dopt.callback != null && !TextUtils.isEmpty(searchText)) {
                     dopt.callback.callback(searchText);
                 }
             });
@@ -408,7 +431,7 @@ public class GsSearchOrCustomTextDialog {
         final Button okButton = dialog.getButton(Dialog.BUTTON_POSITIVE);
         final GsCallback.a0 setOkButtonState = () -> {
             if (okButton != null) {
-                if (dopt.isMultiSelectEnabled) {
+                if (dopt.isMultiSelectEnabled && dopt.showCountInOkButton) {
                     okButton.setText(okString + String.format(" (%d)", listAdapter._selectedItems.size()));
                 } else {
                     okButton.setText(okString);
@@ -418,21 +441,17 @@ public class GsSearchOrCustomTextDialog {
 
         // Set ok button text initially
         setOkButtonState.callback();
-        final GsCallback.a0 setSelectAllButtonState = () -> {
-            if (selectAll != null) {
-                ((Checkable) selectAll).setChecked(listAdapter._selectedItems.size() >= dopt.data.size());
-            }
-        };
 
         // Set select all button state initially
         setSelectAllButtonState.callback();
 
         if (selectAll != null && dopt.isMultiSelectEnabled) {
             selectAll.setOnClickListener((v) -> {
-                if (listAdapter._selectedItems.size() < dopt.data.size()) {
-                    listAdapter._selectedItems.addAll(GsCollectionUtils.range(dopt.data.size()));
+                final boolean allVisibleSelected = listAdapter._selectedItems.containsAll(listAdapter._filteredItems);
+                if (!allVisibleSelected) {
+                    listAdapter._selectedItems.addAll(listAdapter._filteredItems);
                 } else {
-                    listAdapter._selectedItems.clear();
+                    listAdapter._selectedItems.removeAll(listAdapter._filteredItems);
                 }
                 listAdapter.notifyDataSetChanged();
                 setOkButtonState.callback();
@@ -451,9 +470,10 @@ public class GsSearchOrCustomTextDialog {
                 } else {
                     listAdapter._selectedItems.add(index);
                 }
-                if (textView instanceof Checkable) {
-                    ((Checkable) textView).setChecked(listAdapter._selectedItems.contains(index));
+                if (dopt.selectionChangedCallback != null) {
+                    dopt.selectionChangedCallback.callback(listAdapter._selectedItems);
                 }
+                listAdapter.notifyDataSetChanged();
                 setOkButtonState.callback();
                 setSelectAllButtonState.callback();
             } else {
@@ -512,7 +532,8 @@ public class GsSearchOrCustomTextDialog {
                     LinearLayout.LayoutParams.WRAP_CONTENT));
         }
 
-        if (dopt.isMultiSelectEnabled) {
+        // Add select all button
+        if (dopt.isMultiSelectEnabled && dopt.showSelectAllButton) {
             // Using a multiple choice text view as a selectable checkbox button
             // Requires no styling to match the existing check boxes
             final LayoutInflater inflater = LayoutInflater.from(context);

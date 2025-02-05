@@ -77,7 +77,6 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         } catch (Exception ignored) {
         }
 
-
         _cu = new MarkorContextUtils(this);
         setContentView(R.layout.main__activity);
         _bottomNav = findViewById(R.id.bottom_navigation_bar);
@@ -427,7 +426,6 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
                         if (getCurrentPos() == tabIdToPos(R.id.nav_notebook)) {
                             setTitle(getFileBrowserTitle());
                         }
-                        invalidateOptionsMenu();
                     }
 
                     if (toShow != null && adapter != null) {
