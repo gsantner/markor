@@ -64,7 +64,6 @@ import java.util.List;
 import java.util.Set;
 
 import other.writeily.model.WrMarkorSingleton;
-import other.writeily.ui.WrConfirmDialog;
 import other.writeily.ui.WrRenameDialog;
 
 public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPropertyBackend, GsContextUtils> implements GsFileBrowserOptions.SelectionListener {
@@ -416,15 +415,16 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                 return true;
             }
             case R.id.action_delete_selected_items: {
-                askForDeletingFilesRecursive((confirmed, data) -> {
-                    if (confirmed) {
-                        Runnable deleter = () -> {
+                MarkorDialogFactory.showConfirmDialog(
+                        getActivity(),
+                        R.string.confirm_delete,
+                        null,
+                        GsCollectionUtils.map(_filesystemViewerAdapter.getCurrentSelection(), File::getName),
+                        () -> new Thread(() -> {
                             WrMarkorSingleton.getInstance().deleteSelectedItems(currentSelection, getContext());
                             _recyclerList.post(() -> _filesystemViewerAdapter.reloadCurrentFolder());
-                        };
-                        new Thread(deleter).start();
-                    }
-                });
+                        }).start()
+                );
                 return true;
             }
             case R.id.action_move_selected_items:
@@ -526,12 +526,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
 
 
     ///////////////
-    public void askForDeletingFilesRecursive(WrConfirmDialog.ConfirmDialogCallback confirmCallback) {
-        final ArrayList<File> itemsToDelete = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection());
-
-        final WrConfirmDialog confirmDialog = WrConfirmDialog.newInstance(getString(R.string.confirm_delete), "", itemsToDelete, confirmCallback);
-        confirmDialog.show(getChildFragmentManager(), WrConfirmDialog.FRAGMENT_TAG);
-    }
 
     private void askForMoveOrCopy(final boolean isMove) {
         final List<File> files = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection());
@@ -593,19 +587,19 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     }
 
     private void importFile(final File file) {
+        final Activity activity = getActivity();
         if (new File(getCurrentFolder().getAbsolutePath(), file.getName()).exists()) {
-            String message = getString(R.string.file_already_exists_overwerite) + "\n[" + file.getName() + "]";
             // Ask if overwriting is okay
-            WrConfirmDialog d = WrConfirmDialog.newInstance(
-                    getString(R.string.confirm_overwrite), message, file, (confirmed, data) -> {
-                        if (confirmed) {
-                            importFileToCurrentDirectory(getActivity(), file);
-                        }
-                    });
-            d.show(getChildFragmentManager(), WrConfirmDialog.FRAGMENT_TAG);
+            MarkorDialogFactory.showConfirmDialog(
+                    activity,
+                    R.string.confirm_overwrite,
+                    getString(R.string.file_already_exists_overwerite) + "\n[" + file.getName() + "]",
+                    null,
+                    () -> importFileToCurrentDirectory(activity, file)
+            );
         } else {
             // Import
-            importFileToCurrentDirectory(getActivity(), file);
+            importFileToCurrentDirectory(activity, file);
         }
     }
 

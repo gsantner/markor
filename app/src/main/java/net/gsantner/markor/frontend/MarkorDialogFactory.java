@@ -24,6 +24,8 @@ import android.text.Editable;
 import android.text.Html;
 import android.text.InputType;
 import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.util.Pair;
 import android.view.WindowManager;
@@ -291,16 +293,10 @@ public class MarkorDialogFactory {
                 doptView.neutralButtonText = R.string.delete;
                 doptView.isSoftInputVisible = false;
                 doptView.neutralButtonCallback = viewDialog -> {
-                    final DialogOptions confirmDopt = new DialogOptions();
-                    baseConf(activity, confirmDopt);
-                    confirmDopt.titleText = R.string.confirm_delete;
-                    confirmDopt.messageText = title;
-                    confirmDopt.isSearchEnabled = false;
-                    confirmDopt.callback = (s) -> {
+                    showConfirmDialog(activity, R.string.confirm_delete, title, null, () -> {
                         viewDialog.dismiss();
                         TodoTxtFilter.deleteFilterIndex(activity, i);
-                    };
-                    GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, confirmDopt);
+                    });
                 };
 
                 GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, doptView);
@@ -378,7 +374,7 @@ public class MarkorDialogFactory {
         dopt.titleText = title;
         dopt.isSearchEnabled = enableSearch;
         dopt.searchHintText = R.string.search;
-        dopt.isMultiSelectEnabled = true;
+        dopt.selectionMode = DialogOptions.SelectionMode.MULTIPLE;
 
         // Callback to actually show tasks
         // -------------------------------------
@@ -454,7 +450,7 @@ public class MarkorDialogFactory {
         dopt.data = lines;
         dopt.titleText = R.string.search;
         dopt.extraFilter = "[^\\s]+"; // Line must have one or more non-whitespace to display
-        dopt.isMultiSelectEnabled = true;
+        dopt.selectionMode = DialogOptions.SelectionMode.MULTIPLE;
         dopt.highlighter = as().isHighlightingEnabled() ? getSttHighlighter() : null;
         dopt.positionCallback = (posns) -> {
             final List<Integer> selIndices = new ArrayList<>();
@@ -544,7 +540,7 @@ public class MarkorDialogFactory {
         });
 
         final DialogOptions dopt = baseConf(activity);
-        dopt.isMultiSelectEnabled = true;
+        dopt.selectionMode = DialogOptions.SelectionMode.MULTIPLE;
         dopt.data = lines;
         dopt.preSelected = checked;
         dopt.titleText = R.string.check_list;
@@ -612,7 +608,7 @@ public class MarkorDialogFactory {
         });
 
         final DialogOptions dopt = baseConf(activity);
-        dopt.isMultiSelectEnabled = true;
+        dopt.selectionMode = DialogOptions.SelectionMode.MULTIPLE;
         dopt.data = lines;
         dopt.preSelected = checked;
         dopt.titleText = R.string.check_list;
@@ -736,7 +732,7 @@ public class MarkorDialogFactory {
         dopt.preSelected = GsCollectionUtils.map(currentKeys, s -> dopt.data.indexOf(s));
         dopt.titleText = title;
         dopt.searchHintText = R.string.search_or_custom;
-        dopt.isMultiSelectEnabled = true;
+        dopt.selectionMode = DialogOptions.SelectionMode.MULTIPLE;
         dopt.callback = (str) -> callback.callback(GsCollectionUtils.union(currentKeys, Collections.singleton(str)));
         dopt.positionCallback = (newSel) -> callback.callback(
                 GsCollectionUtils.map(newSel, pi -> dopt.data.get(pi).toString()));
@@ -838,7 +834,7 @@ public class MarkorDialogFactory {
             dopt2.data = GsCollectionUtils.map(levels, l -> "H" + l);
             dopt2.titleText = R.string.filter;
             dopt2.isSearchEnabled = false;
-            dopt2.isMultiSelectEnabled = true;
+            dopt2.selectionMode = DialogOptions.SelectionMode.MULTIPLE;
             dopt2.positionCallback = (selected) -> {
                 // Update levels so the selected ones are true
                 state.disabledLevels.clear();
@@ -990,7 +986,6 @@ public class MarkorDialogFactory {
         dopt.titleText = R.string.notebook;
         dopt.messageText = as.getNotebookDirectory().getPath();
         dopt.data = GsCollectionUtils.map(searchResults, f -> f.relPath);
-        dopt.isMultiSelectEnabled = false;
         dopt.isSearchEnabled = true;
         dopt.state.copyFrom(state);
         dopt.positionCallback = (pos) -> openFileCallback.callback(searchResults.get(pos.get(0)).file);
@@ -1061,7 +1056,7 @@ public class MarkorDialogFactory {
         typeToPos.put(GsFileUtils.SORT_BY_MIMETYPE, 4);
         dopt.preSelected.add(GsCollectionUtils.getOrDefault(typeToPos, currentOrder.sortByType, 1));
 
-        dopt.isMultiSelectEnabled = true;
+        dopt.selectionMode = DialogOptions.SelectionMode.MULTIPLE;
         dopt.isSearchEnabled = false;
         dopt.titleText = R.string.sort_by;
         dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
@@ -1105,6 +1100,36 @@ public class MarkorDialogFactory {
             else order.sortByType = GsFileUtils.SORT_BY_NAME;
             callback.callback(order);
         };
+
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+    }
+
+    public static void showConfirmDialog(
+            final Activity activity,
+            final int title,
+            final @Nullable CharSequence message,
+            final @Nullable Collection<CharSequence> messageItems,
+            final @Nullable GsCallback.a0 confirmCallback
+    ) {
+        final DialogOptions dopt = baseConf(activity);
+        dopt.isSearchEnabled = false;
+
+        if (title != 0) {
+            dopt.titleText = title;
+        }
+
+        if (message != null) {
+            dopt.messageText = message;
+        }
+
+        if (messageItems != null) {
+            dopt.data = new ArrayList<>(messageItems);
+        }
+
+        if (confirmCallback != null) {
+            dopt.callback = (ignored) -> confirmCallback.callback();
+            dopt.selectionMode = DialogOptions.SelectionMode.NONE;
+        }
 
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
