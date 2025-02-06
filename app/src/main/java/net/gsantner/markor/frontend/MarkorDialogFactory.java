@@ -1055,7 +1055,6 @@ public class MarkorDialogFactory {
         typeToPos.put(GsFileUtils.SORT_BY_FILESIZE, 3);
         typeToPos.put(GsFileUtils.SORT_BY_MIMETYPE, 4);
         dopt.preSelected.add(GsCollectionUtils.getOrDefault(typeToPos, currentOrder.sortByType, 1));
-
         dopt.selectionMode = DialogOptions.SelectionMode.MULTIPLE;
         dopt.isSearchEnabled = false;
         dopt.titleText = R.string.sort_by;
