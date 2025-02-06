@@ -838,10 +838,19 @@ public class MarkorDialogFactory {
             final int index = filtered.get(result.get(0));
             final int line = headings.get(index).line;
 
-            TextViewUtils.selectLines(edit, line);
-            final String jumpJs = "document.querySelector('[line=\"" + line + "\"]').scrollIntoView();";
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                webView.evaluateJavascript(jumpJs, null);
+            if (edit.isShown()) {
+                final List<Integer> positions = Collections.singletonList(line);
+                TextViewUtils.selectLines(edit, positions);
+                TextViewUtils.selectLines(edit, positions);
+            }
+
+            if (webView.isShown()) {
+                final String jumpJs = "document.querySelector(\"[data-line='" + line + "']\").scrollIntoView();";
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    webView.evaluateJavascript(jumpJs, null);
+                } else {
+                    webView.loadUrl("javascript:" + jumpJs);
+                }
             }
         };
 

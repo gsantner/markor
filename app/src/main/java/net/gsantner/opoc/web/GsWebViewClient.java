@@ -17,6 +17,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 @SuppressWarnings({"unused", "FieldCanBeLocal"})
 public class GsWebViewClient extends WebViewClient {
+    protected OnPageFinishedListener m_onPageFinishedListener;
     protected final WeakReference<WebView> m_webView;
 
     public GsWebViewClient(final WebView webView) {
@@ -26,6 +27,7 @@ public class GsWebViewClient extends WebViewClient {
     @Override
     public void onPageFinished(final WebView webView, final String url) {
         __onPageFinished_restoreScrollY(webView, url);
+        m_onPageFinishedListener.onPageFinished(webView);
         super.onPageFinished(webView, url);
     }
 
@@ -41,21 +43,46 @@ public class GsWebViewClient extends WebViewClient {
      */
     protected void __onPageFinished_restoreScrollY(final WebView webView, final String url) {
         if (m_restoreScrollYEnabled.getAndSet(false)) {
-            for (int dt : new int[]{50, 100, 150, 200, 250, 300}) {
-                webView.postDelayed(() -> webView.setScrollY(m_restoreScrollY), dt);
-            }
+            restoreScrollY(webView);
         }
     }
 
     /**
      * Apply vertical scroll position on next page load
      *
-     * @param scrollY scroll position from {@link WebView#getScrollY()}
+     * @param scrollY scroll position from {@link WebView#getScrollY()}.<br/>
+     *                disable scroll position restoration on page finished if the value is negative.
      */
     public void setRestoreScrollY(final int scrollY) {
         m_restoreScrollY = scrollY;
-        m_restoreScrollYEnabled.set(scrollY >= 0);
+    }
+
+    public int getRestoreScrollY() {
+        return m_restoreScrollY;
+    }
+
+    public void setRestoreScrollYonPageFinished(final boolean enabled) {
+        m_restoreScrollYEnabled.set(enabled);
+    }
+
+    public void restoreScrollY(final WebView webView) {
+        for (int dt : new int[]{50, 100, 150, 200, 250, 300}) {
+            webView.postDelayed(() -> webView.setScrollY(m_restoreScrollY), dt);
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////
+
+    public interface OnPageFinishedListener {
+        /**
+         * Called when a page has finished loading.
+         *
+         * @param v The view that loaded the page.
+         */
+        void onPageFinished(WebView v);
+    }
+
+    public void setOnPageFinishedListener(OnPageFinishedListener listener) {
+        m_onPageFinishedListener = listener;
+    }
 }
