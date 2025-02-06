@@ -1703,7 +1703,7 @@ public class GsContextUtils {
                 // Proxy file to app-private storage (= java.io.File)
                 File f = new File(context.getCacheDir(), CONTENT_RESOLVER_FILE_PROXY_SEGMENT + "/" + tmps);
                 f.getParentFile().mkdirs();
-                byte[] data = GsFileUtils.readCloseBinaryStream(context.getContentResolver().openInputStream(uri));
+                byte[] data = GsFileUtils.readCloseBinaryStream(context.getContentResolver().openInputStream(fileUri));
                 GsFileUtils.writeFile(f, data, null);
                 f.setReadable(true);
                 f.setWritable(true);
