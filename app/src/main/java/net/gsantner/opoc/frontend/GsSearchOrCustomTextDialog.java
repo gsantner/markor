@@ -89,7 +89,8 @@ public class GsSearchOrCustomTextDialog {
         public GsCallback.a1<List<Integer>> positionCallback = null;
 
         /**
-         * Callback for long press on item
+         * Callback for long press on item.
+         * If not provided, positionCallback or callback will be called on long press
          */
         @Nullable
         public GsCallback.a1<Integer> longPressCallback = null;
