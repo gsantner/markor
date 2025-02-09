@@ -644,10 +644,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             }
             case R.id.action_show_file_browser: {
                 // Delay because I want menu to close before we open the file browser
-                _hlEditor.postDelayed(() -> {
-                    final Intent intent = new Intent(activity, MainActivity.class).putExtra(Document.EXTRA_FILE, _document.file);
-                    GsContextUtils.instance.animateToActivity(activity, intent, false, null);
-                }, 250);
+                _hlEditor.postDelayed(() -> MainActivity.launch(activity, _document.file, false), 250);
                 return true;
             }
             case R.id.action_toggle_case:

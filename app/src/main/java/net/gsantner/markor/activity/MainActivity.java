@@ -9,6 +9,7 @@
 package net.gsantner.markor.activity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Intent;
 import android.graphics.Color;
@@ -43,6 +44,7 @@ import net.gsantner.opoc.frontend.base.GsFragmentBase;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserFragment;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
+import net.gsantner.opoc.util.GsContextUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -197,6 +199,14 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
                 _notebook.getAdapter().showFile(file);
             }
             _notebook.setReloadRequiredOnResume(false);
+        }
+    }
+
+    public static void launch(final Activity activity, final File file, final boolean finishfromActivity) {
+        if (activity != null && file != null) {
+            final Intent intent = new Intent(activity, MainActivity.class);
+            intent.putExtra(Document.EXTRA_FILE, file);
+            GsContextUtils.instance.animateToActivity(activity, intent, finishfromActivity, null);
         }
     }
 

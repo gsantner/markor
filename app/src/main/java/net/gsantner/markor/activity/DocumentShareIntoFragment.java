@@ -49,6 +49,7 @@ import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.frontend.base.GsPreferenceFragmentBase;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
+import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
@@ -443,12 +444,11 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                     if (dir != null && intentFile != null && dir.isDirectory() && dir.canWrite()) {
                         final File local = GsFileUtils.findNonConflictingDest(dir, intentFile.getName());
                         if (GsFileUtils.copyFile(intentFile, local)) {
-                            Toast.makeText(getContext(), "✔ " + local.getName(), Toast.LENGTH_LONG).show();
-                            getActivity().finish();
+                            MainActivity.launch(getActivity(), local, true);
                             return;
                         }
                     }
-                    Toast.makeText(getContext(), "❌", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "❌", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
