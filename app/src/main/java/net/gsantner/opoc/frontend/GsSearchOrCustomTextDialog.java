@@ -57,6 +57,7 @@ import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -74,19 +75,29 @@ public class GsSearchOrCustomTextDialog {
 
     public static class DialogOptions {
 
-        // Callback for search text or text of single item
+        /**
+         * Callback for search text or text of single item
+         */
         @Nullable
         public GsCallback.a1<String> callback = null;
 
-        // Callback for indices of selected items.
-        // List will contain single item if isMultiSelectEnabled == false;
+        /**
+         * Callback for indices of selected items.
+         * List will contain single item if selectionMode == SINGLE
+         */
         @Nullable
         public GsCallback.a1<List<Integer>> positionCallback = null;
 
-        // For multi select
+        /**
+         * Callback for long press on item
+         */
+        @Nullable
+        public GsCallback.a1<Integer> longPressCallback = null;
+
         public enum SelectionMode {
             SINGLE, MULTIPLE, NONE
         }
+
         public SelectionMode selectionMode = SelectionMode.SINGLE;
         public Collection<Integer> preSelected = null;  // Indices of pre-selected items
         public boolean showSelectAllButton = true;
@@ -135,6 +146,11 @@ public class GsSearchOrCustomTextDialog {
          * Initial state of the dialog. Will be updated when the dialog is dismissed.
          */
         public final DialogState state = new DialogState();
+
+        /**
+         * Reference to the dialog. Will be updated when the dialog is created.
+         */
+        public WeakReference<AlertDialog> dialog = null;
     }
 
     public static class DialogState {
@@ -378,6 +394,7 @@ public class GsSearchOrCustomTextDialog {
         }
 
         final AlertDialog dialog = dialogBuilder.create();
+        dopt.dialog = new WeakReference<>(dialog);
 
         searchEditText.setOnKeyListener((keyView, keyCode, keyEvent) -> {
             if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER) && dopt.okButtonText != 0) {
@@ -464,12 +481,14 @@ public class GsSearchOrCustomTextDialog {
         if (dopt.selectionMode != DialogOptions.SelectionMode.NONE) {
 
             // Helper function to trigger callback with single item
-            final GsCallback.b1<Integer> directActivate = (position) -> {
+            final GsCallback.b2<Integer, Boolean> directActivate = (position, isLong) -> {
                 final int index = listAdapter._filteredItems.get(position);
                 if (dopt.isDismissOnItemSelected) {
                     dialog.dismiss();
                 }
-                if (dopt.callback != null) {
+                if (isLong && dopt.longPressCallback != null) {
+                    dopt.longPressCallback.callback(index);
+                } else if (dopt.callback != null) {
                     dopt.callback.callback(dopt.data.get(index).toString());
                 } else if (dopt.positionCallback != null) {
                     dopt.positionCallback.callback(Collections.singletonList(index));
@@ -493,17 +512,12 @@ public class GsSearchOrCustomTextDialog {
                     setOkButtonState.callback();
                     setSelectAllButtonState.callback();
                 } else if (dopt.selectionMode == DialogOptions.SelectionMode.SINGLE) {
-                    directActivate.callback(pos);
+                    directActivate.callback(pos, false);
                 }
             });
 
-            listView.setOnItemLongClickListener((parent, view, pos, id) -> directActivate.callback(pos));
+            listView.setOnItemLongClickListener((parent, view, pos, id) -> directActivate.callback(pos, true));
         }
-    }
-
-    private static void setupListViewSelection(final ListView view, final Adapter adapter, final DialogOptions dopt) {
-
-
     }
 
     private static View makeTitleView(final Context context, final DialogOptions dopt) {

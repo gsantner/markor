@@ -220,6 +220,10 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                 _editor.addTextChangedListener(GsTextWatcherAdapter.on((ctext, arg2, arg3, arg4) ->
                         _linkCheckBox.setVisibility(hasLinks(_editor.getText()) ? View.VISIBLE : View.GONE)));
             }
+
+            findPreference(R.string.pref_key__select_create_directory).setVisible(intentFile != null);
+            findPreference(R.string.pref_key__share_into__clipboard).setVisible(intentFile == null);
+            findPreference(R.string.pref_key__share_into__calendar_event).setVisible(intentFile == null);
         }
 
         private boolean shareAsLink() {
@@ -421,6 +425,39 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             }, getParentFragmentManager(), getActivity(), MarkorFileBrowserFactory.IsMimeText);
         }
 
+        private void createSelectNewDirectory() {
+            MarkorFileBrowserFactory.showFolderDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
+                GsFileBrowserOptions.Options _dopt = null;
+
+                @Override
+                public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
+                    dopt.rootFolder = GsFileBrowserListAdapter.VIRTUAL_STORAGE_ROOT;
+                    dopt.startFolder = _appSettings.getNotebookDirectory();
+                    dopt.okButtonEnable = true;
+                    dopt.dismissAfterCallback = true;
+                    _dopt = dopt;
+                }
+
+                @Override
+                public void onFsViewerSelected(final String request, final File dir, final Integer lineNumber) {
+                    if (dir != null && intentFile != null && dir.isDirectory() && dir.canWrite()) {
+                        final File local = GsFileUtils.findNonConflictingDest(dir, intentFile.getName());
+                        if (GsFileUtils.copyFile(intentFile, local)) {
+                            Toast.makeText(getContext(), "✔ " + local.getName(), Toast.LENGTH_LONG).show();
+                            getActivity().finish();
+                            return;
+                        }
+                    }
+                    Toast.makeText(getContext(), "❌", Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onFsViewerCancel(final String request) {
+                    // Will cause the dialog to dismiss after this callback
+                    _dopt.dismissAfterCallback = true;
+                }
+            }, getParentFragmentManager(), getActivity());
+        }
 
         private void createSelectNewDocument() {
             MarkorFileBrowserFactory.showFileDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
@@ -428,7 +465,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
 
                 @Override
                 public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
-                    dopt.rootFolder = _appSettings.getNotebookDirectory();
+                    dopt.rootFolder = GsFileBrowserListAdapter.VIRTUAL_STORAGE_ROOT;
                     dopt.startFolder = intentFile.isDirectory() ? intentFile : null;
                     dopt.okButtonText = R.string.create_new_document;
                     dopt.okButtonEnable = true;
@@ -484,6 +521,10 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                 }
                 case R.string.pref_key__select_create_document: {
                     createSelectNewDocument();
+                    return true;
+                }
+                case R.string.pref_key__select_create_directory: {
+                    createSelectNewDirectory();
                     return true;
                 }
                 case R.string.pref_key__favourite_files:

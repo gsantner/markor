@@ -515,7 +515,13 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
 
         FileSearchEngine.queueFileSearch(activity, opt, searchResults
                 -> MarkorDialogFactory.showNotebookFilterDialog(activity, searchResults, _filterDialogState,
-                    (file) -> searchCallback(file, null, false)));
+                    (file, show) -> {
+                        if (show) {
+                            _filesystemViewerAdapter.showFile(file);
+                        } else {
+                            searchCallback(file, null, false);
+                        }
+                    }));
     }
 
     public void clearSelection() {

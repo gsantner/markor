@@ -979,7 +979,7 @@ public class MarkorDialogFactory {
             final Activity activity,
             final List<FileSearchEngine.FitFile> searchResults,
             final GsSearchOrCustomTextDialog.DialogState state,
-            final GsCallback.a1<File> openFileCallback
+            final GsCallback.a2<File, Boolean> openFileCallback
     ) {
         final DialogOptions dopt = baseConf(activity);
         final AppSettings as = ApplicationObject.settings();
@@ -988,7 +988,8 @@ public class MarkorDialogFactory {
         dopt.data = GsCollectionUtils.map(searchResults, f -> f.relPath);
         dopt.isSearchEnabled = true;
         dopt.state.copyFrom(state);
-        dopt.positionCallback = (pos) -> openFileCallback.callback(searchResults.get(pos.get(0)).file);
+        dopt.positionCallback = (posns) -> openFileCallback.callback(searchResults.get(posns.get(0)).file, false);
+        dopt.longPressCallback = (pos) -> openFileCallback.callback(searchResults.get(pos).file, true);
         dopt.dismissCallback = (dialog) -> state.copyFrom(dopt.state);
 
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
