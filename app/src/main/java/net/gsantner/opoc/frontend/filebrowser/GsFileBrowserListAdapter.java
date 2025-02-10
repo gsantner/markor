@@ -73,7 +73,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     public static final File VIRTUAL_STORAGE_RECENTS = new File(VIRTUAL_STORAGE_ROOT, "Recent");
     public static final File VIRTUAL_STORAGE_FAVOURITE = new File(VIRTUAL_STORAGE_ROOT, "Favourites");
     public static final File VIRTUAL_STORAGE_POPULAR = new File(VIRTUAL_STORAGE_ROOT, "Popular");
-    public static final File VIRTUAL_STORAGE_APP_DATA_PRIVATE = new File(VIRTUAL_STORAGE_ROOT, "AppData (data partition)");
+    public static final File VIRTUAL_STORAGE_APP_DATA_PRIVATE = new File(VIRTUAL_STORAGE_ROOT, "AppData (private)");
     public static final String EXTRA_CURRENT_FOLDER = "EXTRA_CURRENT_FOLDER";
     public static final String EXTRA_DOPT = "EXTRA_DOPT";
     public static final String EXTRA_RECYCLER_SCROLL_STATE = "EXTRA_RECYCLER_SCROLL_STATE";
@@ -156,12 +156,14 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             _virtualMapping.put(VIRTUAL_STORAGE_APP_DATA_PRIVATE, appDataFolder);
         }
 
-        for (final File file : ContextCompat.getExternalFilesDirs(_context, null)) {
+        final File[] externals = ContextCompat.getExternalFilesDirs(_context, null);
+        for (int i = 0; i < externals.length; i++) {
+            final File file = externals[i];
             if (file != null) {
                 final File parent = file.getParentFile();
                 if (parent != null) {
-                    final String name = parent.toString().replace("/", "-").substring(1);
-                    final File remap = new File(VIRTUAL_STORAGE_ROOT, "AppData (" + name + ")");
+                    final String name = parent.getName();
+                    final File remap = new File(VIRTUAL_STORAGE_ROOT, "AppData (external-" + i + ")");
                     _virtualMapping.put(remap, file);
                 }
             }
@@ -342,10 +344,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
     public void setCurrentFolder(final File folder) {
         loadFolder(folder, GsFileUtils.isChild(_currentFolder, folder) ? folder : null);
-    }
-
-    public boolean isCurrentFolderVirtual() {
-        return isVirtualFolder(_currentFolder);
     }
 
     public static class TagContainer {
@@ -874,13 +872,16 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         }
     }
 
+    public boolean isCurrentFolderVirtual() {
+        return isVirtualFolder(_currentFolder);
+    }
+
+    // Is the folder a virtual folder - does it contain links or other special items
     public static boolean isVirtualFolder(final File file) {
         return VIRTUAL_STORAGE_RECENTS.equals(file) ||
-                VIRTUAL_STORAGE_FAVOURITE.equals(file) ||
-                VIRTUAL_STORAGE_POPULAR.equals(file) ||
-                VIRTUAL_STORAGE_APP_DATA_PRIVATE.equals(file) ||
-                VIRTUAL_STORAGE_EMULATED.equals(file) ||
-                (file != null && VIRTUAL_STORAGE_ROOT.equals(file.getParentFile()) && !file.exists());
+               VIRTUAL_STORAGE_FAVOURITE.equals(file) ||
+               VIRTUAL_STORAGE_POPULAR.equals(file) ||
+               VIRTUAL_STORAGE_ROOT.equals(file);
     }
 
     public void showFileAfterNextLoad(final File file) {

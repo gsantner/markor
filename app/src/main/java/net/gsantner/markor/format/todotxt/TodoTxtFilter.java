@@ -78,8 +78,10 @@ public class TodoTxtFilter {
     private static List<SttFilterKey> getStringListKeys(final List<TodoTxtTask> tasks, final GsCallback.r1<List<String>, TodoTxtTask> keyGetter) {
         final List<String> all = new ArrayList<>();
         for (final TodoTxtTask task : tasks) {
-            final List<String> tKeys = keyGetter.callback(task);
-            all.addAll(tKeys == null || tKeys.isEmpty() ? Collections.singletonList(NULL_SENTINEL) : tKeys);
+            if (!task.isDone()) {
+                final List<String> tKeys = keyGetter.callback(task);
+                all.addAll(tKeys == null || tKeys.isEmpty() ? Collections.singletonList(NULL_SENTINEL) : tKeys);
+            }
         }
 
         final List<SttFilterKey> keys = new ArrayList<>();
@@ -108,7 +110,7 @@ public class TodoTxtFilter {
         return keys;
     }
 
-    // Convert a set of querty keys into a formatted query
+    // Convert a set of query keys into a formatted query
     public static String makeQuery(final Collection<String> keys, final boolean isAnd, final TodoTxtFilter.TYPE type) {
         final String prefix;
         final String nullKey;
