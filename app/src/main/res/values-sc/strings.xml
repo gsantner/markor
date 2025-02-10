@@ -464,4 +464,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="switch_case">Fùrria sas minùsculas e sas majùsculas (a es.: NoTa-&gt;nOtA)</string>
     <string name="capitalize_words">Paràulas cun sas initziales majùsculas (a es.: una nota-&gt;Una Nota)</string>
     <string name="capitalize_sentences">Frases cun sas initziales majùsculas (a es.: nota-&gt;Nota)</string>
+    <string name="folder_local">Cartella locale</string>
 </resources>
