@@ -410,8 +410,7 @@ public class MarkorDialogFactory {
         dopt.neutralButtonCallback = (dialog) -> {
             final String query = getQuery.callback();
             // Get save name
-            final DialogOptions doptSave = new DialogOptions();
-            baseConf(activity, doptSave);
+            final DialogOptions doptSave = baseConf(activity);
             doptSave.titleText = R.string.name;
             doptSave.searchHintText = R.string.empty_string;
             doptSave.callback = saveTitle -> {
@@ -485,7 +484,6 @@ public class MarkorDialogFactory {
         final String fg = activity.getString(R.string.foreground);
         final String bg = activity.getString(R.string.background);
 
-        baseConf(activity, dopt);
         dopt.callback = arg1 -> {
             int id = R.string.hexcode;
             if (fg.equals(arg1)) {
