@@ -269,6 +269,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             }
         }
 
+        _editorHolder.post(() -> _hlEditor.setMinHeight(_editorHolder.getHeight()));
         _editorHolder.invalidate();
         // Can affect layout so run before setting scroll position
         _hlEditor.recomputeHighlighting();
