@@ -67,6 +67,8 @@ public class AttachLinkOrFileDialog {
             return "link:%LINK%[%TITLE%]";
         } else if (textFormatId == FormatRegistry.FORMAT_TODOTXT) {
             return "%TITLE% link:%LINK%";
+        } else if (textFormatId == FormatRegistry.FORMAT_ORGMODE) {
+            return "[[%LINK%][%TITLE%]]";
         } else {
             return "<a href=\"%LINK%\">%TITLE%</a>";
         }
