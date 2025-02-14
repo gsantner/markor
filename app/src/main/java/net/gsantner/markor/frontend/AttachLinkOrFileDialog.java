@@ -54,7 +54,7 @@ public class AttachLinkOrFileDialog {
         } else if (textFormatId == FormatRegistry.FORMAT_ASCIIDOC) {
             return "image::%LINK%[\"%TITLE%\"]";
         } else if (textFormatId == FormatRegistry.FORMAT_ORGMODE) {
-            return "#+CAPTION: %TITLE%\n[[%LINK%]]";
+            return "#+CAPTION: %TITLE%\n[[file:%LINK%]]";
         } else {
             return "<img style='width:auto;max-height:256px;' alt='%TITLE%' src='%LINK%' />";
         }
@@ -70,7 +70,7 @@ public class AttachLinkOrFileDialog {
         } else if (textFormatId == FormatRegistry.FORMAT_TODOTXT) {
             return "%TITLE% link:%LINK%";
         } else if (textFormatId == FormatRegistry.FORMAT_ORGMODE) {
-            return "[[%LINK%][%TITLE%]]";
+            return "[[file:%LINK%][%TITLE%]]";
         } else {
             return "<a href=\"%LINK%\">%TITLE%</a>";
         }
