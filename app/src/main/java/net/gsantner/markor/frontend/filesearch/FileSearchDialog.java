@@ -148,7 +148,7 @@ public class FileSearchDialog {
 
         final GsCallback.a0 submit = () -> {
             final String query = searchEditText.getText().toString();
-            if (dialogCallback != null && !TextUtils.isEmpty(query)) {
+            if (dialogCallback != null) {
                 FileSearchEngine.SearchOptions opt = new FileSearchEngine.SearchOptions();
                 opt.query = query;
                 opt.isRegexQuery = regexCheckBox.isChecked();

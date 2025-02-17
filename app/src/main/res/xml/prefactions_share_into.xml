@@ -45,8 +45,8 @@
         android:title="@string/select_create_document" />
     <Preference
         android:icon="@drawable/ic_folder_gray_24dp"
-        android:key="@string/pref_key__select_create_directory"
-        android:title="@string/select_create_directory" />
+        android:key="@string/pref_key__select_create_folder"
+        android:title="@string/select_create_folder" />
     <Preference
         android:icon="@drawable/ic_star_black_24dp"
         android:key="@string/pref_key__favourite_files"

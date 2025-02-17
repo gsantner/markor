@@ -37,6 +37,7 @@ import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.format.GsTextUtils;
+import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
 import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
@@ -94,12 +95,14 @@ public class AttachLinkOrFileDialog {
         final EditText inputPathName = view.findViewById(R.id.ui__select_path_dialog__name);
         final EditText inputPathUrl = view.findViewById(R.id.ui__select_path_dialog__url);
         final Button buttonBrowseFilesystem = view.findViewById(R.id.ui__select_path_dialog__browse_filesystem);
-        final Button buttonSelectSpecial = view.findViewById(R.id.ui__select_path_dialog__select_special);
         final Button buttonSearch = view.findViewById(R.id.ui__select_path_dialog__search);
         final Button buttonPictureGallery = view.findViewById(R.id.ui__select_path_dialog__gallery_picture);
         final Button buttonPictureCamera = view.findViewById(R.id.ui__select_path_dialog__camera_picture);
         final Button buttonPictureEdit = view.findViewById(R.id.ui__select_path_dialog__edit_picture);
         final Button buttonAudioRecord = view.findViewById(R.id.ui__select_path_dialog__record_audio);
+
+        builder.setCancelable(true);
+        builder.setNegativeButton(android.R.string.cancel, (di, b) -> di.dismiss());
 
         // Extract filepath if using Markdown
         if (textFormatId == FormatRegistry.FORMAT_MARKDOWN) {
@@ -142,7 +145,6 @@ public class AttachLinkOrFileDialog {
             okType = InsertType.AUDIO_DIALOG;
         } else {
             dialog.setTitle(R.string.insert_link);
-            buttonSelectSpecial.setVisibility(View.VISIBLE);
             buttonSearch.setVisibility(View.VISIBLE);
             browseType = InsertType.LINK_BROWSE;
             okType = InsertType.LINK_DIALOG;
@@ -151,7 +153,6 @@ public class AttachLinkOrFileDialog {
         final String ok = activity.getString(android.R.string.ok);
         dialog.setButton(DialogInterface.BUTTON_POSITIVE, ok, (di, b) -> _insertItem.callback(okType));
         buttonBrowseFilesystem.setOnClickListener(v -> _insertItem.callback(browseType));
-        buttonSelectSpecial.setOnClickListener(v -> _insertItem.callback(InsertType.LINK_SPECIAL));
         buttonSearch.setOnClickListener(v -> _insertItem.callback(InsertType.LINK_SEARCH));
         buttonPictureCamera.setOnClickListener(b -> _insertItem.callback(InsertType.IMAGE_CAMERA));
         buttonPictureGallery.setOnClickListener(v -> _insertItem.callback(InsertType.IMAGE_GALLERY));
@@ -451,7 +452,8 @@ public class AttachLinkOrFileDialog {
 
                         @Override
                         public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
-                            dopt.rootFolder = currentFile.getParentFile();
+                            dopt.startFolder = currentFile.getParentFile();
+                            dopt.rootFolder = GsFileBrowserListAdapter.VIRTUAL_STORAGE_ROOT;
                         }
                     };
 
@@ -465,17 +467,9 @@ public class AttachLinkOrFileDialog {
                 break;
             }
             case LINK_SEARCH: {
-                final FileSearchDialog.Options options = new FileSearchDialog.Options();
-                options.enableSearchInContent = false;
-                options.searchLocation = R.string.notebook;
-                if (!FileSearchEngine.isSearchExecuting.get()) {
-                    FileSearchDialog.showDialog(activity, options, searchOptions -> {
-                        searchOptions.rootSearchDir = _appSettings.getNotebookDirectory();
-                        FileSearchEngine.queueFileSearch(activity, searchOptions, searchResults ->
-                                FileSearchResultSelectorDialog.showDialog(activity, searchResults, (file, line, isLong) ->
-                                        setFields.callback(file)));
-                    });
-                }
+                MarkorDialogFactory.showNotebookFilterDialog(activity, null, (file, l) -> {
+                    setFields.callback(file);
+                });
             }
             case LINK_DIALOG:
             case AUDIO_DIALOG:

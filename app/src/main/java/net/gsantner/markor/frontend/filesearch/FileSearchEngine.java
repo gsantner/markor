@@ -286,7 +286,7 @@ public class FileSearchEngine {
             if (_snackBar != null) {
                 _snackBar.dismiss();
             }
-            if (_callback != null) {
+            if (!_isCanceled && _callback != null) {
                 try {
                     _callback.callback(ret);
                 } catch (Exception ignored) {

@@ -495,33 +495,14 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     final GsSearchOrCustomTextDialog.DialogState _filterDialogState = new GsSearchOrCustomTextDialog.DialogState();
 
     private void executeFilterNotebookAction() {
-        final Activity activity = getActivity();
-        if (activity == null) {
-            return;
-        }
-
-        final FileSearchEngine.SearchOptions opt = new FileSearchEngine.SearchOptions();
-        opt.rootSearchDir = _appSettings.getNotebookDirectory();
-        opt.query = "";
-        opt.isRegexQuery = false;
-        opt.isCaseSensitiveQuery = false;
-        opt.isSearchInContent = false;
-        opt.isOnlyFirstContentMatch = false;
-        opt.ignoredDirectories = _appSettings.getFileSearchIgnorelist();
-        opt.maxSearchDepth = Integer.MAX_VALUE;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            opt.password = _appSettings.getDefaultPassword();
-        }
-
-        FileSearchEngine.queueFileSearch(activity, opt, searchResults
-                -> MarkorDialogFactory.showNotebookFilterDialog(activity, searchResults, _filterDialogState,
-                    (file, show) -> {
-                        if (show) {
-                            _filesystemViewerAdapter.showFile(file);
-                        } else {
-                            searchCallback(file, null, false);
-                        }
-                    }));
+        MarkorDialogFactory.showNotebookFilterDialog(getActivity(), _filterDialogState,
+            (file, show) -> {
+                if (show) {
+                    _filesystemViewerAdapter.showFile(file);
+                } else {
+                    searchCallback(file, null, false);
+                }
+            });
     }
 
     public void clearSelection() {

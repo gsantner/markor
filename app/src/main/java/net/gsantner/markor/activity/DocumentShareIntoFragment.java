@@ -49,7 +49,6 @@ import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.frontend.base.GsPreferenceFragmentBase;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
-import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
@@ -222,7 +221,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                         _linkCheckBox.setVisibility(hasLinks(_editor.getText()) ? View.VISIBLE : View.GONE)));
             }
 
-            findPreference(R.string.pref_key__select_create_directory).setVisible(intentFile != null);
+            findPreference(R.string.pref_key__select_create_folder).setVisible(intentFile != null);
             findPreference(R.string.pref_key__share_into__clipboard).setVisible(intentFile == null);
             findPreference(R.string.pref_key__share_into__calendar_event).setVisible(intentFile == null);
         }
@@ -523,7 +522,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                     createSelectNewDocument();
                     return true;
                 }
-                case R.string.pref_key__select_create_directory: {
+                case R.string.pref_key__select_create_folder: {
                     createSelectNewDirectory();
                     return true;
                 }

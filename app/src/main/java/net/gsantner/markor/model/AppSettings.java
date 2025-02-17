@@ -1015,21 +1015,16 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
 
     // Read all files in snippets folder with appropriate extension
     // Create a map of snippet title -> text
-    public List<Pair<String, File>> getSnippetFiles() {
-        final List<Pair<String, File>> texts = new ArrayList<>();
-        // Read all files in snippets folder with appropriate extension
-        // Create a map of snippet title -> text
-        final File[] files = getSnippetsDirectory().listFiles();
-        if (files != null) {
-            for (final File f : files) {
-                if (f.isFile() && f.canRead() && FormatRegistry.isFileSupported(f, true)) {
-                    texts.add(Pair.create(f.getName(), f));
-                }
+    public List<File> getSnippetFiles() {
+        final File dir = getSnippetsDirectory();
+        if (dir != null && dir.isDirectory()) {
+            final File[] files = dir.listFiles(f -> f.isFile() && GsFileUtils.isTextFile(f));
+            if (files != null) {
+                Arrays.sort(files, (f1, f2) -> f1.getName().compareToIgnoreCase(f2.getName()));
+                return Arrays.asList(files);
             }
         }
-
-        GsCollectionUtils.keySort(texts, p -> p.first);
-        return texts;
+        return Collections.emptyList();
     }
 
     public void setTypeTemplate(final @StringRes int format, final String template) {

@@ -963,20 +963,55 @@ public class MarkorDialogFactory {
     public static void showInsertSnippetDialog(final Activity activity, final GsCallback.a1<String> callback) {
         final DialogOptions dopt = baseConf(activity);
 
-        final List<Pair<String, File>> snippets = as().getSnippetFiles();
+        final List<File> snippets = as().getSnippetFiles();
 
-        dopt.data = GsCollectionUtils.map(snippets, p -> p.first);
+        dopt.data = GsCollectionUtils.map(snippets, File::getName);
         dopt.isSearchEnabled = true;
         dopt.titleText = R.string.insert_snippet;
         dopt.messageText = Html.fromHtml("<small><small>" + as().getSnippetsDirectory().getAbsolutePath() + "</small></small>");
+<<<<<<< Updated upstream
         dopt.positionCallback = (ind) -> callback.callback(GsFileUtils.readTextFileFast(snippets.get(ind.get(0)).second).first);
+=======
+        dopt.positionCallback = (ind) -> callback.callback(GsFileUtils.readTextFileFast(snippets.get(ind.get(0))).first);
+        dopt.neutralButtonText = R.string.folder;
+        dopt.neutralButtonCallback = (dialog) -> {
+            dialog.dismiss();
+            DocumentActivity.launch(activity, as().getSnippetsDirectory(), null, null);
+        };
+        dopt.longPressCallback = (pos) -> DocumentActivity.launch(activity, snippets.get(pos), null, null);
+>>>>>>> Stashed changes
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
     public static void showNotebookFilterDialog(
             final Activity activity,
+            @Nullable GsSearchOrCustomTextDialog.DialogState state,
+            final GsCallback.a2<File, Boolean> callback
+    ) {
+        final AppSettings as = ApplicationObject.settings();
+
+        final FileSearchEngine.SearchOptions opt = new FileSearchEngine.SearchOptions();
+        opt.rootSearchDir = as.getNotebookDirectory();
+        opt.query = "";
+        opt.isRegexQuery = false;
+        opt.isCaseSensitiveQuery = false;
+        opt.isSearchInContent = false;
+        opt.isOnlyFirstContentMatch = false;
+        opt.ignoredDirectories = as.getFileSearchIgnorelist();
+        opt.maxSearchDepth = Integer.MAX_VALUE;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            opt.password = as.getDefaultPassword();
+        }
+
+        FileSearchEngine.queueFileSearch(activity, opt, searchResults
+                -> MarkorDialogFactory.showSearchSelectorDialog(
+                        activity, searchResults, state, callback));
+    }
+
+    public static void showSearchSelectorDialog(
+            final Activity activity,
             final List<FileSearchEngine.FitFile> searchResults,
-            final GsSearchOrCustomTextDialog.DialogState state,
+            final @Nullable GsSearchOrCustomTextDialog.DialogState state,
             final GsCallback.a2<File, Boolean> openFileCallback
     ) {
         final DialogOptions dopt = baseConf(activity);
@@ -985,10 +1020,13 @@ public class MarkorDialogFactory {
         dopt.messageText = as.getNotebookDirectory().getPath();
         dopt.data = GsCollectionUtils.map(searchResults, f -> f.relPath);
         dopt.isSearchEnabled = true;
-        dopt.state.copyFrom(state);
         dopt.positionCallback = (posns) -> openFileCallback.callback(searchResults.get(posns.get(0)).file, false);
         dopt.longPressCallback = (pos) -> openFileCallback.callback(searchResults.get(pos).file, true);
-        dopt.dismissCallback = (dialog) -> state.copyFrom(dopt.state);
+
+        if (state != null) {
+            dopt.state.copyFrom(state);
+            dopt.dismissCallback = (dialog) -> state.copyFrom(dopt.state);
+        }
 
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
