@@ -28,6 +28,7 @@
     <uses-feature
         android:name="android.hardware.touchscreen"
         android:required="false" />
+
     <uses-feature
         android:name="android.hardware.type.pc"
         android:required="false" />
@@ -61,23 +62,24 @@
             android:name=".activity.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:launchMode="singleTask"
-            android:taskAffinity=".activity.MainActivity"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateUnchanged|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activity.SettingsActivity"
             android:label="@string/settings"
             android:parentActivityName=".activity.MainActivity" />
+
         <activity
             android:name=".activity.StoragePermissionActivity"
             android:label="@string/permissions"
             android:parentActivityName=".activity.MainActivity" />
+
         <activity
             android:name=".activity.ActionButtonSettingsActivity"
             android:parentActivityName=".activity.SettingsActivity">
@@ -85,6 +87,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.SettingsActivity" />
         </activity>
+
         <activity
             android:name="other.writeily.widget.WrWidgetConfigure"
             android:exported="true">
@@ -99,7 +102,6 @@
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
-
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/markor_widget" />
@@ -115,7 +117,6 @@
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
-
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/todo_widget" />
@@ -141,14 +142,12 @@
             android:exported="true"
             android:icon="@drawable/ic_launcher_todo"
             android:label="@string/todo"
-            android:noHistory="true"
-            android:taskAffinity=".activity.MainActivity">
+            android:noHistory="true">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-
 
         <activity
             android:name=".activity.IntroActivity"
@@ -160,57 +159,54 @@
             android:exported="true"
             android:icon="@drawable/ic_launcher_quicknote"
             android:label="@string/quicknote"
-            android:noHistory="true"
-            android:taskAffinity=".activity.MainActivity">
+            android:noHistory="true">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activity.openeditor.OpenShareIntoActivity"
             android:enabled="false"
             android:exported="true"
             android:icon="@drawable/ic_launcher_share_into"
             android:label="@string/share_into"
-            android:noHistory="true"
-            android:taskAffinity=".activity.MainActivity">
+            android:noHistory="true">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activity.openeditor.OpenFromShortcutOrWidgetActivity"
             android:launchMode="standard"
             android:theme="@android:style/Theme.NoDisplay" />
+
         <activity
             android:name=".activity.DocumentActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:launchMode="standard"
             android:maxRecents="5"
-            android:parentActivityName=".activity.MainActivity"
-            android:taskAffinity=".activity.DocumentActivity"
             android:theme="@style/AppTheme.Unified.StartupFlash"
             android:windowSoftInputMode="stateUnchanged|adjustResize"
             tools:targetApi="lollipop">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="net.gsantner.markor.activity.MainActivity" />
-
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
+                <action android:name="com.google.android.gm.action.AUTO_SEND" />
+                <action android:name="com.google.android.gms.actions.CREATE_NOTE" />
 
                 <category android:name="android.intent.category.DEFAULT" />
-
-                <action android:name="com.google.android.gm.action.AUTO_SEND" />
                 <category android:name="com.google.android.voicesearch.SELF_NOTE" />
-
-                <action android:name="com.google.android.gms.actions.CREATE_NOTE" />
 
                 <data android:mimeType="text/plain" />
                 <data android:mimeType="text/*" />
+                <data android:mimeType="*/*" />
             </intent-filter>
 
             <intent-filter tools:ignore="AppLinkUrlError">
