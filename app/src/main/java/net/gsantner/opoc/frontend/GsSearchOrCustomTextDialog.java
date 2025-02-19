@@ -105,6 +105,9 @@ public class GsSearchOrCustomTextDialog {
         public boolean showCountInOkButton = true;
         public GsCallback.a1<Set<Integer>> selectionChangedCallback = null;
 
+        // Search function (constraint, text, index) -> boolean
+        public GsCallback.b3<String, CharSequence, Integer> searchFunction = GsSearchOrCustomTextDialog::standardSearch;
+
         public List<? extends CharSequence> data = null;
         public List<? extends CharSequence> highlightData = null;
         public List<Integer> listItemLayouts = null;
@@ -117,11 +120,10 @@ public class GsSearchOrCustomTextDialog {
         public int dialogWidthDp = WindowManager.LayoutParams.MATCH_PARENT;
         public int dialogHeightDp = WindowManager.LayoutParams.WRAP_CONTENT;
         public int searchInputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS;
-        public String extraFilter = null;
+        public String dataFilter = null; // Regex pattern to filter data
         public GsCallback.a1<Spannable> highlighter = null;
         public GsCallback.a1<AlertDialog> neutralButtonCallback = null;
         public GsCallback.a1<DialogInterface> dismissCallback = null;
-        public GsCallback.b2<CharSequence, CharSequence> searchFunction = GsSearchOrCustomTextDialog::standardSearch;
         public @Nullable InputFilter searchInputFilter = null;
 
         @ColorInt
@@ -196,7 +198,7 @@ public class GsSearchOrCustomTextDialog {
             _filteredItems = new ArrayList<>();
             _inflater = LayoutInflater.from(context);
             _dopt = dopt;
-            _extraPattern = (_dopt.extraFilter == null ? null : Pattern.compile(_dopt.extraFilter).matcher(""));
+            _extraPattern = (_dopt.dataFilter == null ? null : Pattern.compile(_dopt.dataFilter).matcher(""));
             _selectedItems = new HashSet<>(_dopt.preSelected != null ? _dopt.preSelected : Collections.emptyList());
             _layoutHeight = GsContextUtils.instance.convertDpToPx(context, 36);
         }
@@ -257,21 +259,21 @@ public class GsSearchOrCustomTextDialog {
             return textView;
         }
 
-        public void filter(final CharSequence constraint) {
-            _lastConstraint = constraint.toString();
-            _filteredItems.clear();
+        public void filter(final CharSequence searchText) {
+            _lastConstraint = searchText.toString().trim();
 
             if (_dopt.data != null) {
-                final boolean emptySearch = constraint.length() == 0;
+                _filteredItems.clear();
+                final boolean emptySearch = _lastConstraint.isEmpty();
                 for (int i = 0; i < _dopt.data.size(); i++) {
-                    final String str = _dopt.data.get(i).toString();
-                    final boolean matchExtra = (_extraPattern == null) || _extraPattern.reset(str).find();
-                    if (matchExtra && (emptySearch || _dopt.searchFunction.callback(constraint, str))) {
+                    final CharSequence line = _dopt.data.get(i);
+                    final boolean matchExtra = (_extraPattern == null) || _extraPattern.reset(line).find();
+                    if (matchExtra && (emptySearch || _dopt.searchFunction.callback(_lastConstraint, line, i))) {
                         _filteredItems.add(i);
                     }
                 }
+                notifyDataSetChanged();
             }
-            notifyDataSetChanged();
         }
 
         public void update() {
@@ -284,9 +286,9 @@ public class GsSearchOrCustomTextDialog {
         return list != null ? (Adapter) list.getAdapter() : null;
     }
 
-    public static boolean standardSearch(final CharSequence constraint, final CharSequence text) {
+    public static boolean standardSearch(final String constraint, final CharSequence text, final Integer index) {
         final Locale locale = Locale.getDefault();
-        return text.toString().toLowerCase(locale).contains(constraint.toString().toLowerCase(locale));
+        return text.toString().toLowerCase(locale).contains(constraint.toLowerCase(locale));
     }
 
     public static void showMultiChoiceDialogWithSearchFilterUI(final Activity activity, final DialogOptions dopt) {

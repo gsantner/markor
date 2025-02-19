@@ -208,7 +208,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         final boolean isFile = displayFile.isFile();
 
         String titleText = displayFile.getName();
-        if (isCurrentFolderVirtual() && "index.html".equals(titleText)) {
+        if (isVirtualFolder(_currentFolder) && "index.html".equals(titleText)) {
             final String currentFolderName = _currentFolder != null ? _currentFolder.getName() : "";
             titleText += " [" + currentFolderName + "]";
         }
@@ -781,7 +781,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
     public boolean accept(File file) {
         file = GsCollectionUtils.getOrDefault(_virtualMapping, file, file);
-        final boolean isDirectory = file.isDirectory() || isVirtualFolder(file);
+        final boolean isDirectory = GsFileUtils.isDirectory(file);
         final File parent = file.getParentFile();
         final String name = file.getName().toLowerCase();
         final boolean filterYes = isDirectory || _dopt.fileOverallFilter == null || _dopt.fileOverallFilter.callback(_context, file);
@@ -880,6 +880,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         }
     }
 
+    // Is the folder a virtual folder - does it contain links or other special items
     public static boolean isVirtualFolder(final File file) {
         return VIRTUAL_STORAGE_RECENTS.equals(file) ||
                 VIRTUAL_STORAGE_FAVOURITE.equals(file) ||

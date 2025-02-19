@@ -266,7 +266,7 @@ public class MarkorDialogFactory {
             dopt2.titleText = R.string.advanced_filtering;
             dopt2.messageText = Html.fromHtml(activity.getString(R.string.advanced_filtering_help));
             final String[] queryHolder = new String[1];
-            dopt2.searchFunction = (query, line) -> {
+            dopt2.searchFunction = (query, line, index) -> {
                 queryHolder[0] = query.toString();
                 return TodoTxtFilter.isMatchQuery(new TodoTxtTask(line), query);
             };
@@ -448,7 +448,7 @@ public class MarkorDialogFactory {
         }
         dopt.data = lines;
         dopt.titleText = R.string.search;
-        dopt.extraFilter = "[^\\s]+"; // Line must have one or more non-whitespace to display
+        dopt.dataFilter = "[^\\s]+"; // Line must have one or more non-whitespace to display
         dopt.selectionMode = DialogOptions.SelectionMode.MULTIPLE;
         dopt.highlighter = as().isHighlightingEnabled() ? getSttHighlighter() : null;
         dopt.positionCallback = (posns) -> {
@@ -749,7 +749,7 @@ public class MarkorDialogFactory {
         final DialogOptions dopt = baseConf(activity);
         final Editable edit = text.getText();
         dopt.data = Arrays.asList(edit.toString().split("\n", -1)); // Do not ignore empty lines
-        dopt.extraFilter = "[^\\s]+"; // Line must have one or more non-whitespace to display
+        dopt.dataFilter = "[^\\s]+"; // Line must have one or more non-whitespace to display
         dopt.titleText = R.string.search_documents;
         dopt.searchHintText = R.string.search;
         dopt.neutralButtonCallback = (dialog) -> {
@@ -1003,32 +1003,26 @@ public class MarkorDialogFactory {
             opt.password = as.getDefaultPassword();
         }
 
-        FileSearchEngine.queueFileSearch(activity, opt, searchResults
-                -> MarkorDialogFactory.showSearchSelectorDialog(
-                        activity, searchResults, state, callback));
-    }
+        FileSearchEngine.queueFileSearch(activity, opt, searchResults -> {
+            final DialogOptions dopt = baseConf(activity);
+            dopt.titleText = R.string.notebook;
+            dopt.messageText = as.getNotebookDirectory().getPath();
+            dopt.data = GsCollectionUtils.map(searchResults, f -> f.relPath);
+            dopt.isSearchEnabled = true;
+            dopt.positionCallback = (posns) -> callback.callback(searchResults.get(posns.get(0)).file, false);
+            dopt.longPressCallback = (pos) -> callback.callback(searchResults.get(pos).file, true);
+            dopt.searchFunction = (contraint, str, index) -> {
+                final String name = searchResults.get(index).file.getName();
+                return name.toLowerCase().contains(contraint.toString().toLowerCase());
+            };
 
-    public static void showSearchSelectorDialog(
-            final Activity activity,
-            final List<FileSearchEngine.FitFile> searchResults,
-            final @Nullable GsSearchOrCustomTextDialog.DialogState state,
-            final GsCallback.a2<File, Boolean> openFileCallback
-    ) {
-        final DialogOptions dopt = baseConf(activity);
-        final AppSettings as = ApplicationObject.settings();
-        dopt.titleText = R.string.notebook;
-        dopt.messageText = as.getNotebookDirectory().getPath();
-        dopt.data = GsCollectionUtils.map(searchResults, f -> f.relPath);
-        dopt.isSearchEnabled = true;
-        dopt.positionCallback = (posns) -> openFileCallback.callback(searchResults.get(posns.get(0)).file, false);
-        dopt.longPressCallback = (pos) -> openFileCallback.callback(searchResults.get(pos).file, true);
+            if (state != null) {
+                dopt.state.copyFrom(state);
+                dopt.dismissCallback = (dialog) -> state.copyFrom(dopt.state);
+            }
 
-        if (state != null) {
-            dopt.state.copyFrom(state);
-            dopt.dismissCallback = (dialog) -> state.copyFrom(dopt.state);
-        }
-
-        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+            GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+        });
     }
 
     public static void showFolderSortDialog(

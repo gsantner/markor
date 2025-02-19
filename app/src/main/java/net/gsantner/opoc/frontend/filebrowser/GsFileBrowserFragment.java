@@ -338,7 +338,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     @Override
     public void onResume() {
         super.onResume();
-        _dopt.listener.onFsViewerConfig(_dopt);
         final File folder = getCurrentFolder();
         final Activity activity = getActivity();
         if (_reloadRequiredOnResume && isVisible() && folder != null && activity != null) {

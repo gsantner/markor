@@ -88,9 +88,8 @@ public class DocumentActivity extends MarkorBaseActivity {
         final AppSettings as = ApplicationObject.settings();
 
         final Intent intent;
-        if (GsFileBrowserListAdapter.isVirtualFolder(file) || file.isDirectory()) {
+        if (GsFileUtils.isDirectory(file)) {
             intent = new Intent(activity, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
         } else {
             intent = new Intent(activity, DocumentActivity.class);
 
