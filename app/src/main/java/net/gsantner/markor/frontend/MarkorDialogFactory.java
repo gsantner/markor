@@ -41,6 +41,7 @@ import androidx.core.content.ContextCompat;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
+import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.format.ActionButtonBase;
 import net.gsantner.markor.format.todotxt.TodoTxtBasicSyntaxHighlighter;
 import net.gsantner.markor.format.todotxt.TodoTxtFilter;
@@ -969,9 +970,6 @@ public class MarkorDialogFactory {
         dopt.isSearchEnabled = true;
         dopt.titleText = R.string.insert_snippet;
         dopt.messageText = Html.fromHtml("<small><small>" + as().getSnippetsDirectory().getAbsolutePath() + "</small></small>");
-<<<<<<< Updated upstream
-        dopt.positionCallback = (ind) -> callback.callback(GsFileUtils.readTextFileFast(snippets.get(ind.get(0)).second).first);
-=======
         dopt.positionCallback = (ind) -> callback.callback(GsFileUtils.readTextFileFast(snippets.get(ind.get(0))).first);
         dopt.neutralButtonText = R.string.folder;
         dopt.neutralButtonCallback = (dialog) -> {
@@ -979,7 +977,6 @@ public class MarkorDialogFactory {
             DocumentActivity.launch(activity, as().getSnippetsDirectory(), null, null);
         };
         dopt.longPressCallback = (pos) -> DocumentActivity.launch(activity, snippets.get(pos), null, null);
->>>>>>> Stashed changes
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
