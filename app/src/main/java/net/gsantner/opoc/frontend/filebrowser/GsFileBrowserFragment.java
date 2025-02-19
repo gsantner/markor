@@ -191,6 +191,11 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         }
 
         _dopt.sortOrder = _appSettings.getFolderSortOrder(newFolder);
+
+        final Context context = getContext();
+        if (context != null) {
+            MarkorFileBrowserFactory.updateFsViewerOpts(_dopt, context, _appSettings);
+        }
     }
 
     @Override
@@ -219,11 +224,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
         if (_callback != null) {
             _callback.onFsViewerConfig(dopt);
-        }
-
-        final Context context = getContext();
-        if (context != null) {
-            MarkorFileBrowserFactory.updateFsViewerOpts(dopt, context, _appSettings);
         }
     }
 
@@ -338,6 +338,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     @Override
     public void onResume() {
         super.onResume();
+        _dopt.listener.onFsViewerConfig(_dopt);
         final File folder = getCurrentFolder();
         final Activity activity = getActivity();
         if (_reloadRequiredOnResume && isVisible() && folder != null && activity != null) {

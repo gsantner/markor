@@ -154,22 +154,18 @@ public class GsFileBrowserOptions {
 
         @Override
         public void onFsViewerConfig(Options dopt) {
-
         }
 
         @Override
         public void onFsViewerDoUiUpdate(GsFileBrowserListAdapter adapter) {
-
         }
 
         @Override
         public void onFsViewerItemLongPressed(File file, boolean doSelectMultiple) {
-
         }
 
         @Override
         public void onFsViewerFolderChange(File newFolder) {
-
         }
     }
 }

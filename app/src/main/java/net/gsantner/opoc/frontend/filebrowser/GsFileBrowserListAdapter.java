@@ -208,7 +208,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         final boolean isFile = displayFile.isFile();
 
         String titleText = displayFile.getName();
-        if (isVirtualFolder(_currentFolder) && "index.html".equals(titleText)) {
+        if (isCurrentFolderVirtual() && "index.html".equals(titleText)) {
             final String currentFolderName = _currentFolder != null ? _currentFolder.getName() : "";
             titleText += " [" + currentFolderName + "]";
         }
@@ -341,10 +341,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
     public void setCurrentFolder(final File folder) {
         loadFolder(folder, GsFileUtils.isChild(_currentFolder, folder) ? folder : null);
-    }
-
-    public boolean isCurrentFolderVirtual() {
-        return isVirtualFolder(_currentFolder);
     }
 
     public static class TagContainer {
@@ -667,6 +663,10 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             _currentSelection.clear();
         }
 
+        if (VIRTUAL_STORAGE_ROOT.equals(_currentFolder)) {
+            updateVirtualFolders();
+        }
+
         if (_currentFolder != null) {
             final File toShow = show == null ? _fileToShowAfterNextLoad : show;
             _fileToShowAfterNextLoad = null;
@@ -880,14 +880,16 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         }
     }
 
+    public boolean isCurrentFolderVirtual() {
+        return isVirtualFolder(_currentFolder);
+    }
+
     // Is the folder a virtual folder - does it contain links or other special items
     public static boolean isVirtualFolder(final File file) {
         return VIRTUAL_STORAGE_RECENTS.equals(file) ||
-                VIRTUAL_STORAGE_FAVOURITE.equals(file) ||
-                VIRTUAL_STORAGE_POPULAR.equals(file) ||
-                VIRTUAL_STORAGE_APP_DATA_PRIVATE.equals(file) ||
-                VIRTUAL_STORAGE_EMULATED.equals(file) ||
-                (file != null && VIRTUAL_STORAGE_ROOT.equals(file.getParentFile()) && !file.exists());
+               VIRTUAL_STORAGE_FAVOURITE.equals(file) ||
+               VIRTUAL_STORAGE_POPULAR.equals(file) ||
+               VIRTUAL_STORAGE_ROOT.equals(file);
     }
 
     public void showFileAfterNextLoad(final File file) {
