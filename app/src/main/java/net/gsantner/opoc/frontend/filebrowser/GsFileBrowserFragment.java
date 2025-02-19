@@ -185,12 +185,14 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     }
 
     @Override
-    public void onFsViewerFolderChange(final File newFolder) {
+    public void onFsViewerFolderLoad(final File oldFolder, final File newFolder) {
         if (_callback != null) {
-            _callback.onFsViewerFolderChange(newFolder);
+            _callback.onFsViewerFolderLoad(oldFolder, newFolder);
         }
 
-        _dopt.sortOrder = _appSettings.getFolderSortOrder(newFolder);
+        if (newFolder != null && !newFolder.equals(oldFolder)) {
+            _dopt.sortOrder = _appSettings.getFolderSortOrder(newFolder);
+        }
 
         final Context context = getContext();
         if (context != null) {

@@ -649,6 +649,8 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             _folderScrollMap.put(_currentFolder, _layoutManager.onSaveInstanceState());
         }
 
+        // Update current folder
+        final File oldFolder = _currentFolder;
         if (GO_BACK_SIGNIFIER == folder) {
             _currentFolder = _backStack.pop();
         } else {
@@ -659,9 +661,10 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         }
 
         if (folderChanged) {
-            _dopt.listener.onFsViewerFolderChange(_currentFolder);
             _currentSelection.clear();
         }
+
+        _dopt.listener.onFsViewerFolderLoad(oldFolder, _currentFolder);
 
         if (VIRTUAL_STORAGE_ROOT.equals(_currentFolder)) {
             updateVirtualFolders();
