@@ -14,6 +14,7 @@ import static android.view.WindowManager.LayoutParams.FLAG_SECURE;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
@@ -21,6 +22,8 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import net.gsantner.opoc.model.GsSharedPreferencesPropertyBackend;
 import net.gsantner.opoc.util.GsContextUtils;
@@ -100,6 +103,32 @@ public abstract class GsActivityBase<AS extends GsSharedPreferencesPropertyBacke
      * This will be called when this activity gets the first time visible
      */
     public void onActivityFirstTimeVisible() {
+        // Setup the call to toolbar click events
+        final Toolbar toolbar = getToolbar();
+        if (toolbar != null) {
+            toolbar.setOnClickListener(this::onToolbarClick);
+            toolbar.setOnLongClickListener(this::onToolbarLongClick);
+        }
+    }
+
+    private void onToolbarClick(final View v) {
+        final FragmentManager fm = getSupportFragmentManager();
+        for (final Fragment fragment : fm.getFragments()) {
+            if (fragment instanceof GsFragmentBase && fragment.isVisible() && fragment.isResumed()) {
+                ((GsFragmentBase<?, ?>) fragment).onToolbarClicked(v);
+                break;
+            }
+        }
+    }
+
+    private boolean onToolbarLongClick(final View v) {
+        final FragmentManager fm = getSupportFragmentManager();
+        for (final Fragment fragment : fm.getFragments()) {
+            if (fragment instanceof GsFragmentBase && fragment.isVisible() && fragment.isResumed()) {
+                return ((GsFragmentBase<?, ?>) fragment).onToolbarLongClicked(v);
+            }
+        }
+        return false;
     }
 
     @ColorInt
@@ -146,12 +175,19 @@ public abstract class GsActivityBase<AS extends GsSharedPreferencesPropertyBacke
         }
     }
 
-    public Toolbar getToolbar() {
+    private Toolbar getToolbar() {
         try {
             final int toolbarResId = GsContextUtils.instance.getResId(this, GsContextUtils.ResType.ID, "toolbar");
             return findViewById(toolbarResId);
         } catch (Exception ignored) {
             return null;
+        }
+    }
+
+    public void setToolbarText(final CharSequence text) {
+        final Toolbar toolbar = getToolbar();
+        if (toolbar != null) {
+            toolbar.setTitle(text);
         }
     }
 }

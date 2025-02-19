@@ -22,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import net.gsantner.opoc.format.GsTextUtils;
+import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -969,5 +970,13 @@ public class GsFileUtils {
         } catch (NullPointerException e) {
             return "";
         }
+    }
+
+    public static boolean isDirectory(final File file) {
+        return file != null && (GsFileBrowserListAdapter.isVirtualFolder(file) || file.isDirectory());
+    }
+
+    public static boolean exists(final File file) {
+        return file != null && (GsFileBrowserListAdapter.isVirtualFolder(file) || file.exists());
     }
 }
