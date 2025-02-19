@@ -190,14 +190,11 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             _callback.onFsViewerFolderLoad(oldFolder, newFolder);
         }
 
-        if (newFolder != null && !newFolder.equals(oldFolder)) {
-            _dopt.sortOrder = _appSettings.getFolderSortOrder(newFolder);
-        }
-
-        final Context context = getContext();
-        if (context != null) {
-            MarkorFileBrowserFactory.updateFsViewerOpts(_dopt, context, _appSettings);
-        }
+        _dopt.sortOrder = _appSettings.getFolderSortOrder(newFolder);
+        _dopt.favouriteFiles = _appSettings.getFavouriteFiles();
+        _dopt.recentFiles = _appSettings.getRecentFiles();
+        _dopt.popularFiles = _appSettings.getPopularFiles();
+        _dopt.descriptionFormat = _appSettings.getString(R.string.pref_key__file_description_format, "");
     }
 
     @Override
