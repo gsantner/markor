@@ -22,22 +22,18 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
-import java.util.Stack;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Matcher;
@@ -77,7 +73,6 @@ public class FileSearchEngine {
         public int maxSearchDepth;
         public List<String> ignoredDirectories;
         public boolean isShowMatchPreview = true;
-        public boolean isShowResultOnCancel = true;
         public char[] password = new char[0];
         public int message = 0;
     }
@@ -130,7 +125,6 @@ public class FileSearchEngine {
 
         private Snackbar _snackBar;
         private Integer _countCheckedFiles = 0;
-        private boolean _isCanceled = false;
         private final List<FitFile> _result = new ArrayList<>();
         private final Set<Matcher> _ignoredRegexDirs = new HashSet<>();
         private final Set<String> _ignoredExactDirs = new HashSet<>();
@@ -187,7 +181,7 @@ public class FileSearchEngine {
                         })
                         .setAction(android.R.string.cancel, (v) -> {
                             _snackBar.dismiss();
-                            preCancel();
+                            cancel(true);
                         })
                         .show();
             } catch (Exception ignored) {
@@ -197,23 +191,19 @@ public class FileSearchEngine {
 
         @Override
         protected List<FitFile> doInBackground(final Void... ignored) {
-            final Stack<Pair<File, Integer>> stack = new Stack<>();
+            final ArrayDeque<Pair<File, Integer>> stack = new ArrayDeque<>();
             stack.add(Pair.create(_config.rootSearchDir, 0));
             final int trimLength = _config.rootSearchDir.getAbsolutePath().length() + 1;
 
-            while (!stack.isEmpty() && !isCancelled() && !_isCanceled) {
-                final Pair<File, Integer> p = stack.pop();
-                final int depth = p.second;
-                final File dir = p.first;
+            Pair<File, Integer> pair;
+            while ((pair = stack.pollLast()) != null && !isCancelled()) {
+                final int depth = pair.second;
+                final File dir = pair.first;
 
                 if (depth < _config.maxSearchDepth && dir.canRead()) {
-                    handleDirectory(dir, trimLength, depth, stack);
+                    handleDirectory(dir, trimLength, depth, stack::addLast);
                     publishProgress(stack.size(), depth, _result.size(), _countCheckedFiles);
                 }
-            }
-
-            if (_isCanceled && _result.isEmpty()) {
-                cancel(true);
             }
 
             GsCollectionUtils.keySort(_result, f -> f.relPath.toLowerCase());
@@ -225,7 +215,7 @@ public class FileSearchEngine {
                 final File dir,
                 final int trimSize,
                 final int depth,
-                final Stack<Pair<File, Integer>> stack
+                final GsCallback.a1<Pair<File, Integer>> pushToStack
         ) {
 
             final File[] files = dir.listFiles();
@@ -238,7 +228,7 @@ public class FileSearchEngine {
 
             for (final File file : files) {
 
-                if (_isCanceled || isCancelled()) {
+                if (isCancelled()) {
                     return;
                 }
 
@@ -246,8 +236,6 @@ public class FileSearchEngine {
 
                 if (!isIgnored(name)) {
 
-                    // We get the canonical file for a directory in order to check for symlinks
-                    // We don't for files (a) symlinks are ok and (b) it's expensive
                     final boolean isDir = file.isDirectory();
                     final String relPath = file.getAbsolutePath().substring(trimSize);
 
@@ -263,8 +251,9 @@ public class FileSearchEngine {
                         }
                     }
 
-                    if (isDir && depth < _config.maxSearchDepth && canTraverse(file, dir)) {
-                        stack.add(Pair.create(file, depth + 1));
+                    // Only check for symbolic link directories
+                    if (isDir && depth < _config.maxSearchDepth && !GsFileUtils.isSymbolicLink(file)) {
+                        pushToStack.callback(Pair.create(file, depth + 1));
                     }
                 }
             }
@@ -286,7 +275,7 @@ public class FileSearchEngine {
             if (_snackBar != null) {
                 _snackBar.dismiss();
             }
-            if (!_isCanceled && _callback != null) {
+            if (!isCancelled() && _callback != null) {
                 try {
                     _callback.callback(ret);
                 } catch (Exception ignored) {
@@ -330,24 +319,6 @@ public class FileSearchEngine {
             }
         }
 
-        private boolean canTraverse(final File file, final File parent) {
-            try {
-                final File actualParent = file.getCanonicalFile().getParentFile();
-                return actualParent != null && actualParent.equals(parent);
-            } catch (IOException | NullPointerException ignored) {
-                return false;
-            }
-        }
-
-        private void preCancel() {
-            if (_config.isShowResultOnCancel) {
-                _isCanceled = true;
-                return;
-            }
-
-            cancel(true);
-        }
-
         // Match line and return preview string. Preview will be null if no match found
         private String matchLine(final String line) {
             final String preparedLine = _config.isCaseSensitiveQuery ? line : line.toLowerCase();
@@ -388,7 +359,7 @@ public class FileSearchEngine {
             try (final BufferedReader br = new BufferedReader(new InputStreamReader(getInputStream(file)))) {
                 int lineNumber = 0;
                 for (String line; (line = br.readLine()) != null; ) {
-                    if (isCancelled() || _isCanceled) {
+                    if (isCancelled()) {
                         break;
                     }
                     line = matchLine(line);

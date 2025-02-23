@@ -979,4 +979,18 @@ public class GsFileUtils {
     public static boolean exists(final File file) {
         return file != null && (GsFileBrowserListAdapter.isVirtualFolder(file) || file.exists());
     }
+
+    public static boolean isSymbolicLink(final File file) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            return Files.isSymbolicLink(file.toPath());
+        } else {
+            try {
+                final File actualParent = file.getCanonicalFile().getParentFile();
+                final File parent = file.getParentFile();
+                return actualParent == null || !actualParent.equals(parent);
+            } catch (IOException | NullPointerException ignored) {
+                return false;
+            }
+        }
+    }
 }
