@@ -465,7 +465,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                 @Override
                 public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
                     dopt.rootFolder = GsFileBrowserListAdapter.VIRTUAL_STORAGE_ROOT;
-                    dopt.startFolder = intentFile.isDirectory() ? intentFile : null;
+                    dopt.startFolder = GsFileUtils.isDirectory(intentFile) ? intentFile : null;
                     dopt.okButtonText = R.string.create_new_document;
                     dopt.okButtonEnable = true;
                     dopt.dismissAfterCallback = false;
