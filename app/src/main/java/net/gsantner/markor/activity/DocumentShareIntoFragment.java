@@ -39,6 +39,7 @@ import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.format.plaintext.PlaintextSyntaxHighlighter;
 import net.gsantner.markor.format.todotxt.TodoTxtTask;
 import net.gsantner.markor.frontend.AttachLinkOrFileDialog;
+import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.NewFileDialog;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.frontend.textview.HighlightingEditor;
@@ -50,6 +51,7 @@ import net.gsantner.opoc.frontend.base.GsPreferenceFragmentBase;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
 import net.gsantner.opoc.util.GsFileUtils;
+import net.gsantner.opoc.wrapper.GsCallback;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
 import java.io.File;
@@ -180,6 +182,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
     public static class ShareIntoImportOptionsFragment extends GsPreferenceFragmentBase<AppSettings> {
         public static final String TAG = "ShareIntoImportOptionsFragment";
         private File intentFile;
+        private File mostRecentFile;
 
         private EditText _editor = null;
         private CheckBox _linkCheckBox = null;
@@ -221,9 +224,20 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                         _linkCheckBox.setVisibility(hasLinks(_editor.getText()) ? View.VISIBLE : View.GONE)));
             }
 
+            // Set most recent file (recent files are sorted)
+            for (final File file: _appSettings.getRecentFiles()) {
+                if (file.isFile() && GsFileUtils.isTextFile(file)) {
+                    mostRecentFile = file;
+                    break;
+                }
+            }
+
             findPreference(R.string.pref_key__select_create_folder).setVisible(intentFile != null);
             findPreference(R.string.pref_key__share_into__clipboard).setVisible(intentFile == null);
             findPreference(R.string.pref_key__share_into__calendar_event).setVisible(intentFile == null);
+            final Preference mrd = findPreference(R.string.pref_key__share_into__most_recent_document);
+            mrd.setVisible(mostRecentFile != null);
+            mrd.setTitle(mostRecentFile != null ? mostRecentFile.getName() : "");
         }
 
         private boolean shareAsLink() {
@@ -389,42 +403,6 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             return TextUtils.join("", parts);
         }
 
-        private void showAppendDialog(int keyId) {
-            final File startFolder;
-            switch (keyId) {
-                case R.string.pref_key__favourite_files: {
-                    startFolder = GsFileBrowserListAdapter.VIRTUAL_STORAGE_FAVOURITE;
-                    break;
-                }
-                case R.string.pref_key__popular_documents: {
-                    startFolder = GsFileBrowserListAdapter.VIRTUAL_STORAGE_POPULAR;
-                    break;
-                }
-                case R.string.pref_key__recent_documents: {
-                    startFolder = GsFileBrowserListAdapter.VIRTUAL_STORAGE_RECENTS;
-                    break;
-                }
-                default: {
-                    startFolder = _appSettings.getNotebookDirectory();
-                    break;
-                }
-            }
-
-            MarkorFileBrowserFactory.showFileDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
-                @Override
-                public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
-                    dopt.rootFolder = startFolder;
-                    dopt.newDirButtonEnable = false;
-                }
-
-                @Override
-                public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
-                    attachOrCopyAndClose(file, true);
-                }
-
-            }, getParentFragmentManager(), getActivity(), MarkorFileBrowserFactory.IsMimeText);
-        }
-
         private void createSelectNewDirectory() {
             MarkorFileBrowserFactory.showFolderDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
                 GsFileBrowserOptions.Options _dopt = null;
@@ -495,6 +473,26 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             }, getParentFragmentManager(), getActivity(), MarkorFileBrowserFactory.IsMimeText);
         }
 
+        private void searchForTarget() {
+            final Context context = getContext();
+            if (context == null) {
+                return;
+            }
+
+            final GsCallback.b1<File> filter = f -> (intentFile != null && f.isDirectory()) || GsFileUtils.isTextFile(f);
+
+            MarkorDialogFactory.showNotebookFilterDialog(getActivity(), null, filter, (file, isLong) -> {
+                if (file.isDirectory()) {
+                    final File local = GsFileUtils.findNonConflictingDest(file, intentFile.getName());
+                    if (GsFileUtils.copyFile(intentFile, local)) {
+                        MainActivity.launch(getActivity(), local, true);
+                    }
+                } else {
+                    attachOrCopyAndClose(file, true);
+                }
+            });
+        }
+
         private void showInDocumentActivity(final Document document) {
             if (getActivity() instanceof DocumentActivity) {
                 DocumentActivity a = (DocumentActivity) getActivity();
@@ -526,10 +524,8 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                     createSelectNewDirectory();
                     return true;
                 }
-                case R.string.pref_key__favourite_files:
-                case R.string.pref_key__popular_documents:
-                case R.string.pref_key__recent_documents: {
-                    showAppendDialog(keyId);
+                case R.string.pref_key__search_for_target: {
+                    searchForTarget();
                     return true;
                 }
                 case R.string.pref_key__share_into__quicknote: {
@@ -538,6 +534,10 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                 }
                 case R.string.pref_key__share_into__todo: {
                     attachOrCopyAndClose(_appSettings.getTodoFile(), false);
+                    break;
+                }
+                case R.string.pref_key__share_into__most_recent_document: {
+                    attachOrCopyAndClose(mostRecentFile, false);
                     break;
                 }
                 case R.string.pref_key__share_into__open_in_browser: {

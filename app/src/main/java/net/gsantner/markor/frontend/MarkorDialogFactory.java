@@ -46,6 +46,7 @@ import net.gsantner.markor.format.ActionButtonBase;
 import net.gsantner.markor.format.todotxt.TodoTxtBasicSyntaxHighlighter;
 import net.gsantner.markor.format.todotxt.TodoTxtFilter;
 import net.gsantner.markor.format.todotxt.TodoTxtTask;
+import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.frontend.filesearch.FileSearchDialog;
 import net.gsantner.markor.frontend.filesearch.FileSearchEngine;
 import net.gsantner.markor.frontend.filesearch.FileSearchResultSelectorDialog;
@@ -983,6 +984,7 @@ public class MarkorDialogFactory {
     public static void showNotebookFilterDialog(
             final Activity activity,
             @Nullable GsSearchOrCustomTextDialog.DialogState state,
+            @Nullable final GsCallback.b1<File> filter,
             final GsCallback.a2<File, Boolean> callback
     ) {
         final AppSettings as = ApplicationObject.settings();
@@ -995,7 +997,7 @@ public class MarkorDialogFactory {
         opt.isSearchInContent = false;
         opt.isOnlyFirstContentMatch = false;
         opt.ignoredDirectories = as.getFileSearchIgnorelist();
-        opt.maxSearchDepth = Integer.MAX_VALUE;
+        opt.maxSearchDepth = Integer.MAX_VALUE;  // Search entire notebook
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             opt.password = as.getDefaultPassword();
         }
@@ -1004,6 +1006,9 @@ public class MarkorDialogFactory {
             final DialogOptions dopt = baseConf(activity);
             dopt.titleText = R.string.notebook;
             dopt.messageText = as.getNotebookDirectory().getPath();
+            if (filter != null) {
+                GsCollectionUtils.keepIf(searchResults, f -> filter.callback(f.file));
+            }
             dopt.data = GsCollectionUtils.map(searchResults, f -> f.relPath);
             dopt.isSearchEnabled = true;
             dopt.positionCallback = (posns) -> callback.callback(searchResults.get(posns.get(0)).file, false);

@@ -267,7 +267,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             final int lno = args.getInt(Document.EXTRA_FILE_LINE_NUMBER);
             if (lno >= 0) {
                 startPos = TextViewUtils.getIndexFromLineOffset(_hlEditor.getText(), lno, 0);
-            } else if (lno == Document.EXTRA_FILE_LINE_NUMBER_LAST) {
+            } else {
                 startPos = _hlEditor.length();
             }
         }

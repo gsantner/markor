@@ -474,7 +474,7 @@ public class AttachLinkOrFileDialog {
                 break;
             }
             case LINK_SEARCH: {
-                MarkorDialogFactory.showNotebookFilterDialog(activity, null, (file, l) -> {
+                MarkorDialogFactory.showNotebookFilterDialog(activity, null, null, (file, l) -> {
                     setFields.callback(file);
                 });
             }

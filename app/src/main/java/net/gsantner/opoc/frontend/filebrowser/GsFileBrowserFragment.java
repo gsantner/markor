@@ -494,7 +494,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     final GsSearchOrCustomTextDialog.DialogState _filterDialogState = new GsSearchOrCustomTextDialog.DialogState();
 
     private void executeFilterNotebookAction() {
-        MarkorDialogFactory.showNotebookFilterDialog(getActivity(), _filterDialogState,
+        MarkorDialogFactory.showNotebookFilterDialog(getActivity(), _filterDialogState, null,
             (file, show) -> {
                 if (show) {
                     _filesystemViewerAdapter.showFile(file);
