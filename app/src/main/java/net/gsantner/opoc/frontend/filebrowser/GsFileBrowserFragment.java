@@ -237,6 +237,13 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         _emptyHint.setVisibility(adapter.isCurrentFolderEmpty() ? View.VISIBLE : View.GONE);
     }
 
+    @Override
+    public void onFsViewerNeutralButtonPressed() {
+        if (_callback != null) {
+            _callback.onFsViewerNeutralButtonPressed();
+        }
+    }
+
     private void updateMenuItems() {
         final Set<File> selFiles = _filesystemViewerAdapter.getCurrentSelection();
         final int selCount = selFiles.size();

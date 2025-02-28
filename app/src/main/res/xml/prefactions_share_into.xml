@@ -26,11 +26,7 @@
     <Preference
         android:icon="@drawable/ic_keyboard_return_black_24dp"
         android:key="@string/pref_key__select_create_document"
-        android:title="@string/select_create_document" />
-    <Preference
-        android:icon="@drawable/ic_folder_gray_24dp"
-        android:key="@string/pref_key__select_create_folder"
-        android:title="@string/select_create_folder" />
+        android:title="@string/select" />
     <Preference
         android:icon="@drawable/ic_search_black_24dp"
         android:key="@string/pref_key__search_for_target"

@@ -27,6 +27,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.CompoundButtonCompat;
 import androidx.fragment.app.FragmentTransaction;
@@ -247,43 +248,51 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
         /**
          * Attach file to document or copy to directory and close
          *
-         * @param file       File or directory to attach to
-         * @param showEditor Whether to show the editor after attaching
+         * @param dest  File or directory to attach or save to
+         * @param show  Whether to show the editor or file browser after attaching
          */
-        private void attachOrCopyAndClose(final File file, final boolean showEditor) {
+        private void attachOrCopyAndClose(final File dest, final boolean show) {
             final Activity activity = getActivity();
             if (activity == null) {
                 return;
             }
 
-            final Document document = new Document(file);
-            final int format = _appSettings.getDocumentFormat(document.path, document.getFormat());
-            final boolean asLink = shareAsLink();
-
-            final String formatted;
-            if (intentFile != null) {
-                final String title = _editor.getText().toString().trim();
-                formatted = AttachLinkOrFileDialog.makeAttachmentLink(format, title, intentFile, file);
+            if (GsFileUtils.isDirectory(dest)) {
+                if (intentFile != null && dest.canWrite()) {
+                    final File local = GsFileUtils.findNonConflictingDest(dest, intentFile.getName());
+                    if (GsFileUtils.copyFile(intentFile, local) && show) {
+                        MainActivity.launch(activity, local, true);
+                    }
+                }
             } else {
-                formatted = getFormatted(asLink, file, format);
+                final Document document = new Document(dest);
+                final int format = _appSettings.getDocumentFormat(document.path, document.getFormat());
+                final boolean asLink = shareAsLink();
+
+                final String formatted;
+                if (intentFile != null) {
+                    final String title = _editor.getText().toString().trim();
+                    formatted = AttachLinkOrFileDialog.makeAttachmentLink(format, title, intentFile, dest);
+                } else {
+                    formatted = getFormatted(asLink, dest, format);
+                }
+
+                final String oldContent = document.loadContent(activity);
+                if (oldContent != null) {
+                    final String nline = oldContent.endsWith("\n") ? "" : "\n";
+                    final String newContent = oldContent + nline + formatted;
+                    document.saveContent(activity, newContent);
+                } else {
+                    Toast.makeText(activity, R.string.error_could_not_open_file, Toast.LENGTH_LONG).show();
+                }
+
+                _appSettings.addRecentFile(dest);
+                _appSettings.setFormatShareAsLink(asLink);
+
+                if (show) {
+                    DocumentActivity.launch(activity, document.file, null, -1);
+                }
             }
-
-            final String oldContent = document.loadContent(activity);
-            if (oldContent != null) {
-                final String nline = oldContent.endsWith("\n") ? "" : "\n";
-                final String newContent = oldContent + nline + formatted;
-                document.saveContent(activity, newContent);
-            } else {
-                Toast.makeText(activity, R.string.error_could_not_open_file, Toast.LENGTH_LONG).show();
-            }
-
-            _appSettings.addRecentFile(file);
-            _appSettings.setFormatShareAsLink(asLink);
-
-            if (showEditor) {
-                DocumentActivity.launch(activity, document.file, null, -1);
-            }
-
             activity.finish();
         }
 
@@ -403,50 +412,18 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             return TextUtils.join("", parts);
         }
 
-        private void createSelectNewDirectory() {
-            MarkorFileBrowserFactory.showFolderDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
-                GsFileBrowserOptions.Options _dopt = null;
-
-                @Override
-                public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
-                    dopt.rootFolder = GsFileBrowserListAdapter.VIRTUAL_STORAGE_ROOT;
-                    dopt.startFolder = _appSettings.getNotebookDirectory();
-                    dopt.okButtonEnable = true;
-                    dopt.dismissAfterCallback = true;
-                    _dopt = dopt;
-                }
-
-                @Override
-                public void onFsViewerSelected(final String request, final File dir, final Integer lineNumber) {
-                    if (dir != null && intentFile != null && dir.isDirectory() && dir.canWrite()) {
-                        final File local = GsFileUtils.findNonConflictingDest(dir, intentFile.getName());
-                        if (GsFileUtils.copyFile(intentFile, local)) {
-                            MainActivity.launch(getActivity(), local, true);
-                            return;
-                        }
-                    }
-                    Toast.makeText(getContext(), "❌", Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onFsViewerCancel(final String request) {
-                    // Will cause the dialog to dismiss after this callback
-                    _dopt.dismissAfterCallback = true;
-                }
-            }, getParentFragmentManager(), getActivity());
-        }
-
-        private void createSelectNewDocument() {
+        private void selectOrCreateDestination(final @Nullable File startFolder) {
             MarkorFileBrowserFactory.showFileDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
                 GsFileBrowserOptions.Options _dopt = null;
 
                 @Override
                 public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
                     dopt.rootFolder = GsFileBrowserListAdapter.VIRTUAL_STORAGE_ROOT;
-                    dopt.startFolder = GsFileUtils.isDirectory(intentFile) ? intentFile : null;
-                    dopt.okButtonText = R.string.create_new_document;
+                    dopt.startFolder = startFolder;
+                    dopt.okButtonText = R.string.create;
                     dopt.okButtonEnable = true;
                     dopt.dismissAfterCallback = false;
+                    dopt.neutralButtonText = intentFile != null ? R.string.save : 0;
                     _dopt = dopt;
                 }
 
@@ -470,6 +447,11 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                     // Will cause the dialog to dismiss after this callback
                     _dopt.dismissAfterCallback = true;
                 }
+
+                @Override
+                public void onFsViewerNeutralButtonPressed() {
+                    attachOrCopyAndClose(_dopt.startFolder, true);
+                }
             }, getParentFragmentManager(), getActivity(), MarkorFileBrowserFactory.IsMimeText);
         }
 
@@ -482,22 +464,15 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             final GsCallback.b1<File> filter = f -> (intentFile != null && f.isDirectory()) || GsFileUtils.isTextFile(f);
 
             MarkorDialogFactory.showNotebookFilterDialog(getActivity(), null, filter, (file, isLong) -> {
-                if (file.isDirectory()) {
-                    final File local = GsFileUtils.findNonConflictingDest(file, intentFile.getName());
-                    if (GsFileUtils.copyFile(intentFile, local)) {
-                        MainActivity.launch(getActivity(), local, true);
+                if (isLong) {
+                    final File parent = file.getParentFile();
+                    if (parent != null) {
+                        selectOrCreateDestination(parent);
                     }
                 } else {
                     attachOrCopyAndClose(file, true);
                 }
             });
-        }
-
-        private void showInDocumentActivity(final Document document) {
-            if (getActivity() instanceof DocumentActivity) {
-                DocumentActivity a = (DocumentActivity) getActivity();
-                a.showTextEditor(document, null, null);
-            }
         }
 
         @Override
@@ -517,11 +492,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                     break;
                 }
                 case R.string.pref_key__select_create_document: {
-                    createSelectNewDocument();
-                    return true;
-                }
-                case R.string.pref_key__select_create_folder: {
-                    createSelectNewDirectory();
+                    selectOrCreateDestination(null);
                     return true;
                 }
                 case R.string.pref_key__search_for_target: {

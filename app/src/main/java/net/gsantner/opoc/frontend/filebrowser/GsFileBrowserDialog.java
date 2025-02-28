@@ -28,6 +28,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.ColorRes;
@@ -70,7 +71,8 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
     private Toolbar _toolBar;
     private TextView _buttonCancel;
     private TextView _buttonOk;
-    private FloatingActionButton _homeButton;
+    private TextView _buttonNeutral;
+    private ImageButton _homeButton;
     private FloatingActionButton _buttonSearch;
     private FloatingActionButton _buttonNewDir;
     private EditText _searchEdit;
@@ -121,6 +123,7 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         _buttonNewDir = root.findViewById(R.id.ui__filesystem_dialog__new_dir);
         _buttonSearch = root.findViewById(R.id.ui__filesystem_dialog__search_button);
         _searchEdit = root.findViewById(R.id.ui__filesystem_dialog__search_edit);
+        _buttonNeutral = root.findViewById(R.id.ui__filesystem_dialog__button_neutral);
 
         _searchEdit.addTextChangedListener(GsTextWatcherAdapter.on(this::changeAdapterFilter));
         for (final View v : new View[]{_homeButton, _buttonSearch, _buttonNewDir, _buttonCancel, _buttonOk}) {
@@ -131,6 +134,10 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
             dismiss();
             return;
         }
+
+        _buttonNeutral.setVisibility(_dopt.neutralButtonText != 0 ? View.VISIBLE : View.GONE);
+        _buttonNeutral.setTextColor(rcolor(_dopt.accentColor));
+        _buttonNeutral.setText(_dopt.neutralButtonText);
 
         _buttonCancel.setVisibility(_dopt.cancelButtonEnable ? View.VISIBLE : View.GONE);
         _buttonCancel.setTextColor(rcolor(_dopt.accentColor));
@@ -224,6 +231,10 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
                 showNewDirDialog();
                 break;
             }
+            case R.id.ui__filesystem_dialog__button_neutral: {
+                onFsViewerNeutralButtonPressed();
+                break;
+            }
         }
     }
 
@@ -314,6 +325,13 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
     public void onFsViewerFolderLoad(File oldFolder, File newFolder) {
         if (_callback != null) {
             _callback.onFsViewerFolderLoad(oldFolder, newFolder);
+        }
+    }
+
+    @Override
+    public void onFsViewerNeutralButtonPressed() {
+        if (_callback != null) {
+            _callback.onFsViewerNeutralButtonPressed();
         }
     }
 
