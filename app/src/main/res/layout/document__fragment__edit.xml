@@ -13,8 +13,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
-    android:descendantFocusability="beforeDescendants"
-    android:focusableInTouchMode="true"
     tools:context="net.gsantner.markor.activity.DocumentEditAndViewFragment"
     tools:showIn="@layout/document__activity">
 
@@ -27,6 +25,7 @@
         android:fillViewport="true">
 
         <LinearLayout
+            android:id="@+id/document__fragment__edit__editor_holder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
@@ -56,7 +55,6 @@
                 android:overScrollMode="never"
                 android:textCursorDrawable="@drawable/cursor_accent" />
         </LinearLayout>
-
     </net.gsantner.markor.frontend.DraggableScrollbarScrollView>
 
     <net.gsantner.opoc.frontend.GsHorizontalScrollView
@@ -81,7 +79,7 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/textactions_bar_height"
         android:background="@color/background"
-        android:visibility="gone" />
+        android:visibility="invisible" />
 
     <FrameLayout
         android:id="@+id/document__fragment_fullscreen_overlay"
