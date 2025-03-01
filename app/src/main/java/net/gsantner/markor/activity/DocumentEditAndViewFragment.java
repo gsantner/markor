@@ -258,22 +258,21 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     @Override
     protected void onFragmentFirstTimeVisible() {
         final Bundle args = getArguments();
-
         int startPos = _appSettings.getLastEditPosition(_document.path, _hlEditor.length());
         if (args != null && args.containsKey(Document.EXTRA_FILE_LINE_NUMBER)) {
             final int lno = args.getInt(Document.EXTRA_FILE_LINE_NUMBER);
             if (lno >= 0) {
                 startPos = TextViewUtils.getIndexFromLineOffset(_hlEditor.getText(), lno, 0);
-            } else if (lno == Document.EXTRA_FILE_LINE_NUMBER_LAST) {
+            } else {
                 startPos = _hlEditor.length();
             }
         }
 
-        _editorHolder.post(() -> _hlEditor.setMinHeight(_editorHolder.getHeight()));
-        _editorHolder.invalidate();
-        // Can affect layout so run before setting scroll position
-        _hlEditor.recomputeHighlighting();
+        _hlEditor.recomputeHighlighting(); // Run before setting scroll position
         TextViewUtils.setSelectionAndShow(_hlEditor, startPos);
+
+        _editorHolder.invalidate();
+        _editorHolder.post(() -> _hlEditor.setMinHeight(_editorHolder.getHeight()));
     }
 
     @Override
@@ -541,12 +540,12 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                     setViewModeVisibility(true);
                     Toast.makeText(activity, R.string.please_wait, Toast.LENGTH_LONG).show();
                     _webView.postDelayed(() -> {
-                        if (item.getItemId() == R.id.action_share_pdf) {
+                        if (itemId == R.id.action_share_pdf) {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                                 _cu.printOrCreatePdfFromWebview(_webView, _document, getTextString().contains("beamer\n"));
                             }
                         } else {
-                            Bitmap bmp = _cu.getBitmapFromWebView(_webView, item.getItemId() == R.id.action_share_image);
+                            Bitmap bmp = _cu.getBitmapFromWebView(_webView, itemId == R.id.action_share_image);
                             _cu.shareImage(getContext(), bmp, null);
                         }
                     }, 7000);
@@ -642,10 +641,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             }
             case R.id.action_show_file_browser: {
                 // Delay because I want menu to close before we open the file browser
-                _hlEditor.postDelayed(() -> {
-                    final Intent intent = new Intent(activity, MainActivity.class).putExtra(Document.EXTRA_FILE, _document.file);
-                    GsContextUtils.instance.animateToActivity(activity, intent, false, null);
-                }, 250);
+                _hlEditor.postDelayed(() -> MainActivity.launch(activity, _document.file, false), 250);
                 return true;
             }
             case R.id.action_toggle_case:
@@ -751,16 +747,23 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         return _horizontalScrollView == null || (_hlEditor.getParent() != _horizontalScrollView);
     }
 
+    private void makeHorizontalScrollView() {
+        if (_horizontalScrollView != null) {
+            return;
+        }
+
+        _horizontalScrollView = new HorizontalScrollView(getContext());
+        _horizontalScrollView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        _horizontalScrollView.setFillViewport(true);
+    }
+
     private void setWrapState(final boolean wrap) {
         final Context context = getContext();
         if (context != null && _hlEditor != null && isWrapped() != wrap) {
             final int[] sel = TextViewUtils.getSelection(_hlEditor);
             final boolean hlEnabled = _hlEditor.setHighlightingEnabled(false);
 
-            if (_horizontalScrollView == null) {
-                _horizontalScrollView = new HorizontalScrollView(context);
-                _horizontalScrollView.setFillViewport(true);
-            }
+            makeHorizontalScrollView();
 
             if (wrap) {
                 _horizontalScrollView.removeView(_hlEditor);
@@ -773,10 +776,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             }
 
             _hlEditor.setHighlightingEnabled(hlEnabled);
-
-            // Do as soon as layout of parent completes
-            final View parent = (View) _hlEditor.getParent();
-            parent.post(() -> TextViewUtils.setSelectionAndShow(_hlEditor, sel));
+            _editorHolder.post(() -> TextViewUtils.setSelectionAndShow(_hlEditor, sel));
         }
     }
 
