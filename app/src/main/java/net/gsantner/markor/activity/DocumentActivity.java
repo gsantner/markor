@@ -201,9 +201,7 @@ public class DocumentActivity extends MarkorBaseActivity {
                 startLine = intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, -1);
             } else if (intentData != null) {
                 final String line = intentData.getQueryParameter("line");
-                if (line != null) {
-                    startLine = GsTextUtils.tryParseInt(line, -1);
-                }
+                startLine = GsTextUtils.tryParseInt(line, -1);
             }
 
             // Start in a specific mode if required. Otherwise let the fragment decide

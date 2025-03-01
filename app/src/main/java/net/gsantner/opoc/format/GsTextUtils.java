@@ -214,7 +214,7 @@ public class GsTextUtils {
     public static int tryParseInt(final String value, int defaultValue) {
         try {
             return Integer.parseInt(value);
-        } catch (NumberFormatException e) {
+        } catch (NullPointerException | NumberFormatException e) {
             return defaultValue;
         }
     }
