@@ -24,8 +24,6 @@ import android.text.Editable;
 import android.text.Html;
 import android.text.InputType;
 import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.util.Pair;
 import android.view.WindowManager;

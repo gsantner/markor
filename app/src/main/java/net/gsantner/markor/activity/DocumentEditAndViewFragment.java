@@ -32,7 +32,6 @@ import android.view.WindowManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.SearchView;
 import android.widget.Toast;
