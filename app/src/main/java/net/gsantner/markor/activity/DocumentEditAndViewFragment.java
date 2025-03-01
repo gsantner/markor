@@ -10,7 +10,6 @@ package net.gsantner.markor.activity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -33,7 +32,6 @@ import android.view.WindowManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -261,7 +259,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     @Override
     protected void onFragmentFirstTimeVisible() {
         final Bundle args = getArguments();
-
         int startPos = _appSettings.getLastEditPosition(_document.path, _hlEditor.length());
         if (args != null && args.containsKey(Document.EXTRA_FILE_LINE_NUMBER)) {
             final int lno = args.getInt(Document.EXTRA_FILE_LINE_NUMBER);
@@ -271,11 +268,18 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 startPos = _hlEditor.length();
             }
         }
+<<<<<<< Updated upstream
 
         _primaryScrollView.invalidate();
         // Can affect layout so run before setting scroll position
         _hlEditor.recomputeHighlighting();
+=======
+        _hlEditor.recomputeHighlighting(); // Run before setting scroll position
+>>>>>>> Stashed changes
         TextViewUtils.setSelectionAndShow(_hlEditor, startPos);
+
+        _editorHolder.invalidate();
+        _editorHolder.post(() -> _hlEditor.setMinHeight(_editorHolder.getHeight()));
     }
 
     @Override
@@ -543,12 +547,12 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                     setViewModeVisibility(true);
                     Toast.makeText(activity, R.string.please_wait, Toast.LENGTH_LONG).show();
                     _webView.postDelayed(() -> {
-                        if (item.getItemId() == R.id.action_share_pdf) {
+                        if (itemId == R.id.action_share_pdf) {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                                 _cu.printOrCreatePdfFromWebview(_webView, _document, getTextString().contains("beamer\n"));
                             }
                         } else {
-                            Bitmap bmp = _cu.getBitmapFromWebView(_webView, item.getItemId() == R.id.action_share_image);
+                            Bitmap bmp = _cu.getBitmapFromWebView(_webView, itemId == R.id.action_share_image);
                             _cu.shareImage(getContext(), bmp, null);
                         }
                     }, 7000);
@@ -750,13 +754,28 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         return _hsView == null || (_hlEditor.getParent() == _editorHolder);
     }
 
+<<<<<<< Updated upstream
     private void setHorizontalScrollMode(final boolean wrap) {
+=======
+    private void makeHorizontalScrollView() {
+        if (_horizontalScrollView != null) {
+            return;
+        }
+
+        _horizontalScrollView = new HorizontalScrollView(getContext());
+        _horizontalScrollView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        _horizontalScrollView.setFillViewport(true);
+    }
+
+    private void setWrapState(final boolean wrap) {
+>>>>>>> Stashed changes
         final Context context = getContext();
         if (context != null && _hlEditor != null && isWrapped() != wrap) {
             final int[] sel = TextViewUtils.getSelection(_hlEditor);
             final boolean hlEnabled = _hlEditor.getHighlightingEnabled();
             _hlEditor.setHighlightingEnabled(false);
 
+<<<<<<< Updated upstream
             _editorHolder.removeAllViews();
             if (_hsView != null) {
                 _hsView.removeAllViews();
@@ -768,13 +787,25 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 }
                 _hsView.addView(_hlEditor);
                 _editorHolder.addView(_hsView);
+=======
+            makeHorizontalScrollView();
+
+            if (wrap) {
+                _horizontalScrollView.removeView(_hlEditor);
+                _editorHolder.removeView(_horizontalScrollView);
+                _editorHolder.addView(_hlEditor, 1);
+>>>>>>> Stashed changes
             } else {
                 _editorHolder.addView(_hlEditor);
             }
 
             _hlEditor.setHighlightingEnabled(hlEnabled);
+<<<<<<< Updated upstream
             // Run after layout() of immediate parent completes
             (wrap ? _editorHolder : _hsView).post(() -> TextViewUtils.setSelectionAndShow(_hlEditor, sel));
+=======
+            _editorHolder.post(() -> TextViewUtils.setSelectionAndShow(_hlEditor, sel));
+>>>>>>> Stashed changes
         }
     }
 

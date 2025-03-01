@@ -38,6 +38,7 @@
                 android:layout_weight="0"
                 android:text="" />
 
+<<<<<<< Updated upstream
             <FrameLayout
                 android:id="@+id/document__fragment__edit__editor_holder"
                 android:layout_width="match_parent"
@@ -59,6 +60,25 @@
                     android:scrollbars="none"
                     android:textCursorDrawable="@drawable/cursor_accent" />
             </FrameLayout>
+=======
+            <net.gsantner.markor.frontend.textview.HighlightingEditor
+                android:id="@+id/document__fragment__edit__highlighting_editor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/background"
+                android:gravity="top"
+                android:imeOptions="flagNoExtractUi"
+                android:inputType="textMultiLine|textCapSentences"
+                android:minHeight="1dp"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingBottom="@dimen/editor_bottom_margin"
+                android:scrollbars="none"
+                android:overScrollMode="never"
+                android:textCursorDrawable="@drawable/cursor_accent" />
+>>>>>>> Stashed changes
         </LinearLayout>
     </net.gsantner.markor.frontend.DraggableScrollbarScrollView>
 

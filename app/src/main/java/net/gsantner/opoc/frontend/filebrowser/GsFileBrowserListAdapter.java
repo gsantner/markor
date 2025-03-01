@@ -651,7 +651,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         }
 
         // Update current folder
-        final File oldFolder = _currentFolder;
         if (GO_BACK_SIGNIFIER == folder) {
             _currentFolder = _backStack.pop();
         } else {
@@ -665,7 +664,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             _currentSelection.clear();
         }
 
-        _dopt.listener.onFsViewerFolderLoad(oldFolder, _currentFolder);
+        _dopt.listener.onFsViewerFolderLoad(_currentFolder);
 
         if (VIRTUAL_STORAGE_ROOT.equals(_currentFolder)) {
             updateVirtualFolders();

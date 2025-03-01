@@ -12,6 +12,7 @@
     android:layout_height="match_parent"
     android:title="@string/share_to_arrow">
 
+    <PreferenceCategory android:title="@string/attach" />
     <Preference
         android:icon="@drawable/ic_lightning_black_24dp"
         android:key="@string/pref_key__share_into__quicknote"
@@ -24,13 +25,15 @@
         android:icon="@drawable/ic_access_time_black_24dp"
         android:key="@string/pref_key__share_into__most_recent_document"/>
     <Preference
-        android:icon="@drawable/ic_keyboard_return_black_24dp"
+        android:icon="@drawable/ic_gs_file_move_black_24dp"
         android:key="@string/pref_key__select_create_document"
         android:title="@string/select" />
     <Preference
         android:icon="@drawable/ic_search_black_24dp"
         android:key="@string/pref_key__search_for_target"
         android:title="@string/search" />
+
+    <PreferenceCategory android:title="@string/share" />
     <Preference
         android:icon="@drawable/ic_share_black_24dp"
         android:key="@string/pref_key__share_into__reshare"

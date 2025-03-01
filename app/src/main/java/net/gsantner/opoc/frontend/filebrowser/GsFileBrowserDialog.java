@@ -73,8 +73,8 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
     private TextView _buttonOk;
     private TextView _buttonNeutral;
     private ImageButton _homeButton;
-    private FloatingActionButton _buttonSearch;
-    private FloatingActionButton _buttonNewDir;
+    private ImageButton _buttonSearch;
+    private ImageButton _buttonNewDir;
     private EditText _searchEdit;
 
     private GsFileBrowserListAdapter _filesystemViewerAdapter;
@@ -126,7 +126,7 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         _buttonNeutral = root.findViewById(R.id.ui__filesystem_dialog__button_neutral);
 
         _searchEdit.addTextChangedListener(GsTextWatcherAdapter.on(this::changeAdapterFilter));
-        for (final View v : new View[]{_homeButton, _buttonSearch, _buttonNewDir, _buttonCancel, _buttonOk}) {
+        for (final View v : new View[]{_homeButton, _buttonSearch, _buttonNewDir, _buttonCancel, _buttonOk, _buttonNeutral}) {
             v.setOnClickListener(this::onClicked);
         }
 
@@ -135,9 +135,13 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
             return;
         }
 
-        _buttonNeutral.setVisibility(_dopt.neutralButtonText != 0 ? View.VISIBLE : View.GONE);
         _buttonNeutral.setTextColor(rcolor(_dopt.accentColor));
-        _buttonNeutral.setText(_dopt.neutralButtonText);
+        if  (_dopt.neutralButtonText != 0) {
+            _buttonNeutral.setVisibility(View.VISIBLE);
+            _buttonNeutral.setText(_dopt.neutralButtonText);
+        } else {
+            _buttonNeutral.setVisibility(View.GONE);
+        }
 
         _buttonCancel.setVisibility(_dopt.cancelButtonEnable ? View.VISIBLE : View.GONE);
         _buttonCancel.setTextColor(rcolor(_dopt.accentColor));
@@ -322,9 +326,9 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
     }
 
     @Override
-    public void onFsViewerFolderLoad(File oldFolder, File newFolder) {
+    public void onFsViewerFolderLoad(File newFolder) {
         if (_callback != null) {
-            _callback.onFsViewerFolderLoad(oldFolder, newFolder);
+            _callback.onFsViewerFolderLoad(newFolder);
         }
     }
 

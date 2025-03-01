@@ -42,7 +42,7 @@ public class GsFileBrowserOptions {
 
         void onFsViewerItemLongPressed(final File file, boolean doSelectMultiple);
 
-        void onFsViewerFolderLoad(final File oldFolder, final File newFolder);
+        void onFsViewerFolderLoad(final File newFolder);
 
         void onFsViewerNeutralButtonPressed();
     }
@@ -169,7 +169,7 @@ public class GsFileBrowserOptions {
         }
 
         @Override
-        public void onFsViewerFolderLoad(File oldFolder, File newFolder) {
+        public void onFsViewerFolderLoad(File newFolder) {
         }
 
         @Override

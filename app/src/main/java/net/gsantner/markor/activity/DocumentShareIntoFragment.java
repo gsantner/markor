@@ -233,7 +233,6 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                 }
             }
 
-            findPreference(R.string.pref_key__select_create_folder).setVisible(intentFile != null);
             findPreference(R.string.pref_key__share_into__clipboard).setVisible(intentFile == null);
             findPreference(R.string.pref_key__share_into__calendar_event).setVisible(intentFile == null);
             final Preference mrd = findPreference(R.string.pref_key__share_into__most_recent_document);

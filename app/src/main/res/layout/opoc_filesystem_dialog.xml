@@ -32,10 +32,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center_vertical"
-            app:fabSize="mini"
+            android:padding="12dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="15dp"
             tools:ignore="ContentDescription"/>
+
+        <ImageButton
+            android:id="@+id/ui__filesystem_dialog__search_button"
+            android:src="@android:drawable/ic_menu_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:padding="12dp"
+            android:layout_marginEnd="5dp"
+            tools:ignore="ContentDescription"/>
+
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -61,20 +71,6 @@
         app:layout_constraintTop_toBottomOf="@id/ui__filesystem_dialog__search_edit"
         app:layout_constraintBottom_toTopOf="@id/ui__filesystem_dialog__buttons"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/ui__filesystem_dialog__search_button"
-        android:src="@android:drawable/ic_menu_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:fabSize="mini"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/ui__filesystem_dialog__new_dir"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="15dp"
-        android:alpha="0.75"
-        tools:ignore="ContentDescription"
-        app:shapeAppearance="@style/ShapeAppearanceOverlay.Material3.FloatingActionButton"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/ui__filesystem_dialog__new_dir"
