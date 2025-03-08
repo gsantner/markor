@@ -33,6 +33,7 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -268,9 +269,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
         _hlEditor.recomputeHighlighting(); // Run before setting scroll position
         TextViewUtils.setSelectionAndShow(_hlEditor, startPos);
-
-        _editorHolder.invalidate();
-        _editorHolder.post(() -> _hlEditor.setMinHeight(_editorHolder.getHeight()));
     }
 
     @Override
@@ -694,14 +692,13 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         if (activity != null) {
             final View bar = activity.findViewById(R.id.document__fragment__edit__text_actions_bar);
             final View parent = activity.findViewById(R.id.document__fragment__edit__text_actions_bar__scrolling_parent);
-            final View editScroll = activity.findViewById(R.id.document__fragment__edit__content_editor__scrolling_parent);
             final View viewScroll = activity.findViewById(R.id.document__fragment_view_webview);
 
-            if (bar != null && parent != null && editScroll != null && viewScroll != null) {
+            if (bar != null && parent != null && _verticalScrollView != null && viewScroll != null) {
                 final boolean hide = _textActionsBar.getChildCount() == 0;
                 parent.setVisibility(hide ? View.GONE : View.VISIBLE);
                 final int marginBottom = hide ? 0 : (int) getResources().getDimension(R.dimen.textactions_bar_height);
-                setMarginBottom(editScroll, marginBottom);
+                setMarginBottom(_verticalScrollView, marginBottom);
                 setMarginBottom(viewScroll, marginBottom);
             }
         }
@@ -745,31 +742,35 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         return _horizontalScrollView == null || (_hlEditor.getParent() != _horizontalScrollView);
     }
 
-    private void makeHorizontalScrollView() {
-        if (_horizontalScrollView != null) {
-            return;
-        }
-
-        _horizontalScrollView = new HorizontalScrollView(getContext());
-        _horizontalScrollView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        _horizontalScrollView.setFillViewport(true);
-    }
-
     private void setWrapState(final boolean wrap) {
         final Context context = getContext();
         if (context != null && _hlEditor != null && isWrapped() != wrap) {
             final int[] sel = TextViewUtils.getSelection(_hlEditor);
             final boolean hlEnabled = _hlEditor.setHighlightingEnabled(false);
 
-            makeHorizontalScrollView();
+            if (_horizontalScrollView == null) {
+                _horizontalScrollView = new HorizontalScrollView(getContext());
+                _horizontalScrollView.setFillViewport(true);
+            }
+
+            // Layout for child of LinearLayout
+            final LinearLayout.LayoutParams holderChildLayout = new LinearLayout.LayoutParams(
+                    0, ViewGroup.LayoutParams.WRAP_CONTENT);
+            holderChildLayout.weight = 1;
 
             if (wrap) {
                 _horizontalScrollView.removeView(_hlEditor);
                 _editorHolder.removeView(_horizontalScrollView);
+                _hlEditor.setLayoutParams(holderChildLayout);
                 _editorHolder.addView(_hlEditor, 1);
             } else {
                 _editorHolder.removeView(_hlEditor);
+                // Match_parent for child and wrap_content for parent is supported
+                // https://stackoverflow.com/a/4607808
+                _hlEditor.setLayoutParams(new ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                 _horizontalScrollView.addView(_hlEditor);
+                _horizontalScrollView.setLayoutParams(holderChildLayout);
                 _editorHolder.addView(_horizontalScrollView, 1);
             }
 
