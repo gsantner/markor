@@ -130,6 +130,7 @@ import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.format.GsSimpleMarkdownParser;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
@@ -1568,6 +1569,20 @@ public class GsContextUtils {
         return (!TextUtils.isEmpty(path) && (f = new File(path)).canRead()) ? f : null;
     }
 
+    private static Uri getUriFromIntent(final Intent intent, final @Nullable Context context) {
+        Uri uri = intent.getData();
+
+        if (uri == null) {
+            uri = intent.getParcelableExtra(Intent.EXTRA_STREAM);
+        }
+
+        if (uri == null && context != null) {
+            uri = new ShareCompat.IntentReader(context, intent).getStream();
+        }
+
+        return uri;
+    }
+
     /**
      * Try to force extract a absolute filepath from an intent
      *
@@ -1575,15 +1590,22 @@ public class GsContextUtils {
      * @return A file or null if extraction did not succeed
      */
     @SuppressWarnings({"ResultOfMethodCallIgnored", "ConstantConditions"})
-    public File extractFileFromIntent(final Context context, final Intent receivingIntent) {
+    public static File extractFileFromIntent(final Intent receivingIntent, final Context context) {
         final String action = receivingIntent.getAction();
         final String type = receivingIntent.getType();
         final String extPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        final Uri fileUri = getUriFromIntent(receivingIntent, context);
+
         String tmps;
         String fileStr;
         File result = null;
 
-        if ((Intent.ACTION_VIEW.equals(action) || Intent.ACTION_EDIT.equals(action)) || Intent.ACTION_SEND.equals(action)) {
+        if (
+                Intent.ACTION_VIEW.equals(action) ||
+                Intent.ACTION_EDIT.equals(action) ||
+                Intent.ACTION_SEND.equals(action) ||
+                Intent.ACTION_SEND_MULTIPLE.equals(action)
+        ) {
 
             // Màrkor, SimpleMobileTools FileManager
             if (receivingIntent.hasExtra((tmps = EXTRA_FILEPATH))) {
@@ -1591,8 +1613,6 @@ public class GsContextUtils {
             }
 
             // Analyze data/Uri
-            Uri fileUri = receivingIntent.getData();
-            fileUri = (fileUri != null ? fileUri : receivingIntent.getParcelableExtra(Intent.EXTRA_STREAM));
             if (result == null && fileUri != null && (fileStr = fileUri.toString()) != null) {
                 // Uri contains file
                 if (fileStr.startsWith("file://")) {
@@ -1657,7 +1677,6 @@ public class GsContextUtils {
                 }
             }
 
-            fileUri = receivingIntent.getParcelableExtra(Intent.EXTRA_STREAM);
             if (result == null && fileUri != null && !TextUtils.isEmpty(tmps = fileUri.getPath()) && tmps.startsWith("/")) {
                 result = checkPath(tmps);
             }
@@ -1677,15 +1696,14 @@ public class GsContextUtils {
         if (result == null) {
             try {
                 // Try detect content file & filename in Intent
-                Uri uri = new ShareCompat.IntentReader(context, receivingIntent).getStream();
-                uri = (uri != null ? uri : receivingIntent.getData());
+
                 final String[] sarr = contentColumnData(context, receivingIntent, OpenableColumns.DISPLAY_NAME);
-                tmps = sarr != null && !TextUtils.isEmpty(sarr[0]) ? sarr[0] : uri.getLastPathSegment();
+                tmps = sarr != null && !TextUtils.isEmpty(sarr[0]) ? sarr[0] : fileUri.getLastPathSegment();
 
                 // Proxy file to app-private storage (= java.io.File)
                 File f = new File(context.getCacheDir(), CONTENT_RESOLVER_FILE_PROXY_SEGMENT + "/" + tmps);
                 f.getParentFile().mkdirs();
-                byte[] data = GsFileUtils.readCloseBinaryStream(context.getContentResolver().openInputStream(uri));
+                byte[] data = GsFileUtils.readCloseBinaryStream(context.getContentResolver().openInputStream(fileUri));
                 GsFileUtils.writeFile(f, data, null);
                 f.setReadable(true);
                 f.setWritable(true);
@@ -1698,11 +1716,12 @@ public class GsContextUtils {
     }
 
     public static String[] contentColumnData(final Context context, final Intent intent, final String... columns) {
+        final Uri uri = getUriFromIntent(intent, context);
         final String[] out = (new String[columns.length]);
         final int INVALID = -1;
         Cursor cursor;
         try {
-            cursor = context.getContentResolver().query(intent.getData(), columns, null, null, null);
+            cursor = context.getContentResolver().query(uri, columns, null, null, null);
         } catch (Exception ignored) {
             cursor = null;
         }
@@ -1743,11 +1762,6 @@ public class GsContextUtils {
         } catch (Exception ignored) {
         }
         return false;
-    }
-
-    public String extractFileFromIntentStr(final Context context, final Intent receivingIntent) {
-        File f = extractFileFromIntent(context, receivingIntent);
-        return f != null ? f.getAbsolutePath() : null;
     }
 
     /**
@@ -1833,7 +1847,7 @@ public class GsContextUtils {
 
                     // Try to grab via file extraction method
                     intent.setAction(Intent.ACTION_VIEW);
-                    picturePath = picturePath != null ? picturePath : extractFileFromIntentStr(context, intent);
+                    picturePath = picturePath != null ? picturePath : GsFileUtils.getPath(extractFileFromIntent(intent, context));
 
                     // Retrieve image from file descriptor / Cloud, e.g.: Google Drive, Picasa
                     if (picturePath == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -2915,25 +2929,24 @@ public class GsContextUtils {
 
     public static boolean fadeInOut(final View in, final View out, final boolean animate) {
         // Do nothing if we are already in the correct state
-        if (in.getVisibility() == View.VISIBLE && out.getVisibility() == View.GONE) {
+        if (in.getVisibility() == View.VISIBLE && out.getVisibility() == View.INVISIBLE) {
             return false;
         }
 
-        in.setVisibility(View.VISIBLE);
         if (animate) {
-            in.setAlpha(0);
-            in.animate().alpha(1).setDuration(200).setListener(null);
             out.animate()
-                    .alpha(0)
-                    .setDuration(200)
-                    .setListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            out.setVisibility(View.GONE);
-                        }
-                    });
+                    .alpha(0f)
+                    .setDuration(300)
+                    .withEndAction(() -> out.setVisibility(View.INVISIBLE));
+
+            in.setAlpha(0f);
+            in.setVisibility(View.VISIBLE);
+            in.animate()
+                    .alpha(1f)
+                    .setDuration(300);
         } else {
-            out.setVisibility(View.GONE);
+            out.setVisibility(View.INVISIBLE);
+            in.setVisibility(View.VISIBLE);
         }
 
         return true;

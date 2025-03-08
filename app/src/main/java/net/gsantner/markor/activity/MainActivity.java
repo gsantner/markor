@@ -9,6 +9,7 @@
 package net.gsantner.markor.activity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Intent;
 import android.graphics.Color;
@@ -43,6 +44,8 @@ import net.gsantner.opoc.frontend.base.GsFragmentBase;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserFragment;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
+import net.gsantner.opoc.util.GsContextUtils;
+import net.gsantner.opoc.util.GsFileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -64,6 +67,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
     private MarkorContextUtils _cu;
     private File _quickSwitchPrevFolder = null;
+    private File _startFolder = null, _showFile = null;
 
     @SuppressLint("SdCardPath")
     @Override
@@ -111,6 +115,17 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         }
 
         _cu.applySpecialLaunchersVisibility(this, _appSettings.isSpecialFileLaunchersEnabled());
+
+        // Determine start folder
+        final File fallback = _appSettings.getFolderToLoadByMenuId(_appSettings.getAppStartupFolderMenuId());
+        _startFolder = MarkorContextUtils.getValidIntentFile(getIntent(), fallback);
+        if (!GsFileUtils.isDirectory(_startFolder)) {
+            _showFile = _startFolder;
+            _startFolder = _startFolder.getParentFile();
+        }
+        if (!GsFileUtils.isDirectory(_startFolder)) {
+            _startFolder = _appSettings.getNotebookDirectory();
+        }
     }
 
     @Override
@@ -191,12 +206,21 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         final File file = MarkorContextUtils.getValidIntentFile(intent, null);
         if (_notebook != null && file != null) {
             _viewPager.setCurrentItem(tabIdToPos(R.id.nav_notebook), false);
-            if (file.isDirectory() || GsFileBrowserListAdapter.isVirtualFolder(file)) {
+            if (GsFileUtils.isDirectory(file)) {
                 _notebook.getAdapter().setCurrentFolder(file);
             } else {
                 _notebook.getAdapter().showFile(file);
             }
             _notebook.setReloadRequiredOnResume(false);
+        }
+    }
+
+    public static void launch(final Activity activity, final File file, final boolean finishfromActivity) {
+        if (activity != null && file != null) {
+            final Intent intent = new Intent(activity, MainActivity.class);
+            intent.putExtra(Document.EXTRA_FILE, file);
+            // intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            GsContextUtils.instance.animateToActivity(activity, intent, finishfromActivity, null);
         }
     }
 
@@ -400,21 +424,12 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     public GsFileBrowserOptions.Options getFilesystemFragmentOptions(GsFileBrowserOptions.Options existingOptions) {
         if (_filesystemDialogOptions == null) {
             _filesystemDialogOptions = MarkorFileBrowserFactory.prepareFsViewerOpts(this, false, new GsFileBrowserOptions.SelectionListenerAdapter() {
-                File toShow = null;
 
                 @Override
                 public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
                     dopt.descModtimeInsteadOfParent = true;
                     dopt.rootFolder = _appSettings.getNotebookDirectory();
-                    final File fallback = _appSettings.getFolderToLoadByMenuId(_appSettings.getAppStartupFolderMenuId());
-                    final File file = MarkorContextUtils.getValidIntentFile(getIntent(), fallback);
-                    if (!GsFileBrowserListAdapter.isVirtualFolder(file) && file.isFile()) {
-                        dopt.startFolder = file.getParentFile();
-                        toShow = file;
-                    } else {
-                        dopt.startFolder = file;
-                    }
-                    toShow = file.isFile() ? file : null;
+                    dopt.startFolder = _startFolder;
                     dopt.doSelectMultiple = dopt.doSelectFolder = dopt.doSelectFile = true;
                     dopt.mountedStorageFolder = _cu.getStorageAccessFolder(MainActivity.this);
                 }
@@ -428,9 +443,9 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
                         }
                     }
 
-                    if (toShow != null && adapter != null) {
-                        adapter.showFile(toShow);
-                        toShow = null;
+                    if (_showFile != null && adapter != null) {
+                        adapter.showFile(_showFile);
+                        _showFile = null;
                     }
                 }
 
@@ -455,9 +470,9 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
             final GsFragmentBase<?, ?> frag;
             final int id = tabIdFromPos(pos);
             if (id == R.id.nav_quicknote) {
-                frag = _quicknote = DocumentEditAndViewFragment.newInstance(new Document(_appSettings.getQuickNoteFile()), Document.EXTRA_FILE_LINE_NUMBER_LAST, false);
+                frag = _quicknote = DocumentEditAndViewFragment.newInstance(new Document(_appSettings.getQuickNoteFile()), -1, false);
             } else if (id == R.id.nav_todo) {
-                frag = _todo = DocumentEditAndViewFragment.newInstance(new Document(_appSettings.getTodoFile()), Document.EXTRA_FILE_LINE_NUMBER_LAST, false);
+                frag = _todo = DocumentEditAndViewFragment.newInstance(new Document(_appSettings.getTodoFile()), -1, false);
             } else if (id == R.id.nav_more) {
                 frag = _more = MoreFragment.newInstance();
             } else {

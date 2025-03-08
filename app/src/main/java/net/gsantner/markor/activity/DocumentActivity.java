@@ -49,7 +49,7 @@ public class DocumentActivity extends MarkorBaseActivity {
     private static boolean nextLaunchTransparentBg = false;
 
     public static void launch(final Activity activity, final Intent intent) {
-        final File file = MarkorContextUtils.getIntentFile(intent, null);
+        final File file = MarkorContextUtils.getIntentFile(intent);
         final Integer lineNumber = intent.hasExtra(Document.EXTRA_FILE_LINE_NUMBER) ? intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, -1) : null;
         final Boolean doPreview = intent.hasExtra(Document.EXTRA_DO_PREVIEW) ? intent.getBooleanExtra(Document.EXTRA_DO_PREVIEW, false) : null;
         launch(activity, file, doPreview, lineNumber);
@@ -88,9 +88,8 @@ public class DocumentActivity extends MarkorBaseActivity {
         final AppSettings as = ApplicationObject.settings();
 
         final Intent intent;
-        if (GsFileBrowserListAdapter.isVirtualFolder(file) || file.isDirectory()) {
+        if (GsFileUtils.isDirectory(file)) {
             intent = new Intent(activity, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
         } else {
             intent = new Intent(activity, DocumentActivity.class);
 
@@ -167,26 +166,19 @@ public class DocumentActivity extends MarkorBaseActivity {
 
         // Pull the file from the intent
         // -----------------------------------------------------------------------
-        File file = (File) intent.getSerializableExtra(Document.EXTRA_FILE);
+        File file = MarkorContextUtils.getIntentFile(intent, this);
 
         final boolean intentIsView = Intent.ACTION_VIEW.equals(intentAction);
-        final boolean intentIsSend = Intent.ACTION_SEND.equals(intentAction);
+        final boolean intentIsSend = Intent.ACTION_SEND.equals(intentAction) || Intent.ACTION_SEND_MULTIPLE.equals(intentAction);
         final boolean intentIsEdit = Intent.ACTION_EDIT.equals(intentAction);
 
-        if (intentIsSend && intent.hasExtra(Intent.EXTRA_TEXT)) {
+        if (intentIsSend) {
             showShareInto(intent);
             return;
         } else if (Intent.ACTION_PROCESS_TEXT.equals(intentAction) && intent.hasExtra(Intent.EXTRA_PROCESS_TEXT)) {
             intent.putExtra(Intent.EXTRA_TEXT, intent.getStringExtra("android.intent.extra.PROCESS_TEXT"));
             showShareInto(intent);
             return;
-        } else if (file == null && (intentIsView || intentIsEdit || intentIsSend)) {
-            file = _cu.extractFileFromIntent(this, intent);
-            if (file == null) {
-                // More permissive - file may not exist
-                // Will be filtered out in next stage
-                file = MarkorContextUtils.getIntentFile(intent, null);
-            }
         }
 
         // Decide what to do with the file
@@ -198,12 +190,10 @@ public class DocumentActivity extends MarkorBaseActivity {
             final Document doc = new Document(file);
             Integer startLine = null;
             if (intent.hasExtra(Document.EXTRA_FILE_LINE_NUMBER)) {
-                startLine = intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, Document.EXTRA_FILE_LINE_NUMBER_LAST);
+                startLine = intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, -1);
             } else if (intentData != null) {
                 final String line = intentData.getQueryParameter("line");
-                if (line != null) {
-                    startLine = GsTextUtils.tryParseInt(line, -1);
-                }
+                startLine = GsTextUtils.tryParseInt(line, -1);
             }
 
             // Start in a specific mode if required. Otherwise let the fragment decide
@@ -294,7 +284,7 @@ public class DocumentActivity extends MarkorBaseActivity {
 
     public void showShareInto(Intent intent) {
         setTitle(getString(R.string.share_into));
-        showFragment(DocumentShareIntoFragment.newInstance(intent));
+        showFragment(DocumentShareIntoFragment.newInstance(intent, this));
     }
 
     @Override

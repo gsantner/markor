@@ -97,11 +97,11 @@ public class TodoTxtActionButtons extends ActionButtonBase {
                 return true;
             }
             case R.string.abid_todotxt_add_context: {
-                addRemoveItems("@", TodoTxtTask::getContexts);
+                addRemoveItems("@", R.string.insert_context, TodoTxtTask::getContexts);
                 return true;
             }
             case R.string.abid_todotxt_add_project: {
-                addRemoveItems("+", TodoTxtTask::getProjects);
+                addRemoveItems("+", R.string.insert_project, TodoTxtTask::getProjects);
                 return true;
             }
             case R.string.abid_todotxt_priority: {
@@ -264,7 +264,11 @@ public class TodoTxtActionButtons extends ActionButtonBase {
         return true;
     }
 
-    private void addRemoveItems(final String prefix, final GsCallback.r1<Collection<String>, List<TodoTxtTask>> keyGetter) {
+    private void addRemoveItems(
+            final String prefix,
+            final int titleResId,
+            final GsCallback.r1<Collection<String>, List<TodoTxtTask>> keyGetter
+    ) {
         final Set<String> all = new TreeSet<>(keyGetter.callback(TodoTxtTask.getAllTasks(_hlEditor.getText())));
         final TodoTxtTask additional = new TodoTxtTask(_appSettings.getTodotxtAdditionalContextsAndProjects());
         all.addAll(keyGetter.callback(Collections.singletonList(additional)));
@@ -273,7 +277,7 @@ public class TodoTxtActionButtons extends ActionButtonBase {
 
         final boolean append = _appSettings.isTodoAppendProConOnEndEnabled();
 
-        MarkorDialogFactory.showUpdateItemsDialog(getActivity(), R.string.insert_context, all, current,
+        MarkorDialogFactory.showUpdateItemsDialog(getActivity(), titleResId, all, current,
                 updated -> {
                     final TextViewUtils.ChunkedEditable chunk = TextViewUtils.ChunkedEditable.wrap(_hlEditor.getText());
                     for (final String item : GsCollectionUtils.setDiff(current, updated)) {

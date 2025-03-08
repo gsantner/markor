@@ -47,6 +47,8 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 
 import java.io.File;
@@ -77,23 +79,19 @@ public class TextViewUndoRedo {
     /**
      * The edit text.
      */
-    private TextView mTextView;
+    private TextView mTextView = null;
 
     // =================================================================== //
 
     /**
-     * Create a new TextViewUndoRedo and attach it to the specified TextView.
-     *
-     * @param textView The text view for which the undo/redo is implemented.
+     * Create a new TextViewUndoRedo
      */
-    public TextViewUndoRedo(TextView textView) {
-        mTextView = textView;
+    public TextViewUndoRedo() {
         mEditHistory = new EditHistory();
         mChangeListener = new EditTextChangeListener();
-        mTextView.addTextChangedListener(mChangeListener);
     }
 
-    public void setTextView(TextView textView) {
+    public void setTextView(final TextView textView) {
         disconnect();
         mTextView = textView;
         mTextView.addTextChangedListener(mChangeListener);
@@ -111,7 +109,15 @@ public class TextViewUndoRedo {
     public void disconnect() {
         if (mTextView != null) {
             mTextView.removeTextChangedListener(mChangeListener);
+            clearHistory();
         }
+    }
+
+    /**
+     * Get the currently attached TextView
+     */
+    public @Nullable TextView getTextView() {
+        return mTextView;
     }
 
     /**

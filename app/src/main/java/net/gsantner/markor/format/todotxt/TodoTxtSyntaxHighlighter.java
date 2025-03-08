@@ -46,7 +46,8 @@ public class TodoTxtSyntaxHighlighter extends TodoTxtBasicSyntaxHighlighter {
     // Adds spacing and divider line between paragraphs
     public static class ParagraphDividerSpan implements LineBackgroundSpan, LineHeightSpan, StaticSpan {
         private final int _lineColor;
-        private Integer _origAscent = null;
+        private int _origAscent = 0;
+        private int _hash = 0;
 
         public ParagraphDividerSpan(@ColorInt int lineColor) {
             _lineColor = lineColor;
@@ -64,8 +65,9 @@ public class TodoTxtSyntaxHighlighter extends TodoTxtBasicSyntaxHighlighter {
 
         @Override
         public void chooseHeight(CharSequence text, int start, int end, int spanstartv, int v, Paint.FontMetricsInt fm) {
-            if (_origAscent == null) {
+            if (_hash != text.hashCode()) {
                 _origAscent = fm.ascent;
+                _hash = text.hashCode();
             }
             boolean isFirstLineInParagraph = start > 0 && text.charAt(start - 1) == '\n';
             fm.ascent = (isFirstLineInParagraph) ? (2 * _origAscent) : _origAscent;

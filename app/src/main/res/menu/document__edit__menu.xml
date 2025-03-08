@@ -192,7 +192,7 @@
                 android:title="@string/url_or_path" />
             <item
                 android:id="@+id/action_share_text"
-                android:icon="@drawable/ic_file_white_24dp"
+                android:icon="@drawable/ic_format_text_case_black_24dp"
                 android:title="@string/plaintext" />
             <item
                 android:id="@+id/action_share_pdf"
@@ -217,7 +217,7 @@
                 android:title="@string/image" />
             <item
                 android:id="@+id/action_share_screenshot"
-                android:icon="@drawable/ic_image_black_24dp"
+                android:icon="@drawable/ic_photo_camera_black_24dp"
                 android:title="@string/screenshot" />
             <item
                 android:id="@+id/action_share_calendar_event"
