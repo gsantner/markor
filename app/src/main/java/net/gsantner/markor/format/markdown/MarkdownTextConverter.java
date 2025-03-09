@@ -279,6 +279,7 @@ public class MarkdownTextConverter extends TextConverterBase {
         // Enable View (block) code syntax highlighting
         if (markup.contains("```")) {
             head += getViewHlPrismIncludes(GsContextUtils.instance.isDarkModeEnabled(context) ? "-tomorrow" : "", enableLineNumbers);
+            onLoadJs += "usePrismCodeBlock();";
             if (_appSettings.getDocumentWrapState(file.getAbsolutePath())) {
                 onLoadJs += "wrapCodeBlockWords();";
             }
