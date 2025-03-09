@@ -1,5 +1,23 @@
 function enableLineNumbers() {
-    document.body.classList.add("line-numbers");
+    let elements = document.querySelectorAll("pre:has(code)");
+    elements.forEach(function (element) {
+        element.classList.add("line-numbers");
+    });
+    Prism.highlightAll();
+}
+
+function getNumberDigits(number) {
+    if (number < 10) {
+        return 1;
+    } else if (number < 100) {
+        return 2;
+    } else if (number < 1000) {
+        return 3;
+    } else if (number < 10000) {
+        return 4;
+    } else {
+        return 5;
+    }
 }
 
 function adjustLineNumbers() {
@@ -7,7 +25,7 @@ function adjustLineNumbers() {
     let fontWidth = -1;
 
     preElements.forEach((element) => {
-        let codeElement = element.querySelector("code");
+        let codeElement = element.querySelector("pre > code");
         if (codeElement) {
             const maxNumber = codeElement.textContent.split("\n").length - 1;
             if (maxNumber == 0) {
@@ -24,18 +42,4 @@ function adjustLineNumbers() {
             element.style.paddingLeft = 2 * fontWidth + digits * fontWidth - digits + "px";
         }
     });
-}
-
-function getNumberDigits(number) {
-    if (number < 10) {
-        return 1;
-    } else if (number < 100) {
-        return 2;
-    } else if (number < 1000) {
-        return 3;
-    } else if (number < 10000) {
-        return 4;
-    } else {
-        return 5;
-    }
 }
