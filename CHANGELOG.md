@@ -2,7 +2,12 @@
 - See [Discussions](https://github.com/gsantner/markor/discussions), [Issues](https://github.com/gsantner/markor/issues) and [Project news](https://github.com/gsantner/markor/blob/master/NEWS.md) to see what is going on.
 - New Updates also visible here: <https://github.com/gsantner/markor/releases>
 
-### v2.13-14
+
+### v2.14 series
+- [2.14.0 - 2.14.1](https://github.com/gsantner/markor/compare/v2.14.0...v2.14.1)
+- [2.14.0 - 2.15.0](https://github.com/gsantner/markor/compare/v2.14.0...v2.15.0)
+
+### v2.13 series
 - [2.13.0 - 2.14.0](https://github.com/gsantner/markor/compare/v2.13.0...v2.14.0)
 - Markdown: Fix rendering of '$' in non-math view mode (PR #2485 closes #2085 #2236)
 - Android Studio latest version support
