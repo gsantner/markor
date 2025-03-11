@@ -46,8 +46,6 @@ public class DocumentActivity extends MarkorBaseActivity {
     private Toolbar _toolbar;
     private FragmentManager _fragManager;
 
-    private static boolean nextLaunchTransparentBg = false;
-
     public static void launch(final Activity activity, final Intent intent) {
         final File file = MarkorContextUtils.getIntentFile(intent);
         final Integer lineNumber = intent.hasExtra(Document.EXTRA_FILE_LINE_NUMBER) ? intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, -1) : null;
@@ -111,8 +109,11 @@ public class DocumentActivity extends MarkorBaseActivity {
 
         intent.putExtra(Document.EXTRA_FILE, file);
 
-        nextLaunchTransparentBg = (activity instanceof MainActivity);
-        GsContextUtils.instance.animateToActivity(activity, intent, false, null);
+        if (activity.isFinishing()) {
+            activity.startActivity(intent);
+        } else {
+            GsContextUtils.instance.animateToActivity(activity, intent, false, null);
+        }
     }
 
     public static void askUserIfWantsToOpenFileInThisApp(final Activity activity, final File file) {
@@ -135,10 +136,6 @@ public class DocumentActivity extends MarkorBaseActivity {
         super.onCreate(savedInstanceState);
         StoragePermissionActivity.requestPermissions(this);
         AppSettings.clearDebugLog();
-        if (nextLaunchTransparentBg) {
-            //getWindow().getDecorView().setBackgroundColor(Color.TRANSPARENT);
-            nextLaunchTransparentBg = false;
-        }
         setContentView(R.layout.document__activity);
         _toolbar = findViewById(R.id.toolbar);
 

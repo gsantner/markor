@@ -33,7 +33,6 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.HorizontalScrollView;
-import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -252,6 +251,13 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 }
             });
         }
+
+        _verticalScrollView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+            final int height = _verticalScrollView.getHeight();
+            if (height != _hlEditor.getMinHeight()) {
+                _hlEditor.setMinHeight(height);
+            }
+        });
     }
 
     @Override
@@ -739,7 +745,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     private boolean isWrapped() {
-        return _horizontalScrollView == null || (_hlEditor.getParent() != _horizontalScrollView);
+        return _horizontalScrollView == null || _hlEditor.getParent() != _horizontalScrollView;
     }
 
     private void setWrapState(final boolean wrap) {
@@ -749,30 +755,22 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             final boolean hlEnabled = _hlEditor.setHighlightingEnabled(false);
 
             if (_horizontalScrollView == null) {
-                _horizontalScrollView = new HorizontalScrollView(getContext());
+                _horizontalScrollView = new HorizontalScrollView(context);
+                _horizontalScrollView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                 _horizontalScrollView.setFillViewport(true);
             }
-
-            // Layout for child of LinearLayout
-            final LinearLayout.LayoutParams holderChildLayout = new LinearLayout.LayoutParams(
-                    0, ViewGroup.LayoutParams.WRAP_CONTENT);
-            holderChildLayout.weight = 1;
 
             if (wrap) {
                 _horizontalScrollView.removeView(_hlEditor);
                 _editorHolder.removeView(_horizontalScrollView);
-                _hlEditor.setLayoutParams(holderChildLayout);
                 _editorHolder.addView(_hlEditor, 1);
             } else {
                 _editorHolder.removeView(_hlEditor);
-                // Match_parent for child and wrap_content for parent is supported
-                // https://stackoverflow.com/a/4607808
-                _hlEditor.setLayoutParams(new ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                 _horizontalScrollView.addView(_hlEditor);
-                _horizontalScrollView.setLayoutParams(holderChildLayout);
                 _editorHolder.addView(_horizontalScrollView, 1);
             }
+
+            _hlEditor.setHorizontallyScrolling(!wrap);
 
             _hlEditor.setHighlightingEnabled(hlEnabled);
             _editorHolder.post(() -> TextViewUtils.setSelectionAndShow(_hlEditor, sel));
