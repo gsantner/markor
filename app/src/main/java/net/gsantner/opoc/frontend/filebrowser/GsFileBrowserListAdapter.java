@@ -879,9 +879,9 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     // Is the folder a virtual folder - does it contain links or other special items
     public static boolean isVirtualFolder(final File file) {
         return VIRTUAL_STORAGE_RECENTS.equals(file) ||
-               VIRTUAL_STORAGE_FAVOURITE.equals(file) ||
-               VIRTUAL_STORAGE_POPULAR.equals(file) ||
-               VIRTUAL_STORAGE_ROOT.equals(file);
+                VIRTUAL_STORAGE_FAVOURITE.equals(file) ||
+                VIRTUAL_STORAGE_POPULAR.equals(file) ||
+                VIRTUAL_STORAGE_ROOT.equals(file);
     }
 
     public void showFileAfterNextLoad(final File file) {
