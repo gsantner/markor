@@ -464,4 +464,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="switch_case">切换大小写 (如: CaSe-&gt;cAsE)</string>
     <string name="capitalize_words">大写词首 (如: a note-&gt;A Note)</string>
     <string name="capitalize_sentences">大写句首 (如: case-&gt;Case)</string>
+    <string name="use_tab_to_indent">使用 Tab 键缩进行</string>
+    <string name="folder_local">本地文件夹</string>
 </resources>
