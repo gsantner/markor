@@ -13,6 +13,7 @@ import android.util.Log;
 import net.gsantner.markor.format.markdown.MarkdownSyntaxHighlighter;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.format.GsTextUtils;
+import net.gsantner.opoc.util.GsContextUtils;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -25,7 +26,7 @@ public class CsvSyntaxHighlighter extends MarkdownSyntaxHighlighter {
     // dkgray is not much different from black and not readable with black background
     // blue is difficuilt to read on black background
     private static final int[] COLUMN_COLORS = {
-            Color.RED, Color.rgb(150, 150, 255), Color.MAGENTA,
+            Color.RED, GsContextUtils.rgb(150, 150, 255), Color.MAGENTA,
             0xff00b04c, // dark green,
             0xffdaa500}; // brown
     private static final String TAG = CsvSyntaxHighlighter.class.getSimpleName();
