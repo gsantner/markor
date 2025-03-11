@@ -465,4 +465,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="capitalize_words">Inicia paraules en majúscula (p. ex.: una nota-&gt;Una Nota)</string>
     <string name="capitalize_sentences">Inicia frases en majúscula (p. ex.: nota-&gt;Nota)</string>
     <string name="use_tab_to_indent">Sagna les línies amb la tecla TAB</string>
+    <string name="folder_local">Carpeta local</string>
 </resources>

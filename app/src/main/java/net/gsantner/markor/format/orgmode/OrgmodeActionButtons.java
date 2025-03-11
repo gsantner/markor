@@ -7,7 +7,6 @@ import androidx.annotation.StringRes;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.ActionButtonBase;
-import net.gsantner.markor.format.orgmode.OrgmodeReplacePatternGenerator;
 import net.gsantner.markor.frontend.textview.AutoTextFormatter;
 import net.gsantner.markor.model.Document;
 

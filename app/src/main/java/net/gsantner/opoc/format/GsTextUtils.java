@@ -20,9 +20,13 @@ import org.json.JSONTokener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -210,7 +214,7 @@ public class GsTextUtils {
     public static int tryParseInt(final String value, int defaultValue) {
         try {
             return Integer.parseInt(value);
-        } catch (NumberFormatException e) {
+        } catch (NullPointerException | NumberFormatException e) {
             return defaultValue;
         }
     }
@@ -445,5 +449,49 @@ public class GsTextUtils {
             }
         }
         return true;
+    }
+
+    public static String mapToJsonString(final Map<String, String> map) {
+        return new JSONObject(map).toString();
+    }
+
+    public static Map<String, String> jsonStringToMap(final String jsonString) {
+        final Map<String, String> map = new LinkedHashMap<>();
+
+        if (isNullOrEmpty(jsonString)) {
+            return map;
+        }
+
+        try {
+            final JSONObject jsonObject = new JSONObject(jsonString);
+            final Iterator<String> keys = jsonObject.keys();
+
+            while (keys.hasNext()) {
+                String key = keys.next();
+                String value = jsonObject.getString(key);
+                map.put(key, value);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    public static String listToJsonString(final Collection<String> list) {
+        final JSONArray jsonArray = new JSONArray(list);
+        return jsonArray.toString();
+    }
+
+    public static List<String> jsonStringToList(final String jsonString) {
+        final List<String> list = new ArrayList<>();
+        try {
+            final JSONArray jsonArray = new JSONArray(jsonString);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                list.add(jsonArray.getString(i));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }
