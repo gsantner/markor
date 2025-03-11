@@ -50,6 +50,7 @@ import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.TooltipCompat;
+import androidx.core.view.WindowCompat;
 import androidx.core.widget.TextViewCompat;
 
 import net.gsantner.opoc.util.GsCollectionUtils;
@@ -377,10 +378,10 @@ public class GsSearchOrCustomTextDialog {
             return false;
         });
 
-        dialog.show();
-
         final Window win = dialog.getWindow();
         if (win != null) {
+            WindowCompat.setDecorFitsSystemWindows(win, true);
+
             if (dopt.isSearchEnabled) {
                 if (dopt.isSoftInputVisible) {
                     win.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
@@ -389,12 +390,12 @@ public class GsSearchOrCustomTextDialog {
                 } else {
                     win.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
                 }
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    win.setDecorFitsSystemWindows(true);
-                }
             }
+        }
 
+        dialog.show();
+
+        if (win != null) {
             win.setLayout(
                     dopt.dialogWidthDp < 0 ? dopt.dialogWidthDp : GsContextUtils.instance.convertDpToPx(activity, dopt.dialogWidthDp),
                     dopt.dialogHeightDp < 0 ? dopt.dialogHeightDp : GsContextUtils.instance.convertDpToPx(activity, dopt.dialogHeightDp)
