@@ -21,25 +21,21 @@ function getNumberDigits(number) {
 }
 
 function adjustLineNumbers() {
-    const preElements = document.querySelectorAll("pre[class*='language-']");
     let fontWidth = -1;
-
-    preElements.forEach((element) => {
-        let codeElement = element.querySelector("pre > code");
-        if (codeElement) {
-            const maxNumber = codeElement.textContent.split("\n").length - 1;
-            if (maxNumber == 0) {
-                return;
-            }
-
-            if (fontWidth == -1) {
-                const canvasContext = document.createElement("canvas").getContext("2d");
-                canvasContext.font = window.getComputedStyle(codeElement, null).getPropertyValue("font");
-                fontWidth = canvasContext.measureText("0").width;
-            }
-
-            const digits = getNumberDigits(maxNumber);
-            element.style.paddingLeft = 2 * fontWidth + digits * fontWidth - digits + "px";
+    const codeElements = document.querySelectorAll("pre > code");
+    codeElements.forEach((element) => {
+        const maxNumber = element.textContent.split("\n").length - 1;
+        if (maxNumber == 0) {
+            return;
         }
+
+        if (fontWidth == -1) {
+            const canvasContext = document.createElement("canvas").getContext("2d");
+            canvasContext.font = window.getComputedStyle(element, null).getPropertyValue("font");
+            fontWidth = canvasContext.measureText("0").width;
+        }
+
+        const digits = getNumberDigits(maxNumber);
+        element.parentNode.style.paddingLeft = 2 * fontWidth + digits * fontWidth - digits + "px";
     });
 }
