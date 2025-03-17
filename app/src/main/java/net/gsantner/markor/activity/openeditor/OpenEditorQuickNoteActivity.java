@@ -11,8 +11,6 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 
-import net.gsantner.markor.model.Document;
-
 public class OpenEditorQuickNoteActivity extends OpenEditorActivity {
 
     @Override
