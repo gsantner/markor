@@ -283,8 +283,14 @@ public final class TextViewUtils {
         }
         final CharSequence text = edit.getText();
         if (positions.size() == 1) { // Case 1 index
-            final int posn = TextViewUtils.getIndexFromLineOffset(text, positions.get(0), 0);
-            setSelectionAndShow(edit, posn);
+            final int pos = positions.get(0);
+            final int index;
+            if (pos >= 0) {
+                index = TextViewUtils.getIndexFromLineOffset(text, positions.get(0), 0);
+            } else {
+                index = edit.length();
+            }
+            setSelectionAndShow(edit, index);
         } else if (positions.size() > 1) {
             final TreeSet<Integer> pSet = new TreeSet<>(positions);
             final int selStart, selEnd;
@@ -330,8 +336,6 @@ public final class TextViewUtils {
 
         final Rect viewSize = new Rect();
         text.getLocalVisibleRect(viewSize);
-
-
 
         // Region in Y
         // ------------------------------------------------------------

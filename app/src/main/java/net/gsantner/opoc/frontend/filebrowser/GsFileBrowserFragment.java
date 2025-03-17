@@ -238,9 +238,9 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     }
 
     @Override
-    public void onFsViewerNeutralButtonPressed() {
+    public void onFsViewerNeutralButtonPressed(final File currentFolder) {
         if (_callback != null) {
-            _callback.onFsViewerNeutralButtonPressed();
+            _callback.onFsViewerNeutralButtonPressed(currentFolder);
         }
     }
 

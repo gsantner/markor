@@ -43,6 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/background"
+                android:alpha="0"
                 android:gravity="top"
                 android:imeOptions="flagNoExtractUi"
                 android:inputType="textMultiLine|textCapSentences"

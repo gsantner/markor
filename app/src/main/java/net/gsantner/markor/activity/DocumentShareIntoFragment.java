@@ -71,11 +71,11 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
     public static DocumentShareIntoFragment newInstance(final Intent intent, final Context context) {
         final DocumentShareIntoFragment f = new DocumentShareIntoFragment();
         f.sharedText = extractShareText(intent);
-        f.intentFile = MarkorContextUtils.getIntentFile(intent, context);
+        f.attachment = MarkorContextUtils.getIntentFile(intent, context);
         return f;
     }
 
-    private File intentFile;
+    private File attachment;
     private String sharedText;
 
     public DocumentShareIntoFragment() {
@@ -95,7 +95,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
         if (_savedInstanceState == null) {
             FragmentTransaction t = getChildFragmentManager().beginTransaction();
             _shareIntoImportOptionsFragment = new ShareIntoImportOptionsFragment();
-            _shareIntoImportOptionsFragment.setIntentFile(intentFile);
+            _shareIntoImportOptionsFragment.setAttachment(attachment);
             t.replace(R.id.document__share_into__fragment__placeholder_fragment, _shareIntoImportOptionsFragment, ShareIntoImportOptionsFragment.TAG).commit();
         } else {
             _shareIntoImportOptionsFragment = (ShareIntoImportOptionsFragment) getChildFragmentManager().findFragmentByTag(ShareIntoImportOptionsFragment.TAG);
@@ -107,7 +107,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
         }
 
         if (GsTextUtils.isNullOrEmpty(sharedText)) {
-            sharedText = intentFile != null ? GsFileUtils.getFilenameWithoutExtension(intentFile) : "";
+            sharedText = attachment != null ? GsFileUtils.getFilenameWithoutExtension(attachment) : "";
         }
 
         _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getFontSize());
@@ -182,7 +182,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
 
     public static class ShareIntoImportOptionsFragment extends GsPreferenceFragmentBase<AppSettings> {
         public static final String TAG = "ShareIntoImportOptionsFragment";
-        private File intentFile;
+        private File attachment = null;
         private File mostRecentFile;
 
         private EditText _editor = null;
@@ -193,8 +193,8 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             return true;
         }
 
-        public ShareIntoImportOptionsFragment setIntentFile(File file) {
-            intentFile = file;
+        public ShareIntoImportOptionsFragment setAttachment(File file) {
+            attachment = file;
             return this;
         }
 
@@ -219,10 +219,18 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
 
             if (_editor != null && _linkCheckBox != null) {
                 doUpdatePreferences();
-                _linkCheckBox.setVisibility(hasLinks(_editor.getText()) ? View.VISIBLE : View.GONE);
-                _linkCheckBox.setChecked(_appSettings.getFormatShareAsLink());
-                _editor.addTextChangedListener(GsTextWatcherAdapter.on((ctext, arg2, arg3, arg4) ->
-                        _linkCheckBox.setVisibility(hasLinks(_editor.getText()) ? View.VISIBLE : View.GONE)));
+                if (attachment == null) {
+                    _linkCheckBox.setVisibility(hasLinks(_editor.getText()) ? View.VISIBLE : View.GONE);
+                    _linkCheckBox.setChecked(_appSettings.getFormatShareAsLink());
+                    _editor.addTextChangedListener(GsTextWatcherAdapter.on((ctext, arg2, arg3, arg4) ->
+                            _linkCheckBox.setVisibility(hasLinks(_editor.getText()) ? View.VISIBLE : View.GONE)));
+                } else {
+                    _linkCheckBox.setVisibility(View.VISIBLE);
+                    _linkCheckBox.setChecked(true);
+                    _linkCheckBox.setClickable(false);
+                    _linkCheckBox.setText(R.string.attachment);
+                    _linkCheckBox.setButtonDrawable(R.drawable.ic_attach_file_black_24dp);
+                }
             }
 
             // Set most recent file (recent files are sorted)
@@ -233,8 +241,8 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                 }
             }
 
-            findPreference(R.string.pref_key__share_into__clipboard).setVisible(intentFile == null);
-            findPreference(R.string.pref_key__share_into__calendar_event).setVisible(intentFile == null);
+            findPreference(R.string.pref_key__share_into__clipboard).setVisible(attachment == null);
+            findPreference(R.string.pref_key__share_into__calendar_event).setVisible(attachment == null);
             final Preference mrd = findPreference(R.string.pref_key__share_into__most_recent_document);
             mrd.setVisible(mostRecentFile != null);
             mrd.setTitle(mostRecentFile != null ? mostRecentFile.getName() : "");
@@ -257,11 +265,16 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             }
 
             if (GsFileUtils.isDirectory(dest)) {
-                if (intentFile != null && dest.canWrite()) {
-                    final File local = GsFileUtils.findNonConflictingDest(dest, intentFile.getName());
-                    if (GsFileUtils.copyFile(intentFile, local) && show) {
-                        MainActivity.launch(activity, local, true);
+                boolean fail = true;
+                if (attachment != null && dest.canWrite()) {
+                    final File local = GsFileUtils.findNonConflictingDest(dest, attachment.getName());
+                    if (GsFileUtils.copyFile(attachment, local) && show) {
+                        fail = false;
+                        MainActivity.launch(activity, local, false);
                     }
+                }
+                if (fail) {
+                    Toast.makeText(activity, "❌", Toast.LENGTH_SHORT).show();
                 }
             } else {
                 final Document document = new Document(dest);
@@ -269,9 +282,9 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                 final boolean asLink = shareAsLink();
 
                 final String formatted;
-                if (intentFile != null) {
+                if (attachment != null) {
                     final String title = _editor.getText().toString().trim();
-                    formatted = AttachLinkOrFileDialog.makeAttachmentLink(format, title, intentFile, dest);
+                    formatted = AttachLinkOrFileDialog.makeAttachmentLink(format, title, attachment, dest);
                 } else {
                     formatted = getFormatted(asLink, dest, format);
                 }
@@ -286,7 +299,9 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                 }
 
                 _appSettings.addRecentFile(dest);
-                _appSettings.setFormatShareAsLink(asLink);
+                if (attachment != null) {
+                    _appSettings.setFormatShareAsLink(asLink);
+                }
 
                 if (show) {
                     DocumentActivity.launch(activity, document.file, null, -1);
@@ -422,7 +437,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                     dopt.okButtonText = R.string.create;
                     dopt.okButtonEnable = true;
                     dopt.dismissAfterCallback = false;
-                    dopt.neutralButtonText = intentFile != null ? R.string.save : 0;
+                    dopt.neutralButtonText = attachment != null ? R.string.save : 0;
                     _dopt = dopt;
                 }
 
@@ -448,8 +463,8 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                 }
 
                 @Override
-                public void onFsViewerNeutralButtonPressed() {
-                    attachOrCopyAndClose(_dopt.startFolder, true);
+                public void onFsViewerNeutralButtonPressed(final File currentFolder) {
+                    attachOrCopyAndClose(currentFolder, true);
                 }
             }, getParentFragmentManager(), getActivity(), MarkorFileBrowserFactory.IsMimeText);
         }
@@ -460,7 +475,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                 return;
             }
 
-            final GsCallback.b1<File> filter = f -> (intentFile != null && f.isDirectory()) || GsFileUtils.isTextFile(f);
+            final GsCallback.b1<File> filter = f -> (attachment != null && f.isDirectory()) || GsFileUtils.isTextFile(f);
 
             MarkorDialogFactory.showNotebookFilterDialog(getActivity(), null, filter, (file, isLong) -> {
                 if (isLong) {

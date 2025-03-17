@@ -2937,14 +2937,14 @@ public class GsContextUtils {
         if (animate) {
             out.animate()
                     .alpha(0f)
-                    .setDuration(300)
+                    .setDuration(400)
                     .withEndAction(() -> out.setVisibility(View.INVISIBLE));
 
             in.setAlpha(0f);
             in.setVisibility(View.VISIBLE);
             in.animate()
                     .alpha(1f)
-                    .setDuration(300);
+                    .setDuration(400);
         } else {
             out.setVisibility(View.INVISIBLE);
             in.setVisibility(View.VISIBLE);

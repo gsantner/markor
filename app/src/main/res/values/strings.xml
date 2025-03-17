@@ -352,6 +352,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="current">Current</string>
     <string name="record_audio">Record Audio</string>
     <string name="attach">Attach</string>
+    <string name="attachment">Attachment</string>
     <string name="copy_file">Copy file</string>
     <string name="page">Page</string>
     <string name="experimental_features">Experimental features</string>

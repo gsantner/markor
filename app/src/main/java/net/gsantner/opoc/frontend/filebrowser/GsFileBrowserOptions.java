@@ -44,7 +44,7 @@ public class GsFileBrowserOptions {
 
         void onFsViewerFolderLoad(final File newFolder);
 
-        void onFsViewerNeutralButtonPressed();
+        void onFsViewerNeutralButtonPressed(final File currentFolder);
     }
 
     public static class Options {
@@ -173,7 +173,7 @@ public class GsFileBrowserOptions {
         }
 
         @Override
-        public void onFsViewerNeutralButtonPressed() {
+        public void onFsViewerNeutralButtonPressed(File currentFolder) {
         }
     }
 }

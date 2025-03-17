@@ -236,7 +236,7 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
                 break;
             }
             case R.id.ui__filesystem_dialog__button_neutral: {
-                onFsViewerNeutralButtonPressed();
+                onFsViewerNeutralButtonPressed(_filesystemViewerAdapter.getCurrentFolder());
                 break;
             }
         }
@@ -333,9 +333,9 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
     }
 
     @Override
-    public void onFsViewerNeutralButtonPressed() {
+    public void onFsViewerNeutralButtonPressed(final File currentFolder) {
         if (_callback != null) {
-            _callback.onFsViewerNeutralButtonPressed();
+            _callback.onFsViewerNeutralButtonPressed(currentFolder);
         }
     }
 

@@ -275,6 +275,8 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
         _hlEditor.recomputeHighlighting(); // Run before setting scroll position
         TextViewUtils.setSelectionAndShow(_hlEditor, startPos);
+
+        _hlEditor.post(() -> _hlEditor.animate().alpha(1).setDuration(500).start());
     }
 
     @Override
@@ -749,9 +751,11 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     private void setWrapState(final boolean wrap) {
+        _hlEditor.setHorizontallyScrolling(!wrap);
         final Context context = getContext();
         if (context != null && _hlEditor != null && isWrapped() != wrap) {
             final int[] sel = TextViewUtils.getSelection(_hlEditor);
+            _hlEditor.setAlpha(0);
             final boolean hlEnabled = _hlEditor.setHighlightingEnabled(false);
 
             if (_horizontalScrollView == null) {
@@ -770,10 +774,11 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 _editorHolder.addView(_horizontalScrollView, 1);
             }
 
-            _hlEditor.setHorizontallyScrolling(!wrap);
-
             _hlEditor.setHighlightingEnabled(hlEnabled);
-            _editorHolder.post(() -> TextViewUtils.setSelectionAndShow(_hlEditor, sel));
+            _hlEditor.post(() -> {
+                TextViewUtils.setSelectionAndShow(_hlEditor, sel);
+                _hlEditor.post(() -> _hlEditor.animate().alpha(1).setDuration(400).start());
+            });
         }
     }
 
@@ -922,6 +927,10 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     public Document getDocument() {
         return _document;
+    }
+
+    public HighlightingEditor getEditor() {
+        return _hlEditor;
     }
 
     public String getTextString() {

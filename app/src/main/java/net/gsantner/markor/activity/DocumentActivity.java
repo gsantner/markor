@@ -28,6 +28,7 @@ import androidx.fragment.app.FragmentManager;
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.FormatRegistry;
+import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.MarkorContextUtils;
@@ -45,6 +46,7 @@ public class DocumentActivity extends MarkorBaseActivity {
 
     private Toolbar _toolbar;
     private FragmentManager _fragManager;
+    private Document _document = null;
 
     public static void launch(final Activity activity, final Intent intent) {
         final File file = MarkorContextUtils.getIntentFile(intent);
@@ -69,6 +71,8 @@ public class DocumentActivity extends MarkorBaseActivity {
             final Integer lineNumber,
             final boolean forceOpenInThisApp
     ) {
+
+        Log.i("Document", "Hitting launch");
         if (activity == null || file == null) {
             return;
         }
@@ -91,11 +95,17 @@ public class DocumentActivity extends MarkorBaseActivity {
         } else {
             intent = new Intent(activity, DocumentActivity.class);
 
-            if (!(activity instanceof DocumentActivity) &&
-                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
-                    as.isMultiWindowEnabled()
-            ) {
+            final boolean lollipop = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
+            final boolean fromDocumentActivity = activity instanceof DocumentActivity;
+            final boolean isMultiWindow = as.isMultiWindowEnabled();
+            if (lollipop && isMultiWindow) {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+            } else if (isMultiWindow) {
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+            } else if (lollipop && !fromDocumentActivity) {
+                // So we can potentially not open duplicate documents
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                Log.i("Document", "Single top");
             }
 
             if (lineNumber != null) {
@@ -109,11 +119,7 @@ public class DocumentActivity extends MarkorBaseActivity {
 
         intent.putExtra(Document.EXTRA_FILE, file);
 
-        if (activity.isFinishing()) {
-            activity.startActivity(intent);
-        } else {
-            GsContextUtils.instance.animateToActivity(activity, intent, false, null);
-        }
+        GsContextUtils.instance.animateToActivity(activity, intent, false, null);
     }
 
     public static void askUserIfWantsToOpenFileInThisApp(final Activity activity, final File file) {
@@ -153,6 +159,7 @@ public class DocumentActivity extends MarkorBaseActivity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         handleLaunchingIntent(intent);
+        Log.i("Document", "in onNewIntent");
     }
 
     private void handleLaunchingIntent(final Intent intent) {
@@ -163,7 +170,7 @@ public class DocumentActivity extends MarkorBaseActivity {
 
         // Pull the file from the intent
         // -----------------------------------------------------------------------
-        File file = MarkorContextUtils.getIntentFile(intent, this);
+        final File file = MarkorContextUtils.getIntentFile(intent, this);
 
         final boolean intentIsView = Intent.ACTION_VIEW.equals(intentAction);
         final boolean intentIsSend = Intent.ACTION_SEND.equals(intentAction) || Intent.ACTION_SEND_MULTIPLE.equals(intentAction);
@@ -202,8 +209,45 @@ public class DocumentActivity extends MarkorBaseActivity {
                 startInPreview = true;
             }
 
-            showTextEditor(doc, startLine, startInPreview);
+            // Three cases
+            // 1. We have an editor open and it is the same document - show the requested line
+            // 2. We have an editor open and it is a different document - open the new document
+            // 3. We do not have a current fragment - open the document here
+            final GsFragmentBase<?, ?> frag = getCurrentVisibleFragment();
+            if (frag != null) {
+                if (frag instanceof DocumentEditAndViewFragment) {
+                    final DocumentEditAndViewFragment editFrag = (DocumentEditAndViewFragment) frag;
+                    if (editFrag.getDocument().path.equals(doc.path)) {
+                        if (startLine != null) {
+                            // Same document requested, show the requested line
+                            Log.i("Document", "select the line");
+                            TextViewUtils.selectLines(editFrag.getEditor(), startLine);
+                        }
+                    } else {
+                        // Current document is different - launch the new document
+                        Log.i("Document", "launch");
+                        launch(this, file, startInPreview, startLine);
+                    }
+                } else {
+                    // Current fragment is not an editor - launch the new document
+                    Log.i("Document", "launch");
+                    launch(this, file, startInPreview, startLine);
+                }
+            } else {
+                // No fragment open - open the document
+                Log.i("Document", "showFragment");
+                showFragment(DocumentEditAndViewFragment.newInstance(doc, startLine, startInPreview));
+            }
         }
+    }
+
+    private boolean isDocumentAlreadyOpen(final Document doc) {
+        final GsFragmentBase<?, ?> frag = getCurrentVisibleFragment();
+        if (frag instanceof DocumentEditAndViewFragment) {
+            final DocumentEditAndViewFragment editFrag = (DocumentEditAndViewFragment) frag;
+            return editFrag.getDocument().path.equals(doc.path);
+        }
+        return false;
     }
 
     private void showNotSupportedMessage() {
@@ -264,18 +308,6 @@ public class DocumentActivity extends MarkorBaseActivity {
         setTitle(title);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && _appSettings.isMultiWindowEnabled()) {
             setTaskDescription(new ActivityManager.TaskDescription(title));
-        }
-    }
-
-    public void showTextEditor(final Document document, final Integer lineNumber, final Boolean startPreview) {
-        final GsFragmentBase<?, ?> currentFragment = getCurrentVisibleFragment();
-
-        final boolean sameDocumentRequested = (
-                currentFragment instanceof DocumentEditAndViewFragment &&
-                        document.path.equals(((DocumentEditAndViewFragment) currentFragment).getDocument().path));
-
-        if (!sameDocumentRequested) {
-            showFragment(DocumentEditAndViewFragment.newInstance(document, lineNumber, startPreview));
         }
     }
 
