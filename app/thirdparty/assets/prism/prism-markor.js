@@ -1,5 +1,5 @@
 function usePrismCodeBlock() {
-    elements = document.querySelectorAll("pre > code");
+    let elements = document.querySelectorAll("pre > code");
     elements.forEach(function (element) {
         let attribute = element.getAttribute("class");
         if (attribute == null || attribute.indexOf("language-") == -1) {
