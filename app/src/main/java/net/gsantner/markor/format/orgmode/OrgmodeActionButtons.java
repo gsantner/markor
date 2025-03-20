@@ -7,7 +7,6 @@ import androidx.annotation.StringRes;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.ActionButtonBase;
-import net.gsantner.markor.format.markdown.MarkdownReplacePatternGenerator;
 import net.gsantner.markor.frontend.textview.AutoTextFormatter;
 import net.gsantner.markor.model.Document;
 
@@ -35,7 +34,10 @@ public class OrgmodeActionButtons extends ActionButtonBase {
                 new ActionItem(R.string.abid_orgmode_italic, R.drawable.ic_format_italic_black_24dp, R.string.italic),
                 new ActionItem(R.string.abid_orgmode_strikeout, R.drawable.ic_format_strikethrough_black_24dp, R.string.strikeout),
                 new ActionItem(R.string.abid_orgmode_underline, R.drawable.ic_format_underlined_black_24dp, R.string.underline),
-                new ActionItem(R.string.abid_orgmode_code_inline, R.drawable.ic_code_black_24dp, R.string.inline_code)
+                new ActionItem(R.string.abid_orgmode_code_inline, R.drawable.ic_code_black_24dp, R.string.inline_code),
+                new ActionItem(R.string.abid_orgmode_h1, R.drawable.format_header_1, R.string.heading_1),
+                new ActionItem(R.string.abid_orgmode_h2, R.drawable.format_header_2, R.string.heading_2),
+                new ActionItem(R.string.abid_orgmode_h3, R.drawable.format_header_3, R.string.heading_3)
         );
     }
 
@@ -47,13 +49,39 @@ public class OrgmodeActionButtons extends ActionButtonBase {
 
     @Override
     protected void renumberOrderedList() {
-        // Use markdown format for orgmode too
-        AutoTextFormatter.renumberOrderedList(_hlEditor.getText(), MarkdownReplacePatternGenerator.formatPatterns);
+        AutoTextFormatter.renumberOrderedList(_hlEditor.getText(), OrgmodeReplacePatternGenerator.formatPatterns);
     }
 
     @Override
     public boolean onActionClick(final @StringRes int action) {
         switch (action) {
+            case R.string.abid_orgmode_h1: {
+                runRegexReplaceAction(OrgmodeReplacePatternGenerator.setOrUnsetHeadingWithLevel(1));
+                return true;
+            }
+            case R.string.abid_orgmode_h2: {
+                runRegexReplaceAction(OrgmodeReplacePatternGenerator.setOrUnsetHeadingWithLevel(2));
+                return true;
+            }
+            case R.string.abid_orgmode_h3: {
+                runRegexReplaceAction(OrgmodeReplacePatternGenerator.setOrUnsetHeadingWithLevel(3));
+                return true;
+            }
+            case R.string.abid_common_unordered_list_char: {
+                final String listChar = _appSettings.getUnorderedListCharacter();
+                runRegexReplaceAction(OrgmodeReplacePatternGenerator.replaceWithUnorderedListPrefixOrRemovePrefix(listChar));
+                return true;
+            }
+            case R.string.abid_common_checkbox_list: {
+                final String listChar = _appSettings.getUnorderedListCharacter();
+                runRegexReplaceAction(OrgmodeReplacePatternGenerator.toggleToCheckedOrUncheckedListPrefix(listChar));
+                return true;
+            }
+            case R.string.abid_common_ordered_list_number: {
+                runRegexReplaceAction(OrgmodeReplacePatternGenerator.replaceWithOrderedListPrefixOrRemovePrefix());
+                runRenumberOrderedListIfRequired();
+                return true;
+            }
             case R.string.abid_orgmode_bold: {
                 runSurroundAction("*");
                 return true;

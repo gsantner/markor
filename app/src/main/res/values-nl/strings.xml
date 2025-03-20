@@ -59,6 +59,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="last_modified">Laatst gewijzigd</string>
     <string name="select_this_folder">Selecteer deze map</string>
     <string name="select">Selecteer</string>
+    <string name="select_all">Alles selecteren</string>
     <string name="create">Aanmaken</string>
     <string name="select_entries">Selecteer invoeren</string>
     <string name="one_item_selected">1 item geselecteerd</string>
@@ -67,9 +68,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">Verberg statusbalk</string>
     <string name="name">Naam</string>
     <string name="url_or_path">URL / Pad</string>
+    <string name="insert_link">Link invoegen</string>
+    <string name="format_link">Link opmaken</string>
     <string name="insert_image">Voeg afbeelding toe</string>
     <string name="contributors">Bijdragers</string>
     <string name="save_location">Locatie opslaan</string>
+    <string name="saved_location_to">Opgeslagen in %s</string>
     <string name="select_storage_folder">Kies opslagmap</string>
     <string name="licenses">Licenties</string>
     <string name="changelog">Logboekwijzigingen</string>
@@ -78,6 +82,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">3rd Party Bibliotheken</string>
     <string name="language_change_restart_description">Taal wijzigen van deze app. Opnieuw opstarten om wijzigingen te activeren</string>
     <string name="language">Taal</string>
+    <string name="storage_permission_required">Opslagpermissie vereist om bestanden te kunnen inlezen en schrijven</string>
     <string name="open_with">Open met</string>
     <string name="sort_by">Sorteren</string>
     <string name="date">Sorteer op datum</string>
@@ -172,15 +177,21 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_does_move_done_tasks">Verplaats voltooide taken naar opgegeven bestand in dezelfde map</string>
     <string name="sort_tasks_by_selected_order">Sorteer taken op geselecteerde volgorde</string>
     <string name="special_key">Speciale toets</string>
+    <string name="asciidoc_special_key">Speciale AsciiDoc inhoud</string>
     <string name="key_page_up">Vorige pagina</string>
     <string name="key_page_down">Volgende pagina</string>
     <string name="key_pos_1">Start lijn (Pos Home)</string>
     <string name="key_pos_end">Eind lijn (Pos End)</string>
     <string name="key_pos_1_document">Document Start</string>
     <string name="key_pos_end_document">Document Einde</string>
+    <string name="move_text_one_line_up">Verplaats regel omhoog</string>
+    <string name="move_text_one_line_down">Verplaats regel omlaag</string>
+    <string name="start_new_line_below">Nieuwe regel</string>
+    <string name="select_current_line">Huidige regel selecteren</string>
     <string name="key_ctrl_a">Alles selecteren (Ctrl+A)</string>
     <string name="key_tab">Documenteinde</string>
     <string name="zero_width_space">Nul breedte ruimte</string>
+    <string name="em_space">Em space (&amp;emsp;)</string>
     <string name="start_on_bottom">Start onderaan</string>
     <string name="start_on_bottom_when_loading_document">Bij het laden van een document, plaats cursor aan het einde</string>
     <string name="unordered_list_character">Ongeordende lijst teken</string>
@@ -189,6 +200,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_asterisk">Asterisk (*)</string>
     <string name="unordered_list_char_plus">Plus (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor kan alleen lokale, offline beschikbare documenten bewerken en ondersteunt geen bestandsbeheerders die niet het volledige bestandspad aangeven.</string>
+    <string name="file_does_not_exist_and_cant_be_created">Bestand of folder bestaat niet en kan niet worden aangemaakt</string>
+    <string name="permissions">Permissies</string>
+    <string name="permission_paths_revert">Standaard paden herstellen?</string>
+    <string name="permission_not_granted">Geen permissie verleend</string>
     <string name="sync_to_local_folder_notice">Opmerking: Sync apps kunnen bestanden plaatsen in aangepaste mappen. Open ze door de document map van Markor dienovereenkomstig te wijzigen, of in een andere bestandsbeheerder.</string>
     <string name="vertical_alignment">Verticale uitlijning</string>
     <string name="horizontal_alignment">Horizontale uitleining</string>
@@ -204,11 +219,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_text_in_center_of_screen">Bewerk tekst in het midden van het scherm</string>
     <string name="clipboard">Plakbord</string>
     <string name="select_existing_document">Selecteer bestaand document</string>
+    <string name="select_create_document">Kies of maak document aan</string>
     <string name="open_source_licenses">Open Source Licenties</string>
     <string name="rate_this_app">Beoordeel deze app</string>
     <string name="translate">Vertalen</string>
     <string name="more_info_and_help">Meer informatie en ondersteuning</string>
     <string name="report_bugs">Bugs melden</string>
+    <string name="do_you_have_a_question_or_problem">Heeft u een vraag of probleem?</string>
     <string name="join_community">Neem deel aan de gemeenschap</string>
     <string name="bug_reports_suggest_improvements">Geef commentaar, meld defecten of ideeën voor verbeteringen</string>
     <string name="help_translating_this_app">Vertaal deze app in andere talen</string>
@@ -216,6 +233,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_license">Project Licentie</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Draag bij aan de code van het project. Iedereen is welkom ook beginners</string>
     <string name="project_team">Projectteam</string>
+    <string name="community">Gemeenschap</string>
     <string name="contributors_public_add_yourself_description">Toon bijdrager info. Geef het hier weer op een opt-in basis na bijdragen</string>
     <string name="descending">aflopend</string>
     <string name="ascending">oplopend</string>
@@ -261,6 +279,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Kies datum</string>
     <string name="pick_time">Kies tijd</string>
     <string name="get_format_instead_date_or_time">Ophalen format in plaats van datum of tijd</string>
+    <string name="use_current_date_and_time">Gebruik huidige datum &amp; tijd</string>
     <string name="result">Resultaat</string>
     <string name="just_time">Alleen tijd</string>
     <string name="just_date">Alleen datum</string>
@@ -301,7 +320,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="list_in_recent_files">Lijst in recente bestanden</string>
     <string name="reload">Herladen</string>
     <string name="wrap_words">Woorden weghalen</string>
+    <string name="line_numbers">Regelnummers</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Soft break als tekst niet past bij schermbreedte. Schakel horizontaal scrollen in.</string>
+    <string name="recursive_search_in_location">Recursief zoeken in %s</string>
     <string name="always_open_with_this_app">Altijd open met deze app</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Open altijd bestanden met deze app wanneer de lijst de bestandsextensie bevat. Gebruik \'Geen, .html, .css , .js\' bijvoorbeeld als u webbestanden en degenen zonder bestandsextensie wilt bewerken.</string>
     <string name="open_file_with">Bestand openen met</string>
@@ -324,6 +345,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="how_much_columns_press_table_button_long_to_start_table">Hoeveel kolommen? Druk op tafelknop lang om een tabel te starten (voeg koptekst in), druk kort om een rij toe te voegen.</string>
     <string name="example_of_a_markdown_table">Voorbeeld van een Markdown tabel</string>
     <string name="delete_lines">Verwijder regels</string>
+    <string name="duplicate_lines">Dubbele regels</string>
     <string name="unordered_list">Ongeordende lijst</string>
     <string name="ordered_list">Geordende lijst</string>
     <string name="check_list">Lijst controleren</string>
@@ -352,6 +374,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_completed_tasks">Voltooide taken archiveren</string>
     <string name="create_new_file_or_folder">Maak een nieuw bestand of map aan</string>
     <string name="choose_format">Kies formaat</string>
+    <string name="clear_selection">Selectie wissen</string>
     <string name="selected">Geselecteerd</string>
     <string name="back">Terug</string>
     <string name="expand_collapse">Uitvouwen / samenvouwen</string>
@@ -419,12 +442,27 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">Vervalt vandaag</string>
     <string name="due_future">Vervalt in de toekomst</string>
     <string name="completed">Voltooid</string>
+    <string name="advanced_filtering">Geavanceerd filteren</string>
     <string name="match_any">Overeenkomen met elke</string>
     <string name="match_all">Alles overeenkomen</string>
     <string name="dynamic_notebook_root_links">Dynamisch zoeken naar notitieboekroot</string>
     <string name="search_dynamically_for_notebook_root">Om wiki-links te volgen, zoek je dynamisch naar het notebook.zim-bestand om de hoofdmap te identificeren voor het huidige notitieboek. Vink dit aan als je meerdere zim-notitieboekjes of de schrijffolder in de app niet overeenkomt met je zim-notitieboekje.</string>
+    <string name="share_into_format_prefix_for_text_shared">Indeling/voorvoegsel voor tekst gedeeld in Markor. Volgt de SimpleDateFormat-regels van Android.\n\nGebruik de plaatsaanduiding {{text}} om de gedeelde tekst te positioneren. Indien niet opgegeven, wordt de gedeelde tekst toegevoegd en wordt de opmaak als voorvoegsel gebruikt.</string>
     <string name="share_into_format">Deel mee - Formaat</string>
+    <string name="attachment_folder_name">Foldernaam voor bijlagen</string>
+    <string name="attachment_folder_name_desc">Submap onder de huidige map waarin bijlagen worden opgeslagen. Indien leeg gelaten, worden bijlagen in de huidige map opgeslagen.</string>
     <string name="auto_format">Auto-formaat</string>
     <string name="insert_snippet">Insert snippet</string>
+    <string name="snippet_directory">Knipsel- / sjabloonmap</string>
+    <string name="error_could_not_open_file">Fout: bestand kon niet worden geopend.</string>
     <string name="document_error_clip">Fout opgetreden: tekst gekopieerd naar klembord.</string>
+    <string name="wont_save_min_length">Bestanden met minder dan %d karakters worden niet automatisch opgeslagen om gegevensverlies te voorkomen.</string>
+    <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Geavanceerde filter-syntaxis</a></small>]]></string>
+    <string name="filter">Filter</string>
+    <string name="text_case">Hoofdlettergebruik</string>
+    <string name="toggle_case">Hoofdletters omwisselen (bijv: Case-&gt;CASE-&gt;case)</string>
+    <string name="switch_case">Afwisselende hoofdletters (bijv: CaSe-&gt;cAsE)</string>
+    <string name="capitalize_words">Begin elk woord met hoofdletter (bijv: a note-&gt;A Note)</string>
+    <string name="capitalize_sentences">Begin zinnen met hoofdletters (bijv: case-&gt;Case)</string>
+    <string name="use_tab_to_indent">Regels inspringen met TAB-toets</string>
 </resources>

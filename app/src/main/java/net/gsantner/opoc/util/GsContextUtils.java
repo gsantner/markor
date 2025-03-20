@@ -609,6 +609,17 @@ public class GsContextUtils {
                 + (0.114 * Color.blue(colorOnBottomInt)))));
     }
 
+    @ColorInt
+    public static int rgb(final int r, final int g, final int b) {
+        return argb(255, r, g, b);
+    }
+
+    @ColorInt
+    public static int argb(final int a, final int r, final int g, final int b) {
+        return (Math.max(0, Math.min(255, a)) << 24) | (Math.max(0, Math.min(255, r)) << 16) | (Math.max(0, Math.min(255, g)) << 8) | Math.max(0, Math.min(255, b));
+    }
+
+
     /**
      * Convert a html string to an android {@link Spanned} object
      */
@@ -853,7 +864,7 @@ public class GsContextUtils {
         bitmap = bitmap.copy(bitmap.getConfig(), true);
         Canvas canvas = new Canvas(bitmap);
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setColor(Color.rgb(61, 61, 61));
+        paint.setColor(GsContextUtils.rgb(61, 61, 61));
         paint.setTextSize((int) (textSize * scale));
         paint.setShadowLayer(1f, 0f, 1f, Color.WHITE);
 
@@ -869,7 +880,11 @@ public class GsContextUtils {
     /**
      * Try to tint all {@link Menu}s {@link MenuItem}s with given color
      */
-    public void tintMenuItems(final Menu menu, final boolean recurse, @ColorInt final int iconColor) {
+    public void tintMenuItems(final @Nullable Menu menu, final boolean recurse, @ColorInt final int iconColor) {
+        if (menu == null) {
+            return;
+        }
+
         for (int i = 0; i < menu.size(); i++) {
             MenuItem item = menu.getItem(i);
             try {
@@ -2911,25 +2926,24 @@ public class GsContextUtils {
 
     public static boolean fadeInOut(final View in, final View out, final boolean animate) {
         // Do nothing if we are already in the correct state
-        if (in.getVisibility() == View.VISIBLE && out.getVisibility() == View.GONE) {
+        if (in.getVisibility() == View.VISIBLE && out.getVisibility() == View.INVISIBLE) {
             return false;
         }
 
-        in.setVisibility(View.VISIBLE);
         if (animate) {
-            in.setAlpha(0);
-            in.animate().alpha(1).setDuration(200).setListener(null);
             out.animate()
-                    .alpha(0)
-                    .setDuration(200)
-                    .setListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            out.setVisibility(View.GONE);
-                        }
-                    });
+                    .alpha(0f)
+                    .setDuration(300)
+                    .withEndAction(() -> out.setVisibility(View.INVISIBLE));
+
+            in.setAlpha(0f);
+            in.setVisibility(View.VISIBLE);
+            in.animate()
+                    .alpha(1f)
+                    .setDuration(300);
         } else {
-            out.setVisibility(View.GONE);
+            out.setVisibility(View.INVISIBLE);
+            in.setVisibility(View.VISIBLE);
         }
 
         return true;

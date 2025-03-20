@@ -68,6 +68,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">Dölj statusfältet</string>
     <string name="name">Namn</string>
     <string name="url_or_path">URL / sökväg</string>
+    <string name="insert_link">Infoga länk</string>
+    <string name="format_link">Format länk</string>
     <string name="insert_image">Infoga bild</string>
     <string name="contributors">Medhjälpare</string>
     <string name="save_location">Spara plats</string>
@@ -182,6 +184,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_pos_end">Slutet av rad (Pos end)</string>
     <string name="key_pos_1_document">Dokumentets början</string>
     <string name="key_pos_end_document">Dokumentets slut</string>
+    <string name="move_text_one_line_up">Flytta upp rad</string>
+    <string name="move_text_one_line_down">Flytta ner rad</string>
+    <string name="start_new_line_below">Ny rad</string>
+    <string name="select_current_line">Välj nuvarande rad</string>
     <string name="key_ctrl_a">Välj allt (Ctrl+A)</string>
     <string name="key_tab">Tabulator</string>
     <string name="zero_width_space">Nollbreddsutrymme</string>
@@ -450,4 +456,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wont_save_min_length">Filer med färre än %d tecken sparas inte automatiskt i syfte för att förhindra förlust av data.</string>
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Syntax för avancerade filter</a></small>]]></string>
     <string name="filter">Filter</string>
+    <string name="use_tab_to_indent">Använd tab för indentering</string>
 </resources>

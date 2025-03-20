@@ -52,7 +52,6 @@ public class Document implements Serializable {
     public static final String EXTRA_FILE = "EXTRA_FILE"; // java.io.File
     public static final String EXTRA_FILE_LINE_NUMBER = "EXTRA_FILE_LINE_NUMBER"; // int
     public static final String EXTRA_DO_PREVIEW = "EXTRA_DO_PREVIEW";
-    public static final int EXTRA_FILE_LINE_NUMBER_LAST = -919385553; // Flag for last line
 
     // Exposed properties
     public final File file;
@@ -72,7 +71,7 @@ public class Document implements Serializable {
     private int _lastLength = -1;
 
     public Document(@NonNull final File f) {
-        path = getPath(f);
+        path = GsFileUtils.getPath(f);
         file = new File(path);
         title = GsFileUtils.getFilenameWithoutExtension(file);
         extension = GsFileUtils.getFilenameExtension(file);
@@ -83,16 +82,6 @@ public class Document implements Serializable {
                 setFormat(format.format);
                 break;
             }
-        }
-    }
-
-    public static String getPath(final File file) {
-        try {
-            return file.getCanonicalPath();
-        } catch (IOException e) {
-            return file.getAbsolutePath();
-        } catch (NullPointerException e) {
-            return "";
         }
     }
 

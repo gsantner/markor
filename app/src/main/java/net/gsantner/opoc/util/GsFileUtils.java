@@ -17,6 +17,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
@@ -55,6 +56,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -772,22 +774,51 @@ public class GsFileUtils {
         }
     }
 
-    public static void sortFiles(
-            final Collection<File> filesToSort,
-            final String sortBy,
-            final boolean folderFirst,
-            final boolean reverse
-    ) {
+    public static class SortOrder {
+        public String sortByType = SORT_BY_NAME;
+        public boolean reverse = false;
+        public boolean showDotFiles = false;
+        public boolean folderFirst = true;
+        public boolean isFolderLocal = false;
+
+        private final static String SORT_BY_KEY = "SORT_BY";
+        private final static String REVERSE_KEY = "REVERSE";
+        private final static String SHOW_DOT_FILES_KEY = "SHOW_DOT_FILES";
+        private final static String FOLDER_FIRST_KEY = "FOLDER_FIRST";
+
+        @NonNull
+        @Override
+        public String toString() {
+            final Map<String, String> map = new HashMap<>();
+            map.put(SORT_BY_KEY, sortByType);
+            map.put(REVERSE_KEY, String.valueOf(reverse));
+            map.put(SHOW_DOT_FILES_KEY, String.valueOf(showDotFiles));
+            map.put(FOLDER_FIRST_KEY, String.valueOf(folderFirst));
+            return GsTextUtils.mapToJsonString(map);
+        }
+
+        public static SortOrder fromString(final String json) {
+            final SortOrder fso = new SortOrder();
+            final Map<String, String> map = GsTextUtils.jsonStringToMap(json);
+            fso.sortByType = GsCollectionUtils.getOrDefault(map, SORT_BY_KEY, SORT_BY_NAME);
+            fso.reverse = Boolean.parseBoolean(GsCollectionUtils.getOrDefault(map, REVERSE_KEY, "false"));
+            fso.showDotFiles = Boolean.parseBoolean(GsCollectionUtils.getOrDefault(map, SHOW_DOT_FILES_KEY, "false"));
+            fso.folderFirst = Boolean.parseBoolean(GsCollectionUtils.getOrDefault(map, FOLDER_FIRST_KEY, "true"));
+            return fso;
+        }
+    }
+
+    public static void sortFiles(final Collection<File> filesToSort, final SortOrder order) {
         if (filesToSort != null && !filesToSort.isEmpty()) {
             try {
                 final boolean copy = !(filesToSort instanceof List);
                 final List<File> sortable = copy ? new ArrayList<>(filesToSort) : (List<File>) filesToSort;
 
-                GsCollectionUtils.keySort(sortable, (f) -> makeSortKey(sortBy, f));
-                if (reverse) {
+                GsCollectionUtils.keySort(sortable, (f) -> makeSortKey(order.sortByType, f));
+                if (order.reverse) {
                     Collections.reverse(sortable);
                 }
-                if (folderFirst) {
+                if (order.folderFirst) {
                     GsCollectionUtils.keySort(sortable, (f) -> !f.isDirectory());
                 }
 
@@ -928,5 +959,15 @@ public class GsFileUtils {
             Log.d(GsFileUtils.class.getName(), e.toString());
         }
         return null;
+    }
+
+    public static String getPath(final File file) {
+        try {
+            return file.getCanonicalPath();
+        } catch (IOException e) {
+            return file.getAbsolutePath();
+        } catch (NullPointerException e) {
+            return "";
+        }
     }
 }

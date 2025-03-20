@@ -566,6 +566,14 @@ public class GsSharedPreferencesPropertyBackend implements GsPropertyBackend<Str
         return gp(pref).contains(key);
     }
 
+    public void remove(@StringRes int keyResourceId, final SharedPreferences... pref) {
+        gp(pref).edit().remove(rstr(keyResourceId)).apply();
+    }
+
+    public void remove(final String key, final SharedPreferences... pref) {
+        gp(pref).edit().remove(key).apply();
+    }
+
     /**
      * Substract current datetime by given amount of days
      */
