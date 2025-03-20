@@ -453,4 +453,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wont_save_min_length">Dateien mit weniger als %d Zeichen werden nicht automatisch gespeichert, um Datenverlust vorzubeugen.</string>
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Erweiterte Filterregel</a></small>]]></string>
     <string name="filter">Filter</string>
+    <string name="use_tab_to_indent">Zeilen einrücken mit der TAB-Taste</string>
 </resources>
