@@ -17,6 +17,7 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.view.HapticFeedbackConstants;
@@ -1025,5 +1026,9 @@ public abstract class ActionButtonBase {
             return true;
         }
         return false;
+    }
+
+    public static class HeadlineState extends GsSearchOrCustomTextDialog.DialogState {
+        public final List<Integer> disabledLevels = new ArrayList<>();
     }
 }

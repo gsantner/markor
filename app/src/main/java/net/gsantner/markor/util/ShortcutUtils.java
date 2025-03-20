@@ -97,6 +97,7 @@ public class ShortcutUtils {
                 final File file = new File(recentDocuments.get(i));
 
                 final Intent openFile = new Intent(context, OpenFromShortcutOrWidgetActivity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                         .setAction(Intent.ACTION_EDIT)
                         .setData(Uri.fromFile(file));
 

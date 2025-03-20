@@ -43,6 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/background"
+                android:alpha="0"
                 android:gravity="top"
                 android:imeOptions="flagNoExtractUi"
                 android:inputType="textMultiLine|textCapSentences"
@@ -53,6 +54,7 @@
                 android:paddingBottom="@dimen/editor_bottom_margin"
                 android:scrollbars="none"
                 android:overScrollMode="never"
+                android:scrollHorizontally="false"
                 android:textCursorDrawable="@drawable/cursor_accent" />
         </LinearLayout>
     </net.gsantner.markor.frontend.DraggableScrollbarScrollView>
