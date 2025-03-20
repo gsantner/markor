@@ -279,6 +279,7 @@ public class MarkdownTextConverter extends TextConverterBase {
         // Enable View (block) code syntax highlighting
         if (markup.contains("```")) {
             head += getViewHlPrismIncludes(GsContextUtils.instance.isDarkModeEnabled(context) ? "-tomorrow" : "", enableLineNumbers);
+            onLoadJs += "usePrismCodeBlock();";
             if (_appSettings.getDocumentWrapState(file.getAbsolutePath())) {
                 onLoadJs += "wrapCodeBlockWords();";
             }
@@ -386,19 +387,20 @@ public class MarkdownTextConverter extends TextConverterBase {
     private String getViewHlPrismIncludes(final String theme, final boolean isLineNumbersEnabled) {
         final StringBuilder sb = new StringBuilder(1000);
         sb.append(CSS_PREFIX + "prism/themes/prism" + theme + ".min.css" + CSS_POSTFIX);
-        sb.append(CSS_PREFIX + "prism/style.css" + CSS_POSTFIX);
+        sb.append(CSS_PREFIX + "prism/prism-markor.css" + CSS_POSTFIX);
         sb.append(CSS_PREFIX + "prism/plugins/toolbar/prism-toolbar.css" + CSS_POSTFIX);
 
         sb.append(JS_PREFIX + "prism/prism.js" + JS_POSTFIX);
-        sb.append(JS_PREFIX + "prism/main.js" + JS_POSTFIX);
+        sb.append(JS_PREFIX + "prism/components.js" + JS_POSTFIX);
+        sb.append(JS_PREFIX + "prism/prism-markor.js" + JS_POSTFIX);
         sb.append(JS_PREFIX + "prism/plugins/autoloader/prism-autoloader.min.js" + JS_POSTFIX);
         sb.append(JS_PREFIX + "prism/plugins/toolbar/prism-toolbar.min.js" + JS_POSTFIX);
-        sb.append(JS_PREFIX + "prism/plugins/copy-to-clipboard/prism-copy-to-clipboard.js" + JS_POSTFIX);
+        sb.append(JS_PREFIX + "prism/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js" + JS_POSTFIX);
 
         if (isLineNumbersEnabled) {
-            sb.append(CSS_PREFIX + "prism/plugins/line-numbers/style.css" + CSS_POSTFIX);
+            sb.append(CSS_PREFIX + "prism/plugins/line-numbers/prism-line-numbers-markor.css" + CSS_POSTFIX);
             sb.append(JS_PREFIX + "prism/plugins/line-numbers/prism-line-numbers.min.js" + JS_POSTFIX);
-            sb.append(JS_PREFIX + "prism/plugins/line-numbers/main.js" + JS_POSTFIX);
+            sb.append(JS_PREFIX + "prism/plugins/line-numbers/prism-line-numbers-markor.js" + JS_POSTFIX);
         }
 
         return sb.toString();
