@@ -458,11 +458,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wont_save_min_length">Dateien mit weniger als %d Zeichen werden nicht automatisch gespeichert, um Datenverlust vorzubeugen.</string>
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Erweiterte Filterregel</a></small>]]></string>
     <string name="filter">Filter</string>
-    <string name="text_case">Klein-/Großschreibung</string>
+    <string name="text_case">Groß-/Kleinschreibung</string>
     <string name="toggle_case">Alles groß- bzw. kleinschreiben (Bsp: Markor-&gt;MARKOR-&gt;markor)</string>
     <string name="switch_case">Großbuchstaben kleinschreiben und umgekehrt (Bsp:MaRkor-&gt;mArKOR)</string>
     <string name="capitalize_words">Alles großschreiben (Bsp: Markor-&gt;MARKOR)</string>
     <string name="capitalize_sentences">Satzanfang großschreiben (Bsp: markor-&gt;Markor)</string>
     <string name="use_tab_to_indent">Zeilen einrücken mit der TAB-Taste</string>
-    <string name="folder_local">Lokaler Ordner</string>
+    <string name="folder_local">Lokale Ordner</string>
 </resources>
