@@ -463,7 +463,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="toggle_case">Alles groß- bzw. kleinschreiben (Bsp: Markor-&gt;MARKOR-&gt;markor)</string>
     <string name="switch_case">Großbuchstaben kleinschreiben und umgekehrt (Bsp:MaRkor-&gt;mArKOR)</string>
     <string name="capitalize_words">Alles großschreiben (Bsp: Markor-&gt;MARKOR)</string>
-    <string name="capitalize_sentences">Satzanfang großschreiben (Bsp: markor-&gt;Markor)</string>
+    <string name="capitalize_sentences">Satzanfänge großschreiben (Bsp: markor-&gt;Markor)</string>
     <string name="use_tab_to_indent">Zeilen einrücken mit der TAB-Taste</string>
     <string name="folder_local">Lokale Ordner</string>
 </resources>
