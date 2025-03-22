@@ -191,7 +191,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_ctrl_a">Alles auswählen (Strg + A)</string>
     <string name="key_tab">Tabulator</string>
     <string name="zero_width_space">Breitenloses Zeichen (Zero-width space)</string>
-    <string name="em_space">1 em Leerraum (&amp;emsp;)</string>
+    <string name="em_space">1 em Leerraum (&amp;&emsp;)</string>
     <string name="start_on_bottom">Unten beginnen</string>
     <string name="start_on_bottom_when_loading_document">Nachdem ein Dokument geladen wurde, den Cursor ganz unten platzieren</string>
     <string name="unordered_list_character">Unsortiertes Listenzeichen</string>
