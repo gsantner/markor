@@ -465,4 +465,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="capitalize_words">Begin elk woord met hoofdletter (bijv: a note-&gt;A Note)</string>
     <string name="capitalize_sentences">Begin zinnen met hoofdletters (bijv: case-&gt;Case)</string>
     <string name="use_tab_to_indent">Regels inspringen met TAB-toets</string>
+    <string name="folder_local">Lokale mappen</string>
 </resources>
