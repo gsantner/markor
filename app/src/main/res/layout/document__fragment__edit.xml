@@ -39,7 +39,7 @@
 
             <net.gsantner.markor.frontend.textview.HighlightingEditor
                 android:id="@+id/document__fragment__edit__highlighting_editor"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/background"
@@ -52,6 +52,8 @@
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingBottom="@dimen/editor_bottom_margin"
+                android:nestedScrollingEnabled="false"
+                android:isScrollContainer="false"
                 android:scrollbars="none"
                 android:overScrollMode="never"
                 android:scrollHorizontally="false"

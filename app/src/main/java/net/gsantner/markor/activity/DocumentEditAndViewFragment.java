@@ -33,6 +33,8 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -253,10 +255,12 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         }
 
         _verticalScrollView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
-            final int height = _verticalScrollView.getHeight();
-            if (height != _hlEditor.getMinHeight()) {
-                _hlEditor.setMinHeight(height);
-            }
+            _hlEditor.post(() -> {
+                final int height = _verticalScrollView.getHeight();
+                if (height != _hlEditor.getMinHeight()) {
+                    _hlEditor.setMinHeight(height);
+                }
+            });
         });
     }
 
@@ -750,29 +754,43 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         return _horizontalScrollView == null || _hlEditor.getParent() != _horizontalScrollView;
     }
 
+    private ViewGroup.LayoutParams makeLinearLayoutChildParams() {
+        return new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
+    }
+
+    private ViewGroup.LayoutParams makeScrollViewChildParams() {
+        return new ScrollView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    }
+
     private void setWrapState(final boolean wrap) {
         _hlEditor.setHorizontallyScrolling(!wrap);
         final Context context = getContext();
         if (context != null && _hlEditor != null && isWrapped() != wrap) {
-            final int[] sel = TextViewUtils.getSelection(_hlEditor);
+
             _hlEditor.setAlpha(0);
+
+            final int[] sel = TextViewUtils.getSelection(_hlEditor);
             final boolean hlEnabled = _hlEditor.setHighlightingEnabled(false);
 
             if (_horizontalScrollView == null) {
                 _horizontalScrollView = new HorizontalScrollView(context);
-                _horizontalScrollView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                 _horizontalScrollView.setFillViewport(true);
             }
 
             if (wrap) {
                 _horizontalScrollView.removeView(_hlEditor);
                 _editorHolder.removeView(_horizontalScrollView);
+                _hlEditor.setLayoutParams(makeLinearLayoutChildParams());
                 _editorHolder.addView(_hlEditor, 1);
             } else {
                 _editorHolder.removeView(_hlEditor);
+                _hlEditor.setLayoutParams(makeScrollViewChildParams());
                 _horizontalScrollView.addView(_hlEditor);
+                _horizontalScrollView.setLayoutParams(makeLinearLayoutChildParams());
                 _editorHolder.addView(_horizontalScrollView, 1);
             }
+
+            _hlEditor.requestLayout();
 
             _hlEditor.setHighlightingEnabled(hlEnabled);
             _hlEditor.post(() -> {
