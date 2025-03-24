@@ -21,6 +21,6 @@
     content: counter(linenumber);
     color: #999;
     display: block;
-    padding-right: 0.3em; /* padding right of line numbers */
+    padding-right: 0.3em; /* right padding of line numbers */
     text-align: right;
 }
