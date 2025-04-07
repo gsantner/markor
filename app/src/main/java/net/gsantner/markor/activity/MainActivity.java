@@ -393,6 +393,9 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
     public void onViewPagerPageSelected(final int pos) {
         _bottomNav.getMenu().getItem(pos).setChecked(true);
+        // Close search dialog fragment
+        View view = findViewById(R.id.closeImageButton);
+        if (view != null) view.callOnClick();
 
         if (pos == tabIdToPos(R.id.nav_notebook)) {
             _fab.show();
