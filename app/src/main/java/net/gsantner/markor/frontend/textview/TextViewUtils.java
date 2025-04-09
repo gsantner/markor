@@ -313,7 +313,6 @@ public final class TextViewUtils {
     }
 
     public static void showSelection(final TextView text, final int start, final int end) {
-
         // Get view info
         // ------------------------------------------------------------
         final Layout layout = text.getLayout();
@@ -377,6 +376,22 @@ public final class TextViewUtils {
 
             edit.setSelection(start, end);
             showSelection(edit, start, end);
+        }
+    }
+
+    /**
+     * Show selection but do not set selection, and do not scroll EditText view if start selection is already in visible region.
+     *
+     * @param editText       Edit text view
+     * @param startSelection Start selection
+     */
+    public static void showSelection(final EditText editText, final int startSelection) {
+        Layout layout = editText.getLayout();
+        Rect visibleRect = new Rect();
+        editText.getLocalVisibleRect(visibleRect);
+        int line = layout.getLineForOffset(startSelection);
+        if (layout.getLineTop(line) < visibleRect.top || layout.getLineBottom(line) > visibleRect.bottom) {
+            showSelection(editText, startSelection, startSelection);
         }
     }
 

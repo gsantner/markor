@@ -5,6 +5,8 @@ import android.text.Spanned;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import net.gsantner.markor.frontend.textview.TextViewUtils;
+
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -213,7 +215,11 @@ public class OccurrenceHandler {
     }
 
     public void jumpNearbyOccurrence(EditText editText) {
-        jump(editText, getNearbyOccurrenceIndex(selection, occurrences));
+        int index = getNearbyOccurrenceIndex(selection, occurrences);
+        if (index > -1) {
+            jump(editText, index);
+            TextViewUtils.showSelection(editText, occurrences.get(index).getStartIndex());
+        }
     }
 
     public void next(EditText editText) {
@@ -250,6 +256,8 @@ public class OccurrenceHandler {
         editText.setText(spannableStringBuilder, TextView.BufferType.SPANNABLE);
 
         resultChangedListener.onResultChanged(currentIndex + 1, size);
+
+        TextViewUtils.showSelection(editText, occurrence.getStartIndex());
     }
 
     public void previous(EditText editText) {
@@ -286,6 +294,8 @@ public class OccurrenceHandler {
         editText.setText(spannableStringBuilder, TextView.BufferType.SPANNABLE);
 
         resultChangedListener.onResultChanged(currentIndex + 1, size);
+
+        TextViewUtils.showSelection(editText, occurrence.getStartIndex());
     }
 
     public int replace(EditText editText, String replacement) {
