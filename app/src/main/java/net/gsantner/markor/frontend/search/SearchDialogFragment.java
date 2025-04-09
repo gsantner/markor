@@ -77,7 +77,6 @@ public class SearchDialogFragment extends Fragment {
         editText.setOnFocusChangeListener((view, hasFocus) -> {
             if (hasFocus) {
                 occurrenceHandler.handleSelection(editText, searchEditText);
-                find();
             }
         });
 
@@ -247,6 +246,7 @@ public class SearchDialogFragment extends Fragment {
 
     public void find() {
         occurrenceHandler.find(editText, searchEditText.getText().toString());
+        occurrenceHandler.jumpNearbyOccurrence(editText);
     }
 
     @Override

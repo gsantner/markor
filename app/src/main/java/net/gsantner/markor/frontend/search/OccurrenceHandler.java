@@ -67,7 +67,6 @@ public class OccurrenceHandler {
         }
 
         highlightAll(editText);
-        jump(editText, 0);
     }
 
     private void loadOccurrences(Matcher matcher, int selectionStart) {
@@ -86,9 +85,35 @@ public class OccurrenceHandler {
         }
     }
 
+    private int getNearbyOccurrenceIndex(Selection selection, ArrayList<Occurrence> occurrences) {
+        final int size = occurrences.size();
+        if (size == 0) {
+            return -1;
+        }
+
+        int i = 0;
+        for (; i < size; i++) {
+            Occurrence occurrence = occurrences.get(i);
+            if (occurrence.getStartIndex() > selection.getStartIndex()) {
+                if (i > 0) {
+                    Occurrence lastOccurrence = occurrences.get(i - 1);
+                    if (selection.getStartIndex() - lastOccurrence.getEndIndex() < occurrence.getStartIndex() - selection.getEndIndex()) {
+                        return i - 1;
+                    } else {
+                        return i;
+                    }
+                } else {
+                    return i;
+                }
+            }
+        }
+
+        return Math.max(i - 1, 0);
+    }
+
     private final Selection selection = new Selection();
 
-    private SpannableStringBuilder clearSelection(EditText editText, boolean force) {
+    public SpannableStringBuilder clearSelection(EditText editText, boolean force) {
         SpannableStringBuilder spannableStringBuilder = null;
         if (force) {
             spannableStringBuilder = new SpannableStringBuilder(editText.getText());
@@ -183,6 +208,10 @@ public class OccurrenceHandler {
         editText.setText(spannableStringBuilder, TextView.BufferType.SPANNABLE);
 
         resultChangedListener.onResultChanged(currentIndex + 1, size);
+    }
+
+    public void jumpNearbyOccurrence(EditText editText) {
+        jump(editText, getNearbyOccurrenceIndex(selection, occurrences));
     }
 
     public void next(EditText editText) {
@@ -325,7 +354,6 @@ public class OccurrenceHandler {
         }
     }
 
-    // Getters
     public boolean isFindInSelection() {
         return findInSelection;
     }
@@ -346,7 +374,6 @@ public class OccurrenceHandler {
         return preserveCase;
     }
 
-    // Setters
     public void setFindInSelection(boolean findInSelection) {
         this.findInSelection = findInSelection;
     }
