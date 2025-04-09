@@ -37,6 +37,8 @@ public class OccurrenceHandler {
         if (target.isEmpty()) {
             resultChangedListener.onResultChanged(0, 0);
         } else {
+            editText.clearFocus();
+
             Pattern pattern;
             if (!isUseRegex()) {
                 target = Pattern.quote(target);
