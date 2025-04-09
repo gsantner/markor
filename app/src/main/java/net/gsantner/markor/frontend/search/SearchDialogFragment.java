@@ -249,6 +249,10 @@ public class SearchDialogFragment extends Fragment {
         occurrenceHandler.jumpNearbyOccurrence(editText);
     }
 
+    public void clear() {
+        occurrenceHandler.find(editText, "");
+    }
+
     @Override
     public void onPause() {
         super.onPause();
@@ -272,10 +276,12 @@ public class SearchDialogFragment extends Fragment {
     }
 
     public void hide() {
+        clear();
         activity.getSupportFragmentManager().beginTransaction().hide(this).commit();
     }
 
     public void close() {
+        clear();
         activity.getSupportFragmentManager().beginTransaction().remove(this).commit();
     }
 }
