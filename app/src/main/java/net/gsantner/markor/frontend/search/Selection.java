@@ -1,8 +1,7 @@
 package net.gsantner.markor.frontend.search;
 
-public class Occurrence {
-    public static final int BACKGROUND_COLOR = 0x80FF0000;
-    public static final int SPECIAL_BACKGROUND_COLOR = 0x80FFA500;
+public class Selection {
+    public static final int BACKGROUND_COLOR = 0x500000FF;
     private BackgroundColorSpan backgroundColorSpan;
 
     private int startIndex;
@@ -13,13 +12,14 @@ public class Occurrence {
         return this.backgroundColorSpan;
     }
 
-    public BackgroundColorSpan createSpecialBackgroundColorSpan() {
-        this.backgroundColorSpan = new BackgroundColorSpan(SPECIAL_BACKGROUND_COLOR);
+    public BackgroundColorSpan getBackgroundColorSpan() {
         return this.backgroundColorSpan;
     }
 
-    public BackgroundColorSpan getBackgroundColorSpan() {
-        return this.backgroundColorSpan;
+    public void reset() {
+        startIndex = 0;
+        endIndex = 0;
+        backgroundColorSpan = null;
     }
 
     public static class BackgroundColorSpan extends android.text.style.BackgroundColorSpan {
@@ -40,19 +40,15 @@ public class Occurrence {
         return this.endIndex - this.startIndex;
     }
 
+    public boolean isSelected() {
+        return this.startIndex != this.endIndex;
+    }
+
     public void setStartIndex(int startIndex) {
         this.startIndex = startIndex;
     }
 
     public void setEndIndex(int endIndex) {
         this.endIndex = endIndex;
-    }
-
-    public void offsetStartIndex(int offset) {
-        this.startIndex += offset;
-    }
-
-    public void offsetEndIndex(int offset) {
-        this.endIndex += offset;
     }
 }

@@ -52,27 +52,15 @@ public class OccurrenceHandler {
                 pattern = Pattern.compile(target, Pattern.CASE_INSENSITIVE);
             }
 
-            int selectionStart = 0;
-            boolean isInSelection = false;
             if (isFindInSelection()) {
-                selectionStart = editText.getSelectionStart();
-                int selectionEnd = editText.getSelectionEnd();
-                isInSelection = (selectionStart != -1 && selectionEnd != -1);
-                if (isInSelection) {
-                    CharSequence subCharSequence = editText.getText().subSequence(selectionStart, selectionEnd);
+                if (selection.isSelected()) {
+                    CharSequence subCharSequence = editText.getText().subSequence(selection.getStartIndex(), selection.getEndIndex());
                     Matcher matcher = pattern.matcher(subCharSequence);
-                    loadOccurrences(matcher);
+                    loadOccurrences(matcher, selection.getStartIndex());
                 }
             } else {
                 Matcher matcher = pattern.matcher(editText.getText());
-                loadOccurrences(matcher);
-            }
-
-            if (isInSelection) {
-                for (Occurrence occurrence : occurrences) {
-                    occurrence.startIndex = occurrence.startIndex + selectionStart;
-                    occurrence.endIndex = occurrence.endIndex + selectionStart;
-                }
+                loadOccurrences(matcher, 0);
             }
 
             resultChangedListener.onResultChanged(currentIndex + 1, occurrences.size());
@@ -82,12 +70,11 @@ public class OccurrenceHandler {
         jump(editText, 0);
     }
 
-    private void loadOccurrences(Matcher matcher) {
+    private void loadOccurrences(Matcher matcher, int selectionStart) {
         while (matcher.find()) {
             Occurrence occurrence = new Occurrence();
-            occurrence.startIndex = matcher.start();
-            occurrence.endIndex = matcher.end();
-            occurrence.length = matcher.group().length();
+            occurrence.setStartIndex(matcher.start() + selectionStart);
+            occurrence.setEndIndex(matcher.end() + selectionStart);
             occurrences.add(occurrence);
         }
     }
@@ -96,6 +83,51 @@ public class OccurrenceHandler {
         Occurrence.BackgroundColorSpan[] styleSpans = spannableStringBuilder.getSpans(0, spannableStringBuilder.length(), Occurrence.BackgroundColorSpan.class);
         for (Occurrence.BackgroundColorSpan span : styleSpans) {
             spannableStringBuilder.removeSpan(span);
+        }
+    }
+
+    private final Selection selection = new Selection();
+
+    private SpannableStringBuilder clearSelection(EditText editText, boolean force) {
+        SpannableStringBuilder spannableStringBuilder = null;
+        if (force) {
+            spannableStringBuilder = new SpannableStringBuilder(editText.getText());
+            Selection.BackgroundColorSpan[] styleSpans = spannableStringBuilder.getSpans(0, spannableStringBuilder.length(), Selection.BackgroundColorSpan.class);
+            for (Selection.BackgroundColorSpan span : styleSpans) {
+                spannableStringBuilder.removeSpan(span);
+            }
+            selection.reset();
+        } else if (selection.isSelected()) {
+            spannableStringBuilder = new SpannableStringBuilder(editText.getText());
+            spannableStringBuilder.removeSpan(selection.getBackgroundColorSpan());
+            selection.reset();
+        }
+
+        return spannableStringBuilder;
+    }
+
+    public void handleSelection(EditText editText, EditText searchEditText) {
+        SpannableStringBuilder spannableStringBuilder = clearSelection(editText, false);
+
+        selection.setStartIndex(editText.getSelectionStart());
+        selection.setEndIndex(editText.getSelectionEnd());
+
+        if (selection.isSelected()) {
+            if (isFindInSelection()) {
+                if (spannableStringBuilder == null) {
+                    spannableStringBuilder = new SpannableStringBuilder(editText.getText());
+                }
+                spannableStringBuilder.setSpan(selection.createBackgroundColorSpan(), selection.getStartIndex(), selection.getEndIndex(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            } else if (searchEditText != null) {
+                String target = editText.getText().subSequence(selection.getStartIndex(), selection.getEndIndex()).toString();
+                if (!target.isEmpty()) {
+                    searchEditText.setText(target);
+                }
+            }
+        }
+
+        if (spannableStringBuilder != null) {
+            editText.setText(spannableStringBuilder, TextView.BufferType.SPANNABLE);
         }
     }
 
@@ -112,7 +144,7 @@ public class OccurrenceHandler {
         if (!occurrences.isEmpty()) {
             // Set new occurrence spans
             for (Occurrence occurrence : occurrences) {
-                spannableStringBuilder.setSpan(occurrence.createBackgroundColorSpan(), occurrence.startIndex, occurrence.startIndex + occurrence.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                spannableStringBuilder.setSpan(occurrence.createBackgroundColorSpan(), occurrence.getStartIndex(), occurrence.getEndIndex(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
         }
 
@@ -146,7 +178,7 @@ public class OccurrenceHandler {
         // Set special highlight for specified occurrence
         currentIndex = index;
         Occurrence occurrence = occurrences.get(currentIndex);
-        spannableStringBuilder.setSpan(occurrence.createSpecialBackgroundColorSpan(), occurrence.startIndex, occurrence.startIndex + occurrence.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableStringBuilder.setSpan(occurrence.createSpecialBackgroundColorSpan(), occurrence.getStartIndex(), occurrence.getEndIndex(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         editText.setText(spannableStringBuilder, TextView.BufferType.SPANNABLE);
 
@@ -175,14 +207,14 @@ public class OccurrenceHandler {
         // 1.1 Remove special highlight for current occurrence
         spannableStringBuilder.removeSpan(currentOccurrence.getBackgroundColorSpan());
         // 1.2 Set normal highlight for current occurrence
-        spannableStringBuilder.setSpan(currentOccurrence.createBackgroundColorSpan(), currentOccurrence.startIndex, currentOccurrence.startIndex + currentOccurrence.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableStringBuilder.setSpan(currentOccurrence.createBackgroundColorSpan(), currentOccurrence.getStartIndex(), currentOccurrence.getEndIndex(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         // 2. Get next occurrence
         Occurrence occurrence = occurrences.get(++currentIndex);
         // 2.1 Remove normal highlight for next occurrence
         spannableStringBuilder.removeSpan(occurrence.getBackgroundColorSpan());
         // 2.2 Set special highlight for next occurrence
-        spannableStringBuilder.setSpan(occurrence.createSpecialBackgroundColorSpan(), occurrence.startIndex, occurrence.startIndex + occurrence.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableStringBuilder.setSpan(occurrence.createSpecialBackgroundColorSpan(), occurrence.getStartIndex(), occurrence.getEndIndex(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         editText.setText(spannableStringBuilder, TextView.BufferType.SPANNABLE);
 
@@ -211,14 +243,14 @@ public class OccurrenceHandler {
         // 1.1 Remove special highlight for current occurrence
         spannableStringBuilder.removeSpan(currentOccurrence.getBackgroundColorSpan());
         // 1.2 Set normal highlight for current occurrence
-        spannableStringBuilder.setSpan(currentOccurrence.createBackgroundColorSpan(), currentOccurrence.startIndex, currentOccurrence.startIndex + currentOccurrence.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableStringBuilder.setSpan(currentOccurrence.createBackgroundColorSpan(), currentOccurrence.getStartIndex(), currentOccurrence.getEndIndex(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         // 2. Get previous occurrence
         Occurrence occurrence = occurrences.get(--currentIndex);
         // 2.1 Remove normal highlight for previous occurrence
         spannableStringBuilder.removeSpan(occurrence.getBackgroundColorSpan());
         // 2.2 Set special highlight for previous occurrence
-        spannableStringBuilder.setSpan(occurrence.createSpecialBackgroundColorSpan(), occurrence.startIndex, occurrence.startIndex + occurrence.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableStringBuilder.setSpan(occurrence.createSpecialBackgroundColorSpan(), occurrence.getStartIndex(), occurrence.getEndIndex(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         editText.setText(spannableStringBuilder, TextView.BufferType.SPANNABLE);
 
@@ -247,7 +279,7 @@ public class OccurrenceHandler {
         Occurrence currentOccurrence = occurrences.get(currentIndex);
 
         // Replace
-        spannableStringBuilder.replace(currentOccurrence.startIndex, currentOccurrence.startIndex + currentOccurrence.length, replacement);
+        spannableStringBuilder.replace(currentOccurrence.getStartIndex(), currentOccurrence.getEndIndex(), replacement);
 
         // Remove target occurrence span
         spannableStringBuilder.removeSpan(currentOccurrence.getBackgroundColorSpan());
@@ -255,9 +287,9 @@ public class OccurrenceHandler {
         // Adjust occurrences after replacement
         for (int i = currentIndex; i < occurrences.size(); i++) {
             Occurrence o = occurrences.get(i);
-            int offset = replacement.length() - currentOccurrence.length;
-            o.startIndex += offset;
-            o.endIndex += offset;
+            int offset = replacement.length() - currentOccurrence.getLength();
+            o.offsetStartIndex(offset);
+            o.offsetEndIndex(offset);
         }
         occurrences.remove(currentOccurrence);
 
@@ -277,7 +309,7 @@ public class OccurrenceHandler {
             }
 
             // Set special highlight
-            spannableStringBuilder.setSpan(nextOccurrence.createSpecialBackgroundColorSpan(), nextOccurrence.startIndex, nextOccurrence.startIndex + nextOccurrence.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableStringBuilder.setSpan(nextOccurrence.createSpecialBackgroundColorSpan(), nextOccurrence.getStartIndex(), nextOccurrence.getEndIndex(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
 
         editText.setText(spannableStringBuilder);

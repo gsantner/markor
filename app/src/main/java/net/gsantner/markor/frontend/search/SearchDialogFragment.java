@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -73,6 +74,26 @@ public class SearchDialogFragment extends Fragment {
             }
         });
 
+        editText.setOnFocusChangeListener((view, hasFocus) -> {
+            if (hasFocus) {
+                occurrenceHandler.handleSelection(editText, searchEditText);
+                find();
+            }
+        });
+
+        searchEditText.setOnTouchListener((view, motionEvent) -> {
+            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                occurrenceHandler.handleSelection(editText, searchEditText);
+            }
+            return false;
+        });
+
+        searchEditText.setOnFocusChangeListener((view, hasFocus) -> {
+            if (hasFocus) {
+                find();
+            }
+        });
+
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -88,12 +109,6 @@ public class SearchDialogFragment extends Fragment {
             }
         });
 
-        searchEditText.setOnFocusChangeListener((view, hasFocus) -> {
-            if (hasFocus) {
-                find();
-            }
-        });
-
         occurrenceHandler.setFindInSelection(false);
         fragmentView.findViewById(R.id.findInSelectionImageButton).setOnClickListener(new View.OnClickListener() {
             private boolean checked = false;
@@ -102,6 +117,7 @@ public class SearchDialogFragment extends Fragment {
             public void onClick(View view) {
                 checked = toggleViewCheckedState(view, checked);
                 occurrenceHandler.setFindInSelection(checked);
+                occurrenceHandler.handleSelection(editText, null);
                 find();
             }
         });
