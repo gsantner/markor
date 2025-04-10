@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
 /*#######################################################
  *
  *   Maintained 2017-2025 by Gregor Santner <gsantner AT mailbox DOT org>
@@ -11,13 +12,11 @@
 
 <!-- Do NOT run auto format on this file -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:targetApi="jelly_bean">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
@@ -40,6 +39,7 @@
         android:name=".ApplicationObject"
         android:allowBackup="true"
         android:appCategory="productivity"
+        android:dataExtractionRules="@xml/full_backup_rules"
         android:fullBackupContent="@xml/full_backup_rules"
         android:icon="@drawable/ic_launcher"
         android:isGame="false"
@@ -60,13 +60,11 @@
         <activity
             android:name=".activity.MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:launchMode="singleTask"
             android:taskAffinity=".activity.MainActivity"
             android:windowSoftInputMode="stateUnchanged|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -92,10 +90,6 @@
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".frontend.search.TestActivity"
-            android:exported="false" />
 
         <receiver
             android:name="other.writeily.widget.WrMarkorWidgetProvider"
@@ -191,7 +185,6 @@
         <activity
             android:name=".activity.DocumentActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:launchMode="standard"
             android:maxRecents="5"
             android:parentActivityName=".activity.MainActivity"
@@ -1102,10 +1095,10 @@
 
         <activity-alias
             android:name="AliasDocumentProcessText"
-            android:label="@string/app_name"
+            android:enabled="false"
             android:exported="true"
-            android:targetActivity=".activity.DocumentActivity"
-            android:enabled="false">
+            android:label="@string/app_name"
+            android:targetActivity=".activity.DocumentActivity">
 
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />

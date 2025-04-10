@@ -1,7 +1,6 @@
 package net.gsantner.markor.frontend.search;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.Editable;
@@ -180,17 +179,6 @@ public class SearchDialogFragment extends Fragment {
         fragmentView.findViewById(R.id.replaceImageButton).setOnClickListener(view -> occurrenceHandler.replace(editText, replaceEditText.getText().toString()));
 
         fragmentView.findViewById(R.id.replaceAllImageButton).setOnClickListener(view -> occurrenceHandler.replaceAll(editText, replaceEditText.getText().toString()));
-
-        // Test
-        fragmentView.findViewById(R.id.testButton).setOnClickListener(view -> {
-            FragmentActivity activity = getActivity();
-            if (activity instanceof TestActivity) {
-                return;
-            }
-            Intent intent = new Intent(activity, TestActivity.class);
-            intent.putExtra("content", "cat Cat Catalog cat Cat Cattle catch Cat cat");
-            activity.startActivity(intent);
-        });
     }
 
     public void init(@NonNull View view) {
