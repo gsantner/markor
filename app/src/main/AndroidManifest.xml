@@ -93,6 +93,10 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".frontend.search.TestActivity"
+            android:exported="false" />
+
         <receiver
             android:name="other.writeily.widget.WrMarkorWidgetProvider"
             android:exported="true">

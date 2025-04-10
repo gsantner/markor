@@ -204,6 +204,9 @@ public class OccurrenceHandler {
             spannableStringBuilder.removeSpan(span);
         }
 
+        // Set normal highlight for current occurrence
+        spannableStringBuilder.setSpan(currentOccurrence.createBackgroundColorSpan(), currentOccurrence.getStartIndex(), currentOccurrence.getEndIndex(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
         // Set special highlight for specified occurrence
         currentIndex = index;
         Occurrence occurrence = occurrences.get(currentIndex);
