@@ -72,7 +72,8 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="16dp"
                 android:gravity="center"
-                android:text="@string/no_results" />
+                android:text="@string/no_results"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout

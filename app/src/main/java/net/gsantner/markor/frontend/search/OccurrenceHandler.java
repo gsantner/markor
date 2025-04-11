@@ -167,11 +167,11 @@ public class OccurrenceHandler {
 
         SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(editText.getText());
 
-        // Clear old occurrence spans
+        // Clear old occurrence highlight
         clearOccurrenceSpans(spannableStringBuilder);
 
         if (!occurrences.isEmpty()) {
-            // Set new occurrence spans
+            // Set new occurrence highlight
             for (Occurrence occurrence : occurrences) {
                 spannableStringBuilder.setSpan(occurrence.createBackgroundColorSpan(), occurrence.getStartIndex(), occurrence.getEndIndex(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
@@ -197,19 +197,19 @@ public class OccurrenceHandler {
 
         SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(editText.getText());
 
-        // Remove special highlight for current occurrence
+        // 1. Get current occurrence
         Occurrence currentOccurrence = occurrences.get(currentIndex);
-        Occurrence.BackgroundColorSpan span = currentOccurrence.getBackgroundColorSpan();
-        if (span != null) {
-            spannableStringBuilder.removeSpan(span);
-        }
-
-        // Set normal highlight for current occurrence
+        // 1.1 Remove special highlight for current occurrence
+        spannableStringBuilder.removeSpan(currentOccurrence.getBackgroundColorSpan());
+        // 1.2 Set normal highlight for current occurrence
         spannableStringBuilder.setSpan(currentOccurrence.createBackgroundColorSpan(), currentOccurrence.getStartIndex(), currentOccurrence.getEndIndex(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        // Set special highlight for specified occurrence
+        // 2. Get occurrence specified by index
         currentIndex = index;
         Occurrence occurrence = occurrences.get(currentIndex);
+        // 2.1 Remove normal highlight for specified occurrence
+        spannableStringBuilder.removeSpan(occurrence.getBackgroundColorSpan());
+        // 2.2 Set special highlight for specified occurrence
         spannableStringBuilder.setSpan(occurrence.createSpecialBackgroundColorSpan(), occurrence.getStartIndex(), occurrence.getEndIndex(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         editText.setText(spannableStringBuilder, TextView.BufferType.SPANNABLE);
@@ -326,23 +326,23 @@ public class OccurrenceHandler {
         SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(editText.getText());
         Occurrence currentOccurrence = occurrences.get(currentIndex);
 
-        // Replace
-        spannableStringBuilder.replace(currentOccurrence.getStartIndex(), currentOccurrence.getEndIndex(), replacement);
-
         // Remove target occurrence span
         spannableStringBuilder.removeSpan(currentOccurrence.getBackgroundColorSpan());
 
+        // Replace
+        spannableStringBuilder.replace(currentOccurrence.getStartIndex(), currentOccurrence.getEndIndex(), replacement);
+
         // Adjust occurrences after replacement
-        for (int i = currentIndex; i < occurrences.size(); i++) {
+        occurrences.remove(currentOccurrence);
+        final int size = occurrences.size();
+        final int offset = replacement.length() - currentOccurrence.getLength();
+        for (int i = currentIndex; i < size; i++) {
             Occurrence o = occurrences.get(i);
-            int offset = replacement.length() - currentOccurrence.getLength();
             o.offsetStartIndex(offset);
             o.offsetEndIndex(offset);
         }
-        occurrences.remove(currentOccurrence);
 
         // Highlight next
-        int size = occurrences.size();
         if (size != 0) {
             if (currentIndex == size) {
                 currentIndex--;
@@ -352,9 +352,7 @@ public class OccurrenceHandler {
 
             // Clear occurrence highlight
             Occurrence.BackgroundColorSpan span = nextOccurrence.getBackgroundColorSpan();
-            if (span != null) {
-                spannableStringBuilder.removeSpan(span);
-            }
+            spannableStringBuilder.removeSpan(span);
 
             // Set special highlight
             spannableStringBuilder.setSpan(nextOccurrence.createSpecialBackgroundColorSpan(), nextOccurrence.getStartIndex(), nextOccurrence.getEndIndex(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -362,8 +360,8 @@ public class OccurrenceHandler {
 
         editText.setText(spannableStringBuilder);
 
-        resultChangedListener.onResultChanged(currentIndex + 1, size);
-        return size;
+        resultChangedListener.onResultChanged(currentIndex + 1, occurrences.size());
+        return occurrences.size();
     }
 
     public void replaceAll(EditText editText, String replacement) {
