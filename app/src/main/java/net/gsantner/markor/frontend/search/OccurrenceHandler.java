@@ -215,6 +215,8 @@ public class OccurrenceHandler {
         editText.setText(spannableStringBuilder, TextView.BufferType.SPANNABLE);
 
         resultChangedListener.onResultChanged(currentIndex + 1, size);
+
+        TextViewUtils.showSelection(editText, occurrence.getStartIndex());
     }
 
     public void jumpNearbyOccurrence(EditText editText) {
@@ -236,31 +238,32 @@ public class OccurrenceHandler {
             resultChangedListener.onResultChanged(0, 0);
             return;
         }
-        if (currentIndex > size - 2) {
-            return;
+
+        if (currentIndex > -1 && currentIndex < size - 1) {
+            SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(editText.getText());
+
+            // 1. Get current occurrence
+            Occurrence currentOccurrence = occurrences.get(currentIndex);
+            // 1.1 Remove special highlight for current occurrence
+            spannableStringBuilder.removeSpan(currentOccurrence.getBackgroundColorSpan());
+            // 1.2 Set normal highlight for current occurrence
+            spannableStringBuilder.setSpan(currentOccurrence.createBackgroundColorSpan(), currentOccurrence.getStartIndex(), currentOccurrence.getEndIndex(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            // 2. Get next occurrence
+            Occurrence occurrence = occurrences.get(++currentIndex);
+            // 2.1 Remove normal highlight for next occurrence
+            spannableStringBuilder.removeSpan(occurrence.getBackgroundColorSpan());
+            // 2.2 Set special highlight for next occurrence
+            spannableStringBuilder.setSpan(occurrence.createSpecialBackgroundColorSpan(), occurrence.getStartIndex(), occurrence.getEndIndex(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            editText.setText(spannableStringBuilder, TextView.BufferType.SPANNABLE);
+
+            resultChangedListener.onResultChanged(currentIndex + 1, size);
+
+            TextViewUtils.showSelection(editText, occurrence.getStartIndex());
+        } else {
+            jump(editText, 0);
         }
-
-        SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(editText.getText());
-
-        // 1. Get current occurrence
-        Occurrence currentOccurrence = occurrences.get(currentIndex);
-        // 1.1 Remove special highlight for current occurrence
-        spannableStringBuilder.removeSpan(currentOccurrence.getBackgroundColorSpan());
-        // 1.2 Set normal highlight for current occurrence
-        spannableStringBuilder.setSpan(currentOccurrence.createBackgroundColorSpan(), currentOccurrence.getStartIndex(), currentOccurrence.getEndIndex(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        // 2. Get next occurrence
-        Occurrence occurrence = occurrences.get(++currentIndex);
-        // 2.1 Remove normal highlight for next occurrence
-        spannableStringBuilder.removeSpan(occurrence.getBackgroundColorSpan());
-        // 2.2 Set special highlight for next occurrence
-        spannableStringBuilder.setSpan(occurrence.createSpecialBackgroundColorSpan(), occurrence.getStartIndex(), occurrence.getEndIndex(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        editText.setText(spannableStringBuilder, TextView.BufferType.SPANNABLE);
-
-        resultChangedListener.onResultChanged(currentIndex + 1, size);
-
-        TextViewUtils.showSelection(editText, occurrence.getStartIndex());
     }
 
     public void previous(EditText editText) {
@@ -274,31 +277,32 @@ public class OccurrenceHandler {
             resultChangedListener.onResultChanged(0, 0);
             return;
         }
-        if (currentIndex < 1) {
-            return;
+
+        if (currentIndex > 0 && currentIndex < size) {
+            SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(editText.getText());
+
+            // 1. Get current occurrence
+            Occurrence currentOccurrence = occurrences.get(currentIndex);
+            // 1.1 Remove special highlight for current occurrence
+            spannableStringBuilder.removeSpan(currentOccurrence.getBackgroundColorSpan());
+            // 1.2 Set normal highlight for current occurrence
+            spannableStringBuilder.setSpan(currentOccurrence.createBackgroundColorSpan(), currentOccurrence.getStartIndex(), currentOccurrence.getEndIndex(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            // 2. Get previous occurrence
+            Occurrence occurrence = occurrences.get(--currentIndex);
+            // 2.1 Remove normal highlight for previous occurrence
+            spannableStringBuilder.removeSpan(occurrence.getBackgroundColorSpan());
+            // 2.2 Set special highlight for previous occurrence
+            spannableStringBuilder.setSpan(occurrence.createSpecialBackgroundColorSpan(), occurrence.getStartIndex(), occurrence.getEndIndex(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            editText.setText(spannableStringBuilder, TextView.BufferType.SPANNABLE);
+
+            resultChangedListener.onResultChanged(currentIndex + 1, size);
+
+            TextViewUtils.showSelection(editText, occurrence.getStartIndex());
+        } else {
+            jump(editText, size - 1);
         }
-
-        SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(editText.getText());
-
-        // 1. Get current occurrence
-        Occurrence currentOccurrence = occurrences.get(currentIndex);
-        // 1.1 Remove special highlight for current occurrence
-        spannableStringBuilder.removeSpan(currentOccurrence.getBackgroundColorSpan());
-        // 1.2 Set normal highlight for current occurrence
-        spannableStringBuilder.setSpan(currentOccurrence.createBackgroundColorSpan(), currentOccurrence.getStartIndex(), currentOccurrence.getEndIndex(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        // 2. Get previous occurrence
-        Occurrence occurrence = occurrences.get(--currentIndex);
-        // 2.1 Remove normal highlight for previous occurrence
-        spannableStringBuilder.removeSpan(occurrence.getBackgroundColorSpan());
-        // 2.2 Set special highlight for previous occurrence
-        spannableStringBuilder.setSpan(occurrence.createSpecialBackgroundColorSpan(), occurrence.getStartIndex(), occurrence.getEndIndex(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        editText.setText(spannableStringBuilder, TextView.BufferType.SPANNABLE);
-
-        resultChangedListener.onResultChanged(currentIndex + 1, size);
-
-        TextViewUtils.showSelection(editText, occurrence.getStartIndex());
     }
 
     public int replace(EditText editText, String replacement) {
