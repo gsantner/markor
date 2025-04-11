@@ -26,7 +26,7 @@ import net.gsantner.markor.R;
 
 public class SearchDialogFragment extends Fragment {
 
-    private final static int CHECKED_COLOR = 0xFFA6E7FF;
+    private final static int CHECKED_COLOR = 0x70F04B4B;
 
     private int containerViewId;
     private FragmentActivity activity;

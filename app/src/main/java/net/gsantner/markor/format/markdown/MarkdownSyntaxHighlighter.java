@@ -36,7 +36,7 @@ public class MarkdownSyntaxHighlighter extends SyntaxHighlighterBase {
     private static final int MD_COLOR_LINK = 0xff1ea3fe;
     private static final int MD_COLOR_LIST = 0xffdaa521;
     private static final int MD_COLOR_QUOTE = 0xff88b04c;
-    private static final int MD_COLOR_CODEBLOCK = 0x2bafafaf;
+    private static final int MD_COLOR_CODEBLOCK = 0x60afafaf;
 
     public MarkdownSyntaxHighlighter(AppSettings as) {
         super(as);
