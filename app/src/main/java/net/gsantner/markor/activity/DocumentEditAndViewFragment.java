@@ -255,19 +255,24 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     @Override
     protected void onFragmentFirstTimeVisible() {
+        _hlEditor.recomputeHighlighting(); // Run before setting scroll position
+        int line = -1;
+        int startPosition = _appSettings.getLastEditPosition(_document.path, 0);
+
         final Bundle args = getArguments();
-        int startPos = _appSettings.getLastEditPosition(_document.path, _hlEditor.length());
-        if (args != null && args.containsKey(Document.EXTRA_FILE_LINE_NUMBER)) {
-            final int lno = args.getInt(Document.EXTRA_FILE_LINE_NUMBER);
-            if (lno >= 0) {
-                startPos = TextViewUtils.getIndexFromLineOffset(_hlEditor.getText(), lno, 0);
-            } else {
-                startPos = _hlEditor.length();
+        if (args != null) {
+            if (args.containsKey(Document.EXTRA_FILE_LINE_NUMBER)) {
+                line = args.getInt(Document.EXTRA_FILE_LINE_NUMBER);
             }
         }
 
-        _hlEditor.recomputeHighlighting(); // Run before setting scroll position
-        TextViewUtils.setSelectionAndShow(_hlEditor, startPos);
+        if (line > -1) {
+            TextViewUtils.getIndexFromLineOffset(_hlEditor.getText(), line, 0);
+            TextViewUtils.setSelectionAndShow(_hlEditor, startPosition);
+        } else {
+            final int scrollY = _appSettings.getLastEditScrollY(_document.path, 0);
+            _verticalScrollView.setScrollY(scrollY);
+        }
 
         _editorHolder.invalidate();
         _editorHolder.post(() -> _hlEditor.setMinHeight(_editorHolder.getHeight()));
@@ -290,7 +295,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _appSettings.addRecentFile(_document.file);
         _appSettings.setDocumentPreviewState(_document.path, _isPreviewVisible);
         _appSettings.setLastEditPosition(_document.path, TextViewUtils.getSelection(_hlEditor)[0]);
-
+        _appSettings.setLastEditScrollY(_document.path, _verticalScrollView.getScrollY());
         if (_document.path.equals(_appSettings.getTodoFile().getAbsolutePath())) {
             TodoWidgetProvider.updateTodoWidgets();
         }

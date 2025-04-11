@@ -394,6 +394,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     private static final String PREF_PREFIX_EDIT_POS_CHAR = "PREF_PREFIX_EDIT_POS_CHAR";
+    private static final String PREF_PREFIX_EDIT_SCROLL_Y = "PREF_PREFIX_EDIT_SCROLL_Y";
     private static final String PREF_PREFIX_WRAP_STATE = "PREF_PREFIX_WRAP_STATE";
     private static final String PREF_PREFIX_HIGHLIGHT_STATE = "PREF_PREFIX_HIGHLIGHT_STATE";
     private static final String PREF_PREFIX_PREVIEW_STATE = "PREF_PREFIX_PREVIEW_STATE";
@@ -427,11 +428,25 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         }
     }
 
+    public void setLastEditScrollY(final String path, final int scrollY) {
+        if (fexists(path)) {
+            setInt(PREF_PREFIX_EDIT_SCROLL_Y + path, scrollY);
+        }
+    }
+
     public int getLastEditPosition(final String path, final int def) {
         if (!fexists(path)) {
             return def;
         } else {
             return getInt(PREF_PREFIX_EDIT_POS_CHAR + path, def);
+        }
+    }
+
+    public int getLastEditScrollY(final String path, final int defaultValue) {
+        if (!fexists(path)) {
+            return defaultValue;
+        } else {
+            return getInt(PREF_PREFIX_EDIT_SCROLL_Y + path, defaultValue);
         }
     }
 
