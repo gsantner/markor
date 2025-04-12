@@ -56,7 +56,7 @@ public class LineNumbersTextView extends AppCompatTextView {
         }
     }
 
-    public void setup(final @NonNull EditText editText) {
+    public void setEditText(final @NonNull EditText editText) {
         if (lineNumbersEnabled) {
             setLineNumbersEnabled(false);
         }
@@ -76,7 +76,7 @@ public class LineNumbersTextView extends AppCompatTextView {
             if (lineNumbersDrawer == null) {
                 return;
             }
-            lineNumbersDrawer.done();
+            lineNumbersDrawer.remove();
         }
         refresh();
     }
@@ -341,7 +341,7 @@ public class LineNumbersTextView extends AppCompatTextView {
         /**
          * Reset some states related line numbers.
          */
-        public void done() {
+        public void remove() {
             setLineTracking(false);
             setRefreshOnScrollChanged(false);
             maxNumberDigits = 0;
