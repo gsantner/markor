@@ -1,0 +1,13 @@
+{
+  "name": "default",
+  "defines": [
+    {
+      "type": "keyword",
+      "color": "#FF5722"
+    },
+    {
+      "type": "string",
+      "color": "#4CAF50"
+    }
+  ]
+}

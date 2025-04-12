@@ -1,0 +1,13 @@
+{
+  "language": "Java",
+  "rules": [
+    {
+      "type": "keyword",
+      "regex": "\\b(public|static|void|class)\\b"
+    },
+    {
+      "type": "string",
+      "regex": "\".*\""
+    }
+  ]
+}

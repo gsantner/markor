@@ -1,7 +1,9 @@
 package net.gsantner.markor.format.plaintext.highlight;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
+// Load from JSON
 public class Syntax {
     private String language;
     private ArrayList<Rule> rules;
@@ -14,11 +16,24 @@ public class Syntax {
         return rules;
     }
 
-    public void setLanguage(String language) {
-        this.language = language;
-    }
+    public class Rule {
+        private String type;
+        private String regex;
+        private Pattern pattern;
 
-    public void setRules(ArrayList<Rule> rules) {
-        this.rules = rules;
+        public String getType() {
+            return type;
+        }
+
+        public String getRegex() {
+            return regex;
+        }
+
+        public Pattern getPattern() {
+            if (pattern == null) {
+                pattern = Pattern.compile(regex);
+            }
+            return pattern;
+        }
     }
 }
