@@ -1,0 +1,41 @@
+{
+  "language": "Python",
+  "rules": [
+    {
+      "type": "KEYWORDS",
+      "regex": "\\b(bool|enumerate|set|frozenset|help|reversed|sorted|sum|Ellipsis|NotImplemented|__import__|abs|apply|buffer|callable|chr|classmethod|cmp|coerce|compile|complex|delattr|dict|dir|divmod|eval|execfile|file|filter|float|getattr|globals|hasattr|hash|hex|id|input|int|intern|isinstance|issubclass|iter|len|list|locals|long|map|max|min|object|oct|open|ord|pow|property|range|raw_input|reduce|reload|repr|round|setattr|slice|staticmethod|str|super|tuple|type|unichr|unicode|vars|xrange|zip)\\b"
+    },
+    {
+      "type": "KEYWORDS_2",
+      "regex": "\\b(break|continue|del|except|exec|finally|pass|print|raise|return|try|global|assert|lambda|yield|def|class|for|while|if|elif|else|and|in|is|not|or|import|from|as)\\b"
+    },
+    {
+      "type": "TYPES",
+      "regex": "\\b(byte|short|char|int|long|float|double|boolean)\\b"
+    },
+    {
+      "type": "NUMBER",
+      "regex": "\\b\\d+(\\.\\d*)?(e(\\+|\\-)?\\d+)?\\b"
+    },
+    {
+      "type": "STRING",
+      "regex": "(\".+\")|('.+')"
+    },
+    {
+      "type": "ESCAPE_CHAR",
+      "regex": "\\\\(?:[btnfr\"'\\\\]|u[0-9a-fA-F]{4}|[0-3][0-7]{2}|[0-7]{1,2})"
+    },
+    {
+      "type": "SPECIAL_VALUE",
+      "regex": "\\b(None|True|False)\\b"
+    },
+    {
+      "type": "LINE_COMMENT",
+      "regex": "#.*"
+    },
+    {
+      "type": "BLOCK_COMMENT",
+      "regex": "('''(.*?)''')|(\"{3}(.*?)\"{3})"
+    }
+  ]
+}
