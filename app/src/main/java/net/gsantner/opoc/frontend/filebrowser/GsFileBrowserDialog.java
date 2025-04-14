@@ -41,8 +41,6 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import net.gsantner.markor.R;
 import net.gsantner.opoc.frontend.GsSearchOrCustomTextDialog;
 import net.gsantner.opoc.util.GsContextUtils;
@@ -136,7 +134,7 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         }
 
         _buttonNeutral.setTextColor(rcolor(_dopt.accentColor));
-        if  (_dopt.neutralButtonText != 0) {
+        if (_dopt.neutralButtonText != 0) {
             _buttonNeutral.setVisibility(View.VISIBLE);
             _buttonNeutral.setText(_dopt.neutralButtonText);
         } else {

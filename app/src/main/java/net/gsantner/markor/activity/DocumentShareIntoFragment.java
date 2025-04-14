@@ -234,7 +234,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             }
 
             // Set most recent file (recent files are sorted)
-            for (final File file: _appSettings.getRecentFiles()) {
+            for (final File file : _appSettings.getRecentFiles()) {
                 if (file.isFile() && GsFileUtils.isTextFile(file)) {
                     mostRecentFile = file;
                     break;
@@ -255,8 +255,8 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
         /**
          * Attach file to document or copy to directory and close
          *
-         * @param dest  File or directory to attach or save to
-         * @param show  Whether to show the editor or file browser after attaching
+         * @param dest File or directory to attach or save to
+         * @param show Whether to show the editor or file browser after attaching
          */
         private void attachOrCopyAndClose(final File dest, final boolean show) {
             final Activity activity = getActivity();

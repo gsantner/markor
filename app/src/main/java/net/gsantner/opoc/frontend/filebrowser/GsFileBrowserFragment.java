@@ -502,13 +502,13 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
 
     private void executeFilterNotebookAction() {
         MarkorDialogFactory.showNotebookFilterDialog(getActivity(), _filterDialogState, null,
-            (file, show) -> {
-                if (show) {
-                    _filesystemViewerAdapter.showFile(file);
-                } else {
-                    searchCallback(file, null, false);
-                }
-            });
+                (file, show) -> {
+                    if (show) {
+                        _filesystemViewerAdapter.showFile(file);
+                    } else {
+                        searchCallback(file, null, false);
+                    }
+                });
     }
 
     public void clearSelection() {

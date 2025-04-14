@@ -7,7 +7,6 @@
 #########################################################*/
 package net.gsantner.markor.frontend.filebrowser;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Environment;
 
@@ -15,7 +14,6 @@ import androidx.fragment.app.FragmentManager;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
-import net.gsantner.markor.frontend.filesearch.FileSearchEngine;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserDialog;
@@ -25,7 +23,6 @@ import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.File;
-import java.util.List;
 
 public class MarkorFileBrowserFactory {
     public static GsCallback.b2<Context, File> IsMimeText = (context, file) -> file != null && GsContextUtils.instance.getMimeType(context, file).startsWith("text/");

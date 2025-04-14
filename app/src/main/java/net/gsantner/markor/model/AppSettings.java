@@ -13,7 +13,6 @@ import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Environment;
-import android.text.TextUtils;
 import android.util.Pair;
 
 import androidx.annotation.ColorRes;

@@ -21,7 +21,6 @@ import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.textview.AutoTextFormatter;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.Document;
-import net.gsantner.opoc.frontend.GsSearchOrCustomTextDialog;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
