@@ -10,17 +10,18 @@ package net.gsantner.markor.format.plaintext;
 import android.graphics.Paint;
 
 import net.gsantner.markor.format.plaintext.highlight.HighlightConfigLoader;
-import net.gsantner.markor.format.plaintext.highlight.Style;
 import net.gsantner.markor.format.plaintext.highlight.Syntax;
+import net.gsantner.markor.format.plaintext.highlight.Theme;
 import net.gsantner.markor.frontend.textview.SyntaxHighlighterBase;
 import net.gsantner.markor.model.AppSettings;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class PlaintextSyntaxHighlighter extends SyntaxHighlighterBase {
     public final static HighlightConfigLoader configLoader = new HighlightConfigLoader();
-    private Syntax syntax;
-    private Style style;
+    private ArrayList<Syntax.Rule> rules;
+    private HashMap<String, Theme.Style> styles;
 
     public PlaintextSyntaxHighlighter(AppSettings appSettings) {
         super(appSettings);
@@ -28,8 +29,15 @@ public class PlaintextSyntaxHighlighter extends SyntaxHighlighterBase {
 
     public PlaintextSyntaxHighlighter(AppSettings appSettings, String extension) {
         super(appSettings);
-        syntax = configLoader.getSyntax(extension, appSettings.getContext());
-        style = configLoader.getStyle(appSettings.getContext(), "default");
+
+        Syntax syntax = configLoader.getSyntax(extension, appSettings.getContext());
+        if (syntax != null) {
+            rules = syntax.getRules();
+            Theme theme = configLoader.getTheme(appSettings.getContext(), "default");
+            if (theme != null) {
+                styles = theme.getStyles();
+            }
+        }
     }
 
     @Override
@@ -43,20 +51,15 @@ public class PlaintextSyntaxHighlighter extends SyntaxHighlighterBase {
         createUnderlineHexColorsSpans();
         createSmallBlueLinkSpans();
 
-        if (syntax == null) {
+        if (rules == null || styles == null) {
             return;
         }
 
-        ArrayList<Syntax.Rule> rules = syntax.getRules();
-        ArrayList<Style.Define> defines = style.getDefines();
         for (Syntax.Rule rule : rules) {
-            for (Style.Define define : defines) {
-                if (define.getType().equals(rule.getType())) {
-                    createColorSpanForMatches(rule.getPattern(), define.getColor());
-                }
+            Theme.Style style = styles.get(rule.getType());
+            if (style != null) {
+                createColorSpanForMatches(rule.getPattern(), style.getColor());
             }
         }
     }
-
 }
-

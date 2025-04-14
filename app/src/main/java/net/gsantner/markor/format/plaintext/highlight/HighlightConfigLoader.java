@@ -14,12 +14,12 @@ public class HighlightConfigLoader {
     private final Gson gson = new Gson();
     private final Properties map = new Properties();
     private final SyntaxCache syntaxCache = new SyntaxCache();
-    private Style style;
+    private Theme theme;
 
     public static final String MAP_PATH = "highlight/languages/map.properties";
 
     private void load(Context context, String lang) {
-        try (InputStream input = context.getAssets().open("highlight/languages/" + lang + ".json");) {
+        try (InputStream input = context.getAssets().open("highlight/languages/" + lang + ".json")) {
             Syntax syntax = gson.fromJson(new InputStreamReader(input), Syntax.class);
             syntaxCache.putSyntax(lang, syntax);
         } catch (IOException e) {
@@ -27,9 +27,9 @@ public class HighlightConfigLoader {
         }
     }
 
-    private void loadStyle(Context context, String name) {
-        try (InputStream input = context.getAssets().open("highlight/styles/" + name + ".json");) {
-            style = gson.fromJson(new InputStreamReader(input), Style.class);
+    private void loadTheme(Context context, String name) {
+        try (InputStream input = context.getAssets().open("highlight/themes/" + name + ".json")) {
+            theme = gson.fromJson(new InputStreamReader(input), Theme.class);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -39,8 +39,8 @@ public class HighlightConfigLoader {
      * Get language syntax.
      *
      * @param context Android Context.
-     * @param lang    Language name or file extension without dot.
-     * @return
+     * @param lang    Language name.
+     * @return Language syntax.
      */
     public Syntax getSyntax(Context context, String lang) {
         if (map.isEmpty()) {
@@ -68,14 +68,14 @@ public class HighlightConfigLoader {
         }
     }
 
-    public Style getStyle(Context context, String name) {
-        if (style == null) {
-            loadStyle(context, name);
+    public Theme getTheme(Context context, String name) {
+        if (theme == null || !theme.getName().equals(name)) {
+            loadTheme(context, name);
         }
-        return style;
+        return theme;
     }
 
-    class SyntaxCache {
+    static class SyntaxCache {
         public static final int CACHE_SIZE = 5;
         private final HashMap<String, Syntax> syntaxMap = new HashMap<>();
         private final HashMap<String, Integer> usageMap = new HashMap<>();
@@ -102,7 +102,7 @@ public class HighlightConfigLoader {
                 int min = Integer.MAX_VALUE;
                 for (HashMap.Entry<String, Integer> entry : usageMap.entrySet()) {
                     int value = entry.getValue();
-                    if (min < value) {
+                    if (value < min) {
                         min = value;
                         entryKey = entry.getKey();
                     }

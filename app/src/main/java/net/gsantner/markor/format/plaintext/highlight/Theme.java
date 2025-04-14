@@ -2,30 +2,25 @@ package net.gsantner.markor.format.plaintext.highlight;
 
 import android.graphics.Color;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 // Load from JSON
-public class Style {
+public class Theme {
     private String name;
-    private ArrayList<Define> defines;
+    private HashMap<String, Style> styles; // <type, style>
 
     public String getName() {
         return name;
     }
 
-    public ArrayList<Define> getDefines() {
-        return defines;
+    public HashMap<String, Style> getStyles() {
+        return styles;
     }
 
-    public class Define {
-        private String type;
+    public class Style {
         private String color;
         private Integer color_;
         // private boolean bold;
-
-        public String getType() {
-            return type;
-        }
 
         public int getColor() {
             if (color_ == null) {

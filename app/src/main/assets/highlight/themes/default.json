@@ -1,0 +1,47 @@
+{
+  "name": "default",
+  "styles": {
+    "FOREGROUND": {
+      "color": "#000000"
+    },
+    "BACKGROUND": {
+      "color": "#FFFFFF"
+    },
+    "KEYWORDS": {
+      "color": "#008AD8"
+    },
+    "KEYWORDS_2": {
+      "color": "#C100DB"
+    },
+    "TYPES": {
+      "color": "#1339FF"
+    },
+    "NUMBER": {
+      "color": "#00A600"
+    },
+    "STRING": {
+      "color": "#C36A2B"
+    },
+    "ESCAPE_CHAR": {
+      "color": "#008AD8"
+    },
+    "SPECIAL_VALUE": {
+      "color": "#FA4616"
+    },
+    "LINE_COMMENT": {
+      "color": "#949CAC"
+    },
+    "BLOCK_COMMENT": {
+      "color": "#949CAC"
+    },
+    "CLASS": {
+      "color": "#F2827F"
+    },
+    "METHOD": {
+      "color": "#BE8126"
+    },
+    "FUNCTION": {
+      "color": "#BE8126"
+    }
+  }
+}
