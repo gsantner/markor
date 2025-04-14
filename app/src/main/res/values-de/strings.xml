@@ -335,6 +335,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="current">Aktuelle</string>
     <string name="record_audio">Sprachaufnahme</string>
     <string name="attach">Anhängen</string>
+    <string name="attachment">Anhang</string>
     <string name="copy_file">Datei kopieren</string>
     <string name="page">Seite</string>
     <string name="experimental_features">Experimentelle Funktionen</string>
