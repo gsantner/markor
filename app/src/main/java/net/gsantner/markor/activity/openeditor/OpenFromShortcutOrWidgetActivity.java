@@ -25,7 +25,7 @@ public class OpenFromShortcutOrWidgetActivity extends MarkorBaseActivity {
     }
 
     private void launchActivityAndFinish(Intent intent) {
-        DocumentActivity.launch(this, intent);
         finish();
+        DocumentActivity.launch(this, intent);
     }
 }

@@ -23,7 +23,6 @@ import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.File;
-import java.util.List;
 
 public class MarkorFileBrowserFactory {
     public static GsCallback.b2<Context, File> IsMimeText = (context, file) -> file != null && GsContextUtils.instance.getMimeType(context, file).startsWith("text/");
@@ -93,9 +92,6 @@ public class MarkorFileBrowserFactory {
 
         opts.descriptionFormat = appSettings.getString(R.string.pref_key__file_description_format, "");
 
-        opts.storageMaps.clear();
-        opts.iconMaps.clear();
-
         final File downloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
         opts.addVirtualFile("Download", downloads, R.drawable.baseline_download_24);
 
@@ -109,15 +105,6 @@ public class MarkorFileBrowserFactory {
         opts.iconMaps.put(downloads, R.drawable.baseline_download_24);
         opts.iconMaps.put(appSettings.getQuickNoteFile(), R.drawable.ic_lightning_black_24dp);
         opts.iconMaps.put(appSettings.getTodoFile(), R.drawable.ic_assignment_turned_in_black_24dp);
-    }
-
-
-    public static File[] strlistToArray(List<String> strlist) {
-        File[] files = new File[strlist.size()];
-        for (int i = 0; i < files.length; i++) {
-            files[i] = new File(strlist.get(i));
-        }
-        return files;
     }
 
     private static GsFileBrowserDialog showDialog(final FragmentManager fm, final GsFileBrowserOptions.Options opts) {

@@ -33,6 +33,8 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -251,6 +253,15 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 }
             });
         }
+
+        _verticalScrollView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+            _hlEditor.post(() -> {
+                final int height = _verticalScrollView.getHeight();
+                if (height != _hlEditor.getMinHeight()) {
+                    _hlEditor.setMinHeight(height);
+                }
+            });
+        });
     }
 
     @Override
@@ -269,8 +280,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _hlEditor.recomputeHighlighting(); // Run before setting scroll position
         TextViewUtils.setSelectionAndShow(_hlEditor, startPos);
 
-        _editorHolder.invalidate();
-        _editorHolder.post(() -> _hlEditor.setMinHeight(_editorHolder.getHeight()));
+        _hlEditor.post(() -> _hlEditor.animate().alpha(1).setDuration(500).start());
     }
 
     @Override
@@ -694,14 +704,13 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         if (activity != null) {
             final View bar = activity.findViewById(R.id.document__fragment__edit__text_actions_bar);
             final View parent = activity.findViewById(R.id.document__fragment__edit__text_actions_bar__scrolling_parent);
-            final View editScroll = activity.findViewById(R.id.document__fragment__edit__content_editor__scrolling_parent);
             final View viewScroll = activity.findViewById(R.id.document__fragment_view_webview);
 
-            if (bar != null && parent != null && editScroll != null && viewScroll != null) {
+            if (bar != null && parent != null && _verticalScrollView != null && viewScroll != null) {
                 final boolean hide = _textActionsBar.getChildCount() == 0;
                 parent.setVisibility(hide ? View.GONE : View.VISIBLE);
                 final int marginBottom = hide ? 0 : (int) getResources().getDimension(R.dimen.textactions_bar_height);
-                setMarginBottom(editScroll, marginBottom);
+                setMarginBottom(_verticalScrollView, marginBottom);
                 setMarginBottom(viewScroll, marginBottom);
             }
         }
@@ -742,39 +751,52 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     private boolean isWrapped() {
-        return _horizontalScrollView == null || (_hlEditor.getParent() != _horizontalScrollView);
+        return _horizontalScrollView == null || _hlEditor.getParent() != _horizontalScrollView;
     }
 
-    private void makeHorizontalScrollView() {
-        if (_horizontalScrollView != null) {
-            return;
-        }
+    private ViewGroup.LayoutParams makeLinearLayoutChildParams() {
+        return new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
+    }
 
-        _horizontalScrollView = new HorizontalScrollView(getContext());
-        _horizontalScrollView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        _horizontalScrollView.setFillViewport(true);
+    private ViewGroup.LayoutParams makeScrollViewChildParams() {
+        return new ScrollView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 
     private void setWrapState(final boolean wrap) {
+        _hlEditor.setHorizontallyScrolling(!wrap);
         final Context context = getContext();
         if (context != null && _hlEditor != null && isWrapped() != wrap) {
+
+            _hlEditor.setAlpha(0);
+
             final int[] sel = TextViewUtils.getSelection(_hlEditor);
             final boolean hlEnabled = _hlEditor.setHighlightingEnabled(false);
 
-            makeHorizontalScrollView();
+            if (_horizontalScrollView == null) {
+                _horizontalScrollView = new HorizontalScrollView(context);
+                _horizontalScrollView.setFillViewport(true);
+            }
 
             if (wrap) {
                 _horizontalScrollView.removeView(_hlEditor);
                 _editorHolder.removeView(_horizontalScrollView);
+                _hlEditor.setLayoutParams(makeLinearLayoutChildParams());
                 _editorHolder.addView(_hlEditor, 1);
             } else {
                 _editorHolder.removeView(_hlEditor);
+                _hlEditor.setLayoutParams(makeScrollViewChildParams());
                 _horizontalScrollView.addView(_hlEditor);
+                _horizontalScrollView.setLayoutParams(makeLinearLayoutChildParams());
                 _editorHolder.addView(_horizontalScrollView, 1);
             }
 
+            _hlEditor.requestLayout();
+
             _hlEditor.setHighlightingEnabled(hlEnabled);
-            _editorHolder.post(() -> TextViewUtils.setSelectionAndShow(_hlEditor, sel));
+            _hlEditor.post(() -> {
+                TextViewUtils.setSelectionAndShow(_hlEditor, sel);
+                _hlEditor.post(() -> _hlEditor.animate().alpha(1).setDuration(400).start());
+            });
         }
     }
 
@@ -923,6 +945,10 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     public Document getDocument() {
         return _document;
+    }
+
+    public HighlightingEditor getEditor() {
+        return _hlEditor;
     }
 
     public String getTextString() {

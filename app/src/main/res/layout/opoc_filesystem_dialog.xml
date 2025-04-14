@@ -59,7 +59,7 @@
         app:fabSize="mini"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/ui__filesystem_dialog__new_dir"
-        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginBottom="15dp"
         android:alpha="0.75"
         tools:ignore="ContentDescription"
@@ -73,7 +73,7 @@
         app:fabSize="mini"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/ui__filesystem_dialog__home"
-        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginBottom="15dp"
         android:alpha="0.75"
         tools:ignore="ContentDescription"
@@ -87,7 +87,7 @@
         app:fabSize="mini"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/ui__filesystem_dialog__buttons"
-        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginBottom="15dp"
         android:alpha="0.75"
         tools:ignore="ContentDescription"
@@ -102,27 +102,43 @@
         android:orientation="horizontal"
         android:padding="4dp">
 
+        <!-- Neutral Button: Left aligned -->
+        <TextView
+            android:id="@+id/ui__filesystem_dialog__button_neutral"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            android:textColor="@color/primary"
+            tools:text="" />
+
+        <!-- Flexible spacer -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <!-- Cancel Button: Immediately left of OK -->
         <TextView
             android:id="@+id/ui__filesystem_dialog__button_cancel"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_margin="8dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:gravity="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Button"
             android:textColor="@color/primary"
             tools:text="Cancel" />
 
+        <!-- OK Button: Right aligned -->
         <TextView
             android:id="@+id/ui__filesystem_dialog__button_ok"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_margin="8dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:gravity="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Button"
             android:textColor="@color/primary"
-            tools:text="Select" />
-
+            tools:text="OK" />
     </LinearLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
