@@ -154,11 +154,11 @@ public class NewFileDialog extends DialogFragment {
 
         // Setup template spinner and action
         // -----------------------------------------------------------------------------------------
-        final List<Pair<String, File>> snippets = appSettings.getSnippetFiles();
+        final List<File> snippets = appSettings.getSnippetFiles();
         final List<Pair<String, String>> templates = appSettings.getBuiltinTemplates();
         final ArrayAdapter<String> templateAdapter = new ArrayAdapter<>(activity, android.R.layout.simple_spinner_dropdown_item);
         templateAdapter.add(activity.getString(R.string.empty_file));
-        templateAdapter.addAll(GsCollectionUtils.map(snippets, p -> p.first));
+        templateAdapter.addAll(GsCollectionUtils.map(snippets, File::getName));
         templateAdapter.addAll(GsCollectionUtils.map(templates, p -> p.first));
         templateSpinner.setAdapter(templateAdapter);
 
@@ -274,7 +274,7 @@ public class NewFileDialog extends DialogFragment {
             if (ti == 0) {
                 template = "";
             } else if (ti <= snippets.size()) {
-                template = GsFileUtils.readTextFileFast(snippets.get(ti - 1).second).first;
+                template = GsFileUtils.readTextFileFast(snippets.get(ti - 1)).first;
             } else {
                 template = templates.get(ti - snippets.size() - 1).second;
             }

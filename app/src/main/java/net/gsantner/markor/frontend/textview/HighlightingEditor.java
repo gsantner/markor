@@ -398,6 +398,12 @@ public class HighlightingEditor extends AppCompatEditText {
         }
     }
 
+    @Override
+    protected void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
+
     // Auto-format
     // ---------------------------------------------------------------------------------------------
 
