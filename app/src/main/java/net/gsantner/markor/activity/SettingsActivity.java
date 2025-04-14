@@ -8,6 +8,7 @@
 package net.gsantner.markor.activity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -118,10 +119,10 @@ public class SettingsActivity extends MarkorBaseActivity {
         @SuppressWarnings("rawtypes")
         protected void onPreferenceScreenChanged(PreferenceFragmentCompat preferenceFragmentCompat, PreferenceScreen preferenceScreen) {
             super.onPreferenceScreenChanged(preferenceFragmentCompat, preferenceScreen);
-            if (!TextUtils.isEmpty(preferenceScreen.getTitle())) {
-                if (getActivity() instanceof GsActivityBase && ((GsActivityBase) getActivity()).getToolbar() != null) {
-                    ((GsActivityBase) getActivity()).getToolbar().setTitle(preferenceScreen.getTitle());
-                }
+            final CharSequence title = preferenceScreen.getTitle();
+            final Activity activity = getActivity();
+            if (activity instanceof GsActivityBase && !TextUtils.isEmpty(title)) {
+                ((GsActivityBase<?, ?>) activity).setToolbarText(title);
             }
         }
     }

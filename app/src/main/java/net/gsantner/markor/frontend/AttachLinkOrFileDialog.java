@@ -14,6 +14,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.text.Editable;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -30,13 +32,11 @@ import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.format.markdown.MarkdownActionButtons;
 import net.gsantner.markor.format.wikitext.WikitextLinkResolver;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
-import net.gsantner.markor.frontend.filesearch.FileSearchDialog;
-import net.gsantner.markor.frontend.filesearch.FileSearchEngine;
-import net.gsantner.markor.frontend.filesearch.FileSearchResultSelectorDialog;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.format.GsTextUtils;
+import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
 import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
@@ -98,12 +98,14 @@ public class AttachLinkOrFileDialog {
         final EditText inputPathName = view.findViewById(R.id.ui__select_path_dialog__name);
         final EditText inputPathUrl = view.findViewById(R.id.ui__select_path_dialog__url);
         final Button buttonBrowseFilesystem = view.findViewById(R.id.ui__select_path_dialog__browse_filesystem);
-        final Button buttonSelectSpecial = view.findViewById(R.id.ui__select_path_dialog__select_special);
         final Button buttonSearch = view.findViewById(R.id.ui__select_path_dialog__search);
         final Button buttonPictureGallery = view.findViewById(R.id.ui__select_path_dialog__gallery_picture);
         final Button buttonPictureCamera = view.findViewById(R.id.ui__select_path_dialog__camera_picture);
         final Button buttonPictureEdit = view.findViewById(R.id.ui__select_path_dialog__edit_picture);
         final Button buttonAudioRecord = view.findViewById(R.id.ui__select_path_dialog__record_audio);
+
+        builder.setCancelable(true);
+        builder.setNegativeButton(android.R.string.cancel, (di, b) -> di.dismiss());
 
         // Extract filepath if using Markdown
         if (textFormatId == FormatRegistry.FORMAT_MARKDOWN) {
@@ -128,7 +130,7 @@ public class AttachLinkOrFileDialog {
         final AlertDialog dialog = builder.setView(view).create();
 
         // Helper func
-        final GsCallback.a1<InsertType> _insertItem = (type) -> insertItem(type, textFormatId, activity, edit, currentFile, sel, dialog);
+        final GsCallback.a1<InsertType> _insertItem = (type) -> fetchAndInsertItem(type, textFormatId, activity, edit, currentFile, sel, dialog);
 
         // Setup all the various choices
         final InsertType browseType, okType;
@@ -146,7 +148,6 @@ public class AttachLinkOrFileDialog {
             okType = InsertType.AUDIO_DIALOG;
         } else {
             dialog.setTitle(R.string.insert_link);
-            buttonSelectSpecial.setVisibility(View.VISIBLE);
             buttonSearch.setVisibility(View.VISIBLE);
             browseType = InsertType.LINK_BROWSE;
             okType = InsertType.LINK_DIALOG;
@@ -155,7 +156,6 @@ public class AttachLinkOrFileDialog {
         final String ok = activity.getString(android.R.string.ok);
         dialog.setButton(DialogInterface.BUTTON_POSITIVE, ok, (di, b) -> _insertItem.callback(okType));
         buttonBrowseFilesystem.setOnClickListener(v -> _insertItem.callback(browseType));
-        buttonSelectSpecial.setOnClickListener(v -> _insertItem.callback(InsertType.LINK_SPECIAL));
         buttonSearch.setOnClickListener(v -> _insertItem.callback(InsertType.LINK_SEARCH));
         buttonPictureCamera.setOnClickListener(b -> _insertItem.callback(InsertType.IMAGE_CAMERA));
         buttonPictureGallery.setOnClickListener(v -> _insertItem.callback(InsertType.IMAGE_GALLERY));
@@ -163,7 +163,12 @@ public class AttachLinkOrFileDialog {
         buttonPictureEdit.setOnClickListener(v -> _insertItem.callback(InsertType.IMAGE_EDIT));
 
         dialog.show();
-        dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        final Window win = dialog.getWindow();
+        if (win != null) {
+            win.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            win.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+            inputPathName.requestFocus();
+        }
     }
 
     private enum InsertType {
@@ -257,11 +262,58 @@ public class AttachLinkOrFileDialog {
         return newText;
     }
 
-    private static void insertItem(
+    private static File copyFileToAttachmentDir(final File attachment, final File attachmentDir) {
+        final File local = GsFileUtils.findNonConflictingDest(attachmentDir, attachment.getName());
+        attachmentDir.mkdirs();
+        GsFileUtils.copyFile(attachment, local);
+        return local;
+    }
+
+    private static String setupFileAttachment(
+            final int textFormatId,
+            final File attachment,
+            final File document
+    ) {
+        final AppSettings as = ApplicationObject.settings();
+        final File notebookDir = as.getNotebookDirectory();
+
+        String path = "";
+        if (textFormatId == FormatRegistry.FORMAT_WIKITEXT) {
+            final boolean shouldDynamicallyDetermineRoot = as.isWikitextDynamicNotebookRootEnabled();
+            path = WikitextLinkResolver.resolveSystemFilePath(attachment, notebookDir, document, shouldDynamicallyDetermineRoot);
+            if (path.startsWith("/")) {
+                final File attachmentDir = WikitextLinkResolver.findAttachmentDir(document);
+                final File local = copyFileToAttachmentDir(attachment, attachmentDir);
+                path = WikitextLinkResolver.resolveSystemFilePath(local, notebookDir, document, shouldDynamicallyDetermineRoot);
+            }
+        } else {
+            if (!GsFileUtils.isChild(notebookDir, attachment)) {
+                final File attachmentDir = as.getAttachmentFolder(document);
+                final File local = copyFileToAttachmentDir(attachment, attachmentDir);
+                path = GsFileUtils.relativePath(document, local);
+            } else {
+                path = GsFileUtils.relativePath(document, attachment);
+            }
+        }
+
+        return path;
+    }
+
+    public static String makeAttachmentLink(
+            final int textFormatId,
+            final String title,
+            final File attachment,
+            final File document
+    ) {
+        final String path = setupFileAttachment(textFormatId, attachment, document);
+        return formatLink(title, path, textFormatId);
+    }
+
+    private static void fetchAndInsertItem(
             final InsertType action,
             final int textFormatId,
             final Activity activity,
-            final Editable text,
+            final Editable edit,
             final File currentFile,
             @Nullable final int[] region,
             @Nullable AlertDialog dialog
@@ -270,11 +322,10 @@ public class AttachLinkOrFileDialog {
         if (region != null && region.length > 1 && region[0] >= 0 && region[1] >= 0) {
             sel = region;
         } else {
-            sel = TextViewUtils.getSelection(text);
+            sel = TextViewUtils.getSelection(edit);
         }
 
         final AppSettings _appSettings = ApplicationObject.settings();
-        final File attachmentDir = _appSettings.getAttachmentFolder(currentFile);
 
         // Title, path to be written when the user hits accept
         final GsCallback.a2<String, String> insertLink = (title, path) -> {
@@ -284,8 +335,8 @@ public class AttachLinkOrFileDialog {
 
             final String newText = formatLink(title, path, textFormatId, action);
 
-            if (!newText.equals(text.subSequence(sel[0], sel[1]).toString())) {
-                text.replace(sel[0], sel[1], newText);
+            if (!newText.equals(edit.subSequence(sel[0], sel[1]).toString())) {
+                edit.replace(sel[0], sel[1], newText);
             }
 
             if (dialog != null) {
@@ -304,48 +355,29 @@ public class AttachLinkOrFileDialog {
 
         // Defensive checks to make sure file has not changed
         // Can happen if the callback is triggered after a long delay
-        final long hash = GsFileUtils.crc32(text);
+        final long hash = GsFileUtils.crc32(edit);
 
         final GsCallback.a1<String> insertFileLink = (path) -> {
-            if (GsFileUtils.crc32(text) != hash) {
+            if (GsFileUtils.crc32(edit) != hash) {
                 return;
             }
 
             // If path is not under notebook, copy it to the res folder
-            File file = new File(path);
+            final File attachment = new File(path);
 
-            if (textFormatId == FormatRegistry.FORMAT_WIKITEXT) {
-                final File notebookDir = _appSettings.getNotebookDirectory();
-                final boolean shouldDynamicallyDetermineRoot = _appSettings.isWikitextDynamicNotebookRootEnabled();
-                path = WikitextLinkResolver.resolveSystemFilePath(file, notebookDir, currentFile, shouldDynamicallyDetermineRoot);
-                if (path.startsWith("/")) {
-                    final File zimAttachmentDir = WikitextLinkResolver.findAttachmentDir(currentFile);
-                    final File local = GsFileUtils.findNonConflictingDest(zimAttachmentDir, file.getName());
-                    zimAttachmentDir.mkdirs();
-                    GsFileUtils.copyFile(file, local);
-                    file = local;
-                    path = WikitextLinkResolver.resolveSystemFilePath(file, notebookDir, currentFile, shouldDynamicallyDetermineRoot);
-                }
-                insertLink.callback(path, path);
-            } else {
-                if (!GsFileUtils.isChild(_appSettings.getNotebookDirectory(), file)) {
-                    final File local = GsFileUtils.findNonConflictingDest(attachmentDir, file.getName());
-                    attachmentDir.mkdirs();
-                    GsFileUtils.copyFile(file, local);
-                    file = local;
-                }
-
-                // Pull the appropriate title
-                String title = "";
-                if (nameEdit != null) {
-                    title = nameEdit.getText().toString();
-                }
-
-                if (GsTextUtils.isNullOrEmpty(title)) {
-                    title = GsFileUtils.getFilenameWithoutExtension(file);
-                }
-                insertLink.callback(title, GsFileUtils.relativePath(currentFile, file));
+            // Pull the appropriate title
+            String title = "";
+            if (nameEdit != null) {
+                title = nameEdit.getText().toString();
             }
+
+            if (GsTextUtils.isNullOrEmpty(title)) {
+                title = GsFileUtils.getFilenameWithoutExtension(attachment);
+            }
+
+            final String localPath = setupFileAttachment(textFormatId, attachment, currentFile);
+
+            insertLink.callback(title, localPath);
         };
 
         final MarkorContextUtils cu = new MarkorContextUtils(activity);
@@ -428,7 +460,8 @@ public class AttachLinkOrFileDialog {
 
                         @Override
                         public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
-                            dopt.rootFolder = currentFile.getParentFile();
+                            dopt.startFolder = currentFile.getParentFile();
+                            dopt.rootFolder = GsFileBrowserListAdapter.VIRTUAL_STORAGE_ROOT;
                         }
                     };
 
@@ -442,18 +475,9 @@ public class AttachLinkOrFileDialog {
                 break;
             }
             case LINK_SEARCH: {
-                final File nb = _appSettings.getNotebookDirectory();
-                final FileSearchDialog.Options options = new FileSearchDialog.Options();
-                options.enableSearchInContent = false;
-                options.searchLocation = R.string.notebook;
-                if (!FileSearchEngine.isSearchExecuting.get()) {
-                    FileSearchDialog.showDialog(activity, options, searchOptions -> {
-                        searchOptions.rootSearchDir = nb;
-                        FileSearchEngine.queueFileSearch(activity, searchOptions, searchResults ->
-                                FileSearchResultSelectorDialog.showDialog(activity, searchResults, (file, line, isLong) ->
-                                        setFields.callback(new File(nb, file))));
-                    });
-                }
+                MarkorDialogFactory.showNotebookFilterDialog(activity, null, null, (file, l) -> {
+                    setFields.callback(file);
+                });
             }
             case LINK_DIALOG:
             case AUDIO_DIALOG:
@@ -468,27 +492,27 @@ public class AttachLinkOrFileDialog {
     public static void insertCameraPhoto(
             final Activity activity,
             final int textFormatId,
-            final Editable text,
+            final Editable edit,
             final File currentFile
     ) {
-        insertItem(InsertType.IMAGE_CAMERA, textFormatId, activity, text, currentFile, null, null);
+        fetchAndInsertItem(InsertType.IMAGE_CAMERA, textFormatId, activity, edit, currentFile, null, null);
     }
 
     public static void insertGalleryPhoto(
             final Activity activity,
             final int textFormatId,
-            final Editable text,
+            final Editable edit,
             final File currentFile
     ) {
-        insertItem(InsertType.IMAGE_GALLERY, textFormatId, activity, text, currentFile, null, null);
+        fetchAndInsertItem(InsertType.IMAGE_GALLERY, textFormatId, activity, edit, currentFile, null, null);
     }
 
     public static void insertAudioRecording(
             final Activity activity,
             final int textFormatId,
-            final Editable text,
+            final Editable edit,
             final File currentFile
     ) {
-        insertItem(InsertType.AUDIO_RECORDING, textFormatId, activity, text, currentFile, null, null);
+        fetchAndInsertItem(InsertType.AUDIO_RECORDING, textFormatId, activity, edit, currentFile, null, null);
     }
 }

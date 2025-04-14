@@ -22,7 +22,6 @@ import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.textview.AutoTextFormatter;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.Document;
-import net.gsantner.opoc.frontend.GsSearchOrCustomTextDialog;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 
@@ -35,8 +34,6 @@ import java.util.regex.Pattern;
 public class MarkdownActionButtons extends ActionButtonBase {
 
     private static final Pattern WEB_URL = Pattern.compile("https?://[^\\s/$.?#].[^\\s]*");
-
-    private final GsSearchOrCustomTextDialog.DialogState _headlineDialogState = new GsSearchOrCustomTextDialog.DialogState();
 
     public static final String LINE_PREFIX = "^(>\\s|#{1,6}\\s|\\s*[-*+](?:\\s\\[[ xX]\\])?\\s|\\s*\\d+[.)]\\s)?";
 
@@ -316,6 +313,8 @@ public class MarkdownActionButtons extends ActionButtonBase {
             _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_DPAD_UP);
         }
     }
+
+    private final HeadlineState _headlineDialogState = new HeadlineState();
 
     @Override
     public boolean runTitleClick() {
