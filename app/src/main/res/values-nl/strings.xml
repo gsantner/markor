@@ -335,6 +335,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="current">Huidige</string>
     <string name="record_audio">Audio opnemen</string>
     <string name="attach">Bijvoegen</string>
+    <string name="attachment">Bijlage</string>
     <string name="copy_file">Bestand kopiëren</string>
     <string name="page">Pagina</string>
     <string name="experimental_features">Experimenteelte functies</string>
