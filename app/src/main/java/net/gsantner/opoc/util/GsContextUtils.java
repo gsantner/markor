@@ -1611,12 +1611,7 @@ public class GsContextUtils {
         String fileStr;
         File result = null;
 
-        if (
-                Intent.ACTION_VIEW.equals(action) ||
-                        Intent.ACTION_EDIT.equals(action) ||
-                        Intent.ACTION_SEND.equals(action) ||
-                        Intent.ACTION_SEND_MULTIPLE.equals(action)
-        ) {
+        if (Intent.ACTION_VIEW.equals(action) || Intent.ACTION_EDIT.equals(action) || Intent.ACTION_SEND.equals(action) || Intent.ACTION_SEND_MULTIPLE.equals(action)) {
 
             // Màrkor, SimpleMobileTools FileManager
             if (receivingIntent.hasExtra((tmps = EXTRA_FILEPATH))) {
