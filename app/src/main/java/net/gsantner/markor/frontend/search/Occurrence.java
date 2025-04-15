@@ -1,8 +1,8 @@
 package net.gsantner.markor.frontend.search;
 
 public class Occurrence {
-    public static final int BACKGROUND_COLOR = 0x80FF0000;
-    public static final int SPECIAL_BACKGROUND_COLOR = 0x80FFA500;
+    public static final int BACKGROUND_COLOR = 0x90FF0000;
+    public static final int SPECIAL_BACKGROUND_COLOR = 0x90FFA500;
     private BackgroundColorSpan backgroundColorSpan;
 
     private int startIndex;

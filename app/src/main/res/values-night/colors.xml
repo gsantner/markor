@@ -11,6 +11,7 @@
     <color name="background_2">@color/dark__background_2</color>
     <color name="textActionBarColor">@color/dark__background_2</color>
     <color name="textActionIconColor">@color/white</color>
+    <color name="iconForegroundColor">@color/white</color>
 
     <!-- All values specified only in base colors.xml  -->
 

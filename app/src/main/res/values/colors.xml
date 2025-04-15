@@ -18,6 +18,7 @@
     <color name="background_2">@color/light__background_2</color>
     <color name="textActionBarColor">@color/lighter_grey</color>
     <color name="textActionIconColor">@color/grey</color>
+    <color name="iconForegroundColor">@color/primary_text</color>
 
     <!-- Named colors differing common to day and night -->
     <color name="colorAccent">@color/accent</color>
