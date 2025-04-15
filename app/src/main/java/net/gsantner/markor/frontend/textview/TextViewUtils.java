@@ -283,8 +283,14 @@ public final class TextViewUtils {
         }
         final CharSequence text = edit.getText();
         if (positions.size() == 1) { // Case 1 index
-            final int posn = TextViewUtils.getIndexFromLineOffset(text, positions.get(0), 0);
-            setSelectionAndShow(edit, posn);
+            final int pos = positions.get(0);
+            final int index;
+            if (pos >= 0) {
+                index = TextViewUtils.getIndexFromLineOffset(text, positions.get(0), 0);
+            } else {
+                index = edit.length();
+            }
+            setSelectionAndShow(edit, index);
         } else if (positions.size() > 1) {
             final TreeSet<Integer> pSet = new TreeSet<>(positions);
             final int selStart, selEnd;
@@ -332,22 +338,17 @@ public final class TextViewUtils {
 
         // Region in Y
         // ------------------------------------------------------------
-        final int selStartLine = layout.getLineForOffset(_start);
-        final int lineStartLine = layout.getLineForOffset(lineStart);
-        final int selStartLineTop = layout.getLineTop(selStartLine);
-        final int lineStartLineTop = layout.getLineTop(lineStartLine);
+        final int startLine = layout.getLineForOffset(lineStart);
+        final int startLineTop = layout.getLineTop(startLine);
+
+        final int endLine = layout.getLineForOffset(_end);
+        final int endLineBottom = layout.getLineBottom(endLine);
+        final int endLineTop = layout.getLineTop(endLine);
+        final int lineHeight = endLineBottom - endLineTop;
 
         final Rect region = new Rect();
-
-        if ((selStartLine - lineStartLine) <= 3) {
-            // good to see the start of the line if close enough
-            region.top = lineStartLineTop;
-        } else {
-            region.top = selStartLineTop;
-        }
-
-        // Push the top to the top
-        region.bottom = region.top + viewSize.height();
+        region.top = Math.max(startLineTop, endLineBottom - viewSize.height() + lineHeight);
+        region.bottom = endLineBottom;
 
         // Region in X - as handling RTL, text alignment, and centred text etc is
         // a huge pain (see TextView.bringPointIntoView), we use a very simple solution.
@@ -355,10 +356,10 @@ public final class TextViewUtils {
         final int startLeft = (int) layout.getPrimaryHorizontal(_start);
         final int halfWidth = viewSize.width() / 2;
         // Push the start to the middle of the screen
-        region.left = startLeft - halfWidth;
-        region.right = startLeft + halfWidth;
+        region.left = Math.max(startLeft - halfWidth, 0);
+        region.right = Math.min(startLeft + halfWidth, text.getWidth());
 
-        text.requestRectangleOnScreen(region);
+        text.requestRectangleOnScreen(region, true);
     }
 
     public static void setSelectionAndShow(final EditText edit, final int... sel) {

@@ -12,6 +12,7 @@
     android:layout_height="match_parent"
     android:title="@string/share_to_arrow">
 
+    <PreferenceCategory android:title="@string/attach" />
     <Preference
         android:icon="@drawable/ic_lightning_black_24dp"
         android:key="@string/pref_key__share_into__quicknote"
@@ -20,6 +21,19 @@
         android:icon="@drawable/ic_assignment_turned_in_black_24dp"
         android:key="@string/pref_key__share_into__todo"
         android:title="@string/todo" />
+    <Preference
+        android:icon="@drawable/ic_access_time_black_24dp"
+        android:key="@string/pref_key__share_into__most_recent_document"/>
+    <Preference
+        android:icon="@drawable/ic_gs_file_move_black_24dp"
+        android:key="@string/pref_key__select_create_document"
+        android:title="@string/select" />
+    <Preference
+        android:icon="@drawable/ic_search_black_24dp"
+        android:key="@string/pref_key__search_for_target"
+        android:title="@string/search" />
+
+    <PreferenceCategory android:title="@string/share" />
     <Preference
         android:icon="@drawable/ic_share_black_24dp"
         android:key="@string/pref_key__share_into__reshare"
@@ -37,27 +51,6 @@
         android:key="@string/pref_key__share_into__calendar_event"
         android:title="@string/calendar" />
 
-    <PreferenceCategory android:title="@string/file_browser" />
-
-    <Preference
-        android:icon="@drawable/ic_keyboard_return_black_24dp"
-        android:key="@string/pref_key__select_create_document"
-        android:title="@string/select_create_document" />
-
-    <Preference
-        android:icon="@drawable/ic_star_black_24dp"
-        android:key="@string/pref_key__favourite_files"
-        android:title="@string/favourites" />
-
-    <Preference
-        android:icon="@drawable/ic_history_black_24dp"
-        android:key="@string/pref_key__recent_documents"
-        android:title="@string/recently_viewed_documents" />
-
-    <Preference
-        android:icon="@drawable/ic_favorite_black_24dp"
-        android:key="@string/pref_key__popular_documents"
-        android:title="@string/popular_documents" />
 
 
 </PreferenceScreen> <!-- Screen -->

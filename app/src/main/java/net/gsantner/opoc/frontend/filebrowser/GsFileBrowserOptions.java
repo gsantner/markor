@@ -42,7 +42,9 @@ public class GsFileBrowserOptions {
 
         void onFsViewerItemLongPressed(final File file, boolean doSelectMultiple);
 
-        void onFsViewerFolderChange(final File newFolder);
+        void onFsViewerFolderLoad(final File newFolder);
+
+        void onFsViewerNeutralButtonPressed(final File currentFolder);
     }
 
     public static class Options {
@@ -84,6 +86,8 @@ public class GsFileBrowserOptions {
         public int cancelButtonText = android.R.string.cancel;
         @StringRes
         public int okButtonText = android.R.string.ok;
+        @StringRes
+        public int neutralButtonText = 0;
         @StringRes
         public int titleText = android.R.string.untitled;
         @StringRes
@@ -154,22 +158,22 @@ public class GsFileBrowserOptions {
 
         @Override
         public void onFsViewerConfig(Options dopt) {
-
         }
 
         @Override
         public void onFsViewerDoUiUpdate(GsFileBrowserListAdapter adapter) {
-
         }
 
         @Override
         public void onFsViewerItemLongPressed(File file, boolean doSelectMultiple) {
-
         }
 
         @Override
-        public void onFsViewerFolderChange(File newFolder) {
+        public void onFsViewerFolderLoad(File newFolder) {
+        }
 
+        @Override
+        public void onFsViewerNeutralButtonPressed(File currentFolder) {
         }
     }
 }
