@@ -3,6 +3,7 @@ package net.gsantner.markor.frontend.search;
 import android.content.Context;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -93,6 +94,7 @@ public class SearchDialogFragment extends Fragment {
             }
         });
 
+        final Runnable findTask = this::find;
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -100,7 +102,9 @@ public class SearchDialogFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                find();
+                Handler handler = editText.getHandler();
+                handler.removeCallbacks(findTask);
+                handler.postDelayed(findTask, 800);
             }
 
             @Override
