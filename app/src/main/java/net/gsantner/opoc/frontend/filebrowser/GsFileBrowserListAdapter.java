@@ -46,7 +46,6 @@ import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -64,7 +63,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
-public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowserListAdapter.FilesystemViewerViewHolder> implements Filterable, View.OnClickListener, View.OnLongClickListener, FilenameFilter {
+public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowserListAdapter.FilesystemViewerViewHolder> implements Filterable, View.OnClickListener, View.OnLongClickListener {
     //########################
     //## Static
     //########################
@@ -169,11 +168,12 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             }
         }
 
-        _virtualMapping.putAll(_dopt.storageMaps);
-
         _virtualMapping.put(VIRTUAL_STORAGE_RECENTS, VIRTUAL_STORAGE_RECENTS);
         _virtualMapping.put(VIRTUAL_STORAGE_POPULAR, VIRTUAL_STORAGE_POPULAR);
         _virtualMapping.put(VIRTUAL_STORAGE_FAVOURITE, VIRTUAL_STORAGE_FAVOURITE);
+
+        _virtualMapping.putAll(_dopt.storageMaps);
+
     }
 
     @NonNull
@@ -652,6 +652,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             _folderScrollMap.put(_currentFolder, _layoutManager.onSaveInstanceState());
         }
 
+        // Update current folder
         if (GO_BACK_SIGNIFIER == folder) {
             _currentFolder = _backStack.pop();
         } else {
@@ -662,7 +663,13 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         }
 
         if (folderChanged) {
-            _dopt.listener.onFsViewerFolderChange(_currentFolder);
+            _currentSelection.clear();
+        }
+
+        _dopt.listener.onFsViewerFolderLoad(_currentFolder);
+
+        if (VIRTUAL_STORAGE_ROOT.equals(_currentFolder)) {
+            updateVirtualFolders();
         }
 
         if (_currentFolder != null) {
@@ -707,9 +714,10 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         }
 
         if (_currentFolder.isDirectory() && _currentFolder.canRead()) {
-            GsCollectionUtils.addAll(newData, _currentFolder.listFiles(GsFileBrowserListAdapter.this));
+            GsCollectionUtils.addAll(newData, _currentFolder.listFiles());
         }
 
+        GsCollectionUtils.keepIf(newData, this::accept);
         GsCollectionUtils.deduplicate(newData);
 
         // Don't sort recent or virtual root items - use the default order
@@ -776,14 +784,19 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         return false;
     }
 
-    // listFiles(FilenameFilter)
-    @Override
-    public boolean accept(File dir, String filename) {
-        final File f = new File(dir, filename);
-        final boolean filterYes = f.isDirectory() || _dopt.fileOverallFilter == null || _dopt.fileOverallFilter.callback(_context, f);
-        final boolean dotYes = _dopt.sortOrder.showDotFiles || !filename.startsWith(".") && !isAccessoryFolder(dir, filename, f);
-        final boolean selFileYes = _dopt.doSelectFile || f.isDirectory();
+    public boolean accept(File file) {
+        file = GsCollectionUtils.getOrDefault(_virtualMapping, file, file);
+        final boolean isDirectory = GsFileUtils.isDirectory(file);
+        final File parent = file.getParentFile();
+        final String name = file.getName().toLowerCase();
+        final boolean filterYes = isDirectory || _dopt.fileOverallFilter == null || _dopt.fileOverallFilter.callback(_context, file);
+        final boolean dotYes = _dopt.sortOrder.showDotFiles || !name.startsWith(".") && !isAccessoryFolder(parent, name, file);
+        final boolean selFileYes = _dopt.doSelectFile || isDirectory;
         return filterYes && dotYes && selFileYes;
+    }
+
+    public boolean accept(final File dir, final String filename) {
+        return accept(new File(dir, filename));
     }
 
     private boolean isAccessoryFolder(File dir, String filename, File file) {
