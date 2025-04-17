@@ -23,7 +23,7 @@
     },
     {
       "type": "ESCAPE_CHAR",
-      "regex": "\\\\([0bfnrtv'\"]|u[0-9a-fA-F]{4})|[0-7]{3}"
+      "regex": "\\\\([0bfnrtv'\"]|u[0-9a-fA-F]{4}|[0-7]{3})"
     },
     {
       "type": "CONSTANT",
