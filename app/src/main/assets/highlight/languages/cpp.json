@@ -6,7 +6,7 @@
       "regex": "\\b(typedef|inline|auto|class|explicit|extern|friend|inline|mutable|operator|register|template|private|protected|public|typeid|virtual|volatile|constexpr|nullptr|decltype)\\b"
     },
     {
-      "type": "KEYWORDS_2",
+      "type": "KEYWORDS_CONTROL",
       "regex": "\\b(goto|break|return|continue|asm|case|default|if|else|switch|while|for|do|sizeof|typeof|stdcall|cdecl|const_cast|delete|dynamic_cast|goto|namespace|new|pascal|reinterpret_cast|static_cast|this|throw|try|catch|using|true|false|bitand|and|bitor|or|xor|compl|and_eq|or_eq|xor_eq|not|not_eq|assert|static_assert)\\b"
     },
     {
@@ -23,7 +23,7 @@
     },
     {
       "type": "ESCAPE_CHAR",
-      "regex": "\\\\(?:[btnfr\"'\\\\]|u[0-9a-fA-F]{4}|[0-3][0-7]{2}|[0-7]{1,2})"
+      "regex": "\\\\([0bfnrtv'\"]|u[0-9a-fA-F]{4})|[0-7]{3}"
     },
     {
       "type": "LINE_COMMENT",
@@ -32,6 +32,10 @@
     {
       "type": "BLOCK_COMMENT",
       "regex": "/\\*[\\s\\S]*?\\*/"
+    },
+    {
+      "type": "FUNCTION",
+      "regex": "([a-zA-Z0-9_$]+)(?=\\()"
     }
   ]
 }

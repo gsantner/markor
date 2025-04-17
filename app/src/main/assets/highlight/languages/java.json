@@ -6,7 +6,7 @@
       "regex": "\\b(abstract|assert|class|do|enum|extends|final|implements|import|interface|instanceof|native|new|package|private|protected|public|static|strictfp|super|synchronized|this|throw|throws|transient|void|volatile)\\b"
     },
     {
-      "type": "KEYWORDS_2",
+      "type": "KEYWORDS_CONTROL",
       "regex": "\\b(if|else|while|for|switch|case|default|continue|break|return|try|catch|finally|goto|const)\\b"
     },
     {
@@ -23,11 +23,11 @@
     },
     {
       "type": "ESCAPE_CHAR",
-      "regex": "\\\\(?:[btnfr\"'\\\\]|u[0-9a-fA-F]{4}|[0-3][0-7]{2}|[0-7]{1,2})"
+      "regex": "\\\\([0bfnrtv'\"]|u[0-9a-fA-F]{4})|[0-7]{3}"
     },
     {
-      "type": "SPECIAL_VALUE",
-      "regex": "\\b(true|false|null)\\b"
+      "type": "CONSTANT",
+      "regex": "\\b(false|null|true|[A-Z_]+)\\b"
     },
     {
       "type": "LINE_COMMENT",
@@ -36,6 +36,14 @@
     {
       "type": "BLOCK_COMMENT",
       "regex": "/\\*[\\s\\S]*?\\*/"
+    },
+    {
+      "type": "CLASS",
+      "regex": "\\b([A-Z]\\w*)(?=[\\.\\[<>]|(\\s+\\w+\\s*=))\\b"
+    },
+    {
+      "type": "FUNCTION",
+      "regex": "([a-zA-Z0-9_$]+)(?=\\()"
     }
   ]
 }

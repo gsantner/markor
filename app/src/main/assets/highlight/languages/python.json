@@ -6,7 +6,7 @@
       "regex": "\\b(bool|enumerate|set|frozenset|help|reversed|sorted|sum|Ellipsis|NotImplemented|__import__|abs|apply|buffer|callable|chr|classmethod|cmp|coerce|compile|complex|delattr|dict|dir|divmod|eval|execfile|file|filter|float|getattr|globals|hasattr|hash|hex|id|input|int|intern|isinstance|issubclass|iter|len|list|locals|long|map|max|min|object|oct|open|ord|pow|property|range|raw_input|reduce|reload|repr|round|setattr|slice|staticmethod|str|super|tuple|type|unichr|unicode|vars|xrange|zip)\\b"
     },
     {
-      "type": "KEYWORDS_2",
+      "type": "KEYWORDS_CONTROL",
       "regex": "\\b(break|continue|del|except|exec|finally|pass|print|raise|return|try|global|assert|lambda|yield|def|class|for|while|if|elif|else|and|in|is|not|or|import|from|as)\\b"
     },
     {
@@ -23,10 +23,10 @@
     },
     {
       "type": "ESCAPE_CHAR",
-      "regex": "\\\\(?:[btnfr\"'\\\\]|u[0-9a-fA-F]{4}|[0-3][0-7]{2}|[0-7]{1,2})"
+      "regex": "\\\\([0bfnrtv'\"]|u[0-9a-fA-F]{4})|[0-7]{3}"
     },
     {
-      "type": "SPECIAL_VALUE",
+      "type": "CONSTANT",
       "regex": "\\b(None|True|False)\\b"
     },
     {
@@ -36,6 +36,10 @@
     {
       "type": "BLOCK_COMMENT",
       "regex": "('''(.*?)''')|(\"{3}(.*?)\"{3})"
+    },
+    {
+      "type": "FUNCTION",
+      "regex": "([a-zA-Z0-9_$]+)(?=\\()"
     }
   ]
 }
