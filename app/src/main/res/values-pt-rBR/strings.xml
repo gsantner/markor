@@ -69,6 +69,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="name">Nome</string>
     <string name="url_or_path">URL / Caminho</string>
     <string name="insert_link">Inserir link</string>
+    <string name="format_link">Formatar link</string>
     <string name="insert_image">Inserir Imagem</string>
     <string name="contributors">Colaboradores</string>
     <string name="save_location">Local de salvamento</string>
