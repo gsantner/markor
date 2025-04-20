@@ -13,10 +13,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="settings">Instellings</string>
     <string name="light">Lig</string>
     <string name="appearance">Voorkoms</string>
+    <string name="title">Titel</string>
     <string name="share">Deel</string>
     <string name="search">Soek</string>
     <string name="editor">Redigeerder</string>
+    <string name="document">Dokument</string>
+    <string name="documents">Dokumente</string>
     <string name="about">Omtrent</string>
+    <string name="font_size">Lettergrootte</string>
     <string name="create">Skep</string>
     <string name="hide_statusbar">Versteek statusbalk</string>
     <string name="contributors">Bydraers</string>
@@ -29,6 +33,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="size">Grootte</string>
     <string name="contribute">Bydra</string>
     <string name="exit">Gaan Uit</string>
+    <string name="redo">Oordoen</string>
     <string name="more">Meer</string>
     <string name="help">Hulp</string>
     <string name="main_view">Hoofaansig</string>
