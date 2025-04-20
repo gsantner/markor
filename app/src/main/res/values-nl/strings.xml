@@ -220,6 +220,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="clipboard">Plakbord</string>
     <string name="select_existing_document">Selecteer bestaand document</string>
     <string name="select_create_document">Kies of maak document aan</string>
+    <string name="select_create_folder">Map selecteren of aanmaken</string>
     <string name="open_source_licenses">Open Source Licenties</string>
     <string name="rate_this_app">Beoordeel deze app</string>
     <string name="translate">Vertalen</string>
