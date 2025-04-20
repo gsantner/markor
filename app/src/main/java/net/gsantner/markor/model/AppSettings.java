@@ -13,6 +13,7 @@ import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Environment;
+import android.text.TextUtils;
 import android.util.Pair;
 
 import androidx.annotation.ColorRes;
@@ -136,9 +137,24 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return getInt(R.string.pref_key__editor_font_size, 15);
     }
 
-    public int getViewFontSize() {
+    private int getDefaultViewFontSize() {
         int size = getInt(R.string.pref_key__view_font_size, -1);
         return size < 2 ? getFontSize() : size;
+    }
+
+    public void setDocumentViewFontSize(final String path, int size) {
+        if (fexists(path)) {
+            setInt(PREF_PREFIX_VIEW_FONT_SIZE + path, size);
+        }
+    }
+
+    public int getDocumentViewFontSize(final String path) {
+        final int _default = getDefaultViewFontSize();
+        if (!fexists(path)) {
+            return _default;
+        } else {
+            return getInt(PREF_PREFIX_VIEW_FONT_SIZE + path, _default);
+        }
     }
 
     public boolean isHighlightingEnabled() {
@@ -406,6 +422,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     private static final String PREF_PREFIX_VIEW_SCROLL_Y = "PREF_PREFIX_VIEW_SCROLL_Y";
     private static final String PREF_PREFIX_TODO_DONE_NAME = "PREF_PREFIX_TODO_DONE_NAME";
     private static final String PREF_PREFIX_LINE_NUM_STATE = "PREF_PREFIX_LINE_NUM_STATE";
+    private static final String PREF_PREFIX_VIEW_FONT_SIZE = "PREF_PREFIX_VIEW_FONT_SIZE";
 
     public void setLastTodoDoneName(final String path, final String name) {
         if (fexists(path)) {
