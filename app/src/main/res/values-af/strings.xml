@@ -33,6 +33,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="size">Grootte</string>
     <string name="contribute">Bydra</string>
     <string name="exit">Gaan Uit</string>
+    <string name="undo">Ongedaan</string>
     <string name="redo">Oordoen</string>
     <string name="more">Meer</string>
     <string name="help">Hulp</string>
