@@ -450,7 +450,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_dynamically_for_notebook_root">من أجل اتباع روابط ويكي، البحث بشكل ديناميكي عن ملف notebook.zim لتحديد الدليل الجذر لكتاب الملاحظات الحالي. حدد هذا الخيار إذا كنت تستخدم العديد من الملاحظات المضغوطة أو دليل الملاحظات المحدد في التطبيق لا يتوافق مع دفتر الملاحظات المضغوط.</string>
     <string name="share_into_format_prefix_for_text_shared">تنسيق/بادئة للنصوص المشاركة في Markor. يتبع قواعد Android SimpleDateFormat.\n\nاستخدم العنصر النائب {{text}} لتحديد موضع النص المشارك. إذا لم يتم تحديده، يتم إلحاق النص المشارك ويُستخدم التنسيق كبادئة.</string>
     <string name="share_into_format">المشاركة في - التنسيق</string>
+    <string name="attachment_folder_name">اسم مجلد المرفقات</string>
+    <string name="attachment_folder_name_desc">مجلد فرعي ضمن المجلد الحالي حيث سيتم حفظ المرفقات. في حالة تركها فارغة، سيتم حفظ المرفقات في المجلد الحالي.</string>
     <string name="auto_format">تنسيق تلقائي</string>
     <string name="insert_snippet">Insert snippet</string>
+    <string name="snippet_directory">مسار المقتطف / القالب</string>
+    <string name="error_could_not_open_file">خطأ: تعذر فتح الملف.</string>
     <string name="document_error_clip">حدث خطأ: تم نسخ النص إلى الحافظة.</string>
+    <string name="wont_save_min_length">الملفات التي تحتوي على أقل من %d من الأحرف لا يتم حفظها تلقائياً لمنع فقدان البيانات.</string>
+    <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">بنية التصفية المتقدمة</a></small>]]></string>
+    <string name="filter">تصفية</string>
+    <string name="use_tab_to_indent">وضع مسافة بادئة بين الأسطر باستخدام مفتاح TAB</string>
+    <string name="folder_local">المجلد المحلي</string>
 </resources>
