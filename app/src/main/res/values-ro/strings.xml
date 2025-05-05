@@ -117,8 +117,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="refresh">Împrospătează</string>
     <string name="create_shortcut">Crează scurtătură</string>
     <string name="tried_to_create_shortcut_for_this_notice">Încercat să creați o scurtătură pe ecranul de pornire. Rețineți că este posibil ca unele lansatoare să nu suporte acest lucru.</string>
-    <string name="file_not_in_save_path_do_import_notice__appspecific">Fisierul selectat nu este localizat in directorul aplicatiei. Doriţi să-l copiaţi în folderul curent? Acest lucru va suprascrie orice fişier existent cu acelaşi nume.</string>
-    <string name="file_not_in_current_folder_do_copy__appspecific">Fișierul nu este localizat în directorul curent. Doriţi să-l copiaţi în folderul curent? Acest lucru va suprascrie orice fişier existent cu acelaşi nume.</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">Fișierul selectat nu se află în directorul caietului de notițe al aplicației. Doriți să îl copiați în folderul curent? Acest lucru va suprascrie orice fișier existent cu același nume.</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">Fișierul nu este localizat în folderul curent. Doriți să îl copiați în folderul curent? Acest lucru va suprascrie orice fișier existent cu același nume.</string>
     <string name="files_and_folders">Fișiere și dosare</string>
     <string name="document_browser">Browser de documente</string>
     <string name="file_browser">Browser de fișiere</string>
@@ -188,7 +188,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_new_line_below">Începe o linie nouă</string>
     <string name="select_current_line">Selectează linia curentă</string>
     <string name="key_ctrl_a">Selectează tot (Ctrl+A)</string>
-    <string name="key_tab">Tabel</string>
+    <string name="key_tab">Tasta Tab</string>
     <string name="zero_width_space">Spațiu cu lățimea maximă</string>
     <string name="em_space">Spațiu em (&amp;emsp;)</string>
     <string name="start_on_bottom">Pornire jos</string>
@@ -279,6 +279,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Alege data</string>
     <string name="pick_time">Alege ora</string>
     <string name="get_format_instead_date_or_time">Obțineți formatul în loc de data sau ora</string>
+    <string name="use_current_date_and_time">Folosește data &amp; ora curente</string>
     <string name="result">Rezultat</string>
     <string name="just_time">Doar timp</string>
     <string name="just_date">Doar data</string>
@@ -286,7 +287,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">nota_meu</string>
     <string name="close">Inchide</string>
     <string name="cancel">Anulează</string>
-    <string name="app_start_tab">Tabul de start al aplicației</string>
+    <string name="app_start_tab">Fila de pornire a aplicației</string>
     <string name="tab_to_select_at_start">Tab de selectat la pornirea aplicației</string>
     <string name="swipe_to_change_mode">Glisați pentru a schimba modul</string>
     <string name="swipe_to_change_to_edit_or_view_mode">Glisați pentru a modifica pentru a edita sau vizualiza (opus modului curent)</string>
@@ -319,9 +320,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="list_in_recent_files">Listează în fişierele recente</string>
     <string name="reload">Reîncarcă</string>
     <string name="wrap_words">Încadrează cuvintele</string>
+    <string name="line_numbers">Numere de linie</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Întrerupere ușoară dacă textul nu se potrivește cu lățimea ecranului. Altfel activează derularea orizontală.</string>
+    <string name="recursive_search_in_location">Căutare recursivă în %s</string>
     <string name="always_open_with_this_app">Deschideți întotdeauna cu această aplicație</string>
-    <string name="always_open_files_with_this_app_when_list_contains_file_extension">Deschideți întotdeauna fișiere cu această aplicație atunci când lista conține extensia de fișiere. Folosiți \'Niciunul, .html, . ss , .js de exemplu dacă doriţi să editaţi fişiere web şi cele fără extensia fişierului.</string>
+    <string name="always_open_files_with_this_app_when_list_contains_file_extension">Deschideți întotdeauna fișiere cu această aplicație atunci când lista conține extensia fișierului. Utilizați \'Niciunul, .html, .css, .js\', de exemplu, dacă doriți să editați fișiere web și pe cele fără extensie de fișier.</string>
     <string name="open_file_with">Deschide fișierul cu</string>
     <string name="rotate">Rotire</string>
     <string name="template">Șablon</string>
@@ -332,6 +335,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="current">Actuală</string>
     <string name="record_audio">Înregistrare audio</string>
     <string name="attach">Atașează</string>
+    <string name="attachment">Atașament</string>
     <string name="copy_file">Copiază fișierul</string>
     <string name="page">Pagină</string>
     <string name="experimental_features">Caracteristici experimentale</string>
@@ -342,6 +346,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="how_much_columns_press_table_button_long_to_start_table">Câte coloane? Apăsați butonul de tabel lung pentru a porni un tabel (insert header), apăsați scurt pentru a adăuga un rând.</string>
     <string name="example_of_a_markdown_table">Exemplu de tabel Markdown</string>
     <string name="delete_lines">Ștergeți liniile</string>
+    <string name="duplicate_lines">Linii duplicate</string>
     <string name="unordered_list">Listă neordonată</string>
     <string name="ordered_list">Listă ordonată</string>
     <string name="check_list">Lista de verificare</string>
@@ -370,6 +375,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_completed_tasks">Arhivare sarcini finalizate</string>
     <string name="create_new_file_or_folder">Creaţi un nou fişier sau dosar</string>
     <string name="choose_format">Alegeți formatul</string>
+    <string name="clear_selection">Șterge selecția</string>
     <string name="selected">Selectate</string>
     <string name="back">Înapoi</string>
     <string name="expand_collapse">Extindere / Restrângere</string>
@@ -437,12 +443,24 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">De finalizat astăzi</string>
     <string name="due_future">De finalizat în viitor</string>
     <string name="completed">Completat</string>
+    <string name="advanced_filtering">Filtrare avansată</string>
     <string name="match_any">Se potrivește orice</string>
     <string name="match_all">Potrivește tot</string>
     <string name="dynamic_notebook_root_links">Căutare dinamică după rădăcina de caiet</string>
     <string name="search_dynamically_for_notebook_root">Pentru a urmări link-urile wiki, căutaţi dinamic fişierul notebook.zim pentru a identifica directorul rădăcină pentru caietul de sarcini curent. Bifați acest lucru dacă utilizați mai multe notebooks zim sau directorul notebook din aplicație nu corespunde cu notebook-ul dvs. zim.</string>
+    <string name="share_into_format_prefix_for_text_shared">Format/Prefix pentru textul partajat în Markor. Urmează regulile SimpleDateFormat ale Android.\n\nFolosește variabila {{text}} pentru a poziționa textul partajat. Dacă nu este specificat, textul partajat este adăugat la sfârșit și formatul este folosit ca prefix.</string>
     <string name="share_into_format">Partajare în - Format</string>
+    <string name="attachment_folder_name">Numele folderului de atașare</string>
+    <string name="attachment_folder_name_desc">Subfolder în folderul curent unde vor fi salvate atașările. Dacă este lăsat necompletat, atașările vor fi salvate în folderul curent.</string>
     <string name="auto_format">Format automat</string>
     <string name="insert_snippet">Insert snippet</string>
+    <string name="snippet_directory">Directorul pentru fragmente / șabloane</string>
+    <string name="error_could_not_open_file">Eroare: Nu s-a putut deschide fișierul.</string>
     <string name="document_error_clip">Eroare întâlnită: textul a fost copiat în clipboard.</string>
+    <string name="wont_save_min_length">Fișierele cu mai puțin de %d caractere nu sunt salvate automat pentru a preveni pierderea de date.</string>
+    <string name="filter">Filtru</string>
+    <string name="text_case">Cazul textului</string>
+    <string name="capitalize_words">Cuvinte cu majuscule (Ex: a note-&gt;A Note)</string>
+    <string name="capitalize_sentences">Scrieți propozițiile cu majuscule (Ex: case-&gt;Case)</string>
+    <string name="use_tab_to_indent">Indentează liniile cu tasta TAB</string>
 </resources>
