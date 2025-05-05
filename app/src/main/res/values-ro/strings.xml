@@ -164,7 +164,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="rtl_rendering">Redare RTL</string>
     <string name="highlight_line_ending">Evidențiere sfârșitul liniei</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Evidențiază spațiile la capătul liniilor care conțin două sau mai multe spații</string>
-    <string name="use_monospace_for_code">Folosește fontul monospațiu pentru cod</string>
+    <string name="use_monospace_for_code">Folosește fontul monospațial pentru cod</string>
     <string name="disable_code_block_highlight">Dezactivează evidențierea pentru blocuri de cod</string>
     <string name="auto_renumber_ordered_list">Auto-renumărare liste ordonate</string>
     <string name="auto_renumber_ordered_list_slowdown">Această opțiune poate afecta performanța aplicațiilor.</string>
@@ -193,7 +193,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="em_space">Spațiu em (&amp;emsp;)</string>
     <string name="start_on_bottom">Pornire jos</string>
     <string name="start_on_bottom_when_loading_document">La încărcarea unui document, cursorul de poziție la sfârșit</string>
-    <string name="unordered_list_character">Caracter listă neordonat</string>
+    <string name="unordered_list_character">Caracter pentru listă neordonată</string>
     <string name="character_to_start_items_of_unordered_list_with">Ce caracter trebuie folosit pentru a indica liste neordonate</string>
     <string name="unordered_list_char_dash">Liniuță (-)</string>
     <string name="unordered_list_char_asterisk">Asterisc (*)</string>
@@ -203,7 +203,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="permissions">Permisiuni</string>
     <string name="permission_paths_revert">Reveniți la căile implicite?</string>
     <string name="permission_not_granted">Permisiunea nu a fost acordată</string>
-    <string name="sync_to_local_folder_notice">Notă: Aplicațiile de sincronizare pot plasa fișiere în dosare personalizate. Deschide-le schimbând dosarul documentului Markor\'s în consecință sau într-un alt manager de fișiere.</string>
+    <string name="sync_to_local_folder_notice">Notă: Aplicațiile de sincronizare pot plasa fișiere în dosare personalizate. Deschideți-le modificând dosarul de documente al Markor în mod corespunzător sau într-un alt manager de fișiere.</string>
     <string name="vertical_alignment">Aliniere verticală</string>
     <string name="horizontal_alignment">Aliniere orizontală</string>
     <string name="default_">Implicit</string>
@@ -234,7 +234,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contribute_code_to_this_project_anybody_welcome">Contribuie cod la proiect. Toată lumea este binevenită să facă acest lucru, inclusiv nou-veniți</string>
     <string name="project_team">Echipa proiectului</string>
     <string name="community">Comunitate</string>
-    <string name="contributors_public_add_yourself_description">Arată informațiile despre contribuitor. Oferă-le pentru a fi afișate aici pe baza opt-in după contribuție</string>
+    <string name="contributors_public_add_yourself_description">Afișează informațiile contribuitorilor. Acestea vor fi afișate aici, cu acordul lor, după ce contribuie</string>
     <string name="descending">descendent</string>
     <string name="ascending">ascendent</string>
     <string name="disable_spelling_underline">Dezactivează ortografia subliniată</string>
@@ -274,7 +274,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="keep_existing_file">- Fișierele și dosarele nu sunt suprascrise</string>
     <string name="multiple_windows">Ferestre multiple</string>
     <string name="font">Font</string>
-    <string name="open_new_documents_always_in_new_window">Deschide documentele întotdeauna în ferestre separate. Comutați folosind cheia \"Recents\" a dispozitivului.</string>
+    <string name="open_new_documents_always_in_new_window">Deschide documentele întotdeauna în ferestre separate. Comută folosind tasta \'recente\' a dispozitivului tău.</string>
     <string name="enter_or_select_format">Introduceți sau selectați formatul</string>
     <string name="pick_date">Alege data</string>
     <string name="pick_time">Alege ora</string>
@@ -350,11 +350,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list">Listă neordonată</string>
     <string name="ordered_list">Listă ordonată</string>
     <string name="check_list">Lista de verificare</string>
-    <string name="open_link">Deschide link-ul</string>
+    <string name="open_link">Deschide linkul</string>
     <string name="common_color_picker">Selector culoare</string>
     <string name="date_and_time">Data și ora</string>
     <string name="jump_to_bottom">Salt la jos</string>
-    <string name="quote">Ofertă</string>
+    <string name="quote">Citat</string>
     <string name="heading">Subtitlu</string>
     <string name="heading_1">Subtitlu 1</string>
     <string name="heading_2">Titlu2</string>
@@ -365,7 +365,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="bold">Bold</string>
     <string name="italic">Italic</string>
     <string name="highlighted">Evident</string>
-    <string name="strikeout">Lovitură afară</string>
+    <string name="strikeout">Tăiere</string>
     <string name="inline_code">Cod integrat</string>
     <string name="horizontal_line">Linie orizontală</string>
     <string name="toggle_done">Comutator terminat</string>
