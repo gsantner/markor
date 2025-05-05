@@ -69,7 +69,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="name">Nume</string>
     <string name="url_or_path">URL / Cale</string>
     <string name="insert_link">Inserează link</string>
-    <string name="insert_image">Inserare imagine</string>
+    <string name="insert_image">Inserează imagine</string>
     <string name="contributors">Contribuitori</string>
     <string name="save_location">Salvează locația</string>
     <string name="saved_location_to">Salvat în %s</string>
@@ -82,12 +82,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language_change_restart_description">Schimbă limba acestei aplicații. Restartează aplicația pentru ca schimbările să ia efect</string>
     <string name="language">Limbă</string>
     <string name="storage_permission_required">Este necesară permisiunea de stocare pentru a citi și scrie fișiere</string>
-    <string name="open_with">Deschideți cu</string>
+    <string name="open_with">Deschide cu</string>
     <string name="sort_by">Sortează după</string>
     <string name="date">Data</string>
     <string name="deleteme____1">Nume</string>
     <string name="size">Dimensiune</string>
-    <string name="reverse_order">Ordinea inversă</string>
+    <string name="reverse_order">Ordine inversă</string>
     <string name="contribute">Contribuie</string>
     <string name="project_page">Pagina proiectului</string>
     <string name="press_back_again_to_exit">Apăsați din nou \'Înapoi\' pentru a ieși</string>
@@ -123,7 +123,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_browser">Browser de documente</string>
     <string name="file_browser">Browser de fișiere</string>
     <string name="set_due_date">Setați data scadentă</string>
-    <string name="insert_replace_date">Introduceți data</string>
+    <string name="insert_replace_date">Inserează data</string>
     <string name="create_note" needed="false">Creează o notă</string>
     <string name="special_documents" needed="false">Documente speciale</string>
     <string name="keep_screen_on" needed="false">Păstrați ecranul pornit</string>
@@ -133,14 +133,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="editor_settings" needed="false">Setări editor</string>
     <string name="remember_last_folder_location_on_startup" needed="false">Memorează ultima locație a dosarului la pornire</string>
     <string name="number_of_files_witharg" needed="false">Numărul de fișiere: %d</string>
-    <string name="app_wide">Interval de aplicații</string>
+    <string name="app_wide">La nivel de aplicație</string>
     <string name="main_view">Vizualizare principală</string>
     <string name="overall_theme_used_in_app">Tema generală utilizată în aplicație</string>
     <string name="remember_last_directory">Memorează ultimul director</string>
     <string name="syntax_highlighting">Evidențiere sintaxă</string>
     <string name="dynamic_highlighting">Evidențiere dinamică</string>
     <string name="highlighting_delay">Întârziere evidenţiere</string>
-    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Întârziere în milisecunde pentru evidențierea reîmprospătării. O valoare mai mică va începe să evidențieze mai devreme, dar va consuma bateria și poate încetini aplicația pe dispozitive mai vechi.</string>
+    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Întârziere în milisecunde pentru reîmprospătarea evidențierii. O valoare mai mică va începe evidențierea mai devreme, dar va consuma bateria și poate încetini aplicația pe dispozitivele mai vechi.</string>
     <string name="highlighting_enabled_or_not__appspecific">Controlează dacă textul introdus ar trebui evidențiat sau nu</string>
     <string name="dynamic_highlighting_effect">Evidențierea dinamică crește performanța. Poate cauza artefacte de randare.</string>
     <string name="control_font_size_in_editor">Controlează dimensiunea fontului folosită în editor</string>
@@ -157,7 +157,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="underline">Subliniere</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Dacă se subliniază codurile hexazecimale în funcție de culoare</string>
     <string name="underline_hex_color_codes">Subliniază codurile de culoare Hex</string>
-    <string name="insert_current_date_when_starting_new_task">Introduceți data curentă când porniți o nouă sarcină</string>
+    <string name="insert_current_date_when_starting_new_task">Inserează data curentă la începerea unei sarcini noi</string>
     <string name="tasks_with_todays_date">Sarcini cu data de azi</string>
     <string name="append_contexts_and_projects">Atașează contexte și proiecte</string>
     <string name="append_contexts_and_projects_on_end_of_task">Adăugare contexte și proiecte la sfârșitul unei sarcini atunci când se utilizează textul corespunzător</string>
@@ -179,9 +179,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="asciidoc_special_key">Conținut special AsciiDoc</string>
     <string name="key_page_up">Pagina în sus (Pagina sus)</string>
     <string name="key_page_down">Pagină în jos (Pagina Jos)</string>
-    <string name="key_pos_1">Pornire linie (Paca pos)</string>
+    <string name="key_pos_1">Începutul liniei (Poziția Home)</string>
     <string name="key_pos_end">Sfârșit linie (Pos Sfârșit)</string>
-    <string name="key_pos_1_document">Pornire document</string>
+    <string name="key_pos_1_document">Începutul documentului</string>
     <string name="key_pos_end_document">Sfârșit Document</string>
     <string name="move_text_one_line_up">Mută linia în sus</string>
     <string name="move_text_one_line_down">Mută linia în jos</string>
@@ -191,7 +191,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">Tasta Tab</string>
     <string name="zero_width_space">Spațiu cu lățimea maximă</string>
     <string name="em_space">Spațiu em (&amp;emsp;)</string>
-    <string name="start_on_bottom">Pornire jos</string>
+    <string name="start_on_bottom">Începe de jos</string>
     <string name="start_on_bottom_when_loading_document">La încărcarea unui document, cursorul de poziție la sfârșit</string>
     <string name="unordered_list_character">Caracter pentru listă neordonată</string>
     <string name="character_to_start_items_of_unordered_list_with">Ce caracter trebuie folosit pentru a indica liste neordonate</string>
@@ -259,7 +259,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="table_of_contents">Cuprins</string>
     <string name="miscellaneous">Diverse</string>
     <string name="prefer_view">Prefer vizualizarea</string>
-    <string name="no_calendar_app_is_installed">Nicio aplicație din calendar nu este instalată!</string>
+    <string name="no_calendar_app_is_installed">Nicio aplicație de calendar nu este instalată!</string>
     <string name="popular_documents">Documente populare</string>
     <string name="color">Culoare</string>
     <string name="basic_color_scheme">Schema de culori de bază</string>
@@ -267,7 +267,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="preset">Preset</string>
     <string name="foreground">prim-plan</string>
     <string name="background">Fundal</string>
-    <string name="set_foreground_or_background_color_hexcolor_also_possible">Setați culoarea în prim-plan sau de fundal a textului? Introducerea codului de culoare hexazecimală este de asemenea posibilă.</string>
+    <string name="set_foreground_or_background_color_hexcolor_also_possible">Setează culoarea de prim-plan sau culoarea de fundal a textului? Inserarea codului de culoare hexazecimal este de asemenea posibilă.</string>
     <string name="type">Tip</string>
     <string name="folder">Dosar</string>
     <string name="folder_is_created_without_extension">- Dosarul este creat fără extensia fișierului</string>
@@ -298,7 +298,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appdata_sdcard">AppData (SD Card)</string>
     <string name="internal_storage">Stocare internă</string>
     <string name="open_the_document_from_main_view">Puteți deschide documentul din vizualizarea principală de jos, din browserul de fișiere sau din lansator. Există, de asemenea, o opțiune de atașare a textului partajat în Markor.</string>
-    <string name="notebook_is_the_home_of_your_files">Notebook este dosarul pe care Markor îl încarcă în browserul de fișiere la pornirea aplicației. Acesta este dosarul principal al fișierelor dvs.</string>
+    <string name="notebook_is_the_home_of_your_files">Caietul este dosarul pe care Markor îl încarcă în browserul de fișiere la pornirea aplicației. Este dosarul principal al fișierelor tale.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote este cea mai rapidă opțiune de notare. Este un fișier în format Markdown cu locația implicită &gt;Notebook/QuickNote. d&lt;, poți seta o traiectorie de fișier personalizată în setări.</string>
     <string name="todo_is_the_easiest_way_">Gestionați sarcinile cu ToDo. Este un fișier în format todo.txt cu locația implicită &gt;Notebook/todo. xt&lt;, puteţi seta o cale de fişier personalizată în setări.</string>
     <string name="navigationbar_color">Culoare bară de navigare</string>
@@ -323,7 +323,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="line_numbers">Numere de linie</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Întrerupere ușoară dacă textul nu se potrivește cu lățimea ecranului. Altfel activează derularea orizontală.</string>
     <string name="recursive_search_in_location">Căutare recursivă în %s</string>
-    <string name="always_open_with_this_app">Deschideți întotdeauna cu această aplicație</string>
+    <string name="always_open_with_this_app">Deschide întotdeauna cu această aplicație</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Deschideți întotdeauna fișiere cu această aplicație atunci când lista conține extensia fișierului. Utilizați \'Niciunul, .html, .css, .js\', de exemplu, dacă doriți să editați fișiere web și pe cele fără extensie de fișier.</string>
     <string name="open_file_with">Deschide fișierul cu</string>
     <string name="rotate">Rotire</string>
@@ -345,15 +345,15 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="table">Tabel</string>
     <string name="how_much_columns_press_table_button_long_to_start_table">Câte coloane? Apăsați lung butonul tabel pentru a începe un tabel (introduceți antetul), apăsați scurt pentru a adăuga un rând.</string>
     <string name="example_of_a_markdown_table">Exemplu de tabel Markdown</string>
-    <string name="delete_lines">Ștergeți liniile</string>
+    <string name="delete_lines">Șterge liniile</string>
     <string name="duplicate_lines">Linii duplicate</string>
     <string name="unordered_list">Listă neordonată</string>
     <string name="ordered_list">Listă ordonată</string>
-    <string name="check_list">Lista de verificare</string>
+    <string name="check_list">Listă de verificare</string>
     <string name="open_link">Deschide linkul</string>
     <string name="common_color_picker">Selector culoare</string>
     <string name="date_and_time">Data și ora</string>
-    <string name="jump_to_bottom">Salt la jos</string>
+    <string name="jump_to_bottom">Salt la sfârșit</string>
     <string name="quote">Citat</string>
     <string name="heading">Subtitlu</string>
     <string name="heading_1">Subtitlu 1</string>
@@ -381,7 +381,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="expand_collapse">Extindere / Restrângere</string>
     <string name="essential">Esențial</string>
     <string name="append_human_readable_uuid_to_new_tasks">Adaugă UUID lizibil uman la sarcini noi</string>
-    <string name="action_order">Ordin de acțiune</string>
+    <string name="action_order">Ordinea acțiunilor</string>
     <string name="toggle_action_visibility">Comută vizibilitatea acțiunii</string>
     <string name="load_default_settings">Încarcă setările implicite</string>
     <string name="drag">Trage</string>
@@ -411,13 +411,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="restore_settings">Restabilire setări</string>
     <string name="failed_to_create_backup">Crearea copiei de rezervă a eșuat</string>
     <string name="export_settings_to_json_file">Exportă setările în fișier json</string>
-    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Importă setări din fişierul json de rezervă. La succes, aplicația este repornită.</string>
+    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Importă setările dintr-un fișier json de rezervă. În caz de succes, aplicația este repornită.</string>
     <string name="failed_to_restore_settings_from_backup">Restaurarea setărilor din backup a eșuat</string>
     <string name="newline_is_new_paragraph">Noutăți = punct nou</string>
     <string name="search_in_content">Căutare în conținut</string>
     <string name="max_search_depth">Adâncime căutare</string>
     <string name="ignore_list">Listă de ignorare</string>
-    <string name="do_not_search_specified_files_and_folders">Nu căuta fişierele şi dosarele specificate.\nUtilizaţi linia nouă ca separator.\nUtilizaţi oferte exact pentru nume dir: \"Test\".\nSau folosește Regex \'^[.].*\'\nExemple: ^\\\..*\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
+    <string name="do_not_search_specified_files_and_folders">Nu căuta fişierele şi dosarele specificate.\nFolosește linie nouă ca separator.\nFolosește ghilimele pentru nume exacte de directoare: \"Test\".\nSau folosește Regex \'^[.].*\'\nExemple: ^\\..*\n\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
     <string name="regex_search">Căutare Regex</string>
     <string name="case_sensitive">Sensibil la caz</string>
     <string name="stop_search_after_first_match">Oprește căutarea după primul meci</string>
@@ -434,8 +434,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="infinite">Infinit</string>
     <string name="browse_by_project">Navigare după proiect</string>
     <string name="browse_by_context">Răsfoiește după context</string>
-    <string name="insert_project">Inserare proiecte</string>
-    <string name="insert_context">Insert contexts</string>
+    <string name="insert_project">Inserează proiecte</string>
+    <string name="insert_context">Inserează contexte</string>
     <string name="browse_todo">Răsfoiește todo</string>
     <string name="browse_by_priority">Navigare după prioritate</string>
     <string name="browse_by_due_date">Navigare după data scadentă</string>
@@ -450,10 +450,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_dynamically_for_notebook_root">Pentru a urmări linkurile wiki, căutați în mod dinamic fișierul notebook.zim pentru a identifica directorul rădăcină pentru caietul curent. Bifați această opțiune dacă utilizați mai multe caiete zim sau dacă directorul caietului setat în aplicație nu corespunde caietului zim.</string>
     <string name="share_into_format_prefix_for_text_shared">Format/Prefix pentru textul partajat în Markor. Urmează regulile SimpleDateFormat ale Android.\n\nFolosește variabila {{text}} pentru a poziționa textul partajat. Dacă nu este specificat, textul partajat este adăugat la sfârșit și formatul este folosit ca prefix.</string>
     <string name="share_into_format">Partajare în - Format</string>
-    <string name="attachment_folder_name">Numele folderului de atașare</string>
+    <string name="attachment_folder_name">Numele dosarului de atașare</string>
     <string name="attachment_folder_name_desc">Subfolder în folderul curent unde vor fi salvate atașările. Dacă este lăsat necompletat, atașările vor fi salvate în folderul curent.</string>
     <string name="auto_format">Format automat</string>
-    <string name="insert_snippet">Insert snippet</string>
+    <string name="insert_snippet">Inserează fragmentul</string>
     <string name="snippet_directory">Directorul pentru fragmente / șabloane</string>
     <string name="error_could_not_open_file">Eroare: Nu s-a putut deschide fișierul.</string>
     <string name="document_error_clip">Eroare întâlnită: textul a fost copiat în clipboard.</string>
