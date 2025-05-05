@@ -28,7 +28,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_new_document">Creați un document nou</string>
     <string name="move">Mutați</string>
     <string name="info">Info</string>
-    <string name="file_folder_already_exists_please_use_a_different_name">Fișierul/directorul există deja! Te rugăm să folosești un nume diferit</string>
+    <string name="file_folder_already_exists_please_use_a_different_name">Fișierul/dosarul există deja! Vă rugăm să folosiți un alt nume</string>
     <string name="import_from_device">Importă de pe dispozitiv</string>
     <string name="import_">Importaţi</string>
     <string name="append_to_witharg">Adaugă la %s</string>
@@ -57,7 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="error_cannot_create_notebook_dir__appspecific">Eroare: Imposibil de creat notebook-uri</string>
     <string name="last_modified_witharg">Modificat ultima dată: %s</string>
     <string name="last_modified">Ultima modificare</string>
-    <string name="select_this_folder">Selectați acest dosar</string>
+    <string name="select_this_folder">Selectează acest dosar</string>
     <string name="select">Selectează</string>
     <string name="select_all">Selectează tot</string>
     <string name="create">Creează</string>
@@ -73,7 +73,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contributors">Contribuitori</string>
     <string name="save_location">Salvează locația</string>
     <string name="saved_location_to">Salvat în %s</string>
-    <string name="select_storage_folder">Selectați dosarul de stocare</string>
+    <string name="select_storage_folder">Selectează dosarul de stocare</string>
     <string name="licenses">Licențe</string>
     <string name="changelog">Jurnalul modificărilor</string>
     <string name="more_info">Mai multe informații</string>
@@ -118,7 +118,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_shortcut">Crează scurtătură</string>
     <string name="tried_to_create_shortcut_for_this_notice">Ați încercat să creați o comandă rapidă către ecranul de pornire. Rețineți că este posibil ca unele lansatoare să nu accepte acest lucru.</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">Fișierul selectat nu se află în directorul caietului de notițe al aplicației. Doriți să îl copiați în folderul curent? Acest lucru va suprascrie orice fișier existent cu același nume.</string>
-    <string name="file_not_in_current_folder_do_copy__appspecific">Fișierul nu este localizat în folderul curent. Doriți să îl copiați în folderul curent? Acest lucru va suprascrie orice fișier existent cu același nume.</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">Fișierul nu se află în dosarul curent. Doriți să îl copiați în dosarul curent? Aceasta va suprascrie orice fișier existent cu același nume.</string>
     <string name="files_and_folders">Fișiere și dosare</string>
     <string name="document_browser">Browser de documente</string>
     <string name="file_browser">Browser de fișiere</string>
@@ -173,7 +173,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="resources">Resurse</string>
     <string name="space_between_lines_in_percent">Spațiu între linii în procente</string>
     <string name="line_spacing">Spațiere linie</string>
-    <string name="archive_does_move_done_tasks">Mutați sarcinile finalizate în fișierul specificat în același dosar</string>
+    <string name="archive_does_move_done_tasks">Mută sarcinile finalizate în fișierul specificat din același dosar</string>
     <string name="sort_tasks_by_selected_order">Sortează sarcinile după ordinea selectată</string>
     <string name="special_key">Cheie specială</string>
     <string name="asciidoc_special_key">Conținut special AsciiDoc</string>
@@ -284,7 +284,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="just_time">Doar timp</string>
     <string name="just_date">Doar data</string>
     <string name="last_used">Ultima utilizare</string>
-    <string name="my_note">nota_meu</string>
+    <string name="my_note">nota_mea</string>
     <string name="close">Inchide</string>
     <string name="cancel">Anulează</string>
     <string name="app_start_tab">Fila de pornire a aplicației</string>
@@ -299,8 +299,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="internal_storage">Stocare internă</string>
     <string name="open_the_document_from_main_view">Puteți deschide documentul din vizualizarea principală de jos, din browserul de fișiere sau din lansator. Există, de asemenea, o opțiune de atașare a textului partajat în Markor.</string>
     <string name="notebook_is_the_home_of_your_files">Caietul este dosarul pe care Markor îl încarcă în browserul de fișiere la pornirea aplicației. Este dosarul principal al fișierelor tale.</string>
-    <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote este cea mai rapidă opțiune de notare. Este un fișier în format Markdown cu locația implicită &gt;Notebook/QuickNote. d&lt;, poți seta o traiectorie de fișier personalizată în setări.</string>
-    <string name="todo_is_the_easiest_way_">Gestionați sarcinile cu ToDo. Este un fișier în format todo.txt cu locația implicită &gt;Notebook/todo. xt&lt;, puteţi seta o cale de fişier personalizată în setări.</string>
+    <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote este cea mai rapidă opțiune pentru a nota idei. Este un fișier în format Markdown cu locația implicită &gt;Notebook/QuickNote.md&lt;, puteți seta o cale personalizată în setări.</string>
+    <string name="todo_is_the_easiest_way_">Gestionați sarcinile cu ToDo. Este un fișier în format todo.txt cu locația implicită &gt;Notebook/todo. xt&lt;, puteţi seta o cale personalizată în setări.</string>
     <string name="navigationbar_color">Culoare bară de navigare</string>
     <string name="black">Negru</string>
     <string name="white">Alb</string>
@@ -373,7 +373,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Adaugă context</string>
     <string name="add_project">Adaugă proiect</string>
     <string name="archive_completed_tasks">Arhivare sarcini finalizate</string>
-    <string name="create_new_file_or_folder">Creaţi un nou fişier sau dosar</string>
+    <string name="create_new_file_or_folder">Creează un fișier sau un dosar nou</string>
     <string name="choose_format">Alegeți formatul</string>
     <string name="clear_selection">Șterge selecția</string>
     <string name="selected">Selectate</string>
@@ -451,7 +451,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format_prefix_for_text_shared">Format/Prefix pentru textul partajat în Markor. Urmează regulile SimpleDateFormat ale Android.\n\nFolosește variabila {{text}} pentru a poziționa textul partajat. Dacă nu este specificat, textul partajat este adăugat la sfârșit și formatul este folosit ca prefix.</string>
     <string name="share_into_format">Partajare în - Format</string>
     <string name="attachment_folder_name">Numele dosarului de atașare</string>
-    <string name="attachment_folder_name_desc">Subfolder în folderul curent unde vor fi salvate atașările. Dacă este lăsat necompletat, atașările vor fi salvate în folderul curent.</string>
+    <string name="attachment_folder_name_desc">Subdosar sub dosarul curent unde vor fi salvate atașamentele. Dacă este lăsat necompletat, atașamentele vor fi salvate în dosarul curent.</string>
     <string name="auto_format">Format automat</string>
     <string name="insert_snippet">Inserează fragmentul</string>
     <string name="snippet_directory">Directorul pentru fragmente / șabloane</string>
