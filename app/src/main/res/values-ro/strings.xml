@@ -61,7 +61,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select">Selectează</string>
     <string name="select_all">Selectează tot</string>
     <string name="create">Creează</string>
-    <string name="select_entries">Selectați intrările</string>
+    <string name="select_entries">Selectează intrările</string>
     <string name="one_item_selected">Un element selectat</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d elemente selectate</string>
     <string name="hide_statusbar_at_this_view">Ascunde bara de stare în această vizualizare</string>
@@ -123,11 +123,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="files_and_folders">Fișiere și dosare</string>
     <string name="document_browser">Browser de documente</string>
     <string name="file_browser">Browser de fișiere</string>
-    <string name="set_due_date">Setați data scadentă</string>
+    <string name="set_due_date">Setează data scadentă</string>
     <string name="insert_replace_date">Inserează data</string>
     <string name="create_note" needed="false">Creează o notă</string>
     <string name="special_documents" needed="false">Documente speciale</string>
-    <string name="keep_screen_on" needed="false">Păstrați ecranul pornit</string>
+    <string name="keep_screen_on" needed="false">Menține ecranul pornit</string>
     <string name="disallow_screenshots">Interzice capturile de ecran</string>
     <string name="back_to_previous_folder" needed="false">Înapoi la dosarul anterior</string>
     <string name="app_settings" needed="false">Setări aplicație</string>
@@ -167,7 +167,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending_if_two_or_more_spaces">Evidențiază spațiile la capătul liniilor care conțin două sau mai multe spații</string>
     <string name="use_monospace_for_code">Folosește font monospațiat pentru cod</string>
     <string name="disable_code_block_highlight">Dezactivează evidențierea pentru blocuri de cod</string>
-    <string name="auto_renumber_ordered_list">Auto-renumărare liste ordonate</string>
+    <string name="auto_renumber_ordered_list">Numerotează automat listele ordonate</string>
     <string name="auto_renumber_ordered_list_slowdown">Această opțiune poate afecta performanța aplicațiilor.</string>
     <string name="use_different_fonttype_slow_down">Folosiți un tip diferit de font. Schimbarea acestuia are un impact dinamic asupra performanței aplicației.</string>
     <string name="general">General</string>
@@ -195,7 +195,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom">Începe de jos</string>
     <string name="start_on_bottom_when_loading_document">La încărcarea unui document, poziționează cursorul la sfârșitul acestuia</string>
     <string name="unordered_list_character">Caracter pentru listă neordonată</string>
-    <string name="character_to_start_items_of_unordered_list_with">Ce caracter trebuie folosit pentru a indica liste neordonate</string>
+    <string name="character_to_start_items_of_unordered_list_with">Ce caracter să se folosească pentru a indica listele neordonate</string>
     <string name="unordered_list_char_dash">Cratimă (-)</string>
     <string name="unordered_list_char_asterisk">Asterisc (*)</string>
     <string name="unordered_list_char_plus">Plus (+)</string>
@@ -252,7 +252,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="error_picture_selection">Nici o imagine selectată, făcută sau salvată.</string>
     <string name="gallery_picture">Imagine galerie</string>
     <string name="camera_picture">Imagine cameră foto</string>
-    <string name="enable_undo_and_redo_be_patient">Activați acțiunile de anulare și reefectuare. Este potrivit doar pentru utilizare avansată, fiți răbdător pentru a nu șterge ceva important. Închideți și deschideți editorul pentru a curăța istoricul.</string>
+    <string name="enable_undo_and_redo_be_patient">Activează acțiunile de anulare și refacere. Potrivit doar pentru utilizare avansată, fii atent să nu ștergi ceva important. Închide și redeschide editorul pentru a șterge istoricul.</string>
     <string name="description">Descriere</string>
     <string name="edit_picture">Editează imaginea</string>
     <string name="math">Matematică</string>
@@ -280,7 +280,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Alege data</string>
     <string name="pick_time">Alege ora</string>
     <string name="get_format_instead_date_or_time">Obține format în loc de dată sau oră</string>
-    <string name="use_current_date_and_time">Folosește data &amp; ora curente</string>
+    <string name="use_current_date_and_time">Folosește data și ora curente</string>
     <string name="result">Rezultat</string>
     <string name="just_time">Doar timp</string>
     <string name="just_date">Doar data</string>
@@ -431,7 +431,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overwrite_all">Suprascrie (toate)</string>
     <string name="copy_move_conflict_message">\'%s\' există deja în %s</string>
     <string name="additional_contexts_and_projects">contexte și proiecte suplimentare</string>
-    <string name="enter_space_seperated_contexts_and_projects_these_will">Introdu @contexte și +proiecte separate de spațiu. Acestea vor fi întotdeauna vizibile în dialogurile de inserare todo.txt.</string>
+    <string name="enter_space_seperated_contexts_and_projects_these_will">Introduceți @contexturi și +proiecte separate prin spații. Acestea vor fi întotdeauna vizibile în dialogurile de inserare todo.txt.</string>
     <string name="infinite">Infinit</string>
     <string name="browse_by_project">Navigare după proiect</string>
     <string name="browse_by_context">Răsfoiește după context</string>
