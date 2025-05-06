@@ -421,14 +421,15 @@ public class HighlightingEditor extends AppCompatEditText {
 
     public void setAutoFormatEnabled(final boolean enable) {
         if (enable && !_autoFormatEnabled) {
-            if (_autoFormatFilter != null) {
-                setFilters(new InputFilter[]{_autoFormatFilter});
-            }
+            TextViewUtils.addFilter(this, _autoFormatFilter);
+
             if (_autoFormatModifier != null) {
                 addTextChangedListener(_autoFormatModifier);
             }
+
         } else if (!enable && _autoFormatEnabled) {
-            setFilters(new InputFilter[]{});
+            TextViewUtils.removeFilter(this, _autoFormatFilter);
+
             if (_autoFormatModifier != null) {
                 removeTextChangedListener(_autoFormatModifier);
             }
