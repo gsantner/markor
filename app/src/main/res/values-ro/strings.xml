@@ -33,8 +33,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_">Importaţi</string>
     <string name="append_to_witharg">Adaugă la %s</string>
     <string name="select_folder">Selectează folder</string>
-    <string name="edit">Editare</string>
-    <string name="search_documents">Căutare documente</string>
+    <string name="edit">Editează</string>
+    <string name="search_documents">Caută în documente</string>
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Partajează către&#8230;</string>
     <string name="share">Distribuire</string>
     <string name="search">Căutare</string>
@@ -69,6 +69,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="name">Nume</string>
     <string name="url_or_path">URL / Cale</string>
     <string name="insert_link">Inserează link</string>
+    <string name="format_link">Formatează linkul</string>
     <string name="insert_image">Inserează imagine</string>
     <string name="contributors">Contribuitori</string>
     <string name="save_location">Salvează locația</string>
@@ -93,11 +94,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="press_back_again_to_exit">Apăsați din nou \'Înapoi\' pentru a ieși</string>
     <string name="exit">Ieşire</string>
     <string name="undo">Anulează</string>
-    <string name="redo">Reface</string>
+    <string name="redo">Refă</string>
     <string name="more">Mai multe</string>
     <string name="notebook">Caiet</string>
     <string name="help">Ajutor</string>
-    <string name="todo_list">Listă de sarcini</string>
+    <string name="todo_list">De făcut</string>
     <string name="task">Sarcină</string>
     <string name="context">Context</string>
     <string name="list">Listă</string>
@@ -392,7 +393,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="utf8_with_bom">UTF-8 cu BOM</string>
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">Conținutul fișierului nu a putut fi criptat. Fișierul nu a fost salvat.</string>
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Conținutul fișierului nu a putut fi decriptat. Ați folosit o parolă greșită? Este fișierul criptat cu criptarea Markors AES?</string>
-    <string name="password_already_set_setting_a_new_password_will_overwrite">Parola este deja setată. Setarea unei noi parole va suprascrie parola existentă și este posibil să nu mai puteți accesa fișiere, în cazul în care uitați parola.</string>
+    <string name="password_already_set_setting_a_new_password_will_overwrite">Parolă deja setată. Setarea unei noi parole va suprascrie parola existentă și este posibil să nu mai poți accesa fișierele dacă uiți parola.</string>
     <string name="code_block">Bloc cod</string>
     <string name="add_completion_date">Adăugare dată finalizare</string>
     <string name="add_completion_date_for_todos_when_marking_them_as_done">Adaugă data finalizării pentru todos când le marchezi ca terminate</string>
@@ -419,7 +420,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="ignore_list">Listă de ignorare</string>
     <string name="do_not_search_specified_files_and_folders">Nu căuta fişierele şi dosarele specificate.\nFolosește linie nouă ca separator.\nFolosește ghilimele pentru nume exacte de directoare: \"Test\".\nSau folosește Regex \'^[.].*\'\nExemple: ^\\..*\n\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
     <string name="regex_search">Căutare Regex</string>
-    <string name="case_sensitive">Sensibil la caz</string>
+    <string name="case_sensitive">Sensibil la majuscule/minuscule</string>
     <string name="stop_search_after_first_match">Oprește căutarea după primul meci</string>
     <string name="regex_can_not_be_compiled">Regex nu poate fi compilat</string>
     <string name="keep_both">Păstrați ambele</string>
@@ -458,9 +459,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="error_could_not_open_file">Eroare: Nu s-a putut deschide fișierul.</string>
     <string name="document_error_clip">Eroare întâlnită: textul a fost copiat în clipboard.</string>
     <string name="wont_save_min_length">Fișierele cu mai puțin de %d caractere nu sunt salvate automat pentru a preveni pierderea de date.</string>
+    <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Sintaxă avansată de filtrare</a></small>]]></string>
     <string name="filter">Filtru</string>
-    <string name="text_case">Cazul textului</string>
+    <string name="text_case">Formatare text</string>
+    <string name="toggle_case">Inversează majuscule/minuscule (Ex: Text-&gt;TEXT-&gt;text)</string>
+    <string name="switch_case">Schimbă majuscule/minuscule (Ex: TeXt-&gt;tExT)</string>
     <string name="capitalize_words">Cuvinte cu majuscule (Ex: a note-&gt;A Note)</string>
-    <string name="capitalize_sentences">Scrieți propozițiile cu majuscule (Ex: case-&gt;Case)</string>
+    <string name="capitalize_sentences">Majusculă la începutul propoziției (Ex: text-&gt;Text)</string>
     <string name="use_tab_to_indent">Indentează liniile cu tasta TAB</string>
+    <string name="folder_local">Dosar local</string>
 </resources>
