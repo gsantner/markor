@@ -220,6 +220,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="clipboard">Plakbord</string>
     <string name="select_existing_document">Selecteer bestaand document</string>
     <string name="select_create_document">Kies of maak document aan</string>
+    <string name="select_create_folder">Map selecteren of aanmaken</string>
     <string name="open_source_licenses">Open Source Licenties</string>
     <string name="rate_this_app">Beoordeel deze app</string>
     <string name="translate">Vertalen</string>
@@ -335,6 +336,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="current">Huidige</string>
     <string name="record_audio">Audio opnemen</string>
     <string name="attach">Bijvoegen</string>
+    <string name="attachment">Bijlage</string>
     <string name="copy_file">Bestand kopiëren</string>
     <string name="page">Pagina</string>
     <string name="experimental_features">Experimenteelte functies</string>
@@ -465,4 +467,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="capitalize_words">Begin elk woord met hoofdletter (bijv: a note-&gt;A Note)</string>
     <string name="capitalize_sentences">Begin zinnen met hoofdletters (bijv: case-&gt;Case)</string>
     <string name="use_tab_to_indent">Regels inspringen met TAB-toets</string>
+    <string name="folder_local">Lokale mappen</string>
 </resources>
