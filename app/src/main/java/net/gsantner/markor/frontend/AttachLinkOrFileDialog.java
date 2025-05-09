@@ -453,6 +453,8 @@ public class AttachLinkOrFileDialog {
             case AUDIO_BROWSE: {
                 if (activity instanceof AppCompatActivity && nameEdit != null && pathEdit != null) {
                     final GsFileBrowserOptions.SelectionListener fsListener = new GsFileBrowserOptions.SelectionListenerAdapter() {
+                        GsFileBrowserOptions.Options _dopt = null;
+
                         @Override
                         public void onFsViewerSelected(final String request, final File file, final Integer lineNumber) {
                             setFields.callback(file);
@@ -462,6 +464,20 @@ public class AttachLinkOrFileDialog {
                         public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
                             dopt.startFolder = currentFile.getParentFile();
                             dopt.rootFolder = GsFileBrowserListAdapter.VIRTUAL_STORAGE_ROOT;
+
+                            if (action == InsertType.LINK_BROWSE) {
+                                dopt.neutralButtonText = R.string.folder;
+                            }
+
+                            _dopt = dopt;
+                        }
+
+                        @Override
+                        public void onFsViewerNeutralButtonPressed(File currentFolder) {
+                            setFields.callback(currentFolder);
+                            if (_dopt != null) {
+                                _dopt.dialogInterface.dismiss();;
+                            }
                         }
                     };
 

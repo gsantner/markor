@@ -44,6 +44,7 @@ import net.gsantner.markor.format.ActionButtonBase;
 import net.gsantner.markor.format.todotxt.TodoTxtBasicSyntaxHighlighter;
 import net.gsantner.markor.format.todotxt.TodoTxtFilter;
 import net.gsantner.markor.format.todotxt.TodoTxtTask;
+import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.frontend.filesearch.FileSearchDialog;
 import net.gsantner.markor.frontend.filesearch.FileSearchEngine;
 import net.gsantner.markor.frontend.filesearch.FileSearchResultSelectorDialog;
@@ -916,6 +917,44 @@ public class MarkorDialogFactory {
         dopt.isSearchEnabled = false;
         dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
         dopt.dialogHeightDp = 475;
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+    }
+
+    public static void showCaseDialog(final Activity activity, final Editable edit) {
+        if (activity == null || edit == null) {
+            return;
+        }
+
+        final DialogOptions dopt = baseConf(activity);
+
+        dopt.titleText = R.string.text_case;
+        dopt.isSearchEnabled = false;
+
+        final List<String> options = new ArrayList<>();
+        options.add(activity.getString(R.string.toggle_case));
+        options.add(activity.getString(R.string.switch_case));
+        options.add(activity.getString(R.string.capitalize_words));
+        options.add(activity.getString(R.string.capitalize_sentences));
+        dopt.data = options;
+
+        dopt.positionCallback = (result) -> {
+            final int index = result.get(0);
+            switch (index) {
+                case 0:
+                    TextViewUtils.toggleSelectionCase(edit);
+                    break;
+                case 1:
+                    TextViewUtils.switchSelectionCase(edit);
+                    break;
+                case 2:
+                    TextViewUtils.capitalizeSelectionWords(edit);
+                    break;
+                case 3:
+                    TextViewUtils.capitalizeSelectionSentences(edit);
+                    break;
+            }
+        };
+
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 

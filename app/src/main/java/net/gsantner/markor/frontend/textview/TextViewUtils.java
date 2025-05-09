@@ -794,4 +794,36 @@ public final class TextViewUtils {
             replaceSelection(edit, TextCasingUtils.capitalizeSentences(text));
         }
     }
+
+    public static boolean addFilter(final TextView view, final InputFilter filter) {
+        if (view == null || filter == null) {
+            return false;
+        }
+
+        final List<InputFilter> filters = Arrays.asList(view.getFilters());
+        if (filters.contains(filter)) {
+            return false; // Already present
+        }
+
+        final List<InputFilter> filterList = new ArrayList<>(filters);
+        filterList.add(filter);
+        view.setFilters(filterList.toArray(new InputFilter[0]));
+        return true;
+    }
+
+    public static boolean removeFilter(final TextView view, final InputFilter filter) {
+        if (view == null || filter == null) {
+            return false;
+        }
+
+        final List<InputFilter> filters = Arrays.asList(view.getFilters());
+        if (!filters.contains(filter)) {
+            return false; // Not present
+        }
+
+        final List<InputFilter> filterList = new ArrayList<>(filters);
+        filterList.remove(filter);
+        view.setFilters(filterList.toArray(new InputFilter[0]));
+        return true;
+    }
 }
