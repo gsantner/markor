@@ -335,6 +335,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="current">当前</string>
     <string name="record_audio">录制音频</string>
     <string name="attach">附件</string>
+    <string name="attachment">附件</string>
     <string name="copy_file">复制文件</string>
     <string name="page">页面</string>
     <string name="experimental_features">实验功能</string>

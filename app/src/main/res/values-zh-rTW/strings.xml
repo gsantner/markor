@@ -154,7 +154,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="none">全無</string>
     <string name="other">其他</string>
     <string name="empty_file">空白檔案</string>
-    <string name="break_page_pdf_print">分頁（PDF／列印）</string>
+    <string name="break_page_pdf_print">分頁 (PDF/列印)</string>
     <string name="underline">底線</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">依顏色突顯Hex顏色碼</string>
     <string name="underline_hex_color_codes">突顯 Hex 顏色碼</string>

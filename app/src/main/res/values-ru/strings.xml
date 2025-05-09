@@ -220,6 +220,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="clipboard">Буфер обмена</string>
     <string name="select_existing_document">Выберите существующий документ</string>
     <string name="select_create_document">Выбрать или создать документ</string>
+    <string name="select_create_folder">Выбор или создание папки</string>
     <string name="open_source_licenses">Лицензии с открытым исходным кодом</string>
     <string name="rate_this_app">Оценить приложение</string>
     <string name="translate">Перевод</string>
@@ -279,7 +280,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Выбрать дату</string>
     <string name="pick_time">Выбрать время</string>
     <string name="get_format_instead_date_or_time">Получить формат вместо даты или времени</string>
-    <string name="use_current_date_and_time">Вставить дату и время</string>
+    <string name="use_current_date_and_time">Использовать текущую дату &amp; время</string>
     <string name="result">Результат</string>
     <string name="just_time">Только время</string>
     <string name="just_date">Только дата</string>
@@ -335,6 +336,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="current">Текущий</string>
     <string name="record_audio">Записать Аудио</string>
     <string name="attach">Прикрепить</string>
+    <string name="attachment">Вложение</string>
     <string name="copy_file">Копировать файл</string>
     <string name="page">Страница</string>
     <string name="experimental_features">Экспериментальные функции</string>
@@ -465,4 +467,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="capitalize_words">Слова с заглавной (напр., слово-&gt;Слово)</string>
     <string name="capitalize_sentences">Предложения с заглавных (напр., слово-&gt;Слово)</string>
     <string name="use_tab_to_indent">Сдвинуть строки вправо используя клавишу TAB</string>
+    <string name="folder_local">Локальная папка</string>
 </resources>
