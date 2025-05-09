@@ -33,6 +33,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.TooltipCompat;
+import androidx.fragment.app.FragmentActivity;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
@@ -40,6 +41,7 @@ import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.frontend.AttachLinkOrFileDialog;
 import net.gsantner.markor.frontend.DatetimeFormatDialog;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
+import net.gsantner.markor.frontend.search.SearchDialogFragment;
 import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
@@ -103,9 +105,12 @@ public abstract class ActionButtonBase {
         return runCommonLongPressAction(action);
     }
 
+    private SearchDialogFragment _searchDialogFragment;
+
     // Override to implement custom search action
     public boolean onSearch() {
-        MarkorDialogFactory.showSearchDialog(_activity, _hlEditor);
+        // MarkorDialogFactory.showSearchDialog(_activity, _hlEditor);
+        _searchDialogFragment.show();
         return true;
     }
 
@@ -582,6 +587,7 @@ public abstract class ActionButtonBase {
         _hlEditor = hlEditor;
         _webView = webview;
         _cu = new MarkorContextUtils(_activity);
+        _searchDialogFragment = SearchDialogFragment.newInstance(R.id.topReplacementLayout, (FragmentActivity) _activity, _hlEditor);
         return this;
     }
 
