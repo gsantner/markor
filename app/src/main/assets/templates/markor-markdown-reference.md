@@ -109,11 +109,16 @@ $ I = \frac V R $
 
 ### Math block
 
-$$\begin{array}{c} 
-abla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t} & = \frac{4\pi}{c}\vec{\mathbf{j}} 
-abla \cdot \vec{\mathbf{E}} & = 4 \pi \rho \\ 
-abla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t} & = \vec{\mathbf{0}} \\ 
-abla \cdot \vec{\mathbf{B}} & = 0 \end{array}$$
+$$\begin{array}{rcl}
+\nabla \cdot \vec{\mathbf{E}}
+& = & 4 \pi \rho,
+\\\nabla \cdot \vec{\mathbf{B}} 
+& = & 0,
+\\\nabla \times \vec{\mathbf{E}} + \frac1c \frac{\partial\vec{\mathbf{B}}}{\partial t} 
+& = & \vec{\mathbf{0}},
+\\\nabla \times \vec{\mathbf{B}} - \frac1c \frac{\partial\vec{\mathbf{E}}}{\partial t} 
+& = & \frac{4\pi}{c}\vec{\mathbf{J}}
+\end{array}$$
 
 
 $$\frac{k_t}{k_e} = \sqrt{2}$$
