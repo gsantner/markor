@@ -177,15 +177,21 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_does_move_done_tasks">نقل المهام المنفذة إلى ملف معين في نفس المجلد</string>
     <string name="sort_tasks_by_selected_order">فرز المهام حسب نظام معين</string>
     <string name="special_key">مفتاح خاص</string>
+    <string name="asciidoc_special_key">محتوى AsciiDoc المميز</string>
     <string name="key_page_up">صفحة لأعلى</string>
     <string name="key_page_down">صفحة لأسفل</string>
     <string name="key_pos_1">بداية السطر</string>
     <string name="key_pos_end">نهاية السطر</string>
     <string name="key_pos_1_document">بداية المستند</string>
     <string name="key_pos_end_document">نهاية المستند</string>
+    <string name="move_text_one_line_up">حرك السطر للأعلى</string>
+    <string name="move_text_one_line_down">حرك السطر للأسفل</string>
+    <string name="start_new_line_below">ابدأ سطرًا جديدًا</string>
+    <string name="select_current_line">تحديد السطر الحالي</string>
     <string name="key_ctrl_a">اختيار الكل (Ctrl + A)</string>
     <string name="key_tab">جهاز التبويب</string>
     <string name="zero_width_space">بدون مسافات بين الأحرف</string>
+    <string name="em_space">مساحة Em (&amp;emsp;)</string>
     <string name="start_on_bottom">البدء في نهاية الوثيقة</string>
     <string name="start_on_bottom_when_loading_document">عند فتح وثيقة، يتم توجيه مؤشر الكتابة عند نهاية النص</string>
     <string name="unordered_list_character">حرف القائمة غير مطلوب</string>
@@ -194,6 +200,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_asterisk">النجمة (*)</string>
     <string name="unordered_list_char_plus">زائد (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">يمكن للعلامة فقط تعديل المستندات المحلية المتاحة دون اتصال ولا تدعم مديري الملفات الذين لا يوفرون مسار الملف الكامل.</string>
+    <string name="permissions">الأذونات</string>
+    <string name="permission_paths_revert">العودة إلى المسارات الافتراضية؟</string>
+    <string name="permission_not_granted">لم يمنح الإذن</string>
     <string name="sync_to_local_folder_notice">ملاحظة: قد تضع التطبيقات المزامنة الملفات في مجلدات مخصصة. فتحها بتغيير مجلد المستندات الخاص بالعلامة وفقا لذلك، أو في مدير ملفات آخر.</string>
     <string name="vertical_alignment">محاذاة رأسية</string>
     <string name="horizontal_alignment">محاذاة أفقية</string>
@@ -209,11 +218,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_text_in_center_of_screen">تحرير النص في منتصف الشاشة</string>
     <string name="clipboard">الحافظة</string>
     <string name="select_existing_document">اختيار مستند موجود</string>
+    <string name="select_create_document">تحديد مستند أو إنشاؤه</string>
+    <string name="select_create_folder">تحديد مجلد أو إنشاؤه</string>
     <string name="open_source_licenses">تراخيص البرامج مفتوحة المصدر</string>
     <string name="rate_this_app">قيّم هذا التطبيق</string>
     <string name="translate">ترجمة</string>
     <string name="more_info_and_help">المزيد من المعلومات والمساعدة</string>
     <string name="report_bugs">إبلاغ عن علة</string>
+    <string name="do_you_have_a_question_or_problem">هل لديك تساؤل أو صادفتَ مشكلة؟</string>
     <string name="join_community">إنضم إلى المجتمع</string>
     <string name="bug_reports_suggest_improvements">قيّم التطبيق، ابلغ عن خطأ، أو اقترح تعديلات</string>
     <string name="help_translating_this_app">ساهم في ترجمة هذا التطبيق إلى لغات أخرى</string>
@@ -221,6 +233,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_license">رخصة المشروع</string>
     <string name="contribute_code_to_this_project_anybody_welcome">ساهم في برمجة المشروع. الجميع مرحب به، وحتى المبتدأين</string>
     <string name="project_team">فريق المشروع</string>
+    <string name="community">المجتمع</string>
     <string name="contributors_public_add_yourself_description">إظهار معلومات المساهمين. قم بتوفيرها لعرضها هنا على أساس الاختيار الصريح بعد المساهمة</string>
     <string name="descending">تنازلي</string>
     <string name="ascending">تصاعدي</string>
@@ -266,6 +279,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">اختر تاريخاً</string>
     <string name="pick_time">اختر الوقت</string>
     <string name="get_format_instead_date_or_time">كتابة الصيغة وليس التاريخ أو الوقت</string>
+    <string name="use_current_date_and_time">استخدم الوقت &amp; التاريخ الحاليين</string>
     <string name="result">النتيجة</string>
     <string name="just_time">الوقت فقط</string>
     <string name="just_date">التاريخ فقط</string>
@@ -306,7 +320,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="list_in_recent_files">ادرجه في الملفات الحديثة</string>
     <string name="reload">إنعاش</string>
     <string name="wrap_words">كلمات مخفية</string>
+    <string name="line_numbers">أرقام الأسطر</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">استراحة ناعمة إذا كان النص غير مناسب لعرض الشاشة. وإلا تمكين التمرير الأفقي.</string>
+    <string name="recursive_search_in_location">البحث المتكرر في%s</string>
     <string name="always_open_with_this_app">افتحه دائما بهذا التطبيق</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">فتح الملفات دائما مع هذا التطبيق عندما تحتوي القائمة على امتداد الملف. استخدم \'لا شيء، .html. .js\' على سبيل المثال إذا كنت ترغب في تحرير ملفات الويب وتلك التي ليس لها امتداد للملف.</string>
     <string name="open_file_with">فتح الملف باستخدام</string>
@@ -319,6 +335,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="current">الحالي</string>
     <string name="record_audio">تسجيل الصوت</string>
     <string name="attach">ارفق</string>
+    <string name="attachment">مُرفق</string>
     <string name="copy_file">نسخ الملف</string>
     <string name="page">الصفحة</string>
     <string name="experimental_features">الميزات التجريبية</string>
@@ -329,6 +346,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="how_much_columns_press_table_button_long_to_start_table">كم عدد الأعمدة؟ اضغط على زر الجدول لمدة طويلة لبدء الجدول (أدخل الرأس)، اضغط باختصار لإضافة صف.</string>
     <string name="example_of_a_markdown_table">مثال على جدول Markdown</string>
     <string name="delete_lines">حذف الأسطر</string>
+    <string name="duplicate_lines">أسطر مكررة</string>
     <string name="unordered_list">قائمة غير مرتبة</string>
     <string name="ordered_list">قائمة مرتبة</string>
     <string name="check_list">قائمة التحقق</string>
@@ -357,6 +375,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_completed_tasks">أرشيف المهام المكتملة</string>
     <string name="create_new_file_or_folder">إنشاء ملف أو مجلد جديد</string>
     <string name="choose_format">اختيار التنسيق</string>
+    <string name="clear_selection">إزالة التحديد</string>
     <string name="selected">محدد</string>
     <string name="back">الرجوع</string>
     <string name="expand_collapse">توسيع / إغلاق</string>
@@ -424,12 +443,23 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">الواجب اليوم</string>
     <string name="due_future">مستحق في المستقبل</string>
     <string name="completed">مكتمل</string>
+    <string name="advanced_filtering">التصفية المتقدمة</string>
     <string name="match_any">مطابقة أي</string>
     <string name="match_all">مطابقة الكل</string>
     <string name="dynamic_notebook_root_links">البحث الديناميكي عن جذر دفتر الملاحظات</string>
     <string name="search_dynamically_for_notebook_root">من أجل اتباع روابط ويكي، البحث بشكل ديناميكي عن ملف notebook.zim لتحديد الدليل الجذر لكتاب الملاحظات الحالي. حدد هذا الخيار إذا كنت تستخدم العديد من الملاحظات المضغوطة أو دليل الملاحظات المحدد في التطبيق لا يتوافق مع دفتر الملاحظات المضغوط.</string>
+    <string name="share_into_format_prefix_for_text_shared">تنسيق/بادئة للنصوص المشاركة في Markor. يتبع قواعد Android SimpleDateFormat.\n\nاستخدم العنصر النائب {{text}} لتحديد موضع النص المشارك. إذا لم يتم تحديده، يتم إلحاق النص المشارك ويُستخدم التنسيق كبادئة.</string>
     <string name="share_into_format">المشاركة في - التنسيق</string>
+    <string name="attachment_folder_name">اسم مجلد المرفقات</string>
+    <string name="attachment_folder_name_desc">مجلد فرعي ضمن المجلد الحالي حيث سيتم حفظ المرفقات. في حالة تركها فارغة، سيتم حفظ المرفقات في المجلد الحالي.</string>
     <string name="auto_format">تنسيق تلقائي</string>
     <string name="insert_snippet">Insert snippet</string>
+    <string name="snippet_directory">مسار المقتطف / القالب</string>
+    <string name="error_could_not_open_file">خطأ: تعذر فتح الملف.</string>
     <string name="document_error_clip">حدث خطأ: تم نسخ النص إلى الحافظة.</string>
+    <string name="wont_save_min_length">الملفات التي تحتوي على أقل من %d من الأحرف لا يتم حفظها تلقائياً لمنع فقدان البيانات.</string>
+    <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">بنية التصفية المتقدمة</a></small>]]></string>
+    <string name="filter">تصفية</string>
+    <string name="use_tab_to_indent">وضع مسافة بادئة بين الأسطر باستخدام مفتاح TAB</string>
+    <string name="folder_local">المجلد المحلي</string>
 </resources>
