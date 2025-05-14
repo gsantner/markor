@@ -103,6 +103,31 @@
                 android:title="@string/font_size"
                 app:showAsAction="never" />
 
+            <!-- Text Case menu -->
+            <item
+                android:id="@+id/action_text_case"
+                android:icon="@drawable/ic_format_text_case_black_24dp"
+                android:title="@string/text_case"
+                app:showAsAction="never">
+                <menu>
+                    <item
+                        android:id="@+id/action_toggle_case"
+                        android:title="@string/toggle_case" />
+
+                    <item
+                        android:id="@+id/action_switch_case"
+                        android:title="@string/switch_case" />
+
+                    <item
+                        android:id="@+id/action_capitalize_words"
+                        android:title="@string/capitalize_words" />
+
+                    <item
+                        android:id="@+id/action_capitalize_sentences"
+                        android:title="@string/capitalize_sentences" />
+                </menu>
+            </item>
+
             <!-- Format menu -->
             <item
                 android:id="@+id/submenu_format_selection"
@@ -224,31 +249,6 @@
                 android:title="@string/send_debug_log"
                 android:visible="false"
                 app:showAsAction="never" />
-
-            <!-- Text Case menu -->
-            <item
-                android:id="@+id/action_text_case"
-                android:icon="@drawable/ic_format_text_case_black_24dp"
-                android:title="@string/text_case"
-                app:showAsAction="never">
-                <menu>
-                    <item
-                        android:id="@+id/action_toggle_case"
-                        android:title="@string/toggle_case" />
-
-                    <item
-                        android:id="@+id/action_switch_case"
-                        android:title="@string/switch_case" />
-
-                    <item
-                        android:id="@+id/action_capitalize_words"
-                        android:title="@string/capitalize_words" />
-
-                    <item
-                        android:id="@+id/action_capitalize_sentences"
-                        android:title="@string/capitalize_sentences" />
-                </menu>
-            </item>
         </menu>
     </item>
     <item
