@@ -154,11 +154,14 @@ public abstract class SyntaxHighlighterBase {
         final Object span;
         final boolean isStatic;
         final boolean needsReflow;
+        final int type;
 
-        SpanGroup(Object o, int s, int e) {
+        SpanGroup(Object o, int s, int e, int t) {
             span = o;
             start = s;
             end = e;
+            type = t;
+
             needsReflow = span instanceof StaticSpan;
             isStatic = needsReflow || span instanceof UpdateLayout;
         }
@@ -353,7 +356,7 @@ public abstract class SyntaxHighlighterBase {
 
                 final boolean valid = group.start >= 0 && group.end > range[0] && group.end <= length;
                 if (valid && !_appliedDynamic.contains(i)) {
-                    _spannable.setSpan(group.span, group.start, group.end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    _spannable.setSpan(group.span, group.start, group.end, group.type);
                     _appliedDynamic.add(i);
                 }
             }
@@ -370,7 +373,7 @@ public abstract class SyntaxHighlighterBase {
             for (final SpanGroup group : _groups) {
                 if (group != null && group.isStatic) {
                     needsReflow |= group.needsReflow;
-                    _spannable.setSpan(group.span, group.start, group.end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    _spannable.setSpan(group.span, group.start, group.end, group.type);
                 }
             }
 
@@ -448,8 +451,14 @@ public abstract class SyntaxHighlighterBase {
     //
 
     protected final void addSpanGroup(final Object span, final int start, final int end) {
-        if (end > start && span != null) {
-            _groupBuffer.add(new SpanGroup(span, start, end));
+        if (end >= start && span != null) {
+            _groupBuffer.add(new SpanGroup(span, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE));
+        }
+    }
+
+    protected final void addSpanGroup(final Object span, final int start, final int end, final int type) {
+        if (end >= start && span != null) {
+            _groupBuffer.add(new SpanGroup(span, start, end, type));
         }
     }
 
