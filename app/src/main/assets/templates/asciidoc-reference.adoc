@@ -65,12 +65,10 @@ def factorial(n):
 = Tables
 
 |===
-| Merkur | Venus | Earth | Mars
+| Tiger | Lion | Jaguar
 
-| - | - | Moon | Phobos, Deimos
-| 0.38 G | 0.9 G | 1 G | 0.38 G
-| ⌀ 4881 km | ⌀ 12103.6 km | ⌀ 12756.27 km | ⌀ 6792.4 km
-| 0.034° | 177.36° | 23.44° | 25.19°
+| striped | plain | spotted
+| Asia | Africa | South America
 |===
 
 = Multimedia
