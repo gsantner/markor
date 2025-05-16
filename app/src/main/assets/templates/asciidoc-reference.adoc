@@ -24,6 +24,7 @@ _Italic_ , __Italic (multiline)__
 ~Subscript~ , Normal , ^Superscript^
 
 Special characters:
+
 (C) (R) (TM) -- ... -> <- => <= 
 
 Line:
@@ -68,7 +69,7 @@ def factorial(n):
 | Tiger | Lion | Jaguar
 
 | striped | plain | spotted
-| Asia | Africa | South America
+| Asia | Africa | S. America
 |===
 
 = Multimedia
