@@ -1,0 +1,84 @@
+= H1 Header
+
+== H2 Header
+=== H3 header
+==== H4 Header
+===== H5 Header
+
+= Format Text
+
+_Italic_ , __Italic (multiline)__
+
+*Bold* , **Bold (multiline)**
+
+`Monospace`
+
+#Highlighted#
+
+[red]#Colored#
+
+[.underline]#Underline# , [.line-through]#Strikethrough# ,  [.overline]#Overline#
+
+> Block quote
+
+~Subscript~ , Normal , ^Superscript^
+
+Special characters:
+(C) (R) (TM) -- ... -> <- => <= 
+
+Line:
+
+'''
+
+Code:
+
+[source,python]
+----
+def factorial(n):
+    if n!=0:
+        return n*factorial(n-1)
+    return 1
+----
+
+= Lists
+
+=== Ordered List
+
+. One
+. Two
+. Three
+.. Three and a half
+
+=== Unordered List
+
+* Apple
+** Honeycrisp
+** Jonagold
+* Banana
+* Cherry
+
+=== Checklist
+
+* [ ] todo
+* [x] done
+
+= Tables
+
+|===
+| Merkur | Venus | Earth | Mars
+
+| - | - | Moon | Phobos, Deimos
+| 0.38 G | 0.9 G | 1 G | 0.38 G
+| ⌀ 4881 km | ⌀ 12103.6 km | ⌀ 12756.27 km | ⌀ 6792.4 km
+| 0.034° | 177.36° | 23.44° | 25.19°
+|===
+
+= Multimedia
+
+=== Image
+
+image::file:///android_asset/img/schindelpattern.jpg[""]
+
+= Links
+
+link:https://wikipedia.org[Wikipedia]
