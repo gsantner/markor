@@ -32,6 +32,12 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/action_save"
+        android:icon="@drawable/ic_save_black_24dp"
+        android:title="@string/save"
+        app:showAsAction="always" />
+    
+    <item
         android:id="@+id/action_preview"
         android:icon="@drawable/ic_visibility_black_24dp"
         android:title="@string/view_mode"
@@ -41,12 +47,6 @@
         android:id="@+id/action_edit"
         android:icon="@drawable/ic_edit_black_24dp"
         android:title="@string/edit_mode"
-        app:showAsAction="always" />
-
-    <item
-        android:id="@+id/action_save"
-        android:icon="@drawable/ic_save_black_24dp"
-        android:title="@string/save"
         app:showAsAction="always" />
 
     <item
