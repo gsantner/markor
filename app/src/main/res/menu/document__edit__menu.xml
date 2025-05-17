@@ -30,12 +30,6 @@
         android:title="@string/view"
         android:visible="false"
         app:showAsAction="never" />
-
-    <item
-        android:id="@+id/action_save"
-        android:icon="@drawable/ic_save_black_24dp"
-        android:title="@string/save"
-        app:showAsAction="always" />
     
     <item
         android:id="@+id/action_preview"
@@ -47,6 +41,12 @@
         android:id="@+id/action_edit"
         android:icon="@drawable/ic_edit_black_24dp"
         android:title="@string/edit_mode"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_save"
+        android:icon="@drawable/ic_save_black_24dp"
+        android:title="@string/save"
         app:showAsAction="always" />
 
     <item
