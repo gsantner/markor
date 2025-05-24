@@ -220,6 +220,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="clipboard">剪切板</string>
     <string name="select_existing_document">选择已有文档</string>
     <string name="select_create_document">选择或创建文档</string>
+    <string name="select_create_folder">选择或创建文件夹</string>
     <string name="open_source_licenses">开源协议</string>
     <string name="rate_this_app">评价本应用</string>
     <string name="translate">翻译</string>
