@@ -621,4 +621,14 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                     reloadCurrentFolder();
                 });
     }
+
+    @Override
+    public AppSettings createAppSettingsInstance(Context context) {
+        return AppSettings.get(context);
+    }
+
+    @Override
+    public MarkorContextUtils createContextUtilsInstance(Context context) {
+        return new MarkorContextUtils(context);
+    }
 }

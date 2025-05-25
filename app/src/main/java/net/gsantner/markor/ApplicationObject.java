@@ -38,7 +38,7 @@ public class ApplicationObject extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         _app = this;
-        _appSettings = AppSettings.get(getApplicationContext());
+        _appSettings = new AppSettings(getApplicationContext());
 
         // Per https://stackoverflow.com/a/54191884/4717438
         try {
