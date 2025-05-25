@@ -30,7 +30,7 @@ public class ApplicationObject extends MultiDexApplication {
         return _app;
     }
 
-    public static AppSettings settings() {
+    public static AppSettings backupSettings() {
         return _appSettings;
     }
 
@@ -38,7 +38,7 @@ public class ApplicationObject extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         _app = this;
-        _appSettings = new AppSettings().init(getApplicationContext());
+        _appSettings = AppSettings.get(getApplicationContext());
 
         // Per https://stackoverflow.com/a/54191884/4717438
         try {

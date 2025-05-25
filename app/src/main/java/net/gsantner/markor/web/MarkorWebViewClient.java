@@ -52,7 +52,7 @@ public class MarkorWebViewClient extends GsWebViewClient {
                 DocumentActivity.launch(_activity, file, null, null);
             } else {
                 MarkorContextUtils su = new MarkorContextUtils(_activity);
-                AppSettings settings = ApplicationObject.settings();
+                AppSettings settings = AppSettings.get(_activity);
                 if (!settings.isOpenLinksWithChromeCustomTabs() || (settings.isOpenLinksWithChromeCustomTabs() && !su.openWebpageInChromeCustomTab(context, url))) {
                     su.openWebpageInExternalBrowser(context, url);
                     return true;

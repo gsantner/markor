@@ -35,7 +35,7 @@ public class TodoTxtSyntaxHighlighter extends TodoTxtBasicSyntaxHighlighter {
         super.configure(paint);
 
         _delay = _appSettings.getHighlightingDelayTodoTxt();
-        _paragraphSpan = new ParagraphDividerSpan(paint);
+        _paragraphSpan = new ParagraphDividerSpan(paint, _textColor);
 
         return this;
     }
@@ -54,14 +54,14 @@ public class TodoTxtSyntaxHighlighter extends TodoTxtBasicSyntaxHighlighter {
         private final @ColorInt int _lineColor;
         private final int _top, _ascent, _descent, _bottom, _offset;
 
-        public ParagraphDividerSpan(final Paint paint) {
+        public ParagraphDividerSpan(final Paint paint, final @ColorInt int lineColor) {
             final Paint.FontMetricsInt fm = paint.getFontMetricsInt();
+            _lineColor = lineColor;
             _offset = Math.abs(fm.ascent) / 2;
             _top = fm.top;
             _ascent = fm.ascent;
             _descent = fm.descent;
             _bottom = fm.bottom;
-            _lineColor = paint.getColor();
         }
 
         @Override

@@ -210,7 +210,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
 
         @Override
         protected AppSettings getAppSettings(Context context) {
-            return ApplicationObject.settings();
+            return AppSettings.get(context);
         }
 
         @Override

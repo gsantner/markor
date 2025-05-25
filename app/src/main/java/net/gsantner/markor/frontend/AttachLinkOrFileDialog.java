@@ -26,7 +26,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
-import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.format.markdown.MarkdownActionButtons;
@@ -272,9 +271,9 @@ public class AttachLinkOrFileDialog {
     private static String setupFileAttachment(
             final int textFormatId,
             final File attachment,
-            final File document
+            final File document,
+            final AppSettings as
     ) {
-        final AppSettings as = ApplicationObject.settings();
         final File notebookDir = as.getNotebookDirectory();
 
         String path = "";
@@ -305,7 +304,7 @@ public class AttachLinkOrFileDialog {
             final File attachment,
             final File document
     ) {
-        final String path = setupFileAttachment(textFormatId, attachment, document);
+        final String path = setupFileAttachment(textFormatId, attachment, document, AppSettings.get(null));
         return formatLink(title, path, textFormatId);
     }
 
@@ -325,7 +324,7 @@ public class AttachLinkOrFileDialog {
             sel = TextViewUtils.getSelection(edit);
         }
 
-        final AppSettings _appSettings = ApplicationObject.settings();
+        final AppSettings as = AppSettings.get(activity);
 
         // Title, path to be written when the user hits accept
         final GsCallback.a2<String, String> insertLink = (title, path) -> {
@@ -375,7 +374,7 @@ public class AttachLinkOrFileDialog {
                 title = GsFileUtils.getFilenameWithoutExtension(attachment);
             }
 
-            final String localPath = setupFileAttachment(textFormatId, attachment, currentFile);
+            final String localPath = setupFileAttachment(textFormatId, attachment, currentFile, as);
 
             insertLink.callback(title, localPath);
         };
@@ -397,8 +396,8 @@ public class AttachLinkOrFileDialog {
                     nameEdit.setText("");
                 }
 
-                final File notebookDir = _appSettings.getNotebookDirectory();
-                final boolean shouldDynamicallyDetermineRoot = _appSettings.isWikitextDynamicNotebookRootEnabled();
+                final File notebookDir = as.getNotebookDirectory();
+                final boolean shouldDynamicallyDetermineRoot = as.isWikitextDynamicNotebookRootEnabled();
                 pathEdit.setText(WikitextLinkResolver.resolveSystemFilePath(file, notebookDir, currentFile, shouldDynamicallyDetermineRoot));
 
                 if (GsTextUtils.isNullOrEmpty(nameEdit.getText())) {

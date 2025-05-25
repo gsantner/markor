@@ -238,6 +238,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         // This works well to preserve keyboard state.
         if (activity != null) {
             final Window window = activity.getWindow();
+            // Setting via a windowmanager state is much more robust than using show/hide
             final int adjustResize = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE;
             final int unchanged = WindowManager.LayoutParams.SOFT_INPUT_STATE_UNCHANGED | adjustResize;
             final int hidden = WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN | adjustResize;
@@ -282,7 +283,8 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _hlEditor.recomputeHighlighting(); // Run before setting scroll position
         TextViewUtils.setSelectionAndShow(_hlEditor, startPos);
 
-        _hlEditor.post(() -> _hlEditor.animate().alpha(1).setDuration(500).start());
+        // Fade in to hide initial jank
+        _hlEditor.post(() -> _hlEditor.animate().alpha(1).setDuration(250).start());
     }
 
     @Override

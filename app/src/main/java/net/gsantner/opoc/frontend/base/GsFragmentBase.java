@@ -59,8 +59,8 @@ public abstract class GsFragmentBase<AS extends GsSharedPreferencesPropertyBacke
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        _cu = createContextUtilsInstance(inflater.getContext().getApplicationContext());
-        _appSettings = createAppSettingsInstance(inflater.getContext().getApplicationContext());
+        _cu = createContextUtilsInstance(inflater.getContext());
+        _appSettings = createAppSettingsInstance(inflater.getContext());
         GsContextUtils.instance.setAppLanguage(getActivity(), getAppLanguage());
         _savedInstanceState = savedInstanceState;
         if (getLayoutResId() == 0) {

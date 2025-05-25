@@ -60,7 +60,7 @@ public class ShortcutUtils {
             final ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
             final List<ShortcutInfo> newShortcuts = new ArrayList<>();
 
-            final AppSettings appSettings = ApplicationObject.settings();
+            final AppSettings appSettings = AppSettings.get(context);
 
             // Create the to-do shortcut
             final Intent openTodo = new Intent(context, OpenFromShortcutOrWidgetActivity.class)

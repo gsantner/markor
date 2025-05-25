@@ -17,7 +17,6 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.Spannable;
-import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.view.HapticFeedbackConstants;
@@ -89,7 +88,7 @@ public abstract class ActionButtonBase {
 
     public ActionButtonBase(@NonNull final Context context, final Document document) {
         _document = document;
-        _appSettings = ApplicationObject.settings();
+        _appSettings = AppSettings.get(context);
         _buttonHorizontalMargin = GsContextUtils.instance.convertDpToPx(context, _appSettings.getEditorActionButtonItemPadding());
         _indent = _appSettings.getDocumentIndentSize(_document != null ? _document.path : null);
     }

@@ -32,7 +32,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatEditText;
 
-import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.model.AppSettings;
@@ -74,7 +73,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
     public HighlightingEditor(Context context, AttributeSet attrs) {
         super(context, attrs);
-        final AppSettings as = ApplicationObject.settings();
+        final AppSettings as = AppSettings.get(context);
 
         setAutoFormatters(null, null);
 

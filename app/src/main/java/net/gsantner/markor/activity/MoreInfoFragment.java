@@ -46,7 +46,7 @@ public class MoreInfoFragment extends GsPreferenceFragmentBase<AppSettings> {
 
     @Override
     protected AppSettings getAppSettings(Context context) {
-        return ApplicationObject.settings();
+        return AppSettings.get(context);
     }
 
     @Override

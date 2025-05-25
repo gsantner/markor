@@ -12,8 +12,8 @@ import net.gsantner.opoc.frontend.base.GsFragmentBase;
 public abstract class MarkorBaseFragment extends GsFragmentBase<AppSettings, MarkorContextUtils> {
     @Nullable
     @Override
-    public AppSettings createAppSettingsInstance(Context applicationContext) {
-        return ApplicationObject.settings();
+    public AppSettings createAppSettingsInstance(Context context) {
+        return AppSettings.get(context);
     }
 
     @Nullable

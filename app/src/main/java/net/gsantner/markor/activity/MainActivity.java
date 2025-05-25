@@ -21,6 +21,8 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -36,6 +38,7 @@ import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
 import net.gsantner.markor.frontend.NewFileDialog;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
+import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.markor.widget.TodoWidgetProvider;
@@ -205,6 +208,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         super.onNewIntent(intent);
         final File file = MarkorContextUtils.getValidIntentFile(intent, null);
         if (_notebook != null && file != null) {
+            forceHideKeyboard();
             _viewPager.setCurrentItem(tabIdToPos(R.id.nav_notebook), false);
             if (GsFileUtils.isDirectory(file)) {
                 _notebook.getAdapter().setCurrentFolder(file);
@@ -409,13 +413,27 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
         if (pos == tabIdToPos(R.id.nav_notebook)) {
             _fab.show();
-            _cu.showSoftKeyboard(this, false, _notebook.getView());
-        } else {
-            _fab.hide();
-            restoreDefaultToolbar();
+            forceHideKeyboard();
+        }
+    }
+
+    private void forceHideKeyboard() {
+        // Hide the soft keyboard
+        if (_quicknote != null && _todo != null) {
+            _cu.showSoftKeyboard(this, false, _quicknote.getEditor());
+            _cu.showSoftKeyboard(this, false, _todo.getEditor());
         }
 
-        setTitle(getPosTitle(pos));
+        // This is needed here as DocumentEditAndViewFragment may have also set
+        // a soft input mode which would force the keyboard to show.
+        final int adjustResize = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE;
+        final int unchanged = WindowManager.LayoutParams.SOFT_INPUT_STATE_UNCHANGED | adjustResize;
+        final int hidden = WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN | adjustResize;
+
+        final Window window = getWindow();
+        final View view = window.getDecorView();
+        window.setSoftInputMode(hidden);
+        view.postDelayed(() -> window.setSoftInputMode(unchanged), 2000);
     }
 
     private GsFileBrowserOptions.Options _filesystemDialogOptions = null;
@@ -497,6 +515,9 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         super.onPause();
         WrMarkorWidgetProvider.updateLauncherWidgets();
         TodoWidgetProvider.updateTodoWidgets();
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_UNCHANGED |
+                                     WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
     }
 
     @Override
