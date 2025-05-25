@@ -59,6 +59,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="last_modified">עדכון אחרון</string>
     <string name="select_this_folder">בחר תיקיה זו</string>
     <string name="select">בחר</string>
+    <string name="select_all">בחר הכל</string>
     <string name="create">צור</string>
     <string name="select_entries">בחר רשומות</string>
     <string name="one_item_selected">פריט אחד נבחר</string>
@@ -67,9 +68,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">הסתר את סרגל המצב</string>
     <string name="name">שם</string>
     <string name="url_or_path">קישור לרשת / נתיב קובץ</string>
+    <string name="insert_link">הוסף קישור</string>
+    <string name="format_link">עצב קישור</string>
     <string name="insert_image">הכנס תמונה</string>
     <string name="contributors">תורמים</string>
     <string name="save_location">שמור מיקום</string>
+    <string name="saved_location_to">נשמר ל-%s</string>
     <string name="select_storage_folder">בחר תיקיית אחסון</string>
     <string name="licenses">רשיונות</string>
     <string name="changelog">רשימת שינויים</string>
@@ -134,6 +138,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overall_theme_used_in_app">ערכת הנושא הכללית לשימוש על ידי האפליקציה</string>
     <string name="remember_last_directory">זכור מיקום אחרון</string>
     <string name="syntax_highlighting">הדגשת תחביר</string>
+    <string name="dynamic_highlighting">הדגשה דינמית</string>
     <string name="highlighting_delay">השהיית הדגשה</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">השהיה במילי-שניות עבור רענון הדגשה. ערך נמוך יתחיל את ההדגשה מוקדם יותר, אבל יגרום לצריכה מוגברת של הסוללה ועלול להאט את האפליקציה במכשירים ישנים.</string>
     <string name="highlighting_enabled_or_not__appspecific">שלוט האם הטקסט המוכנס צריך להיות מודגש או לא</string>
@@ -176,6 +181,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_pos_end">סוף שורה (מיקום סוף)</string>
     <string name="key_pos_1_document">תחילת מסמך</string>
     <string name="key_pos_end_document">סוף מסמך</string>
+    <string name="move_text_one_line_up">הזז שורה למעלה</string>
+    <string name="move_text_one_line_down">הזז שורה למטה</string>
+    <string name="start_new_line_below">שורה חדשה</string>
     <string name="key_ctrl_a">בחר הכל (Ctrl+A)</string>
     <string name="key_tab">מחולל טבלאות</string>
     <string name="zero_width_space">רווח ברוחב אפס</string>
