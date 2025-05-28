@@ -138,7 +138,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
 
     @Override
     public String getFragmentTag() {
-        return "FilesystemViewerFragment";
+        return FRAGMENT_TAG;
     }
 
     @Override

@@ -313,7 +313,6 @@ public class DocumentActivity extends MarkorBaseActivity {
     }
 
     @Override
-    @SuppressWarnings("StatementWithEmptyBody")
     public void onBackPressed() {
         final int entryCount = _fragManager.getBackStackEntryCount();
         final GsFragmentBase<?, ?> top = getCurrentVisibleFragment();
@@ -339,22 +338,8 @@ public class DocumentActivity extends MarkorBaseActivity {
         return super.onReceiveKeyPress(getCurrentVisibleFragment(), keyCode, event) || super.onKeyDown(keyCode, event);
     }
 
-    public GsFragmentBase<?, ?> showFragment(GsFragmentBase<?, ?> fragment) {
-        if (fragment != getCurrentVisibleFragment()) {
-            _fragManager.beginTransaction()
-                    .replace(R.id.document__placeholder_fragment, fragment, fragment.getFragmentTag())
-                    .commit();
-
-            supportInvalidateOptionsMenu();
-        }
-        return fragment;
-    }
-
-    public synchronized GsFragmentBase<?, ?> getExistingFragment(final String fragmentTag) {
-        return (GsFragmentBase<?, ?>) getSupportFragmentManager().findFragmentByTag(fragmentTag);
-    }
-
-    private GsFragmentBase<?, ?> getCurrentVisibleFragment() {
-        return (GsFragmentBase<?, ?>) getSupportFragmentManager().findFragmentById(R.id.document__placeholder_fragment);
+    @Override
+    public int getPlaceHolderFragment() {
+        return R.id.document__placeholder_fragment;
     }
 }

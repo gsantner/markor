@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.WindowManager;
 
+import androidx.annotation.IdRes;
 import androidx.annotation.Nullable;
 
 import net.gsantner.markor.ApplicationObject;
@@ -60,5 +61,46 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
     @Override
     public Boolean isFlagSecure() {
         return _appSettings.isDisallowScreenshots();
+    }
+
+
+    private int _placeHolderFragment = 0;
+
+    public @IdRes int getPlaceHolderFragment() {
+        return 0;
+    }
+
+    private boolean setPlaceHolderFragment() {
+        _placeHolderFragment = getPlaceHolderFragment();
+        return _placeHolderFragment != 0;
+    }
+
+    public GsFragmentBase<?, ?> showFragment(GsFragmentBase<?, ?> fragment) {
+        if (!setPlaceHolderFragment()) {
+            return fragment;
+        }
+
+        if (fragment != getCurrentVisibleFragment()) {
+
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(_placeHolderFragment, fragment, fragment.getFragmentTag())
+                    .commit();
+
+            supportInvalidateOptionsMenu();
+        }
+
+        return fragment;
+    }
+
+    public synchronized GsFragmentBase<?, ?> getExistingFragment(final String fragmentTag) {
+        return (GsFragmentBase<?, ?>) getSupportFragmentManager().findFragmentByTag(fragmentTag);
+    }
+
+    public GsFragmentBase<?, ?> getCurrentVisibleFragment() {
+        if (setPlaceHolderFragment()) {
+            return (GsFragmentBase<?, ?>) getSupportFragmentManager().findFragmentById(_placeHolderFragment);
+        }
+        return null;
     }
 }
