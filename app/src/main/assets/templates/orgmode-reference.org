@@ -46,7 +46,7 @@ This is the general building block for org-mode navigation.
 [[http://google.com/][Google]]
 #+END_SRC
 
-[[./images/pic1.png]]
+[[file:///android_asset/img/schindelpattern.jpg]]
 
 
 * TODO List
