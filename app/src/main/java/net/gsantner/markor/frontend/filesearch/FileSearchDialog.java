@@ -41,7 +41,7 @@ public class FileSearchDialog {
             final GsCallback.a1<FileSearchEngine.SearchOptions> dialogCallback
     ) {
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, R.style.Theme_AppCompat_DayNight_Dialog_Rounded);
-        final AppSettings appSettings = ApplicationObject.settings();
+        final AppSettings appSettings = AppSettings.get(activity);
 
         final ScrollView scrollView = new ScrollView(activity);
         final LinearLayout dialogLayout = new LinearLayout(activity);

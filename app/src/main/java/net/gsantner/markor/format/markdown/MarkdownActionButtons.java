@@ -274,7 +274,7 @@ public class MarkdownActionButtons extends ActionButtonBase {
                 return true;
             } else {
                 final File f = GsFileUtils.makeAbsolute(link.link, _document.file.getParentFile());
-                if (GsFileUtils.canCreate(f)) {
+                if (GsFileUtils.isDirectory(f) || f.isFile() || GsFileUtils.canCreate(f)) {
                     DocumentActivity.launch(getActivity(), f, null, null);
                     return true;
                 }

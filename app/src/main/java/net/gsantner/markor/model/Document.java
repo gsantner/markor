@@ -85,13 +85,6 @@ public class Document implements Serializable {
         }
     }
 
-    // Get a default file
-    public static Document getDefault(final Context context) {
-        final File notebook = ApplicationObject.settings().getNotebookDirectory();
-        final File random = new File(notebook, getFileNameWithTimestamp(true));
-        return new Document(random);
-    }
-
     private void initModTimePref() {
         // We do not do this in constructor as we want to init after deserialization too
         if (_modTimePref == null) {
@@ -232,7 +225,7 @@ public class Document implements Serializable {
                             + ", chars: " + content.length() + " bytes:" + content.getBytes().length
                             + "(" + GsFileUtils.getReadableFileSize(content.getBytes().length, true) +
                             "). Language >" + Locale.getDefault()
-                            + "<, Language override >" + ApplicationObject.settings().getLanguage() + "<");
+                            + "<, Language override >" + AppSettings.get(context).getLanguage() + "<");
         }
 
         if (_fileInfo != null && _fileInfo.ioError) {
@@ -252,7 +245,7 @@ public class Document implements Serializable {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private static char[] getPasswordWithWarning(final Context context) {
-        final char[] pw = ApplicationObject.settings().getDefaultPassword();
+        final char[] pw = AppSettings.get(context).getDefaultPassword();
         if (pw == null || pw.length == 0) {
             final String warningText = context.getString(R.string.no_password_set_cannot_encrypt_decrypt);
             Toast.makeText(context, warningText, Toast.LENGTH_LONG).show();
