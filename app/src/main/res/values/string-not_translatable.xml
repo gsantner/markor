@@ -221,6 +221,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="abid_common_checkbox_list" translatable="false">abid_common_checkbox_list</string>
     <string name="abid_common_special_key" translatable="false">abid_common_special_key</string>
     <string name="abid_common_open_link_browser" translatable="false">abid_common_open_link_browser</string>
+    <string name="abid_common_change_case" translatable="false">abid_common_change_case</string>
     <string name="abid_common_color_picker" translatable="false">abid_common_color_picker</string>
     <string name="abid_common_time" translatable="false">abid_common_time</string>
     <string name="abid_common_web_jump_to_very_top_or_bottom" translatable="false">abid_common_web_jump_to_very_top_or_bottom</string>

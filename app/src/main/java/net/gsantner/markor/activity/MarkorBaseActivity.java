@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.WindowManager;
 
+import androidx.annotation.IdRes;
 import androidx.annotation.Nullable;
 
 import net.gsantner.markor.ApplicationObject;
@@ -19,9 +20,9 @@ import net.gsantner.opoc.frontend.base.GsFragmentBase;
 public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, MarkorContextUtils> {
 
     @Override
-    protected void onPreCreate(@Nullable Bundle savedInstanceState) {
-        super.onPreCreate(savedInstanceState); // _appSettings, _cu gets available
-        setTheme(R.style.AppTheme_Unified);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         _appSettings.applyAppTheme();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setEnterTransition(null);
@@ -48,17 +49,58 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
     }
 
     @Override
-    public AppSettings createAppSettingsInstance(Context applicationContext) {
-        return ApplicationObject.settings();
+    protected AppSettings createAppSettingsInstance() {
+        return new AppSettings(this);
     }
 
     @Override
-    public MarkorContextUtils createContextUtilsInstance(Context applicationContext) {
-        return new MarkorContextUtils(applicationContext);
+    protected MarkorContextUtils createContextUtilsInstance() {
+        return new MarkorContextUtils(this);
     }
 
     @Override
     public Boolean isFlagSecure() {
         return _appSettings.isDisallowScreenshots();
+    }
+
+
+    private int _placeHolderFragment = 0;
+
+    public @IdRes int getPlaceHolderFragment() {
+        return 0;
+    }
+
+    private boolean setPlaceHolderFragment() {
+        _placeHolderFragment = getPlaceHolderFragment();
+        return _placeHolderFragment != 0;
+    }
+
+    public GsFragmentBase<?, ?> showFragment(GsFragmentBase<?, ?> fragment) {
+        if (!setPlaceHolderFragment()) {
+            return fragment;
+        }
+
+        if (fragment != getCurrentVisibleFragment()) {
+
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(_placeHolderFragment, fragment, fragment.getFragmentTag())
+                    .commit();
+
+            supportInvalidateOptionsMenu();
+        }
+
+        return fragment;
+    }
+
+    public synchronized GsFragmentBase<?, ?> getExistingFragment(final String fragmentTag) {
+        return (GsFragmentBase<?, ?>) getSupportFragmentManager().findFragmentByTag(fragmentTag);
+    }
+
+    public GsFragmentBase<?, ?> getCurrentVisibleFragment() {
+        if (setPlaceHolderFragment()) {
+            return (GsFragmentBase<?, ?>) getSupportFragmentManager().findFragmentById(_placeHolderFragment);
+        }
+        return null;
     }
 }

@@ -23,7 +23,7 @@ public class TodoWidgetRemoteViewsFactory implements RemoteViewsService.RemoteVi
 
     public TodoWidgetRemoteViewsFactory(Context context, Intent intent) {
         _context = context;
-        _appSettings = ApplicationObject.settings();
+        _appSettings = AppSettings.get(_context);
         _document = new Document(_appSettings.getTodoFile());
         _tasks = new ArrayList<>();
     }
