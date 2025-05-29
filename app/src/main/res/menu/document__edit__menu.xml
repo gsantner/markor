@@ -36,7 +36,7 @@
         android:title="@string/view"
         android:visible="false"
         app:showAsAction="never" />
-    
+
     <item
         android:id="@+id/action_preview"
         android:icon="@drawable/ic_visibility_black_24dp"
