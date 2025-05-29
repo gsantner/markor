@@ -220,6 +220,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="clipboard">Punta de billete</string>
     <string name="select_existing_document">Ischerta unu documentu esistente</string>
     <string name="select_create_document">Seletziona o crea unu documentu</string>
+    <string name="select_create_folder">Seletziona o crea una cartella</string>
     <string name="open_source_licenses">Litzèntzias a mitza aberta</string>
     <string name="rate_this_app">Vàluta custa aplicatzione</string>
     <string name="translate">Tradui</string>
@@ -335,6 +336,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="current">Atuale</string>
     <string name="record_audio">Registra s\'àudio</string>
     <string name="attach">Allega</string>
+    <string name="attachment">Alligadu</string>
     <string name="copy_file">Còpia su documentu</string>
     <string name="page">Pàgina</string>
     <string name="experimental_features">Funtzionalidades isperimentales</string>
