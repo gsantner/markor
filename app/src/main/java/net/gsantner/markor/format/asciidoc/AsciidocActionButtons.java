@@ -215,11 +215,11 @@ public class AsciidocActionButtons extends ActionButtonBase {
 
             // https://docs.asciidoctor.org/asciidoc/latest/blocks/breaks/#page-breaks
             case R.string.abid_asciidoc_break_thematic: {
-                runAsciidocInlineAction("'''\n", "", "");
+                runAsciidocInlineAction("", "'''\n", "");
                 return true;
             }
             case R.string.abid_asciidoc_break_page: {
-                runAsciidocInlineAction("<<<\n", "", "");
+                runAsciidocInlineAction("", "<<<\n", "");
                 return true;
             }
             //this is an additional extra menu, analogous to special_key menu
