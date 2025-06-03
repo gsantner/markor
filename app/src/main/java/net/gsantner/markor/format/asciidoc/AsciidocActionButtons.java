@@ -225,7 +225,7 @@ public class AsciidocActionButtons extends ActionButtonBase {
             
             // https://docs.asciidoctor.org/asciidoc/latest/blocks/blockquotes/
             case R.string.abid_asciidoc_block_quote: {
-                runAsciidocInlineAction("\n", "\n[quote]", "\n");
+                runAsciidocInlineAction("\n____\n", "", "");
                 return true;
             }
         
@@ -275,7 +275,7 @@ public class AsciidocActionButtons extends ActionButtonBase {
             } else if (callbackPayload.equals(rstr(R.string.asciidoc_block_pass))) {
                 runAsciidocInlineAction("\n++++\n", "", "");
             } else if (callbackPayload.equals(rstr(R.string.asciidoc_block_quote))) {
-                runAsciidocInlineAction("\n", "\n[quote]", "\n");
+                runAsciidocInlineAction("\n____\n", "", "");
             } else if (callbackPayload.equals(rstr(R.string.asciidoc_block_code))) {
                 runAsciidocInlineAction("\n----\n", "[source,sql]", "");
             } else if (callbackPayload.equals(rstr(R.string.asciidoc_block_collapsible))) {
