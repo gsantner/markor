@@ -537,7 +537,7 @@ public abstract class SyntaxHighlighterBase {
     }
 
     protected final void createSmallBlueLinkSpans() {
-        createSpanForMatches(URL, new HighlightSpan().setForeColor(0xff1ea3fd).setItalic(true).setTextScale(0.85f));
+        createSpanForMatches(URL, new HighlightSpan().setForeColor(0xff1ea3fd).setItalic(true));
     }
 
     protected final void createUnderlineHexColorsSpans() {
