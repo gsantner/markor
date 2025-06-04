@@ -37,7 +37,7 @@ public class MarkorFileBrowserFactory {
     ) {
         final GsFileBrowserOptions.Options opts = new GsFileBrowserOptions.Options();
         final MarkorContextUtils cu = new MarkorContextUtils(context);
-        final AppSettings appSettings = ApplicationObject.settings();
+        final AppSettings appSettings = AppSettings.get(context);
 
         if (listener != null) {
             opts.listener = listener;
@@ -73,18 +73,14 @@ public class MarkorFileBrowserFactory {
         opts.mountedStorageFolder = cu.getStorageAccessFolder(context);
         opts.sortOrder = appSettings.getFolderSortOrder(null);
 
-        updateFsViewerOpts(opts, context, appSettings);
+        updateFsViewerOpts(opts, context);
 
         return opts;
     }
 
     // We update these because some of these settings can change
-    public static void updateFsViewerOpts(
-            final GsFileBrowserOptions.Options opts,
-            final Context context,
-            AppSettings appSettings
-    ) {
-        appSettings = appSettings != null ? appSettings : ApplicationObject.settings();
+    public static void updateFsViewerOpts(final GsFileBrowserOptions.Options opts, final Context context) {
+        final AppSettings appSettings = AppSettings.get(context);
 
         opts.favouriteFiles = appSettings.getFavouriteFiles();
         opts.recentFiles = appSettings.getRecentFiles();

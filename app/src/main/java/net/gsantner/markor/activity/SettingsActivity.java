@@ -107,7 +107,7 @@ public class SettingsActivity extends MarkorBaseActivity {
     public static abstract class MarkorSettingsFragment extends GsPreferenceFragmentBase<AppSettings> {
         @Override
         protected AppSettings getAppSettings(Context context) {
-            return ApplicationObject.settings();
+            return AppSettings.get(context);
         }
 
         @Override

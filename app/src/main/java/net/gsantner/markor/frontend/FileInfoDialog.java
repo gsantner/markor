@@ -113,7 +113,7 @@ public class FileInfoDialog extends DialogFragment {
         });
 
         // Hide checkbox
-        final AppSettings appSettings = ApplicationObject.settings();
+        final AppSettings appSettings = AppSettings.get(getContext());
         CheckBox checkHideInRecents = root.findViewById(R.id.ui__fileinfodialog__recents);
         checkHideInRecents.setChecked(appSettings.listFileInRecents(file));
         checkHideInRecents.setOnCheckedChangeListener((buttonView, isChecked) -> appSettings.setListFileInRecents(file, isChecked));
