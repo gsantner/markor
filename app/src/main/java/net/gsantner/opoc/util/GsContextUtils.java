@@ -125,6 +125,8 @@ import androidx.core.graphics.drawable.IconCompat;
 import androidx.core.os.ConfigurationCompat;
 import androidx.core.text.TextUtilsCompat;
 import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.documentfile.provider.DocumentFile;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.preference.PreferenceManager;
@@ -2559,35 +2561,25 @@ public class GsContextUtils {
             return thisp();
         }
 
-        final View focus = (view != null && view.length > 0) ? view[0] : activity.getCurrentFocus();
-
-        if (focus != null) {
-            if (show) {
-                focus.requestFocus();
-            } else {
-                focus.clearFocus();
-            }
+        final Window win = activity.getWindow();
+        if (win == null) {
+            return thisp();
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {                          // API 30+
-            final View root = activity.getWindow().getDecorView();
-            final WindowInsetsController ctrl = root.getWindowInsetsController();
-            if (ctrl != null) {
-                if (show) {
-                    ctrl.show(WindowInsets.Type.ime());
-                } else {
-                    ctrl.hide(WindowInsets.Type.ime());
-                }
-            }
-        }  else {
-            final IBinder token = focus != null ? focus.getWindowToken() : null;
-            final InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-            if (imm != null && focus != null) {
-                if (show) {
-                    imm.showSoftInput(focus, InputMethodManager.SHOW_IMPLICIT);
-                } else if (token != null) {
-                    imm.hideSoftInputFromWindow(token, InputMethodManager.HIDE_IMPLICIT_ONLY);
-                }
+        View focus = (view != null && view.length > 0) ? view[0] : activity.getCurrentFocus();
+
+        if (focus == null) {
+            focus = win.getDecorView();
+        }
+
+        if (focus != null) {
+            final WindowInsetsControllerCompat ctrl = new WindowInsetsControllerCompat(win, focus);
+            if (show) {
+                focus.requestFocus();
+                ctrl.show(WindowInsetsCompat.Type.ime());
+            } else {
+                focus.clearFocus();
+                ctrl.hide(WindowInsetsCompat.Type.ime());
             }
         }
 
