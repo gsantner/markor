@@ -1,0 +1,44 @@
+{
+  "name": "default",
+  "styles": {
+    "FOREGROUND": {
+      "color": "#000000"
+    },
+    "BACKGROUND": {
+      "color": "#FFFFFF"
+    },
+    "KEYWORDS": {
+      "color": "#008AD8"
+    },
+    "KEYWORDS_CONTROL": {
+      "color": "#C100DB"
+    },
+    "TYPES": {
+      "color": "#1339FF"
+    },
+    "NUMBER": {
+      "color": "#00A600"
+    },
+    "STRING": {
+      "color": "#C36A2B"
+    },
+    "ESCAPE_CHAR": {
+      "color": "#1339FF"
+    },
+    "CONSTANT": {
+      "color": "#FA4616"
+    },
+    "LINE_COMMENT": {
+      "color": "#8F8F88"
+    },
+    "BLOCK_COMMENT": {
+      "color": "#8F8F88"
+    },
+    "CLASS": {
+      "color": "#F2827F"
+    },
+    "FUNCTION": {
+      "color": "#BE8126"
+    }
+  }
+}

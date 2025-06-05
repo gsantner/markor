@@ -128,19 +128,20 @@ public class FormatRegistry {
         final AppSettings appSettings = ApplicationObject.settings();
 
         switch (formatId) {
-            case FORMAT_CSV: {
-                format._converter = CONVERTER_CSV;
-                format._highlighter = new CsvSyntaxHighlighter(appSettings);
-
-                // TODO k3b ????
+            case FORMAT_PLAIN: {
+                format._converter = CONVERTER_PLAINTEXT;
+                format._highlighter = new PlaintextSyntaxHighlighter(appSettings, document.extension);
+                // Should implement code action buttons for PlaintextActionButtons
                 format._textActions = new PlaintextActionButtons(context, document);
                 format._autoFormatInputFilter = new AutoTextFormatter(MarkdownReplacePatternGenerator.formatPatterns);
                 format._autoFormatTextWatcher = new ListHandler(MarkdownReplacePatternGenerator.formatPatterns);
                 break;
             }
-            case FORMAT_PLAIN: {
-                format._converter = CONVERTER_PLAINTEXT;
-                format._highlighter = new PlaintextSyntaxHighlighter(appSettings);
+            case FORMAT_CSV: {
+                format._converter = CONVERTER_CSV;
+                format._highlighter = new CsvSyntaxHighlighter(appSettings);
+
+                // TODO k3b ????
                 format._textActions = new PlaintextActionButtons(context, document);
                 format._autoFormatInputFilter = new AutoTextFormatter(MarkdownReplacePatternGenerator.formatPatterns);
                 format._autoFormatTextWatcher = new ListHandler(MarkdownReplacePatternGenerator.formatPatterns);
