@@ -38,6 +38,7 @@ import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -660,11 +661,16 @@ public abstract class SyntaxHighlighterBase {
     /**
      * Inject additional spans into the current set of computed spans
      */
-    public SyntaxHighlighterBase addAdditional(final List<SpanGroup> additionalSpans) {
+    public SyntaxHighlighterBase addAdditional(final Collection<SpanGroup> additionalSpans) {
         if (!additionalSpans.isEmpty()) {
             _groups.addAll(additionalSpans);
             Collections.sort(_groups);
         }
+        return this;
+    }
+
+    public SyntaxHighlighterBase clearAdditional(final Collection<SpanGroup> additionalSpans) {
+        _groups.removeAll(additionalSpans);
         return this;
     }
 

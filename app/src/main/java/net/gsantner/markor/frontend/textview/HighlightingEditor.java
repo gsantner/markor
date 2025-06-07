@@ -198,7 +198,7 @@ public class HighlightingEditor extends AppCompatEditText {
      * 3. If the text did not change during computation, we apply the highlighting
      */
     private void recomputeHighlightingAsync() {
-        if (runHighlight(true)) {
+        if (_hlEnabled && runHighlight(true)) {
             try {
                 executor.execute(this::_recomputeHighlightingWorker);
             } catch (RejectedExecutionException ignored) {
@@ -300,6 +300,9 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     public void clearAdditionalSelections() {
+        if (_hl != null) {
+            _hl.clearAdditional(_selections);
+        }
         _selections.clear();
     }
 
