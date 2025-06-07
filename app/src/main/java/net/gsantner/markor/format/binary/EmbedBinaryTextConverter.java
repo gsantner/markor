@@ -39,13 +39,11 @@ public class EmbedBinaryTextConverter extends TextConverterBase {
 
     private static final String PLAYLIST_BUTTON_TEMPLATE = "<button type='button' id='playlistbtn%d' onclick=\"javascript:document.avSetPlaylistPos(%d, 0, true);\"/>&#10132;</button>";
 
-
     static {
         EXT.addAll(EXT_IMAGE);
         EXT.addAll(EXT_VIDEO);
         EXT.addAll(EXT_AUDIO);
     }
-
 
     //########################
     //## Methods

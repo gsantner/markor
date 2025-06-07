@@ -186,6 +186,7 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         // Setup callbacks
         _dopt.setSubtitle = _toolBar::setSubtitle;
         _dopt.setTitle = _toolBar::setTitle;
+        _dopt.dialogInterface = getDialog();
 
         _recyclerList.post(() -> onFsViewerDoUiUpdate(_filesystemViewerAdapter));
     }
@@ -320,6 +321,9 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
     public void onFsViewerItemLongPressed(File file, boolean doSelectMultiple) {
         if (_callback != null) {
             _callback.onFsViewerItemLongPressed(file, doSelectMultiple);
+        }
+        if (_dopt.dismissAfterCallback) {
+            dismiss();
         }
     }
 

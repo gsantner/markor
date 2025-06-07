@@ -9,6 +9,7 @@
 #########################################################*/
 package net.gsantner.opoc.frontend.base;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -59,13 +60,18 @@ public abstract class GsFragmentBase<AS extends GsSharedPreferencesPropertyBacke
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        _cu = createContextUtilsInstance(inflater.getContext().getApplicationContext());
-        _appSettings = createAppSettingsInstance(inflater.getContext().getApplicationContext());
-        GsContextUtils.instance.setAppLanguage(getActivity(), getAppLanguage());
+
+        final Activity activity = getActivity();
+        _cu = createContextUtilsInstance(activity);
+        _appSettings = createAppSettingsInstance(activity);
+
+        _cu.setAppLanguage(activity, getAppLanguage());
         _savedInstanceState = savedInstanceState;
+
         if (getLayoutResId() == 0) {
             Log.e(getClass().getCanonicalName(), "Error: GsFragmentbase.onCreateview: Returned 0 for getLayoutResId");
         }
+
         return inflater.inflate(getLayoutResId(), container, false);
     }
 
@@ -75,15 +81,9 @@ public abstract class GsFragmentBase<AS extends GsSharedPreferencesPropertyBacke
         view.postDelayed(this::checkRunFirstTimeVisible, 200);
     }
 
-    @Nullable
-    public AS createAppSettingsInstance(Context applicationContext) {
-        return null;
-    }
+    protected abstract AS createAppSettingsInstance(final Context context);
 
-    @Nullable
-    public CU createContextUtilsInstance(Context applicationContext) {
-        return null;
-    }
+    protected abstract CU createContextUtilsInstance(final Context context);
 
     /**
      * Get a tag from the fragment, allows faster distinction
