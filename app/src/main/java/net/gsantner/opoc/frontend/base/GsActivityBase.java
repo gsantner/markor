@@ -64,6 +64,14 @@ public abstract class GsActivityBase<AS extends GsSharedPreferencesPropertyBacke
             } catch (Exception ignored) {
             }
         }
+
+        // Setup the call to toolbar click events
+        // Do this every time the activity is created, to accommodate lifecycle changes
+        final Toolbar toolbar = getToolbar();
+        if (toolbar != null) {
+            toolbar.setOnClickListener(this::onToolbarClick);
+            toolbar.setOnLongClickListener(this::onToolbarLongClick);
+        }
     }
 
     protected abstract AS createAppSettingsInstance();
@@ -96,12 +104,6 @@ public abstract class GsActivityBase<AS extends GsSharedPreferencesPropertyBacke
      * This will be called when this activity gets the first time visible
      */
     public void onActivityFirstTimeVisible() {
-        // Setup the call to toolbar click events
-        final Toolbar toolbar = getToolbar();
-        if (toolbar != null) {
-            toolbar.setOnClickListener(this::onToolbarClick);
-            toolbar.setOnLongClickListener(this::onToolbarLongClick);
-        }
     }
 
     private void onToolbarClick(final View v) {
