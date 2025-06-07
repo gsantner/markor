@@ -156,11 +156,11 @@ public abstract class SyntaxHighlighterBase {
         final boolean needsReflow;
         final int type;
 
-        SpanGroup(Object o, int s, int e, int t) {
-            span = o;
-            start = s;
-            end = e;
-            type = t;
+        SpanGroup(Object span, int start, int end, int type) {
+            this.span = span;
+            this.start = start;
+            this.end = end;
+            this.type = type;
 
             needsReflow = span instanceof StaticSpan;
             isStatic = needsReflow || span instanceof UpdateLayout;
@@ -243,6 +243,11 @@ public abstract class SyntaxHighlighterBase {
 
         _staticApplied = false;
 
+        return this;
+    }
+
+    public SyntaxHighlighterBase clearComputed() {
+        _groups.clear();
         return this;
     }
 
@@ -650,5 +655,20 @@ public abstract class SyntaxHighlighterBase {
                     .setStrike(strikethrough)
                     .setTextScale(textScale);
         }
+    }
+
+    /**
+     * Inject additional spans into the current set of computed spans
+     */
+    public SyntaxHighlighterBase addAdditional(final List<SpanGroup> additionalSpans) {
+        if (!additionalSpans.isEmpty()) {
+            _groups.addAll(additionalSpans);
+            Collections.sort(_groups);
+        }
+        return this;
+    }
+
+    public static SpanGroup createBackgroundHighlight(final int start, final int end, final @ColorInt int color) {
+        return new SpanGroup(new HighlightSpan().setBackColor(color), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
 }
