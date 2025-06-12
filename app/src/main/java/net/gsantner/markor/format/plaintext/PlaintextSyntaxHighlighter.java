@@ -7,11 +7,9 @@ package net.gsantner.markor.format.plaintext;
  *
 #########################################################*/
 
-import android.graphics.Paint;
-
+import net.gsantner.markor.format.plaintext.highlight.CodeTheme;
 import net.gsantner.markor.format.plaintext.highlight.HighlightConfigLoader;
 import net.gsantner.markor.format.plaintext.highlight.Syntax;
-import net.gsantner.markor.format.plaintext.highlight.CodeTheme;
 import net.gsantner.markor.frontend.textview.SyntaxHighlighterBase;
 import net.gsantner.markor.model.AppSettings;
 
@@ -38,11 +36,6 @@ public class PlaintextSyntaxHighlighter extends SyntaxHighlighterBase {
                 styles = codeTheme.styles;
             }
         }
-    }
-
-    @Override
-    public SyntaxHighlighterBase configure(Paint paint) {
-        return super.configure(paint);
     }
 
     @Override
