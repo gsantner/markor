@@ -30,7 +30,7 @@ public class PlaintextSyntaxHighlighter extends SyntaxHighlighterBase {
     public PlaintextSyntaxHighlighter(AppSettings appSettings, String extension) {
         super(appSettings);
 
-        Syntax syntax = configLoader.getSyntax(extension, appSettings.getContext());
+        Syntax syntax = configLoader.getSyntax(appSettings.getContext(), extension);
         if (syntax != null) {
             rules = syntax.getRules();
             Theme theme = configLoader.getTheme(appSettings.getContext(), "default");

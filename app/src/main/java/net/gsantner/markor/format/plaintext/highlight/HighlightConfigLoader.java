@@ -18,21 +18,21 @@ public class HighlightConfigLoader {
 
     public static final String MAP_PATH = "highlight/languages/map.properties";
 
-    private void load(Context context, String lang) {
-        try (InputStream input = context.getAssets().open("highlight/languages/" + lang + ".json")) {
-            Syntax syntax = gson.fromJson(new InputStreamReader(input), Syntax.class);
-            syntaxCache.putSyntax(lang, syntax);
+    private <T> T loadConfig(Context context, String path, Class<T> classT) {
+        try (InputStream input = context.getAssets().open(path)) {
+            return gson.fromJson(new InputStreamReader(input), classT);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
+    private void loadSyntax(Context context, String lang) {
+        Syntax syntax = loadConfig(context, "highlight/languages/" + lang + ".json", Syntax.class);
+        syntaxCache.putSyntax(lang, syntax);
+    }
+
     private void loadTheme(Context context, String name) {
-        try (InputStream input = context.getAssets().open("highlight/themes/" + name + ".json")) {
-            theme = gson.fromJson(new InputStreamReader(input), Theme.class);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        theme = loadConfig(context, "highlight/themes/" + name + ".json", Theme.class);
     }
 
     /**
@@ -43,6 +43,7 @@ public class HighlightConfigLoader {
      * @return Language syntax.
      */
     public Syntax getSyntax(Context context, String lang) {
+        lang = lang.replaceAll("^\\.+", "").toLowerCase();
         if (map.isEmpty()) {
             try {
                 map.load(context.getAssets().open(MAP_PATH));
@@ -51,21 +52,13 @@ public class HighlightConfigLoader {
             }
         }
 
-        String key = map.getProperty(lang.toLowerCase());
+        String key = map.getProperty(lang);
         Syntax syntax = syntaxCache.getSyntax(key);
         if (syntax == null) {
-            load(context, key);
+            loadSyntax(context, key);
         }
 
         return syntaxCache.getSyntax(key);
-    }
-
-    public Syntax getSyntax(String extension, Context context) {
-        if (extension.startsWith(".")) {
-            return getSyntax(context, extension.substring(1));
-        } else {
-            return getSyntax(context, extension);
-        }
     }
 
     public Theme getTheme(Context context, String name) {
