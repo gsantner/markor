@@ -210,7 +210,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
 
         @Override
         protected AppSettings getAppSettings(Context context) {
-            return ApplicationObject.settings();
+            return AppSettings.get(context);
         }
 
         @Override
@@ -299,7 +299,9 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                 }
 
                 _appSettings.addRecentFile(dest);
-                if (attachment != null) {
+
+                // Only if not forced link due to attachment
+                if (attachment == null) {
                     _appSettings.setFormatShareAsLink(asLink);
                 }
 

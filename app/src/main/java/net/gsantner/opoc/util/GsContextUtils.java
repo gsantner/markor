@@ -90,6 +90,8 @@ import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowInsets;
+import android.view.WindowInsetsController;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.MimeTypeMap;
@@ -476,7 +478,7 @@ public class GsContextUtils {
      */
     public boolean isAppInstalled(final Context context, String appId) {
         try {
-            final PackageManager pm = context.getApplicationContext().getPackageManager();
+            final PackageManager pm = context.getPackageManager();
             pm.getPackageInfo(appId, PackageManager.GET_ACTIVITIES);
             return true;
         } catch (PackageManager.NameNotFoundException e) {
@@ -2553,18 +2555,42 @@ public class GsContextUtils {
     }
 
     public <T extends GsContextUtils> T showSoftKeyboard(final Activity activity, final boolean show, final View... view) {
-        if (activity != null) {
-            final InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-            final View focus = (view != null && view.length > 0) ? view[0] : activity.getCurrentFocus();
+        if (activity == null) {
+            return thisp();
+        }
+
+        final View focus = (view != null && view.length > 0) ? view[0] : activity.getCurrentFocus();
+
+        if (focus != null) {
+            if (show) {
+                focus.requestFocus();
+            } else {
+                focus.clearFocus();
+            }
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {                          // API 30+
+            final View root = activity.getWindow().getDecorView();
+            final WindowInsetsController ctrl = root.getWindowInsetsController();
+            if (ctrl != null) {
+                if (show) {
+                    ctrl.show(WindowInsets.Type.ime());
+                } else {
+                    ctrl.hide(WindowInsets.Type.ime());
+                }
+            }
+        }  else {
             final IBinder token = focus != null ? focus.getWindowToken() : null;
+            final InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
             if (imm != null && focus != null) {
                 if (show) {
                     imm.showSoftInput(focus, InputMethodManager.SHOW_IMPLICIT);
                 } else if (token != null) {
-                    imm.hideSoftInputFromWindow(token, InputMethodManager.HIDE_NOT_ALWAYS);
+                    imm.hideSoftInputFromWindow(token, InputMethodManager.HIDE_IMPLICIT_ONLY);
                 }
             }
         }
+
         return thisp();
     }
 
