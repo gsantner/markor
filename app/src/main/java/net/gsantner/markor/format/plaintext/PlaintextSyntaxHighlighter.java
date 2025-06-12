@@ -11,7 +11,7 @@ import android.graphics.Paint;
 
 import net.gsantner.markor.format.plaintext.highlight.HighlightConfigLoader;
 import net.gsantner.markor.format.plaintext.highlight.Syntax;
-import net.gsantner.markor.format.plaintext.highlight.Theme;
+import net.gsantner.markor.format.plaintext.highlight.CodeTheme;
 import net.gsantner.markor.frontend.textview.SyntaxHighlighterBase;
 import net.gsantner.markor.model.AppSettings;
 
@@ -21,7 +21,7 @@ import java.util.HashMap;
 public class PlaintextSyntaxHighlighter extends SyntaxHighlighterBase {
     public final static HighlightConfigLoader configLoader = new HighlightConfigLoader();
     private ArrayList<Syntax.Rule> rules;
-    private HashMap<String, Theme.Style> styles;
+    private HashMap<String, CodeTheme.Style> styles;
 
     public PlaintextSyntaxHighlighter(AppSettings appSettings) {
         super(appSettings);
@@ -33,9 +33,9 @@ public class PlaintextSyntaxHighlighter extends SyntaxHighlighterBase {
         Syntax syntax = configLoader.getSyntax(appSettings.getContext(), extension);
         if (syntax != null) {
             rules = syntax.rules;
-            Theme theme = configLoader.getTheme(appSettings.getContext(), "default");
-            if (theme != null) {
-                styles = theme.getStyles();
+            CodeTheme codeTheme = configLoader.getTheme(appSettings.getContext(), "default");
+            if (codeTheme != null) {
+                styles = codeTheme.getStyles();
             }
         }
     }
@@ -56,7 +56,7 @@ public class PlaintextSyntaxHighlighter extends SyntaxHighlighterBase {
         }
 
         for (Syntax.Rule rule : rules) {
-            Theme.Style style = styles.get(rule.type);
+            CodeTheme.Style style = styles.get(rule.type);
             if (style != null) {
                 createColorSpanForMatches(rule.getPattern(), style.getColor());
             }

@@ -5,7 +5,7 @@ import android.graphics.Color;
 import java.util.HashMap;
 
 // Load from JSON
-public class Theme {
+public class CodeTheme {
     private String name;
     private HashMap<String, Style> styles; // <type, style>
 

@@ -14,7 +14,7 @@ public class HighlightConfigLoader {
     private final Gson gson = new Gson();
     private final Properties map = new Properties();
     private final SyntaxCache syntaxCache = new SyntaxCache();
-    private Theme theme;
+    private CodeTheme codeTheme;
 
     public static final String MAP_PATH = "highlight/languages/map.properties";
 
@@ -32,7 +32,7 @@ public class HighlightConfigLoader {
     }
 
     private void loadTheme(Context context, String name) {
-        theme = loadConfig(context, "highlight/themes/" + name + ".json", Theme.class);
+        codeTheme = loadConfig(context, "highlight/themes/" + name + ".json", CodeTheme.class);
     }
 
     /**
@@ -61,11 +61,11 @@ public class HighlightConfigLoader {
         return syntaxCache.getSyntax(key);
     }
 
-    public Theme getTheme(Context context, String name) {
-        if (theme == null || !theme.getName().equals(name)) {
+    public CodeTheme getTheme(Context context, String name) {
+        if (codeTheme == null || !codeTheme.getName().equals(name)) {
             loadTheme(context, name);
         }
-        return theme;
+        return codeTheme;
     }
 
     static class SyntaxCache {
