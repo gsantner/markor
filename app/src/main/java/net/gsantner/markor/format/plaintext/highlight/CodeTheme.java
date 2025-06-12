@@ -7,22 +7,18 @@ import java.util.HashMap;
 // Load from JSON
 public class CodeTheme {
     public String name;
-    private HashMap<String, Style> styles; // <type, style>
+    public HashMap<String, ThemeValue> styles; // <type, style>
 
-    public HashMap<String, Style> getStyles() {
-        return styles;
-    }
-
-    public class Style {
+    public static class ThemeValue {
         private String color;
-        private Integer color_;
+        private Integer m_colorInt;
         // private boolean bold;
 
         public int getColor() {
-            if (color_ == null) {
-                color_ = Color.parseColor(color);
+            if (m_colorInt == null) {
+                m_colorInt = Color.parseColor(color);
             }
-            return color_;
+            return m_colorInt;
         }
     }
 }

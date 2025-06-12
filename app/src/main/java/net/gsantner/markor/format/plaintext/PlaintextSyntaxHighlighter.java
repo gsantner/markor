@@ -21,7 +21,7 @@ import java.util.HashMap;
 public class PlaintextSyntaxHighlighter extends SyntaxHighlighterBase {
     public final static HighlightConfigLoader configLoader = new HighlightConfigLoader();
     private ArrayList<Syntax.Rule> rules;
-    private HashMap<String, CodeTheme.Style> styles;
+    private HashMap<String, CodeTheme.ThemeValue> styles;
 
     public PlaintextSyntaxHighlighter(AppSettings appSettings) {
         super(appSettings);
@@ -35,7 +35,7 @@ public class PlaintextSyntaxHighlighter extends SyntaxHighlighterBase {
             rules = syntax.rules;
             CodeTheme codeTheme = configLoader.getTheme(appSettings.getContext(), "default");
             if (codeTheme != null) {
-                styles = codeTheme.getStyles();
+                styles = codeTheme.styles;
             }
         }
     }
@@ -56,7 +56,7 @@ public class PlaintextSyntaxHighlighter extends SyntaxHighlighterBase {
         }
 
         for (Syntax.Rule rule : rules) {
-            CodeTheme.Style style = styles.get(rule.type);
+            CodeTheme.ThemeValue style = styles.get(rule.type);
             if (style != null) {
                 createColorSpanForMatches(rule.getPattern(), style.getColor());
             }
