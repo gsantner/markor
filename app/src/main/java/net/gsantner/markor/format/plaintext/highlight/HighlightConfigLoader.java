@@ -80,12 +80,7 @@ public class HighlightConfigLoader {
             }
 
             Integer usage = usageMap.get(key);
-            if (usage == null) {
-                usageMap.put(key, 1);
-            } else {
-                usageMap.put(key, ++usage);
-            }
-
+            usageMap.put(key, 1 + (usage == null ? 0 : usage));
             return syntax;
         }
 
