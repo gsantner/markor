@@ -62,7 +62,7 @@ public class HighlightConfigLoader {
     }
 
     public CodeTheme getTheme(Context context, String name) {
-        if (codeTheme == null || !codeTheme.getName().equals(name)) {
+        if (codeTheme == null || !codeTheme.name.equals(name)) {
             loadTheme(context, name);
         }
         return codeTheme;

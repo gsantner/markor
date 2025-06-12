@@ -6,12 +6,8 @@ import java.util.HashMap;
 
 // Load from JSON
 public class CodeTheme {
-    private String name;
+    public String name;
     private HashMap<String, Style> styles; // <type, style>
-
-    public String getName() {
-        return name;
-    }
 
     public HashMap<String, Style> getStyles() {
         return styles;
