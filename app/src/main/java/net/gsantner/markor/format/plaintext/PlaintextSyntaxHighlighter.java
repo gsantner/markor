@@ -21,8 +21,8 @@ public class PlaintextSyntaxHighlighter extends SyntaxHighlighterBase {
     private ArrayList<Syntax.Rule> rules;
     private HashMap<String, CodeTheme.ThemeValue> styles;
 
-    public PlaintextSyntaxHighlighter(AppSettings appSettings) {
-        super(appSettings);
+    public PlaintextSyntaxHighlighter(AppSettings as) {
+        super(as);
     }
 
     public PlaintextSyntaxHighlighter(AppSettings appSettings, String extension) {
