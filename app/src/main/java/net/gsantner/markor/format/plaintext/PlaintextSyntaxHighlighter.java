@@ -7,6 +7,8 @@ package net.gsantner.markor.format.plaintext;
  *
 #########################################################*/
 
+import android.util.Log;
+
 import net.gsantner.markor.format.plaintext.highlight.CodeTheme;
 import net.gsantner.markor.format.plaintext.highlight.HighlightConfigLoader;
 import net.gsantner.markor.format.plaintext.highlight.Syntax;
@@ -28,7 +30,12 @@ public class PlaintextSyntaxHighlighter extends SyntaxHighlighterBase {
     public PlaintextSyntaxHighlighter(AppSettings appSettings, String extension) {
         super(appSettings);
 
-        Syntax syntax = configLoader.getSyntax(appSettings.getContext(), extension);
+        Syntax syntax = null;
+        try {
+            syntax = configLoader.getSyntax(appSettings.getContext(), extension);
+        } catch (Exception e) {
+            Log.e(getClass().getName(), e.toString());
+        }
         if (syntax != null) {
             rules = syntax.rules;
             CodeTheme codeTheme = configLoader.getTheme(appSettings.getContext(), "default");
