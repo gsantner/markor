@@ -32,7 +32,7 @@ public class PlaintextSyntaxHighlighter extends SyntaxHighlighterBase {
 
         Syntax syntax = configLoader.getSyntax(appSettings.getContext(), extension);
         if (syntax != null) {
-            rules = syntax.getRules();
+            rules = syntax.rules;
             Theme theme = configLoader.getTheme(appSettings.getContext(), "default");
             if (theme != null) {
                 styles = theme.getStyles();
@@ -56,7 +56,7 @@ public class PlaintextSyntaxHighlighter extends SyntaxHighlighterBase {
         }
 
         for (Syntax.Rule rule : rules) {
-            Theme.Style style = styles.get(rule.getType());
+            Theme.Style style = styles.get(rule.type);
             if (style != null) {
                 createColorSpanForMatches(rule.getPattern(), style.getColor());
             }

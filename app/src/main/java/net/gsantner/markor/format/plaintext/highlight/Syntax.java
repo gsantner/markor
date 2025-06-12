@@ -5,35 +5,19 @@ import java.util.regex.Pattern;
 
 // Load from JSON
 public class Syntax {
-    private String language;
-    private ArrayList<Rule> rules;
+    public String language;
+    public ArrayList<Rule> rules;
 
-    public String getLanguage() {
-        return language;
-    }
-
-    public ArrayList<Rule> getRules() {
-        return rules;
-    }
-
-    public class Rule {
-        private String type;
-        private String regex;
-        private Pattern pattern;
-
-        public String getType() {
-            return type;
-        }
-
-        public String getRegex() {
-            return regex;
-        }
+    public static class Rule {
+        public String type;
+        public String regex;
+        private Pattern m_pattern;
 
         public Pattern getPattern() {
-            if (pattern == null) {
-                pattern = Pattern.compile(regex);
+            if (m_pattern == null) {
+                m_pattern = Pattern.compile(regex);
             }
-            return pattern;
+            return m_pattern;
         }
     }
 }
