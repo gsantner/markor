@@ -36,7 +36,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.documentfile.provider.DocumentFile;
 import androidx.fragment.app.DialogFragment;
 
-import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.frontend.textview.HighlightingEditor;
@@ -102,7 +101,7 @@ public class NewFileDialog extends DialogFragment {
     @SuppressLint("SetTextI18n")
     private AlertDialog makeDialog(final File basedir, final boolean allowCreateDir, LayoutInflater inflater) {
         final Activity activity = getActivity();
-        final AppSettings appSettings = ApplicationObject.settings();
+        final AppSettings appSettings = AppSettings.get(activity);
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(inflater.getContext(), R.style.Theme_AppCompat_DayNight_Dialog_Rounded);
         final View root = inflater.inflate(R.layout.new_file_dialog, null);
 

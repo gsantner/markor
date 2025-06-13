@@ -38,6 +38,7 @@ import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -154,11 +155,14 @@ public abstract class SyntaxHighlighterBase {
         final Object span;
         final boolean isStatic;
         final boolean needsReflow;
+        final int type;
 
-        SpanGroup(Object o, int s, int e) {
-            span = o;
-            start = s;
-            end = e;
+        SpanGroup(Object span, int start, int end, int type) {
+            this.span = span;
+            this.start = start;
+            this.end = end;
+            this.type = type;
+
             needsReflow = span instanceof StaticSpan;
             isStatic = needsReflow || span instanceof UpdateLayout;
         }
@@ -240,6 +244,11 @@ public abstract class SyntaxHighlighterBase {
 
         _staticApplied = false;
 
+        return this;
+    }
+
+    public SyntaxHighlighterBase clearComputed() {
+        _groups.clear();
         return this;
     }
 
@@ -353,7 +362,7 @@ public abstract class SyntaxHighlighterBase {
 
                 final boolean valid = group.start >= 0 && group.end > range[0] && group.end <= length;
                 if (valid && !_appliedDynamic.contains(i)) {
-                    _spannable.setSpan(group.span, group.start, group.end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    _spannable.setSpan(group.span, group.start, group.end, group.type);
                     _appliedDynamic.add(i);
                 }
             }
@@ -370,7 +379,7 @@ public abstract class SyntaxHighlighterBase {
             for (final SpanGroup group : _groups) {
                 if (group != null && group.isStatic) {
                     needsReflow |= group.needsReflow;
-                    _spannable.setSpan(group.span, group.start, group.end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    _spannable.setSpan(group.span, group.start, group.end, group.type);
                 }
             }
 
@@ -448,8 +457,14 @@ public abstract class SyntaxHighlighterBase {
     //
 
     protected final void addSpanGroup(final Object span, final int start, final int end) {
-        if (end > start && span != null) {
-            _groupBuffer.add(new SpanGroup(span, start, end));
+        if (end >= start && span != null) {
+            _groupBuffer.add(new SpanGroup(span, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE));
+        }
+    }
+
+    protected final void addSpanGroup(final Object span, final int start, final int end, final int type) {
+        if (end >= start && span != null) {
+            _groupBuffer.add(new SpanGroup(span, start, end, type));
         }
     }
 
@@ -641,5 +656,29 @@ public abstract class SyntaxHighlighterBase {
                     .setStrike(strikethrough)
                     .setTextScale(textScale);
         }
+    }
+
+    /**
+     * Inject additional spans into the current set of computed spans
+     * <p>
+     * These are added to the list of computed spans. Therefore:
+     * 1. They are subject to modification by fixup
+     * 2. They will need to be re-added after `setComputed()` is called
+     */
+    public SyntaxHighlighterBase addAdditional(final Collection<SpanGroup> additionalSpans) {
+        if (!additionalSpans.isEmpty()) {
+            _groups.addAll(additionalSpans);
+            Collections.sort(_groups);
+        }
+        return this;
+    }
+
+    public SyntaxHighlighterBase clearAdditional(final Collection<SpanGroup> additionalSpans) {
+        _groups.removeAll(additionalSpans);
+        return this;
+    }
+
+    public static SpanGroup createBackgroundHighlight(final int start, final int end, final @ColorInt int color) {
+        return new SpanGroup(new HighlightSpan().setBackColor(color), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
 }

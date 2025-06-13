@@ -34,7 +34,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.TooltipCompat;
 
-import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.frontend.AttachLinkOrFileDialog;
@@ -88,7 +87,7 @@ public abstract class ActionButtonBase {
 
     public ActionButtonBase(@NonNull final Context context, final Document document) {
         _document = document;
-        _appSettings = ApplicationObject.settings();
+        _appSettings = AppSettings.get(context);
         _buttonHorizontalMargin = GsContextUtils.instance.convertDpToPx(context, _appSettings.getEditorActionButtonItemPadding());
         _indent = _appSettings.getDocumentIndentSize(_document != null ? _document.path : null);
     }
@@ -169,6 +168,7 @@ public abstract class ActionButtonBase {
                 new ActionItem(R.string.abid_common_special_key, R.drawable.ic_keyboard_black_24dp, R.string.special_key),
                 new ActionItem(R.string.abid_common_time, R.drawable.ic_access_time_black_24dp, R.string.date_and_time),
                 new ActionItem(R.string.abid_common_open_link_browser, R.drawable.ic_open_in_browser_black_24dp, R.string.open_link),
+                new ActionItem(R.string.abid_common_change_case, R.drawable.ic_format_text_case_black_24dp, R.string.switch_case),
 
                 new ActionItem(R.string.abid_common_web_jump_to_very_top_or_bottom, R.drawable.ic_vertical_align_center_black_24dp, R.string.jump_to_bottom).setDisplayMode(ActionItem.DisplayMode.VIEW),
                 new ActionItem(R.string.abid_common_view_file_in_other_app, R.drawable.ic_baseline_open_in_new_24, R.string.open_with).setDisplayMode(ActionItem.DisplayMode.VIEW),
@@ -763,6 +763,10 @@ public abstract class ActionButtonBase {
             }
             case R.string.abid_common_rotate_screen: {
                 _cu.nextScreenRotationSetting(_activity);
+                return true;
+            }
+            case R.string.abid_common_change_case: {
+                MarkorDialogFactory.showCaseDialog(_activity, _hlEditor.getText());
                 return true;
             }
         }
