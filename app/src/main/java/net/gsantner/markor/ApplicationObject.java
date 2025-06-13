@@ -30,7 +30,8 @@ public class ApplicationObject extends MultiDexApplication {
         return _app;
     }
 
-    public static AppSettings backupSettings() {
+    @Deprecated
+    public static AppSettings settings() {
         return _appSettings;
     }
 

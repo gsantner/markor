@@ -65,7 +65,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         } else if (context != null) {
             return new AppSettings(context);
         } else {
-            return ApplicationObject.backupSettings();
+            return ApplicationObject.settings();
         }
     }
 
