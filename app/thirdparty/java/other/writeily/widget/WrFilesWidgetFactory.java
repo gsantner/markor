@@ -50,15 +50,15 @@ public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFacto
 
         _widgetFilesList.clear();
         final File dir = WrWidgetConfigure.getWidgetDirectory(_context, _appWidgetId);
-        final AppSettings as = ApplicationObject.settings();
+        final AppSettings as = AppSettings.get(_context);
         final GsFileUtils.SortOrder order = as.getFolderSortOrder(dir);
 
         if (dir.equals(GsFileBrowserListAdapter.VIRTUAL_STORAGE_RECENTS)) {
-            _widgetFilesList.addAll(ApplicationObject.settings().getRecentFiles());
+            _widgetFilesList.addAll(as.getRecentFiles());
         } else if (dir.equals(GsFileBrowserListAdapter.VIRTUAL_STORAGE_POPULAR)) {
-            _widgetFilesList.addAll(ApplicationObject.settings().getPopularFiles());
+            _widgetFilesList.addAll(as.getPopularFiles());
         } else if (dir.equals(GsFileBrowserListAdapter.VIRTUAL_STORAGE_FAVOURITE)) {
-            _widgetFilesList.addAll(ApplicationObject.settings().getFavouriteFiles());
+            _widgetFilesList.addAll(as.getFavouriteFiles());
         } else if (dir.exists() && dir.canRead()) {
             final File[] all = dir.listFiles(file -> order.showDotFiles || !file.getName().startsWith("."));
             _widgetFilesList.addAll(all != null ? Arrays.asList(all) : Collections.emptyList());

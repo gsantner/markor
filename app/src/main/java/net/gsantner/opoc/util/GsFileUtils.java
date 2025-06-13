@@ -61,6 +61,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Stack;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -417,34 +418,43 @@ public class GsFileUtils {
     }
 
     // Get relative path to specified destination
-    public static String relativePath(File src, File dest) {
-        try {
-            String[] srcSplit = (src.isDirectory() ? src : src.getParentFile()).getCanonicalPath().split(Pattern.quote(File.separator));
-            String[] destSplit = dest.getCanonicalPath().split(Pattern.quote(File.separator));
-            StringBuilder sb = new StringBuilder();
-            int i = 0;
+    public static String relativePath(final File src, final File dest) {
+        final File srcDir = src.isFile() ? src.getParentFile() : src;
+        final String srcStr = getPath(srcDir);
+        final String destStr = getPath(dest);
 
-            for (; i < destSplit.length && i < srcSplit.length; ++i) {
-                if (!destSplit[i].equals(srcSplit[i]))
-                    break;
-            }
-            if (i != srcSplit.length) {
-                for (int iUpperDir = i; iUpperDir < srcSplit.length; ++iUpperDir) {
-                    sb.append("..");
-                    sb.append(File.separator);
-                }
-            }
-            for (; i < destSplit.length; ++i) {
-                sb.append(destSplit[i]);
+        final String[] srcSplit = srcStr.split(Pattern.quote(File.separator));
+        final String[] destSplit = destStr.split(Pattern.quote(File.separator));
+
+        int commonLength = 0;
+        for (; commonLength < destSplit.length && commonLength < srcSplit.length; ++commonLength) {
+            if (!destSplit[commonLength].equals(srcSplit[commonLength]))
+                break;
+        }
+
+        final StringBuilder sb = new StringBuilder();
+
+        if (commonLength != srcSplit.length) {
+            for (int iUpperDir = commonLength; iUpperDir < srcSplit.length; ++iUpperDir) {
+                sb.append("..");
                 sb.append(File.separator);
             }
-            if (!dest.getPath().endsWith("/") && !dest.getPath().endsWith("\\")) {
-                sb.delete(sb.length() - File.separator.length(), sb.length());
-            }
-            return sb.toString();
-        } catch (IOException | NullPointerException exception) {
-            return null;
         }
+
+        for (; commonLength < destSplit.length; ++commonLength) {
+            sb.append(destSplit[commonLength]);
+            sb.append(File.separator);
+        }
+
+        if (!dest.isFile() && GsTextUtils.endsWith(sb, File.separator)) {
+            sb.delete(sb.length() - File.separator.length(), sb.length());
+        }
+
+        if (sb.length() == 0) {
+            sb.append(".");
+        }
+
+        return sb.toString();
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -927,15 +937,27 @@ public class GsFileUtils {
     }
 
     public static File makeAbsolute(final File file, final File base) {
-        if (file == null) {
-            return null;
-        } else if (file.isAbsolute()) {
-            return file;
-        } else if (base != null) {
-            return new File(base, file.getPath()).getAbsoluteFile();
-        } else {
+        if (file == null || base == null) {
             return null;
         }
+
+        if (file.isAbsolute()) {
+            return file;
+        }
+
+        final String full = base.getAbsolutePath() + File.separator + file.getPath();
+        final String[] parts = full.split(Pattern.quote(File.separator));
+
+        final Stack<String> stack = new Stack<>();
+        for (final String part : parts) {
+            if (part.equals("..") && !stack.isEmpty()) {
+                stack.pop();
+            } else if (!part.equals(".")) {
+                stack.add(part);
+            }
+        }
+
+        return new File(String.join(File.separator, stack));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

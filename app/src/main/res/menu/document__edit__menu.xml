@@ -25,6 +25,12 @@
         app:showAsAction="always" />
 
     <item
+        android:id="@+id/action_save"
+        android:icon="@drawable/ic_save_black_24dp"
+        android:title="@string/save"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/action_preview_edit_toggle"
         android:icon="@drawable/ic_visibility_black_24dp"
         android:title="@string/view"
@@ -41,12 +47,6 @@
         android:id="@+id/action_edit"
         android:icon="@drawable/ic_edit_black_24dp"
         android:title="@string/edit_mode"
-        app:showAsAction="always" />
-
-    <item
-        android:id="@+id/action_save"
-        android:icon="@drawable/ic_save_black_24dp"
-        android:title="@string/save"
         app:showAsAction="always" />
 
     <item
@@ -102,31 +102,6 @@
                 android:icon="@drawable/ic_format_size_black_24dp"
                 android:title="@string/font_size"
                 app:showAsAction="never" />
-
-            <!-- Text Case menu -->
-            <item
-                android:id="@+id/action_text_case"
-                android:icon="@drawable/ic_format_text_case_black_24dp"
-                android:title="@string/text_case"
-                app:showAsAction="never">
-                <menu>
-                    <item
-                        android:id="@+id/action_toggle_case"
-                        android:title="@string/toggle_case" />
-
-                    <item
-                        android:id="@+id/action_switch_case"
-                        android:title="@string/switch_case" />
-
-                    <item
-                        android:id="@+id/action_capitalize_words"
-                        android:title="@string/capitalize_words" />
-
-                    <item
-                        android:id="@+id/action_capitalize_sentences"
-                        android:title="@string/capitalize_sentences" />
-                </menu>
-            </item>
 
             <!-- Format menu -->
             <item

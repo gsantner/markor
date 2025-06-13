@@ -34,7 +34,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceGroup;
 
-import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.format.plaintext.PlaintextSyntaxHighlighter;
@@ -210,7 +209,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
 
         @Override
         protected AppSettings getAppSettings(Context context) {
-            return ApplicationObject.settings();
+            return AppSettings.get(context);
         }
 
         @Override
@@ -299,7 +298,9 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                 }
 
                 _appSettings.addRecentFile(dest);
-                if (attachment != null) {
+
+                // Only if not forced link due to attachment
+                if (attachment == null) {
                     _appSettings.setFormatShareAsLink(asLink);
                 }
 
