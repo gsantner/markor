@@ -139,11 +139,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overall_theme_used_in_app">Tema generală utilizată în aplicație</string>
     <string name="remember_last_directory">Memorează ultimul director</string>
     <string name="syntax_highlighting">Evidențiere sintaxă</string>
-    <string name="dynamic_highlighting">Evidențiere dinamică</string>
     <string name="highlighting_delay">Întârziere evidenţiere</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Întârziere în milisecunde pentru reîmprospătarea evidențierii. O valoare mai mică va începe evidențierea mai devreme, dar va consuma bateria și poate încetini aplicația pe dispozitivele mai vechi.</string>
     <string name="highlighting_enabled_or_not__appspecific">Controlează dacă textul introdus ar trebui evidențiat sau nu</string>
-    <string name="dynamic_highlighting_effect">Evidențierea dinamică îmbunătățește performanța. Poate cauza artefacte de redare.</string>
     <string name="control_font_size_in_editor">Controlează dimensiunea fontului folosită în editor</string>
     <string name="textactions_show_useful_actions_description__appspecific">Afișează o bară cu butoane utile în partea de jos. Aceste acțiuni asupra textului modifică textul sau execută o acțiune bazată pe text.</string>
     <string name="load_last_opened_folder_at_startup">Încarcă ultimul dosar deschis la pornire</string>
