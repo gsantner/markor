@@ -403,6 +403,19 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="drag">Drag</string>
     <string name="created">Created</string>
 
+    <string name="search_result">%1$d/%2$d</string>
+    <string name="no_results">No results</string>
+    <string name="previous">Previous</string>
+    <string name="next">Next</string>
+    <string name="toggle_find_replace">Toggle Find/Replace</string>
+    <string name="find">Find</string>
+    <string name="match_case">Match Case</string>
+    <string name="match_whole_word">Match Whole Word</string>
+    <string name="use_regular_expression">Use Regular Expression</string>
+    <string name="find_in_selection">Find in Selection</string>
+    <string name="replace">Replace</string>
+    <string name="preserve_case">Preserve Case</string>
+
     <string name="file_encryption_password">File encryption password</string>
     <string name="no_password_set_cannot_encrypt_decrypt">No password set, cannot encrypt or decrypt.\nGo to Settings -> General -> Password to set a password.</string>
     <string name="encrypt_file_content">Encrypt file content</string>
