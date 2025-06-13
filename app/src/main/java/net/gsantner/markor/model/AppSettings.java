@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.util.Pair;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
@@ -22,8 +23,10 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 
+import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
+import net.gsantner.markor.activity.MarkorBaseActivity;
 import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.markor.util.ShortcutUtils;
@@ -51,14 +54,23 @@ import other.de.stanetz.jpencconverter.PasswordStore;
 
 @SuppressWarnings({"SameParameterValue", "WeakerAccess", "FieldCanBeLocal"})
 public class AppSettings extends GsSharedPreferencesPropertyBackend {
-    private SharedPreferences _prefCache;
-    private SharedPreferences _prefHistory;
+    private final SharedPreferences _prefCache;
+    private final SharedPreferences _prefHistory;
     public static Boolean _isDeviceGoodHardware = null;
-    private MarkorContextUtils _cu;
+    private final MarkorContextUtils _cu;
 
-    @Override
-    public AppSettings init(final Context context) {
-        super.init(context);
+    public static AppSettings get(final Context context) {
+        if (context instanceof MarkorBaseActivity) {
+            return ((MarkorBaseActivity) context).getAppSettings();
+        } else if (context != null) {
+            return new AppSettings(context);
+        } else {
+            return ApplicationObject.settings();
+        }
+    }
+
+    public AppSettings(final Context context) {
+        super(context, SHARED_PREF_APP);
         _prefCache = context.getSharedPreferences("cache", Context.MODE_PRIVATE);
         _prefHistory = context.getSharedPreferences("history", Context.MODE_PRIVATE);
         _cu = new MarkorContextUtils(context);
@@ -68,7 +80,6 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
             setEditorBasicColor(true, R.color.white, R.color.dark_grey);
             setEditorBasicColor(false, R.color.dark_grey, R.color.light__background);
         }
-        return this;
     }
 
     public boolean isLoadLastDirectoryAtStartup() {
@@ -136,9 +147,24 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return getInt(R.string.pref_key__editor_font_size, 15);
     }
 
-    public int getViewFontSize() {
+    private int getDefaultViewFontSize() {
         int size = getInt(R.string.pref_key__view_font_size, -1);
         return size < 2 ? getFontSize() : size;
+    }
+
+    public void setDocumentViewFontSize(final String path, int size) {
+        if (fexists(path)) {
+            setInt(PREF_PREFIX_VIEW_FONT_SIZE + path, size);
+        }
+    }
+
+    public int getDocumentViewFontSize(final String path) {
+        final int _default = getDefaultViewFontSize();
+        if (!fexists(path)) {
+            return _default;
+        } else {
+            return getInt(PREF_PREFIX_VIEW_FONT_SIZE + path, _default);
+        }
     }
 
     public boolean isHighlightingEnabled() {
@@ -407,6 +433,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     private static final String PREF_PREFIX_VIEW_SCROLL_Y = "PREF_PREFIX_VIEW_SCROLL_Y";
     private static final String PREF_PREFIX_TODO_DONE_NAME = "PREF_PREFIX_TODO_DONE_NAME";
     private static final String PREF_PREFIX_LINE_NUM_STATE = "PREF_PREFIX_LINE_NUM_STATE";
+    private static final String PREF_PREFIX_VIEW_FONT_SIZE = "PREF_PREFIX_VIEW_FONT_SIZE";
 
     public void setLastTodoDoneName(final String path, final String name) {
         if (fexists(path)) {
@@ -665,12 +692,12 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return true;//getBool(R.string.pref_key__editor_history_enabled3, true);
     }
 
-    public int getEditorForegroundColor() {
+    public @ColorInt int getEditorForegroundColor() {
         final boolean night = GsContextUtils.instance.isDarkModeEnabled(_context);
         return getInt(night ? R.string.pref_key__basic_color_scheme__fg_dark : R.string.pref_key__basic_color_scheme__fg_light, rcolor(R.color.primary_text));
     }
 
-    public int getEditorBackgroundColor() {
+    public @ColorInt int getEditorBackgroundColor() {
         final boolean night = GsContextUtils.instance.isDarkModeEnabled(_context);
         int c = getInt(night ? R.string.pref_key__basic_color_scheme__bg_dark : R.string.pref_key__basic_color_scheme__bg_light, rcolor(R.color.background));
         if (getAppThemeName().contains("black")) {

@@ -25,7 +25,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 
-import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
@@ -45,7 +44,6 @@ public class DocumentActivity extends MarkorBaseActivity {
 
     private Toolbar _toolbar;
     private FragmentManager _fragManager;
-    private Document _document = null;
 
     public static void launch(final Activity activity, final Intent intent) {
         final File file = MarkorContextUtils.getIntentFile(intent);
@@ -70,8 +68,6 @@ public class DocumentActivity extends MarkorBaseActivity {
             final Integer lineNumber,
             final boolean forceOpenInThisApp
     ) {
-
-        Log.i("Document", "Hitting launch");
         if (activity == null || file == null) {
             return;
         }
@@ -86,7 +82,7 @@ public class DocumentActivity extends MarkorBaseActivity {
             return;
         }
 
-        final AppSettings as = ApplicationObject.settings();
+        final AppSettings as = AppSettings.get(activity);
 
         final Intent intent;
         if (GsFileUtils.isDirectory(file)) {
@@ -104,7 +100,6 @@ public class DocumentActivity extends MarkorBaseActivity {
             } else if (lollipop && !fromDocumentActivity) {
                 // So we can potentially not open duplicate documents
                 intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                Log.i("Document", "Single top");
             }
 
             if (lineNumber != null) {
@@ -122,7 +117,7 @@ public class DocumentActivity extends MarkorBaseActivity {
     }
 
     public static void askUserIfWantsToOpenFileInThisApp(final Activity activity, final File file) {
-        if (GsFileUtils.isContentsPlainText(file)) {
+        if (!FormatRegistry.isExternalFile(file) && GsFileUtils.isContentsPlainText(file)) {
             new AlertDialog.Builder(activity, R.style.Theme_AppCompat_DayNight_Dialog_Rounded)
                     .setTitle(R.string.open_with)
                     .setMessage(R.string.selected_file_may_be_a_textfile_want_to_open_in_editor)
@@ -158,7 +153,6 @@ public class DocumentActivity extends MarkorBaseActivity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         handleLaunchingIntent(intent);
-        Log.i("Document", "in onNewIntent");
     }
 
     private void handleLaunchingIntent(final Intent intent) {
@@ -219,22 +213,18 @@ public class DocumentActivity extends MarkorBaseActivity {
                     if (editFrag.getDocument().path.equals(doc.path)) {
                         if (startLine != null) {
                             // Same document requested, show the requested line
-                            Log.i("Document", "select the line");
                             TextViewUtils.selectLines(editFrag.getEditor(), startLine);
                         }
                     } else {
                         // Current document is different - launch the new document
-                        Log.i("Document", "launch");
                         launch(this, file, startInPreview, startLine);
                     }
                 } else {
                     // Current fragment is not an editor - launch the new document
-                    Log.i("Document", "launch");
                     launch(this, file, startInPreview, startLine);
                 }
             } else {
                 // No fragment open - open the document
-                Log.i("Document", "showFragment");
                 showFragment(DocumentEditAndViewFragment.newInstance(doc, startLine, startInPreview));
             }
         }

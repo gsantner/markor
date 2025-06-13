@@ -25,7 +25,6 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceScreen;
 
-import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
@@ -107,7 +106,7 @@ public class SettingsActivity extends MarkorBaseActivity {
     public static abstract class MarkorSettingsFragment extends GsPreferenceFragmentBase<AppSettings> {
         @Override
         protected AppSettings getAppSettings(Context context) {
-            return ApplicationObject.settings();
+            return AppSettings.get(context);
         }
 
         @Override

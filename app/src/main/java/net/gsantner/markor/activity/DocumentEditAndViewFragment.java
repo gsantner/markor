@@ -76,6 +76,8 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     public static final String SAVESTATE_DOCUMENT = "DOCUMENT";
     public static final String START_PREVIEW = "START_PREVIEW";
 
+    public static float VIEW_FONT_SCALE = 100f / 15.7f;
+
     public static DocumentEditAndViewFragment newInstance(final @NonNull Document document, final Integer lineNumber, final Boolean preview) {
         DocumentEditAndViewFragment f = new DocumentEditAndViewFragment();
         Bundle args = new Bundle();
@@ -169,7 +171,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         WebSettings webSettings = _webView.getSettings();
         webSettings.setBuiltInZoomControls(true);
         webSettings.setDisplayZoomControls(false);
-        webSettings.setTextZoom((int) (_appSettings.getViewFontSize() / 15.7f * 100f));
+        webSettings.setTextZoom((int) (_appSettings.getDocumentViewFontSize(_document.path) * VIEW_FONT_SCALE));
         webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         webSettings.setDatabaseEnabled(true);
         webSettings.setGeolocationEnabled(false);
@@ -236,6 +238,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         // This works well to preserve keyboard state.
         if (activity != null) {
             final Window window = activity.getWindow();
+            // Setting via a windowmanager state is much more robust than using show/hide
             final int adjustResize = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE;
             final int unchanged = WindowManager.LayoutParams.SOFT_INPUT_STATE_UNCHANGED | adjustResize;
             final int hidden = WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN | adjustResize;
@@ -285,7 +288,8 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             _verticalScrollView.setScrollY(scrollY);
         }
 
-        _hlEditor.post(() -> _hlEditor.animate().alpha(1).setDuration(500).start());
+        // Fade in to hide initial jank
+        _hlEditor.post(() -> _hlEditor.animate().alpha(1).setDuration(250).start());
     }
 
     @Override
@@ -646,9 +650,15 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 return true;
             }
             case R.id.action_set_font_size: {
-                MarkorDialogFactory.showFontSizeDialog(activity, _appSettings.getDocumentFontSize(_document.path), (newSize) -> {
-                    _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, (float) newSize);
-                    _appSettings.setDocumentFontSize(_document.path, newSize);
+                final int current = _isPreviewVisible ? _appSettings.getDocumentViewFontSize(_document.path) : _appSettings.getDocumentFontSize(_document.path);
+                MarkorDialogFactory.showFontSizeDialog(activity, current, (newSize) -> {
+                    if (_isPreviewVisible) {
+                        _webView.getSettings().setTextZoom((int) (newSize * VIEW_FONT_SCALE));
+                        _appSettings.setDocumentViewFontSize(_document.path, newSize);
+                    } else {
+                        _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, (float) newSize);
+                        _appSettings.setDocumentFontSize(_document.path, newSize);
+                    }
                 });
                 return true;
             }
@@ -657,18 +667,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 _hlEditor.postDelayed(() -> MainActivity.launch(activity, _document.file, false), 250);
                 return true;
             }
-            case R.id.action_toggle_case:
-                TextViewUtils.toggleSelectionCase(_hlEditor.getText());
-                return true;
-            case R.id.action_switch_case:
-                TextViewUtils.switchSelectionCase(_hlEditor.getText());
-                return true;
-            case R.id.action_capitalize_words:
-                TextViewUtils.capitalizeSelectionWords(_hlEditor.getText());
-                return true;
-            case R.id.action_capitalize_sentences:
-                TextViewUtils.capitalizeSelectionSentences(_hlEditor.getText());
-                return true;
             default: {
                 return super.onOptionsItemSelected(item);
             }
@@ -693,7 +691,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _format = FormatRegistry.getFormat(textFormatId, activity, _document);
         _document.setFormat(_format.getFormatId());
         _hlEditor.setHighlighter(_format.getHighlighter());
-        _hlEditor.setDynamicHighlightingEnabled(_appSettings.isDynamicHighlightingEnabled());
         _hlEditor.setAutoFormatters(_format.getAutoFormatInputFilter(), _format.getAutoFormatTextWatcher());
         _hlEditor.setAutoFormatEnabled(_appSettings.getDocumentAutoFormatEnabled(_document.path));
         _format.getActions()
