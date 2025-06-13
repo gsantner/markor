@@ -15,6 +15,7 @@ import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.format.TextConverterBase;
 import net.gsantner.markor.format.binary.EmbedBinaryTextConverter;
 import net.gsantner.markor.format.keyvalue.KeyValueTextConverter;
+import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 
@@ -88,6 +89,6 @@ public class PlaintextTextConverter extends TextConverterBase {
 
     @Override
     protected boolean isFileOutOfThisFormat(final File file, final String name, final String ext) {
-        return EXT.contains(ext) || _appSettings.isExtOpenWithThisApp(ext) || GsFileUtils.isTextFile(file);
+        return EXT.contains(ext) || AppSettings.get(null).isExtOpenWithThisApp(ext) || GsFileUtils.isTextFile(file);
     }
 }

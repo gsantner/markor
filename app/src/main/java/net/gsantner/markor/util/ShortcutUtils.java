@@ -17,7 +17,6 @@ import android.os.Build;
 
 import androidx.annotation.NonNull;
 
-import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.openeditor.OpenFromShortcutOrWidgetActivity;
 import net.gsantner.markor.model.AppSettings;
@@ -60,7 +59,7 @@ public class ShortcutUtils {
             final ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
             final List<ShortcutInfo> newShortcuts = new ArrayList<>();
 
-            final AppSettings appSettings = ApplicationObject.settings();
+            final AppSettings appSettings = AppSettings.get(context);
 
             // Create the to-do shortcut
             final Intent openTodo = new Intent(context, OpenFromShortcutOrWidgetActivity.class)

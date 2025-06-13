@@ -18,7 +18,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.core.content.ContextCompat;
 
-import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.util.GsContextUtils;
@@ -41,7 +40,7 @@ public class FileSearchDialog {
             final GsCallback.a1<FileSearchEngine.SearchOptions> dialogCallback
     ) {
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, R.style.Theme_AppCompat_DayNight_Dialog_Rounded);
-        final AppSettings appSettings = ApplicationObject.settings();
+        final AppSettings appSettings = AppSettings.get(activity);
 
         final ScrollView scrollView = new ScrollView(activity);
         final LinearLayout dialogLayout = new LinearLayout(activity);

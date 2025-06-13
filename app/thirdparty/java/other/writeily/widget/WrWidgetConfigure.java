@@ -20,6 +20,7 @@ import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.MarkorBaseActivity;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
+import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
 
@@ -93,7 +94,7 @@ public class WrWidgetConfigure extends MarkorBaseActivity {
         }
 
         // Fallback
-        return ApplicationObject.settings().getNotebookDirectory();
+        return AppSettings.get(context).getNotebookDirectory();
     }
 
     public static void setWidgetDirectory(final Context context, int id, final File dir) {

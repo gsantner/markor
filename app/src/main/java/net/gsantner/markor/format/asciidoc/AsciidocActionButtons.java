@@ -222,13 +222,13 @@ public class AsciidocActionButtons extends ActionButtonBase {
                 runAsciidocInlineAction("", "<<<\n", "");
                 return true;
             }
-            
+
             // https://docs.asciidoctor.org/asciidoc/latest/blocks/blockquotes/
             case R.string.abid_asciidoc_block_quote: {
                 runAsciidocInlineAction("\n____\n", "", "");
                 return true;
             }
-        
+
             //this is an additional extra menu, analogous to special_key menu
             case R.string.abid_asciidoc_special_key: {
                 runAsciidocSpecialKeyAction();

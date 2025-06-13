@@ -1,6 +1,5 @@
 package net.gsantner.markor.activity;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,8 +8,6 @@ import android.view.WindowManager;
 
 import androidx.annotation.Nullable;
 
-import net.gsantner.markor.ApplicationObject;
-import net.gsantner.markor.R;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.frontend.base.GsActivityBase;
@@ -19,9 +16,9 @@ import net.gsantner.opoc.frontend.base.GsFragmentBase;
 public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, MarkorContextUtils> {
 
     @Override
-    protected void onPreCreate(@Nullable Bundle savedInstanceState) {
-        super.onPreCreate(savedInstanceState); // _appSettings, _cu gets available
-        setTheme(R.style.AppTheme_Unified);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         _appSettings.applyAppTheme();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setEnterTransition(null);
@@ -48,13 +45,13 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
     }
 
     @Override
-    public AppSettings createAppSettingsInstance(Context applicationContext) {
-        return ApplicationObject.settings();
+    protected AppSettings createAppSettingsInstance() {
+        return new AppSettings(this);
     }
 
     @Override
-    public MarkorContextUtils createContextUtilsInstance(Context applicationContext) {
-        return new MarkorContextUtils(applicationContext);
+    protected MarkorContextUtils createContextUtilsInstance() {
+        return new MarkorContextUtils(this);
     }
 
     @Override
