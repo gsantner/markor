@@ -139,7 +139,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overall_theme_used_in_app">ערכת הנושא הכללית לשימוש על ידי האפליקציה</string>
     <string name="remember_last_directory">זכור מיקום אחרון</string>
     <string name="syntax_highlighting">הדגשת תחביר</string>
-    <string name="dynamic_highlighting">הדגשה דינמית</string>
     <string name="highlighting_delay">השהיית הדגשה</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">השהיה במילי-שניות עבור רענון הדגשה. ערך נמוך יתחיל את ההדגשה מוקדם יותר, אבל יגרום לצריכה מוגברת של הסוללה ועלול להאט את האפליקציה במכשירים ישנים.</string>
     <string name="highlighting_enabled_or_not__appspecific">שלוט האם הטקסט המוכנס צריך להיות מודגש או לא</string>
