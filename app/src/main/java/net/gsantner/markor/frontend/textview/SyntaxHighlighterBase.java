@@ -660,7 +660,7 @@ public abstract class SyntaxHighlighterBase {
 
     /**
      * Inject additional spans into the current set of computed spans
-     *
+     * <p>
      * These are added to the list of computed spans. Therefore:
      * 1. They are subject to modification by fixup
      * 2. They will need to be re-added after `setComputed()` is called

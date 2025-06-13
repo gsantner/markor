@@ -11,7 +11,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.webkit.WebView;
 
-import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.MarkorContextUtils;

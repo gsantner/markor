@@ -475,7 +475,8 @@ public class AttachLinkOrFileDialog {
                         public void onFsViewerNeutralButtonPressed(File currentFolder) {
                             setFields.callback(currentFolder);
                             if (_dopt != null) {
-                                _dopt.dialogInterface.dismiss();;
+                                _dopt.dialogInterface.dismiss();
+                                ;
                             }
                         }
                     };

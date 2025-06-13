@@ -17,7 +17,6 @@ import android.os.Build;
 
 import androidx.annotation.NonNull;
 
-import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.openeditor.OpenFromShortcutOrWidgetActivity;
 import net.gsantner.markor.model.AppSettings;

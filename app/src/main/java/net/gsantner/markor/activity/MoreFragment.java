@@ -54,6 +54,7 @@ public class MoreFragment extends GsFragmentBase<GsSharedPreferencesPropertyBack
             moreInfoFragment = (MoreInfoFragment) getChildFragmentManager().findFragmentByTag(MoreInfoFragment.TAG);
         }
     }
+
     @Override
     public AppSettings createAppSettingsInstance(Context context) {
         return AppSettings.get(context);

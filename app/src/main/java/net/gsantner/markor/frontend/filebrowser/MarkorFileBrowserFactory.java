@@ -12,7 +12,6 @@ import android.os.Environment;
 
 import androidx.fragment.app.FragmentManager;
 
-import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.MarkorContextUtils;

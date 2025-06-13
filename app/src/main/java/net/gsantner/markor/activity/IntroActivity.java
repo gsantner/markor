@@ -14,7 +14,6 @@ import androidx.preference.PreferenceManager;
 import com.github.appintro.AppIntro;
 import com.github.appintro.AppIntroFragment;
 
-import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.util.GsContextUtils;

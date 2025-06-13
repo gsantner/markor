@@ -14,7 +14,6 @@ import android.text.TextWatcher;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
-import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.asciidoc.AsciidocActionButtons;
 import net.gsantner.markor.format.asciidoc.AsciidocSyntaxHighlighter;

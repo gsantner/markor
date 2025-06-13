@@ -5,7 +5,6 @@ import android.content.Context;
 
 import androidx.fragment.app.FragmentManager;
 
-import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.ActionButtonBase;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;

@@ -11,7 +11,6 @@ import android.content.Context;
 
 import androidx.arch.core.util.Function;
 
-import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.format.TextConverterBase;
 import net.gsantner.markor.model.AppSettings;

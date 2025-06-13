@@ -1,6 +1,5 @@
 package net.gsantner.markor.activity;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,8 +8,6 @@ import android.view.WindowManager;
 
 import androidx.annotation.Nullable;
 
-import net.gsantner.markor.ApplicationObject;
-import net.gsantner.markor.R;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.frontend.base.GsActivityBase;
