@@ -14,7 +14,6 @@
     android:id="@+id/new_file_dialog__root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="0dp"
     android:foreground="?android:attr/selectableItemBackground"
     android:paddingStart="@dimen/activity_horizontal_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -28,161 +27,154 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:ellipsize="end"
-            android:lines="1"
-            android:text="@string/name"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
-
         <LinearLayout
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-5dp"
-            android:orientation="horizontal"
-            android:weightSum="100">
+            android:layout_width="match_parent"
+            android:baselineAligned="true"
+            android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/new_file_dialog__name"
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="70"
-                android:hint="@string/title"
-                android:importantForAutofill="no"
-                android:singleLine="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                android:textSize="15sp"
-                tools:ignore="HardcodedText,TextFields"/>
+                android:layout_weight="3"
+                android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/new_file_dialog__ext"
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:text="@string/name"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <EditText
+                        android:id="@+id/new_file_dialog__name"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:hint="@string/title"
+                        android:importantForAutofill="no"
+                        android:lines="1"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                        android:textSize="15sp"
+                        tools:ignore="HardcodedText,TextFields"/>
+
+                    <TextView
+                        android:id="@+id/new_file_dialog__name_format_spinner"
+                        style="@style/Base.Widget.AppCompat.Spinner"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="end"
+                        android:contentDescription="@string/choose_format"
+                        android:inputType="none"
+                        android:paddingEnd="0dp"
+                        android:paddingStart="24dp"/>
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_weight="30"
-                android:gravity="end"
-                android:hint=".md"
-                android:importantForAutofill="no"
-                android:inputType="text|textNoSuggestions"
-                android:lines="1"
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                android:textSize="15sp"
-                tools:ignore="HardcodedText"
-                tools:text=".md" />
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:text="@string/type"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <EditText
+                        android:id="@+id/new_file_dialog__ext"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:hint=".md"
+                        android:importantForAutofill="no"
+                        android:inputType="text|textNoSuggestions"
+                        android:lines="1"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                        android:textSize="15sp"
+                        tools:ignore="HardcodedText"/>
+
+                    <TextView
+                        style="@style/Base.Widget.AppCompat.Spinner"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="end"
+                        android:contentDescription="@string/choose_format"
+                        android:inputType="none"
+                        android:paddingEnd="0dp"
+                        android:paddingStart="24dp"/>
+
+                </FrameLayout>
+
+            </LinearLayout>
+
         </LinearLayout>
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="12dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:ellipsize="end"
-            android:lines="1"
-            android:text="@string/format"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="-5dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:orientation="horizontal"
-            android:weightSum="100">
-
-            <EditText
-                android:id="@+id/new_file_dialog__name_format"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:hint="{{title}}"
-                android:importantForAutofill="no"
-                android:singleLine="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                android:textSize="15sp"
-                tools:ignore="HardcodedText,TextFields"/>
-
-            <TextView
-                android:id="@+id/new_file_dialog__name_format_spinner"
-                style="@style/Base.Widget.AppCompat.Spinner"
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerInParent="true"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="-16dp"
-                android:layout_marginEnd="-16dp"
-                android:contentDescription="@string/choose_format"
-                android:inputType="none" />
-
-        </RelativeLayout>
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="4dp"
-            android:ellipsize="end"
-            android:lines="1"
-            android:text="@string/type"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
-
-        <view class="net.gsantner.markor.frontend.NewFileDialog$ReselectSpinner"
-            android:id="@+id/new_file_dialog__type"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawSelectorOnTop="true"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="4dp"
             android:ellipsize="end"
             android:lines="1"
             android:text="@string/template"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
-        <view class="net.gsantner.markor.frontend.NewFileDialog$ReselectSpinner"
-            android:id="@+id/new_file_dialog__template"
+        <Spinner
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawSelectorOnTop="true"/>
+            android:layout_height="48dp"></Spinner>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp"/>
 
         <CheckBox
             android:id="@+id/new_file_dialog__encrypt"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/encrypt_file_content" />
+            android:layout_height="48dp"
+            android:text="@string/encrypt_file_content"/>
 
         <CheckBox
             android:id="@+id/new_file_dialog__utf8_bom"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="@string/utf8_with_bom" />
+            android:layout_height="48dp"
+            android:text="@string/utf8_with_bom"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="12dp" />
 
         <TextView
             style="@style/TextAppearance.AppCompat.Caption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/folder_is_created_without_extension" />
+            android:text="@string/folder_is_created_without_extension"/>
 
         <TextView
             style="@style/TextAppearance.AppCompat.Caption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/keep_existing_file" />
-
+            android:text="@string/keep_existing_file"/>
 
     </LinearLayout>
 </ScrollView>
