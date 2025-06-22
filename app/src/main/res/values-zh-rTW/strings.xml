@@ -139,11 +139,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overall_theme_used_in_app">使用於程式整體的主題</string>
     <string name="remember_last_directory">記住最近使用的目錄</string>
     <string name="syntax_highlighting">同步標記</string>
-    <string name="dynamic_highlighting">動態標記</string>
     <string name="highlighting_delay">標記延遲</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">延遲的閃亮標記以毫秒更新記時，較低值會提早開始標記，但會降低效能與耗電。</string>
     <string name="highlighting_enabled_or_not__appspecific">不管輸入的文字是否已標記都要調整</string>
-    <string name="dynamic_highlighting_effect">動態高亮增加性能，可能導致偽影。</string>
     <string name="control_font_size_in_editor">調整在編輯器中使用的字型</string>
     <string name="textactions_show_useful_actions_description__appspecific">在底部顯示工作列按鈕以快速修改輸入的內容或執行其他文字動作。</string>
     <string name="load_last_opened_folder_at_startup">啟動時開啟最後使用的資料夾</string>
