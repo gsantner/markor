@@ -21,6 +21,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -205,6 +206,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         super.onNewIntent(intent);
         final File file = MarkorContextUtils.getValidIntentFile(intent, null);
         if (_notebook != null && file != null) {
+            hideKeyboard();
             _viewPager.setCurrentItem(tabIdToPos(R.id.nav_notebook), false);
             if (GsFileUtils.isDirectory(file)) {
                 _notebook.getAdapter().setCurrentFolder(file);
@@ -291,6 +293,11 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onPostResume() {
+        super.onPostResume();
     }
 
     // Cycle between recent, favourite, and current
@@ -404,18 +411,20 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         }
     }
 
+    public void hideKeyboard() {
+        _cu.showSoftKeyboard(this, false, _quicknote.getEditor());
+        _cu.showSoftKeyboard(this, false, _todo.getEditor());
+    }
+
     public void onViewPagerPageSelected(final int pos) {
         _bottomNav.getMenu().getItem(pos).setChecked(true);
 
         if (pos == tabIdToPos(R.id.nav_notebook)) {
             _fab.show();
-            _cu.showSoftKeyboard(this, false, _notebook.getView());
+            hideKeyboard();
         } else {
             _fab.hide();
-            restoreDefaultToolbar();
         }
-
-        setTitle(getPosTitle(pos));
     }
 
     private GsFileBrowserOptions.Options _filesystemDialogOptions = null;
@@ -497,6 +506,9 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         super.onPause();
         WrMarkorWidgetProvider.updateLauncherWidgets();
         TodoWidgetProvider.updateTodoWidgets();
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_UNCHANGED |
+                WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
     }
 
     @Override

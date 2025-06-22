@@ -494,4 +494,31 @@ public class GsTextUtils {
         }
         return list;
     }
+
+    public static boolean endsWith(final CharSequence text, final CharSequence suffix) {
+        if (text == null || suffix == null) {
+            return false;
+        }
+
+        if (text.length() < suffix.length()) {
+            return false;
+        }
+
+        if (suffix.length() == 0) {
+            return true;
+        }
+
+        if (text == suffix) {
+            return true;
+        }
+
+        final int offset = text.length() - suffix.length();
+        for (int i = 0; i < suffix.length(); i++) {
+            if (text.charAt(offset + i) != suffix.charAt(i)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
