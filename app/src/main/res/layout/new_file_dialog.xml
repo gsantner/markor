@@ -16,11 +16,9 @@
     android:layout_height="match_parent"
     android:foreground="?android:attr/selectableItemBackground"
     android:paddingStart="@dimen/activity_horizontal_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_horizontal_margin"
     android:paddingEnd="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingBottom="0dp">
+    android:paddingBottom="@dimen/activity_horizontal_margin">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -50,7 +48,7 @@
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content">
 
                     <EditText
                         android:id="@+id/new_file_dialog__name"
@@ -96,7 +94,7 @@
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content">
 
                     <EditText
                         android:id="@+id/new_file_dialog__ext"
