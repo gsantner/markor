@@ -46,34 +46,16 @@
                     android:text="@string/name"
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
 
-                <FrameLayout
+                <AutoCompleteTextView
+                    android:id="@+id/new_file_dialog__name"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <EditText
-                        android:id="@+id/new_file_dialog__name"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:layout_gravity="center_vertical"
-                        android:hint="@string/title"
-                        android:importantForAutofill="no"
-                        android:lines="1"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                        android:textSize="15sp"
-                        tools:ignore="HardcodedText,TextFields"/>
-
-                    <TextView
-                        android:id="@+id/new_file_dialog__name_format_spinner"
-                        style="@style/Base.Widget.AppCompat.Spinner"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_gravity="end"
-                        android:contentDescription="@string/choose_format"
-                        android:inputType="none"
-                        android:paddingEnd="0dp"
-                        android:paddingStart="24dp"/>
-
-                </FrameLayout>
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_vertical"
+                    android:hint="@string/title"
+                    android:lines="1"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    android:textSize="15sp"
+                    tools:ignore="HardcodedText,TextFields"/>
 
             </LinearLayout>
 
@@ -92,34 +74,17 @@
                     android:text="@string/type"
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
 
-                <FrameLayout
+                <AutoCompleteTextView
+                    android:id="@+id/new_file_dialog__ext"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <EditText
-                        android:id="@+id/new_file_dialog__ext"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:layout_gravity="center_vertical"
-                        android:hint=".md"
-                        android:importantForAutofill="no"
-                        android:inputType="text|textNoSuggestions"
-                        android:lines="1"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                        android:textSize="15sp"
-                        tools:ignore="HardcodedText"/>
-
-                    <TextView
-                        style="@style/Base.Widget.AppCompat.Spinner"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_gravity="end"
-                        android:contentDescription="@string/choose_format"
-                        android:inputType="none"
-                        android:paddingEnd="0dp"
-                        android:paddingStart="24dp"/>
-
-                </FrameLayout>
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_vertical"
+                    android:hint=".md"
+                    android:inputType="text"
+                    android:lines="1"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    android:textSize="15sp"
+                    tools:ignore="HardcodedText"/>
 
             </LinearLayout>
 
@@ -140,7 +105,7 @@
 
         <Spinner
             android:layout_width="match_parent"
-            android:layout_height="48dp"></Spinner>
+            android:layout_height="48dp"/>
 
         <Space
             android:layout_width="match_parent"
