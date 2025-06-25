@@ -50,6 +50,7 @@
                     android:id="@+id/new_file_dialog__name"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
+                    android:completionThreshold="1"
                     android:hint="@string/title"
                     android:lines="1"
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption"
@@ -77,6 +78,7 @@
                     android:id="@+id/new_file_dialog__ext"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
+                    android:completionThreshold="0"
                     android:hint=".md"
                     android:inputType="text"
                     android:lines="1"
@@ -101,6 +103,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
         <Spinner
+            android:id="@+id/new_file_dialog__template"
             android:layout_width="match_parent"
             android:layout_height="48dp"/>
 
