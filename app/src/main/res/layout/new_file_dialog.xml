@@ -38,9 +38,9 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:labelFor="@+id/new_file_dialog__name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
                     android:ellipsize="end"
                     android:lines="1"
                     android:text="@string/name"
@@ -50,7 +50,6 @@
                     android:id="@+id/new_file_dialog__name"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:layout_gravity="center_vertical"
                     android:hint="@string/title"
                     android:lines="1"
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption"
@@ -66,9 +65,9 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:labelFor="@+id/new_file_dialog__ext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
                     android:ellipsize="end"
                     android:lines="1"
                     android:text="@string/type"
@@ -78,7 +77,6 @@
                     android:id="@+id/new_file_dialog__ext"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:layout_gravity="center_vertical"
                     android:hint=".md"
                     android:inputType="text"
                     android:lines="1"
@@ -97,7 +95,6 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:ellipsize="end"
             android:lines="1"
             android:text="@string/template"
