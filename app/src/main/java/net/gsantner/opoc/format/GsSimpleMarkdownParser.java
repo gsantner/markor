@@ -61,7 +61,7 @@ public class GsSimpleMarkdownParser {
                     .replaceAll("(?m)^# (.*)$", "<br/><big><big><big><b><font color='#000000'>$1</font></b></big></big></big><br/><br/>") // h1 (DEP: h2,h3)
                     .replaceAll("!\\[(.*?)\\]\\((.*?)\\)", "<a href=\\'$2\\'>$1</a>") // img
                     .replaceAll("\\[(.*?)\\]\\((.*?)\\)", "<a href=\\'$2\\'>$1</a>") // a href (DEP: img)
-                    .replaceAll("<(http|https):\\/\\/(.*)>", "<a href='$1://$2'>$1://$2</a>") // a href (DEP: img)
+                    .replaceAll("<http(s?):\\/\\/(.*)>", "<a href='http$1://$2'>$1://$2</a>") // a href (DEP: img)
                     .replaceAll("(?m)^([-*] )(.*)$", "<font color='#000001'>&#8226;</font> $2<br/>") // unordered list + end line
                     .replaceAll("(?m)^  (-|\\*) ([^<]*)$", "&nbsp;&nbsp;<font color='#000001'>&#8226;</font> $2<br/>") // unordered list2 + end line
                     .replaceAll("`([^<]*)`", "<font face='monospace'>$1</font>") // code
@@ -90,7 +90,7 @@ public class GsSimpleMarkdownParser {
                     .replaceAll("(?m)^## (.*)$", "<h2>$1</h2>") /// h2 (DEP: h3)
                     .replaceAll("(?m)^# (.*)$", "<h1>$1</h1>") // h1 (DEP: h2,h3)
                     .replaceAll("!\\[(.*?)\\]\\((.*?)\\)", "<img src=\\'$2\\' alt='$1' />") // img
-                    .replaceAll("<(http|https):\\/\\/(.*)>", "<a href='$1://$2'>$1://$2</a>") // a href (DEP: img)
+                    .replaceAll("<http(s?):\\/\\/(.*)>", "<a href='http$1://$2'>$1://$2</a>") // a href (DEP: img)
                     .replaceAll("\\[(.*?)\\]\\((.*?)\\)", "<a href=\\'$2\\'>$1</a>") // a href (DEP: img)
                     .replaceAll("(?m)^[-*] (.*)$", "<font color='#000001'>&#8226;</font> $1  ") // unordered list + end line
                     .replaceAll("(?m)^  [-*] (.*)$", "&nbsp;&nbsp;<font color='#000001'>&#8226;</font> $1  ") // unordered list2 + end line
