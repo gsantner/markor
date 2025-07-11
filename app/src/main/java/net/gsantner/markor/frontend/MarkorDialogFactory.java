@@ -1069,6 +1069,17 @@ public class MarkorDialogFactory {
             final GsFileUtils.SortOrder globalOrder,
             final GsCallback.a1<GsFileUtils.SortOrder> callback
     ) {
+        // Position constants for dialog items
+        final int POS_MIMETYPE = 0;
+        final int POS_NAME = 1;
+        final int POS_MTIME = 2;
+        final int POS_FILESIZE = 3;
+        final int POS_CTIME = 4;
+        final int POS_FOLDER_LOCAL = 5;
+        final int POS_FOLDER_FIRST = 6;
+        final int POS_REVERSE = 7;
+        final int POS_DOTFILES = 8;
+
         final DialogOptions dopt = new DialogOptions();
         baseConf(activity, dopt);
 
@@ -1076,25 +1087,29 @@ public class MarkorDialogFactory {
         final List<Integer> icons = new ArrayList<>();
         final List<Integer> layouts = new ArrayList<>();
 
-        data.add(activity.getString(R.string.folder_local));
-        icons.add(R.drawable.ic_save_black_24dp);
-        layouts.add(android.R.layout.simple_list_item_multiple_choice);
+        data.add(activity.getString(R.string.mime_type));
+        icons.add(R.drawable.ic_baseline_plagiarism_24);
+        layouts.add(android.R.layout.simple_list_item_single_choice);
 
         data.add(activity.getString(R.string.name));
         icons.add(R.drawable.ic_sort_by_alpha_black_24dp);
         layouts.add(android.R.layout.simple_list_item_single_choice);
 
         data.add(activity.getString(R.string.date));
-        icons.add(R.drawable.ic_date_range_black_24dp);
+        icons.add(R.drawable.ic_edit_black_24dp);
         layouts.add(android.R.layout.simple_list_item_single_choice);
 
         data.add(activity.getString(R.string.size));
         icons.add(R.drawable.ic_sd_card_black_24dp);
         layouts.add(android.R.layout.simple_list_item_single_choice);
-
-        data.add(activity.getString(R.string.mime_type));
-        icons.add(R.drawable.ic_baseline_plagiarism_24);
+        
+        data.add(activity.getString(R.string.ctime));
+        icons.add(R.drawable.ic_date_range_black_24dp);
         layouts.add(android.R.layout.simple_list_item_single_choice);
+        
+        data.add(activity.getString(R.string.folder_local));
+        icons.add(R.drawable.ic_save_black_24dp);
+        layouts.add(android.R.layout.simple_list_item_multiple_choice);
 
         data.add(activity.getString(R.string.folder_first));
         icons.add(R.drawable.ic_baseline_rule_folder_24);
@@ -1113,17 +1128,19 @@ public class MarkorDialogFactory {
         dopt.listItemLayouts = layouts;
 
         dopt.preSelected = new HashSet<>();
-        if (currentOrder.isFolderLocal) dopt.preSelected.add(0);
-        if (currentOrder.folderFirst) dopt.preSelected.add(5);
-        if (currentOrder.reverse) dopt.preSelected.add(6);
-        if (currentOrder.showDotFiles) dopt.preSelected.add(7);
+        if (currentOrder.isFolderLocal) dopt.preSelected.add(POS_FOLDER_LOCAL);
+        if (currentOrder.folderFirst) dopt.preSelected.add(POS_FOLDER_FIRST);
+        if (currentOrder.reverse) dopt.preSelected.add(POS_REVERSE);
+        if (currentOrder.showDotFiles) dopt.preSelected.add(POS_DOTFILES);
 
         final Map<String, Integer> typeToPos = new HashMap<>();
-        typeToPos.put(GsFileUtils.SORT_BY_NAME, 1);
-        typeToPos.put(GsFileUtils.SORT_BY_MTIME, 2);
-        typeToPos.put(GsFileUtils.SORT_BY_FILESIZE, 3);
-        typeToPos.put(GsFileUtils.SORT_BY_MIMETYPE, 4);
-        dopt.preSelected.add(GsCollectionUtils.getOrDefault(typeToPos, currentOrder.sortByType, 1));
+        typeToPos.put(GsFileUtils.SORT_BY_NAME, POS_NAME);
+        typeToPos.put(GsFileUtils.SORT_BY_MTIME, POS_MTIME);
+        typeToPos.put(GsFileUtils.SORT_BY_FILESIZE, POS_FILESIZE);
+        typeToPos.put(GsFileUtils.SORT_BY_CTIME, POS_CTIME);
+        typeToPos.put(GsFileUtils.SORT_BY_MIMETYPE, POS_MIMETYPE);
+
+        dopt.preSelected.add(GsCollectionUtils.getOrDefault(typeToPos, currentOrder.sortByType, POS_NAME));
         dopt.selectionMode = DialogOptions.SelectionMode.MULTIPLE;
         dopt.isSearchEnabled = false;
         dopt.titleText = R.string.sort_by;
@@ -1133,18 +1150,18 @@ public class MarkorDialogFactory {
 
         final Set<Integer> prevSelection = new HashSet<>(dopt.preSelected);
         final boolean[] resetGlobal = {false};
-        final Set<Integer> radioSet = new HashSet<>(Arrays.asList(1, 2, 3, 4));
+        final Set<Integer> radioSet = new HashSet<>(Arrays.asList(0, 1, 2, 3, 4));
         dopt.selectionChangedCallback = (selection) -> {
             final Set<Integer> added = GsCollectionUtils.setDiff(selection, prevSelection);
             final Set<Integer> removed = GsCollectionUtils.setDiff(prevSelection, selection);
-            if (globalOrder != null && currentOrder.isFolderLocal && removed.contains(0)) {
+            if (globalOrder != null && currentOrder.isFolderLocal && removed.contains(POS_FOLDER_LOCAL)) {
                 // Reset to global if folder local is unchecked
                 resetGlobal[0] = true;
                 selection.clear();
-                if (globalOrder.folderFirst) selection.add(5);
-                if (globalOrder.reverse) selection.add(6);
-                if (globalOrder.showDotFiles) selection.add(7);
-                selection.add(GsCollectionUtils.getOrDefault(typeToPos, globalOrder.sortByType, 1));
+                if (globalOrder.folderFirst) selection.add(POS_FOLDER_FIRST);
+                if (globalOrder.reverse) selection.add(POS_REVERSE);
+                if (globalOrder.showDotFiles) selection.add(POS_DOTFILES);
+                selection.add(GsCollectionUtils.getOrDefault(typeToPos, globalOrder.sortByType, POS_NAME));
             } else if (!Collections.disjoint(removed, radioSet)) {
                 // If a radio button is unchecked add it back
                 selection.addAll(removed);
@@ -1158,13 +1175,14 @@ public class MarkorDialogFactory {
 
         dopt.positionCallback = (selection) -> {
             final GsFileUtils.SortOrder order = new GsFileUtils.SortOrder();
-            order.isFolderLocal = selection.contains(0);
-            order.folderFirst = selection.contains(5);
-            order.reverse = selection.contains(6);
-            order.showDotFiles = selection.contains(7);
-            if (selection.contains(2)) order.sortByType = GsFileUtils.SORT_BY_MTIME;
-            else if (selection.contains(3)) order.sortByType = GsFileUtils.SORT_BY_FILESIZE;
-            else if (selection.contains(4)) order.sortByType = GsFileUtils.SORT_BY_MIMETYPE;
+            order.isFolderLocal = selection.contains(POS_FOLDER_LOCAL);
+            order.folderFirst = selection.contains(POS_FOLDER_FIRST);
+            order.reverse = selection.contains(POS_REVERSE);
+            order.showDotFiles = selection.contains(POS_DOTFILES);
+            if (selection.contains(POS_MTIME)) order.sortByType = GsFileUtils.SORT_BY_MTIME;
+            else if (selection.contains(POS_FILESIZE)) order.sortByType = GsFileUtils.SORT_BY_FILESIZE;
+            else if (selection.contains(POS_CTIME)) order.sortByType = GsFileUtils.SORT_BY_CTIME;
+            else if (selection.contains(POS_MIMETYPE)) order.sortByType = GsFileUtils.SORT_BY_MIMETYPE;
             else order.sortByType = GsFileUtils.SORT_BY_NAME;
             callback.callback(order);
         };
