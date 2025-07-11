@@ -93,6 +93,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_with">Open with</string>
     <string name="sort_by">Sort by</string>
     <string name="date">Date</string>
+    <string name="ctime">Creation date</string>
     <string name="deleteme____1">Name</string>
     <string name="size">Size</string>
     <string name="reverse_order">Reverse order</string>
