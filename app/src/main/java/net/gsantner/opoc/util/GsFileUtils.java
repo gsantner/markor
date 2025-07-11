@@ -755,7 +755,7 @@ public class GsFileUtils {
         return name.split("_")[0];
     }
 
-    public static final String SORT_BY_NAME = "NAME", SORT_BY_FILESIZE = "FILESIZE", SORT_BY_MTIME = "MTIME", SORT_BY_MIMETYPE = "MIMETYPE";
+    public static final String SORT_BY_CTIME = "CTIME", SORT_BY_NAME = "NAME", SORT_BY_FILESIZE = "FILESIZE", SORT_BY_MTIME = "MTIME", SORT_BY_MIMETYPE = "MIMETYPE";
 
     /**
      * Get a key which can be use to sort File objects
@@ -769,6 +769,17 @@ public class GsFileUtils {
     private static String makeSortKey(final String sortBy, final File file) {
         final String name = file.getName().toLowerCase();
         switch (sortBy) {
+            case SORT_BY_CTIME: {
+                try {
+                    Path path = file.toPath();
+                    BasicFileAttributes attrs = Files.readAttributes(path, BasicFileAttributes.class);
+                    long ctime = attrs.creationTime().toMillis();
+                    return String.format("%015d", ctime) + name;
+                } catch (IOException e) {
+                    // Fallback to lastModified
+                    return file.lastModified() + name;
+                }
+            }
             case SORT_BY_MTIME: {
                 return file.lastModified() + name;
             }
