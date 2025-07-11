@@ -135,11 +135,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overall_theme_used_in_app">پوسته‌ای که در تمام برنامه استفاده خواهد شد</string>
     <string name="remember_last_directory">به خاطر سپردن آخرین پوشه</string>
     <string name="syntax_highlighting">مشخص کردن نحو</string>
-    <string name="dynamic_highlighting">رنگ‌آمیزی پویا</string>
     <string name="highlighting_delay">زمان‌بندی رنگی کردن</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">فاصله زمانی برای به روز رسانی عملیات مشخص کردن را تعیین کنید. عدد پایان تر، مشخص کردن را سریع‌ تر انجام می‌دهد؛ ولی باتری بیشتری مصرف خواهد کرد و شاید باعث کاهش سرعت اپ در دستگاه های ضعیف تر شود.</string>
     <string name="highlighting_enabled_or_not__appspecific">مشخص کنید که آیا متن وارد شده باید مشخص شود(هایلایت) یا نه</string>
-    <string name="dynamic_highlighting_effect">رنگ‌آمیزی پویا عملکرد را شدت می‌بخشد. ممکن است مشکلاتی در زمینه‌ی رندرینگ گرافیکی برنامه ایجاد کند.</string>
     <string name="control_font_size_in_editor">کنترل اندازه قلم ویرایشگر</string>
     <string name="textactions_show_useful_actions_description__appspecific">نمایش یک نوار با عملکردهای کاربردی. این دکمه‌ها فرایندهایی جهت ویرایش متن فراهم می‌کنند.</string>
     <string name="load_last_opened_folder_at_startup">بارگزاری آخرین پوشه باز شده هنگام راه‌اندازی</string>
