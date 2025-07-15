@@ -773,8 +773,7 @@ public class GsFileUtils {
                 try {
                     Path path = file.toPath();
                     BasicFileAttributes attrs = Files.readAttributes(path, BasicFileAttributes.class);
-                    long ctime = attrs.creationTime().toMillis();
-                    return String.format("%015d", ctime) + name;
+                    return attrs.creationTime().toString + name;
                 } catch (IOException e) {
                     // Fallback to lastModified
                     return file.lastModified() + name;
