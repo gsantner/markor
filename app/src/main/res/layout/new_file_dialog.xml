@@ -25,74 +25,39 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <LinearLayout
+        <TextView
+            android:labelFor="@+id/new_file_dialog__name"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="@string/name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
+
+        <FrameLayout
             android:layout_width="match_parent"
-            android:baselineAligned="true"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            tools:ignore="ExtraText">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:orientation="vertical">
+            <AutoCompleteTextView
+                android:id="@+id/new_file_dialog__name"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:completionThreshold="999"
+                android:lines="1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textSize="15sp"
+                tools:ignore="HardcodedText,TextFields"/>
 
-                <TextView
-                    android:labelFor="@+id/new_file_dialog__name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:lines="1"
-                    android:text="@string/name"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
+            <Button
+                android:id="@+id/button"
+                android:layout_width="48dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:text="▾"
+                android:textSize="15sp" />
 
-                <AutoCompleteTextView
-                    android:id="@+id/new_file_dialog__name"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:completionThreshold="1"
-                    android:hint="@string/title"
-                    android:lines="1"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                    android:textSize="15sp"
-                    tools:ignore="HardcodedText,TextFields"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:labelFor="@+id/new_file_dialog__ext"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:lines="1"
-                    android:text="@string/type"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
-
-                <AutoCompleteTextView
-                    android:id="@+id/new_file_dialog__ext"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:completionThreshold="0"
-                    android:hint=".md"
-                    android:inputType="text"
-                    android:lines="1"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                    android:textSize="15sp"
-                    tools:ignore="HardcodedText"/>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="12dp" />
+        </FrameLayout>
 
         <TextView
             android:layout_width="match_parent"
@@ -113,13 +78,13 @@
 
         <CheckBox
             android:id="@+id/new_file_dialog__encrypt"
-            android:layout_width="match_parent"
+            android:layout_width="320dp"
             android:layout_height="48dp"
             android:text="@string/encrypt_file_content"/>
 
         <CheckBox
             android:id="@+id/new_file_dialog__utf8_bom"
-            android:layout_width="match_parent"
+            android:layout_width="320dp"
             android:layout_height="48dp"
             android:text="@string/utf8_with_bom"/>
 
