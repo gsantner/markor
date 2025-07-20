@@ -716,7 +716,7 @@ public class GsFileUtils {
         return getFilenameExtension(file.getName());
     }
 
-    /// Get the file extension of the file, with dot
+    // Get the file extension of the file, with dot
     public static String getFilenameExtension(String name) {
         name = name.replace(".jenc", "");
         final int doti = name.indexOf(".");
@@ -771,11 +771,8 @@ public class GsFileUtils {
         switch (sortBy) {
             case SORT_BY_CTIME: {
                 try {
-                    Path path = file.toPath();
-                    BasicFileAttributes attrs = Files.readAttributes(path, BasicFileAttributes.class);
-                    return attrs.creationTime().toString() + name;
+                    return Files.readAttributes(file.toPath(), BasicFileAttributes.class).creationTime().toString() + name;
                 } catch (IOException e) {
-                    // Fallback to lastModified
                     return file.lastModified() + name;
                 }
             }
