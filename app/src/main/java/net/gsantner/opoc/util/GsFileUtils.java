@@ -716,7 +716,7 @@ public class GsFileUtils {
         return getFilenameExtension(file.getName());
     }
 
-    /// Get the file extension of the file, with dot
+    // Get the file extension of the file, with dot
     public static String getFilenameExtension(String name) {
         name = name.replace(".jenc", "");
         final int doti = name.indexOf(".");
@@ -755,7 +755,7 @@ public class GsFileUtils {
         return name.split("_")[0];
     }
 
-    public static final String SORT_BY_NAME = "NAME", SORT_BY_FILESIZE = "FILESIZE", SORT_BY_MTIME = "MTIME", SORT_BY_MIMETYPE = "MIMETYPE";
+    public static final String SORT_BY_CTIME = "CTIME", SORT_BY_NAME = "NAME", SORT_BY_FILESIZE = "FILESIZE", SORT_BY_MTIME = "MTIME", SORT_BY_MIMETYPE = "MIMETYPE";
 
     /**
      * Get a key which can be use to sort File objects
@@ -769,6 +769,13 @@ public class GsFileUtils {
     private static String makeSortKey(final String sortBy, final File file) {
         final String name = file.getName().toLowerCase();
         switch (sortBy) {
+            case SORT_BY_CTIME: {
+                try {
+                    return Files.readAttributes(file.toPath(), BasicFileAttributes.class).creationTime().toString() + name;
+                } catch (IOException e) {
+                    return file.lastModified() + name;
+                }
+            }
             case SORT_BY_MTIME: {
                 return file.lastModified() + name;
             }
