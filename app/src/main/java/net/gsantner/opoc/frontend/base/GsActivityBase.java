@@ -88,6 +88,14 @@ public abstract class GsActivityBase<AS extends GsSharedPreferencesPropertyBacke
         super.onResume();
         m_setActivityBackgroundColor.callback();
         m_setActivityNavigationBarColor.callback();
+
+        // Setup the call to toolbar click events
+        // Do this every time the activity is created, to accommodate lifecycle changes
+        final Toolbar toolbar = getToolbar();
+        if (toolbar != null) {
+            toolbar.setOnClickListener(this::onToolbarClick);
+            toolbar.setOnLongClickListener(this::onToolbarLongClick);
+        }
     }
 
     @Override
