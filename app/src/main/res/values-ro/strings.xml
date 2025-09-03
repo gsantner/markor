@@ -47,7 +47,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (ca text simplu)</string>
     <string name="document_editor_font">Editor de Document Font</string>
     <string name="theme">Temă</string>
-    <string name="open_existing_files_in_view_mode">Deschide fişierele existente în modul de vizualizare</string>
+    <string name="open_existing_files_in_view_mode">Deschide fișierele existente în modul de vizualizare</string>
     <string name="about">Despre</string>
     <string name="plaintext">Text Simplu</string>
     <string name="file">Fișier</string>
