@@ -308,7 +308,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_mode">Mod editare</string>
     <string name="mount_storage">Montează stocarea</string>
     <string name="application_needs_access_to_storage_mount_it">Este necesară permisiunea pentru a accesa acest spațiu de stocare. Montați spațiul de stocare pentru a permite accesul. Confirmați această fereastră de dialog pentru a obține o fereastră pop-up. Selectați spațiul de stocare de acolo și apăsați Selectare.</string>
-    <string name="share_into">Distribuie în</string>
+    <string name="share_into">Partajează în</string>
     <string name="favourite">Favorit</string>
     <string name="favourites">Favorite</string>
     <string name="please_wait">Vă rugăm așteptați</string>
