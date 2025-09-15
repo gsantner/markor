@@ -11,7 +11,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.webkit.WebView;
 
-import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.MarkorContextUtils;
@@ -52,7 +51,7 @@ public class MarkorWebViewClient extends GsWebViewClient {
                 DocumentActivity.launch(_activity, file, null, null);
             } else {
                 MarkorContextUtils su = new MarkorContextUtils(_activity);
-                AppSettings settings = ApplicationObject.settings();
+                AppSettings settings = AppSettings.get(_activity);
                 if (!settings.isOpenLinksWithChromeCustomTabs() || (settings.isOpenLinksWithChromeCustomTabs() && !su.openWebpageInChromeCustomTab(context, url))) {
                     su.openWebpageInExternalBrowser(context, url);
                     return true;

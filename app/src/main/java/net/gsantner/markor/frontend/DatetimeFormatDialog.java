@@ -27,7 +27,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.os.ConfigurationCompat;
 
-import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.model.AppSettings;
@@ -87,7 +86,7 @@ public class DatetimeFormatDialog {
         final View viewRoot = activity.getLayoutInflater().inflate(R.layout.time_format_dialog, null);
 
         final GsContextUtils cu = new GsContextUtils();
-        final AppSettings appSettings = ApplicationObject.settings();
+        final AppSettings appSettings = AppSettings.get(activity);
 
         final Locale locale = ConfigurationCompat.getLocales(activity.getResources().getConfiguration()).get(0);
 

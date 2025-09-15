@@ -10,6 +10,7 @@
 package net.gsantner.opoc.frontend.filebrowser;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Environment;
 
 import androidx.annotation.ColorRes;
@@ -140,6 +141,8 @@ public class GsFileBrowserOptions {
             storageMaps.put(file, target);
             iconMaps.put(file, icon);
         }
+
+        public DialogInterface dialogInterface = null;
     }
 
 

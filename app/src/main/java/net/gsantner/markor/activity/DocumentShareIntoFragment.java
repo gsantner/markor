@@ -34,7 +34,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceGroup;
 
-import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.format.plaintext.PlaintextSyntaxHighlighter;
@@ -210,7 +209,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
 
         @Override
         protected AppSettings getAppSettings(Context context) {
-            return ApplicationObject.settings();
+            return AppSettings.get(context);
         }
 
         @Override
@@ -299,7 +298,9 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                 }
 
                 _appSettings.addRecentFile(dest);
-                if (attachment != null) {
+
+                // Only if not forced link due to attachment
+                if (attachment == null) {
                     _appSettings.setFormatShareAsLink(asLink);
                 }
 
@@ -581,7 +582,12 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
     }
 
     private static String sanitize(final String link) {
-        return link.replaceAll("(?m)(?<=&|\\?)(utm_|source|si|__mk_|ref|sprefix|crid|partner|promo|ad_sub|gclid|fbclid|msclkid).*?(&|$|\\s|\\))", "");
+        String dropGetParams = "utm_|source|si|__mk_|ref|sprefix|crid|partner|promo|ad_sub|gclid|fbclid|msclkid|dib";
+        if (link.contains("amazon.")) {
+            dropGetParams += "|qid|sr";
+        }
+
+        return link.replaceAll("(?m)(?<=&|\\?)(" + dropGetParams + ").*?(&|$|\\s|\\))", "");
     }
 
     private static String extractShareText(final Intent intent) {

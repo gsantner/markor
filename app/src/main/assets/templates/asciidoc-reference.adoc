@@ -1,0 +1,83 @@
+= H1 Header
+
+== H2 Header
+=== H3 header
+==== H4 Header
+===== H5 Header
+
+= Format Text
+
+_Italic_ , __Italic (multiline)__
+
+*Bold* , **Bold (multiline)**
+
+`Monospace`
+
+#Highlighted#
+
+[red]#Colored#
+
+[.underline]#Underline# , [.line-through]#Strikethrough# ,  [.overline]#Overline#
+
+> Block quote
+
+~Subscript~ , Normal , ^Superscript^
+
+Special characters:
+
+(C) (R) (TM) -- ... -> <- => <= 
+
+Line:
+
+'''
+
+Code:
+
+[source,python]
+----
+def factorial(n):
+    if n!=0:
+        return n*factorial(n-1)
+    return 1
+----
+
+= Lists
+
+=== Ordered List
+
+. One
+. Two
+. Three
+.. Three and a half
+
+=== Unordered List
+
+* Apple
+** Honeycrisp
+** Jonagold
+* Banana
+* Cherry
+
+=== Checklist
+
+* [ ] todo
+* [x] done
+
+= Tables
+
+|===
+| Tiger | Lion | Jaguar
+
+| striped | plain | spotted
+| Asia | Africa | S. America
+|===
+
+= Multimedia
+
+=== Image
+
+image::file:///android_asset/img/schindelpattern.jpg[""]
+
+= Links
+
+link:https://wikipedia.org[Wikipedia]
