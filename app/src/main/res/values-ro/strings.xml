@@ -23,7 +23,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="browse_filesystem">Răsfoiți sistemul de fișiere</string>
     <string name="title">Titlu</string>
     <string name="empty_directory">Golește dosarul</string>
-    <string name="enter_name_of_folder">Introduceți numele dosarului dvs.</string>
+    <string name="enter_name_of_folder">Introdu numele dosarului tău</string>
     <string name="create_folder">Creați Folder</string>
     <string name="create_new_document">Creați un document nou</string>
     <string name="move">Mutați</string>
@@ -47,7 +47,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (ca text simplu)</string>
     <string name="document_editor_font">Editor de Document Font</string>
     <string name="theme">Temă</string>
-    <string name="open_existing_files_in_view_mode">Deschide fişierele existente în modul de vizualizare</string>
+    <string name="open_existing_files_in_view_mode">Deschide fișierele existente în modul de vizualizare</string>
     <string name="about">Despre</string>
     <string name="plaintext">Text Simplu</string>
     <string name="file">Fișier</string>
@@ -308,7 +308,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_mode">Mod editare</string>
     <string name="mount_storage">Montează stocarea</string>
     <string name="application_needs_access_to_storage_mount_it">Este necesară permisiunea pentru a accesa acest spațiu de stocare. Montați spațiul de stocare pentru a permite accesul. Confirmați această fereastră de dialog pentru a obține o fereastră pop-up. Selectați spațiul de stocare de acolo și apăsați Selectare.</string>
-    <string name="share_into">Distribuie în</string>
+    <string name="share_into">Partajează în</string>
     <string name="favourite">Favorit</string>
     <string name="favourites">Favorite</string>
     <string name="please_wait">Vă rugăm așteptați</string>
