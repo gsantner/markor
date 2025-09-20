@@ -380,6 +380,13 @@ public final class TextViewUtils {
         }
     }
 
+    /**
+     * Scroll EditText view to the region that contains the start selection and don‘t insert this selection.
+     * If start selection is already in current visible region, it will not scroll EditText view.
+     *
+     * @param editText       EditText view
+     * @param startSelection Start selection
+     */
     public static void showSelection(final EditText editText, final int startSelection, boolean setSelection) {
         Layout layout = editText.getLayout();
         Rect visibleRect = new Rect();
@@ -387,20 +394,7 @@ public final class TextViewUtils {
         int line = layout.getLineForOffset(startSelection);
         if (layout.getLineTop(line) < visibleRect.top || layout.getLineBottom(line) + 30 > visibleRect.bottom) {
             showSelection(editText, startSelection, startSelection);
-            if (setSelection) {
-                editText.setSelection(startSelection);
-            }
         }
-    }
-
-    /**
-     * Show selection but do not set selection, and do not scroll EditText view if start selection is already in visible region.
-     *
-     * @param editText       Edit text view
-     * @param startSelection Start selection
-     */
-    public static void showSelection(final EditText editText, final int startSelection) {
-        showSelection(editText, startSelection, false);
     }
 
     /**
