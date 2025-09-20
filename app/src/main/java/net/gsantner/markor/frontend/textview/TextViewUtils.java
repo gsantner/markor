@@ -319,7 +319,6 @@ public final class TextViewUtils {
     }
 
     public static void showSelection(final TextView text, final int start, final int end) {
-
         // Get view info
         // ------------------------------------------------------------
         final Layout layout = text.getLayout();
@@ -342,7 +341,7 @@ public final class TextViewUtils {
         final int startLine = layout.getLineForOffset(lineStart);
         final int startLineTop = layout.getLineTop(startLine);
 
-        final int endLine = layout.getLineForOffset(_end);
+        final int endLine = layout.getLineForOffset(_end) + 1;
         final int endLineBottom = layout.getLineBottom(endLine);
         final int endLineTop = layout.getLineTop(endLine);
         final int lineHeight = endLineBottom - endLineTop;
@@ -379,6 +378,29 @@ public final class TextViewUtils {
             edit.setSelection(start, end);
             showSelection(edit, start, end);
         }
+    }
+
+    public static void showSelection(final EditText editText, final int startSelection, boolean setSelection) {
+        Layout layout = editText.getLayout();
+        Rect visibleRect = new Rect();
+        editText.getLocalVisibleRect(visibleRect);
+        int line = layout.getLineForOffset(startSelection);
+        if (layout.getLineTop(line) < visibleRect.top || layout.getLineBottom(line) + 30 > visibleRect.bottom) {
+            showSelection(editText, startSelection, startSelection);
+            if (setSelection) {
+                editText.setSelection(startSelection);
+            }
+        }
+    }
+
+    /**
+     * Show selection but do not set selection, and do not scroll EditText view if start selection is already in visible region.
+     *
+     * @param editText       Edit text view
+     * @param startSelection Start selection
+     */
+    public static void showSelection(final EditText editText, final int startSelection) {
+        showSelection(editText, startSelection, false);
     }
 
     /**
