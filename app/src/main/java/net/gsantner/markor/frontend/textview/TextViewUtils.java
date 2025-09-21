@@ -341,7 +341,7 @@ public final class TextViewUtils {
         final int startLine = layout.getLineForOffset(lineStart);
         final int startLineTop = layout.getLineTop(startLine);
 
-        final int endLine = layout.getLineForOffset(_end) + 1;
+        final int endLine = layout.getLineForOffset(_end);
         final int endLineBottom = layout.getLineBottom(endLine);
         final int endLineTop = layout.getLineTop(endLine);
         final int lineHeight = endLineBottom - endLineTop;

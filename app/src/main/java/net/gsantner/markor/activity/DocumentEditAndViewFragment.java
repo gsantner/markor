@@ -269,24 +269,19 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     @Override
     protected void onFragmentFirstTimeVisible() {
-        _hlEditor.recomputeHighlighting(); // Run before setting scroll position
-        int line = -1;
-        int startPosition = _appSettings.getLastEditPosition(_document.path, 0);
-
         final Bundle args = getArguments();
-        if (args != null) {
-            if (args.containsKey(Document.EXTRA_FILE_LINE_NUMBER)) {
-                line = args.getInt(Document.EXTRA_FILE_LINE_NUMBER);
+        int startPos = _appSettings.getLastEditPosition(_document.path, _hlEditor.length());
+        if (args != null && args.containsKey(Document.EXTRA_FILE_LINE_NUMBER)) {
+            final int lno = args.getInt(Document.EXTRA_FILE_LINE_NUMBER);
+            if (lno >= 0) {
+                startPos = TextViewUtils.getIndexFromLineOffset(_hlEditor.getText(), lno, 0);
+            } else {
+                startPos = _hlEditor.length();
             }
         }
 
-        if (line > -1) {
-            TextViewUtils.getIndexFromLineOffset(_hlEditor.getText(), line, 0);
-            TextViewUtils.setSelectionAndShow(_hlEditor, startPosition);
-        } else {
-            final int scrollY = _appSettings.getLastEditScrollY(_document.path, 0);
-            _verticalScrollView.setScrollY(scrollY);
-        }
+        _hlEditor.recomputeHighlighting(); // Run before setting scroll position
+        TextViewUtils.setSelectionAndShow(_hlEditor, startPos);
 
         // Fade in to hide initial jank
         _hlEditor.post(() -> _hlEditor.animate().alpha(1).setDuration(250).start());
