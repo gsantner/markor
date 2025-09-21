@@ -123,6 +123,11 @@ public class FileInfoDialog extends DialogFragment {
         checkHideInRecents.setChecked(appSettings.listFileInRecents(file));
         checkHideInRecents.setOnCheckedChangeListener((buttonView, isChecked) -> appSettings.setListFileInRecents(file, isChecked));
 
+
+        CheckBox checkFavorite = root.findViewById(R.id.ui__fileinfodialog__favorite);
+        checkFavorite.setChecked(appSettings.getFavouriteFiles().contains(file));
+        checkFavorite.setOnCheckedChangeListener((buttonView, isChecked) -> appSettings.toggleFavouriteFile(file));
+
         return dialogBuilder;
     }
 

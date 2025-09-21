@@ -58,6 +58,7 @@ public class SettingsActivity extends MarkorBaseActivity {
 
     protected Toolbar toolbar;
 
+    @Override
     public void onCreate(Bundle b) {
         // Must be applied before setContentView
         super.onCreate(b);

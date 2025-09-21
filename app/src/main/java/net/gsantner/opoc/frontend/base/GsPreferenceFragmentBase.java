@@ -266,6 +266,8 @@ public abstract class GsPreferenceFragmentBase<AS extends GsSharedPreferencesPro
     @Override
     public void onResume() {
         super.onResume();
+        _appSettings = getAppSettings(getActivity());
+        _cu = GsContextUtils.instance;
         updatePreferenceChangedListeners(true);
         doUpdatePreferences(); // Invoked later
         onPreferenceScreenChangedPriv(this, getPreferenceScreen());
