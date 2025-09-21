@@ -101,7 +101,6 @@ public class AttachLinkOrFileDialog {
         final Button buttonPictureGallery = view.findViewById(R.id.ui__select_path_dialog__gallery_picture);
         final Button buttonPictureCamera = view.findViewById(R.id.ui__select_path_dialog__camera_picture);
         final Button buttonPictureEdit = view.findViewById(R.id.ui__select_path_dialog__edit_picture);
-        final Button buttonAudioRecord = view.findViewById(R.id.ui__select_path_dialog__record_audio);
 
         builder.setCancelable(true);
         builder.setNegativeButton(android.R.string.cancel, (di, b) -> di.dismiss());
@@ -142,7 +141,6 @@ public class AttachLinkOrFileDialog {
             okType = InsertType.IMAGE_DIALOG;
         } else if (action == AUDIO_ACTION) {
             dialog.setTitle(R.string.audio);
-            buttonAudioRecord.setVisibility(View.VISIBLE);
             browseType = InsertType.AUDIO_BROWSE;
             okType = InsertType.AUDIO_DIALOG;
         } else {
@@ -158,7 +156,6 @@ public class AttachLinkOrFileDialog {
         buttonSearch.setOnClickListener(v -> _insertItem.callback(InsertType.LINK_SEARCH));
         buttonPictureCamera.setOnClickListener(b -> _insertItem.callback(InsertType.IMAGE_CAMERA));
         buttonPictureGallery.setOnClickListener(v -> _insertItem.callback(InsertType.IMAGE_GALLERY));
-        buttonAudioRecord.setOnClickListener(v -> _insertItem.callback(InsertType.AUDIO_RECORDING));
         buttonPictureEdit.setOnClickListener(v -> _insertItem.callback(InsertType.IMAGE_EDIT));
 
         dialog.show();

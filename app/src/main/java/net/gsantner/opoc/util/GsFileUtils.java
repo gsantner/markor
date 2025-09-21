@@ -738,10 +738,9 @@ public class GsFileUtils {
     }
 
     /// Get the file extension of the file, with dot
+    /// @return "" -> "", "index" -> "", "index.html" -> ".html", "my.website.html" -> ".html"
     public static String getFilenameExtension(String name) {
-        name = name.replace(".jenc", "");
-        final int doti = name.indexOf(".");
-        return (doti < 0) ? "" : name.substring(doti).toLowerCase().trim();
+        return name.contains(".") ? name.replaceAll(".*?(\\.[^.]+)$", "$1") : "";
     }
 
     public static String getFilteredFilenameWithoutDisallowedChars(String str, final boolean... a1NoRCEguard) {
