@@ -15,6 +15,7 @@ import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.format.TextConverterBase;
 import net.gsantner.markor.format.binary.EmbedBinaryTextConverter;
 import net.gsantner.markor.format.keyvalue.KeyValueTextConverter;
+import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 
@@ -28,7 +29,7 @@ import java.util.Locale;
 public class PlaintextTextConverter extends TextConverterBase {
     private static final String HTML100_BODY_PRE_BEGIN = "<pre style='white-space: pre-wrap;font-family: " + TOKEN_FONT + "' >";
     private static final String HTML101_BODY_PRE_END = "</pre>";
-    private static final List<String> EXT_TEXT = Arrays.asList(".txt", ".taskpaper", ".org", ".ldg", ".ledger", ".m3u", ".m3u8", ".lrc", ".fen");
+    private static final List<String> EXT_TEXT = Arrays.asList(".txt", ".taskpaper", ".org", ".ldg", ".ledger", ".m3u", ".m3u8", ".svg", ".lrc", ".fen");
     private static final List<String> EXT_HTML = Arrays.asList(".html", ".htm");
     private static final List<String> EXT_CODE_HL = Arrays.asList(".py", ".cpp", ".h", ".c", ".js", ".mjs", ".css", ".cs", ".kt", ".lua", ".perl", ".java", ".qml", ".diff", ".php", ".r", ".patch", ".rs", ".swift", ".ts", ".mm", ".go", ".sh", ".rb", ".tex", ".xml", ".xlf");
     private static final List<String> EXT = new ArrayList<>();
@@ -63,7 +64,7 @@ public class PlaintextTextConverter extends TextConverterBase {
         if (EXT_HTML.contains(extWithDot)) {
             // HTML: Display it
             converted += markup;
-        } else if (extWithDot.matches(EmbedBinaryTextConverter.EXT_MATCHES_M3U_PLAYLIST)) {
+        } else if (extWithDot.matches(EmbedBinaryTextConverter.EXT_MATCHES_M3U_PLAYLIST) || extWithDot.matches(EmbedBinaryTextConverter.EXT_IMAGE_TEXTUAL)) {
             // Playlist: Load in Embed-Binary view-mode
             return FormatRegistry.CONVERTER_EMBEDBINARY.convertMarkup(markup, context, lightMode, lineNum, file);
         } else if (EXT_CODE_HL.contains(extWithDot) || (this instanceof KeyValueTextConverter)) {
@@ -88,6 +89,6 @@ public class PlaintextTextConverter extends TextConverterBase {
 
     @Override
     protected boolean isFileOutOfThisFormat(final File file, final String name, final String ext) {
-        return EXT.contains(ext) || _appSettings.isExtOpenWithThisApp(ext) || GsFileUtils.isTextFile(file);
+        return EXT.contains(ext) || AppSettings.get(null).isExtOpenWithThisApp(ext) || GsFileUtils.isTextFile(file);
     }
 }

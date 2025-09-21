@@ -139,11 +139,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overall_theme_used_in_app">Используемая тема оформления</string>
     <string name="remember_last_directory">Запоминать последнюю папку</string>
     <string name="syntax_highlighting">Подсветка синтаксиса</string>
-    <string name="dynamic_highlighting">Динамическая подсветка</string>
     <string name="highlighting_delay">Задержка подсветки</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Задержка в мсек при подсветке синтаксиса. Чем она меньше, тем быстрее обновление и больше расход энергии. Старые устройства могут замедляться.</string>
     <string name="highlighting_enabled_or_not__appspecific">Подсвечивать введённый текст</string>
-    <string name="dynamic_highlighting_effect">Динамическая подсветка увеличивает производительность. Может вызвать артефакты рендеринга.</string>
     <string name="control_font_size_in_editor">Выбрать размер шрифта в редакторе</string>
     <string name="textactions_show_useful_actions_description__appspecific">Показывать внизу панель с кнопками. Они изменяют текст или запускают действия.</string>
     <string name="load_last_opened_folder_at_startup">При запуске загружать последнюю открытую папку</string>
@@ -220,6 +218,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="clipboard">Буфер обмена</string>
     <string name="select_existing_document">Выберите существующий документ</string>
     <string name="select_create_document">Выбрать или создать документ</string>
+    <string name="select_create_folder">Выбор или создание папки</string>
     <string name="open_source_licenses">Лицензии с открытым исходным кодом</string>
     <string name="rate_this_app">Оценить приложение</string>
     <string name="translate">Перевод</string>
@@ -335,6 +334,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="current">Текущий</string>
     <string name="record_audio">Записать Аудио</string>
     <string name="attach">Прикрепить</string>
+    <string name="attachment">Вложение</string>
     <string name="copy_file">Копировать файл</string>
     <string name="page">Страница</string>
     <string name="experimental_features">Экспериментальные функции</string>
@@ -465,4 +465,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="capitalize_words">Слова с заглавной (напр., слово-&gt;Слово)</string>
     <string name="capitalize_sentences">Предложения с заглавных (напр., слово-&gt;Слово)</string>
     <string name="use_tab_to_indent">Сдвинуть строки вправо используя клавишу TAB</string>
+    <string name="folder_local">Локальная папка</string>
 </resources>

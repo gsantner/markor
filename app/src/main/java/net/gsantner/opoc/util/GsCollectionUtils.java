@@ -19,7 +19,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -128,14 +128,8 @@ public class GsCollectionUtils {
     /**
      * Check if 2 collections have the same elements
      */
-    public static <T> boolean setEquals(Collection<T> a, Collection<T> b) {
-        a = a != null ? a : Collections.emptySet();
-        b = b != null ? b : Collections.emptySet();
-
-        a = a instanceof Set ? a : new HashSet<>(a);
-        b = b instanceof Set ? b : new HashSet<>(b);
-
-        return a.equals(b);
+    public static <T> boolean setEquals(final Collection<T> a, final Collection<T> b) {
+        return (a == b) || (a != null && b != null && a.size() == b.size() && a.containsAll(b));
     }
 
     /**
@@ -287,5 +281,18 @@ public class GsCollectionUtils {
             data.clear();
             data.addAll(deduped);
         }
+    }
+
+    public static <T> void removeIf(final Collection<T> data, final GsCallback.b1<? super T> predicate) {
+        final Iterator<T> iter = data.iterator();
+        while (iter.hasNext()) {
+            if (predicate.callback(iter.next())) {
+                iter.remove();
+            }
+        }
+    }
+
+    public static <T> void keepIf(final Collection<T> data, final GsCallback.b1<? super T> predicate) {
+        removeIf(data, (v) -> !predicate.callback(v));
     }
 }

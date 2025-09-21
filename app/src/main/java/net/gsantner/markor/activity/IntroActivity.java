@@ -14,8 +14,8 @@ import androidx.preference.PreferenceManager;
 import com.github.appintro.AppIntro;
 import com.github.appintro.AppIntroFragment;
 
-import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
+import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.util.GsContextUtils;
 
 public class IntroActivity extends AppIntro {
@@ -38,7 +38,7 @@ public class IntroActivity extends AppIntro {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        GsContextUtils.instance.setAppLanguage(this, ApplicationObject.settings().getLanguage());
+        GsContextUtils.instance.setAppLanguage(this, AppSettings.get(this).getLanguage());
 
         // Instead of fragments, you can also use our default slide
         // Just set a title, description, background and image. AppIntro will do the rest

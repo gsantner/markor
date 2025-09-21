@@ -169,8 +169,6 @@ Files are stored locally in a user selectable folder, defaulting to the internal
   In user-generated content data can be loaded from the internet.
 * INSTALL_SHORTCUT  
   Install a shortcut to launchers to open a file/folder in Markor.
-* RECORD_AUDIO  
-  Attach voice notes to the text. The permission is only used after click on the "attach audio" button, at the audio record dialog. Audio recording is always started and stopped manually by you (button press).
 
 ## License
 The code of the app is licensed Apache 2.0.  
@@ -212,6 +210,11 @@ Your main to-do list file in todo.txt format. You can access it by swiping once 
 
 #### What is QuickNote?
 The fastest and easiest way to take notes! QuickNote is a file in Markdown format with a freely choosable file location. You can access it by swiping twice at the main screen, by selecting QuickNote at Notebook, or by using the dedicated launcher. The location of this file is freely choosable and independent from the Notebook directory.
+
+#### How can I encrypt my notes?
+You have to set a master password in Settings/General/File encryption password and toggle "Encrypt file content" when you create a note that you want encrypted.
+If you want to use a different password for a different file you will have to change the master password before you create that file.
+Markor remembers locally only the last used password and automatically decrypts only the content of the files that use the most recent password, if you don't want markor to automatically decrypt any file you can set the master password to some random string. 
 
 #### Launchers
 A launcher is a "start menu option" in your devices launcher (=appdrawer / start menu). When Markor is installed you have the start menu option for Markor. When the Markor settings option "Launcher (Special Documents)" is enabled, you get the additional start menu options for ToDo and QuickNote. Note that a device restart is required when you change this option.

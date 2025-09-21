@@ -25,8 +25,8 @@ android {
     defaultConfig {
         resValue "string", "manifest_package_id", "net.gsantner.markor"
         applicationId "net.gsantner.markor"
-        versionName "2.14.0"
-        versionCode 157
+        versionName "2.15.1"
+        versionCode 160
 
         multiDexEnabled true
         minSdkVersion rootProject.ext.version_minSdk
@@ -135,8 +135,6 @@ dependencies {
         exclude group: 'commons-beanutils', module: 'commons-beanutils'
     }
 
-
-
     // UI libs
     implementation 'com.github.Pixplicity:gene-rate:v1.1.8'
     implementation 'com.github.AppIntro:AppIntro:6.2.0'
@@ -149,6 +147,9 @@ dependencies {
     if (enable_plugin_kotlin) {
         implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${version_plugin_kotlin}"
     }
+
+    // https://mvnrepository.com/artifact/com.google.code.gson/gson
+    implementation 'com.google.code.gson:gson:2.10.1'
 
     // Processors
     def anpros = []

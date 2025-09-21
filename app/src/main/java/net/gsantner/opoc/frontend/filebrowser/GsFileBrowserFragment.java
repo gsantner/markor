@@ -47,6 +47,7 @@ import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.frontend.filesearch.FileSearchEngine;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.MarkorContextUtils;
+import net.gsantner.opoc.frontend.GsSearchOrCustomTextDialog;
 import net.gsantner.opoc.frontend.base.GsFragmentBase;
 import net.gsantner.opoc.model.GsSharedPreferencesPropertyBackend;
 import net.gsantner.opoc.util.GsCollectionUtils;
@@ -63,7 +64,6 @@ import java.util.List;
 import java.util.Set;
 
 import other.writeily.model.WrMarkorSingleton;
-import other.writeily.ui.WrConfirmDialog;
 import other.writeily.ui.WrRenameDialog;
 
 public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPropertyBackend, GsContextUtils> implements GsFileBrowserOptions.SelectionListener {
@@ -104,14 +104,12 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     @Override
     public void onViewCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(root, savedInstanceState);
-        Context context = getContext();
+        final Activity activity = getActivity();
         _recyclerList = root.findViewById(R.id.ui__filesystem_dialog__list);
         _swipe = root.findViewById(R.id.pull_to_refresh);
         _emptyHint = root.findViewById(R.id.empty_hint);
-
-        _appSettings = ApplicationObject.settings();
-        _cu = new MarkorContextUtils(root.getContext());
-        final Activity activity = getActivity();
+        _cu = new MarkorContextUtils(activity);
+        _appSettings = AppSettings.get(activity);
 
         if (!(getActivity() instanceof FilesystemFragmentOptionsListener)) {
             throw new RuntimeException("Error: " + activity.getClass().getName() + " doesn't implement FilesystemFragmentOptionsListener");
@@ -122,10 +120,9 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(activity, lam.getOrientation());
         _recyclerList.addItemDecoration(dividerItemDecoration);
 
-        _filesystemViewerAdapter = new GsFileBrowserListAdapter(_dopt, context);
+        _filesystemViewerAdapter = new GsFileBrowserListAdapter(_dopt, activity);
         _recyclerList.setAdapter(_filesystemViewerAdapter);
         setReloadRequiredOnResume(false); // setAdapter will trigger a load
-        onFsViewerDoUiUpdate(_filesystemViewerAdapter);
 
         _swipe.setOnRefreshListener(() -> {
             _filesystemViewerAdapter.reloadCurrentFolder();
@@ -174,12 +171,29 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         }
     }
 
+    @Override
+    protected void onToolbarClicked(View v) {
+        executeFilterNotebookAction();
+    }
+
     private void checkOptions() {
         if (_dopt.doSelectFile && !_dopt.doSelectMultiple) {
             _dopt.okButtonEnable = false;
         }
     }
 
+    @Override
+    public void onFsViewerFolderLoad(final File newFolder) {
+        if (_callback != null) {
+            _callback.onFsViewerFolderLoad(newFolder);
+        }
+
+        _dopt.sortOrder = _appSettings.getFolderSortOrder(newFolder);
+        _dopt.favouriteFiles = _appSettings.getFavouriteFiles();
+        _dopt.recentFiles = _appSettings.getRecentFiles();
+        _dopt.popularFiles = _appSettings.getPopularFiles();
+        _dopt.descriptionFormat = _appSettings.getString(R.string.pref_key__file_description_format, "");
+    }
 
     @Override
     public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
@@ -208,11 +222,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         if (_callback != null) {
             _callback.onFsViewerConfig(dopt);
         }
-
-        final Context context = getContext();
-        if (context != null) {
-            MarkorFileBrowserFactory.updateFsViewerOpts(dopt, context, _appSettings);
-        }
     }
 
     @Override
@@ -223,12 +232,17 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         }
 
         updateMenuItems();
-        _emptyHint.postDelayed(() -> _emptyHint.setVisibility(adapter.isCurrentFolderEmpty() ? View.VISIBLE : View.GONE), 200);
-        _recyclerList.postDelayed(this::updateMenuItems, 1000);
+        _emptyHint.setVisibility(adapter.isCurrentFolderEmpty() ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void onFsViewerNeutralButtonPressed(final File currentFolder) {
+        if (_callback != null) {
+            _callback.onFsViewerNeutralButtonPressed(currentFolder);
+        }
     }
 
     private void updateMenuItems() {
-        final String curFilepath = (getCurrentFolder() != null ? getCurrentFolder() : new File("/")).getAbsolutePath();
         final Set<File> selFiles = _filesystemViewerAdapter.getCurrentSelection();
         final int selCount = selFiles.size();
         final int totalCount = _filesystemViewerAdapter.getItemCount() - 1;   // Account for ".."
@@ -260,7 +274,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             _fragmentMenu.findItem(R.id.action_copy_selected_items).setVisible((selMulti1 || selMultiMore) && selWritable && !_cu.isUnderStorageAccessFolder(getContext(), getCurrentFolder(), true));
             _fragmentMenu.findItem(R.id.action_share_files).setVisible(selFilesOnly && (selMulti1 || selMultiMore) && !_cu.isUnderStorageAccessFolder(getContext(), getCurrentFolder(), true));
             _fragmentMenu.findItem(R.id.action_go_to).setVisible(!_filesystemViewerAdapter.areItemsSelected());
-            _fragmentMenu.findItem(R.id.action_sort).setVisible(!_filesystemViewerAdapter.areItemsSelected());
+            _fragmentMenu.findItem(R.id.action_sort).setVisible(_filesystemViewerAdapter.isCurrentFolderSortable() && !_filesystemViewerAdapter.areItemsSelected());
             _fragmentMenu.findItem(R.id.action_import).setVisible(!_filesystemViewerAdapter.areItemsSelected() && !_filesystemViewerAdapter.isCurrentFolderVirtual());
             _fragmentMenu.findItem(R.id.action_settings).setVisible(!_filesystemViewerAdapter.areItemsSelected());
             _fragmentMenu.findItem(R.id.action_favourite).setVisible(selMultiAny && !allSelectedFav);
@@ -269,6 +283,11 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             _fragmentMenu.findItem(R.id.action_create_shortcut).setVisible(selMulti1 && (selFilesOnly || selDirectoriesOnly));
             _fragmentMenu.findItem(R.id.action_check_all).setVisible(_filesystemViewerAdapter.areItemsSelected() && selCount < totalCount);
             _fragmentMenu.findItem(R.id.action_clear_selection).setVisible(_filesystemViewerAdapter.areItemsSelected());
+
+            final MenuItem sortItem = _fragmentMenu.findItem(R.id.action_sort);
+            if (sortItem != null) {
+                _cu.tintDrawable(sortItem.getIcon(), _dopt.sortOrder.isFolderLocal ? GsFileBrowserListAdapter.FAVOURITE_COLOR : Color.WHITE);
+            }
         }
 
         // Update subtitle with count
@@ -298,7 +317,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
 
     public void reloadCurrentFolder() {
         _filesystemViewerAdapter.reloadCurrentFolder();
-        onFsViewerDoUiUpdate(_filesystemViewerAdapter);
     }
 
     public File getCurrentFolder() {
@@ -340,31 +358,10 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         _cu.tintMenuItems(menu, true, Color.WHITE);
         _cu.setSubMenuIconsVisibility(menu, true);
 
-        MenuItem item;
-        if ((item = menu.findItem(R.id.action_folder_first)) != null) {
-            item.setChecked(_dopt.sortFolderFirst);
-        }
-        if ((item = menu.findItem(R.id.action_sort_reverse)) != null) {
-            item.setChecked(_dopt.sortReverse);
-        }
-        if ((item = menu.findItem(R.id.action_show_dotfiles)) != null) {
-            item.setChecked(_dopt.filterShowDotFiles);
-        }
-
-        if ((item = menu.findItem(R.id.action_sort_by_name)) != null && GsFileUtils.SORT_BY_NAME.equals(_dopt.sortByType)) {
-            item.setChecked(true);
-        } else if ((item = menu.findItem(R.id.action_sort_by_date)) != null && GsFileUtils.SORT_BY_MTIME.equals(_dopt.sortByType)) {
-            item.setChecked(true);
-        } else if ((item = menu.findItem(R.id.action_sort_by_filesize)) != null && GsFileUtils.SORT_BY_FILESIZE.equals(_dopt.sortByType)) {
-            item.setChecked(true);
-        } else if ((item = menu.findItem(R.id.action_sort_by_mimetype)) != null && GsFileUtils.SORT_BY_MIMETYPE.equals(_dopt.sortByType)) {
-            item.setChecked(true);
-        }
-
         List<Pair<File, String>> sdcardFolders = _cu.getAppDataPublicDirs(getContext(), false, true, true);
         int[] sdcardResIds = {};
         for (int i = 0; i < sdcardResIds.length && i < sdcardFolders.size(); i++) {
-            item = menu.findItem(sdcardResIds[i]);
+            final MenuItem item = menu.findItem(sdcardResIds[i]);
             item.setTitle(item.getTitle().toString().replaceFirst("[)]\\s*$", " " + sdcardFolders.get(i).second) + ")");
             item.setVisible(true);
         }
@@ -388,40 +385,8 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                 _cu.createLauncherDesktopShortcut(getContext(), file);
                 return true;
             }
-            case R.id.action_sort_by_name: {
-                item.setChecked(true);
-                _dopt.sortByType = _appSettings.setFileBrowserSortByType(GsFileUtils.SORT_BY_NAME);
-                reloadCurrentFolder();
-                return true;
-            }
-            case R.id.action_sort_by_date: {
-                item.setChecked(true);
-                _dopt.sortByType = _appSettings.setFileBrowserSortByType(GsFileUtils.SORT_BY_MTIME);
-                reloadCurrentFolder();
-                return true;
-            }
-            case R.id.action_sort_by_filesize: {
-                item.setChecked(true);
-                _dopt.sortByType = _appSettings.setFileBrowserSortByType(GsFileUtils.SORT_BY_FILESIZE);
-                reloadCurrentFolder();
-                return true;
-            }
-            case R.id.action_sort_by_mimetype: {
-                item.setChecked(true);
-                _dopt.sortByType = _appSettings.setFileBrowserSortByType(GsFileUtils.SORT_BY_MIMETYPE);
-                reloadCurrentFolder();
-                return true;
-            }
-            case R.id.action_sort_reverse: {
-                item.setChecked(!item.isChecked());
-                _dopt.sortReverse = _appSettings.setFileBrowserSortReverse(item.isChecked());
-                reloadCurrentFolder();
-                return true;
-            }
-            case R.id.action_show_dotfiles: {
-                item.setChecked(!item.isChecked());
-                _dopt.filterShowDotFiles = _appSettings.setFileBrowserFilterShowDotFiles(item.isChecked());
-                reloadCurrentFolder();
+            case R.id.action_sort: {
+                updateSortSettings();
                 return true;
             }
             case R.id.action_import: {
@@ -430,12 +395,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             }
             case R.id.action_search: {
                 executeSearchAction();
-                return true;
-            }
-            case R.id.action_folder_first: {
-                item.setChecked(!item.isChecked());
-                _dopt.sortFolderFirst = _appSettings.setFileBrowserSortFolderFirst(item.isChecked());
-                reloadCurrentFolder();
                 return true;
             }
             case R.id.action_go_to: {
@@ -460,15 +419,16 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                 return true;
             }
             case R.id.action_delete_selected_items: {
-                askForDeletingFilesRecursive((confirmed, data) -> {
-                    if (confirmed) {
-                        Runnable deleter = () -> {
+                MarkorDialogFactory.showConfirmDialog(
+                        getActivity(),
+                        R.string.confirm_delete,
+                        null,
+                        GsCollectionUtils.map(_filesystemViewerAdapter.getCurrentSelection(), File::getName),
+                        () -> new Thread(() -> {
                             WrMarkorSingleton.getInstance().deleteSelectedItems(currentSelection, getContext());
                             _recyclerList.post(() -> _filesystemViewerAdapter.reloadCurrentFolder());
-                        };
-                        new Thread(deleter).start();
-                    }
-                });
+                        }).start()
+                );
                 return true;
             }
             case R.id.action_move_selected_items:
@@ -520,20 +480,33 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         return false;
     }
 
-    private void executeSearchAction() {
-        final File currentFolder = getCurrentFolder();
-        MarkorDialogFactory.showSearchFilesDialog(getActivity(), currentFolder, (relPath, lineNumber, longPress) -> {
-            final File load = new File(currentFolder, relPath);
-            if (!longPress) {
-                if (load.isDirectory()) {
-                    _filesystemViewerAdapter.setCurrentFolder(load);
-                } else {
-                    onFsViewerSelected("", load, lineNumber);
-                }
+    private void searchCallback(final File load, final Integer lineNumber, final boolean longPress) {
+        if (!longPress) {
+            if (load.isDirectory()) {
+                _filesystemViewerAdapter.setCurrentFolder(load);
             } else {
-                _filesystemViewerAdapter.showFile(load);
+                onFsViewerSelected("", load, lineNumber);
             }
-        });
+        } else {
+            _filesystemViewerAdapter.showFile(load);
+        }
+    }
+
+    private void executeSearchAction() {
+        MarkorDialogFactory.showSearchFilesDialog(getActivity(), getCurrentFolder(), this::searchCallback);
+    }
+
+    final GsSearchOrCustomTextDialog.DialogState _filterDialogState = new GsSearchOrCustomTextDialog.DialogState();
+
+    private void executeFilterNotebookAction() {
+        MarkorDialogFactory.showNotebookFilterDialog(getActivity(), _filterDialogState, null,
+                (file, show) -> {
+                    if (show) {
+                        _filesystemViewerAdapter.showFile(file);
+                    } else {
+                        searchCallback(file, null, false);
+                    }
+                });
     }
 
     public void clearSelection() {
@@ -544,17 +517,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
 
 
     ///////////////
-    public void askForDeletingFilesRecursive(WrConfirmDialog.ConfirmDialogCallback confirmCallback) {
-        final ArrayList<File> itemsToDelete = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection());
-        final StringBuilder message = new StringBuilder(String.format(getString(R.string.do_you_really_want_to_delete_this_witharg), getResources().getQuantityString(R.plurals.documents, itemsToDelete.size())) + "\n\n");
-
-        for (final File f : itemsToDelete) {
-            message.append("\n").append(f.getName());
-        }
-
-        final WrConfirmDialog confirmDialog = WrConfirmDialog.newInstance(getString(R.string.confirm_delete), message.toString(), itemsToDelete, confirmCallback);
-        confirmDialog.show(getChildFragmentManager(), WrConfirmDialog.FRAGMENT_TAG);
-    }
 
     private void askForMoveOrCopy(final boolean isMove) {
         final List<File> files = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection());
@@ -616,19 +578,19 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     }
 
     private void importFile(final File file) {
+        final Activity activity = getActivity();
         if (new File(getCurrentFolder().getAbsolutePath(), file.getName()).exists()) {
-            String message = getString(R.string.file_already_exists_overwerite) + "\n[" + file.getName() + "]";
             // Ask if overwriting is okay
-            WrConfirmDialog d = WrConfirmDialog.newInstance(
-                    getString(R.string.confirm_overwrite), message, file, (confirmed, data) -> {
-                        if (confirmed) {
-                            importFileToCurrentDirectory(getActivity(), file);
-                        }
-                    });
-            d.show(getChildFragmentManager(), WrConfirmDialog.FRAGMENT_TAG);
+            MarkorDialogFactory.showConfirmDialog(
+                    activity,
+                    R.string.confirm_overwrite,
+                    getString(R.string.file_already_exists_overwerite) + "\n[" + file.getName() + "]",
+                    null,
+                    () -> importFileToCurrentDirectory(activity, file)
+            );
         } else {
             // Import
-            importFileToCurrentDirectory(getActivity(), file);
+            importFileToCurrentDirectory(activity, file);
         }
     }
 
@@ -639,5 +601,34 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
 
     public GsFileBrowserOptions.Options getOptions() {
         return _dopt;
+    }
+
+    private void updateSortSettings() {
+        final GsFileUtils.SortOrder globalOrder = _appSettings.getFolderSortOrder(null);
+        MarkorDialogFactory.showFolderSortDialog(getActivity(), _dopt.sortOrder, globalOrder,
+                (order) -> {
+                    // Erase local sort order if local is unset
+                    final File currentFolder = getCurrentFolder();
+                    if (_dopt.sortOrder.isFolderLocal && !order.isFolderLocal) {
+                        _appSettings.setFolderSortOrder(currentFolder, null);
+                    }
+
+                    // Set new sort order to folder or global as needed
+                    _dopt.sortOrder = order;
+                    _appSettings.setFolderSortOrder(order.isFolderLocal ? currentFolder : null, _dopt.sortOrder);
+
+                    // Ui will be updated by onFsViewerDoUiUpdate after the load
+                    reloadCurrentFolder();
+                });
+    }
+
+    @Override
+    public AppSettings createAppSettingsInstance(Context context) {
+        return AppSettings.get(context);
+    }
+
+    @Override
+    public MarkorContextUtils createContextUtilsInstance(Context context) {
+        return new MarkorContextUtils(context);
     }
 }

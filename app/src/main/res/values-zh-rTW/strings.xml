@@ -139,11 +139,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overall_theme_used_in_app">使用於程式整體的主題</string>
     <string name="remember_last_directory">記住最近使用的目錄</string>
     <string name="syntax_highlighting">同步標記</string>
-    <string name="dynamic_highlighting">動態標記</string>
     <string name="highlighting_delay">標記延遲</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">延遲的閃亮標記以毫秒更新記時，較低值會提早開始標記，但會降低效能與耗電。</string>
     <string name="highlighting_enabled_or_not__appspecific">不管輸入的文字是否已標記都要調整</string>
-    <string name="dynamic_highlighting_effect">動態高亮增加性能，可能導致偽影。</string>
     <string name="control_font_size_in_editor">調整在編輯器中使用的字型</string>
     <string name="textactions_show_useful_actions_description__appspecific">在底部顯示工作列按鈕以快速修改輸入的內容或執行其他文字動作。</string>
     <string name="load_last_opened_folder_at_startup">啟動時開啟最後使用的資料夾</string>
@@ -154,7 +152,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="none">全無</string>
     <string name="other">其他</string>
     <string name="empty_file">空白檔案</string>
-    <string name="break_page_pdf_print">分頁（PDF／列印）</string>
+    <string name="break_page_pdf_print">分頁 (PDF/列印)</string>
     <string name="underline">底線</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">依顏色突顯Hex顏色碼</string>
     <string name="underline_hex_color_codes">突顯 Hex 顏色碼</string>
@@ -459,4 +457,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wont_save_min_length">為了防止資料遺失，不會自動儲存少於 %d 個字元的檔案。</string>
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">進階過濾語法</a></small>]]></string>
     <string name="filter">過濾器</string>
+    <string name="text_case">文本大小寫</string>
 </resources>

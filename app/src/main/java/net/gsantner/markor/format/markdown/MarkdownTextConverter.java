@@ -46,6 +46,7 @@ import com.vladsch.flexmark.util.options.MutableDataSet;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextConverterBase;
+import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.util.GsContextUtils;
 
 import java.io.File;
@@ -173,6 +174,7 @@ public class MarkdownTextConverter extends TextConverterBase {
     //########################
     @Override
     public String convertMarkup(String markup, Context context, boolean lightMode, boolean enableLineNumbers, File file) {
+        final AppSettings as = AppSettings.get(context);
         String converted, onLoadJs = "", head = "";
         final MutableDataSet options = new MutableDataSet();
 
@@ -215,7 +217,7 @@ public class MarkdownTextConverter extends TextConverterBase {
 
         // Front matter
         String fmaText = "";
-        final List<String> fmaAllowedAttributes = _appSettings.getMarkdownShownYamlFrontMatterKeys();
+        final List<String> fmaAllowedAttributes = as.getMarkdownShownYamlFrontMatterKeys();
         Map<String, List<String>> fma = Collections.EMPTY_MAP;
         if (!enablePresentationBeamer && markup.startsWith("---")) {
             Matcher hasTokens = YAML_FRONTMATTER_TOKEN_PATTERN.matcher(markup);
@@ -244,7 +246,7 @@ public class MarkdownTextConverter extends TextConverterBase {
         final String parentFolderName = file != null && file.getParentFile() != null && !TextUtils.isEmpty(file.getParentFile().getName()) ? file.getParentFile().getName() : "";
         final boolean isInBlogFolder = parentFolderName.equals("_posts") || parentFolderName.equals("blog") || parentFolderName.equals("post");
         if (!enablePresentationBeamer) {
-            if (!markup.contains("[TOC]: #") && (isInBlogFolder || _appSettings.isMarkdownTableOfContentsEnabled()) && (markup.contains("#") || markup.contains("<h"))) {
+            if (!markup.contains("[TOC]: #") && (isInBlogFolder || as.isMarkdownTableOfContentsEnabled()) && (markup.contains("#") || markup.contains("<h"))) {
                 final String tocToken = "[TOC]: # ''\n  \n";
                 if (markup.startsWith("---") && !markup.contains("[TOC]")) {
                     // 1st group: match opening YAML block delimiter ('---'), optionally followed by whitespace, excluding newline
@@ -259,7 +261,7 @@ public class MarkdownTextConverter extends TextConverterBase {
             }
 
             head += CSS_TOC_STYLE;
-            options.set(TocExtension.LEVELS, TocOptions.getLevels(_appSettings.getMarkdownTableOfContentLevels()))
+            options.set(TocExtension.LEVELS, TocOptions.getLevels(as.getMarkdownTableOfContentLevels()))
                     .set(TocExtension.TITLE, context.getString(R.string.table_of_contents))
                     .set(TocExtension.DIV_CLASS, "markor-table-of-contents toc")
                     .set(TocExtension.LIST_CLASS, "markor-table-of-contents-list")
@@ -268,7 +270,7 @@ public class MarkdownTextConverter extends TextConverterBase {
 
         // Enable Math / KaTex
         if (markup.contains("$")) {
-            if (_appSettings.isMarkdownMathEnabled()) {
+            if (as.isMarkdownMathEnabled()) {
                 head += HTML_KATEX_INCLUDE;
                 head += CSS_KATEX;
             } else {
@@ -279,7 +281,8 @@ public class MarkdownTextConverter extends TextConverterBase {
         // Enable View (block) code syntax highlighting
         if (markup.contains("```")) {
             head += getViewHlPrismIncludes(GsContextUtils.instance.isDarkModeEnabled(context) ? "-tomorrow" : "", enableLineNumbers);
-            if (_appSettings.getDocumentWrapState(file.getAbsolutePath())) {
+            onLoadJs += "usePrismCodeBlock();";
+            if (as.getDocumentWrapState(file.getAbsolutePath())) {
                 onLoadJs += "wrapCodeBlockWords();";
             }
         }
@@ -304,7 +307,7 @@ public class MarkdownTextConverter extends TextConverterBase {
         // Notable: They use a home brewed syntax for referencing attachments: @attachment/f.png = ../attachements/f.jpg -- https://github.com/gsantner/markor/issues/1252
         markup = markup.replace("](@attachment/", "](../attachements/");
 
-        if (_appSettings.isMarkdownNewlineNewparagraphEnabled()) {
+        if (as.isMarkdownNewlineNewparagraphEnabled()) {
             markup = markup.replace("\n", "  \n");
         }
 
@@ -389,19 +392,20 @@ public class MarkdownTextConverter extends TextConverterBase {
     private String getViewHlPrismIncludes(final String theme, final boolean isLineNumbersEnabled) {
         final StringBuilder sb = new StringBuilder(1000);
         sb.append(CSS_PREFIX + "prism/themes/prism" + theme + ".min.css" + CSS_POSTFIX);
-        sb.append(CSS_PREFIX + "prism/style.css" + CSS_POSTFIX);
+        sb.append(CSS_PREFIX + "prism/prism-markor.css" + CSS_POSTFIX);
         sb.append(CSS_PREFIX + "prism/plugins/toolbar/prism-toolbar.css" + CSS_POSTFIX);
 
         sb.append(JS_PREFIX + "prism/prism.js" + JS_POSTFIX);
-        sb.append(JS_PREFIX + "prism/util.js" + JS_POSTFIX);
+        sb.append(JS_PREFIX + "prism/components.js" + JS_POSTFIX);
+        sb.append(JS_PREFIX + "prism/prism-markor.js" + JS_POSTFIX);
         sb.append(JS_PREFIX + "prism/plugins/autoloader/prism-autoloader.min.js" + JS_POSTFIX);
         sb.append(JS_PREFIX + "prism/plugins/toolbar/prism-toolbar.min.js" + JS_POSTFIX);
-        sb.append(JS_PREFIX + "prism/plugins/copy-to-clipboard/prism-copy-to-clipboard.js" + JS_POSTFIX);
+        sb.append(JS_PREFIX + "prism/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js" + JS_POSTFIX);
 
         if (isLineNumbersEnabled) {
-            sb.append(CSS_PREFIX + "prism/plugins/line-numbers/style.css" + CSS_POSTFIX);
+            sb.append(CSS_PREFIX + "prism/plugins/line-numbers/prism-line-numbers-markor.css" + CSS_POSTFIX);
             sb.append(JS_PREFIX + "prism/plugins/line-numbers/prism-line-numbers.min.js" + JS_POSTFIX);
-            sb.append(JS_PREFIX + "prism/plugins/line-numbers/util.js" + JS_POSTFIX);
+            sb.append(JS_PREFIX + "prism/plugins/line-numbers/prism-line-numbers-markor.js" + JS_POSTFIX);
         }
 
         return sb.toString();

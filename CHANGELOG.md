@@ -2,7 +2,38 @@
 - See [Discussions](https://github.com/gsantner/markor/discussions), [Issues](https://github.com/gsantner/markor/issues) and [Project news](https://github.com/gsantner/markor/blob/master/NEWS.md) to see what is going on.
 - New Updates also visible here: <https://github.com/gsantner/markor/releases>
 
-### v2.13-14
+
+### v2.14 -> v2.15
+- [2.14.0 - 2.14.1](https://github.com/gsantner/markor/compare/v2.14.0...v2.14.1)
+- [2.14.0 - 2.15.0](https://github.com/gsantner/markor/compare/v2.14.0...v2.15.0)
+- Make .svg editable, closes #2647, by @gsantner
+- keep the toolbar ref intact (#2635)
+- ShareInto: tracking/bloat parameter filtering - Amazon
+- Add SHA-256 to file info dialog (#2622)
+- Simpler http(s) regex for GsSimpleMarkdownParser (PR #2606)
+- Add dyslexia friendly font (PR #2602)
+- Improving view mode and rendering (PR #2566)
+- Fixes and improvements for AsciiDoc (darklight, caution-admonition, linebreak, pagebreak, quote, attachment)  (#2597)
+- Improve PlaintextSyntaxHighlighter with basic programming language editor syntax highlighting (PR #2560)
+- Update README.md (PR #2595)
+- Add AsciiDoc-reference, toolbar swap view and save button (#2580) (#2579)
+- Upgrade to mermaid v11.6.0 (PR #2575)
+- Template: Mermaid-Katex improvements (PR #2574)
+- Settings: Move some 'Other' settings to 'Edit mode' (PR #2562)
+- Quick filter all files, Share files into markor (PR #2521)
+- Fix Prism code block issues (PR #2542)
+- Fix unit tests - Color.rgb is Android only API and not available in junit -> own method
+- CSV: View-Mode syntax highlighting: Make column 3 readable in dark mode (255 blue -> violet-blue), closes #2540, by @gsantner
+- OrgMode: make insert-link action-button use correct syntax, closes #2527 (#2528)
+- Improve text rendering performance, closes #2478, closes #2515 (#2509)
+- Filebrowser: Per folder sort order (PR #2499)
+- Improve line numbers (PR #2470)
+- Orgmode fixes and improvements, closes #2405 (PR #2504)
+- View-Mode: Code highlighting block - Prism add more language (PR #2508)
+- Markdown: Open link action: Fix open links when Markdown link has space at end
+- Update Android gradle/tools to 8.10.2/8.8
+
+### v2.13 series
 - [2.13.0 - 2.14.0](https://github.com/gsantner/markor/compare/v2.13.0...v2.14.0)
 - Markdown: Fix rendering of '$' in non-math view mode (PR #2485 closes #2085 #2236)
 - Android Studio latest version support

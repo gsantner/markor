@@ -10,6 +10,7 @@
 package net.gsantner.opoc.frontend.filebrowser;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Environment;
 
 import androidx.annotation.ColorRes;
@@ -41,6 +42,10 @@ public class GsFileBrowserOptions {
         void onFsViewerDoUiUpdate(final GsFileBrowserListAdapter adapter);
 
         void onFsViewerItemLongPressed(final File file, boolean doSelectMultiple);
+
+        void onFsViewerFolderLoad(final File newFolder);
+
+        void onFsViewerNeutralButtonPressed(final File currentFolder);
     }
 
     public static class Options {
@@ -50,7 +55,6 @@ public class GsFileBrowserOptions {
                 mountedStorageFolder = null,
                 startFolder = null;
         public String requestId = "show_dialog";
-        public String sortByType = GsFileUtils.SORT_BY_NAME;
 
         public String descriptionFormat = null;
 
@@ -60,10 +64,7 @@ public class GsFileBrowserOptions {
                 doSelectFile = false,
                 doSelectMultiple = false;
 
-        public boolean sortFolderFirst = true,
-                sortReverse = false,
-                descModtimeInsteadOfParent = false,
-                filterShowDotFiles = true;
+        public boolean descModtimeInsteadOfParent = false;
 
         public int itemSidePadding = 16; // dp
 
@@ -78,12 +79,16 @@ public class GsFileBrowserOptions {
                 newDirButtonEnable = true,
                 dismissAfterCallback = true;
 
+        public GsFileUtils.SortOrder sortOrder = new GsFileUtils.SortOrder();
+
         public GsCallback.b2<Context, File> fileOverallFilter = (context, file) -> true;
 
         @StringRes
         public int cancelButtonText = android.R.string.cancel;
         @StringRes
         public int okButtonText = android.R.string.ok;
+        @StringRes
+        public int neutralButtonText = 0;
         @StringRes
         public int titleText = android.R.string.untitled;
         @StringRes
@@ -136,6 +141,8 @@ public class GsFileBrowserOptions {
             storageMaps.put(file, target);
             iconMaps.put(file, icon);
         }
+
+        public DialogInterface dialogInterface = null;
     }
 
 
@@ -154,17 +161,22 @@ public class GsFileBrowserOptions {
 
         @Override
         public void onFsViewerConfig(Options dopt) {
-
         }
 
         @Override
         public void onFsViewerDoUiUpdate(GsFileBrowserListAdapter adapter) {
-
         }
 
         @Override
         public void onFsViewerItemLongPressed(File file, boolean doSelectMultiple) {
+        }
 
+        @Override
+        public void onFsViewerFolderLoad(File newFolder) {
+        }
+
+        @Override
+        public void onFsViewerNeutralButtonPressed(File currentFolder) {
         }
     }
 }

@@ -33,6 +33,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="markdown" translatable="false">Markdown</string>
     <string name="backup" translatable="false">Backup</string>
     <string name="front_matter" translatable="false">Front Matter</string>
+    <string name="mime_type" translatable="false">MIME type</string>
+    <string name="sha_256" translatable="false">SHA-256</string>
 
     <string name="default_font_family" translatable="false">sans-serif-regular</string>
     <string name="start" translatable="false">Start</string>
@@ -155,6 +157,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__editor_start_editing_in_center" translatable="false">pref_key__editor_start_editing_in_center</string>
     <string name="pref_key__share_into__quicknote" translatable="false">pref_key__share_into__quicknote</string>
     <string name="pref_key__share_into__todo" translatable="false">pref_key__share_into__todo</string>
+    <string name="pref_key__share_into__most_recent_document" translatable="false">pref_key__share_into__most_recent_document</string>
     <string name="pref_key__share_into__clipboard" translatable="false">pref_key__share_into__clipboard</string>
     <string name="pref_key__share_into__reshare" translatable="false">pref_key__share_into__reshare</string>
     <string name="pref_key__share_into__calendar_event" translatable="false">pref_key__share_into__calendar_event</string>
@@ -184,6 +187,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__popular_documents" translatable="false">pref_key__popular_documents</string>
     <string name="pref_key__favourite_files" translatable="false">pref_key__favourite_files</string>
     <string name="pref_key__select_create_document" translatable="false">pref_key__select_create_document</string>
+    <string name="pref_key__search_for_target" translatable="false">pref_key__search_for_target</string>
     <string name="pref_key__share_into__open_in_browser" translatable="false">pref_key__share_into__open_in_browser</string>
     <string name="pref_key__inject_to_head" translatable="false">pref_key__inject_to_head</string>
     <string name="pref_key__inject_to_body" translatable="false">pref_key__inject_to_body</string>
@@ -217,6 +221,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="abid_common_checkbox_list" translatable="false">abid_common_checkbox_list</string>
     <string name="abid_common_special_key" translatable="false">abid_common_special_key</string>
     <string name="abid_common_open_link_browser" translatable="false">abid_common_open_link_browser</string>
+    <string name="abid_common_change_case" translatable="false">abid_common_change_case</string>
     <string name="abid_common_color_picker" translatable="false">abid_common_color_picker</string>
     <string name="abid_common_time" translatable="false">abid_common_time</string>
     <string name="abid_common_web_jump_to_very_top_or_bottom" translatable="false">abid_common_web_jump_to_very_top_or_bottom</string>

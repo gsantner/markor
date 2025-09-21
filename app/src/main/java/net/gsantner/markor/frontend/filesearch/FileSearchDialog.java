@@ -1,7 +1,6 @@
 package net.gsantner.markor.frontend.filesearch;
 
 import android.app.Activity;
-import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -19,7 +18,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.core.content.ContextCompat;
 
-import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.util.GsContextUtils;
@@ -42,7 +40,7 @@ public class FileSearchDialog {
             final GsCallback.a1<FileSearchEngine.SearchOptions> dialogCallback
     ) {
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, R.style.Theme_AppCompat_DayNight_Dialog_Rounded);
-        final AppSettings appSettings = ApplicationObject.settings();
+        final AppSettings appSettings = AppSettings.get(activity);
 
         final ScrollView scrollView = new ScrollView(activity);
         final LinearLayout dialogLayout = new LinearLayout(activity);
@@ -78,7 +76,7 @@ public class FileSearchDialog {
         dialogLayout.addView(searchEditText, margins);
 
         // Spinner: History
-        if (FileSearchEngine.queryHistory.size() > 0) {
+        if (!FileSearchEngine.queryHistory.isEmpty()) {
             ArrayAdapter<String> adapter = new ArrayAdapter<>(activity, R.layout.list_group_history_item, FileSearchEngine.queryHistory);
             queryHistorySpinner.setAdapter(adapter);
 
@@ -147,7 +145,7 @@ public class FileSearchDialog {
 
         final GsCallback.a0 submit = () -> {
             final String query = searchEditText.getText().toString();
-            if (dialogCallback != null && !TextUtils.isEmpty(query)) {
+            if (dialogCallback != null) {
                 FileSearchEngine.SearchOptions opt = new FileSearchEngine.SearchOptions();
                 opt.query = query;
                 opt.isRegexQuery = regexCheckBox.isChecked();

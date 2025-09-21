@@ -22,7 +22,6 @@ import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.textview.AutoTextFormatter;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.Document;
-import net.gsantner.opoc.frontend.GsSearchOrCustomTextDialog;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 
@@ -35,8 +34,6 @@ import java.util.regex.Pattern;
 public class MarkdownActionButtons extends ActionButtonBase {
 
     private static final Pattern WEB_URL = Pattern.compile("https?://[^\\s/$.?#].[^\\s]*");
-
-    private final GsSearchOrCustomTextDialog.DialogState _headlineDialogState = new GsSearchOrCustomTextDialog.DialogState();
 
     public static final String LINE_PREFIX = "^(>\\s|#{1,6}\\s|\\s*[-*+](?:\\s\\[[ xX]\\])?\\s|\\s*\\d+[.)]\\s)?";
 
@@ -246,14 +243,13 @@ public class MarkdownActionButtons extends ActionButtonBase {
 
         public static Link extract(final CharSequence text, final int pos) {
             final int[] sel = TextViewUtils.getLineSelection(text, pos);
-            if (sel != null && sel[0] != -1 && sel[1] != -1) {
+            if (sel[0] != -1 && sel[1] != -1) {
                 final String line = text.subSequence(sel[0], sel[1]).toString();
                 final Matcher m = MarkdownSyntaxHighlighter.LINK.matcher(line);
-                final int po = pos - sel[0];
 
                 while (m.find()) {
-                    final int start = m.start(), end = m.end();
-                    if (start <= po && end >= po) {
+                    final int start = m.start() + sel[0], end = m.end() + sel[0];
+                    if (start <= pos && end >= pos) {
                         final boolean isImage = m.group(1) != null;
                         final String link = m.group(3);
                         return new Link(m.group(2), link == null ? null : link.trim(), isImage, start, end);
@@ -278,7 +274,7 @@ public class MarkdownActionButtons extends ActionButtonBase {
                 return true;
             } else {
                 final File f = GsFileUtils.makeAbsolute(link.link, _document.file.getParentFile());
-                if (GsFileUtils.canCreate(f)) {
+                if (GsFileUtils.isDirectory(f) || f.isFile() || GsFileUtils.canCreate(f)) {
                     DocumentActivity.launch(getActivity(), f, null, null);
                     return true;
                 }
@@ -317,6 +313,8 @@ public class MarkdownActionButtons extends ActionButtonBase {
             _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_DPAD_UP);
         }
     }
+
+    private final HeadlineState _headlineDialogState = new HeadlineState();
 
     @Override
     public boolean runTitleClick() {

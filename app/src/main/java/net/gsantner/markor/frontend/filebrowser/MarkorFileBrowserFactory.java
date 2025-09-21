@@ -12,7 +12,6 @@ import android.os.Environment;
 
 import androidx.fragment.app.FragmentManager;
 
-import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.MarkorContextUtils;
@@ -23,7 +22,6 @@ import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.File;
-import java.util.List;
 
 public class MarkorFileBrowserFactory {
     public static GsCallback.b2<Context, File> IsMimeText = (context, file) -> file != null && GsContextUtils.instance.getMimeType(context, file).startsWith("text/");
@@ -38,7 +36,7 @@ public class MarkorFileBrowserFactory {
     ) {
         final GsFileBrowserOptions.Options opts = new GsFileBrowserOptions.Options();
         final MarkorContextUtils cu = new MarkorContextUtils(context);
-        final AppSettings appSettings = ApplicationObject.settings();
+        final AppSettings appSettings = AppSettings.get(context);
 
         if (listener != null) {
             opts.listener = listener;
@@ -72,31 +70,22 @@ public class MarkorFileBrowserFactory {
         opts.folderImage = R.drawable.ic_folder_white_24dp;
         opts.titleText = R.string.select;
         opts.mountedStorageFolder = cu.getStorageAccessFolder(context);
+        opts.sortOrder = appSettings.getFolderSortOrder(null);
 
-        updateFsViewerOpts(opts, context, appSettings);
+        updateFsViewerOpts(opts, context);
 
         return opts;
     }
 
-    public static void updateFsViewerOpts(
-            final GsFileBrowserOptions.Options opts,
-            final Context context,
-            AppSettings appSettings
-    ) {
-        appSettings = appSettings != null ? appSettings : ApplicationObject.settings();
+    // We update these because some of these settings can change
+    public static void updateFsViewerOpts(final GsFileBrowserOptions.Options opts, final Context context) {
+        final AppSettings appSettings = AppSettings.get(context);
 
-        opts.sortFolderFirst = appSettings.isFileBrowserSortFolderFirst();
-        opts.sortByType = appSettings.getFileBrowserSortByType();
-        opts.sortReverse = appSettings.isFileBrowserSortReverse();
-        opts.filterShowDotFiles = appSettings.isFileBrowserFilterShowDotFiles();
         opts.favouriteFiles = appSettings.getFavouriteFiles();
         opts.recentFiles = appSettings.getRecentFiles();
         opts.popularFiles = appSettings.getPopularFiles();
 
         opts.descriptionFormat = appSettings.getString(R.string.pref_key__file_description_format, "");
-
-        opts.storageMaps.clear();
-        opts.iconMaps.clear();
 
         final File downloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
         opts.addVirtualFile("Download", downloads, R.drawable.baseline_download_24);
@@ -111,15 +100,6 @@ public class MarkorFileBrowserFactory {
         opts.iconMaps.put(downloads, R.drawable.baseline_download_24);
         opts.iconMaps.put(appSettings.getQuickNoteFile(), R.drawable.ic_lightning_black_24dp);
         opts.iconMaps.put(appSettings.getTodoFile(), R.drawable.ic_assignment_turned_in_black_24dp);
-    }
-
-
-    public static File[] strlistToArray(List<String> strlist) {
-        File[] files = new File[strlist.size()];
-        for (int i = 0; i < files.length; i++) {
-            files[i] = new File(strlist.get(i));
-        }
-        return files;
     }
 
     private static GsFileBrowserDialog showDialog(final FragmentManager fm, final GsFileBrowserOptions.Options opts) {

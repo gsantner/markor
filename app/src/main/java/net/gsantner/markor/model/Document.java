@@ -52,7 +52,6 @@ public class Document implements Serializable {
     public static final String EXTRA_FILE = "EXTRA_FILE"; // java.io.File
     public static final String EXTRA_FILE_LINE_NUMBER = "EXTRA_FILE_LINE_NUMBER"; // int
     public static final String EXTRA_DO_PREVIEW = "EXTRA_DO_PREVIEW";
-    public static final int EXTRA_FILE_LINE_NUMBER_LAST = -919385553; // Flag for last line
 
     // Exposed properties
     public final File file;
@@ -72,7 +71,7 @@ public class Document implements Serializable {
     private int _lastLength = -1;
 
     public Document(@NonNull final File f) {
-        path = getPath(f);
+        path = GsFileUtils.getPath(f);
         file = new File(path);
         title = GsFileUtils.getFilenameWithoutExtension(file);
         extension = GsFileUtils.getFilenameExtension(file);
@@ -84,23 +83,6 @@ public class Document implements Serializable {
                 break;
             }
         }
-    }
-
-    public static String getPath(final File file) {
-        try {
-            return file.getCanonicalPath();
-        } catch (IOException e) {
-            return file.getAbsolutePath();
-        } catch (NullPointerException e) {
-            return "";
-        }
-    }
-
-    // Get a default file
-    public static Document getDefault(final Context context) {
-        final File notebook = ApplicationObject.settings().getNotebookDirectory();
-        final File random = new File(notebook, getFileNameWithTimestamp(true));
-        return new Document(random);
     }
 
     private void initModTimePref() {
@@ -243,7 +225,7 @@ public class Document implements Serializable {
                             + ", chars: " + content.length() + " bytes:" + content.getBytes().length
                             + "(" + GsFileUtils.getReadableFileSize(content.getBytes().length, true) +
                             "). Language >" + Locale.getDefault()
-                            + "<, Language override >" + ApplicationObject.settings().getLanguage() + "<");
+                            + "<, Language override >" + AppSettings.get(context).getLanguage() + "<");
         }
 
         if (_fileInfo != null && _fileInfo.ioError) {
@@ -263,7 +245,7 @@ public class Document implements Serializable {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private static char[] getPasswordWithWarning(final Context context) {
-        final char[] pw = ApplicationObject.settings().getDefaultPassword();
+        final char[] pw = AppSettings.get(context).getDefaultPassword();
         if (pw == null || pw.length == 0) {
             final String warningText = context.getString(R.string.no_password_set_cannot_encrypt_decrypt);
             Toast.makeText(context, warningText, Toast.LENGTH_LONG).show();

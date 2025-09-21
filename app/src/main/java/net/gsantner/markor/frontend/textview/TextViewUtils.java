@@ -277,8 +277,14 @@ public final class TextViewUtils {
         }
         final CharSequence text = edit.getText();
         if (positions.size() == 1) { // Case 1 index
-            final int sel = TextViewUtils.getIndexFromLineOffset(text, positions.get(0), 0);
-            setSelectionAndShow(edit, sel);
+            final int pos = positions.get(0);
+            final int index;
+            if (pos >= 0) {
+                index = TextViewUtils.getIndexFromLineOffset(text, positions.get(0), 0);
+            } else {
+                index = edit.length();
+            }
+            setSelectionAndShow(edit, index);
         } else if (positions.size() > 1) {
             final TreeSet<Integer> pSet = new TreeSet<>(positions);
             final int selStart, selEnd;
@@ -322,22 +328,17 @@ public final class TextViewUtils {
 
         // Region in Y
         // ------------------------------------------------------------
-        final int selStartLine = layout.getLineForOffset(_start);
-        final int lineStartLine = layout.getLineForOffset(lineStart);
-        final int selStartLineTop = layout.getLineTop(selStartLine);
-        final int lineStartLineTop = layout.getLineTop(lineStartLine);
+        final int startLine = layout.getLineForOffset(lineStart);
+        final int startLineTop = layout.getLineTop(startLine);
+
+        final int endLine = layout.getLineForOffset(_end);
+        final int endLineBottom = layout.getLineBottom(endLine);
+        final int endLineTop = layout.getLineTop(endLine);
+        final int lineHeight = endLineBottom - endLineTop;
 
         final Rect region = new Rect();
-
-        if ((selStartLine - lineStartLine) <= 3) {
-            // good to see the start of the line if close enough
-            region.top = lineStartLineTop;
-        } else {
-            region.top = selStartLineTop;
-        }
-
-        // Push the top to the top
-        region.bottom = region.top + viewSize.height();
+        region.top = Math.max(startLineTop, endLineBottom - viewSize.height() + lineHeight);
+        region.bottom = endLineBottom;
 
         // Region in X - as handling RTL, text alignment, and centred text etc is
         // a huge pain (see TextView.bringPointIntoView), we use a very simple solution.
@@ -345,10 +346,10 @@ public final class TextViewUtils {
         final int startLeft = (int) layout.getPrimaryHorizontal(_start);
         final int halfWidth = viewSize.width() / 2;
         // Push the start to the middle of the screen
-        region.left = startLeft - halfWidth;
-        region.right = startLeft + halfWidth;
+        region.left = Math.max(startLeft - halfWidth, 0);
+        region.right = Math.min(startLeft + halfWidth, text.getWidth());
 
-        text.requestRectangleOnScreen(region);
+        text.requestRectangleOnScreen(region, true);
     }
 
     public static void showSelection(final TextView text) {
@@ -791,5 +792,37 @@ public final class TextViewUtils {
         if (!text.isEmpty()) {
             replaceSelection(edit, TextCasingUtils.capitalizeSentences(text));
         }
+    }
+
+    public static boolean addFilter(final TextView view, final InputFilter filter) {
+        if (view == null || filter == null) {
+            return false;
+        }
+
+        final List<InputFilter> filters = Arrays.asList(view.getFilters());
+        if (filters.contains(filter)) {
+            return false; // Already present
+        }
+
+        final List<InputFilter> filterList = new ArrayList<>(filters);
+        filterList.add(filter);
+        view.setFilters(filterList.toArray(new InputFilter[0]));
+        return true;
+    }
+
+    public static boolean removeFilter(final TextView view, final InputFilter filter) {
+        if (view == null || filter == null) {
+            return false;
+        }
+
+        final List<InputFilter> filters = Arrays.asList(view.getFilters());
+        if (!filters.contains(filter)) {
+            return false; // Not present
+        }
+
+        final List<InputFilter> filterList = new ArrayList<>(filters);
+        filterList.remove(filter);
+        view.setFilters(filterList.toArray(new InputFilter[0]));
+        return true;
     }
 }

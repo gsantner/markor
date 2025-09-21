@@ -139,11 +139,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overall_theme_used_in_app">Das global in dieser App verwendete Thema ändern</string>
     <string name="remember_last_directory">Letzten Ordner merken</string>
     <string name="syntax_highlighting">Syntax-Highlighting</string>
-    <string name="dynamic_highlighting">Dynamische Hervorhebung</string>
     <string name="highlighting_delay">Highlighting-Verzögerung</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Verzögerung für eine Highlighting-Aktualisierung in Millisekunden. Ein niedriger Wert wird das Highlighting früher starten, aber mehr Akku verbrauchen sowie die Performance verringern.</string>
     <string name="highlighting_enabled_or_not__appspecific">Kontrollieren, ob eingegebener Text hervorgehoben werden soll oder nicht</string>
-    <string name="dynamic_highlighting_effect">Dynamische Hervorhebung erhöht die Leistung. Kann Rendering-Artefakte produzieren.</string>
     <string name="control_font_size_in_editor">Einstellen der Schriftgröße im Editor</string>
     <string name="textactions_show_useful_actions_description__appspecific">Eine Leiste mit nützlichen Aktionen anzeigen, welche Text-Module einfügen</string>
     <string name="load_last_opened_folder_at_startup">Beim App-Start den zuletzt geöffneten Ordner laden</string>
@@ -184,9 +182,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_pos_end">Zeilen-Ende (Ende)</string>
     <string name="key_pos_1_document">Dokumenten Beginn</string>
     <string name="key_pos_end_document">Dokumenten Ende</string>
+    <string name="move_text_one_line_up">Eine Zeile hochgehen</string>
+    <string name="move_text_one_line_down">Eine Zeile heruntergehen</string>
+    <string name="start_new_line_below">Neue Zeile beginnen</string>
+    <string name="select_current_line">Aktuelle Zeile auswählen</string>
     <string name="key_ctrl_a">Alles auswählen (Strg + A)</string>
     <string name="key_tab">Tabulator</string>
     <string name="zero_width_space">Breitenloses Zeichen (Zero-width space)</string>
+    <string name="em_space">1 em Leerraum (&amp;emsp;)</string>
     <string name="start_on_bottom">Unten beginnen</string>
     <string name="start_on_bottom_when_loading_document">Nachdem ein Dokument geladen wurde, den Cursor ganz unten platzieren</string>
     <string name="unordered_list_character">Unsortiertes Listenzeichen</string>
@@ -215,6 +218,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="clipboard">Zwischenablage</string>
     <string name="select_existing_document">Bestehendes Dokument auswählen</string>
     <string name="select_create_document">Dokument auswählen oder erstellen</string>
+    <string name="select_create_folder">Ordner auswählen oder erstellen</string>
     <string name="open_source_licenses">Open-Source-Lizenzen</string>
     <string name="rate_this_app">App bewerten</string>
     <string name="translate">Übersetzen</string>
@@ -274,6 +278,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Datum auswählen</string>
     <string name="pick_time">Zeit auswählen</string>
     <string name="get_format_instead_date_or_time">Format statt Datum und Zeit</string>
+    <string name="use_current_date_and_time">Verwende das aktuelle Datum &amp; Uhrzeit</string>
     <string name="result">Ergebnis</string>
     <string name="just_time">Nur Zeit</string>
     <string name="just_date">Nur Datum</string>
@@ -329,6 +334,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="current">Aktuelle</string>
     <string name="record_audio">Sprachaufnahme</string>
     <string name="attach">Anhängen</string>
+    <string name="attachment">Anhang</string>
     <string name="copy_file">Datei kopieren</string>
     <string name="page">Seite</string>
     <string name="experimental_features">Experimentelle Funktionen</string>
@@ -453,4 +459,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wont_save_min_length">Dateien mit weniger als %d Zeichen werden nicht automatisch gespeichert, um Datenverlust vorzubeugen.</string>
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Erweiterte Filterregel</a></small>]]></string>
     <string name="filter">Filter</string>
+    <string name="text_case">Groß-/Kleinschreibung</string>
+    <string name="toggle_case">Alles groß- bzw. kleinschreiben (Bsp: Markor-&gt;MARKOR-&gt;markor)</string>
+    <string name="switch_case">Großbuchstaben kleinschreiben und umgekehrt (Bsp:MaRkor-&gt;mArKOR)</string>
+    <string name="capitalize_words">Alles großschreiben (Bsp: Markor-&gt;MARKOR)</string>
+    <string name="capitalize_sentences">Satzanfänge großschreiben (Bsp: markor-&gt;Markor)</string>
+    <string name="use_tab_to_indent">Zeilen einrücken mit der TAB-Taste</string>
+    <string name="folder_local">Lokale Ordner</string>
 </resources>

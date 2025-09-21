@@ -11,7 +11,6 @@ import android.content.Context;
 
 import androidx.arch.core.util.Function;
 
-import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.format.TextConverterBase;
 import net.gsantner.markor.model.AppSettings;
@@ -83,7 +82,7 @@ public class WikitextTextConverter extends TextConverterBase {
         replaceAllMatchesInLine(currentLine, WikitextSyntaxHighlighter.SUBSCRIPT, fullMatch -> String.format("<sub>%s</sub>",
                 fullMatch.replaceAll("^_\\{|\\}$", "")));
         replaceAllMatchesInLine(currentLine, WikitextSyntaxHighlighter.LINK, fullMatch -> convertLink(fullMatch, context, file));
-        replaceAllMatchesInLine(currentLine, WikitextSyntaxHighlighter.IMAGE, fullMatch -> convertImage(file, fullMatch));
+        replaceAllMatchesInLine(currentLine, WikitextSyntaxHighlighter.IMAGE, fullMatch -> convertImage(file, context, fullMatch));
 
         return currentLine.getAndSet("");
     }
@@ -136,7 +135,7 @@ public class WikitextTextConverter extends TextConverterBase {
     }
 
     private String convertLink(String group, Context context, File file) {
-        AppSettings settings = ApplicationObject.settings();
+        final AppSettings settings = AppSettings.get(context);
         File notebookDir = settings.getNotebookDirectory();
         WikitextLinkResolver resolver = WikitextLinkResolver.resolve(group, notebookDir, file, settings.isWikitextDynamicNotebookRootEnabled());
 
@@ -153,7 +152,7 @@ public class WikitextTextConverter extends TextConverterBase {
         return String.format("[%s](%s)", linkDescription, markdownLink);
     }
 
-    private String convertImage(File file, String fullMatch) {
+    private String convertImage(final File file, final Context context, final String fullMatch) {
         String imagePathFromPageFolder = fullMatch.substring(2, fullMatch.length() - 2);
         String currentPageFileName = file.getName();
         String currentPageFolderName = currentPageFileName.replaceFirst(".txt$", "");
@@ -192,7 +191,7 @@ public class WikitextTextConverter extends TextConverterBase {
             }
             String html = String.format("<img src=\"%s\" alt=\"%s\" %s/>", image, currentPageFileName, attributes);
             if (link != null) {
-                AppSettings settings = ApplicationObject.settings();
+                final AppSettings settings = AppSettings.get(context);
                 File notebookDir = settings.getNotebookDirectory();
                 link = WikitextLinkResolver.resolveAttachmentPath(link, notebookDir, file, settings.isWikitextDynamicNotebookRootEnabled());
                 html = String.format("<a href=\"%s\">%s</a>", link, html);

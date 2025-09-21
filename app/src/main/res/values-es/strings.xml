@@ -139,11 +139,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overall_theme_used_in_app">El tema principal usado en la app</string>
     <string name="remember_last_directory">Recordar última carpeta</string>
     <string name="syntax_highlighting">Resaltado de sintaxis</string>
-    <string name="dynamic_highlighting">Resaltado dinámico</string>
     <string name="highlighting_delay">Retraso para resaltar</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Retraso en milisegundos para refrescar el resaltado. Un valor menor iniciará el énfasis pronto, pero afectará a la batería y al desempeño en equipos antiguos.</string>
     <string name="highlighting_enabled_or_not__appspecific">Controla si el texto ingresado debe ser resaltado o no</string>
-    <string name="dynamic_highlighting_effect">El resaltado dinámico mejora el rendimiento. Puede producir la aparición de artefactos.</string>
     <string name="control_font_size_in_editor">Edita el tamaño de fuente usada en el editor</string>
     <string name="textactions_show_useful_actions_description__appspecific">Muestra una barra con funciones útiles para insertar módulos de texto comúnmente usados</string>
     <string name="load_last_opened_folder_at_startup">Cargar la última carpeta abierta al iniciar</string>
@@ -220,6 +218,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="clipboard">Portapapeles</string>
     <string name="select_existing_document">Seleccionar documento existente</string>
     <string name="select_create_document">Seleccionar o crear un documento</string>
+    <string name="select_create_folder">Seleccionar o crear carpeta</string>
     <string name="open_source_licenses">Licencias de código abierto</string>
     <string name="rate_this_app">Califica esta aplicación</string>
     <string name="translate">Traducir</string>
@@ -335,6 +334,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="current">Actual</string>
     <string name="record_audio">Grabar audio</string>
     <string name="attach">Adjuntar</string>
+    <string name="attachment">Adjunto</string>
     <string name="copy_file">Copiar archivo</string>
     <string name="page">Página</string>
     <string name="experimental_features">Características experimentales</string>
@@ -465,4 +465,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="capitalize_words">Iniciar palabras en mayúscula (p. ej.: una nota-&gt;Una Nota)</string>
     <string name="capitalize_sentences">Iniciar frases en mayúscula (p. ej.: nota-&gt;Nota)</string>
     <string name="use_tab_to_indent">Sangrar líneas con la tecla TAB</string>
+    <string name="folder_local">Carpeta local</string>
 </resources>

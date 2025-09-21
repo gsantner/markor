@@ -8,6 +8,7 @@
 package net.gsantner.markor.activity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -24,7 +25,6 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceScreen;
 
-import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
@@ -58,6 +58,7 @@ public class SettingsActivity extends MarkorBaseActivity {
 
     protected Toolbar toolbar;
 
+    @Override
     public void onCreate(Bundle b) {
         // Must be applied before setContentView
         super.onCreate(b);
@@ -106,7 +107,7 @@ public class SettingsActivity extends MarkorBaseActivity {
     public static abstract class MarkorSettingsFragment extends GsPreferenceFragmentBase<AppSettings> {
         @Override
         protected AppSettings getAppSettings(Context context) {
-            return ApplicationObject.settings();
+            return AppSettings.get(context);
         }
 
         @Override
@@ -118,10 +119,10 @@ public class SettingsActivity extends MarkorBaseActivity {
         @SuppressWarnings("rawtypes")
         protected void onPreferenceScreenChanged(PreferenceFragmentCompat preferenceFragmentCompat, PreferenceScreen preferenceScreen) {
             super.onPreferenceScreenChanged(preferenceFragmentCompat, preferenceScreen);
-            if (!TextUtils.isEmpty(preferenceScreen.getTitle())) {
-                if (getActivity() instanceof GsActivityBase && ((GsActivityBase) getActivity()).getToolbar() != null) {
-                    ((GsActivityBase) getActivity()).getToolbar().setTitle(preferenceScreen.getTitle());
-                }
+            final CharSequence title = preferenceScreen.getTitle();
+            final Activity activity = getActivity();
+            if (activity instanceof GsActivityBase && !TextUtils.isEmpty(title)) {
+                ((GsActivityBase<?, ?>) activity).setToolbarText(title);
             }
         }
     }
