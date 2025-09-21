@@ -24,6 +24,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.frontend.textview.HighlightingEditor;
 
 public class SearchDialogFragment extends Fragment {
 
@@ -31,13 +32,13 @@ public class SearchDialogFragment extends Fragment {
 
     private int containerViewId;
     private FragmentActivity activity;
-    private EditText editText;
+    private HighlightingEditor editText;
     private EditText searchEditText;
     private EditText replaceEditText;
     private TextView resultTextView;
     private final OccurrenceHandler occurrenceHandler = new OccurrenceHandler();
 
-    public static SearchDialogFragment newInstance(@IdRes int containerViewId, FragmentActivity activity, EditText editText) {
+    public static SearchDialogFragment newInstance(@IdRes int containerViewId, FragmentActivity activity, HighlightingEditor editText) {
         SearchDialogFragment fragment = new SearchDialogFragment();
         fragment.containerViewId = containerViewId;
         fragment.activity = activity;
@@ -250,7 +251,7 @@ public class SearchDialogFragment extends Fragment {
 
     public void find() {
         occurrenceHandler.find(editText, searchEditText.getText().toString());
-        occurrenceHandler.jumpNearbyOccurrence(editText);
+        occurrenceHandler.jumpToNearestOccurrence(editText);
     }
 
     public void clear() {

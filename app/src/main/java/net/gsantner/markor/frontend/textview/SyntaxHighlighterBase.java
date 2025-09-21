@@ -370,7 +370,6 @@ public abstract class SyntaxHighlighterBase {
         return this;
     }
 
-
     public SyntaxHighlighterBase applyStatic() {
         if (_spannable != null && !_staticApplied) {
             applyFixup();
@@ -673,8 +672,23 @@ public abstract class SyntaxHighlighterBase {
         return this;
     }
 
+    public SyntaxHighlighterBase addAdditional(final SpanGroup additionalSpan) {
+        if (additionalSpan != null) {
+            _groups.add(additionalSpan);
+            Collections.sort(_groups);
+        }
+        return this;
+    }
+
     public SyntaxHighlighterBase clearAdditional(final Collection<SpanGroup> additionalSpans) {
         _groups.removeAll(additionalSpans);
+        return this;
+    }
+
+    public SyntaxHighlighterBase clearAdditional(SpanGroup additionalSpan) {
+        if (additionalSpan != null) {
+            _groups.remove(additionalSpan);
+        }
         return this;
     }
 

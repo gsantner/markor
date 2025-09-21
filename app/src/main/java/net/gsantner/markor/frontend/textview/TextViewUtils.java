@@ -387,7 +387,7 @@ public final class TextViewUtils {
      * @param editText       EditText view
      * @param startSelection Start selection
      */
-    public static void showSelection(final EditText editText, final int startSelection, boolean setSelection) {
+    public static void showSelection(final EditText editText, final int startSelection) {
         Layout layout = editText.getLayout();
         Rect visibleRect = new Rect();
         editText.getLocalVisibleRect(visibleRect);
