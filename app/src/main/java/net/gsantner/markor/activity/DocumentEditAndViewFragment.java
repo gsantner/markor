@@ -911,7 +911,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             _cu.showSoftKeyboard(activity, false, _hlEditor);
             _hlEditor.postDelayed(() -> _cu.showSoftKeyboard(activity, false, _hlEditor), 300);
             _webView.requestFocus();
-            GsContextUtils.fadeInOut(_webView, _primaryScrollView, animate);
+            GsContextUtils.fadeInOut(_webView, _verticalScrollView, animate);
         } else {
             _webViewClient.setRestoreScrollY(_webView.getScrollY());
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -925,9 +925,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 });
             }
             _hlEditor.requestFocus();
-            GsContextUtils.fadeInOut(_webView, _verticalScrollView, animate);
-        } else {
-            _webViewClient.setRestoreScrollY(_webView.getScrollY());
             GsContextUtils.fadeInOut(_verticalScrollView, _webView, animate);
         }
         _isPreviewVisible = show;

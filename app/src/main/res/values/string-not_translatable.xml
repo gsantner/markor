@@ -33,7 +33,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="markdown" translatable="false">Markdown</string>
     <string name="backup" translatable="false">Backup</string>
     <string name="front_matter" translatable="false">Front Matter</string>
-    <string name="mime_type" translatable="false">MIME type</string>
     <string name="sha_256" translatable="false">SHA-256</string>
 
     <string name="default_font_family" translatable="false">sans-serif-regular</string>

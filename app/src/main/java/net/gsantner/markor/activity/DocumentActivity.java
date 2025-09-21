@@ -37,6 +37,7 @@ import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 
 import java.io.File;
+import java.util.List;
 
 import other.so.AndroidBug5497Workaround;
 
@@ -213,7 +214,7 @@ public class DocumentActivity extends MarkorBaseActivity {
                     if (editFrag.getDocument().path.equals(doc.path)) {
                         if (startLine != null) {
                             // Same document requested, show the requested line
-                            TextViewUtils.selectLines(editFrag.getEditor(), startLine);
+                            TextViewUtils.selectLines(editFrag.getEditor(), List.of(startLine));
                         }
                     } else {
                         // Current document is different - launch the new document
