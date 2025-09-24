@@ -169,8 +169,6 @@ Files are stored locally in a user selectable folder, defaulting to the internal
   In user-generated content data can be loaded from the internet.
 * INSTALL_SHORTCUT  
   Install a shortcut to launchers to open a file/folder in Markor.
-* RECORD_AUDIO  
-  Attach voice notes to the text. The permission is only used after click on the "attach audio" button, at the audio record dialog. Audio recording is always started and stopped manually by you (button press).
 
 ## License
 The code of the app is licensed Apache 2.0.  

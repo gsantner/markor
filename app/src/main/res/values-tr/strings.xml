@@ -139,11 +139,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overall_theme_used_in_app">Uygulamada kullanılan genel tema</string>
     <string name="remember_last_directory">Son dizini hatırla</string>
     <string name="syntax_highlighting">Sözdizimini vurgula</string>
-    <string name="dynamic_highlighting">Dinamik vurgulama</string>
     <string name="highlighting_delay">Vurgulama gecikmesi</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Vurgulamayı yenilemek için milisaniye cinsinden gecikme değeri. Daha düşük bir değer, daha erken vurgulamaya başlar, ancak pilinizi tüketir ve eski cihazlarda uygulamayı yavaşlatabilir.</string>
     <string name="highlighting_enabled_or_not__appspecific">Girilen metnin vurgulanıp vurgulanmayacağını kontrol edin</string>
-    <string name="dynamic_highlighting_effect">Dinamik vurgulama performansı artırır. Oluşturma artefaktlarına neden olabilir.</string>
     <string name="control_font_size_in_editor">Düzenleyicide kullanılan yazı tipi boyutunu kontrol et</string>
     <string name="textactions_show_useful_actions_description__appspecific">Altta kullanışlı düğmeleri olan bir çubuk gösterir. Bu metin eylemleri metni değiştirir veya metne dayalı bir eylemi çalıştırır.</string>
     <string name="load_last_opened_folder_at_startup">Başlangıçta son açılan klasörü yükle</string>
@@ -220,6 +218,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="clipboard">Pano</string>
     <string name="select_existing_document">Mevcut belegeyi seç</string>
     <string name="select_create_document">Dosya seç ya da oluştur</string>
+    <string name="select_create_folder">Klasör seçin veya oluşturun</string>
     <string name="open_source_licenses">Açık Kaynak Lisansları</string>
     <string name="rate_this_app">Bu uygulamayı değerlendir</string>
     <string name="translate">Çeviri</string>
@@ -279,6 +278,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Tarih Seç</string>
     <string name="pick_time">Saat seç</string>
     <string name="get_format_instead_date_or_time">Tarih veya saat yerine biçimi al</string>
+    <string name="use_current_date_and_time">Mevcut tarih &amp; saati kullan</string>
     <string name="result">Sonuç</string>
     <string name="just_time">Sadece saat</string>
     <string name="just_date">Sadece tarih</string>
@@ -334,6 +334,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="current">Geçerli</string>
     <string name="record_audio">Ses Kaydet</string>
     <string name="attach">Ekle</string>
+    <string name="attachment">Ek</string>
     <string name="copy_file">Dosyayı kopyala</string>
     <string name="page">Sayfa</string>
     <string name="experimental_features">Deneysel özellikler</string>

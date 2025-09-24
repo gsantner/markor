@@ -23,7 +23,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="browse_filesystem">Răsfoiți sistemul de fișiere</string>
     <string name="title">Titlu</string>
     <string name="empty_directory">Golește dosarul</string>
-    <string name="enter_name_of_folder">Introduceți numele dosarului dvs.</string>
+    <string name="enter_name_of_folder">Introdu numele dosarului tău</string>
     <string name="create_folder">Creați Folder</string>
     <string name="create_new_document">Creați un document nou</string>
     <string name="move">Mutați</string>
@@ -47,7 +47,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (ca text simplu)</string>
     <string name="document_editor_font">Editor de Document Font</string>
     <string name="theme">Temă</string>
-    <string name="open_existing_files_in_view_mode">Deschide fişierele existente în modul de vizualizare</string>
+    <string name="open_existing_files_in_view_mode">Deschide fișierele existente în modul de vizualizare</string>
     <string name="about">Despre</string>
     <string name="plaintext">Text Simplu</string>
     <string name="file">Fișier</string>
@@ -139,11 +139,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overall_theme_used_in_app">Tema generală utilizată în aplicație</string>
     <string name="remember_last_directory">Memorează ultimul director</string>
     <string name="syntax_highlighting">Evidențiere sintaxă</string>
-    <string name="dynamic_highlighting">Evidențiere dinamică</string>
     <string name="highlighting_delay">Întârziere evidenţiere</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Întârziere în milisecunde pentru reîmprospătarea evidențierii. O valoare mai mică va începe evidențierea mai devreme, dar va consuma bateria și poate încetini aplicația pe dispozitivele mai vechi.</string>
     <string name="highlighting_enabled_or_not__appspecific">Controlează dacă textul introdus ar trebui evidențiat sau nu</string>
-    <string name="dynamic_highlighting_effect">Evidențierea dinamică îmbunătățește performanța. Poate cauza artefacte de redare.</string>
     <string name="control_font_size_in_editor">Controlează dimensiunea fontului folosită în editor</string>
     <string name="textactions_show_useful_actions_description__appspecific">Afișează o bară cu butoane utile în partea de jos. Aceste acțiuni asupra textului modifică textul sau execută o acțiune bazată pe text.</string>
     <string name="load_last_opened_folder_at_startup">Încarcă ultimul dosar deschis la pornire</string>
@@ -310,7 +308,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_mode">Mod editare</string>
     <string name="mount_storage">Montează stocarea</string>
     <string name="application_needs_access_to_storage_mount_it">Este necesară permisiunea pentru a accesa acest spațiu de stocare. Montați spațiul de stocare pentru a permite accesul. Confirmați această fereastră de dialog pentru a obține o fereastră pop-up. Selectați spațiul de stocare de acolo și apăsați Selectare.</string>
-    <string name="share_into">Distribuie în</string>
+    <string name="share_into">Partajează în</string>
     <string name="favourite">Favorit</string>
     <string name="favourites">Favorite</string>
     <string name="please_wait">Vă rugăm așteptați</string>

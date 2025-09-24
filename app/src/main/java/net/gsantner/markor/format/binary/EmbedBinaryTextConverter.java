@@ -26,10 +26,11 @@ import java.util.List;
 public class EmbedBinaryTextConverter extends TextConverterBase {
     private static final List<String> EXT = new ArrayList<>();
     private static final List<String> EXT_AUDIO = Arrays.asList(".mp3", ".ogg", ".flac", ".opus", ".oga", ".wma", ".m4a", ".aac", ".wav", ".amr", ".mid", ".midi", ".pcm");
-    private static final List<String> EXT_IMAGE = Arrays.asList(".jpg", ".jpeg", ".png", ".bmp", ".gif", ".webp", ".svg", ".heic", ".heif", ".avif");
+    private static final List<String> EXT_IMAGE = Arrays.asList(".jpg", ".jpeg", ".png", ".bmp", ".gif", ".webp", ".heic", ".heif", ".avif");
     private static final List<String> EXT_VIDEO = Arrays.asList(".webm", ".mp4", ".mpeg4", ".mpeg", ".mpg", ".mkv", ".3gp", ".ts", ".m4v");
 
     public static final String EXT_MATCHES_M3U_PLAYLIST = "(?i).m3u8?";
+    public static final String EXT_IMAGE_TEXTUAL = "(?i).svg";
 
     private static final String HTML100_BODY_BEGIN = "<div>\n  ";
     private static final String HTML101_BODY_END = "\n\n</div>";
@@ -63,7 +64,7 @@ public class EmbedBinaryTextConverter extends TextConverterBase {
         // Sticky header with content depending on type
         if (true) {
             converted += "\n<div class='sticky sticky-blackbox'>\n";
-            if (EXT_IMAGE.contains(extWithDot)) {
+            if (EXT_IMAGE.contains(extWithDot) || extWithDot.matches(EXT_IMAGE_TEXTUAL)) {
                 converted += "<img class='' src='" + TOKEN_FILEURI_VIEWED_FILE + "' alt='Your Android device does not support the file format.'/>";
             } else if (EXT_VIDEO.contains(extWithDot) || extWithDot.matches(EXT_MATCHES_M3U_PLAYLIST)) {
                 converted += "<video class='htmlav' autoplay controls loop style='max-height: 45vh; width: 100%; max-width: 100%;' srcx='" + TOKEN_FILEURI_VIEWED_FILE + "'/>Your Android device does not support the video tag or the file format.</video>";
