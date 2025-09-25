@@ -211,6 +211,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="clipboard">Presse-papier</string>
     <string name="select_existing_document">Sélectionner un document existant</string>
     <string name="select_create_document">Choisir ou créer un document</string>
+    <string name="select_create_folder">Sélectionner ou créer un dossier</string>
     <string name="open_source_licenses">Licence Open Source</string>
     <string name="rate_this_app">Évaluer cette application</string>
     <string name="translate">Traduire</string>
