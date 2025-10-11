@@ -345,9 +345,19 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
     private void newItemCallback(final File file) {
         if (file.isFile()) {
-            DocumentActivity.launch(MainActivity.this, file, false, null);
+            // Check if this is a Markdown file and user prefers preview mode
+            Boolean startInPreview = null;
+            if (_appSettings.isPreferViewMode() && isMarkdownFile(file)) {
+                startInPreview = true;
+            }
+            DocumentActivity.launch(MainActivity.this, file, startInPreview, null);
         }
         _notebook.getAdapter().showFile(file);
+    }
+
+    private boolean isMarkdownFile(final File file) {
+        final String name = file.getName().toLowerCase();
+        return name.endsWith(".md") || name.endsWith(".markdown") || name.endsWith(".mdown") || name.endsWith(".mkd");
     }
 
     @Override

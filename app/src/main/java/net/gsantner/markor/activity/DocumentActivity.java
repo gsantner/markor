@@ -198,8 +198,16 @@ public class DocumentActivity extends MarkorBaseActivity {
             if (startLine != null) {
                 // If a line is requested, open in edit mode so the line is shown
                 startInPreview = false;
+                Log.d("DocumentActivity", "Opening in edit mode: line number requested");
             } else if (intent.getBooleanExtra(Document.EXTRA_DO_PREVIEW, false) || file.getName().startsWith("index.")) {
                 startInPreview = true;
+                Log.d("DocumentActivity", "Opening in preview mode: explicit request or index file");
+            } else if (_appSettings.isPreferViewMode()) {
+                // Check user preference for opening files in preview mode by default
+                startInPreview = true;
+                Log.d("DocumentActivity", "Opening in preview mode: user preference enabled");
+            } else {
+                Log.d("DocumentActivity", "Using default mode: prefer view setting is " + _appSettings.isPreferViewMode());
             }
 
             // Three cases
