@@ -37,6 +37,7 @@ import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
+import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
@@ -292,17 +293,16 @@ public class AttachLinkOrFileDialog {
             }
         }
 
+        // Remove trailing slashes if any
+        path = path.replaceAll("/+$", "");
+
         return path;
     }
 
-    public static String makeAttachmentLink(
-            final int textFormatId,
-            final String title,
-            final File attachment,
-            final File document
-    ) {
+    public static String makeAttachmentLink(final int textFormatId, final String title, final File attachment, final File document) {
         final String path = setupFileAttachment(textFormatId, attachment, document, AppSettings.get(null));
-        return formatLink(title, path, textFormatId);
+        final boolean isImage = GsFileUtils.getMimeType(attachment).contains("image");
+        return formatLink(title, path, textFormatId, isImage ? InsertType.IMAGE_DIALOG : InsertType.LINK_DIALOG);
     }
 
     private static void fetchAndInsertItem(
