@@ -146,11 +146,16 @@ public abstract class GsPreferenceFragmentBase<AS extends GsSharedPreferencesPro
     protected GsContextUtils _cu;
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        _appSettings = getAppSettings(context);
+        _cu = GsContextUtils.instance;
+    }
+
+    @Override
     @Deprecated
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         Activity activity = getActivity();
-        _appSettings = getAppSettings(activity);
-        _cu = GsContextUtils.instance;
         getPreferenceManager().setSharedPreferencesName(getSharedPreferencesName());
         addPreferencesFromResource(getPreferenceResourceForInflation());
 
