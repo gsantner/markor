@@ -29,7 +29,7 @@ import java.util.Locale;
 public class PlaintextTextConverter extends TextConverterBase {
     private static final String HTML100_BODY_PRE_BEGIN = "<pre style='white-space: pre-wrap;font-family: " + TOKEN_FONT + "' >";
     private static final String HTML101_BODY_PRE_END = "</pre>";
-    private static final List<String> EXT_TEXT = Arrays.asList(".txt", ".taskpaper", ".org", ".ldg", ".ledger", ".m3u", ".m3u8", ".svg", ".lrc", ".fen");
+    private static final List<String> EXT_TEXT = Arrays.asList(".txt", ".taskpaper", ".org", ".ldg", ".ledger", ".m3u", ".m3u8", ".svg", ".lrc", ".fen", ".srt");
     private static final List<String> EXT_HTML = Arrays.asList(".html", ".htm");
     private static final List<String> EXT_CODE_HL = Arrays.asList(".py", ".cpp", ".h", ".c", ".js", ".mjs", ".css", ".cs", ".kt", ".lua", ".perl", ".java", ".qml", ".diff", ".php", ".r", ".patch", ".rs", ".swift", ".ts", ".mm", ".go", ".sh", ".rb", ".tex", ".xml", ".xlf");
     private static final List<String> EXT = new ArrayList<>();
