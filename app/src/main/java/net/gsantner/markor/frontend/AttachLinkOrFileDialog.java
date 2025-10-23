@@ -292,6 +292,9 @@ public class AttachLinkOrFileDialog {
             }
         }
 
+        // Remove trailing slashes if any
+        path = path.replaceAll("/+$", "");
+
         return path;
     }
 
