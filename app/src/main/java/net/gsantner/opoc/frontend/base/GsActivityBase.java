@@ -11,7 +11,6 @@ package net.gsantner.opoc.frontend.base;
 
 import static android.view.WindowManager.LayoutParams.FLAG_SECURE;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;

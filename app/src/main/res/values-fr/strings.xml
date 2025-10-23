@@ -68,6 +68,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">Cacher la barre de statut</string>
     <string name="name">Nom</string>
     <string name="url_or_path">URL / Chemin</string>
+    <string name="insert_link">Insérer lien</string>
     <string name="insert_image">Insérer image</string>
     <string name="contributors">Contributeurs</string>
     <string name="save_location">Enregistrer la localisation</string>
@@ -180,6 +181,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_pos_end">Fin de ligne</string>
     <string name="key_pos_1_document">Début de document</string>
     <string name="key_pos_end_document">Fin de document</string>
+    <string name="move_text_one_line_down">Déplacer la ligne en-dessous</string>
+    <string name="start_new_line_below">Commencer une nouvelle ligne</string>
+    <string name="select_current_line">Sélectionner la ligne actuelle</string>
     <string name="key_ctrl_a">Tout sélectionner (Ctrl + A)</string>
     <string name="key_tab">Tabulation</string>
     <string name="zero_width_space">Espace de largeur nulle</string>
@@ -211,6 +215,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="clipboard">Presse-papier</string>
     <string name="select_existing_document">Sélectionner un document existant</string>
     <string name="select_create_document">Choisir ou créer un document</string>
+    <string name="select_create_folder">Sélectionner ou créer un dossier</string>
     <string name="open_source_licenses">Licence Open Source</string>
     <string name="rate_this_app">Évaluer cette application</string>
     <string name="translate">Traduire</string>
@@ -270,6 +275,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Choisissez une date</string>
     <string name="pick_time">Choisissez l\'heure</string>
     <string name="get_format_instead_date_or_time">Obtenez le format plutôt que date ou heure</string>
+    <string name="use_current_date_and_time">Utiliser date &amp; heure actuelles</string>
     <string name="result">Résultats</string>
     <string name="just_time">Heure seulement</string>
     <string name="just_date">Date seulement</string>
@@ -325,6 +331,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="current">Actuel</string>
     <string name="record_audio">Enregistrer l\'audio</string>
     <string name="attach">Attacher</string>
+    <string name="attachment">Pièce jointe</string>
     <string name="copy_file">Copier le fichier</string>
     <string name="page">Page</string>
     <string name="experimental_features">Fonctions expérimentales</string>
@@ -449,4 +456,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wont_save_min_length">Les fichiers avec moins de %d caractères ne seront pas automatiquement sauvegardé afin d\'éviter les pertes de données.</string>
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Filtres syntaxiques avancés</a></small>]]></string>
     <string name="filter">Filtrer</string>
+    <string name="text_case">Casse du texte</string>
+    <string name="use_tab_to_indent">Indenter les lignes avec la toucher TAB</string>
+    <string name="folder_local">Dossier local</string>
 </resources>
