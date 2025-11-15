@@ -156,7 +156,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             return;
         }
 
-        _lineNumbersView.setup(_hlEditor);
+        _lineNumbersView.setEditText(_hlEditor);
         _lineNumbersView.setLineNumbersEnabled(_appSettings.getDocumentLineNumbersEnabled(_document.path));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && _appSettings.getSetWebViewFulldrawing()) {
@@ -304,7 +304,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _appSettings.addRecentFile(_document.file);
         _appSettings.setDocumentPreviewState(_document.path, _isPreviewVisible);
         _appSettings.setLastEditPosition(_document.path, TextViewUtils.getSelection(_hlEditor)[0]);
-
+        _appSettings.setLastEditScrollY(_document.path, _verticalScrollView.getScrollY());
         if (_document.path.equals(_appSettings.getTodoFile().getAbsolutePath())) {
             TodoWidgetProvider.updateTodoWidgets();
         }
