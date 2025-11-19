@@ -12,6 +12,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings">Настройки</string>
     <string name="appearance">Външен вид</string>
+    <string name="browse_filesystem">Разглеждане на файлова система</string>
     <string name="editor">Редактор</string>
     <string name="about">Относно</string>
     <string name="create">Създаване</string>
