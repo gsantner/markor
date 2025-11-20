@@ -2,6 +2,7 @@ package net.gsantner.markor.widget;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.TypedValue;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -56,7 +57,18 @@ public class TodoWidgetRemoteViewsFactory implements RemoteViewsService.RemoteVi
     @Override
     public RemoteViews getViewAt(int position) {
         RemoteViews views = new RemoteViews(_context.getPackageName(), R.layout.todo_widget_list_item);
-        views.setTextViewText(R.id.todo_widget_item_text, _tasks.get(position).getDescription());
+
+        String itemText = _tasks.get(position).getDescription();
+
+        if (itemText.startsWith("# ")) {
+            views.setTextViewTextSize(R.id.todo_widget_item_text, TypedValue.COMPLEX_UNIT_SP, 24);
+        } else if (itemText.startsWith("## ")) {
+            views.setTextViewTextSize(R.id.todo_widget_item_text, TypedValue.COMPLEX_UNIT_SP, 18);
+        } else if (itemText.isEmpty() || itemText.trim().equals("\n")) {
+            views.setTextViewTextSize(R.id.todo_widget_item_text, TypedValue.COMPLEX_UNIT_SP, 8);
+        }
+
+        views.setTextViewText(R.id.todo_widget_item_text, itemText);
         views.setInt(R.id.todo_widget_item_text, "setTextColor", _appSettings.getEditorForegroundColor());
 
         final Intent fillInIntent = new Intent()

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/todo_widget_container"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background">
+    android:background="@color/background"
+    android:orientation="vertical">
 
     <ListView
         android:id="@+id/todo_widget_list_view"
@@ -17,7 +17,7 @@
         android:id="@+id/todo_widget_empty_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Empty"
         android:gravity="center"
+        android:text="Empty"
         android:visibility="gone" />
 </LinearLayout>
