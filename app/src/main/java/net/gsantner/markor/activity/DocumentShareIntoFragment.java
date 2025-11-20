@@ -233,7 +233,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             }
 
             // Set most recent file (recent files are sorted)
-            for (final File file : _appSettings.getRecentFiles()) {
+            for (final File file : new AppSettings(getContext()).getRecentFiles()) {
                 if (file.isFile() && GsFileUtils.isTextFile(file)) {
                     mostRecentFile = file;
                     break;
