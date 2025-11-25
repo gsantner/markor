@@ -25,8 +25,8 @@ import androidx.core.content.ContextCompat;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
+import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.activity.MainActivity;
-import net.gsantner.markor.activity.openeditor.OpenFromShortcutOrWidgetActivity;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.util.GsFileUtils;
@@ -57,7 +57,7 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
             views.setTextViewText(R.id.widget_header_title, GsFileUtils.getFilenameWithoutExtension(directoryF));
 
             // ~~~Create new File~~~ Share empty text into markor, easier to access from widget than new file dialog
-            final Intent openShare = new Intent(context, OpenFromShortcutOrWidgetActivity.class)
+            final Intent openShare = new Intent(context, DocumentActivity.class)
                     .setAction(Intent.ACTION_SEND)
                     .putExtra(Intent.EXTRA_TEXT, "");
             views.setOnClickPendingIntent(R.id.widget_new_note, PendingIntent.getActivity(context, requestCode++, openShare, staticFlags));
@@ -71,7 +71,7 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
             views.setOnClickPendingIntent(R.id.widget_header, PendingIntent.getActivity(context, requestCode++, goToFolder, staticFlags));
 
             // Open To-do
-            final Intent openTodo = new Intent(context, OpenFromShortcutOrWidgetActivity.class)
+            final Intent openTodo = new Intent(context, DocumentActivity.class)
                     .setAction(Intent.ACTION_EDIT)
                     .putExtra(Document.EXTRA_FILE, appSettings.getTodoFile())
                     .putExtra(Document.EXTRA_FILE_LINE_NUMBER, -1);
@@ -79,7 +79,7 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
             views.setInt(R.id.widget_todo, "setColorFilter", color);
 
             // Open QuickNote
-            final Intent openQuickNote = new Intent(context, OpenFromShortcutOrWidgetActivity.class)
+            final Intent openQuickNote = new Intent(context, DocumentActivity.class)
                     .setAction(Intent.ACTION_EDIT)
                     .putExtra(Document.EXTRA_FILE, appSettings.getQuickNoteFile())
                     .putExtra(Document.EXTRA_FILE_LINE_NUMBER, -1);
@@ -103,7 +103,7 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
             views.setEmptyView(R.id.widget_list_container, R.id.widget_empty_hint);
             views.setRemoteAdapter(R.id.widget_notes_list, notesListIntent);
 
-            final Intent openNoteIntent = new Intent(context, OpenFromShortcutOrWidgetActivity.class);
+            final Intent openNoteIntent = new Intent(context, DocumentActivity.class);
             final PendingIntent openNotePendingIntent = PendingIntent.getActivity(context, requestCode++, openNoteIntent, mutableFlags);
             views.setPendingIntentTemplate(R.id.widget_notes_list, openNotePendingIntent);
 

@@ -23,9 +23,10 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.activity.DocumentActivity;
+import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.activity.openeditor.OpenEditorQuickNoteActivity;
 import net.gsantner.markor.activity.openeditor.OpenEditorTodoActivity;
-import net.gsantner.markor.activity.openeditor.OpenFromShortcutOrWidgetActivity;
 import net.gsantner.markor.activity.openeditor.OpenShareIntoActivity;
 import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
@@ -71,7 +72,15 @@ public class MarkorContextUtils extends GsContextUtils {
         final String title = file != null ? GsFileUtils.getFilenameWithoutExtension(file) : null;
         if (!TextUtils.isEmpty(title)) {
             final int iconRes = getIconResForFile(file);
-            final Intent intent = new Intent(context, OpenFromShortcutOrWidgetActivity.class).setData(Uri.fromFile(file));
+            final Intent intent;
+            if (GsFileUtils.isDirectory(file)) {
+                intent = new Intent(context, MainActivity.class);
+            } else {
+                intent = new Intent(context, DocumentActivity.class);
+            }
+            final Uri uri = Uri.fromFile(file);
+            intent.setData(uri);
+            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             createLauncherDesktopShortcut(context, intent, iconRes, title);
         }
         return thisp();

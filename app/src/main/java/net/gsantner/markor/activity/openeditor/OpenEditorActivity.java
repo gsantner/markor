@@ -12,6 +12,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 
+import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.activity.MarkorBaseActivity;
 import net.gsantner.markor.activity.StoragePermissionActivity;
 import net.gsantner.markor.model.Document;
@@ -27,7 +28,7 @@ public class OpenEditorActivity extends MarkorBaseActivity {
     }
 
     protected void openEditorForFile(final File file, final Integer line) {
-        final Intent openIntent = new Intent(getApplicationContext(), OpenFromShortcutOrWidgetActivity.class)
+        final Intent openIntent = new Intent(getApplicationContext(), DocumentActivity.class)
                 .setAction(Intent.ACTION_EDIT)
                 .putExtra(Document.EXTRA_FILE, file);
 

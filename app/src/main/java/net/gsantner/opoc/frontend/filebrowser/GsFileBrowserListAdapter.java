@@ -40,6 +40,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.util.GsCollectionUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
@@ -72,6 +73,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     public static final File VIRTUAL_STORAGE_RECENTS = new File(VIRTUAL_STORAGE_ROOT, "Recent");
     public static final File VIRTUAL_STORAGE_FAVOURITE = new File(VIRTUAL_STORAGE_ROOT, "Favourites");
     public static final File VIRTUAL_STORAGE_POPULAR = new File(VIRTUAL_STORAGE_ROOT, "Popular");
+    public static final File VIRTUAL_STORAGE_NOTEBOOK = new File(VIRTUAL_STORAGE_ROOT, "Notebook");
     public static final File VIRTUAL_STORAGE_APP_DATA_PRIVATE = new File(VIRTUAL_STORAGE_ROOT, "AppData (private)");
     public static final String EXTRA_CURRENT_FOLDER = "EXTRA_CURRENT_FOLDER";
     public static final String EXTRA_DOPT = "EXTRA_DOPT";
@@ -171,6 +173,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         _virtualMapping.put(VIRTUAL_STORAGE_RECENTS, VIRTUAL_STORAGE_RECENTS);
         _virtualMapping.put(VIRTUAL_STORAGE_POPULAR, VIRTUAL_STORAGE_POPULAR);
         _virtualMapping.put(VIRTUAL_STORAGE_FAVOURITE, VIRTUAL_STORAGE_FAVOURITE);
+        _virtualMapping.put(VIRTUAL_STORAGE_NOTEBOOK, AppSettings.get(_context).getNotebookDirectory());
 
         _virtualMapping.putAll(_dopt.storageMaps);
 
@@ -894,7 +897,8 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         return VIRTUAL_STORAGE_RECENTS.equals(file) ||
                 VIRTUAL_STORAGE_FAVOURITE.equals(file) ||
                 VIRTUAL_STORAGE_POPULAR.equals(file) ||
-                VIRTUAL_STORAGE_ROOT.equals(file);
+                VIRTUAL_STORAGE_ROOT.equals(file) ||
+                VIRTUAL_STORAGE_NOTEBOOK.equals(file);
     }
 
     public void showFileAfterNextLoad(final File file) {
