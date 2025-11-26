@@ -13,13 +13,10 @@ import com.vladsch.flexmark.parser.Parser;
 import java.util.Collections;
 
 /**
- * Small Markdown -> Spannable converter for widget usage.
- * Supports:
- * - headings: '# ' (H1) and '## ' (H2)
- * - inline bold: **bold** or __bold__
- * - simple lists: lines starting with "- ", "* " or "1. "
+ * A utility class for converting Markdown to a {@link android.text.Spannable} for use in Android widgets.
  * <p>
- * Simple, fast, few allocations. Not a full Markdown implementation.
+ * This class provides methods to render a limited subset of Markdown, making it suitable for display
+ * within {@link android.widget.RemoteViews}.
  */
 public final class MarkdownWidgetUtils {
 
