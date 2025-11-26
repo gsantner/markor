@@ -2,7 +2,6 @@ package net.gsantner.markor.widget;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.TypedValue;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -60,11 +59,11 @@ public class TodoWidgetRemoteViewsFactory implements RemoteViewsService.RemoteVi
 
         String itemText = _tasks.get(position).getDescription();
 
-        // Convert markdown -> Spannable (headings, bold, simple lists)
-        CharSequence styled = MarkdownWidgetUtils.toSpannable(itemText);
+        // TODO: Only render Markdown if the file extension is .md!
 
-        // Set the styled text
+        CharSequence styled = MarkdownWidgetUtils.fromFlexmark(itemText);
         views.setTextViewText(R.id.todo_widget_item_text, styled);
+
 
         views.setInt(R.id.todo_widget_item_text, "setTextColor", _appSettings.getEditorForegroundColor());
 

@@ -11,7 +11,7 @@
         android:id="@+id/todo_widget_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@color/grey"
+        android:divider="@color/background"
         android:dividerHeight="0dp" />
 
     <TextView
