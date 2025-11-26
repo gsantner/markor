@@ -60,15 +60,12 @@ public class TodoWidgetRemoteViewsFactory implements RemoteViewsService.RemoteVi
 
         String itemText = _tasks.get(position).getDescription();
 
-        if (itemText.startsWith("# ")) {
-            views.setTextViewTextSize(R.id.todo_widget_item_text, TypedValue.COMPLEX_UNIT_SP, 24);
-        } else if (itemText.startsWith("## ")) {
-            views.setTextViewTextSize(R.id.todo_widget_item_text, TypedValue.COMPLEX_UNIT_SP, 18);
-        } else if (itemText.isEmpty() || itemText.trim().equals("\n")) {
-            views.setTextViewTextSize(R.id.todo_widget_item_text, TypedValue.COMPLEX_UNIT_SP, 8);
-        }
+        // Convert markdown -> Spannable (headings, bold, simple lists)
+        CharSequence styled = MarkdownWidgetUtils.toSpannable(itemText);
 
-        views.setTextViewText(R.id.todo_widget_item_text, itemText);
+        // Set the styled text
+        views.setTextViewText(R.id.todo_widget_item_text, styled);
+
         views.setInt(R.id.todo_widget_item_text, "setTextColor", _appSettings.getEditorForegroundColor());
 
         final Intent fillInIntent = new Intent()

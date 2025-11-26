@@ -4,14 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="8dp">
 
     <ListView
         android:id="@+id/todo_widget_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@color/grey"
-        android:dividerHeight="0.5dp" />
+        android:dividerHeight="0dp" />
 
     <TextView
         android:id="@+id/todo_widget_empty_view"
