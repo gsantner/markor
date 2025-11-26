@@ -12,6 +12,7 @@ import net.gsantner.markor.model.Document;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class TodoWidgetRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
@@ -59,10 +60,14 @@ public class TodoWidgetRemoteViewsFactory implements RemoteViewsService.RemoteVi
 
         String itemText = _tasks.get(position).getDescription();
 
-        // TODO: Only render Markdown if the file extension is .md!
-
-        CharSequence styled = MarkdownWidgetUtils.fromFlexmark(itemText);
-        views.setTextViewText(R.id.todo_widget_item_text, styled);
+        String filename = _document.path.toLowerCase(Locale.ROOT);
+        boolean isMarkdown = filename.endsWith(".md") || filename.endsWith(".markdown");
+        if (isMarkdown) {
+            CharSequence styled = MarkdownWidgetUtils.fromFlexmark(itemText);
+            views.setTextViewText(R.id.todo_widget_item_text, styled);
+        } else {
+            views.setTextViewText(R.id.todo_widget_item_text, itemText);
+        }
 
 
         views.setInt(R.id.todo_widget_item_text, "setTextColor", _appSettings.getEditorForegroundColor());
