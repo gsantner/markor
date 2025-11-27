@@ -2945,6 +2945,10 @@ public class GsContextUtils {
     }
 
     public static boolean fadeInOut(final View in, final View out, final boolean animate) {
+        if (in == null || out == null) {
+            return false;
+        }
+
         // Do nothing if we are already in the correct state
         if (in.getVisibility() == View.VISIBLE && out.getVisibility() == View.INVISIBLE) {
             return false;

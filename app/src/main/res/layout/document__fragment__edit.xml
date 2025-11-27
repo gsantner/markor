@@ -77,13 +77,12 @@
             android:orientation="horizontal" />
     </net.gsantner.opoc.frontend.GsHorizontalScrollView>
 
-    <net.gsantner.markor.web.DraggableScrollbarWebView
-        android:id="@+id/document__fragment_view_webview"
+    <ViewStub
+        android:id="@+id/document__fragment_webview_stub"
+        android:layout="@layout/document__fragment_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/textactions_bar_height"
-        android:background="@color/background"
-        android:visibility="invisible" />
+        android:layout_marginBottom="@dimen/textactions_bar_height" />
 
     <FrameLayout
         android:id="@+id/document__fragment_fullscreen_overlay"
