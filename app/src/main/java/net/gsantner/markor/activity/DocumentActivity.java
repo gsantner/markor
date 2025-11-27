@@ -45,6 +45,13 @@ public class DocumentActivity extends MarkorBaseActivity {
     private Toolbar _toolbar;
     private FragmentManager _fragManager;
 
+    public static void launch(final Activity activity, final Intent intent) {
+        final File file = MarkorContextUtils.getIntentFile(intent);
+        final Integer lineNumber = intent.hasExtra(Document.EXTRA_FILE_LINE_NUMBER) ? intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, -1) : null;
+        final Boolean doPreview = intent.hasExtra(Document.EXTRA_DO_PREVIEW) ? intent.getBooleanExtra(Document.EXTRA_DO_PREVIEW, false) : null;
+        launch(activity, file, doPreview, lineNumber);
+    }
+
     public static void launch(
             final Activity activity,
             final File file,
@@ -348,5 +355,11 @@ public class DocumentActivity extends MarkorBaseActivity {
 
     private GsFragmentBase<?, ?> getCurrentVisibleFragment() {
         return (GsFragmentBase<?, ?>) getSupportFragmentManager().findFragmentById(R.id.document__placeholder_fragment);
+    }
+
+    public static Intent saltIntent(final Intent intent) {
+        final Intent newIntent = new Intent(intent);
+        newIntent.putExtra("__random__", System.currentTimeMillis());
+        return newIntent;
     }
 }

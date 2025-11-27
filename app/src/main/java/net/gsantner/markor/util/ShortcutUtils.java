@@ -18,7 +18,7 @@ import android.os.Build;
 import androidx.annotation.NonNull;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.activity.DocumentActivity;
+import net.gsantner.markor.activity.openeditor.OpenFromShortcutOrWidgetActivity;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
 
@@ -62,7 +62,7 @@ public class ShortcutUtils {
             final AppSettings appSettings = AppSettings.get(context);
 
             // Create the to-do shortcut
-            final Intent openTodo = new Intent(context, DocumentActivity.class)
+            final Intent openTodo = new Intent(context, OpenFromShortcutOrWidgetActivity.class)
                     .setAction(Intent.ACTION_EDIT)
                     .setData(Uri.fromFile(appSettings.getTodoFile()))
                     .putExtra(Document.EXTRA_FILE_LINE_NUMBER, -1);
@@ -76,7 +76,7 @@ public class ShortcutUtils {
             newShortcuts.add(shortcutToDo);
 
             // Create the QuickNote shortcut
-            final Intent openQuickNote = new Intent(context, DocumentActivity.class)
+            final Intent openQuickNote = new Intent(context, OpenFromShortcutOrWidgetActivity.class)
                     .setAction(Intent.ACTION_EDIT)
                     .setData(Uri.fromFile(appSettings.getQuickNoteFile()))
                     .putExtra(Document.EXTRA_FILE_LINE_NUMBER, -1);
@@ -95,7 +95,7 @@ public class ShortcutUtils {
             for (int i = 0; i < Math.min(MAX_RECENT_DOCUMENTS, recentDocuments.size()); i++) {
                 final File file = new File(recentDocuments.get(i));
 
-                final Intent openFile = new Intent(context, DocumentActivity.class)
+                final Intent openFile = new Intent(context, OpenFromShortcutOrWidgetActivity.class)
                         .addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                         .setAction(Intent.ACTION_EDIT)
                         .setData(Uri.fromFile(file));

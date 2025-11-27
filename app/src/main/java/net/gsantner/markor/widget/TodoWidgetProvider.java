@@ -11,7 +11,7 @@ import android.widget.RemoteViews;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
-import net.gsantner.markor.activity.DocumentActivity;
+import net.gsantner.markor.activity.openeditor.OpenFromShortcutOrWidgetActivity;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
 
@@ -35,7 +35,7 @@ public class TodoWidgetProvider extends AppWidgetProvider {
             views.setEmptyView(R.id.todo_widget_list_view, R.id.todo_widget_empty_view);
             views.setInt(R.id.todo_widget_list_view, "setBackgroundColor", appSettings.getEditorBackgroundColor());
 
-            final Intent openTodo = new Intent(context, DocumentActivity.class)
+            final Intent openTodo = new Intent(context, OpenFromShortcutOrWidgetActivity.class)
                     .setAction(Intent.ACTION_EDIT)
                     .putExtra(Document.EXTRA_FILE, appSettings.getTodoFile());
             views.setPendingIntentTemplate(R.id.todo_widget_list_view, PendingIntent.getActivity(context, requestCode++, openTodo, mutableFlags));
