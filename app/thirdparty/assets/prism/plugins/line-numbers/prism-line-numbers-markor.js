@@ -20,7 +20,7 @@ function getNumberDigits(number) {
     }
 }
 
-function adjustLineNumbers() {
+function adjustLayout() {
     let fontWidth = -1;
     const codeElements = document.querySelectorAll("pre > code");
     codeElements.forEach((element) => {

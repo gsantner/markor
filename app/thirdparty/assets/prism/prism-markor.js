@@ -1,4 +1,4 @@
-function usePrismCodeBlock() {
+function usePrism() {
     let elements = document.querySelectorAll("pre > code");
     elements.forEach(function (element) {
         let attribute = element.getAttribute("class");
@@ -9,7 +9,7 @@ function usePrismCodeBlock() {
     });
 }
 
-function wrapCodeBlockWords() {
+function wrapCode() {
     let preElements = document.querySelectorAll("pre");
     preElements.forEach((element) => {
         element.style.whiteSpace = "pre-wrap";
