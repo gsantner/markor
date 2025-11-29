@@ -357,4 +357,10 @@ public class DocumentActivity extends MarkorBaseActivity {
     private GsFragmentBase<?, ?> getCurrentVisibleFragment() {
         return (GsFragmentBase<?, ?>) getSupportFragmentManager().findFragmentById(R.id.document__placeholder_fragment);
     }
+
+    public static Intent saltIntent(final Intent intent) {
+        final Intent newIntent = new Intent(intent);
+        newIntent.putExtra("__random__", System.currentTimeMillis());
+        return newIntent;
+    }
 }
