@@ -67,6 +67,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+                <data android:scheme="${applicationId}" android:host="file_browser" />
             </intent-filter>
         </activity>
 
@@ -219,6 +220,8 @@
                 <data android:mimeType="text/x-markdown" />
                 <data android:mimeType="text/htm" />
                 <data android:mimeType="text/html" />
+
+                <data android:scheme="${applicationId}" android:host="document_editor_viewer" />
             </intent-filter>
 
             <intent-filter>
