@@ -61,6 +61,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
     private BottomNavigationView _bottomNav;
     private ViewPager2 _viewPager;
+    private SectionsPagerAdapter _sectionsAdapter;
     private GsFileBrowserFragment _notebook;
     private DocumentEditAndViewFragment _quicknote, _todo;
     private MoreFragment _more;
@@ -101,10 +102,14 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         optShowRate();
 
         // Setup viewpager
-        _viewPager.setAdapter(new SectionsPagerAdapter(getSupportFragmentManager()));
-        _viewPager.setOffscreenPageLimit(4);
+        _sectionsAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        _viewPager.setAdapter(_sectionsAdapter);
+        // Keep created fragments alive, but only realize them once the user visits.
+        _viewPager.setOffscreenPageLimit(_bottomNav.getMenu().size());
         _bottomNav.setOnItemSelectedListener((item) -> {
-            _viewPager.setCurrentItem(tabIdToPos(item.getItemId()));
+            final int pos = tabIdToPos(item.getItemId());
+            _sectionsAdapter.ensureRealized(pos);
+            _viewPager.setCurrentItem(pos);
             return true;
         });
 
@@ -172,6 +177,13 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
             _quicknote = (DocumentEditAndViewFragment) manager.getFragment(savedInstanceState, Integer.toString(R.id.nav_quicknote));
             _todo = (DocumentEditAndViewFragment) manager.getFragment(savedInstanceState, Integer.toString(R.id.nav_todo));
             _more = (MoreFragment) manager.getFragment(savedInstanceState, Integer.toString(R.id.nav_more));
+
+            if (_sectionsAdapter != null) {
+                _sectionsAdapter.restoreFragment(tabIdToPos(R.id.nav_notebook));
+                _sectionsAdapter.restoreFragment(tabIdToPos(R.id.nav_quicknote));
+                _sectionsAdapter.restoreFragment(tabIdToPos(R.id.nav_todo));
+                _sectionsAdapter.restoreFragment(tabIdToPos(R.id.nav_more));
+            }
 
             final NewFileDialog nf = (NewFileDialog) manager.findFragmentByTag(NewFileDialog.FRAGMENT_TAG);
             if (nf != null) {
@@ -348,7 +360,9 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         if (file.isFile()) {
             DocumentActivity.launch(MainActivity.this, file, false, null);
         }
-        _notebook.getAdapter().showFile(file);
+        if (_notebook != null && _notebook.getAdapter() != null) {
+            _notebook.getAdapter().showFile(file);
+        }
     }
 
     @Override
@@ -413,12 +427,19 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     }
 
     public void hideKeyboard() {
-        _cu.showSoftKeyboard(this, false, _quicknote.getEditor());
-        _cu.showSoftKeyboard(this, false, _todo.getEditor());
+        if (_quicknote != null) {
+            _cu.showSoftKeyboard(this, false, _quicknote.getEditor());
+        }
+        if (_todo != null) {
+            _cu.showSoftKeyboard(this, false, _todo.getEditor());
+        }
     }
 
     public void onViewPagerPageSelected(final int pos) {
         _bottomNav.getMenu().getItem(pos).setChecked(true);
+        if (_sectionsAdapter != null) {
+            _sectionsAdapter.ensureRealized(pos);
+        }
 
         if (pos == tabIdToPos(R.id.nav_notebook)) {
             _fab.show();
@@ -469,14 +490,21 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     }
 
     class SectionsPagerAdapter extends FragmentStateAdapter {
+        private final boolean[] _realized;
 
         SectionsPagerAdapter(FragmentManager fragMgr) {
             super(fragMgr, MainActivity.this.getLifecycle());
+            final int count = _bottomNav.getMenu().size();
+            _realized = new boolean[count];
+            _realized[_viewPager.getCurrentItem()] = true; // only the visible page is real at start
         }
 
         @NonNull
         @Override
         public Fragment createFragment(final int pos) {
+            if (!_realized[pos]) {
+                return new Fragment(); // placeholder, replaced when realized
+            }
             final GsFragmentBase<?, ?> frag;
             final int id = tabIdFromPos(pos);
             if (id == R.id.nav_quicknote) {
@@ -495,6 +523,36 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         @Override
         public int getItemCount() {
             return _bottomNav.getMenu().size();
+        }
+
+        @Override
+        public long getItemId(final int position) {
+            return position * 2L + (_realized[position] ? 1 : 0);
+        }
+
+        @Override
+        public boolean containsItem(final long itemId) {
+            final int pos = (int) (itemId / 2L);
+            if (pos < 0 || pos >= _realized.length) {
+                return false;
+            }
+            final boolean realId = (itemId % 2L) == 1L;
+            return _realized[pos] == realId;
+        }
+
+        void ensureRealized(final int pos) {
+            if (pos < 0 || pos >= _realized.length || _realized[pos]) {
+                return;
+            }
+            _realized[pos] = true;
+            notifyItemChanged(pos);
+        }
+
+        void restoreFragment(final int pos) {
+            if (pos < 0 || pos >= _realized.length) {
+                return;
+            }
+            _realized[pos] = true;
         }
     }
 

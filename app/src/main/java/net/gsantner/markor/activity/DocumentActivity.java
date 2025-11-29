@@ -45,6 +45,13 @@ public class DocumentActivity extends MarkorBaseActivity {
     private Toolbar _toolbar;
     private FragmentManager _fragManager;
 
+    public static void launch(final Activity activity, final Intent intent) {
+        final File file = MarkorContextUtils.getIntentFile(intent);
+        final Integer lineNumber = intent.hasExtra(Document.EXTRA_FILE_LINE_NUMBER) ? intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, -1) : null;
+        final Boolean doPreview = intent.hasExtra(Document.EXTRA_DO_PREVIEW) ? intent.getBooleanExtra(Document.EXTRA_DO_PREVIEW, false) : null;
+        launch(activity, file, doPreview, lineNumber);
+    }
+
     public static void launch(
             final Activity activity,
             final File file,
@@ -106,7 +113,7 @@ public class DocumentActivity extends MarkorBaseActivity {
 
         intent.putExtra(Document.EXTRA_FILE, file);
 
-        GsContextUtils.instance.animateToActivity(activity, intent, false, null);
+        activity.startActivity(intent);
     }
 
     public static void askUserIfWantsToOpenFileInThisApp(final Activity activity, final File file) {
@@ -183,15 +190,16 @@ public class DocumentActivity extends MarkorBaseActivity {
                 startLine = intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, -1);
             } else if (intentData != null) {
                 final String line = intentData.getQueryParameter("line");
-                startLine = GsTextUtils.tryParseInt(line, -1);
+                if (line != null) {
+                    startLine = GsTextUtils.tryParseInt(line, -1);
+                }
             }
 
             // Start in a specific mode if required. Otherwise let the fragment decide
             Boolean startInPreview = null;
-            if (startLine != null) {
-                // If a line is requested, open in edit mode so the line is shown
-                startInPreview = false;
-            } else if (intent.getBooleanExtra(Document.EXTRA_DO_PREVIEW, false) || file.getName().startsWith("index.")) {
+            if (intent.getBooleanExtra(Document.EXTRA_DO_PREVIEW, false) ||
+                file.getName().startsWith("index.")
+            ) {
                 startInPreview = true;
             }
 

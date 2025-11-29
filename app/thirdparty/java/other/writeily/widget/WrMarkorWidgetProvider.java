@@ -27,6 +27,7 @@ import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.activity.MainActivity;
+import net.gsantner.markor.activity.openeditor.OpenFromShortcutOrWidgetActivity;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.util.GsFileUtils;
@@ -103,7 +104,7 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
             views.setEmptyView(R.id.widget_list_container, R.id.widget_empty_hint);
             views.setRemoteAdapter(R.id.widget_notes_list, notesListIntent);
 
-            final Intent openNoteIntent = new Intent(context, DocumentActivity.class);
+            final Intent openNoteIntent = new Intent(context, OpenFromShortcutOrWidgetActivity.class);
             final PendingIntent openNotePendingIntent = PendingIntent.getActivity(context, requestCode++, openNoteIntent, mutableFlags);
             views.setPendingIntentTemplate(R.id.widget_notes_list, openNotePendingIntent);
 

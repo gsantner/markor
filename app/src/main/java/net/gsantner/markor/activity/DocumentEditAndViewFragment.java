@@ -66,6 +66,7 @@ import net.gsantner.opoc.frontend.textview.TextViewUndoRedo;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsCoolExperimentalStuff;
 import net.gsantner.opoc.web.GsWebViewChromeClient;
+import net.gsantner.opoc.wrapper.GsCallback;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
 import java.io.File;
@@ -231,12 +232,14 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             });
         }
 
-        _verticalScrollView.getViewTreeObserver().addOnGlobalLayoutListener(() -> _hlEditor.post(() -> {
+        final Runnable ensureMinHeight = () -> _hlEditor.post(() -> {
             final int height = _verticalScrollView.getHeight();
-            if (height != _hlEditor.getMinHeight()) {
+            if (height > 0 && height != _hlEditor.getMinHeight()) {
                 _hlEditor.setMinHeight(height);
             }
-        }));
+        });
+        _verticalScrollView.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> ensureMinHeight.run());
+        _verticalScrollView.post(ensureMinHeight);
     }
 
     @Override
