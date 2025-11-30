@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.print.PrintJob;
 import android.text.TextUtils;
@@ -24,8 +25,8 @@ import androidx.annotation.RequiresApi;
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.openeditor.OpenEditorQuickNoteActivity;
 import net.gsantner.markor.activity.openeditor.OpenEditorTodoActivity;
+import net.gsantner.markor.activity.openeditor.OpenFromShortcutOrWidgetActivity;
 import net.gsantner.markor.activity.openeditor.OpenShareIntoActivity;
-import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 import net.gsantner.opoc.util.GsContextUtils;
@@ -70,10 +71,8 @@ public class MarkorContextUtils extends GsContextUtils {
         title = title == null ? GsFileUtils.getFilenameWithoutExtension(file) : title;
         if (!TextUtils.isEmpty(title)) {
             final int iconRes = getIconResForFile(file);
-            final Intent intent = DocumentActivity.buildDeepLinkIntent(context, file);
-            if (intent != null) {
-                createLauncherDesktopShortcut(context, intent, iconRes, title);
-            }
+            final Intent intent = new Intent(context, OpenFromShortcutOrWidgetActivity.class).setData(Uri.fromFile(file));
+            createLauncherDesktopShortcut(context, intent, iconRes, title);
         }
         return thisp();
     }

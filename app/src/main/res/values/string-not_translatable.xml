@@ -172,8 +172,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__more_info__rate_app" translatable="false">pref_key__more_info__rate_app</string>
     <string name="pref_key__more_info__translate" translatable="false">pref_key__more_info__translate</string>
     <string name="pref_key__more_info__join_community" translatable="false">pref_key__more_info__join_community</string>
-    <string name="deep_link_host__file_browser" translatable="false">file_browser</string>
-    <string name="deep_link_host__document_viewer_editor" translatable="false">document_viewer_editor</string>
 
     <string name="pref_key__more_info__app" translatable="false">pref_key__more_info__app</string>
     <string name="pref_key__more_info__project_community" translatable="false">pref_key__more_info__project_community</string>

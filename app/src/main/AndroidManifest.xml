@@ -67,12 +67,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="${applicationId}" android:host="@string/deep_link_host__file_browser" />
+                <data android:scheme="${applicationId}" android:host="file_browser" />
             </intent-filter>
         </activity>
 
@@ -186,6 +181,11 @@
         </activity>
 
         <activity
+            android:name=".activity.openeditor.OpenFromShortcutOrWidgetActivity"
+            android:launchMode="standard"
+            android:theme="@android:style/Theme.NoDisplay" />
+
+        <activity
             android:name=".activity.DocumentActivity"
             android:exported="true"
             android:label="@string/app_name"
@@ -194,13 +194,6 @@
             android:theme="@style/AppTheme.Unified.StartupFlash"
             android:windowSoftInputMode="stateUnchanged|adjustResize"
             tools:targetApi="lollipop">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="${applicationId}" android:host="@string/deep_link_host__document_viewer_editor" />
-            </intent-filter>
-
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
                 <action android:name="com.google.android.gm.action.AUTO_SEND" />
@@ -228,6 +221,7 @@
                 <data android:mimeType="text/htm" />
                 <data android:mimeType="text/html" />
 
+                <data android:scheme="${applicationId}" android:host="document_editor_viewer" />
             </intent-filter>
 
             <intent-filter>

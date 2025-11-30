@@ -12,19 +12,15 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 
-import net.gsantner.markor.activity.DocumentActivity;
-
 public class OpenShareIntoActivity extends OpenEditorActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        final Intent openShare = new Intent(Intent.ACTION_SEND)
-                .setType("text/plain")
-                .putExtra(Intent.EXTRA_TEXT, "")
-                .setClass(this, DocumentActivity.class)
-                .setPackage(getPackageName());
+        final Intent openShare = new Intent(this, OpenFromShortcutOrWidgetActivity.class)
+                .setAction(Intent.ACTION_SEND)
+                .putExtra(Intent.EXTRA_TEXT, "");
 
         _cu.animateToActivity(this, openShare, true, 1);
     }

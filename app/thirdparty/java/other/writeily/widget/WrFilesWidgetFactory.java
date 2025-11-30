@@ -12,12 +12,11 @@ package other.writeily.widget;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
-import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
@@ -84,15 +83,7 @@ public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFacto
         rowView.setTextViewText(R.id.widget_note_title, "???");
         if (position < _widgetFilesList.size()) {
             final File file = _widgetFilesList.get(position);
-            final Uri data = new Uri.Builder()
-                    .scheme(BuildConfig.APPLICATION_ID)
-                    .authority(_context.getString(GsFileUtils.isDirectory(file) ? R.string.deep_link_host__file_browser : R.string.deep_link_host__document_viewer_editor))
-                    .encodedPath(file.getAbsolutePath())
-                    .build();
-            final Intent fillInIntent = new Intent(Intent.ACTION_VIEW, data)
-                    .addCategory(Intent.CATEGORY_DEFAULT)
-                    .setPackage(_context.getPackageName())
-                    .putExtra(Document.EXTRA_FILE, file);
+            final Intent fillInIntent = new Intent().putExtra(Document.EXTRA_FILE, file);
             rowView.setTextViewText(R.id.widget_note_title, file.getName());
             rowView.setOnClickFillInIntent(R.id.widget_note_title, fillInIntent);
             final int icon = file.isDirectory() ? R.drawable.ic_folder_gray_24dp : R.drawable.ic_file_gray_24dp;
