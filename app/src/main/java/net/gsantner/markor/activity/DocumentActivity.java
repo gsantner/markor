@@ -9,6 +9,7 @@ package net.gsantner.markor.activity;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.graphics.RectF;
@@ -30,6 +31,7 @@ import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
+import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.frontend.base.GsFragmentBase;
@@ -44,6 +46,31 @@ public class DocumentActivity extends MarkorBaseActivity {
 
     private Toolbar _toolbar;
     private FragmentManager _fragManager;
+
+    public static Intent applyDeepLink(final Context context, final File file, final Intent intent) {
+        if (context == null || file == null || intent == null) {
+            return intent;
+        }
+
+        final boolean isDirectory = GsFileUtils.isDirectory(file);
+        final String host = context.getString(isDirectory ? R.string.deep_link_host__file_browser : R.string.deep_link_host__document_viewer_editor);
+
+        final Uri data = new Uri.Builder()
+                .scheme(BuildConfig.APPLICATION_ID)
+                .authority(host)
+                .encodedPath(file.getAbsolutePath())
+                .build();
+
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.addCategory(Intent.CATEGORY_DEFAULT);
+        intent.setData(data);
+        intent.setPackage(context.getPackageName());
+        return intent;
+    }
+
+    public static Intent buildDeepLinkIntent(final Context context, final File file) {
+        return applyDeepLink(context, file, new Intent());
+    }
 
     public static void launch(final Activity activity, final Intent intent) {
         final File file = MarkorContextUtils.getIntentFile(intent);
@@ -84,11 +111,9 @@ public class DocumentActivity extends MarkorBaseActivity {
 
         final AppSettings as = AppSettings.get(activity);
 
-        final Intent intent;
-        if (GsFileUtils.isDirectory(file)) {
-            intent = new Intent(activity, MainActivity.class);
-        } else {
-            intent = new Intent(activity, DocumentActivity.class);
+        final Intent intent = buildDeepLinkIntent(activity, file);
+
+        if (!GsFileUtils.isDirectory(file)) {
 
             final boolean lollipop = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
             final boolean fromDocumentActivity = activity instanceof DocumentActivity;
@@ -183,9 +208,9 @@ public class DocumentActivity extends MarkorBaseActivity {
         if (file == null || !_cu.canWriteFile(this, file, false, true)) {
             showNotSupportedMessage();
         } else {
-            Integer startLine = null;
             // Open in editor/viewer
             final Document doc = new Document(file);
+            Integer startLine = null;
             if (intent.hasExtra(Document.EXTRA_FILE_LINE_NUMBER)) {
                 startLine = intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, -1);
             } else if (intentData != null) {

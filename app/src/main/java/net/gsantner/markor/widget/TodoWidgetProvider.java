@@ -6,14 +6,17 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.widget.RemoteViews;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
-import net.gsantner.markor.activity.openeditor.OpenFromShortcutOrWidgetActivity;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
+import net.gsantner.markor.BuildConfig;
+
+import java.io.File;
 
 public class TodoWidgetProvider extends AppWidgetProvider {
 
@@ -35,9 +38,17 @@ public class TodoWidgetProvider extends AppWidgetProvider {
             views.setEmptyView(R.id.todo_widget_list_view, R.id.todo_widget_empty_view);
             views.setInt(R.id.todo_widget_list_view, "setBackgroundColor", appSettings.getEditorBackgroundColor());
 
-            final Intent openTodo = new Intent(context, OpenFromShortcutOrWidgetActivity.class)
-                    .setAction(Intent.ACTION_EDIT)
-                    .putExtra(Document.EXTRA_FILE, appSettings.getTodoFile());
+            final File todoFile = appSettings.getTodoFile();
+            final Uri documentDeepLink = new Uri.Builder()
+                    .scheme(BuildConfig.APPLICATION_ID)
+                    .authority(context.getString(R.string.deep_link_host__document_viewer_editor))
+                    .encodedPath(todoFile.getAbsolutePath())
+                    .build();
+            final Intent openTodo = new Intent(Intent.ACTION_VIEW, documentDeepLink)
+                    .addCategory(Intent.CATEGORY_DEFAULT)
+                    .putExtra(Document.EXTRA_FILE, todoFile)
+                    .setPackage(context.getPackageName());
+
             views.setPendingIntentTemplate(R.id.todo_widget_list_view, PendingIntent.getActivity(context, requestCode++, openTodo, mutableFlags));
             views.setOnClickPendingIntent(R.id.todo_widget_container, PendingIntent.getActivity(context, requestCode++, openTodo, staticFlags));
 

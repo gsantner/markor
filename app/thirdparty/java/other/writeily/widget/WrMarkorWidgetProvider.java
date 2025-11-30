@@ -25,8 +25,7 @@ import androidx.core.content.ContextCompat;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
-import net.gsantner.markor.activity.MainActivity;
-import net.gsantner.markor.activity.openeditor.OpenFromShortcutOrWidgetActivity;
+import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.util.GsFileUtils;
@@ -57,41 +56,41 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
             views.setTextViewText(R.id.widget_header_title, GsFileUtils.getFilenameWithoutExtension(directoryF));
 
             // ~~~Create new File~~~ Share empty text into markor, easier to access from widget than new file dialog
-            final Intent openShare = new Intent(context, OpenFromShortcutOrWidgetActivity.class)
-                    .setAction(Intent.ACTION_SEND)
-                    .putExtra(Intent.EXTRA_TEXT, "");
+            final Intent openShare = new Intent(Intent.ACTION_SEND)
+                    .setType("text/plain")
+                    .putExtra(Intent.EXTRA_TEXT, "")
+                    .setClass(context, DocumentActivity.class)
+                    .setPackage(context.getPackageName());
             views.setOnClickPendingIntent(R.id.widget_new_note, PendingIntent.getActivity(context, requestCode++, openShare, staticFlags));
             views.setInt(R.id.widget_new_note, "setColorFilter", color);
 
             // Open Folder
-            final Intent goToFolder = new Intent(context, MainActivity.class)
-                    .addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT)
-                    .setAction(Intent.ACTION_VIEW)
-                    .putExtra(Document.EXTRA_FILE, directoryF);
-            views.setOnClickPendingIntent(R.id.widget_header, PendingIntent.getActivity(context, requestCode++, goToFolder, staticFlags));
+            final Intent goToFolder = DocumentActivity.buildDeepLinkIntent(context, directoryF);
+            if (goToFolder != null) {
+                views.setOnClickPendingIntent(R.id.widget_header, PendingIntent.getActivity(context, requestCode++, goToFolder, staticFlags));
+            }
 
             // Open To-do
-            final Intent openTodo = new Intent(context, OpenFromShortcutOrWidgetActivity.class)
-                    .setAction(Intent.ACTION_EDIT)
-                    .putExtra(Document.EXTRA_FILE, appSettings.getTodoFile())
-                    .putExtra(Document.EXTRA_FILE_LINE_NUMBER, -1);
+            final Intent openTodo = DocumentActivity.buildDeepLinkIntent(context, appSettings.getTodoFile());
+            if (openTodo != null) {
+                openTodo.putExtra(Document.EXTRA_FILE_LINE_NUMBER, -1);
+            }
             views.setOnClickPendingIntent(R.id.widget_todo, PendingIntent.getActivity(context, requestCode++, openTodo, staticFlags));
             views.setInt(R.id.widget_todo, "setColorFilter", color);
 
             // Open QuickNote
-            final Intent openQuickNote = new Intent(context, OpenFromShortcutOrWidgetActivity.class)
-                    .setAction(Intent.ACTION_EDIT)
-                    .putExtra(Document.EXTRA_FILE, appSettings.getQuickNoteFile())
-                    .putExtra(Document.EXTRA_FILE_LINE_NUMBER, -1);
+            final Intent openQuickNote = DocumentActivity.buildDeepLinkIntent(context, appSettings.getQuickNoteFile());
+            if (openQuickNote != null) {
+                openQuickNote.putExtra(Document.EXTRA_FILE_LINE_NUMBER, -1);
+            }
             views.setOnClickPendingIntent(R.id.widget_quicknote, PendingIntent.getActivity(context, requestCode++, openQuickNote, staticFlags));
             views.setInt(R.id.widget_quicknote, "setColorFilter", color);
 
             // Open Notebook
-            final Intent goHome = new Intent(context, MainActivity.class)
-                    .addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT)
-                    .setAction(Intent.ACTION_VIEW)
-                    .putExtra(Document.EXTRA_FILE, appSettings.getNotebookDirectory());
-            views.setOnClickPendingIntent(R.id.widget_main, PendingIntent.getActivity(context, requestCode++, goHome, staticFlags));
+            final Intent goHome = DocumentActivity.buildDeepLinkIntent(context, appSettings.getNotebookDirectory());
+            if (goHome != null) {
+                views.setOnClickPendingIntent(R.id.widget_main, PendingIntent.getActivity(context, requestCode++, goHome, staticFlags));
+            }
             views.setInt(R.id.widget_main, "setColorFilter", color);
 
             // ListView
@@ -103,7 +102,9 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
             views.setEmptyView(R.id.widget_list_container, R.id.widget_empty_hint);
             views.setRemoteAdapter(R.id.widget_notes_list, notesListIntent);
 
-            final Intent openNoteIntent = new Intent(context, OpenFromShortcutOrWidgetActivity.class);
+            final Intent openNoteIntent = new Intent(Intent.ACTION_VIEW)
+                    .addCategory(Intent.CATEGORY_DEFAULT)
+                    .setPackage(context.getPackageName());
             final PendingIntent openNotePendingIntent = PendingIntent.getActivity(context, requestCode++, openNoteIntent, mutableFlags);
             views.setPendingIntentTemplate(R.id.widget_notes_list, openNotePendingIntent);
 
