@@ -11,7 +11,7 @@
     <color name="background">#1A1A1A</color>
     <color name="background_2">#202020</color>
     <color name="bar_background">#1A1A1A</color>
-    <color name="bar_content">@color/white</color>
+    <color name="bar_content">@color/primary_text</color>
     <color name="popup_menu_background">@color/bar_background</color>
     <color name="textActionBarColor">@color/background</color>
     <color name="textActionIconColor">@color/white</color>

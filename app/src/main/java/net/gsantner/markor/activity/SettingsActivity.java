@@ -321,8 +321,9 @@ public class SettingsActivity extends MarkorBaseActivity {
                     return true;
                 }
                 case R.string.pref_key__basic_color_scheme_markor: {
-                    _appSettings.setEditorBasicColor(true, R.color.white, R.color.dark_grey);
-                    _appSettings.setEditorBasicColor(false, R.color.dark_grey, R.color.light__background);
+                    // Material-aligned: use theme surfaces for bg and softer primary text colors
+                    _appSettings.setEditorBasicColor(true, R.color.primary_text, R.color.background);
+                    _appSettings.setEditorBasicColor(false, R.color.primary_text, R.color.background);
                     _appSettings.setRecreateMainRequired(true);
                     refreshEditorColorPreferences();
                     doUpdatePreferences();
