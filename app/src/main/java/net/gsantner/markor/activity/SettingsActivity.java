@@ -325,57 +325,43 @@ public class SettingsActivity extends MarkorBaseActivity {
                     _appSettings.setEditorBasicColor(true, R.color.primary_text, R.color.background);
                     _appSettings.setEditorBasicColor(false, R.color.primary_text, R.color.background);
                     _appSettings.setRecreateMainRequired(true);
-                    refreshEditorColorPreferences();
-                    doUpdatePreferences();
-                    return true;
+                    break;
                 }
                 case R.string.pref_key__basic_color_scheme_blackorwhite: {
                     _appSettings.setEditorBasicColor(true, R.color.white, R.color.black);
                     _appSettings.setEditorBasicColor(false, R.color.black, R.color.white);
                     _appSettings.setRecreateMainRequired(true);
-                    refreshEditorColorPreferences();
-                    doUpdatePreferences();
-                    return true;
+                    break;
                 }
                 case R.string.pref_key__basic_color_scheme_solarized: {
                     _appSettings.setEditorBasicColor(true, R.color.solarized_fg, R.color.solarized_bg_dark);
                     _appSettings.setEditorBasicColor(false, R.color.solarized_fg, R.color.solarized_bg_light);
                     _appSettings.setRecreateMainRequired(true);
-                    refreshEditorColorPreferences();
-                    doUpdatePreferences();
-                    return true;
+                    break;
                 }
                 case R.string.pref_key__basic_color_scheme_gruvbox: {
                     _appSettings.setEditorBasicColor(true, R.color.gruvbox_fg_dark, R.color.gruvbox_bg_dark);
                     _appSettings.setEditorBasicColor(false, R.color.gruvbox_fg_light, R.color.gruvbox_bg_light);
                     _appSettings.setRecreateMainRequired(true);
-                    refreshEditorColorPreferences();
-                    doUpdatePreferences();
-                    return true;
+                    break;
                 }
                 case R.string.pref_key__basic_color_scheme_nord: {
                     _appSettings.setEditorBasicColor(true, R.color.nord_fg_dark, R.color.nord_bg_dark);
                     _appSettings.setEditorBasicColor(false, R.color.nord_fg_light, R.color.nord_bg_light);
                     _appSettings.setRecreateMainRequired(true);
-                    refreshEditorColorPreferences();
-                    doUpdatePreferences();
-                    return true;
+                    break;
                 }
                 case R.string.pref_key__basic_color_scheme_greenscale: {
                     _appSettings.setEditorBasicColor(true, R.color.green_dark, R.color.black);
                     _appSettings.setEditorBasicColor(false, R.color.green_light, R.color.white);
                     _appSettings.setRecreateMainRequired(true);
-                    refreshEditorColorPreferences();
-                    doUpdatePreferences();
-                    return true;
+                    break;
                 }
                 case R.string.pref_key__basic_color_scheme_sepia: {
                     _appSettings.setEditorBasicColor(true, R.color.sepia_bg_light__fg_dark, R.color.sepia_fg_light__bg_dark);
                     _appSettings.setEditorBasicColor(false, R.color.sepia_fg_light__bg_dark, R.color.sepia_bg_light__fg_dark);
                     _appSettings.setRecreateMainRequired(true);
-                    refreshEditorColorPreferences();
-                    doUpdatePreferences();
-                    return true;
+                    break;
                 }
                 case R.string.pref_key__plaintext__reorder_actions:
                 case R.string.pref_key__asciidoc__reorder_actions:

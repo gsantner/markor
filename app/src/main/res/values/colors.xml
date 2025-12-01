@@ -18,7 +18,8 @@
     <color name="background_2">@color/light__background_2</color>
     <color name="bar_background">@color/background</color>
     <color name="popup_menu_background">@color/background</color>
-    <color name="bar_content">@color/primary_text</color>
+    <!-- UI chrome/text tint (kept fixed, not tied to editor presets) -->
+    <color name="bar_content">#212121</color>
     <color name="textActionBarColor">@color/background</color>
     <color name="textActionIconColor">@color/grey</color>
 
