@@ -22,7 +22,7 @@
         android:id="@+id/widget_header"
         android:layout_width="match_parent"
         android:layout_height="36sp"
-        android:background="@color/primary">
+        android:background="@color/colorPrimary">
 
         <TextView
             android:id="@+id/widget_header_title"
@@ -103,7 +103,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/widget_header"
-        android:background="@color/background_2">
+        android:background="@color/background">
 
         <TextView
             android:id="@+id/widget_empty_hint"
@@ -122,7 +122,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:background="@color/background"
-            android:divider="@color/grey"
-            android:dividerHeight="0.5dp" />
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp" />
     </RelativeLayout>
 </RelativeLayout>

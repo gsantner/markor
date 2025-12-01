@@ -67,7 +67,8 @@
         android:layout_height="@dimen/textactions_bar_height"
         android:layout_gravity="bottom"
         android:background="@color/textActionBarColor"
-        android:paddingTop="4dp">
+        android:paddingTop="4dp"
+        android:scrollbars="none">
 
         <LinearLayout
             android:id="@+id/document__fragment__edit__text_actions_bar"

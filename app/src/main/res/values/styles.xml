@@ -23,8 +23,8 @@
         <item name="android:actionButtonStyle">@style/LessSpaceActionButtonStyle</item>
         <item name="preferenceTheme">@style/AppTheme.PreferenceTheme</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
-        <item name="android:actionModeBackground">@color/primary_dark</item>
-        <item name="actionModeBackground">@color/primary_dark</item>
+        <item name="android:actionModeBackground">@color/bar_background</item>
+        <item name="actionModeBackground">@color/bar_background</item>
         <item name="colorPrimary">@color/primary</item>
         <item name="colorAccent">@color/accent</item>
         <item name="android:windowBackground">@color/background</item>
@@ -36,8 +36,8 @@
         <item name="android:windowAllowReturnTransitionOverlap" tools:targetApi="lollipop">true</item>
         <item name="android:windowSharedElementEnterTransition" tools:targetApi="lollipop">@android:transition/move</item>
         <item name="android:windowSharedElementExitTransition" tools:targetApi="lollipop">@android:transition/move</item>
-        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/primary</item>
-        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/primary</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/bar_background</item>
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/bar_background</item>
 
         <!-- Android V28 options; ignore IDE warnings -->
         <item name="android:dialogCornerRadius" tools:targetApi="p">@dimen/dialog_corner_radius</item>
@@ -55,12 +55,38 @@
     </style>
 
     <style name="LightTextToolbarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-        <item name="android:actionModeBackground">@color/primary_dark</item>
-        <item name="actionModeBackground">@color/primary_dark</item>
+        <item name="android:actionModeBackground">@color/bar_background</item>
+        <item name="actionModeBackground">@color/bar_background</item>
 
-        <item name="android:textColorPrimary">@android:color/white</item>
-        <item name="actionMenuTextColor">@android:color/white</item>
-        <item name="android:textColorSecondary">@android:color/white</item>
+        <item name="android:textColorPrimary">@color/bar_content</item>
+        <item name="actionMenuTextColor">@color/bar_content</item>
+        <item name="android:textColorSecondary">@color/bar_content</item>
+        <item name="colorControlNormal">@color/bar_content</item>
+        <item name="colorControlHighlight">@color/bar_content</item>
+    </style>
+
+    <style name="ToolbarPopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:textColorPrimary">@color/bar_content</item>
+        <item name="android:textColorSecondary">@color/bar_content</item>
+        <item name="colorControlNormal">@color/bar_content</item>
+        <item name="popupMenuStyle">@style/Widget.AppCompat.Light.PopupMenu</item>
+        <item name="android:popupBackground">@color/bar_background</item>
+    </style>
+
+    <style name="ToolbarPopupOverlayDark" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="android:textColorPrimary">@color/bar_content</item>
+        <item name="android:textColorSecondary">@color/bar_content</item>
+        <item name="colorControlNormal">@color/bar_content</item>
+        <item name="popupMenuStyle">@style/Widget.AppCompat.PopupMenu</item>
+        <item name="android:popupBackground">@color/bar_background</item>
+    </style>
+
+    <style name="ToolbarPopupOverlayBlack" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="android:textColorPrimary">@color/bar_content</item>
+        <item name="android:textColorSecondary">@color/bar_content</item>
+        <item name="colorControlNormal">@color/bar_content</item>
+        <item name="popupMenuStyle">@style/Widget.AppCompat.PopupMenu</item>
+        <item name="android:popupBackground">@android:color/black</item>
     </style>
 
     <style name="AppTheme.Light.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

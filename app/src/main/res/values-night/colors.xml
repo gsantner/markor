@@ -9,7 +9,9 @@
     <color name="folder">@color/dark__folder</color>
     <color name="background">@color/dark__background</color>
     <color name="background_2">@color/dark__background_2</color>
-    <color name="textActionBarColor">@color/dark__background_2</color>
+    <color name="bar_background">@color/dark_grey</color>
+    <color name="bar_content">@color/white</color>
+    <color name="textActionBarColor">@color/background</color>
     <color name="textActionIconColor">@color/white</color>
 
     <!-- All values specified only in base colors.xml  -->

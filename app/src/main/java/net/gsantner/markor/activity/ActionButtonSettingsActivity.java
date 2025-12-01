@@ -9,7 +9,6 @@ package net.gsantner.markor.activity;
 
 import static androidx.recyclerview.widget.ItemTouchHelper.ACTION_STATE_DRAG;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,6 +21,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -86,7 +86,7 @@ public class ActionButtonSettingsActivity extends MarkorBaseActivity {
         final MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.action_order__menu, menu);
 
-        _cu.tintMenuItems(menu, true, Color.WHITE);
+        _cu.tintMenuItems(menu, true, ContextCompat.getColor(this, R.color.bar_content));
         return true;
     }
 

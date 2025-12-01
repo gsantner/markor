@@ -187,11 +187,6 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
         private EditText _editor = null;
         private CheckBox _linkCheckBox = null;
 
-        @Override
-        public boolean isDividerVisible() {
-            return true;
-        }
-
         public ShareIntoImportOptionsFragment setAttachment(File file) {
             attachment = file;
             return this;
@@ -210,6 +205,11 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
         @Override
         protected AppSettings getAppSettings(Context context) {
             return AppSettings.get(context);
+        }
+
+        @Override
+        public boolean isDividerVisible() {
+            return false;
         }
 
         @Override

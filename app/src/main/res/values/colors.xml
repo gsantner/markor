@@ -16,7 +16,9 @@
     <color name="folder">@color/light__folder</color>
     <color name="background">@color/light__background</color>
     <color name="background_2">@color/light__background_2</color>
-    <color name="textActionBarColor">@color/lighter_grey</color>
+    <color name="bar_background">@color/background</color>
+    <color name="bar_content">@color/primary_text</color>
+    <color name="textActionBarColor">@color/background</color>
     <color name="textActionIconColor">@color/grey</color>
 
     <!-- Named colors differing common to day and night -->

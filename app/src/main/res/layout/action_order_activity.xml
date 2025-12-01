@@ -18,8 +18,9 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="@color/bar_background"
             android:theme="@style/LightTextToolbarOverlay"
+            app:popupTheme="@style/ToolbarPopupOverlay"
             app:title="@string/action_order">
 
         </androidx.appcompat.widget.Toolbar>

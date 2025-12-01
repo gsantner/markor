@@ -1,19 +1,32 @@
 package net.gsantner.markor.activity;
 
+import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import net.gsantner.markor.R;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.frontend.base.GsActivityBase;
 import net.gsantner.opoc.frontend.base.GsFragmentBase;
 
 public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, MarkorContextUtils> {
+    private int _cachedBarBackground = Integer.MIN_VALUE;
+    private int _cachedBarContent = Integer.MIN_VALUE;
+    private ColorStateList _cachedBottomNavColors;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,13 +43,26 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        applyThemedBars();
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        applyThemedBars();
+        _cu.tintMenuItems(menu, true, getBarContentColor());
+        return super.onPrepareOptionsMenu(menu);
+    }
+
     protected boolean onReceiveKeyPress(GsFragmentBase fragment, int keyCode, KeyEvent event) {
         return fragment.onReceiveKeyPress(keyCode, event);
     }
 
     @Override
     public Integer getNewNavigationBarColor() {
-        return _appSettings.getAppThemeName().contains("black") ? Color.BLACK : null;
+        return getThemedBarBackgroundColor();
     }
 
     @Override
@@ -57,5 +83,95 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
     @Override
     public Boolean isFlagSecure() {
         return _appSettings.isDisallowScreenshots();
+    }
+
+    private void applyThemedBars() {
+        refreshCachedBarColors();
+        final int barBackground = _cachedBarBackground;
+        final int barContent = _cachedBarContent;
+
+        final Toolbar toolbar = findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            toolbar.setBackgroundColor(barBackground);
+            toolbar.setTitleTextColor(barContent);
+            toolbar.setSubtitleTextColor(barContent);
+            toolbar.setPopupTheme(getPopupTheme());
+            toolbar.setNavigationIcon(_cu.tintDrawable(toolbar.getNavigationIcon(), barContent));
+            toolbar.setOverflowIcon(_cu.tintDrawable(toolbar.getOverflowIcon(), barContent));
+            _cu.tintMenuItems(toolbar.getMenu(), true, barContent);
+        }
+
+        final BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation_bar);
+        if (bottomNav != null) {
+            bottomNav.setBackgroundColor(barBackground);
+            bottomNav.setItemBackground(new ColorDrawable(barBackground));
+            bottomNav.setItemTextColor(_cachedBottomNavColors);
+            bottomNav.setItemIconTintList(_cachedBottomNavColors);
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(barBackground);
+            getWindow().setNavigationBarColor(barBackground);
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            final View decorView = getWindow().getDecorView();
+            int flags = decorView.getSystemUiVisibility();
+            final boolean lightIcons = _cu.shouldColorOnTopBeLight(barBackground);
+            if (!lightIcons) {
+                flags |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+            } else {
+                flags &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                if (!lightIcons) {
+                    flags |= View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
+                } else {
+                    flags &= ~View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
+                }
+            }
+            decorView.setSystemUiVisibility(flags);
+        }
+    }
+
+    private int getThemedBarBackgroundColor() {
+        if (_appSettings.getAppThemeName().contains("black")) {
+            return Color.BLACK;
+        }
+        return ContextCompat.getColor(this, R.color.bar_background);
+    }
+
+    private int getBarContentColor() {
+        refreshCachedBarColors();
+        return _cachedBarContent;
+    }
+
+    private int getPopupTheme() {
+        final boolean isBlack = _appSettings.getAppThemeName().contains("black");
+        final boolean isDark = _cu.isDarkModeEnabled(this);
+        if (isBlack) {
+            return R.style.ToolbarPopupOverlayBlack;
+        }
+        return isDark ? R.style.ToolbarPopupOverlayDark : R.style.ToolbarPopupOverlay;
+    }
+
+    private void refreshCachedBarColors() {
+        final int background = getThemedBarBackgroundColor();
+        final int content = ContextCompat.getColor(this, R.color.bar_content);
+        if (background == _cachedBarBackground && content == _cachedBarContent && _cachedBottomNavColors != null) {
+            return;
+        }
+        _cachedBarBackground = background;
+        _cachedBarContent = content;
+        _cachedBottomNavColors = new ColorStateList(
+                new int[][]{
+                        new int[]{android.R.attr.state_checked},
+                        new int[]{},
+                },
+                new int[]{
+                        ContextCompat.getColor(this, R.color.accent),
+                        content,
+                }
+        );
     }
 }

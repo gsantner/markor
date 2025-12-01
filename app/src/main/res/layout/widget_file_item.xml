@@ -20,9 +20,9 @@
     android:clickable="true"
     android:orientation="horizontal"
     android:paddingLeft="10dp"
-    android:paddingTop="10dp"
+    android:paddingTop="11dp"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingBottom="2dp"
+    android:paddingBottom="3dp"
     tools:ignore="KeyboardInaccessibleWidget,RtlHardcoded">
 
     <TextView

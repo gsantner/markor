@@ -29,8 +29,9 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="@color/bar_background"
             android:theme="@style/LightTextToolbarOverlay"
+            app:popupTheme="@style/ToolbarPopupOverlay"
             app:subtitleTextColor="@color/secondary_text"
             app:title="@string/app_name">
 
@@ -63,8 +64,8 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_gravity="start|bottom"
-        android:background="@color/primary"
-        app:itemBackground="@color/primary"
+        android:background="@color/bar_background"
+        app:itemBackground="@color/bar_background"
         app:itemIconTint="@drawable/bottomnav_color_selector"
         app:itemTextColor="@drawable/bottomnav_color_selector"
         app:labelVisibilityMode="labeled"
