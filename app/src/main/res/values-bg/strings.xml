@@ -19,7 +19,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="confirm_delete">Потвърждаване на изтриването</string>
     <string name="do_you_really_want_to_delete_this_witharg">Наистина ли искате да изтриете това %s?</string>
     <string name="confirm_overwrite">Потвърждаване на презаписването</string>
-    <string name="file_already_exists_overwerite">Потвърждаване на презаписването</string>
+    <string name="file_already_exists_overwerite">Файлът вече съществува, да се презапише ли?</string>
     <string name="browse_filesystem">Разглеждане на файлова система</string>
     <string name="title">Заглавие</string>
     <string name="empty_directory">Празна директория</string>
@@ -38,6 +38,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Споделян до&#8230;</string>
     <string name="share">Споделяне</string>
     <string name="search">Търсене</string>
+    <string name="display_converted_markup">Показване на преобразуваната маркировка</string>
     <string name="editor">Редактор</string>
     <string name="folders">Папки</string>
     <string name="files">Файлове</string>
@@ -72,7 +73,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">Вмъкване на изображение</string>
     <string name="contributors">Сътрудници</string>
     <string name="save_location">Местоположение за запазване</string>
-    <string name="saved_location_to">Запзване в %s</string>
+    <string name="saved_location_to">Запазено в %s</string>
     <string name="select_storage_folder">Изберете папка за съхранение</string>
     <string name="licenses">Лицензи</string>
     <string name="changelog">Преглед на измененията</string>
@@ -110,8 +111,58 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="clear">Изчистване</string>
     <string name="due_date">Две дати</string>
     <string name="current_date">Текуща дата</string>
+    <string name="archive">Архив</string>
+    <string name="add_task">Добавяне на задача</string>
+    <string name="add_x_witharg">Добавяне на %s</string>
+    <string name="document_to_be_loaded_and_saved_as_witharg">Документът трябва да бъде зареден и запазен като %s</string>
+    <string name="refresh">Опресняване</string>
+    <string name="create_shortcut">Създаване на пряк път</string>
+    <string name="tried_to_create_shortcut_for_this_notice">Опитахте се да създадете пряк път към началния екран. Имайте предвид, че някои стартиращи програми може да не поддържат тази функция.</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">Избраният файл не се намира в директорията на бележника на приложението. Искате ли да го копирате в текущата папка? Това ще презапише всички съществуващи файлове със същото име.</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">Файлът не се намира в текущата папка. Искате ли да го копирате в текущата папка? Това ще презапише всички съществуващи файлове със същото име.</string>
+    <string name="files_and_folders">Файлове и папки</string>
+    <string name="document_browser">Разглеждане на документ</string>
+    <string name="file_browser">Разглеждане на файл</string>
+    <string name="set_due_date">Задаване на краен срок</string>
+    <string name="insert_replace_date">Вмъкване на дата</string>
+    <string name="create_note" needed="false">Създаване на бележка</string>
+    <string name="special_documents" needed="false">Специални документи</string>
+    <string name="keep_screen_on" needed="false">Запазване на екрана включен</string>
+    <string name="disallow_screenshots">Забраняване на екранни снимки</string>
+    <string name="back_to_previous_folder" needed="false">Обратно към предишната папка</string>
+    <string name="app_settings" needed="false">Настройки на приложението</string>
+    <string name="editor_settings" needed="false">Настройки на редактора</string>
+    <string name="remember_last_folder_location_on_startup" needed="false">Запомни последното местоположение на папката при стартиране</string>
+    <string name="number_of_files_witharg" needed="false">Брой файлове: %d</string>
+    <string name="app_wide">В цялото приложение</string>
     <string name="main_view">Основен изглед</string>
+    <string name="overall_theme_used_in_app">Цялостната тема, използвана в приложението</string>
+    <string name="remember_last_directory">Запомни последната директория</string>
+    <string name="syntax_highlighting">Подчертаване на синтаксиса</string>
+    <string name="highlighting_delay">Подчертаване на забавяне</string>
+    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Забавяне в милисекунди за обновяване на маркирането. По-ниска стойност ще започне маркирането по-рано, но ще изтощи батерията ви и може да забави приложението на по-стари устройства.</string>
+    <string name="highlighting_enabled_or_not__appspecific">Контролирайте дали въведеният текст да бъде маркиран или не</string>
+    <string name="control_font_size_in_editor">Контролирайте размера на шрифта, използван в редактора</string>
+    <string name="textactions_show_useful_actions_description__appspecific">Показване на лента с удобни бутони в долната част. Тези текстови действия променят текста или изпълняват действие въз основа на текста.</string>
+    <string name="load_last_opened_folder_at_startup">Зареждане на последната отворена папка при стартиране</string>
+    <string name="format">Формат</string>
+    <string name="contexts">Съдържание</string>
+    <string name="project">Проект</string>
+    <string name="projects">Проекти</string>
+    <string name="none">Няма</string>
     <string name="other">Друга</string>
+    <string name="empty_file">Празен файл</string>
+    <string name="break_page_pdf_print">Разделяне на страница (PDF/Печат)</string>
+    <string name="underline">Подчертаване</string>
+    <string name="underline_hex_color_wether_or_not_to_description__appspecific">Дали да се подчертават шестнадесетичните цветови кодове според цвета</string>
+    <string name="underline_hex_color_codes">Подчертани шестнадесетични цветни кодове</string>
+    <string name="tasks_with_todays_date">Задачи с днешна дата</string>
+    <string name="append_contexts_and_projects">Добавяне на контексти и проекти</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Добавяне на контексти и проекти в края на задача при използване на съответното текстово действие</string>
+    <string name="rtl_rendering">RTL рендиране</string>
+    <string name="highlight_line_ending">Подчертаване на края на реда</string>
+    <string name="highlight_line_ending_if_two_or_more_spaces">Подчертаване на интервали в края на редове, съдържащи два или повече интервала</string>
+    <string name="use_monospace_for_code">Използване на monospace шрифт за код</string>
     <string name="general">Общи</string>
     <string name="open_source_licenses">Лицензи за отворен код</string>
     <string name="rate_this_app">Оценете приложението</string>
