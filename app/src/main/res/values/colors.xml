@@ -17,6 +17,7 @@
     <color name="background">@color/light__background</color>
     <color name="background_2">@color/light__background_2</color>
     <color name="bar_background">@color/background</color>
+    <color name="popup_menu_background">@color/background</color>
     <color name="bar_content">@color/primary_text</color>
     <color name="textActionBarColor">@color/background</color>
     <color name="textActionIconColor">@color/grey</color>
@@ -36,8 +37,8 @@
     <color name="divider_2">#3D3D3D</color>
     <color name="default_link_color">#388E3C</color>
 
-    <color name="light__background">#EEEEEE</color>
-    <color name="light__background_2">#F9F9F9</color>
+    <color name="light__background">#FFFFFF</color>
+    <color name="light__background_2">#FAFAFA</color>
     <color name="light__primary_text">#212121</color>
     <color name="light__secondary_text">#757575</color>
     <color name="light__file">#757575</color>

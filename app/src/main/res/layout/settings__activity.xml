@@ -20,7 +20,9 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.Light.AppBarOverlay">
+        android:theme="@style/AppTheme.Light.AppBarOverlay"
+        android:stateListAnimator="@null"
+        app:elevation="0dp">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -29,6 +31,7 @@
             android:background="@color/bar_background"
             android:theme="@style/LightTextToolbarOverlay"
             app:popupTheme="@style/ToolbarPopupOverlay"
+            android:elevation="@dimen/appbar_elevation"
             app:navigationContentDescription="@string/back" />
 
     </com.google.android.material.appbar.AppBarLayout>

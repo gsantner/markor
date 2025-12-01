@@ -22,6 +22,8 @@
         <item name="windowActionBar">false</item>
         <item name="android:actionButtonStyle">@style/LessSpaceActionButtonStyle</item>
         <item name="preferenceTheme">@style/AppTheme.PreferenceTheme</item>
+        <item name="dialogTheme">@style/Theme.AppCompat.DayNight.Dialog.Rounded</item>
+        <item name="alertDialogTheme">@style/Theme.AppCompat.DayNight.Dialog.Rounded</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="android:actionModeBackground">@color/bar_background</item>
         <item name="actionModeBackground">@color/bar_background</item>
@@ -29,6 +31,7 @@
         <item name="colorAccent">@color/accent</item>
         <item name="android:windowBackground">@color/background</item>
         <item name="dialogCornerRadius">@dimen/dialog_corner_radius</item>
+        <item name="android:backgroundDimAmount">0.45</item>
 
         <!-- Android V21 options; ignore IDE warnings -->
         <item name="android:windowContentTransitions" tools:targetApi="lollipop">true</item>
@@ -69,24 +72,21 @@
         <item name="android:textColorPrimary">@color/bar_content</item>
         <item name="android:textColorSecondary">@color/bar_content</item>
         <item name="colorControlNormal">@color/bar_content</item>
-        <item name="popupMenuStyle">@style/Widget.AppCompat.Light.PopupMenu</item>
-        <item name="android:popupBackground">@color/bar_background</item>
+        <item name="popupMenuStyle">@style/PopupMenu.Light</item>
     </style>
 
     <style name="ToolbarPopupOverlayDark" parent="ThemeOverlay.AppCompat.Dark">
         <item name="android:textColorPrimary">@color/bar_content</item>
         <item name="android:textColorSecondary">@color/bar_content</item>
         <item name="colorControlNormal">@color/bar_content</item>
-        <item name="popupMenuStyle">@style/Widget.AppCompat.PopupMenu</item>
-        <item name="android:popupBackground">@color/bar_background</item>
+        <item name="popupMenuStyle">@style/PopupMenu.Dark</item>
     </style>
 
     <style name="ToolbarPopupOverlayBlack" parent="ThemeOverlay.AppCompat.Dark">
         <item name="android:textColorPrimary">@color/bar_content</item>
         <item name="android:textColorSecondary">@color/bar_content</item>
         <item name="colorControlNormal">@color/bar_content</item>
-        <item name="popupMenuStyle">@style/Widget.AppCompat.PopupMenu</item>
-        <item name="android:popupBackground">@android:color/black</item>
+        <item name="popupMenuStyle">@style/PopupMenu.Black</item>
     </style>
 
     <style name="AppTheme.Light.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -103,6 +103,27 @@
     <style name="Theme.AppCompat.DayNight.Dialog.Rounded" parent="Theme.AppCompat.DayNight.Dialog">
         <item name="dialogCornerRadius">@dimen/dialog_corner_radius</item>
         <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.45</item>
+        <item name="android:windowIsFloating">true</item>
         <item name="colorAccent">@color/accent</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="android:windowBackground">@drawable/rounded_corner_background</item>
+        <item name="android:textColorPrimary">@color/primary_text</item>
+        <item name="android:textColorSecondary">@color/secondary_text</item>
+        <item name="colorControlNormal">@color/bar_content</item>
+        <item name="colorControlHighlight">@color/bar_content</item>
+    </style>
+
+    <style name="PopupMenu.Light" parent="Widget.AppCompat.Light.PopupMenu">
+        <item name="android:popupBackground">@drawable/popup_menu_background</item>
+    </style>
+
+    <style name="PopupMenu.Dark" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:popupBackground">@drawable/popup_menu_background</item>
+    </style>
+
+    <style name="PopupMenu.Black" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:popupBackground">@drawable/popup_menu_background_black</item>
     </style>
 </resources>

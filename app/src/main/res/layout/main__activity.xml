@@ -23,7 +23,9 @@
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:theme="@style/AppTheme.Light.AppBarOverlay">
+        android:theme="@style/AppTheme.Light.AppBarOverlay"
+        android:stateListAnimator="@null"
+        app:elevation="0dp">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -32,6 +34,7 @@
             android:background="@color/bar_background"
             android:theme="@style/LightTextToolbarOverlay"
             app:popupTheme="@style/ToolbarPopupOverlay"
+            android:elevation="@dimen/appbar_elevation"
             app:subtitleTextColor="@color/secondary_text"
             app:title="@string/app_name">
 
