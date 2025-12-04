@@ -1,18 +1,25 @@
-function usePrism() {
-    let elements = document.querySelectorAll("pre > code");
-    elements.forEach(function (element) {
-        let attribute = element.getAttribute("class");
-        if (attribute == null || attribute.indexOf("language-") == -1) {
-            element.classList.add("language-text");
-            Prism.highlightElement(element);
-        }
-    });
-}
+function usePrism(arg1, arg2) {
+    const wrapWords = arg1 === "true";
+    const lineNumbers = arg2 === "true";
+    const codeElements = document.querySelectorAll("pre > code");
 
-function wrapCode() {
-    let preElements = document.querySelectorAll("pre");
-    preElements.forEach((element) => {
-        element.style.whiteSpace = "pre-wrap";
-        element.style.overflowWrap = "break-word";
+    codeElements.forEach((codeElement) => {
+        if (wrapWords) {
+            codeElement.parentNode.style.whiteSpace = "pre-wrap";
+            codeElement.parentNode.style.overflowWrap = "break-word";
+        }
+
+        if (codeElement.getAttribute("class") == null) {
+            codeElement.classList.add("language-text");
+            if (!lineNumbers) {
+                Prism.highlightElement(codeElement);
+            }
+        }
+
+        if (lineNumbers) {
+            adjustLayout(codeElement);
+            codeElement.parentNode.classList.add("line-numbers");
+            Prism.highlightElement(codeElement);
+        }
     });
 }

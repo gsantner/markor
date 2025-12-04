@@ -1,11 +1,3 @@
-function enableLineNumbers() {
-    let elements = document.querySelectorAll("pre:has(code)");
-    elements.forEach(function (element) {
-        element.classList.add("line-numbers");
-    });
-    Prism.highlightAll();
-}
-
 function getNumberDigits(number) {
     if (number < 10) {
         return 1;
@@ -20,22 +12,19 @@ function getNumberDigits(number) {
     }
 }
 
-function adjustLayout() {
-    let fontWidth = -1;
-    const codeElements = document.querySelectorAll("pre > code");
-    codeElements.forEach((element) => {
-        const maxNumber = element.textContent.split("\n").length - 1;
-        if (maxNumber == 0) {
-            return;
-        }
+let codeFontWidth = -1;
+function adjustLayout(codeElement) {
+    const maxNumber = codeElement.textContent.split("\n").length - 1;
+    if (maxNumber == 0) {
+        return;
+    }
 
-        if (fontWidth == -1) {
-            const canvasContext = document.createElement("canvas").getContext("2d");
-            canvasContext.font = window.getComputedStyle(element, null).getPropertyValue("font");
-            fontWidth = canvasContext.measureText("0").width;
-        }
+    if (codeFontWidth == -1) {
+        const canvasContext = document.createElement("canvas").getContext("2d");
+        canvasContext.font = window.getComputedStyle(codeElement, null).getPropertyValue("font");
+        codeFontWidth = canvasContext.measureText("0").width;
+    }
 
-        const digits = getNumberDigits(maxNumber);
-        element.parentNode.style.paddingLeft = 2 * fontWidth + digits * fontWidth - digits + "px";
-    });
+    const digits = getNumberDigits(maxNumber);
+    codeElement.parentNode.style.paddingLeft = 2 * codeFontWidth + digits * codeFontWidth - digits + "px";
 }
