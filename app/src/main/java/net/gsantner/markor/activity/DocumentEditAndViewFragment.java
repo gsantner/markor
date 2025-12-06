@@ -362,8 +362,10 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         final View previewView = menu.findItem(R.id.action_preview).getActionView();
         if (previewView != null) {
             previewView.setOnLongClickListener(v -> {
-                if (_appSettings != null && _document != null) {
+                final Activity activity = getActivity();
+                if (activity != null && _appSettings != null && _document != null) {
                     _appSettings.setDocumentPreviewState(_document.path, _isPreviewVisible);
+                    Toast.makeText(activity, "❌", Toast.LENGTH_SHORT).show();
                     return true;
                 }
                 return false;
