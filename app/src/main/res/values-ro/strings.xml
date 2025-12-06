@@ -20,7 +20,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="do_you_really_want_to_delete_this_witharg">Ești sigur că vrei să ștergi acest %s?</string>
     <string name="confirm_overwrite">Confirmați Înlocuirea</string>
     <string name="file_already_exists_overwerite">Fișierul există deja, înlocuiți?</string>
-    <string name="browse_filesystem">Răsfoiți sistemul de fișiere</string>
+    <string name="browse_filesystem">Navighează în sistemul de fișiere</string>
     <string name="title">Titlu</string>
     <string name="empty_directory">Golește dosarul</string>
     <string name="enter_name_of_folder">Introdu numele dosarului tău</string>
@@ -85,13 +85,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="storage_permission_required">Este necesară permisiunea de stocare pentru a citi și scrie fișiere</string>
     <string name="open_with">Deschide cu</string>
     <string name="sort_by">Sortează după</string>
-    <string name="date">Data</string>
+    <string name="date">Dată</string>
     <string name="deleteme____1">Nume</string>
     <string name="size">Dimensiune</string>
     <string name="reverse_order">Ordine inversă</string>
     <string name="contribute">Contribuie</string>
     <string name="project_page">Pagina proiectului</string>
-    <string name="press_back_again_to_exit">Apăsați din nou \'Înapoi\' pentru a ieși</string>
+    <string name="press_back_again_to_exit">Apasă din nou \'Înapoi\' pentru a ieși</string>
     <string name="exit">Ieşire</string>
     <string name="undo">Anulează</string>
     <string name="redo">Refă</string>
@@ -117,7 +117,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_to_be_loaded_and_saved_as_witharg">Documentul va fi încărcat și salvat ca \"%s\"</string>
     <string name="refresh">Împrospătează</string>
     <string name="create_shortcut">Creează scurtătură</string>
-    <string name="tried_to_create_shortcut_for_this_notice">Ați încercat să creați o comandă rapidă către ecranul de pornire. Rețineți că este posibil ca unele lansatoare să nu accepte acest lucru.</string>
+    <string name="tried_to_create_shortcut_for_this_notice">Am încercat să creez o comandă rapidă pe ecranul de pornire. Reține că unele lansatoare pot să nu accepte această funcție.</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">Fișierul selectat nu se află în directorul caietului de notițe al aplicației. Doriți să îl copiați în dosarul curent? Acest lucru va suprascrie orice fișier existent cu același nume.</string>
     <string name="file_not_in_current_folder_do_copy__appspecific">Fișierul nu se află în dosarul curent. Doriți să îl copiați în dosarul curent? Aceasta va suprascrie orice fișier existent cu același nume.</string>
     <string name="files_and_folders">Fișiere și dosare</string>

@@ -278,6 +278,9 @@ public final class TextViewUtils {
      * @param positions: Line indices to select
      */
     public static void selectLines(final EditText edit, final List<Integer> positions) {
+        if (edit == null) {
+            return;
+        }
         if (!edit.hasFocus()) {
             edit.requestFocus();
         }

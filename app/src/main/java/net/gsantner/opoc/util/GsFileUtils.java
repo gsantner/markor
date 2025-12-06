@@ -728,7 +728,8 @@ public class GsFileUtils {
         return getNameWithoutExtension(file.getName());
     }
 
-    public static String getNameWithoutExtension(final String fileName) {
+    public static String getNameWithoutExtension(String fileName) {
+        fileName = fileName.replace(".jenc", "");
         final int doti = fileName.lastIndexOf(".");
         return (doti < 0) ? fileName : fileName.substring(0, doti);
     }
@@ -740,6 +741,7 @@ public class GsFileUtils {
     /// Get the file extension of the file, with dot
     /// @return "" -> "", "index" -> "", "index.html" -> ".html", "my.website.html" -> ".html"
     public static String getFilenameExtension(String name) {
+        name = name.replace(".jenc", "");
         return name.contains(".") ? name.replaceAll(".*?(\\.[^.]+)$", "$1") : "";
     }
 
