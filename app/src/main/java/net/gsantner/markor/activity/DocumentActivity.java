@@ -26,7 +26,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.activity.openeditor.OpenFromShortcutOrWidgetActivity;
 import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
@@ -114,11 +113,7 @@ public class DocumentActivity extends MarkorBaseActivity {
 
         intent.putExtra(Document.EXTRA_FILE, file);
 
-        if (activity instanceof OpenFromShortcutOrWidgetActivity) {
-            activity.startActivity(intent);
-        } else {
-            GsContextUtils.instance.animateToActivity(activity, intent, false, null);
-        }
+        activity.startActivity(intent);
     }
 
     public static void askUserIfWantsToOpenFileInThisApp(final Activity activity, final File file) {
