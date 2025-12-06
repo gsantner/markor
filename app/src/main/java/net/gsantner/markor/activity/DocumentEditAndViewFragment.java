@@ -282,7 +282,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             _webView.onPause();
         }
         _appSettings.addRecentFile(_document.file);
-        _appSettings.setDocumentPreviewState(_document.path, _isPreviewVisible);
         _appSettings.setLastEditPosition(_document.path, TextViewUtils.getSelection(_hlEditor)[0]);
 
         if (_document.path.equals(_appSettings.getTodoFile().getAbsolutePath())) {
@@ -357,6 +356,20 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                     }
                     return true;
                 }
+            });
+        }
+
+        // Clear view state preference
+        final View previewView = menu.findItem(R.id.action_preview).getActionView();
+        if (previewView != null) {
+            previewView.setOnLongClickListener(v -> {
+                final Activity activity = getActivity();
+                if (activity != null && _appSettings != null && _document != null) {
+                    _appSettings.setDocumentPreviewState(_document.path, _isPreviewVisible);
+                    Toast.makeText(activity, "❌", Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+                return false;
             });
         }
 
@@ -482,6 +495,8 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             }
             case R.id.action_preview: {
                 setViewModeVisibility(true);
+                // We do this here so that only a positive change sets the state
+                _appSettings.setDocumentPreviewState(_document.path, _isPreviewVisible);
                 return true;
             }
             case R.id.action_edit: {
@@ -655,7 +670,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             }
         }
     }
-
     public void checkTextChangeState() {
         final boolean isTextChanged = !_document.isContentSame(_hlEditor.getText());
         Drawable d;
