@@ -572,11 +572,15 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         setBool(PREF_PREFIX_PREVIEW_STATE + path, isViewMode);
     }
 
+    public void clearDocumentPreviewState(final String path) {
+        remove(PREF_PREFIX_PREVIEW_STATE + path);
+    }
+
     public boolean getDocumentPreviewState(final String path) {
         // Use global setting as default
         final boolean _default = isPreferViewMode();
-        // Always open in preview state when prefer preview mode is enabled
-        if (_default || !fexists(path)) {
+        if (!fexists(path)) {
+            // Default if path does not exist (something went wrong)
             return _default;
         } else {
             return getBool(PREF_PREFIX_PREVIEW_STATE + path, _default);
