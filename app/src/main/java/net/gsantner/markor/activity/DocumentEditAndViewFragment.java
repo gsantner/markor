@@ -40,9 +40,7 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.IdRes;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.BuildConfig;
@@ -282,6 +280,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             _webView.onPause();
         }
         _appSettings.addRecentFile(_document.file);
+        _appSettings.setDocumentPreviewState(_document.path, _isPreviewVisible);
         _appSettings.setLastEditPosition(_document.path, TextViewUtils.getSelection(_hlEditor)[0]);
 
         if (_document.path.equals(_appSettings.getTodoFile().getAbsolutePath())) {
@@ -358,8 +357,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 }
             });
         }
-
-        attachClearPreviewStateCallbacks();
 
         // Set various initial states
         updateMenuToggleStates(_document.getFormat());
@@ -483,14 +480,10 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             }
             case R.id.action_preview: {
                 setViewModeVisibility(true);
-                // We do this here so that only a positive change sets the state
-                _appSettings.setDocumentPreviewState(_document.path, _isPreviewVisible);
                 return true;
             }
             case R.id.action_edit: {
                 setViewModeVisibility(false);
-                // We do this here so that only a positive change sets the state
-                _appSettings.setDocumentPreviewState(_document.path, _isPreviewVisible);
                 return true;
             }
             case R.id.action_preview_edit_toggle: {
@@ -932,38 +925,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _isPreviewVisible = show;
 
         ((AppCompatActivity) activity).supportInvalidateOptionsMenu();
-    }
-
-    private void attachClearPreviewStateCallbacks() {
-        final Activity activity = getActivity();
-        if (activity == null) {
-            return;
-        }
-
-        final Toolbar toolbar = activity.findViewById(R.id.toolbar);
-        if (toolbar == null) {
-            return;
-        }
-
-        toolbar.post(() -> {
-            attachClearPreviewState(toolbar, R.id.action_preview);
-            attachClearPreviewState(toolbar, R.id.action_edit);
-        });
-    }
-
-    private void attachClearPreviewState(final Toolbar toolbar, @IdRes final int actionResId) {
-        final View itemView = toolbar.findViewById(actionResId);
-        if (itemView == null) {
-            return;
-        }
-        itemView.setOnLongClickListener(v -> {
-            if (_appSettings != null && _document != null) {
-                _appSettings.clearDocumentPreviewState(_document.path);
-                Toast.makeText(getActivity(), "❌", Toast.LENGTH_SHORT).show();
-                return true;
-            }
-            return false;
-        });
     }
 
     // Callback from view-mode/javascript
