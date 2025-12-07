@@ -23,7 +23,7 @@
         android:layout_height="?attr/actionBarSize"
         android:theme="@style/AppTheme.Light.AppBarOverlay"
         android:stateListAnimator="@null"
-        app:elevation="0dp">
+        app:elevation="@dimen/appbar_elevation">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"

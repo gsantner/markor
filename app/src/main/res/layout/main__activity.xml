@@ -25,7 +25,7 @@
         android:layout_height="?attr/actionBarSize"
         android:theme="@style/AppTheme.Light.AppBarOverlay"
         android:stateListAnimator="@null"
-        app:elevation="0dp">
+        app:elevation="@dimen/appbar_elevation">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -68,6 +68,9 @@
         android:layout_height="?attr/actionBarSize"
         android:layout_gravity="start|bottom"
         android:background="@color/bar_background"
+        android:elevation="@dimen/secondary_bar_elevation"
+        android:translationZ="@dimen/secondary_bar_elevation"
+        app:elevation="@dimen/secondary_bar_elevation"
         app:itemBackground="@color/bar_background"
         app:itemIconTint="@drawable/bottomnav_color_selector"
         app:itemTextColor="@drawable/bottomnav_color_selector"

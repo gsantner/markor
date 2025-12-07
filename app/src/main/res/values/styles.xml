@@ -113,6 +113,7 @@
         <item name="android:textColorSecondary">@color/secondary_text</item>
         <item name="colorControlNormal">@color/bar_content</item>
         <item name="colorControlHighlight">@color/bar_content</item>
+        <item name="android:windowElevation">@dimen/secondary_bar_elevation</item>
     </style>
 
     <style name="PopupMenu.Light" parent="Widget.AppCompat.Light.PopupMenu">
