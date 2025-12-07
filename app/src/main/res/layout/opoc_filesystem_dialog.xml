@@ -16,14 +16,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="4dp"
-    android:animateLayoutChanges="true">
+    android:animateLayoutChanges="true"
+    android:background="@color/bar_background">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/ui__filesystem_dialog__title_bar"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:background="@color/bar_background"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
 
     </androidx.appcompat.widget.Toolbar>
@@ -47,6 +48,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="4dp"
         android:minHeight="100dp"
+        android:background="@color/bar_background"
         app:layout_constraintTop_toBottomOf="@id/ui__filesystem_dialog__search_edit"
         app:layout_constraintBottom_toTopOf="@id/ui__filesystem_dialog__buttons"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />

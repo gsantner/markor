@@ -14,7 +14,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ui__filesystem_dialog__root"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/bar_background">
 
     <TextView
         android:id="@+id/empty_hint"
@@ -32,13 +33,15 @@
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/pull_to_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/bar_background">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/ui__filesystem_dialog__list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:minHeight="100dp"
+            android:background="@color/bar_background"
             app:fastScrollEnabled="true"
             app:fastScrollHorizontalThumbDrawable="@drawable/scrollbar_thumb"
             app:fastScrollHorizontalTrackDrawable="@drawable/scrollbar_track"

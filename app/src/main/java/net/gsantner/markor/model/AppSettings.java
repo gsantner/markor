@@ -76,9 +76,10 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         _cu = new MarkorContextUtils(context);
         _isDeviceGoodHardware = _cu.isDeviceGoodHardware(context);
 
+        // Seed editor colors with static light/dark values so they don't depend on current app theme
         if (getInt(R.string.pref_key__basic_color_scheme__bg_light, -999) == -999) {
-            setEditorBasicColor(true, R.color.white, R.color.dark_grey);
-            setEditorBasicColor(false, R.color.dark_grey, R.color.light__background);
+            setEditorBasicColor(true, R.color.dark__primary_text, R.color.dark__background);
+            setEditorBasicColor(false, R.color.light__primary_text, R.color.light__background);
         }
     }
 

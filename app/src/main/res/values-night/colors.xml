@@ -8,14 +8,14 @@
     <color name="secondary_text">#99FFFFFF</color>
     <color name="file">@color/dark__file</color>
     <color name="folder">@color/dark__folder</color>
-    <color name="background">#1A1A1A</color>
+    <color name="background">@color/dark__background</color>
     <color name="background_2">#202020</color>
-    <color name="bar_background">#1A1A1A</color>
+    <color name="bar_background">@color/background</color>
     <!-- UI chrome/text tint (kept fixed, not tied to editor presets) -->
-    <color name="bar_content">#DDFFFFFF</color>
+    <color name="bar_content">@color/dark__primary_text</color>
     <color name="popup_menu_background">@color/bar_background</color>
     <color name="textActionBarColor">@color/background</color>
-    <color name="textActionIconColor">@color/white</color>
+    <color name="textActionIconColor">@color/bar_content</color>
 
     <!-- All values specified only in base colors.xml  -->
 

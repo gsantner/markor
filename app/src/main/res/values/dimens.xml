@@ -6,5 +6,5 @@
     <dimen name="appbar_padding_top">8dp</dimen>
     <dimen name="textactions_bar_height">46dp</dimen>
     <dimen name="dialog_corner_radius">16dp</dimen>
-    <dimen name="appbar_elevation">4dp</dimen>
+    <dimen name="appbar_elevation">0dp</dimen>
 </resources>

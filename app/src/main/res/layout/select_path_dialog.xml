@@ -14,7 +14,8 @@
     android:layout_margin="0dp"
     android:padding="8dp"
     android:paddingTop="0dp"
-    android:paddingBottom="0dp">
+    android:paddingBottom="0dp"
+    android:background="@color/bar_background">
 
     <LinearLayout
         android:layout_width="match_parent"
