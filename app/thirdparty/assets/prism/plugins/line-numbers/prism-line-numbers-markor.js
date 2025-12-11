@@ -26,6 +26,5 @@ function adjustLayout(codeElement, codeFontWidth) {
 
     const digits = getNumberDigits(maxNumber);
     const padding = 12 + (digits * codeFontWidth);
-    console.log(padding);
     codeElement.parentNode.style.paddingLeft = padding + "px";
 }

@@ -28,7 +28,7 @@ function usePrism(arg1, arg2) {
     });
 }
 
-function refreshPrism() {
+function refreshLineNumbers() {
     const codeElements = document.querySelectorAll("pre > code");
     if (codeElements.length == 0) {
         return;
@@ -38,4 +38,27 @@ function refreshPrism() {
         adjustLayout(codeElement, codeFontWidth);
         Prism.highlightElement(codeElement);
     });
+}
+
+function setLineNumbers(enabled) {
+    const codeElements = document.querySelectorAll("pre > code");
+    if (codeElements.length == 0) {
+        return;
+    }
+    const lineNumbers = enabled === "true";
+
+    if (lineNumbers) {
+        const codeFontWidth = getFontWidth(codeElements[0]);
+        codeElements.forEach((codeElement) => {
+            adjustLayout(codeElement, codeFontWidth);
+            codeElement.parentNode.classList.add("line-numbers");
+            Prism.highlightElement(codeElement);
+        });
+    } else {
+        codeElements.forEach((codeElement) => {
+            codeElement.parentNode.classList.remove("line-numbers");
+            codeElement.parentNode.style.paddingLeft = "12px";
+            Prism.highlightElement(codeElement);
+        });
+    }
 }
