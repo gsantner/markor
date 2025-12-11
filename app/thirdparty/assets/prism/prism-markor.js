@@ -1,7 +1,11 @@
 function usePrism(arg1, arg2) {
+    const codeElements = document.querySelectorAll("pre > code");
+    if (codeElements.length == 0) {
+        return;
+    }
     const wrapWords = arg1 === "true";
     const lineNumbers = arg2 === "true";
-    const codeElements = document.querySelectorAll("pre > code");
+    const codeFontWidth = getFontWidth(codeElements[0]);
 
     codeElements.forEach((codeElement) => {
         if (wrapWords) {
@@ -17,9 +21,21 @@ function usePrism(arg1, arg2) {
         }
 
         if (lineNumbers) {
-            adjustLayout(codeElement);
+            adjustLayout(codeElement, codeFontWidth);
             codeElement.parentNode.classList.add("line-numbers");
             Prism.highlightElement(codeElement);
         }
+    });
+}
+
+function refreshPrism() {
+    const codeElements = document.querySelectorAll("pre > code");
+    if (codeElements.length == 0) {
+        return;
+    }
+    const codeFontWidth = getFontWidth(codeElements[0]);
+    codeElements.forEach((codeElement) => {
+        adjustLayout(codeElement, codeFontWidth);
+        Prism.highlightElement(codeElement);
     });
 }

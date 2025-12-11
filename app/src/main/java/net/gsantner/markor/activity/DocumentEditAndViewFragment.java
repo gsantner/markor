@@ -649,6 +649,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 MarkorDialogFactory.showFontSizeDialog(activity, current, (newSize) -> {
                     if (_isPreviewVisible) {
                         _webView.getSettings().setTextZoom((int) (newSize * VIEW_FONT_SCALE));
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                            _webView.evaluateJavascript("refreshPrism();", null);
+                        }
                         _appSettings.setDocumentViewFontSize(_document.path, newSize);
                     } else {
                         _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, (float) newSize);

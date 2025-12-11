@@ -12,19 +12,20 @@ function getNumberDigits(number) {
     }
 }
 
-let codeFontWidth = -1;
-function adjustLayout(codeElement) {
+function getFontWidth(codeElement) {
+    const canvasContext = document.createElement("canvas").getContext("2d");
+    canvasContext.font = window.getComputedStyle(codeElement, null).getPropertyValue("font");
+    return canvasContext.measureText("0").width;
+}
+
+function adjustLayout(codeElement, codeFontWidth) {
     const maxNumber = codeElement.textContent.split("\n").length - 1;
     if (maxNumber == 0) {
         return;
     }
 
-    if (codeFontWidth == -1) {
-        const canvasContext = document.createElement("canvas").getContext("2d");
-        canvasContext.font = window.getComputedStyle(codeElement, null).getPropertyValue("font");
-        codeFontWidth = canvasContext.measureText("0").width;
-    }
-
     const digits = getNumberDigits(maxNumber);
-    codeElement.parentNode.style.paddingLeft = 2 * codeFontWidth + digits * codeFontWidth - digits + "px";
+    const padding = 12 + (digits * codeFontWidth);
+    console.log(padding);
+    codeElement.parentNode.style.paddingLeft = padding + "px";
 }
