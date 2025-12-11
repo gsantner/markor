@@ -8,6 +8,8 @@ function usePrism(arg1, arg2) {
     const codeFontWidth = getFontWidth(codeElements[0]);
 
     codeElements.forEach((codeElement) => {
+        codeElement.parentNode.style.paddingLeft = "8px";
+        codeElement.parentNode.style.paddingRight = "8px";
         if (wrapWords) {
             codeElement.parentNode.style.whiteSpace = "pre-wrap";
             codeElement.parentNode.style.overflowWrap = "break-word";
@@ -21,7 +23,7 @@ function usePrism(arg1, arg2) {
         }
 
         if (lineNumbers) {
-            adjustLayout(codeElement, codeFontWidth);
+            preparePaddings(codeElement, codeFontWidth);
             codeElement.parentNode.classList.add("line-numbers");
             Prism.highlightElement(codeElement);
         }
@@ -35,7 +37,7 @@ function refreshLineNumbers() {
     }
     const codeFontWidth = getFontWidth(codeElements[0]);
     codeElements.forEach((codeElement) => {
-        adjustLayout(codeElement, codeFontWidth);
+        preparePaddings(codeElement, codeFontWidth);
         Prism.highlightElement(codeElement);
     });
 }
@@ -50,14 +52,14 @@ function setLineNumbers(enabled) {
     if (lineNumbers) {
         const codeFontWidth = getFontWidth(codeElements[0]);
         codeElements.forEach((codeElement) => {
-            adjustLayout(codeElement, codeFontWidth);
+            preparePaddings(codeElement, codeFontWidth);
             codeElement.parentNode.classList.add("line-numbers");
             Prism.highlightElement(codeElement);
         });
     } else {
         codeElements.forEach((codeElement) => {
             codeElement.parentNode.classList.remove("line-numbers");
-            codeElement.parentNode.style.paddingLeft = "12px";
+            codeElement.parentNode.style.paddingLeft = "8px";
             Prism.highlightElement(codeElement);
         });
     }

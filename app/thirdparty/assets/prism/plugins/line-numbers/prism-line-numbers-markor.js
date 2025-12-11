@@ -18,13 +18,13 @@ function getFontWidth(codeElement) {
     return canvasContext.measureText("0").width;
 }
 
-function adjustLayout(codeElement, codeFontWidth) {
+function preparePaddings(codeElement, codeFontWidth) {
     const maxNumber = codeElement.textContent.split("\n").length - 1;
     if (maxNumber == 0) {
         return;
     }
 
     const digits = getNumberDigits(maxNumber);
-    const padding = 12 + (digits * codeFontWidth);
+    const padding = 12 + digits * codeFontWidth;
     codeElement.parentNode.style.paddingLeft = padding + "px";
 }
