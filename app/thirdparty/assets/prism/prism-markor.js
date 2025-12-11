@@ -62,3 +62,25 @@ function setLineNumbers(enabled) {
         });
     }
 }
+
+function setWrapWords(enabled) {
+    const codeElements = document.querySelectorAll("pre > code");
+    if (codeElements.length == 0) {
+        return;
+    }
+    const wrapWords = enabled === "true";
+
+    if (wrapWords) {
+        codeElements.forEach((codeElement) => {
+            codeElement.parentNode.style.whiteSpace = "pre-wrap";
+            codeElement.parentNode.style.overflowWrap = "break-word";
+            Prism.highlightElement(codeElement);
+        });
+    } else {
+        codeElements.forEach((codeElement) => {
+            codeElement.parentNode.style.whiteSpace = null;
+            codeElement.parentNode.style.overflowWrap = null;
+            Prism.highlightElement(codeElement);
+        });
+    }
+}

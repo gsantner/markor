@@ -614,6 +614,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 final boolean newState = !isWrapped();
                 _appSettings.setDocumentWrapState(_document.path, newState);
                 setWrapState(newState);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    _webView.evaluateJavascript("setWrapWords('" + newState + "');", null);
+                }
                 updateMenuToggleStates(0);
                 return true;
             }
