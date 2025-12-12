@@ -25,6 +25,6 @@ function preparePaddings(codeElement, codeFontWidth) {
     }
 
     const digits = getNumberDigits(maxNumber);
-    const padding = 12 + digits * codeFontWidth;
+    const padding = 14 + digits * codeFontWidth;
     codeElement.parentNode.style.paddingLeft = padding + "px";
 }
