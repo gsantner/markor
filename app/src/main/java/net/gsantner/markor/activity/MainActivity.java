@@ -265,7 +265,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         getMenuInflater().inflate(R.menu.main__menu, menu);
         menu.findItem(R.id.action_settings).setVisible(_appSettings.isShowSettingsOptionInMainToolbar());
 
-        _cu.tintMenuItems(menu, true, ContextCompat.getColor(this, R.color.bar_content));
+        _cu.tintMenuItems(menu, true, ContextCompat.getColor(this, R.color.action_bar_content));
         _cu.setSubMenuIconsVisibility(menu, true);
         return true;
     }

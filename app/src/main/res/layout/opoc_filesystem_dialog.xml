@@ -24,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/bar_background"
+        android:background="@color/action_bar_background"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
 
     </androidx.appcompat.widget.Toolbar>

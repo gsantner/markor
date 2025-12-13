@@ -25,8 +25,8 @@
         <item name="dialogTheme">@style/Theme.AppCompat.DayNight.Dialog.Rounded</item>
         <item name="alertDialogTheme">@style/Theme.AppCompat.DayNight.Dialog.Rounded</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
-        <item name="android:actionModeBackground">@color/bar_background</item>
-        <item name="actionModeBackground">@color/bar_background</item>
+        <item name="android:actionModeBackground">@color/action_bar_background</item>
+        <item name="actionModeBackground">@color/action_bar_background</item>
         <item name="colorPrimary">@color/primary</item>
         <item name="colorAccent">@color/accent</item>
         <item name="android:windowBackground">@color/background</item>
@@ -39,7 +39,7 @@
         <item name="android:windowAllowReturnTransitionOverlap" tools:targetApi="lollipop">true</item>
         <item name="android:windowSharedElementEnterTransition" tools:targetApi="lollipop">@android:transition/move</item>
         <item name="android:windowSharedElementExitTransition" tools:targetApi="lollipop">@android:transition/move</item>
-        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/bar_background</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/action_bar_background</item>
         <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/bar_background</item>
 
         <!-- Android V28 options; ignore IDE warnings -->
@@ -58,14 +58,14 @@
     </style>
 
     <style name="LightTextToolbarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-        <item name="android:actionModeBackground">@color/bar_background</item>
-        <item name="actionModeBackground">@color/bar_background</item>
+        <item name="android:actionModeBackground">@color/action_bar_background</item>
+        <item name="actionModeBackground">@color/action_bar_background</item>
 
-        <item name="android:textColorPrimary">@color/bar_content</item>
-        <item name="actionMenuTextColor">@color/bar_content</item>
-        <item name="android:textColorSecondary">@color/bar_content</item>
-        <item name="colorControlNormal">@color/bar_content</item>
-        <item name="colorControlHighlight">@color/bar_content</item>
+        <item name="android:textColorPrimary">@color/action_bar_content</item>
+        <item name="actionMenuTextColor">@color/action_bar_content</item>
+        <item name="android:textColorSecondary">@color/action_bar_content</item>
+        <item name="colorControlNormal">@color/action_bar_content</item>
+        <item name="colorControlHighlight">@color/action_bar_content</item>
     </style>
 
     <style name="ToolbarPopupOverlay" parent="ThemeOverlay.AppCompat.Light">

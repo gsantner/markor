@@ -284,7 +284,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                 if (_dopt.sortOrder.isFolderLocal) {
                     tintColor = GsFileBrowserListAdapter.FAVOURITE_COLOR;
                 } else if (_barContentColor == Integer.MIN_VALUE) {
-                    tintColor = ContextCompat.getColor(requireContext(), R.color.bar_content);
+                    tintColor = ContextCompat.getColor(requireContext(), R.color.action_bar_content);
                 } else {
                     tintColor = _barContentColor;
                 }
@@ -357,7 +357,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.filesystem__menu, menu);
-        _barContentColor = ContextCompat.getColor(requireContext(), R.color.bar_content);
+        _barContentColor = ContextCompat.getColor(requireContext(), R.color.action_bar_content);
         _cu.tintMenuItems(menu, true, _barContentColor);
         _cu.setSubMenuIconsVisibility(menu, true);
 

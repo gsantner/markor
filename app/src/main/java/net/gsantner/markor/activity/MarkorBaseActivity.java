@@ -52,7 +52,7 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         applyThemedBars();
-        _cu.tintMenuItems(menu, true, getBarContentColor());
+        _cu.tintMenuItems(menu, true, getActionBarContentColor());
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -88,17 +88,18 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
     private void applyThemedBars() {
         refreshCachedBarColors();
         final int barBackground = _cachedBarBackground;
-        final int barContent = _cachedBarContent;
+        final int actionBarBackground = getActionBarBackgroundColor();
+        final int actionBarContent = getActionBarContentColor();
 
         final Toolbar toolbar = findViewById(R.id.toolbar);
         if (toolbar != null) {
-            toolbar.setBackgroundColor(barBackground);
-            toolbar.setTitleTextColor(barContent);
-            toolbar.setSubtitleTextColor(barContent);
+            toolbar.setBackgroundColor(actionBarBackground);
+            toolbar.setTitleTextColor(actionBarContent);
+            toolbar.setSubtitleTextColor(actionBarContent);
             toolbar.setPopupTheme(getPopupTheme());
-            toolbar.setNavigationIcon(_cu.tintDrawable(toolbar.getNavigationIcon(), barContent));
-            toolbar.setOverflowIcon(_cu.tintDrawable(toolbar.getOverflowIcon(), barContent));
-            _cu.tintMenuItems(toolbar.getMenu(), true, barContent);
+            toolbar.setNavigationIcon(_cu.tintDrawable(toolbar.getNavigationIcon(), actionBarContent));
+            toolbar.setOverflowIcon(_cu.tintDrawable(toolbar.getOverflowIcon(), actionBarContent));
+            _cu.tintMenuItems(toolbar.getMenu(), true, actionBarContent);
         }
 
         final BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation_bar);
@@ -110,21 +111,22 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(barBackground);
+            getWindow().setStatusBarColor(actionBarBackground);
             getWindow().setNavigationBarColor(barBackground);
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             final View decorView = getWindow().getDecorView();
             int flags = decorView.getSystemUiVisibility();
-            final boolean lightIcons = _cu.shouldColorOnTopBeLight(barBackground);
-            if (!lightIcons) {
+            final boolean lightStatusIcons = _cu.shouldColorOnTopBeLight(actionBarBackground);
+            if (!lightStatusIcons) {
                 flags |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
             } else {
                 flags &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                if (!lightIcons) {
+                final boolean lightNavigationIcons = _cu.shouldColorOnTopBeLight(barBackground);
+                if (!lightNavigationIcons) {
                     flags |= View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
                 } else {
                     flags &= ~View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
@@ -141,9 +143,15 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
         return ContextCompat.getColor(this, R.color.bar_background);
     }
 
-    private int getBarContentColor() {
-        refreshCachedBarColors();
-        return _cachedBarContent;
+    private int getActionBarBackgroundColor() {
+        if (_appSettings.getAppThemeName().contains("black")) {
+            return Color.BLACK;
+        }
+        return ContextCompat.getColor(this, R.color.action_bar_background);
+    }
+
+    private int getActionBarContentColor() {
+        return ContextCompat.getColor(this, R.color.action_bar_content);
     }
 
     private int getPopupTheme() {

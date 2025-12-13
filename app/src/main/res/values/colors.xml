@@ -16,10 +16,12 @@
     <color name="folder">@color/light__folder</color>
     <color name="background">@color/light__background</color>
     <color name="background_2">@color/light__background_2</color>
+    <color name="action_bar_background">@color/primary</color>
     <color name="bar_background">@color/background</color>
     <color name="popup_menu_background">@color/dialog_background</color>
     <color name="dialog_background">#F5F5F5</color>
     <!-- UI chrome/text tint (kept fixed, not tied to editor presets) -->
+    <color name="action_bar_content">@color/icons</color>
     <color name="bar_content">@color/light__primary_text</color>
     <color name="textActionBarColor">@color/background</color>
     <color name="textActionIconColor">@color/bar_content</color>
