@@ -2,21 +2,20 @@
 <resources>
 
     <!-- Named colors -->
-    <color name="colorPrimary">@color/primary_dark</color>
+    <color name="colorPrimary">@color/action_bar_background</color>
     <!-- Approx Material: 87% white for primary, 60% white for secondary -->
     <color name="primary_text">#DDFFFFFF</color>
     <color name="secondary_text">#99FFFFFF</color>
     <color name="file">@color/dark__file</color>
     <color name="folder">@color/dark__folder</color>
     <color name="background">@color/dark__background</color>
-    <color name="background_2">#202020</color>
     <color name="bar_background">@color/background</color>
     <!-- UI chrome/text tint (kept fixed, not tied to editor presets) -->
-    <color name="action_bar_background">@color/bar_background</color>
+    <color name="action_bar_background">@color/dark__background</color>
     <color name="action_bar_content">@color/bar_content</color>
     <color name="bar_content">@color/dark__primary_text</color>
     <color name="popup_menu_background">@color/dialog_background</color>
-    <color name="dialog_background">#232323</color>
+    <color name="dialog_background">@color/dark__background</color>
     <color name="textActionBarColor">@color/background</color>
     <color name="textActionIconColor">@color/bar_content</color>
 

@@ -1,20 +1,17 @@
 package net.gsantner.markor.activity;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.util.TypedValue;
+import android.graphics.drawable.ColorDrawable;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.AppSettings;
@@ -28,6 +25,7 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
         super.onCreate(savedInstanceState);
 
         _appSettings.applyAppTheme();
+        applyThemedBars();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setEnterTransition(null);
             getWindow().setExitTransition(null);
@@ -39,14 +37,7 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        applyThemedBars();
-    }
-
-    @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        applyThemedBars();
         _cu.tintMenuItems(menu, true, getActionBarContentColor());
         return super.onPrepareOptionsMenu(menu);
     }
@@ -62,7 +53,7 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
 
     @Override
     public Integer getNewActivityBackgroundColor() {
-        return _appSettings.getAppThemeName().contains("black") ? Color.BLACK : null;
+        return getThemedBarBackgroundColor();
     }
 
     @Override
@@ -80,6 +71,11 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
         return _appSettings.isDisallowScreenshots();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
     private void applyThemedBars() {
         final int barBackground = getThemedBarBackgroundColor();
         final int actionBarBackground = getActionBarBackgroundColor();
@@ -88,17 +84,6 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
         if (toolbar != null) {
             toolbar.setBackgroundColor(actionBarBackground);
             toolbar.setPopupTheme(getPopupTheme());
-        }
-
-        final BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation_bar);
-        if (bottomNav != null) {
-            bottomNav.setBackgroundColor(barBackground);
-            bottomNav.setItemBackground(new ColorDrawable(barBackground));
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(actionBarBackground);
-            getWindow().setNavigationBarColor(barBackground);
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -113,17 +98,11 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
     }
 
     private int getThemedBarBackgroundColor() {
-        if (_appSettings.getAppThemeName().contains("black")) {
-            return Color.BLACK;
-        }
-        return ContextCompat.getColor(this, R.color.bar_background);
+        return resolveThemeColor(android.R.attr.colorBackground, R.color.bar_background);
     }
 
     private int getActionBarBackgroundColor() {
-        if (_appSettings.getAppThemeName().contains("black")) {
-            return Color.BLACK;
-        }
-        return ContextCompat.getColor(this, R.color.action_bar_background);
+        return resolveThemeColor(R.attr.colorPrimary, R.color.action_bar_background);
     }
 
     private int getActionBarContentColor() {
@@ -147,5 +126,13 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
             flags &= ~lightFlag;
         }
         return flags;
+    }
+
+    private int resolveThemeColor(int attrResId, int fallbackColorResId) {
+        final TypedValue typedValue = new TypedValue();
+        if (getTheme().resolveAttribute(attrResId, typedValue, true)) {
+            return typedValue.data;
+        }
+        return ContextCompat.getColor(this, fallbackColorResId);
     }
 }

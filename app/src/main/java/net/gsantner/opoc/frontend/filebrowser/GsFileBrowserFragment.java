@@ -21,7 +21,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.graphics.Color;
 import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,6 +29,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
@@ -90,7 +91,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     private MarkorContextUtils _cu;
     private Toolbar _toolbar;
     private boolean _reloadRequiredOnResume = true;
-    private int _barContentColor = Integer.MIN_VALUE;
 
     //########################
     //## Methods
@@ -129,13 +129,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         }
 
         _toolbar = activity.findViewById(R.id.toolbar);
-
-        if (_appSettings.getAppThemeName().contains("black")) {
-            root.setBackgroundColor(Color.BLACK);
-            _swipe.setBackgroundColor(Color.BLACK);
-            _recyclerList.setBackgroundColor(Color.BLACK);
-            _emptyHint.setBackgroundColor(Color.BLACK);
-        }
     }
 
     @Override
@@ -288,14 +281,9 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
 
             final MenuItem sortItem = _fragmentMenu.findItem(R.id.action_sort);
             if (sortItem != null) {
-                int tintColor;
-                if (_dopt.sortOrder.isFolderLocal) {
-                    tintColor = GsFileBrowserListAdapter.FAVOURITE_COLOR;
-                } else if (_barContentColor == Integer.MIN_VALUE) {
-                    tintColor = ContextCompat.getColor(requireContext(), R.color.action_bar_content);
-                } else {
-                    tintColor = _barContentColor;
-                }
+                final @ColorInt int tintColor = _dopt.sortOrder.isFolderLocal ?
+                        GsFileBrowserListAdapter.FAVOURITE_COLOR :
+                        ContextCompat.getColor(requireContext(), R.color.action_bar_content);
                 _cu.tintDrawable(sortItem.getIcon(), tintColor);
             }
         }
@@ -365,8 +353,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.filesystem__menu, menu);
-        _barContentColor = ContextCompat.getColor(requireContext(), R.color.action_bar_content);
-        _cu.tintMenuItems(menu, true, _barContentColor);
+        _cu.tintMenuItems(menu, true, ContextCompat.getColor(requireContext(), R.color.action_bar_content));
         _cu.setSubMenuIconsVisibility(menu, true);
 
         List<Pair<File, String>> sdcardFolders = _cu.getAppDataPublicDirs(getContext(), false, true, true);
@@ -375,6 +362,11 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             final MenuItem item = menu.findItem(sdcardResIds[i]);
             item.setTitle(item.getTitle().toString().replaceFirst("[)]\\s*$", " " + sdcardFolders.get(i).second) + ")");
             item.setVisible(true);
+        }
+
+        final Activity activity = getActivity();
+        if (_toolbar != null && activity != null) {
+            _toolbar.setSubtitleTextColor(ContextCompat.getColor(activity, R.color.dark__secondary_text));
         }
 
         _fragmentMenu = menu;

@@ -103,7 +103,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/widget_header"
-        android:background="@color/background">
+        android:background="?android:colorBackground">
 
         <TextView
             android:id="@+id/widget_empty_hint"
@@ -121,7 +121,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:background="@color/background"
+            android:background="?android:colorBackground"
             android:divider="@android:color/transparent"
             android:dividerHeight="0dp" />
     </RelativeLayout>

@@ -7,6 +7,7 @@
 #########################################################*/
 package net.gsantner.markor.model;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
@@ -693,7 +694,13 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     public void applyAppTheme() {
-        GsContextUtils.instance.applyDayNightTheme(getString(R.string.pref_key__app_theme, getAppThemeName()));
+        final String themePref = getString(R.string.pref_key__app_theme, getAppThemeName());
+        if (_context instanceof Activity) {
+            _context.setTheme(themePref.contains("black")
+                    ? R.style.AppTheme_Unified_Black
+                    : R.style.AppTheme_Unified);
+        }
+        GsContextUtils.instance.applyDayNightTheme(themePref);
     }
 
     public String getAppThemeName() {

@@ -14,7 +14,7 @@
     android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="?android:colorBackground"
     android:fitsSystemWindows="true"
     android:theme="@style/AppTheme.Unified"
     tools:context="net.gsantner.markor.activity.MainActivity">
@@ -31,9 +31,9 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/action_bar_background"
+            android:background="?attr/colorPrimary"
             android:theme="@style/LightTextToolbarOverlay"
-            app:popupTheme="@style/ToolbarPopupOverlay"
+            app:popupTheme="?attr/popupTheme"
             android:elevation="@dimen/appbar_elevation"
             app:subtitleTextColor="@color/secondary_text"
             app:title="@string/app_name">
@@ -62,16 +62,16 @@
         android:src="@drawable/ic_add_white_24dp"
         app:shapeAppearance="@style/ShapeAppearanceOverlay.Material3.FloatingActionButton" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation_bar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_gravity="start|bottom"
-        android:background="@color/bar_background"
-        android:elevation="@dimen/secondary_bar_elevation"
-        android:translationZ="@dimen/secondary_bar_elevation"
-        app:elevation="@dimen/secondary_bar_elevation"
-        app:itemBackground="@color/bar_background"
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation_bar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="start|bottom"
+            android:background="?android:colorBackground"
+            android:elevation="@dimen/secondary_bar_elevation"
+            android:translationZ="@dimen/secondary_bar_elevation"
+            app:elevation="@dimen/secondary_bar_elevation"
+            app:itemBackground="?android:colorBackground"
         app:itemIconTint="@drawable/bottomnav_color_selector"
         app:itemTextColor="@drawable/bottomnav_color_selector"
         app:labelVisibilityMode="labeled"

@@ -3,5 +3,5 @@
     android:id="@+id/document__fragment_view_webview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="?android:colorBackground"
     android:visibility="invisible" />

@@ -16,7 +16,7 @@
     android:layout_height="wrap_content"
     android:foreground="?android:attr/selectableItemBackground"
     android:padding="@dimen/activity_horizontal_margin"
-    android:background="@color/bar_background">
+    android:background="?android:colorBackground">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -42,7 +42,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@color/background"
+                android:background="?android:colorBackground"
                 android:alpha="0"
                 android:gravity="top"
                 android:imeOptions="flagNoExtractUi"
@@ -68,7 +68,7 @@
         android:layout_gravity="bottom"
         android:translationZ="@dimen/secondary_bar_elevation"
         android:elevation="@dimen/secondary_bar_elevation"
-        android:background="@color/textActionBarColor"
+        android:background="?android:colorBackground"
         android:paddingTop="4dp"
         android:scrollbars="none">
 
@@ -76,7 +76,7 @@
             android:id="@+id/document__fragment__edit__text_actions_bar"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@color/textActionBarColor"
+            android:background="?android:colorBackground"
             android:orientation="horizontal" />
     </net.gsantner.opoc.frontend.GsHorizontalScrollView>
 

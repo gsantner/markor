@@ -15,7 +15,7 @@
     android:id="@+id/ui__filesystem_dialog__root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/bar_background">
+    android:background="?android:colorBackground">
 
     <TextView
         android:id="@+id/empty_hint"
@@ -34,14 +34,14 @@
         android:id="@+id/pull_to_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bar_background">
+        android:background="?android:colorBackground">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/ui__filesystem_dialog__list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:minHeight="100dp"
-            android:background="@color/bar_background"
+            android:background="?android:colorBackground"
             app:fastScrollEnabled="true"
             app:fastScrollHorizontalThumbDrawable="@drawable/scrollbar_thumb"
             app:fastScrollHorizontalTrackDrawable="@drawable/scrollbar_track"

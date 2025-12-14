@@ -40,6 +40,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.frontend.GsSearchOrCustomTextDialog;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
@@ -101,7 +102,8 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         final Window window = dialog != null ? dialog.getWindow() : null;
         if (window != null) {
             window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-            setStyle(STYLE_NORMAL, R.style.AppTheme_Unified);
+            final boolean isBlack = AppSettings.get(requireContext()).getAppThemeName().contains("black");
+            setStyle(STYLE_NORMAL, isBlack ? R.style.AppTheme_Unified_Black : R.style.AppTheme_Unified);
         }
         return root;
     }
@@ -171,9 +173,6 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         _searchEdit.setOnFocusChangeListener((v, isFocussed) -> {
             GsContextUtils.instance.showSoftKeyboard(getActivity(), isFocussed, _searchEdit);
         });
-
-        root.setBackgroundColor(rcolor(_dopt.backgroundColor));
-        _recyclerList.setBackgroundColor(rcolor(_dopt.backgroundColor));
 
         _recyclerList.setItemViewCacheSize(20);
 

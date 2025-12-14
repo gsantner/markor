@@ -148,16 +148,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _cu = new MarkorContextUtils(activity);
         _editTextUndoRedoHelper = new TextViewUndoRedo();
 
-        if (_appSettings.getAppThemeName().contains("black")) {
-            final View barParent = view.findViewById(R.id.document__fragment__edit__text_actions_bar__scrolling_parent);
-            if (barParent != null) {
-                barParent.setBackgroundColor(Color.BLACK);
-            }
-            if (_textActionsBar != null) {
-                _textActionsBar.setBackgroundColor(Color.BLACK);
-            }
-        }
-
         // Using `if (_document != null)` everywhere is dangerous
         // It may cause reads or writes to _silently fail_
         // Instead we try to create it, and exit if that isn't possible
