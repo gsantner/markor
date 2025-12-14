@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.util.TypedValue;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 
 import androidx.annotation.Nullable;
@@ -113,10 +114,16 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
     }
 
     private int getThemedBarBackgroundColor() {
+        if (_appSettings.isBlackTheme()) {
+            return Color.BLACK;
+        }
         return resolveThemeColor(android.R.attr.colorBackground, R.color.bar_background);
     }
 
     private int getActionBarBackgroundColor() {
+        if (_appSettings.isBlackTheme()) {
+            return Color.BLACK;
+        }
         return resolveThemeColor(R.attr.colorPrimary, R.color.action_bar_background);
     }
 
