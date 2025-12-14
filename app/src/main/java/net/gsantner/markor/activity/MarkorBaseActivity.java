@@ -1,6 +1,5 @@
 package net.gsantner.markor.activity;
 
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -24,10 +23,6 @@ import net.gsantner.opoc.frontend.base.GsActivityBase;
 import net.gsantner.opoc.frontend.base.GsFragmentBase;
 
 public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, MarkorContextUtils> {
-    private int _cachedBarBackground = Integer.MIN_VALUE;
-    private int _cachedBarContent = Integer.MIN_VALUE;
-    private ColorStateList _cachedBottomNavColors;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,28 +81,19 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
     }
 
     private void applyThemedBars() {
-        refreshCachedBarColors();
-        final int barBackground = _cachedBarBackground;
+        final int barBackground = getThemedBarBackgroundColor();
         final int actionBarBackground = getActionBarBackgroundColor();
-        final int actionBarContent = getActionBarContentColor();
 
         final Toolbar toolbar = findViewById(R.id.toolbar);
         if (toolbar != null) {
             toolbar.setBackgroundColor(actionBarBackground);
-            toolbar.setTitleTextColor(actionBarContent);
-            toolbar.setSubtitleTextColor(actionBarContent);
             toolbar.setPopupTheme(getPopupTheme());
-            toolbar.setNavigationIcon(_cu.tintDrawable(toolbar.getNavigationIcon(), actionBarContent));
-            toolbar.setOverflowIcon(_cu.tintDrawable(toolbar.getOverflowIcon(), actionBarContent));
-            _cu.tintMenuItems(toolbar.getMenu(), true, actionBarContent);
         }
 
         final BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation_bar);
         if (bottomNav != null) {
             bottomNav.setBackgroundColor(barBackground);
             bottomNav.setItemBackground(new ColorDrawable(barBackground));
-            bottomNav.setItemTextColor(_cachedBottomNavColors);
-            bottomNav.setItemIconTintList(_cachedBottomNavColors);
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -118,19 +104,9 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             final View decorView = getWindow().getDecorView();
             int flags = decorView.getSystemUiVisibility();
-            final boolean lightStatusIcons = _cu.shouldColorOnTopBeLight(actionBarBackground);
-            if (!lightStatusIcons) {
-                flags |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
-            } else {
-                flags &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
-            }
+            flags = applyLightBarFlag(flags, actionBarBackground, View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                final boolean lightNavigationIcons = _cu.shouldColorOnTopBeLight(barBackground);
-                if (!lightNavigationIcons) {
-                    flags |= View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
-                } else {
-                    flags &= ~View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
-                }
+                flags = applyLightBarFlag(flags, barBackground, View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
             }
             decorView.setSystemUiVisibility(flags);
         }
@@ -163,23 +139,13 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
         return isDark ? R.style.ToolbarPopupOverlayDark : R.style.ToolbarPopupOverlay;
     }
 
-    private void refreshCachedBarColors() {
-        final int background = getThemedBarBackgroundColor();
-        final int content = ContextCompat.getColor(this, R.color.bar_content);
-        if (background == _cachedBarBackground && content == _cachedBarContent && _cachedBottomNavColors != null) {
-            return;
+    private int applyLightBarFlag(int flags, int backgroundColor, int lightFlag) {
+        final boolean needsDarkIcons = !_cu.shouldColorOnTopBeLight(backgroundColor);
+        if (needsDarkIcons) {
+            flags |= lightFlag;
+        } else {
+            flags &= ~lightFlag;
         }
-        _cachedBarBackground = background;
-        _cachedBarContent = content;
-        _cachedBottomNavColors = new ColorStateList(
-                new int[][]{
-                        new int[]{android.R.attr.state_checked},
-                        new int[]{},
-                },
-                new int[]{
-                        ContextCompat.getColor(this, R.color.accent),
-                        content,
-                }
-        );
+        return flags;
     }
 }

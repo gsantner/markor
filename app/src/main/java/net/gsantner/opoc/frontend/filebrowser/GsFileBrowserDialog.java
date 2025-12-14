@@ -151,6 +151,7 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         _toolBar.setTitle(_dopt.titleText);
         _toolBar.setSubtitleTextColor(rcolor(_dopt.secondaryTextColor));
         setSubtitleApprearance(_toolBar);
+        _toolBar.setBackgroundColor(rcolor(_dopt.primaryColor != 0 ? _dopt.primaryColor : R.color.action_bar_background));
 
         _homeButton.setImageResource(_dopt.homeButtonImage);
         _homeButton.setVisibility(_dopt.homeButtonEnable ? View.VISIBLE : View.GONE);
@@ -172,6 +173,7 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         });
 
         root.setBackgroundColor(rcolor(_dopt.backgroundColor));
+        _recyclerList.setBackgroundColor(rcolor(_dopt.backgroundColor));
 
         _recyclerList.setItemViewCacheSize(20);
 

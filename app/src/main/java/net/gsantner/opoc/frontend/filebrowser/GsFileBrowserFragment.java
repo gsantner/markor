@@ -21,6 +21,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.graphics.Color;
 import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -128,6 +129,13 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         }
 
         _toolbar = activity.findViewById(R.id.toolbar);
+
+        if (_appSettings.getAppThemeName().contains("black")) {
+            root.setBackgroundColor(Color.BLACK);
+            _swipe.setBackgroundColor(Color.BLACK);
+            _recyclerList.setBackgroundColor(Color.BLACK);
+            _emptyHint.setBackgroundColor(Color.BLACK);
+        }
     }
 
     @Override

@@ -72,6 +72,11 @@ public class MarkorFileBrowserFactory {
         opts.mountedStorageFolder = cu.getStorageAccessFolder(context);
         opts.sortOrder = appSettings.getFolderSortOrder(null);
 
+        if (appSettings.getAppThemeName().contains("black")) {
+            opts.primaryColor = R.color.black;
+            opts.backgroundColor = R.color.black;
+        }
+
         updateFsViewerOpts(opts, context);
 
         return opts;
