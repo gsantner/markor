@@ -8,10 +8,13 @@ import android.view.View;
 import android.view.WindowManager;
 import android.util.TypedValue;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.ColorDrawable;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.AppSettings;
@@ -74,6 +77,7 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
     @Override
     protected void onStart() {
         super.onStart();
+        applyThemedBars();
     }
 
     private void applyThemedBars() {
@@ -84,6 +88,17 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
         if (toolbar != null) {
             toolbar.setBackgroundColor(actionBarBackground);
             toolbar.setPopupTheme(getPopupTheme());
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(actionBarBackground);
+            getWindow().setNavigationBarColor(barBackground);
+        }
+
+        final BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation_bar);
+        if (bottomNav != null) {
+            bottomNav.setBackgroundColor(barBackground);
+            bottomNav.setItemBackground(new ColorDrawable(barBackground));
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

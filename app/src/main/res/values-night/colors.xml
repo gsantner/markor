@@ -2,7 +2,8 @@
 <resources>
 
     <!-- Named colors -->
-    <color name="colorPrimary">@color/action_bar_background</color>
+    <color name="colorPrimary">@color/background</color>
+    <color name="colorPrimaryDark">@color/background</color>
     <!-- Approx Material: 87% white for primary, 60% white for secondary -->
     <color name="primary_text">#DDFFFFFF</color>
     <color name="secondary_text">#99FFFFFF</color>

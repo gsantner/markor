@@ -24,10 +24,10 @@
         <item name="preferenceTheme">@style/AppTheme.PreferenceTheme</item>
         <item name="dialogTheme">@style/Theme.AppCompat.DayNight.Dialog.Rounded</item>
         <item name="alertDialogTheme">@style/Theme.AppCompat.DayNight.Dialog.Rounded</item>
-        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:actionModeBackground">@color/action_bar_background</item>
         <item name="actionModeBackground">@color/action_bar_background</item>
-        <item name="colorPrimary">@color/primary</item>
         <item name="colorAccent">@color/accent</item>
         <item name="android:windowBackground">@color/background</item>
         <item name="android:colorBackground">@color/background</item>
