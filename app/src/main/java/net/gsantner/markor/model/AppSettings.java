@@ -687,7 +687,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     public @ColorInt int getEditorBackgroundColor() {
         final boolean night = GsContextUtils.instance.isDarkModeEnabled(_context);
         int c = getInt(night ? R.string.pref_key__basic_color_scheme__bg_dark : R.string.pref_key__basic_color_scheme__bg_light, rcolor(R.color.background));
-        if (getAppThemeName().contains("black")) {
+        if (isBlackTheme()) {
             c = Color.BLACK;
         }
         return c;
@@ -696,7 +696,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     public void applyAppTheme() {
         final String themePref = getString(R.string.pref_key__app_theme, getAppThemeName());
         if (_context instanceof Activity) {
-            _context.setTheme(themePref.contains("black")
+            _context.setTheme(isBlackTheme()
                     ? R.style.AppTheme_Unified_Black
                     : R.style.AppTheme_Unified);
         }

@@ -132,7 +132,7 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
     }
 
     private int getPopupTheme() {
-        final boolean isBlack = _appSettings.getAppThemeName().contains("black");
+        final boolean isBlack = _appSettings.isBlackTheme();
         final boolean isDark = _cu.isDarkModeEnabled(this);
         if (isBlack) {
             return R.style.ToolbarPopupOverlayBlack;

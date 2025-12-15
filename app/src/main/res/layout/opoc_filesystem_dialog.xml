@@ -16,17 +16,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="4dp"
-    android:animateLayoutChanges="true"
-    android:background="?android:colorBackground">
+    android:animateLayoutChanges="true">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/ui__filesystem_dialog__title_bar"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
+        android:background="?attr/colorPrimary"
         android:elevation="4dp"
-        app:title="@string/app_name"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
 
     </androidx.appcompat.widget.Toolbar>
@@ -50,7 +48,6 @@
         android:layout_height="0dp"
         android:layout_marginTop="4dp"
         android:minHeight="100dp"
-        android:background="?android:colorBackground"
         app:layout_constraintTop_toBottomOf="@id/ui__filesystem_dialog__search_edit"
         app:layout_constraintBottom_toTopOf="@id/ui__filesystem_dialog__buttons"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
@@ -104,6 +101,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:gravity="end"
         android:orientation="horizontal"
+        android:elevation="4dp"
         android:padding="4dp">
 
         <!-- Neutral Button: Left aligned -->

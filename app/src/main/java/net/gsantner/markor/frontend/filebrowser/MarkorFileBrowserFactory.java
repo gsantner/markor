@@ -59,7 +59,7 @@ public class MarkorFileBrowserFactory {
         opts.contentDescriptionFile = R.string.file;
 
         opts.accentColor = R.color.accent;
-        opts.primaryColor = appSettings.isBlackTheme() ? R.color.black : R.color.action_bar_background;
+        opts.primaryColor = R.color.action_bar_background;
         opts.primaryTextColor = R.color.primary_text;
         opts.secondaryTextColor = R.color.secondary_text;
         opts.backgroundColor = R.color.background;

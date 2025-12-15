@@ -40,7 +40,6 @@ import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.frontend.GsSearchOrCustomTextDialog;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
@@ -172,6 +171,8 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
             GsContextUtils.instance.showSoftKeyboard(getActivity(), isFocussed, _searchEdit);
         });
 
+        root.setBackgroundColor(rcolor(_dopt.backgroundColor));
+        _recyclerList.setBackgroundColor(rcolor(_dopt.backgroundColor));
         _recyclerList.setItemViewCacheSize(20);
 
         _filesystemViewerAdapter = new GsFileBrowserListAdapter(_dopt, activity);

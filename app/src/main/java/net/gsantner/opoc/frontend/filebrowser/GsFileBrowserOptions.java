@@ -117,6 +117,8 @@ public class GsFileBrowserOptions {
         @ColorRes
         public int backgroundColor = android.R.color.background_light;
         @ColorRes
+        public int recyclerBackgroundColor = 0;
+        @ColorRes
         public int primaryColor = 0;
         @ColorRes
         public int accentColor = 0;
