@@ -58,4 +58,8 @@ public class TextCasingUtils {
         }
         return result.toString();
     }
+
+    public static boolean isEnglishLetter(char ch) {
+        return (ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z');
+    }
 }

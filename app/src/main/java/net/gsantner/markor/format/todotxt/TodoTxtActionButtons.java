@@ -24,6 +24,7 @@ import net.gsantner.markor.format.ActionButtonBase;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.Document;
+import net.gsantner.markor.util.TextCasingUtils;
 import net.gsantner.opoc.util.GsCollectionUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
@@ -106,7 +107,8 @@ public class TodoTxtActionButtons extends ActionButtonBase {
             }
             case R.string.abid_todotxt_priority: {
                 MarkorDialogFactory.showPriorityDialog(getActivity(), selTasks.get(0).getPriority(), (priority) -> {
-                    setPriority(priority.length() == 1 ? priority.charAt(0) : TodoTxtTask.PRIORITY_NONE);
+                    boolean isPriority = priority.length() == 1 && TextCasingUtils.isEnglishLetter(priority.charAt(0));
+                    setPriority(isPriority ? priority.charAt(0) : TodoTxtTask.PRIORITY_NONE);
                 });
                 return true;
             }
