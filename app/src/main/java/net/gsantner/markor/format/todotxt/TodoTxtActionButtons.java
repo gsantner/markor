@@ -107,7 +107,7 @@ public class TodoTxtActionButtons extends ActionButtonBase {
             }
             case R.string.abid_todotxt_priority: {
                 MarkorDialogFactory.showPriorityDialog(getActivity(), selTasks.get(0).getPriority(), (priority) -> {
-                    boolean isPriority = priority.length() == 1 && TextCasingUtils.isEnglishLetter(priority.charAt(0));
+                    boolean isPriority = priority.length() == 1 && TextCasingUtils.isLatinLetter(priority.charAt(0));
                     setPriority(isPriority ? priority.charAt(0) : TodoTxtTask.PRIORITY_NONE);
                 });
                 return true;
