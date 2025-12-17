@@ -9,8 +9,8 @@
 -->
 <resources>
     <!-- Named colors -->
-    <color name="colorPrimary">@color/primary</color>
-    <color name="colorPrimaryDark">@color/primary_dark</color>
+    <color name="colorPrimary">@color/action_bar_background</color>
+    <color name="colorPrimaryDark">@color/action_bar_background</color>
     <color name="primary_text">@color/light__primary_text</color>
     <color name="secondary_text">@color/light__secondary_text</color>
     <color name="file">@color/light__file</color>

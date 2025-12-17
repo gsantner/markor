@@ -60,6 +60,8 @@
         <item name="android:colorBackgroundFloating">@color/black</item>
         <item name="actionModeBackground">@color/black</item>
         <item name="android:actionModeBackground">@color/black</item>
+        <item name="dialogTheme">@style/Theme.AppCompat.DayNight.Dialog.Rounded</item>
+        <item name="alertDialogTheme">@style/Theme.AppCompat.DayNight.Dialog.Rounded</item>
     </style>
 
     <style name="AppTheme.PreferenceTheme" parent="PreferenceThemeOverlay.v14.Material">
@@ -128,17 +130,7 @@
         <item name="colorControlHighlight">@color/bar_content</item>
     </style>
 
-    <style name="Theme.AppCompat.DayNight.Dialog.Rounded.Black" parent="Theme.AppCompat.DayNight.Dialog.Rounded">
-        <item name="colorPrimary">@color/black</item>
-        <item name="colorPrimaryDark">@color/black</item>
-        <item name="android:windowBackground">@color/black</item>
-        <item name="android:colorBackground">@color/black</item>
-        <item name="android:colorBackgroundFloating">@color/black</item>
-        <item name="android:textColorPrimary">@color/white</item>
-        <item name="android:textColorSecondary">@color/white</item>
-        <item name="colorControlNormal">@color/white</item>
-        <item name="colorControlHighlight">@color/white</item>
-    </style>
+    <style name="Theme.AppCompat.DayNight.Dialog.Rounded.Black" parent="Theme.AppCompat.DayNight.Dialog.Rounded" />
 
     <style name="PopupMenu.Light" parent="Widget.AppCompat.Light.PopupMenu">
         <item name="android:popupBackground">@drawable/popup_menu_background</item>

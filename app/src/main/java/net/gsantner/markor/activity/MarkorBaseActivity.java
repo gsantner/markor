@@ -9,7 +9,6 @@ import android.view.WindowManager;
 import android.util.TypedValue;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
