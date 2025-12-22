@@ -357,7 +357,45 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         // SearchView (View Mode)
         _menuSearchViewForViewMode = (SearchView) menu.findItem(R.id.action_search_view).getActionView();
         if (_menuSearchViewForViewMode != null) {
+            _menuSearchViewForViewMode.setQueryHint(getString(R.string.search));
+            _menuSearchViewForViewMode.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                private String searchText = "";
+                private final Runnable findTask = new Runnable() {
+                    @Override
+                    public void run() {
+                        _webView.findAllAsync(searchText);
+                        searchText = "";
+                    }
+                };
+
+                @Override
+                public boolean onQueryTextChange(String text) {
+                    Handler handler = _webView.getHandler();
+                    handler.removeCallbacks(findTask);
+                    searchText = text;
+                    handler.postDelayed(findTask, 500);
+                    return true;
+                }
+
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    if (_menuSearchViewForViewMode.isSubmitButtonEnabled()) {
+                        _webView.findNext(true);
+                        return true;
+                    }
+                    return false;
+                }
+            });
+
             try {
+                Field mSearchPlateField = SearchView.class.getDeclaredField("mSearchPlate");
+                mSearchPlateField.setAccessible(true);
+                ViewGroup mSearchPlate = (ViewGroup) mSearchPlateField.get(_menuSearchViewForViewMode);
+                if (mSearchPlate == null) {
+                    _menuSearchViewForViewMode.setSubmitButtonEnabled(true);
+                    return;
+                }
+
                 Context searchViewContext = _menuSearchViewForViewMode.getContext();
                 LinearLayout linearLayout = new LinearLayout(searchViewContext);
 
@@ -383,9 +421,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 linearLayout.addView(nextButton);
 
                 // Apply to SearchView
-                Field mSearchPlateField = SearchView.class.getDeclaredField("mSearchPlate");
-                mSearchPlateField.setAccessible(true);
-                ViewGroup mSearchPlate = (ViewGroup) mSearchPlateField.get(_menuSearchViewForViewMode);
                 mSearchPlate.addView(linearLayout, 1);
 
                 // Set listeners
@@ -401,36 +436,10 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                     }
                 });
             } catch (NoSuchFieldException e) {
-                e.printStackTrace();
+                Log.e(DocumentEditAndViewFragment.class.getName(), e.getMessage() == null ? "" : e.getMessage());
             } catch (IllegalAccessException e) {
                 throw new RuntimeException(e);
             }
-
-            _menuSearchViewForViewMode.setQueryHint(getString(R.string.search));
-            _menuSearchViewForViewMode.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                private String searchText = "";
-                private Runnable findTask = new Runnable() {
-                    @Override
-                    public void run() {
-                        _webView.findAllAsync(searchText);
-                        searchText = "";
-                    }
-                };
-
-                @Override
-                public boolean onQueryTextChange(String text) {
-                    Handler handler = _webView.getHandler();
-                    handler.removeCallbacks(findTask);
-                    searchText = text;
-                    handler.postDelayed(findTask, 500);
-                    return true;
-                }
-
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    return false;
-                }
-            });
         }
 
         // Set various initial states
