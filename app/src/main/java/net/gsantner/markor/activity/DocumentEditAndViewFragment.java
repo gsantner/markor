@@ -16,6 +16,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
@@ -33,9 +34,11 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.HorizontalScrollView;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -68,6 +71,7 @@ import net.gsantner.opoc.web.GsWebViewChromeClient;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
 import java.io.File;
+import java.lang.reflect.Field;
 
 @SuppressWarnings({"UnusedReturnValue"})
 @SuppressLint("NonConstantResourceId")
@@ -353,25 +357,78 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         // SearchView (View Mode)
         _menuSearchViewForViewMode = (SearchView) menu.findItem(R.id.action_search_view).getActionView();
         if (_menuSearchViewForViewMode != null) {
-            _menuSearchViewForViewMode.setSubmitButtonEnabled(true);
+            try {
+                Context searchViewContext = _menuSearchViewForViewMode.getContext();
+                LinearLayout linearLayout = new LinearLayout(searchViewContext);
+
+                // Add search result TextView
+                TextView resultTextView = new TextView(searchViewContext);
+                resultTextView.setGravity(Gravity.CENTER);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT
+                );
+                layoutParams.setMarginEnd(14);
+                resultTextView.setLayoutParams(layoutParams);
+                linearLayout.addView(resultTextView);
+
+                // Add previous match Button
+                ImageButton previousButton = new ImageButton(searchViewContext);
+                previousButton.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24);
+                linearLayout.addView(previousButton);
+
+                // Add next match Button
+                ImageButton nextButton = new ImageButton(searchViewContext);
+                nextButton.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24);
+                linearLayout.addView(nextButton);
+
+                // Apply to SearchView
+                Field mSearchPlateField = SearchView.class.getDeclaredField("mSearchPlate");
+                mSearchPlateField.setAccessible(true);
+                ViewGroup mSearchPlate = (ViewGroup) mSearchPlateField.get(_menuSearchViewForViewMode);
+                mSearchPlate.addView(linearLayout, 1);
+
+                // Set listeners
+                previousButton.setOnClickListener(v -> _webView.findNext(false));
+                nextButton.setOnClickListener(v -> _webView.findNext(true));
+                _webView.setFindListener((activeMatchOrdinal, numberOfMatches, isDoneCounting) -> {
+                    if (isDoneCounting) {
+                        String searchResult = "";
+                        if (numberOfMatches > 0) {
+                            searchResult = (activeMatchOrdinal + 1) + "/" + numberOfMatches;
+                        }
+                        resultTextView.setText(searchResult);
+                    }
+                });
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+
             _menuSearchViewForViewMode.setQueryHint(getString(R.string.search));
-            _menuSearchViewForViewMode.setOnQueryTextFocusChangeListener((v, searchHasFocus) -> {
-                if (!searchHasFocus) {
-                    _menuSearchViewForViewMode.setQuery("", false);
-                    _menuSearchViewForViewMode.setIconified(true);
-                }
-            });
             _menuSearchViewForViewMode.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                private String searchText = "";
+                private Runnable findTask = new Runnable() {
+                    @Override
+                    public void run() {
+                        _webView.findAllAsync(searchText);
+                        searchText = "";
+                    }
+                };
+
                 @Override
-                public boolean onQueryTextSubmit(String text) {
-                    _webView.findNext(true);
+                public boolean onQueryTextChange(String text) {
+                    Handler handler = _webView.getHandler();
+                    handler.removeCallbacks(findTask);
+                    searchText = text;
+                    handler.postDelayed(findTask, 500);
                     return true;
                 }
 
                 @Override
-                public boolean onQueryTextChange(String text) {
-                    _webView.findAllAsync(text);
-                    return true;
+                public boolean onQueryTextSubmit(String query) {
+                    return false;
                 }
             });
         }
