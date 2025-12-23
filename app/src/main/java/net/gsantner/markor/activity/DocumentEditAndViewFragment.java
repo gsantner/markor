@@ -360,7 +360,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             _menuSearchViewForViewMode.setQueryHint(getString(R.string.search));
             _menuSearchViewForViewMode.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 private String searchText = "";
-                private final Runnable findTask = new Runnable() {
+                private final Runnable searchTask = new Runnable() {
                     @Override
                     public void run() {
                         _webView.findAllAsync(searchText);
@@ -371,9 +371,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 @Override
                 public boolean onQueryTextChange(String text) {
                     Handler handler = _webView.getHandler();
-                    handler.removeCallbacks(findTask);
+                    handler.removeCallbacks(searchTask);
                     searchText = text;
-                    handler.postDelayed(findTask, 500);
+                    handler.postDelayed(searchTask, 500);
                     return true;
                 }
 
@@ -387,59 +387,60 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 }
             });
 
+            ViewGroup mSearchPlate = null;
             try {
                 Field mSearchPlateField = SearchView.class.getDeclaredField("mSearchPlate");
                 mSearchPlateField.setAccessible(true);
-                ViewGroup mSearchPlate = (ViewGroup) mSearchPlateField.get(_menuSearchViewForViewMode);
-                if (mSearchPlate == null) {
-                    _menuSearchViewForViewMode.setSubmitButtonEnabled(true);
-                    return;
-                }
-
-                Context searchViewContext = _menuSearchViewForViewMode.getContext();
-                LinearLayout linearLayout = new LinearLayout(searchViewContext);
-
-                // Add search result TextView
-                TextView resultTextView = new TextView(searchViewContext);
-                resultTextView.setGravity(Gravity.CENTER);
-                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.WRAP_CONTENT,
-                        LinearLayout.LayoutParams.MATCH_PARENT
-                );
-                layoutParams.setMarginEnd(14);
-                resultTextView.setLayoutParams(layoutParams);
-                linearLayout.addView(resultTextView);
-
-                // Add previous match Button
-                ImageButton previousButton = new ImageButton(searchViewContext);
-                previousButton.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24);
-                linearLayout.addView(previousButton);
-
-                // Add next match Button
-                ImageButton nextButton = new ImageButton(searchViewContext);
-                nextButton.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24);
-                linearLayout.addView(nextButton);
-
-                // Apply to SearchView
-                mSearchPlate.addView(linearLayout, 1);
-
-                // Set listeners
-                previousButton.setOnClickListener(v -> _webView.findNext(false));
-                nextButton.setOnClickListener(v -> _webView.findNext(true));
-                _webView.setFindListener((activeMatchOrdinal, numberOfMatches, isDoneCounting) -> {
-                    if (isDoneCounting) {
-                        String searchResult = "";
-                        if (numberOfMatches > 0) {
-                            searchResult = (activeMatchOrdinal + 1) + "/" + numberOfMatches;
-                        }
-                        resultTextView.setText(searchResult);
-                    }
-                });
+                mSearchPlate = (ViewGroup) mSearchPlateField.get(_menuSearchViewForViewMode);
             } catch (NoSuchFieldException e) {
                 Log.e(DocumentEditAndViewFragment.class.getName(), e.getMessage() == null ? "" : e.getMessage());
             } catch (IllegalAccessException e) {
                 throw new RuntimeException(e);
             }
+            if (mSearchPlate == null) {
+                _menuSearchViewForViewMode.setSubmitButtonEnabled(true);
+                return;
+            }
+
+            Context searchViewContext = _menuSearchViewForViewMode.getContext();
+            LinearLayout linearLayout = new LinearLayout(searchViewContext);
+
+            // Add search result TextView
+            TextView resultTextView = new TextView(searchViewContext);
+            resultTextView.setGravity(Gravity.CENTER);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT
+            );
+            layoutParams.setMarginEnd(14);
+            resultTextView.setLayoutParams(layoutParams);
+            linearLayout.addView(resultTextView);
+
+            // Add previous match Button
+            ImageButton previousButton = new ImageButton(searchViewContext);
+            previousButton.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24);
+            linearLayout.addView(previousButton);
+
+            // Add next match Button
+            ImageButton nextButton = new ImageButton(searchViewContext);
+            nextButton.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24);
+            linearLayout.addView(nextButton);
+
+            // Apply to SearchView
+            mSearchPlate.addView(linearLayout, 1);
+
+            // Set listeners
+            previousButton.setOnClickListener(v -> _webView.findNext(false));
+            nextButton.setOnClickListener(v -> _webView.findNext(true));
+            _webView.setFindListener((activeMatchOrdinal, numberOfMatches, isDoneCounting) -> {
+                if (isDoneCounting) {
+                    String searchResult = "";
+                    if (numberOfMatches > 0) {
+                        searchResult = (activeMatchOrdinal + 1) + "/" + numberOfMatches;
+                    }
+                    resultTextView.setText(searchResult);
+                }
+            });
         }
 
         // Set various initial states
