@@ -16,7 +16,6 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
@@ -71,7 +70,6 @@ import net.gsantner.opoc.web.GsWebViewChromeClient;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
 import java.io.File;
-import java.lang.reflect.Field;
 
 @SuppressWarnings({"UnusedReturnValue"})
 @SuppressLint("NonConstantResourceId")
@@ -242,7 +240,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         // This works well to preserve keyboard state.
         if (activity != null) {
             final Window window = activity.getWindow();
-            // Setting via a windowmanager state is much more robust than using show/hide
+            // Setting via a window manager state is much more robust than using show/hide
             final int adjustResize = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE;
             final int unchanged = WindowManager.LayoutParams.SOFT_INPUT_STATE_UNCHANGED | adjustResize;
             final int hidden = WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN | adjustResize;
@@ -261,14 +259,12 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             });
         }
 
-        _verticalScrollView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
-            _hlEditor.post(() -> {
-                final int height = _verticalScrollView.getHeight();
-                if (height != _hlEditor.getMinHeight()) {
-                    _hlEditor.setMinHeight(height);
-                }
-            });
-        });
+        _verticalScrollView.getViewTreeObserver().addOnGlobalLayoutListener(() -> _hlEditor.post(() -> {
+            final int height = _verticalScrollView.getHeight();
+            if (height != _hlEditor.getMinHeight()) {
+                _hlEditor.setMinHeight(height);
+            }
+        }));
     }
 
     @Override
@@ -355,93 +351,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         menu.findItem(R.id.action_load_epub).setVisible(isExperimentalFeaturesEnabled);
 
         // SearchView (View Mode)
-        _menuSearchViewForViewMode = (SearchView) menu.findItem(R.id.action_search_view).getActionView();
-        if (_menuSearchViewForViewMode != null) {
-            _menuSearchViewForViewMode.setQueryHint(getString(R.string.search));
-            _menuSearchViewForViewMode.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                private String searchText = "";
-                private final Runnable searchTask = new Runnable() {
-                    @Override
-                    public void run() {
-                        _webView.findAllAsync(searchText);
-                        searchText = "";
-                    }
-                };
-
-                @Override
-                public boolean onQueryTextChange(String text) {
-                    Handler handler = _webView.getHandler();
-                    handler.removeCallbacks(searchTask);
-                    searchText = text;
-                    handler.postDelayed(searchTask, 500);
-                    return true;
-                }
-
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    if (_menuSearchViewForViewMode.isSubmitButtonEnabled()) {
-                        _webView.findNext(true);
-                        return true;
-                    }
-                    return false;
-                }
-            });
-
-            ViewGroup mSearchPlate = null;
-            try {
-                Field mSearchPlateField = SearchView.class.getDeclaredField("mSearchPlate");
-                mSearchPlateField.setAccessible(true);
-                mSearchPlate = (ViewGroup) mSearchPlateField.get(_menuSearchViewForViewMode);
-            } catch (NoSuchFieldException e) {
-                Log.e(DocumentEditAndViewFragment.class.getName(), e.getMessage() == null ? "" : e.getMessage());
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException(e);
-            }
-            if (mSearchPlate == null) {
-                _menuSearchViewForViewMode.setSubmitButtonEnabled(true);
-                return;
-            }
-
-            Context searchViewContext = _menuSearchViewForViewMode.getContext();
-            LinearLayout linearLayout = new LinearLayout(searchViewContext);
-
-            // Add search result TextView
-            TextView resultTextView = new TextView(searchViewContext);
-            resultTextView.setGravity(Gravity.CENTER);
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.MATCH_PARENT
-            );
-            layoutParams.setMarginEnd(14);
-            resultTextView.setLayoutParams(layoutParams);
-            linearLayout.addView(resultTextView);
-
-            // Add previous match Button
-            ImageButton previousButton = new ImageButton(searchViewContext);
-            previousButton.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24);
-            linearLayout.addView(previousButton);
-
-            // Add next match Button
-            ImageButton nextButton = new ImageButton(searchViewContext);
-            nextButton.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24);
-            linearLayout.addView(nextButton);
-
-            // Apply to SearchView
-            mSearchPlate.addView(linearLayout, 1);
-
-            // Set listeners
-            previousButton.setOnClickListener(v -> _webView.findNext(false));
-            nextButton.setOnClickListener(v -> _webView.findNext(true));
-            _webView.setFindListener((activeMatchOrdinal, numberOfMatches, isDoneCounting) -> {
-                if (isDoneCounting) {
-                    String searchResult = "";
-                    if (numberOfMatches > 0) {
-                        searchResult = (activeMatchOrdinal + 1) + "/" + numberOfMatches;
-                    }
-                    resultTextView.setText(searchResult);
-                }
-            });
-        }
+        setSearchView((SearchView) menu.findItem(R.id.action_search_view).getActionView());
 
         // Set various initial states
         updateMenuToggleStates(_document.getFormat());
@@ -778,6 +688,86 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 setMarginBottom(viewScroll, marginBottom);
             }
         }
+    }
+
+    private void setSearchView(SearchView searchView) {
+        _menuSearchViewForViewMode = searchView;
+        if (_menuSearchViewForViewMode == null) {
+            return;
+        }
+
+        _menuSearchViewForViewMode.setQueryHint(getString(R.string.search));
+        _menuSearchViewForViewMode.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            private String searchText = "";
+            private final Runnable searchTask = TextViewUtils.makeDebounced(_webView.getHandler(), 500, () -> _webView.findAllAsync(searchText));
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if (_menuSearchViewForViewMode.isSubmitButtonEnabled()) {
+                    _webView.findNext(true);
+                    return true;
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String text) {
+                searchText = text;
+                searchTask.run();
+                return true;
+            }
+        });
+
+        // Because SearchView doesn't provide a public API to add custom buttons
+        // We must get the searchPlate (the layout containing the text field and close button) from SearchView
+        // This approach is more robust than reflection
+        int searchPlateId = searchView.getContext().getResources().getIdentifier("android:id/search_plate", null, null);
+        ViewGroup searchPlate = searchView.findViewById(searchPlateId);
+        if (searchPlate == null) {
+            // Ensure that SearchView is always available even if getting searchPlate fails
+            _menuSearchViewForViewMode.setSubmitButtonEnabled(true);
+            return;
+        }
+
+        Context searchViewContext = _menuSearchViewForViewMode.getContext();
+        LinearLayout linearLayout = new LinearLayout(searchViewContext);
+
+        // Add search result TextView
+        TextView resultTextView = new TextView(searchViewContext);
+        resultTextView.setGravity(Gravity.CENTER);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+        );
+        layoutParams.setMarginEnd(14);
+        resultTextView.setLayoutParams(layoutParams);
+        linearLayout.addView(resultTextView);
+
+        // Add previous match Button
+        ImageButton previousButton = new ImageButton(searchViewContext);
+        previousButton.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24);
+        linearLayout.addView(previousButton);
+
+        // Add next match Button
+        ImageButton nextButton = new ImageButton(searchViewContext);
+        nextButton.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24);
+        linearLayout.addView(nextButton);
+
+        // Apply to SearchView
+        searchPlate.addView(linearLayout, 1);
+
+        // Set listeners
+        previousButton.setOnClickListener(v -> _webView.findNext(false));
+        nextButton.setOnClickListener(v -> _webView.findNext(true));
+        _webView.setFindListener((activeMatchOrdinal, numberOfMatches, isDoneCounting) -> {
+            if (isDoneCounting) {
+                String searchResult = "";
+                if (numberOfMatches > 0) {
+                    searchResult = (activeMatchOrdinal + 1) + "/" + numberOfMatches;
+                }
+                resultTextView.setText(searchResult);
+            }
+        });
     }
 
     private void setMarginBottom(final View view, final int marginBottom) {
