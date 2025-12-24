@@ -703,11 +703,8 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
             @Override
             public boolean onQueryTextSubmit(String query) {
-                if (_menuSearchViewForViewMode.isSubmitButtonEnabled()) {
-                    _webView.findNext(true);
-                    return true;
-                }
-                return false;
+                _webView.findNext(true);
+                return true;
             }
 
             @Override
