@@ -37,7 +37,6 @@ import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
-import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
@@ -422,7 +421,7 @@ public class AttachLinkOrFileDialog {
             }
             case IMAGE_EDIT: {
                 if (pathEdit != null) {
-                    final String path = pathEdit.getText().toString().replace("%20", " ");
+                    final String path = GsTextUtils.decodeUrl(pathEdit.getText().toString());
 
                     final File abs = new File(path).getAbsoluteFile();
                     if (abs.isFile()) {

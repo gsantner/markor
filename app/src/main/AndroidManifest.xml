@@ -193,9 +193,6 @@
             android:theme="@style/AppTheme.Unified.StartupFlash"
             android:windowSoftInputMode="stateUnchanged|adjustResize"
             tools:targetApi="lollipop">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="net.gsantner.markor.activity.MainActivity" />
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
                 <action android:name="com.google.android.gm.action.AUTO_SEND" />
