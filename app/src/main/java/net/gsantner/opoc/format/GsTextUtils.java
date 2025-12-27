@@ -17,6 +17,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -196,6 +197,19 @@ public class GsTextUtils {
             return Base64.encodeToString(bytes, Base64.DEFAULT);
         } catch (Exception ignored) {
             return "";
+        }
+    }
+
+    public static String decodeUrl(final String rawLink) {
+        if (rawLink == null) {
+            return "";
+        }
+
+        try {
+            // Preserve '+' while decoding percent-encoded spaces and other characters
+            return URLDecoder.decode(rawLink.replace("+", "%2B"), "UTF-8");
+        } catch (Exception e) {
+            return rawLink.replace("%20", " ");
         }
     }
 
