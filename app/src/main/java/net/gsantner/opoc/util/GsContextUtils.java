@@ -1188,9 +1188,6 @@ public class GsContextUtils {
      * @param title   Title of the item
      */
     public void createLauncherDesktopShortcut(final Context context, final Intent intent, @DrawableRes final int iconRes, final String title) {
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         if (intent.getAction() == null) {
             intent.setAction(Intent.ACTION_VIEW);
         }
@@ -2948,6 +2945,10 @@ public class GsContextUtils {
     }
 
     public static boolean fadeInOut(final View in, final View out, final boolean animate) {
+        if (in == null || out == null) {
+            return false;
+        }
+
         // Do nothing if we are already in the correct state
         if (in.getVisibility() == View.VISIBLE && out.getVisibility() == View.INVISIBLE) {
             return false;

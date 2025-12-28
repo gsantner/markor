@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat
 
 buildscript {
     ext {
-        version_gradle_tools = '8.8.0'
+        version_gradle_tools = '8.13.1'
         version_plugin_kotlin = "1.3.72"
         enable_plugin_kotlin = false
 
@@ -46,7 +46,7 @@ allprojects {
         google()
     }
 
-    tasks.matching { task -> task.name.matches('(.*generate.*Resources)|(.*map.*SourceSetPaths)') }.all {
+    tasks.matching { task -> task.name.matches('(.*generate.*Resources)|(.*map.*SourceSetPaths)|(.*process.*NavigationResources)') }.all {
         task -> task.dependsOn copyRepoFiles
     }
 
@@ -76,11 +76,11 @@ task copyRepoFiles(type: Copy) {
 // Returns used android languages as a buildConfig array: {'de', 'it', ..}"
 static String findUsedAndroidLocales() {
     Set<String> langs = new HashSet<>()
-    new File('.').eachFileRecurse(groovy.io.FileType.DIRECTORIES) {
-        final foldername = it.name
-        if (foldername.contains('values-') && !it.absolutePath.contains("build" + File.separator + "intermediates") && !foldername.matches(".*values-((.*[0-9])|(land)|(port)).*")) {
-            new File(it.toString()).eachFileRecurse(groovy.io.FileType.FILES) {
-                if (it.exists() && it.name.toLowerCase().endsWith(".xml") && it.getText('UTF-8').contains("<string")) {
+    new File('.').eachDirRecurse { dir ->
+        final foldername = dir.name
+        if (foldername.startsWith('values-') && !dir.absolutePath.contains("build" + File.separator + "intermediates") && !foldername.matches(".*values-((.*[0-9])|(land)|(port)).*")) {
+            dir.eachFile { file ->
+                if (file.name.toLowerCase().endsWith(".xml") && file.getText('UTF-8').contains("<string")) {
                     langs.add(foldername.replace("values-", ""))
                 }
             }
@@ -90,14 +90,13 @@ static String findUsedAndroidLocales() {
 }
 
 
-
 ext.getGitHash = providers.exec {
     commandLine('git', 'rev-parse', 'HEAD')
 }.standardOutput.asText.get().trim()
 
 ext.getGitLastCommitMessage = providers.exec {
-    commandLine('git', 'log', '--oneline', '-1', '--format="%s"')
-}.standardOutput.asText.get().replace("\"", "").replace("\\", "").trim()
+    commandLine('git', 'log', '--oneline', '-1', '--format=%s')
+}.standardOutput.asText.get().trim()
 
 @SuppressWarnings(["UnnecessaryQualifiedReference", "SpellCheckingInspection", "GroovyUnusedDeclaration"])
 // Returns the build date in a RFC3339 compatible format. TZ is always converted to UTC

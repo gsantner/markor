@@ -446,7 +446,8 @@ public class GsFileUtils {
             sb.append(File.separator);
         }
 
-        if (!dest.isFile() && GsTextUtils.endsWith(sb, File.separator)) {
+        if (GsTextUtils.endsWith(sb, File.separator)) {
+            // Strip trailing separator so file selections don't keep a trailing slash
             sb.delete(sb.length() - File.separator.length(), sb.length());
         }
 
@@ -955,7 +956,16 @@ public class GsFileUtils {
     }
 
     public static File makeAbsolute(final String path, final File base) {
-        return path != null ? makeAbsolute(new File(path.trim()), base) : null;
+        if (path == null) {
+            return null;
+        }
+
+        final String decodedPath = GsTextUtils.decodeUrl(path).trim();
+        if (decodedPath.isEmpty()) {
+            return null;
+        }
+
+        return makeAbsolute(new File(decodedPath), base);
     }
 
     public static File makeAbsolute(final File file, final File base) {
