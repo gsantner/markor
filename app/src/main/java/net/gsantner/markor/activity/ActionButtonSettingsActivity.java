@@ -9,7 +9,6 @@ package net.gsantner.markor.activity;
 
 import static androidx.recyclerview.widget.ItemTouchHelper.ACTION_STATE_DRAG;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,7 +21,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SwitchCompat;
-import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -68,7 +67,6 @@ public class ActionButtonSettingsActivity extends MarkorBaseActivity {
         // Set up recyclerview
         final RecyclerView recycler = findViewById(R.id.action_order_activity_recycler);
         recycler.setLayoutManager(new LinearLayoutManager(this));
-        recycler.addItemDecoration(new DividerItemDecoration(recycler.getContext(), DividerItemDecoration.VERTICAL));
 
         extractActionData();
         _adapter = new OrderAdapter(_actions, _keys, _disabled);
@@ -86,7 +84,7 @@ public class ActionButtonSettingsActivity extends MarkorBaseActivity {
         final MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.action_order__menu, menu);
 
-        _cu.tintMenuItems(menu, true, Color.WHITE);
+        _cu.tintMenuItems(menu, true, ContextCompat.getColor(this, R.color.action_bar_content));
         return true;
     }
 
@@ -99,11 +97,18 @@ public class ActionButtonSettingsActivity extends MarkorBaseActivity {
             }
 
             case R.id.action_reorder_reset: {
-                final List<String> activeKeys = _textActions.getActiveActionKeys();
-                for (int i = 0; i < activeKeys.size(); i++) {
-                    String key = activeKeys.get(i);
-                    _adapter.order.set(i, _keys.indexOf(key));
+                final List<String> savedOrder = _textActions.getActionOrder();
+                final List<String> savedDisabled = _textActions.getDisabledActions();
+
+                _adapter.order.clear();
+                for (final String key : savedOrder) {
+                    final int index = _keys.indexOf(key);
+                    if (index >= 0) {
+                        _adapter.order.add(index);
+                    }
                 }
+                _adapter._disabled.clear();
+                _adapter._disabled.addAll(savedDisabled);
                 _adapter.notifyDataSetChanged();
                 return true;
             }

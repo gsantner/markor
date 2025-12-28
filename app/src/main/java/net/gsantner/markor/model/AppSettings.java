@@ -7,6 +7,7 @@
 #########################################################*/
 package net.gsantner.markor.model;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
@@ -76,9 +77,10 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         _cu = new MarkorContextUtils(context);
         _isDeviceGoodHardware = _cu.isDeviceGoodHardware(context);
 
+        // Seed editor colors with static light/dark values so they don't depend on current app theme
         if (getInt(R.string.pref_key__basic_color_scheme__bg_light, -999) == -999) {
-            setEditorBasicColor(true, R.color.white, R.color.dark_grey);
-            setEditorBasicColor(false, R.color.dark_grey, R.color.light__background);
+            setEditorBasicColor(true, R.color.dark__primary_text, R.color.dark__background);
+            setEditorBasicColor(false, R.color.light__primary_text, R.color.light__background);
         }
     }
 
@@ -685,18 +687,28 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     public @ColorInt int getEditorBackgroundColor() {
         final boolean night = GsContextUtils.instance.isDarkModeEnabled(_context);
         int c = getInt(night ? R.string.pref_key__basic_color_scheme__bg_dark : R.string.pref_key__basic_color_scheme__bg_light, rcolor(R.color.background));
-        if (getAppThemeName().contains("black")) {
+        if (isBlackTheme()) {
             c = Color.BLACK;
         }
         return c;
     }
 
     public void applyAppTheme() {
-        GsContextUtils.instance.applyDayNightTheme(getString(R.string.pref_key__app_theme, getAppThemeName()));
+        final String themePref = getString(R.string.pref_key__app_theme, getAppThemeName());
+        if (_context instanceof Activity) {
+            _context.setTheme(isBlackTheme()
+                    ? R.style.AppTheme_Unified_Black
+                    : R.style.AppTheme_Unified);
+        }
+        GsContextUtils.instance.applyDayNightTheme(themePref);
     }
 
     public String getAppThemeName() {
         return getString(R.string.pref_key__app_theme, _context.getString(R.string.app_theme_system));
+    }
+
+    public boolean isBlackTheme() {
+        return getAppThemeName().contains("black");
     }
 
     public void setEditorBasicColor(boolean forDarkMode, @ColorRes int fgColor, @ColorRes int bgColor) {
