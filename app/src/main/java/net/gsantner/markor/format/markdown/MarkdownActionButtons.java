@@ -24,6 +24,7 @@ import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
+import net.gsantner.opoc.format.GsTextUtils;
 
 import java.io.File;
 import java.util.Arrays;
@@ -251,14 +252,15 @@ public class MarkdownActionButtons extends ActionButtonBase {
                     final int start = m.start() + sel[0], end = m.end() + sel[0];
                     if (start <= pos && end >= pos) {
                         final boolean isImage = m.group(1) != null;
-                        final String link = m.group(3);
-                        return new Link(m.group(2), link == null ? null : link.trim(), isImage, start, end);
+                        final String link = GsTextUtils.decodeUrl(m.group(3));
+                        return new Link(m.group(2), link.trim(), isImage, start, end);
                     }
                 }
             }
 
             return new Link("", "", false, -1, -1);
         }
+
     }
 
     private boolean followLinkUnderCursor() {
