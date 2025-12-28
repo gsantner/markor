@@ -392,6 +392,10 @@ public final class TextViewUtils {
      */
     public static void showSelection(final EditText editText, final int startSelection) {
         Layout layout = editText.getLayout();
+        if (layout == null) {
+            return;
+        }
+
         Rect visibleRect = new Rect();
         editText.getLocalVisibleRect(visibleRect);
         int line = layout.getLineForOffset(startSelection);
