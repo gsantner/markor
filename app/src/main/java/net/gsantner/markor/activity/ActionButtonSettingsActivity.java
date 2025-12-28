@@ -97,11 +97,18 @@ public class ActionButtonSettingsActivity extends MarkorBaseActivity {
             }
 
             case R.id.action_reorder_reset: {
-                final List<String> activeKeys = _textActions.getActiveActionKeys();
-                for (int i = 0; i < activeKeys.size(); i++) {
-                    String key = activeKeys.get(i);
-                    _adapter.order.set(i, _keys.indexOf(key));
+                final List<String> savedOrder = _textActions.getActionOrder();
+                final List<String> savedDisabled = _textActions.getDisabledActions();
+
+                _adapter.order.clear();
+                for (final String key : savedOrder) {
+                    final int index = _keys.indexOf(key);
+                    if (index >= 0) {
+                        _adapter.order.add(index);
+                    }
                 }
+                _adapter._disabled.clear();
+                _adapter._disabled.addAll(savedDisabled);
                 _adapter.notifyDataSetChanged();
                 return true;
             }
