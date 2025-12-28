@@ -134,7 +134,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         return R.layout.document__fragment__edit;
     }
 
-    @SuppressLint({"SetJavaScriptEnabled", "WrongConstant", "AddJavascriptInterface", "JavascriptInterface"})
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -628,6 +627,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             }
         }
     }
+
     public void checkTextChangeState() {
         final boolean isTextChanged = !_document.isContentSame(_hlEditor.getText());
         Drawable d;
@@ -684,14 +684,14 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _menuSearchViewForViewMode.setQueryHint(getString(R.string.search));
         _menuSearchViewForViewMode.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             private String searchText = "";
-            private final Runnable searchTask;
+            private Runnable searchTask;
 
             private boolean search(String text) {
                 if (_webView == null) {
                     return false;
                 }
                 if (searchTask == null) {
-                    searchTask = TextViewUtils.makeDebounced(_webView.getHandler(), 500, () -> _webView.findAllAsync(text));
+                    searchTask = TextViewUtils.makeDebounced(_webView.getHandler(), 500, () -> _webView.findAllAsync(searchText));
                 }
 
                 searchText = text;
@@ -753,17 +753,27 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         searchPlate.addView(linearLayout, 1);
 
         // Set listeners
-        previousButton.setOnClickListener(v -> _webView.findNext(false));
-        nextButton.setOnClickListener(v -> _webView.findNext(true));
-        _webView.setFindListener((activeMatchOrdinal, numberOfMatches, isDoneCounting) -> {
-            if (isDoneCounting) {
-                String searchResult = "";
-                if (numberOfMatches > 0) {
-                    searchResult = (activeMatchOrdinal + 1) + "/" + numberOfMatches;
-                }
-                resultTextView.setText(searchResult);
+        previousButton.setOnClickListener(v -> {
+            if (_webView != null) {
+                _webView.findNext(false);
             }
         });
+        nextButton.setOnClickListener(v -> {
+            if (_webView != null) {
+                _webView.findNext(true);
+            }
+        });
+        if (_webView != null) {
+            _webView.setFindListener((activeMatchOrdinal, numberOfMatches, isDoneCounting) -> {
+                if (isDoneCounting) {
+                    String searchResult = "";
+                    if (numberOfMatches > 0) {
+                        searchResult = (activeMatchOrdinal + 1) + "/" + numberOfMatches;
+                    }
+                    resultTextView.setText(searchResult);
+                }
+            });
+        }
     }
 
     private void setMarginBottom(final View view, final int marginBottom) {
@@ -933,6 +943,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         setViewModeVisibility(show, true);
     }
 
+    @SuppressLint({"SetJavaScriptEnabled"})
     private void setupWebViewIfNeeded(final Activity activity) {
         if (_webView == null) {
             _webView = (WebView) _webViewStub.inflate();
