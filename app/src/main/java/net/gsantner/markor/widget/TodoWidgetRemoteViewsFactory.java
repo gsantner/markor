@@ -12,6 +12,7 @@ import net.gsantner.markor.model.Document;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class TodoWidgetRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
@@ -56,7 +57,19 @@ public class TodoWidgetRemoteViewsFactory implements RemoteViewsService.RemoteVi
     @Override
     public RemoteViews getViewAt(int position) {
         RemoteViews views = new RemoteViews(_context.getPackageName(), R.layout.todo_widget_list_item);
-        views.setTextViewText(R.id.todo_widget_item_text, _tasks.get(position).getDescription());
+
+        String itemText = _tasks.get(position).getDescription();
+
+        String filename = _document.path.toLowerCase(Locale.ROOT);
+        boolean isMarkdown = filename.endsWith(".md") || filename.endsWith(".markdown");
+        if (isMarkdown) {
+            CharSequence styled = MarkdownWidgetUtils.fromFlexmark(itemText);
+            views.setTextViewText(R.id.todo_widget_item_text, styled);
+        } else {
+            views.setTextViewText(R.id.todo_widget_item_text, itemText);
+        }
+
+
         views.setInt(R.id.todo_widget_item_text, "setTextColor", _appSettings.getEditorForegroundColor());
 
         final Intent fillInIntent = new Intent()
