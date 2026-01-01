@@ -328,7 +328,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         menu.findItem(R.id.action_share_image).setVisible(true);
         menu.findItem(R.id.action_load_epub).setVisible(isExperimentalFeaturesEnabled);
 
-        // SearchView (View Mode)
+        // Setup SearchView for view-mode
         setupSearchView((SearchView) menu.findItem(R.id.action_search_view).getActionView());
 
         // Set various initial states
@@ -683,7 +683,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         if (searchView == null) {
             return;
         }
-        // Only setup SearchView for view-mode, to avoid additional setup for edit-mode
+        // Only setup SearchView for view-mode, to avoid unnecessary setup for edit-mode
         if (!_isPreviewVisible || _webView == null) {
             return;
         }
@@ -718,6 +718,17 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             @Override
             public boolean onQueryTextChange(String text) {
                 return search(text);
+            }
+        });
+        searchView.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
+            @Override
+            public void onViewAttachedToWindow(@NonNull View v) {
+            }
+
+            @Override
+            public void onViewDetachedFromWindow(@NonNull View v) {
+                searchView.setQuery("", false); // This will make onQueryTextChange be called back
+                searchView.setIconified(true);
             }
         });
 
