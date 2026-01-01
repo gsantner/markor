@@ -33,8 +33,8 @@ public class TodoTxtTask {
     // Static memebers
     //
 
-    public static final SimpleDateFormat DATEF_YYYY_MM_DD = new SimpleDateFormat("yyyy-MM-dd", Locale.ROOT);
-    public static final int DATEF_YYYY_MM_DD_LEN = "yyyy-MM-dd".length();
+    public static final SimpleDateFormat DATEF_YYYY_MM_DD = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ROOT);
+    public static final int DATEF_YYYY_MM_DD_LEN = "yyyy-MM-dd HH:mm:ss".length();
     public static final String PT_DATE = "\\d{4}-\\d{2}-\\d{2}";
     public static final Pattern PATTERN_PROJECTS = Pattern.compile("(?:^|\\s)(?:\\++)(\\S+)");
     public static final Pattern PATTERN_CONTEXTS = Pattern.compile("(?:^|\\s)(?:\\@+)(\\S+)");
