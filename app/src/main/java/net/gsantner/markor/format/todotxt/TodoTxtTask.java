@@ -46,7 +46,7 @@ public class TodoTxtTask {
             return new SimpleDateFormat("yyyy-MM-dd", Locale.ROOT);
         }
     }
-    public static final String PT_DATE = "\\d{4}-\\d{2}-\\d{2}";
+    public static final String PT_DATE = "\\d{4}-\\d{2}-\\d{2}(?:[ T]\\d{2}:\\d{2}(?::\\d{2})?)?";
     public static final Pattern PATTERN_PROJECTS = Pattern.compile("(?:^|\\s)(?:\\++)(\\S+)");
     public static final Pattern PATTERN_CONTEXTS = Pattern.compile("(?:^|\\s)(?:\\@+)(\\S+)");
     public static final Pattern PATTERN_DONE = Pattern.compile("(?m)(^[Xx]) (.*)$");
