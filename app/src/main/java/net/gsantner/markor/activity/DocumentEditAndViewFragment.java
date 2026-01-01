@@ -105,7 +105,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     private DraggableScrollbarScrollView _verticalScrollView;
     private HorizontalScrollView _horizontalScrollView;
     private LineNumbersTextView _lineNumbersView;
-    private SearchView _menuSearchViewForViewMode;
     private Document _document;
     private FormatRegistry _format;
     private MarkorContextUtils _cu;
@@ -330,7 +329,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         menu.findItem(R.id.action_load_epub).setVisible(isExperimentalFeaturesEnabled);
 
         // SearchView (View Mode)
-        setSearchView((SearchView) menu.findItem(R.id.action_search_view).getActionView());
+        setupSearchView((SearchView) menu.findItem(R.id.action_search_view).getActionView());
 
         // Set various initial states
         updateMenuToggleStates(_document.getFormat());
@@ -675,14 +674,22 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         }
     }
 
-    private void setSearchView(SearchView searchView) {
-        _menuSearchViewForViewMode = searchView;
-        if (_menuSearchViewForViewMode == null) {
+    /**
+     * Setup SearchView from OptionsMenu for view-mode.
+     *
+     * @param searchView the SearchView form OptionsMenu
+     */
+    private void setupSearchView(SearchView searchView) {
+        if (searchView == null) {
+            return;
+        }
+        // Only setup SearchView for view-mode, to avoid additional setup for edit-mode
+        if (!_isPreviewVisible || _webView == null) {
             return;
         }
 
-        _menuSearchViewForViewMode.setQueryHint(getString(R.string.search));
-        _menuSearchViewForViewMode.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchView.setQueryHint(getString(R.string.search));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             private String searchText = "";
             private Runnable searchTask;
 
@@ -721,11 +728,11 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         ViewGroup searchPlate = searchView.findViewById(searchPlateId);
         if (searchPlate == null) {
             // Ensure that SearchView is always available even if getting searchPlate fails
-            _menuSearchViewForViewMode.setSubmitButtonEnabled(true);
+            searchView.setSubmitButtonEnabled(true);
             return;
         }
 
-        Context searchViewContext = _menuSearchViewForViewMode.getContext();
+        Context searchViewContext = searchView.getContext();
         LinearLayout linearLayout = new LinearLayout(searchViewContext);
 
         // Add search result TextView
@@ -763,17 +770,15 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 _webView.findNext(true);
             }
         });
-        if (_webView != null) {
-            _webView.setFindListener((activeMatchOrdinal, numberOfMatches, isDoneCounting) -> {
-                if (isDoneCounting) {
-                    String searchResult = "";
-                    if (numberOfMatches > 0) {
-                        searchResult = (activeMatchOrdinal + 1) + "/" + numberOfMatches;
-                    }
-                    resultTextView.setText(searchResult);
+        _webView.setFindListener((activeMatchOrdinal, numberOfMatches, isDoneCounting) -> {
+            if (isDoneCounting) {
+                String searchResult = "";
+                if (numberOfMatches > 0) {
+                    searchResult = (activeMatchOrdinal + 1) + "/" + numberOfMatches;
                 }
-            });
-        }
+                resultTextView.setText(searchResult);
+            }
+        });
     }
 
     private void setMarginBottom(final View view, final int marginBottom) {
