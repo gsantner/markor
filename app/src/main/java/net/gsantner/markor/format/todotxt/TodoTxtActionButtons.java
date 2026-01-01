@@ -365,7 +365,7 @@ public class TodoTxtActionButtons extends ActionButtonBase {
 
         try {
             Calendar calendar = Calendar.getInstance();
-            calendar.setTime(TodoTxtTask.DATEF_YYYY_MM_DD.parse(dateString));
+            calendar.setTime(TodoTxtTask.getDateFormat().parse(dateString));
             return calendar;
         } catch (ParseException e) {
             return fallback;
@@ -384,7 +384,7 @@ public class TodoTxtActionButtons extends ActionButtonBase {
         final DatePickerDialog.OnDateSetListener listener = (_view, year, month, day) -> {
             Calendar fmtCal = Calendar.getInstance();
             fmtCal.set(year, month, day);
-            final String newDate = TodoTxtTask.DATEF_YYYY_MM_DD.format(fmtCal.getTime());
+            final String newDate = TodoTxtTask.getDateFormat().format(fmtCal.getTime());
             text.replace(sel[0], sel[1], newDate);
         };
 
@@ -403,7 +403,7 @@ public class TodoTxtActionButtons extends ActionButtonBase {
         final DatePickerDialog.OnDateSetListener listener = (_view, year, month, day) -> {
             Calendar fmtCal = Calendar.getInstance();
             fmtCal.set(year, month, day);
-            final String newDue = "due:" + TodoTxtTask.DATEF_YYYY_MM_DD.format(fmtCal.getTime());
+            final String newDue = "due:" + TodoTxtTask.getDateFormat().format(fmtCal.getTime());
             runRegexReplaceAction(
                     // Replace due date
                     new ReplacePattern(TodoTxtTask.PATTERN_DUE_DATE, "$1" + newDue + "$4"),

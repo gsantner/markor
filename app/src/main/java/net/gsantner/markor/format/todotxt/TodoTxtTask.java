@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.opoc.format.GsTextUtils;
+import net.gsantner.markor.ApplicationObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,8 +34,13 @@ public class TodoTxtTask {
     // Static memebers
     //
 
-    public static final SimpleDateFormat DATEF_YYYY_MM_DD = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ROOT);
-    public static final int DATEF_YYYY_MM_DD_LEN = "yyyy-MM-dd HH:mm:ss".length();
+    public static final String DATEF_YYYY_MM_DD_DEFAULT = "yyyy-MM-dd HH:mm:ss";
+    public static final int DATEF_YYYY_MM_DD_LEN = DATEF_YYYY_MM_DD_DEFAULT.length();
+
+    public static SimpleDateFormat getDateFormat() {
+        final String fmt = ApplicationObject.settings() != null ? ApplicationObject.settings().getTodoDateFormat() : DATEF_YYYY_MM_DD_DEFAULT;
+        return new SimpleDateFormat(fmt, Locale.ROOT);
+    }
     public static final String PT_DATE = "\\d{4}-\\d{2}-\\d{2}";
     public static final Pattern PATTERN_PROJECTS = Pattern.compile("(?:^|\\s)(?:\\++)(\\S+)");
     public static final Pattern PATTERN_CONTEXTS = Pattern.compile("(?:^|\\s)(?:\\@+)(\\S+)");
@@ -61,7 +67,7 @@ public class TodoTxtTask {
     }
 
     public static String getToday() {
-        return DATEF_YYYY_MM_DD.format(new Date());
+        return getDateFormat().format(new Date());
     }
 
     public static List<TodoTxtTask> getTasks(final CharSequence text, final int[] sel) {

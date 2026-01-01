@@ -347,6 +347,10 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return getBool(R.string.pref_key__todotxt__add_completion_date_for_todos, true);
     }
 
+    public String getTodoDateFormat() {
+        return getString(R.string.pref_key__todotxt__set_date_format, "hh-mm");
+    }
+
     public boolean isAppCurrentVersionFirstStart(boolean doSet) {
         int value = getInt(R.string.pref_key__app_first_start_current_version, -1);
         if (doSet) {

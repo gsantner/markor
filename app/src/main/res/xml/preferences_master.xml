@@ -515,6 +515,13 @@
                     android:key="@string/pref_key__todotxt__add_completion_date_for_todos"
                     android:summary="@string/add_completion_date_for_todos_when_marking_them_as_done"
                     android:title="@string/add_completion_date" />
+                <androidx.preference.EditTextPreference
+                    android:defaultValue="yyyy-mm-dd,hh-mm,test"
+                    android:icon="@drawable/ic_date_range_black_24dp"
+                    android:key="@string/pref_key__todotxt__set_date_format"
+                    android:dialogMessage="@string/set_date_format_used_in_todo_tasks_dialog_message"
+                    android:summary="@string/set_date_format_used_in_todo_tasks"
+                    android:title="@string/set_date_format" />
                 <CheckBoxPreference
                     android:defaultValue="true"
                     android:icon="@drawable/ic_add_white_24dp"
