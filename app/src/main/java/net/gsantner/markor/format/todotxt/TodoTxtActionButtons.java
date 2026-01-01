@@ -359,7 +359,8 @@ public class TodoTxtActionButtons extends ActionButtonBase {
     }
 
     private static Calendar parseDateString(final String dateString, final Calendar fallback) {
-        if (dateString == null || dateString.length() != TodoTxtTask.DATEF_YYYY_MM_DD_LEN) {
+        final String dateFormat = TodoTxtTask.getDateFormat().toPattern();
+        if (dateString == null || dateString.length() != dateFormat.length()) {
             return fallback;
         }
 
