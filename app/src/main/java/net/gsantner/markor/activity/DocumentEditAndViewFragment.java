@@ -727,8 +727,12 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
             @Override
             public void onViewDetachedFromWindow(@NonNull View v) {
-                searchView.setQuery("", false); // This will make onQueryTextChange be called back
-                searchView.setIconified(true);
+                if (searchView.getQuery().length() > 0) {
+                    searchView.setQuery("", false); // This will make onQueryTextChange be called back
+                }
+                if (!searchView.isIconified()) {
+                    searchView.setIconified(true);
+                }
             }
         });
 
