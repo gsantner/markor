@@ -96,8 +96,8 @@ public class LineNumbersTextView extends AppCompatTextView {
         private static final int EDITOR_PADDING_LEFT = 8;
         private final int ORIGINAL_PADDING_LEFT;
 
-        private final Rect visibleArea = new Rect();
-        private final Rect lineNumbersArea = new Rect();
+        private final Rect visibleRect = new Rect();
+        private final Rect lineNumbersRect = new Rect();
 
         private int fenceX;
         private int numberX;
@@ -154,15 +154,15 @@ public class LineNumbersTextView extends AppCompatTextView {
         }
 
         private boolean isOutOfLineNumbersArea() {
-            final int margin = (int) (visibleArea.height() * 0.5f);
-            final int top = visibleArea.top - margin;
-            final int bottom = visibleArea.bottom + margin;
+            final int margin = (int) (visibleRect.height() * 0.5f);
+            final int top = visibleRect.top - margin;
+            final int bottom = visibleRect.bottom + margin;
 
-            if (top < lineNumbersArea.top || bottom > lineNumbersArea.bottom) {
+            if (top < lineNumbersRect.top || bottom > lineNumbersRect.bottom) {
                 // Set line numbers area
                 // height of line numbers area = (1.5 + 1 + 1.5) * height of visible area
-                lineNumbersArea.top = top - visibleArea.height();
-                lineNumbersArea.bottom = bottom + visibleArea.height();
+                lineNumbersRect.top = top - visibleRect.height();
+                lineNumbersRect.bottom = bottom + visibleRect.height();
                 return true;
             } else {
                 return false;
@@ -272,7 +272,7 @@ public class LineNumbersTextView extends AppCompatTextView {
          * @param canvas The canvas on which the line numbers will be drawn.
          */
         public void draw(final Canvas canvas) {
-            if (!editText.getLocalVisibleRect(visibleArea)) {
+            if (!editText.getLocalVisibleRect(visibleRect)) {
                 return;
             }
 
@@ -299,7 +299,7 @@ public class LineNumbersTextView extends AppCompatTextView {
             }
 
             // Draw right border of the fence
-            canvas.drawLine(fenceX, lineNumbersArea.top, fenceX, lineNumbersArea.bottom, paint);
+            canvas.drawLine(fenceX, lineNumbersRect.top, fenceX, lineNumbersRect.bottom, paint);
 
             // Draw line numbers
             int i = startLine[0];
@@ -308,7 +308,7 @@ public class LineNumbersTextView extends AppCompatTextView {
             final int count = layout.getLineCount();
             final int offsetY = editText.getPaddingTop();
 
-            if (y > lineNumbersArea.top) {
+            if (y > lineNumbersRect.top) {
                 if (invalid) {
                     invalid = false;
                     startLine[0] = i;
@@ -322,14 +322,14 @@ public class LineNumbersTextView extends AppCompatTextView {
             for (; i < count; i++) {
                 if (text.charAt(layout.getLineStart(i) - 1) == '\n') {
                     y = layout.getLineBaseline(i);
-                    if (y > lineNumbersArea.top) {
+                    if (y > lineNumbersRect.top) {
                         if (invalid) {
                             invalid = false;
                             startLine[0] = i;
                             startLine[1] = number;
                         }
                         canvas.drawText(String.valueOf(number), numberX, y + offsetY, paint);
-                        if (y > lineNumbersArea.bottom) {
+                        if (y > lineNumbersRect.bottom) {
                             break;
                         }
                     }
