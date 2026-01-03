@@ -516,7 +516,7 @@
                     android:summary="@string/add_completion_date_for_todos_when_marking_them_as_done"
                     android:title="@string/add_completion_date" />
                 <ListPreference
-                    android:defaultValue="yyyy-mm-dd"
+                    android:defaultValue="yyyy-MM-dd"
                     android:dialogTitle="@string/theme"
                     android:entries="@array/pref_arrdisp__todo_date_format"
                     android:entryValues="@array/pref_arrkeys__todo_date_format"

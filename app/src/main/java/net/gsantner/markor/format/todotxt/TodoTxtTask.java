@@ -31,21 +31,28 @@ import java.util.regex.Pattern;
 public class TodoTxtTask {
 
     //
-    // Static memebers
+    // Static members - date format helpers, regex generators & constants
     //
 
-    public static final String DATE_FORMAT = "yyyy-MM-dd";
+    public static final SimpleDateFormat DATEF_YYYY_MM_DD = new SimpleDateFormat("yyyy-MM-dd", Locale.ROOT);
+    public static final int DATEF_YYYY_MM_DD_LEN = "yyyy-MM-dd".length();
 
+    /**
+     * Returns a SimpleDateFormat for the configured todo date format.
+     * Falls back to {@link #DATE_FORMAT} if settings are not available or the configured pattern is invalid.
+     * Note: This does not cache the SimpleDateFormat instance because the pattern may change at runtime.
+     */
     public static SimpleDateFormat getDateFormat() {
-        final String fmt = ApplicationObject.settings() != null ? ApplicationObject.settings().getTodoDateFormat() : DATE_FORMAT;
+        final String fmt = ApplicationObject.settings() != null ? ApplicationObject.settings().getTodoDateFormat() : "yyyy-MM-dd";
         
         try {
             return new SimpleDateFormat(fmt, Locale.ROOT);
         } catch (IllegalArgumentException e) {
             // Fallback: return a default format instead of throwing
-            return new SimpleDateFormat("yyyy-MM-dd", Locale.ROOT);
+            return DATEF_YYYY_MM_DD;
         }
     }
+
     public static final String PT_DATE = "\\d{4}-\\d{2}-\\d{2}(?:[ T]\\d{2}:\\d{2}(?::\\d{2})?)?";
     public static final Pattern PATTERN_PROJECTS = Pattern.compile("(?:^|\\s)(?:\\++)(\\S+)");
     public static final Pattern PATTERN_CONTEXTS = Pattern.compile("(?:^|\\s)(?:\\@+)(\\S+)");

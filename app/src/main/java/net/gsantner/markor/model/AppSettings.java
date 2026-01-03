@@ -348,7 +348,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     public String getTodoDateFormat() {
-        return getString(R.string.pref_key__todotxt__set_date_format, "hh-mm");
+        return getString(R.string.pref_key__todotxt__set_date_format, "yyyy-MM-dd");
     }
 
     public boolean isAppCurrentVersionFirstStart(boolean doSet) {
