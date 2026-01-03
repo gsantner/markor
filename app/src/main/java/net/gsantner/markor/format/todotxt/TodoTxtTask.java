@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.opoc.format.GsTextUtils;
+import net.gsantner.markor.ApplicationObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,12 +31,29 @@ import java.util.regex.Pattern;
 public class TodoTxtTask {
 
     //
-    // Static memebers
+    // Static members - date format helpers, regex generators & constants
     //
 
     public static final SimpleDateFormat DATEF_YYYY_MM_DD = new SimpleDateFormat("yyyy-MM-dd", Locale.ROOT);
     public static final int DATEF_YYYY_MM_DD_LEN = "yyyy-MM-dd".length();
-    public static final String PT_DATE = "\\d{4}-\\d{2}-\\d{2}";
+
+    /**
+     * Returns a SimpleDateFormat for the configured todo date format.
+     * Falls back to {@link #DATE_FORMAT} if settings are not available or the configured pattern is invalid.
+     * Note: This does not cache the SimpleDateFormat instance because the pattern may change at runtime.
+     */
+    public static SimpleDateFormat getDateFormat() {
+        final String fmt = ApplicationObject.settings() != null ? ApplicationObject.settings().getTodoDateFormat() : "yyyy-MM-dd";
+        
+        try {
+            return new SimpleDateFormat(fmt, Locale.ROOT);
+        } catch (IllegalArgumentException e) {
+            // Fallback: return a default format instead of throwing
+            return DATEF_YYYY_MM_DD;
+        }
+    }
+
+    public static final String PT_DATE = "\\d{4}-\\d{2}-\\d{2}(?:[ T]\\d{2}:\\d{2}(?::\\d{2})?)?";
     public static final Pattern PATTERN_PROJECTS = Pattern.compile("(?:^|\\s)(?:\\++)(\\S+)");
     public static final Pattern PATTERN_CONTEXTS = Pattern.compile("(?:^|\\s)(?:\\@+)(\\S+)");
     public static final Pattern PATTERN_DONE = Pattern.compile("(?m)(^[Xx]) (.*)$");
@@ -61,7 +79,7 @@ public class TodoTxtTask {
     }
 
     public static String getToday() {
-        return DATEF_YYYY_MM_DD.format(new Date());
+        return getDateFormat().format(new Date());
     }
 
     public static List<TodoTxtTask> getTasks(final CharSequence text, final int[] sel) {

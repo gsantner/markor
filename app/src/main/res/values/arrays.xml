@@ -132,6 +132,18 @@
         <item translatable="false">+</item>
     </string-array>
 
+    <string-array name="pref_arrdisp__todo_date_format" translatable="false">
+        <item translatable="false">@string/todo_date_format_year_month_day</item>
+        <item translatable="false">@string/todo_date_format_year_month_day_hour_minute</item>
+        <item translatable="false">@string/todo_date_format_year_month_day_hour_minute_second</item>
+    </string-array>
+
+    <string-array name="pref_arrkeys__todo_date_format" translatable="false">
+        <item translatable="false">yyyy-MM-dd</item>
+        <item translatable="false">yyyy-MM-dd HH:mm</item>
+        <item translatable="false">yyyy-MM-dd HH:mm:ss</item>
+    </string-array>
+
     <string-array name="pref_arrdisp__markdown_toc" translatable="false">
         <item translatable="false">@string/heading_1</item>
         <item translatable="false">@string/heading_2</item>
