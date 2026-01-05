@@ -37,12 +37,12 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.BuildConfig;
@@ -739,8 +739,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         // Because SearchView doesn't provide a public API to add custom buttons
         // We must get the searchPlate (the layout containing the text field and close button) from SearchView
         // This approach is more robust than reflection
-        int searchPlateId = searchView.getContext().getResources().getIdentifier("android:id/search_plate", null, null);
-        ViewGroup searchPlate = searchView.findViewById(searchPlateId);
+        ViewGroup searchPlate = searchView.findViewById(androidx.appcompat.R.id.search_plate);
         if (searchPlate == null) {
             // Ensure that SearchView is always available even if getting searchPlate fails
             searchView.setSubmitButtonEnabled(true);
