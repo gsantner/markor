@@ -40,6 +40,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Share to&#8230;</string>
     <string name="share">Share</string>
     <string name="search">Search</string>
+    <string name="previous_match">Previous Match</string>
+    <string name="next_match">Next Match</string>
     <string name="display_converted_markup">Display converted markup</string>
     <string name="editor">Editor</string>
     <string name="folders">Folders</string>
