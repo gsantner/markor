@@ -763,13 +763,17 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         // Add previous match Button
         ImageButton previousButton = new ImageButton(searchViewContext);
         previousButton.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24);
-        previousButton.setTooltipText(getString(R.string.previous_match));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            previousButton.setTooltipText(getString(R.string.previous_match));
+        }
         linearLayout.addView(previousButton);
 
         // Add next match Button
         ImageButton nextButton = new ImageButton(searchViewContext);
         nextButton.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24);
-        nextButton.setTooltipText(getString(R.string.next_match));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            nextButton.setTooltipText(getString(R.string.next_match));
+        }
         linearLayout.addView(nextButton);
 
         // Apply to SearchView
