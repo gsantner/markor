@@ -727,6 +727,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
             @Override
             public void onViewDetachedFromWindow(@NonNull View v) {
+                // Clear search when SearchView is closed abnormally, e.g. switch from QuickNote to To-Do when SearchView is opened
                 if (searchView.getQuery().length() > 0) {
                     searchView.setQuery("", false); // This will make onQueryTextChange be called back
                 }
