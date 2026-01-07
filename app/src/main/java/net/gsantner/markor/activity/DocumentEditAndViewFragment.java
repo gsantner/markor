@@ -53,7 +53,7 @@ import net.gsantner.markor.frontend.FileInfoDialog;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.frontend.textview.HighlightingEditor;
-import net.gsantner.markor.frontend.textview.LineNumbersTextView;
+import net.gsantner.markor.frontend.textview.LineNumbersView;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
@@ -102,7 +102,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     private DraggableScrollbarScrollView _verticalScrollView;
     private HorizontalScrollView _horizontalScrollView;
-    private LineNumbersTextView _lineNumbersView;
+    private LineNumbersView _lineNumbersView;
     private SearchView _menuSearchViewForViewMode;
     private Document _document;
     private FormatRegistry _format;
@@ -598,7 +598,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 final boolean newState = !isWrapped();
                 _appSettings.setDocumentWrapState(_document.path, newState);
                 setWrapState(newState);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (_isPreviewVisible && _webView != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                     _webView.evaluateJavascript("setWrapWords('" + newState + "');", null);
                 }
                 updateMenuToggleStates(0);
@@ -608,7 +608,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 final boolean newState = !_lineNumbersView.isLineNumbersEnabled();
                 _appSettings.setDocumentLineNumbersEnabled(_document.path, newState);
                 _lineNumbersView.setLineNumbersEnabled(newState);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (_isPreviewVisible && _webView != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                     _webView.evaluateJavascript("setLineNumbers('" + newState + "');", null);
                 }
                 updateMenuToggleStates(0);
@@ -662,6 +662,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             }
         }
     }
+
     public void checkTextChangeState() {
         final boolean isTextChanged = !_document.isContentSame(_hlEditor.getText());
         Drawable d;
