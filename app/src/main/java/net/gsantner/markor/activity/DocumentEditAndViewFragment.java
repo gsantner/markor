@@ -105,7 +105,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     private DraggableScrollbarScrollView _verticalScrollView;
     private HorizontalScrollView _horizontalScrollView;
     private LineNumbersView _lineNumbersView;
-    private SearchView _menuSearchViewForViewMode;
     private Document _document;
     private FormatRegistry _format;
     private MarkorContextUtils _cu;
