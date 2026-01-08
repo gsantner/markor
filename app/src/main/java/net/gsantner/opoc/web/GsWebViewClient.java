@@ -29,7 +29,7 @@ public class GsWebViewClient extends WebViewClient {
         super.onPageFinished(webView, url);
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////
+    /// /////////////////////////////////////////////////////////////////////////////////
     private final AtomicBoolean m_restoreScrollYEnabled = new AtomicBoolean(false);
     private int m_restoreScrollY = 0;
 

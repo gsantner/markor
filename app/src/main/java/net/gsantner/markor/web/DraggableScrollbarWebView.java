@@ -93,7 +93,7 @@ public class DraggableScrollbarWebView extends WebView {
         return _fastScrollEnabled;
     }
 
-    ////////
+    /// /////
     // Feature Animated Scrolling
     public void scrollAnimatedToXY(final int scrollX, final int scrollY, int... arg0Delay__arg1Duration) {
         final int delay = Math.max(1, arg0Delay__arg1Duration != null && arg0Delay__arg1Duration.length > 0 ? arg0Delay__arg1Duration[0] : 500);
