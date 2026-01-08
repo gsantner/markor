@@ -64,11 +64,11 @@ public class MarkorContextUtils extends GsContextUtils {
         }
     }
 
-    public <T extends GsContextUtils> T createLauncherDesktopShortcut(final Context context, final File file) {
+    public <T extends GsContextUtils> T createLauncherDesktopShortcut(final Context context, final File file, @Nullable String title) {
         // This is only allowed to call when direct file access is possible!!
         // So basically only for java.io.File Objects. Virtual files, or content://
         // in private/restricted space won't work - because of missing permission grant when re-launching
-        final String title = file != null ? GsFileUtils.getFilenameWithoutExtension(file) : null;
+        title = title == null ? GsFileUtils.getFilenameWithoutExtension(file) : title;
         if (!TextUtils.isEmpty(title)) {
             final int iconRes = getIconResForFile(file);
             final Intent intent = new Intent(context, OpenFromShortcutOrWidgetActivity.class).setData(Uri.fromFile(file));
@@ -101,17 +101,17 @@ public class MarkorContextUtils extends GsContextUtils {
         // By extra path
         File file = (File) intent.getSerializableExtra(Document.EXTRA_FILE);
 
+        // By stream etc
+        if (file == null && context != null) {
+            file = GsContextUtils.extractFileFromIntent(intent, context);
+        }
+
         // By url in data
         if (file == null) {
             try {
                 file = new File(intent.getData().getPath());
             } catch (NullPointerException ignored) {
             }
-        }
-
-        // By stream etc
-        if (file == null && context != null) {
-            file = GsContextUtils.extractFileFromIntent(intent, context);
         }
 
         return file;

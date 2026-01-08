@@ -85,11 +85,19 @@ public class FileInfoDialog extends DialogFragment {
         tv(root, R.id.ui__fileinfodialog__last_modified_caption).setText(getString(R.string.last_modified_witharg, "").replace(":", "").trim());
         tv(root, R.id.ui__fileinfodialog__size_description).setText(GsFileUtils.getReadableFileSize(file.length(), false));
         tv(root, R.id.ui__fileinfodialog__mimetype_description).setText(GsFileUtils.getMimeType(file));
+        tv(root, R.id.ui__fileinfodialog__sha_256).setText(GsFileUtils.sha256(file));
         tv(root, R.id.ui__fileinfodialog__location).setOnLongClickListener(v -> {
-            GsContextUtils.instance.setClipboard(v.getContext(), file.getAbsolutePath());
-            Toast.makeText(v.getContext(), R.string.clipboard, Toast.LENGTH_SHORT).show();
-            return true;
-        });
+                    GsContextUtils.instance.setClipboard(v.getContext(), file.getAbsolutePath());
+                    Toast.makeText(v.getContext(), R.string.clipboard, Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+        );
+        tv(root, R.id.ui__fileinfodialog__sha_256).setOnLongClickListener(v -> {
+                    GsContextUtils.instance.setClipboard(v.getContext(), GsFileUtils.sha256(file));
+                    Toast.makeText(v.getContext(), R.string.clipboard, Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+        );
 
 
         // Number of lines and character count only apply for files.
@@ -116,6 +124,11 @@ public class FileInfoDialog extends DialogFragment {
         CheckBox checkHideInRecents = root.findViewById(R.id.ui__fileinfodialog__recents);
         checkHideInRecents.setChecked(appSettings.listFileInRecents(file));
         checkHideInRecents.setOnCheckedChangeListener((buttonView, isChecked) -> appSettings.setListFileInRecents(file, isChecked));
+
+
+        CheckBox checkFavorite = root.findViewById(R.id.ui__fileinfodialog__favorite);
+        checkFavorite.setChecked(appSettings.getFavouriteFiles().contains(file));
+        checkFavorite.setOnCheckedChangeListener((buttonView, isChecked) -> appSettings.toggleFavouriteFile(file));
 
         return dialogBuilder;
     }

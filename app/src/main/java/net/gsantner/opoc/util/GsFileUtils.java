@@ -446,7 +446,8 @@ public class GsFileUtils {
             sb.append(File.separator);
         }
 
-        if (!dest.isFile() && GsTextUtils.endsWith(sb, File.separator)) {
+        if (GsTextUtils.endsWith(sb, File.separator)) {
+            // Strip trailing separator so file selections don't keep a trailing slash
             sb.delete(sb.length() - File.separator.length(), sb.length());
         }
 
@@ -658,12 +659,33 @@ public class GsFileUtils {
         }
     }
 
-    public static String md5(final byte[] data) {
-        return hash(data, "MD5");
-    }
+    public static String sha256(final File file) {
+        if (file == null || !file.exists() || !file.isFile()) {
+            return null;
+        }
 
-    public static String sha512(final byte[] data) {
-        return hash(data, "SHA-512");
+        try (final FileInputStream fis = new FileInputStream(file)) {
+            final MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            final byte[] buffer = new byte[BUFFER_SIZE];
+            int bytesRead;
+
+            while ((bytesRead = fis.read(buffer)) != -1) {
+                digest.update(buffer, 0, bytesRead);
+            }
+
+            byte[] hashBytes = digest.digest();
+            StringBuilder hexString = new StringBuilder();
+
+            for (byte b : hashBytes) {
+                hexString.append(String.format("%02x", b));
+            }
+
+            return hexString.toString();
+
+        } catch (IOException | NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public static long crc32(final CharSequence data) {
@@ -707,7 +729,8 @@ public class GsFileUtils {
         return getNameWithoutExtension(file.getName());
     }
 
-    public static String getNameWithoutExtension(final String fileName) {
+    public static String getNameWithoutExtension(String fileName) {
+        fileName = fileName.replace(".jenc", "");
         final int doti = fileName.lastIndexOf(".");
         return (doti < 0) ? fileName : fileName.substring(0, doti);
     }
@@ -717,10 +740,11 @@ public class GsFileUtils {
     }
 
     /// Get the file extension of the file, with dot
+    ///
+    /// @return "" -> "", "index" -> "", "index.html" -> ".html", "my.website.html" -> ".html"
     public static String getFilenameExtension(String name) {
         name = name.replace(".jenc", "");
-        final int doti = name.indexOf(".");
-        return (doti < 0) ? "" : name.substring(doti).toLowerCase().trim();
+        return name.contains(".") ? name.replaceAll(".*?(\\.[^.]+)$", "$1") : "";
     }
 
     public static String getFilteredFilenameWithoutDisallowedChars(String str, final boolean... a1NoRCEguard) {
@@ -933,7 +957,16 @@ public class GsFileUtils {
     }
 
     public static File makeAbsolute(final String path, final File base) {
-        return path != null ? makeAbsolute(new File(path.trim()), base) : null;
+        if (path == null) {
+            return null;
+        }
+
+        final String decodedPath = GsTextUtils.decodeUrl(path).trim();
+        if (decodedPath.isEmpty()) {
+            return null;
+        }
+
+        return makeAbsolute(new File(decodedPath), base);
     }
 
     public static File makeAbsolute(final File file, final File base) {

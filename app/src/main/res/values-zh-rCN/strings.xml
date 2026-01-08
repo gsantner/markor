@@ -139,11 +139,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overall_theme_used_in_app">作用于整个应用的主题</string>
     <string name="remember_last_directory">记住上次使用的目录</string>
     <string name="syntax_highlighting">语法高亮</string>
-    <string name="dynamic_highlighting">动态高亮</string>
     <string name="highlighting_delay">语法高亮延时</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">刷新高亮的延迟时间（以毫秒为单位）。 较低的值将更早开始高亮，但它会耗尽您的电池，并可能拖慢旧设备上的应用程序速度。</string>
     <string name="highlighting_enabled_or_not__appspecific">控制是否应突出显示输入的文本</string>
-    <string name="dynamic_highlighting_effect">动态高亮增加性能，可能导致伪影。</string>
     <string name="control_font_size_in_editor">调整编辑器中文字的字体大小</string>
     <string name="textactions_show_useful_actions_description__appspecific">在底部显示一排快捷按钮。这些文本操作按钮可以修改文字或着对文字进行其他操作。</string>
     <string name="load_last_opened_folder_at_startup">启动时加载上次打开的目录</string>
@@ -461,9 +459,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wont_save_min_length">字符数不到 %d 的文件不会自动保存防止数据丢失。</string>
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">高级过滤语法</a></small>]]></string>
     <string name="filter">过滤器</string>
-    <string name="text_case">文本大小写</string>
-    <string name="toggle_case">转换大小写 (如: Case-&gt;CASE-&gt;case)</string>
-    <string name="switch_case">切换大小写 (如: CaSe-&gt;cAsE)</string>
+    <string name="text_case">大小写</string>
+    <string name="toggle_case">转换大小写 (Case-&gt;CASE-&gt;case)</string>
+    <string name="switch_case">切换大小写 (CaSe-&gt;cAsE)</string>
     <string name="capitalize_words">大写词首 (如: a note-&gt;A Note)</string>
     <string name="capitalize_sentences">大写句首 (如: case-&gt;Case)</string>
     <string name="use_tab_to_indent">使用 Tab 键缩进行</string>

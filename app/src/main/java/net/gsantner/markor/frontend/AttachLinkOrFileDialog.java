@@ -101,7 +101,6 @@ public class AttachLinkOrFileDialog {
         final Button buttonPictureGallery = view.findViewById(R.id.ui__select_path_dialog__gallery_picture);
         final Button buttonPictureCamera = view.findViewById(R.id.ui__select_path_dialog__camera_picture);
         final Button buttonPictureEdit = view.findViewById(R.id.ui__select_path_dialog__edit_picture);
-        final Button buttonAudioRecord = view.findViewById(R.id.ui__select_path_dialog__record_audio);
 
         builder.setCancelable(true);
         builder.setNegativeButton(android.R.string.cancel, (di, b) -> di.dismiss());
@@ -142,7 +141,6 @@ public class AttachLinkOrFileDialog {
             okType = InsertType.IMAGE_DIALOG;
         } else if (action == AUDIO_ACTION) {
             dialog.setTitle(R.string.audio);
-            buttonAudioRecord.setVisibility(View.VISIBLE);
             browseType = InsertType.AUDIO_BROWSE;
             okType = InsertType.AUDIO_DIALOG;
         } else {
@@ -158,7 +156,6 @@ public class AttachLinkOrFileDialog {
         buttonSearch.setOnClickListener(v -> _insertItem.callback(InsertType.LINK_SEARCH));
         buttonPictureCamera.setOnClickListener(b -> _insertItem.callback(InsertType.IMAGE_CAMERA));
         buttonPictureGallery.setOnClickListener(v -> _insertItem.callback(InsertType.IMAGE_GALLERY));
-        buttonAudioRecord.setOnClickListener(v -> _insertItem.callback(InsertType.AUDIO_RECORDING));
         buttonPictureEdit.setOnClickListener(v -> _insertItem.callback(InsertType.IMAGE_EDIT));
 
         dialog.show();
@@ -295,17 +292,16 @@ public class AttachLinkOrFileDialog {
             }
         }
 
+        // Remove trailing slashes if any
+        path = path.replaceAll("/+$", "");
+
         return path;
     }
 
-    public static String makeAttachmentLink(
-            final int textFormatId,
-            final String title,
-            final File attachment,
-            final File document
-    ) {
+    public static String makeAttachmentLink(final int textFormatId, final String title, final File attachment, final File document) {
         final String path = setupFileAttachment(textFormatId, attachment, document, AppSettings.get(null));
-        return formatLink(title, path, textFormatId);
+        final boolean isImage = GsFileUtils.getMimeType(attachment).contains("image");
+        return formatLink(title, path, textFormatId, isImage ? InsertType.IMAGE_DIALOG : InsertType.LINK_DIALOG);
     }
 
     private static void fetchAndInsertItem(
@@ -425,7 +421,7 @@ public class AttachLinkOrFileDialog {
             }
             case IMAGE_EDIT: {
                 if (pathEdit != null) {
-                    final String path = pathEdit.getText().toString().replace("%20", " ");
+                    final String path = GsTextUtils.decodeUrl(pathEdit.getText().toString());
 
                     final File abs = new File(path).getAbsoluteFile();
                     if (abs.isFile()) {

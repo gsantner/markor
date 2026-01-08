@@ -233,7 +233,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             }
 
             // Set most recent file (recent files are sorted)
-            for (final File file : _appSettings.getRecentFiles()) {
+            for (final File file : new AppSettings(getContext()).getRecentFiles()) {
                 if (file.isFile() && GsFileUtils.isTextFile(file)) {
                     mostRecentFile = file;
                     break;
@@ -582,7 +582,12 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
     }
 
     private static String sanitize(final String link) {
-        return link.replaceAll("(?m)(?<=&|\\?)(utm_|source|si|__mk_|ref|sprefix|crid|partner|promo|ad_sub|gclid|fbclid|msclkid).*?(&|$|\\s|\\))", "");
+        String dropGetParams = "utm_|source|si|__mk_|ref|sprefix|crid|partner|promo|ad_sub|gclid|fbclid|msclkid|dib";
+        if (link.contains("amazon.")) {
+            dropGetParams += "|qid|sr";
+        }
+
+        return link.replaceAll("(?m)(?<=&|\\?)(" + dropGetParams + ").*?(&|$|\\s|\\))", "");
     }
 
     private static String extractShareText(final Intent intent) {

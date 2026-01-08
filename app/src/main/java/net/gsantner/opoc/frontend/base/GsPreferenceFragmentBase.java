@@ -146,11 +146,16 @@ public abstract class GsPreferenceFragmentBase<AS extends GsSharedPreferencesPro
     protected GsContextUtils _cu;
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        _appSettings = getAppSettings(context);
+        _cu = GsContextUtils.instance;
+    }
+
+    @Override
     @Deprecated
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         Activity activity = getActivity();
-        _appSettings = getAppSettings(activity);
-        _cu = GsContextUtils.instance;
         getPreferenceManager().setSharedPreferencesName(getSharedPreferencesName());
         addPreferencesFromResource(getPreferenceResourceForInflation());
 
@@ -266,6 +271,8 @@ public abstract class GsPreferenceFragmentBase<AS extends GsSharedPreferencesPro
     @Override
     public void onResume() {
         super.onResume();
+        _appSettings = getAppSettings(getActivity());
+        _cu = GsContextUtils.instance;
         updatePreferenceChangedListeners(true);
         doUpdatePreferences(); // Invoked later
         onPreferenceScreenChangedPriv(this, getPreferenceScreen());
@@ -533,7 +540,8 @@ public abstract class GsPreferenceFragmentBase<AS extends GsSharedPreferencesPro
 
     //###############################
     //### Divider
-    ////###############################
+
+    /// /###############################
 
 
     public boolean isDividerVisible() {

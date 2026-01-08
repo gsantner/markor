@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:ellipsize="middle"
-            android:singleLine="true"
+            android:lines="1"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             tools:text="cool document.md" />
 
@@ -158,7 +158,26 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                tools:text="5 / 3 / 4" />
+                tools:text="0 / 0 / 0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="16dp"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="@string/sha_256"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/ui__fileinfodialog__sha_256"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                tools:text="0" />
 
         </LinearLayout>
 
@@ -179,9 +198,15 @@
             <CheckBox
                 android:id="@+id/ui__fileinfodialog__recents"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_gravity="center_vertical"
                 android:text="@string/list_in_recent_files" />
+
+            <CheckBox
+                android:id="@+id/ui__fileinfodialog__favorite"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:text="@string/favourite" />
 
             <TextView
                 android:layout_width="wrap_content"

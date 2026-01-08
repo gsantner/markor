@@ -132,10 +132,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="main_view">Mục hiển thị chính</string>
     <string name="remember_last_directory">Nhớ đường dẫn sau cùng</string>
     <string name="syntax_highlighting">Đánh dấu cú pháp</string>
-    <string name="dynamic_highlighting">Đánh dấu động</string>
     <string name="highlighting_delay">Đánh dấu độ trễ</string>
     <string name="highlighting_enabled_or_not__appspecific">Tùy chọn đánh dấu văn bản</string>
-    <string name="dynamic_highlighting_effect">Đánh dấu động làm tăng hiệu suất. Có thể gây hiện tượng răng cưa.</string>
     <string name="control_font_size_in_editor">Chọn kích cỡ phông chữ bằng bộ tùy chỉnh</string>
     <string name="textactions_show_useful_actions_description__appspecific">Hiện thanh tác vụ kèm các phím tiện lợi. Hành động văn bản giúp điều chỉnh nội dung và thực hiện tác vụ.</string>
     <string name="load_last_opened_folder_at_startup">Tải tệp sau cùng khi khởi động</string>

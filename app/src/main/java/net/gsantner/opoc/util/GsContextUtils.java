@@ -58,7 +58,6 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
-import android.os.IBinder;
 import android.os.ParcelFileDescriptor;
 import android.os.SystemClock;
 import android.os.VibrationEffect;
@@ -90,10 +89,7 @@ import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowInsets;
-import android.view.WindowInsetsController;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.webkit.MimeTypeMap;
 import android.webkit.WebView;
 import android.widget.ImageView;
@@ -205,7 +201,7 @@ public class GsContextUtils {
     protected static String m_chooserTitle = "➥";
 
 
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //########################
     //## Resources
     //########################
@@ -293,11 +289,10 @@ public class GsContextUtils {
         return true;
     }
 
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //########################
     //## App & Device information
     //########################
-
     public static String getAndroidVersion() {
         return Build.VERSION.RELEASE + " (" + Build.VERSION.SDK_INT + ")";
     }
@@ -1192,9 +1187,6 @@ public class GsContextUtils {
      * @param title   Title of the item
      */
     public void createLauncherDesktopShortcut(final Context context, final Intent intent, @DrawableRes final int iconRes, final String title) {
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         if (intent.getAction() == null) {
             intent.setAction(Intent.ACTION_VIEW);
         }
@@ -2952,6 +2944,10 @@ public class GsContextUtils {
     }
 
     public static boolean fadeInOut(final View in, final View out, final boolean animate) {
+        if (in == null || out == null) {
+            return false;
+        }
+
         // Do nothing if we are already in the correct state
         if (in.getVisibility() == View.VISIBLE && out.getVisibility() == View.INVISIBLE) {
             return false;
