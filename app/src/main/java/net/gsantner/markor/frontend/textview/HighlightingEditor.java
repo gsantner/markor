@@ -184,7 +184,7 @@ public class HighlightingEditor extends AppCompatEditText {
                     .clearDynamic()
                     .clearStatic(false)
                     .recompute()
-                    .addAdditional(_selections)
+                    .addAdditional(_occurrences)
                     .applyStatic()
                     .applyDynamic(hlRegion())
             );
@@ -215,7 +215,7 @@ public class HighlightingEditor extends AppCompatEditText {
                         .clearStatic(false)
                         .clearDynamic()
                         .setComputed()
-                        .addAdditional(_selections)
+                        .addAdditional(_occurrences)
                         .applyStatic()
                         .applyDynamic(hlRegion())
                 );
@@ -290,25 +290,66 @@ public class HighlightingEditor extends AppCompatEditText {
         return layout == null ? 0 : layout.getLineEnd(layout.getLineForVertical(y));
     }
 
-    // Additional selections for search / replace etc
+    // Additional highlight for search / replace etc
     // ---------------------------------------------------------------------------------------------
 
-    private final List<SyntaxHighlighterBase.SpanGroup> _selections = new ArrayList<>();
+    // for highlighting occurrences/matches in searching
+    private final List<SyntaxHighlighterBase.SpanGroup> _occurrences = new ArrayList<>();
+
+    public void addAdditionalOccurrence(final int start, final int end, final @ColorInt int color) {
+        _occurrences.add(SyntaxHighlighterBase.createBackgroundHighlight(start, end, color));
+    }
+
+    public void clearAdditionalOccurrences() {
+        if (_hl != null) {
+            _hl.clearDynamic().clearAdditional(_occurrences);
+        }
+        _occurrences.clear();
+    }
+
+    public void applyAdditionalOccurrences() {
+        if (_hl != null) {
+            _hl.addAdditional(_occurrences).clearDynamic().applyDynamic(hlRegion());
+        }
+    }
+
+    // for highlighting find-in-selection region
+    private SyntaxHighlighterBase.SpanGroup _selection = null;
 
     public void addAdditionalSelection(final int start, final int end, final @ColorInt int color) {
-        _selections.add(SyntaxHighlighterBase.createBackgroundHighlight(start, end, color));
+        _selection = SyntaxHighlighterBase.createBackgroundHighlight(start, end, color);
     }
 
-    public void clearAdditionalSelections() {
+    public void clearAdditionalSelection() {
         if (_hl != null) {
-            _hl.clearAdditional(_selections);
+            _hl.clearDynamic().clearAdditional(_selection);
         }
-        _selections.clear();
+        _selection = null;
     }
 
-    public void applyAdditionalSelections() {
+    public void applyAdditionalSelection() {
         if (_hl != null) {
-            _hl.addAdditional(_selections).clearDynamic().applyDynamic(hlRegion());
+            _hl.addAdditional(_selection).clearDynamic().applyDynamic(hlRegion());
+        }
+    }
+
+    // for highlighting current occurrence/match
+    private SyntaxHighlighterBase.SpanGroup _focus = null;
+
+    public void addAdditionalFocus(final int start, final int end, final @ColorInt int color) {
+        _focus = SyntaxHighlighterBase.createBackgroundHighlight(start, end, color);
+    }
+
+    public void clearAdditionalFocus() {
+        if (_hl != null) {
+            _hl.clearDynamic().clearAdditional(_focus);
+        }
+        _focus = null;
+    }
+
+    public void applyAdditionalFocus() {
+        if (_hl != null) {
+            _hl.addAdditional(_focus).clearDynamic().applyDynamic(hlRegion());
         }
     }
 

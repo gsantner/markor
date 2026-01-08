@@ -447,6 +447,10 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         } else {
             _fab.hide();
         }
+
+        // Close search dialog fragment
+        View view = findViewById(R.id.closeImageButton);
+        if (view != null) view.callOnClick();
     }
 
     private GsFileBrowserOptions.Options _filesystemDialogOptions = null;
