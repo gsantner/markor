@@ -380,8 +380,10 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
 
         switch (_id) {
             case R.id.action_create_shortcut: {
-                final File file = currentSelection.iterator().next();
-                _cu.createLauncherDesktopShortcut(getContext(), file);
+                final File sel = currentSelection.iterator().next();
+                final File file = _filesystemViewerAdapter.resolveVirtualFile(sel);
+                final String title = GsFileUtils.getFilenameWithoutExtension(sel);
+                _cu.createLauncherDesktopShortcut(getContext(), file, title);
                 return true;
             }
             case R.id.action_sort: {
@@ -515,7 +517,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     }
 
 
-    ///////////////
+    /// ////////////
 
     private void askForMoveOrCopy(final boolean isMove) {
         final List<File> files = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection());

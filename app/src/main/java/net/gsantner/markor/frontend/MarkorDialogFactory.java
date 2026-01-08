@@ -818,7 +818,7 @@ public class MarkorDialogFactory {
 
             TextViewUtils.selectLines(edit, line);
             final String jumpJs = "document.querySelector('[line=\"" + line + "\"]').scrollIntoView();";
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && webView != null) {
                 webView.evaluateJavascript(jumpJs, null);
             }
         };
@@ -886,7 +886,6 @@ public class MarkorDialogFactory {
 
     public static void showPriorityDialog(Activity activity, char selectedPriority, GsCallback.a1<String> callback) {
         final DialogOptions dopt = baseConf(activity);
-        dopt.callback = callback;
 
         List<String> availableData = new ArrayList<>();
         List<String> highlightedData = new ArrayList<>();
@@ -915,6 +914,13 @@ public class MarkorDialogFactory {
         dopt.isSearchEnabled = false;
         dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
         dopt.dialogHeightDp = 475;
+        dopt.positionCallback = (result) -> {
+            if (result != null && !result.isEmpty()) {
+                final int index = result.get(0);
+                callback.callback(index > 0 ? availableData.get(index) : Character.toString(TodoTxtTask.PRIORITY_NONE));
+            }
+        };
+
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
