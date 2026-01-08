@@ -38,6 +38,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">分享到&#8230;</string>
     <string name="share">分享</string>
     <string name="search">搜索</string>
+    <string name="previous_match">上一个匹配项</string>
+    <string name="next_match">下一个匹配项</string>
     <string name="display_converted_markup">显示转换后的标记</string>
     <string name="editor">编辑器</string>
     <string name="folders">文件夹</string>
@@ -460,6 +462,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">高级过滤语法</a></small>]]></string>
     <string name="filter">过滤器</string>
     <string name="text_case">大小写</string>
+    <string name="toggle_case">大小写切换（Case→CASE→case）</string>
+    <string name="switch_case">大小写反转（CaSe→cAsE）</string>
+    <string name="capitalize_words">词首字母大写（a note→A Note）</string>
+    <string name="capitalize_sentences">句首字母大写（a note→A note）</string>
     <string name="use_tab_to_indent">使用 Tab 键缩进行</string>
     <string name="folder_local">本地文件夹</string>
 </resources>
