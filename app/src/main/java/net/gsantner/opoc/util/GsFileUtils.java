@@ -446,7 +446,8 @@ public class GsFileUtils {
             sb.append(File.separator);
         }
 
-        if (!dest.isFile() && GsTextUtils.endsWith(sb, File.separator)) {
+        if (GsTextUtils.endsWith(sb, File.separator)) {
+            // Strip trailing separator so file selections don't keep a trailing slash
             sb.delete(sb.length() - File.separator.length(), sb.length());
         }
 
@@ -671,16 +672,16 @@ public class GsFileUtils {
             while ((bytesRead = fis.read(buffer)) != -1) {
                 digest.update(buffer, 0, bytesRead);
             }
-        
+
             byte[] hashBytes = digest.digest();
             StringBuilder hexString = new StringBuilder();
-            
+
             for (byte b : hashBytes) {
                 hexString.append(String.format("%02x", b));
             }
-            
+
             return hexString.toString();
-    
+
         } catch (IOException | NoSuchAlgorithmException e) {
             e.printStackTrace();
             return null;
@@ -739,6 +740,7 @@ public class GsFileUtils {
     }
 
     /// Get the file extension of the file, with dot
+    ///
     /// @return "" -> "", "index" -> "", "index.html" -> ".html", "my.website.html" -> ".html"
     public static String getFilenameExtension(String name) {
         name = name.replace(".jenc", "");
@@ -955,7 +957,16 @@ public class GsFileUtils {
     }
 
     public static File makeAbsolute(final String path, final File base) {
-        return path != null ? makeAbsolute(new File(path.trim()), base) : null;
+        if (path == null) {
+            return null;
+        }
+
+        final String decodedPath = GsTextUtils.decodeUrl(path).trim();
+        if (decodedPath.isEmpty()) {
+            return null;
+        }
+
+        return makeAbsolute(new File(decodedPath), base);
     }
 
     public static File makeAbsolute(final File file, final File base) {

@@ -201,7 +201,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             return;
         }
 
-        final File file = GsCollectionUtils.getOrDefault(_virtualMapping, displayFile, displayFile);
+        final File file = resolveVirtualFile(displayFile);
 
         final boolean isGoUp = displayFile.equals(_goUpFile);
         final boolean isVirtual = _virtualMapping.containsKey(displayFile);
@@ -659,7 +659,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             if (folderChanged && _currentFolder != null) {
                 _backStack.push(_currentFolder);
             }
-            _currentFolder = GsCollectionUtils.getOrDefault(_virtualMapping, folder, folder);
+            _currentFolder = resolveVirtualFile(folder);
         }
 
         if (folderChanged) {
@@ -785,7 +785,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     }
 
     public boolean accept(File file) {
-        file = GsCollectionUtils.getOrDefault(_virtualMapping, file, file);
+        file = resolveVirtualFile(file);
         final boolean isDirectory = GsFileUtils.isDirectory(file);
         final File parent = file.getParentFile();
         final String name = file.getName().toLowerCase();
@@ -913,5 +913,9 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
     public boolean isCurrentFolderSortable() {
         return _currentFolder != null && !VIRTUAL_STORAGE_ROOT.equals(_currentFolder) && !VIRTUAL_STORAGE_RECENTS.equals(_currentFolder);
+    }
+
+    public File resolveVirtualFile(final File file) {
+        return GsCollectionUtils.getOrDefault(_virtualMapping, file, file);
     }
 }

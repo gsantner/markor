@@ -27,19 +27,22 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.HorizontalScrollView;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
-import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.BuildConfig;
@@ -52,7 +55,7 @@ import net.gsantner.markor.frontend.FileInfoDialog;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.frontend.textview.HighlightingEditor;
-import net.gsantner.markor.frontend.textview.LineNumbersTextView;
+import net.gsantner.markor.frontend.textview.LineNumbersView;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
@@ -94,13 +97,14 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     private HighlightingEditor _hlEditor;
     private WebView _webView;
+    private ViewStub _webViewStub;
     private MarkorWebViewClient _webViewClient;
     private ViewGroup _editorHolder;
     private ViewGroup _textActionsBar;
 
     private DraggableScrollbarScrollView _verticalScrollView;
     private HorizontalScrollView _horizontalScrollView;
-    private LineNumbersTextView _lineNumbersView;
+    private LineNumbersView _lineNumbersView;
     private SearchView _menuSearchViewForViewMode;
     private Document _document;
     private FormatRegistry _format;
@@ -130,7 +134,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         return R.layout.document__fragment__edit;
     }
 
-    @SuppressLint({"SetJavaScriptEnabled", "WrongConstant", "AddJavascriptInterface", "JavascriptInterface"})
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -139,7 +142,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _hlEditor = view.findViewById(R.id.document__fragment__edit__highlighting_editor);
         _editorHolder = view.findViewById(R.id.document__fragment__edit__editor_holder);
         _textActionsBar = view.findViewById(R.id.document__fragment__edit__text_actions_bar);
-        _webView = view.findViewById(R.id.document__fragment_view_webview);
+        _webViewStub = view.findViewById(R.id.document__fragment_webview_stub);
         _verticalScrollView = view.findViewById(R.id.document__fragment__edit__content_editor__scrolling_parent);
         _lineNumbersView = view.findViewById(R.id.document__fragment__edit__line_numbers_view);
         _cu = new MarkorContextUtils(activity);
@@ -158,34 +161,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
         _lineNumbersView.setup(_hlEditor);
         _lineNumbersView.setLineNumbersEnabled(_appSettings.getDocumentLineNumbersEnabled(_document.path));
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && _appSettings.getSetWebViewFulldrawing()) {
-            WebView.enableSlowWholeDocumentDraw();
-        }
-
-        _webViewClient = new MarkorWebViewClient(_webView, activity);
-        _webView.setWebChromeClient(new GsWebViewChromeClient(_webView, activity, view.findViewById(R.id.document__fragment_fullscreen_overlay)));
-        _webView.setWebViewClient(_webViewClient);
-        _webView.addJavascriptInterface(this, "Android");
-        _webView.setBackgroundColor(Color.TRANSPARENT);
-        WebSettings webSettings = _webView.getSettings();
-        webSettings.setBuiltInZoomControls(true);
-        webSettings.setDisplayZoomControls(false);
-        webSettings.setTextZoom((int) (_appSettings.getDocumentViewFontSize(_document.path) * VIEW_FONT_SCALE));
-        webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-        webSettings.setDatabaseEnabled(true);
-        webSettings.setGeolocationEnabled(false);
-        webSettings.setJavaScriptEnabled(true);
-        webSettings.setDomStorageEnabled(true);
-        webSettings.setAllowFileAccess(true);
-        webSettings.setAllowContentAccess(true);
-        webSettings.setAllowFileAccessFromFileURLs(true);
-        webSettings.setAllowUniversalAccessFromFileURLs(false);
-        webSettings.setMediaPlaybackRequiresUserGesture(false);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && BuildConfig.IS_TEST_BUILD && BuildConfig.DEBUG) {
-            WebView.setWebContentsDebuggingEnabled(true); // Inspect on computer chromium browser: chrome://inspect/#devices
-        }
 
         // Upon construction, the document format has been determined from extension etc
         // Here we replace it with the last saved format.
@@ -238,7 +213,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         // This works well to preserve keyboard state.
         if (activity != null) {
             final Window window = activity.getWindow();
-            // Setting via a windowmanager state is much more robust than using show/hide
+            // Setting via a window manager state is much more robust than using show/hide
             final int adjustResize = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE;
             final int unchanged = WindowManager.LayoutParams.SOFT_INPUT_STATE_UNCHANGED | adjustResize;
             final int hidden = WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN | adjustResize;
@@ -257,14 +232,14 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             });
         }
 
-        _verticalScrollView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
-            _hlEditor.post(() -> {
-                final int height = _verticalScrollView.getHeight();
-                if (height != _hlEditor.getMinHeight()) {
-                    _hlEditor.setMinHeight(height);
-                }
-            });
+        final Runnable ensureMinHeight = () -> _hlEditor.post(() -> {
+            final int height = _verticalScrollView.getHeight();
+            if (height > 0 && height != _hlEditor.getMinHeight()) {
+                _hlEditor.setMinHeight(height);
+            }
         });
+        _verticalScrollView.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> ensureMinHeight.run());
+        _verticalScrollView.post(ensureMinHeight);
     }
 
     @Override
@@ -289,7 +264,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     @Override
     public void onResume() {
-        _webView.onResume();
+        if (_webView != null) {
+            _webView.onResume();
+        }
         loadDocument();
         if (_editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getTextView() != _hlEditor) {
             _editTextUndoRedoHelper.setTextView(_hlEditor);
@@ -300,7 +277,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     @Override
     public void onPause() {
         saveDocument(false);
-        _webView.onPause();
+        if (_webView != null) {
+            _webView.onPause();
+        }
         _appSettings.addRecentFile(_document.file);
         _appSettings.setDocumentPreviewState(_document.path, _isPreviewVisible);
         _appSettings.setLastEditPosition(_document.path, TextViewUtils.getSelection(_hlEditor)[0]);
@@ -350,31 +329,8 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         menu.findItem(R.id.action_share_image).setVisible(true);
         menu.findItem(R.id.action_load_epub).setVisible(isExperimentalFeaturesEnabled);
 
-        // SearchView (View Mode)
-        _menuSearchViewForViewMode = (SearchView) menu.findItem(R.id.action_search_view).getActionView();
-        if (_menuSearchViewForViewMode != null) {
-            _menuSearchViewForViewMode.setSubmitButtonEnabled(true);
-            _menuSearchViewForViewMode.setQueryHint(getString(R.string.search));
-            _menuSearchViewForViewMode.setOnQueryTextFocusChangeListener((v, searchHasFocus) -> {
-                if (!searchHasFocus) {
-                    _menuSearchViewForViewMode.setQuery("", false);
-                    _menuSearchViewForViewMode.setIconified(true);
-                }
-            });
-            _menuSearchViewForViewMode.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String text) {
-                    _webView.findNext(true);
-                    return true;
-                }
-
-                @Override
-                public boolean onQueryTextChange(String text) {
-                    _webView.findAllAsync(text);
-                    return true;
-                }
-            });
-        }
+        // Setup SearchView for view-mode
+        setupSearchView((SearchView) menu.findItem(R.id.action_search_view).getActionView());
 
         // Set various initial states
         updateMenuToggleStates(_document.getFormat());
@@ -551,16 +507,18 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                     _nextConvertToPrintMode = true;
                     setViewModeVisibility(true);
                     Toast.makeText(activity, R.string.please_wait, Toast.LENGTH_LONG).show();
-                    _webView.postDelayed(() -> {
-                        if (itemId == R.id.action_share_pdf) {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                                _cu.printOrCreatePdfFromWebview(_webView, _document, getTextString().contains("beamer\n"));
+                    if (_webView != null) {
+                        _webView.postDelayed(() -> {
+                            if (itemId == R.id.action_share_pdf) {
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                                    _cu.printOrCreatePdfFromWebview(_webView, _document, getTextString().contains("beamer\n"));
+                                }
+                            } else {
+                                Bitmap bmp = _cu.getBitmapFromWebView(_webView, itemId == R.id.action_share_image);
+                                _cu.shareImage(getContext(), bmp, null);
                             }
-                        } else {
-                            Bitmap bmp = _cu.getBitmapFromWebView(_webView, itemId == R.id.action_share_image);
-                            _cu.shareImage(getContext(), bmp, null);
-                        }
-                    }, 7000);
+                        }, 7000);
+                    }
                 }
 
                 return true;
@@ -614,6 +572,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 final boolean newState = !isWrapped();
                 _appSettings.setDocumentWrapState(_document.path, newState);
                 setWrapState(newState);
+                if (_isPreviewVisible && _webView != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    _webView.evaluateJavascript("setWrapWords('" + newState + "');", null);
+                }
                 updateMenuToggleStates(0);
                 return true;
             }
@@ -621,6 +582,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 final boolean newState = !_lineNumbersView.isLineNumbersEnabled();
                 _appSettings.setDocumentLineNumbersEnabled(_document.path, newState);
                 _lineNumbersView.setLineNumbersEnabled(newState);
+                if (_isPreviewVisible && _webView != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    _webView.evaluateJavascript("setLineNumbers('" + newState + "');", null);
+                }
                 updateMenuToggleStates(0);
                 return true;
             }
@@ -648,7 +612,12 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 final int current = _isPreviewVisible ? _appSettings.getDocumentViewFontSize(_document.path) : _appSettings.getDocumentFontSize(_document.path);
                 MarkorDialogFactory.showFontSizeDialog(activity, current, (newSize) -> {
                     if (_isPreviewVisible) {
-                        _webView.getSettings().setTextZoom((int) (newSize * VIEW_FONT_SCALE));
+                        if (_webView != null) {
+                            _webView.getSettings().setTextZoom((int) (newSize * VIEW_FONT_SCALE));
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && _lineNumbersView.isLineNumbersEnabled()) {
+                                _webView.evaluateJavascript("refreshLineNumbers();", null);
+                            }
+                        }
                         _appSettings.setDocumentViewFontSize(_document.path, newSize);
                     } else {
                         _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, (float) newSize);
@@ -703,14 +672,144 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             final View parent = activity.findViewById(R.id.document__fragment__edit__text_actions_bar__scrolling_parent);
             final View viewScroll = activity.findViewById(R.id.document__fragment_view_webview);
 
-            if (bar != null && parent != null && _verticalScrollView != null && viewScroll != null) {
+            if (bar != null && parent != null && _verticalScrollView != null) {
                 final boolean hide = _textActionsBar.getChildCount() == 0;
                 parent.setVisibility(hide ? View.GONE : View.VISIBLE);
                 final int marginBottom = hide ? 0 : (int) getResources().getDimension(R.dimen.textactions_bar_height);
                 setMarginBottom(_verticalScrollView, marginBottom);
-                setMarginBottom(viewScroll, marginBottom);
+                if (viewScroll != null) {
+                    setMarginBottom(viewScroll, marginBottom);
+                }
             }
         }
+    }
+
+    /**
+     * Setup SearchView from OptionsMenu for view-mode.
+     *
+     * @param searchView the SearchView form OptionsMenu
+     */
+    private void setupSearchView(SearchView searchView) {
+        if (searchView == null) {
+            return;
+        }
+        // Only setup SearchView for view-mode, to avoid unnecessary setup for edit-mode
+        if (!_isPreviewVisible || _webView == null) {
+            return;
+        }
+
+        searchView.setQueryHint(getString(R.string.search));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            private String searchText = "";
+            private Runnable searchTask;
+
+            private boolean search(String text) {
+                if (_webView == null) {
+                    return false;
+                }
+                if (searchTask == null) {
+                    searchTask = TextViewUtils.makeDebounced(_webView.getHandler(), 500, () -> _webView.findAllAsync(searchText));
+                }
+
+                searchText = text;
+                searchTask.run();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if (_webView != null) {
+                    _webView.findNext(true);
+                    return true;
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String text) {
+                return search(text);
+            }
+        });
+        searchView.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
+            @Override
+            public void onViewAttachedToWindow(@NonNull View v) {
+            }
+
+            @Override
+            public void onViewDetachedFromWindow(@NonNull View v) {
+                // Clear search when SearchView is closed abnormally, e.g. switch from QuickNote to To-Do when SearchView is opened
+                if (searchView.getQuery().length() > 0) {
+                    searchView.setQuery("", false); // This will make onQueryTextChange be called back
+                }
+                if (!searchView.isIconified()) {
+                    searchView.setIconified(true);
+                }
+            }
+        });
+
+        // Because SearchView doesn't provide a public API to add custom buttons
+        // We must get the searchPlate (the layout containing the text field and close button) from SearchView
+        // This approach is more robust than reflection
+        ViewGroup searchPlate = searchView.findViewById(androidx.appcompat.R.id.search_plate);
+        if (searchPlate == null) {
+            // Ensure that SearchView is always available even if getting searchPlate fails
+            searchView.setSubmitButtonEnabled(true);
+            return;
+        }
+
+        Context searchViewContext = searchView.getContext();
+        LinearLayout linearLayout = new LinearLayout(searchViewContext);
+
+        // Add search result TextView
+        TextView resultTextView = new TextView(searchViewContext);
+        resultTextView.setGravity(Gravity.CENTER);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+        );
+        layoutParams.setMarginEnd(14);
+        resultTextView.setLayoutParams(layoutParams);
+        linearLayout.addView(resultTextView);
+
+        // Add previous match Button
+        ImageButton previousButton = new ImageButton(searchViewContext);
+        previousButton.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            previousButton.setTooltipText(getString(R.string.previous_match));
+        }
+        linearLayout.addView(previousButton);
+
+        // Add next match Button
+        ImageButton nextButton = new ImageButton(searchViewContext);
+        nextButton.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            nextButton.setTooltipText(getString(R.string.next_match));
+        }
+        linearLayout.addView(nextButton);
+
+        // Apply to SearchView
+        searchPlate.addView(linearLayout, 1);
+
+        // Set listeners
+        previousButton.setOnClickListener(v -> {
+            if (_webView != null) {
+                _webView.findNext(false);
+            }
+        });
+        nextButton.setOnClickListener(v -> {
+            if (_webView != null) {
+                _webView.findNext(true);
+            }
+        });
+        _webView.setFindListener((activeMatchOrdinal, numberOfMatches, isDoneCounting) -> {
+            if (isDoneCounting) {
+                String searchResult = "";
+                if (numberOfMatches > 0) {
+                    searchResult = (activeMatchOrdinal + 1) + "/" + numberOfMatches;
+                }
+                resultTextView.setText(searchResult);
+            }
+        });
     }
 
     private void setMarginBottom(final View view, final int marginBottom) {
@@ -865,6 +964,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     public void updateViewModeText() {
+        if (_webView == null) {
+            return;
+        }
         // Don't let text to view mode crash app
         try {
             _format.getConverter().convertMarkupShowInWebView(_document, getTextString(), getActivity(), _webView, _nextConvertToPrintMode, _lineNumbersView.isLineNumbersEnabled());
@@ -877,6 +979,38 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         setViewModeVisibility(show, true);
     }
 
+    @SuppressLint({"SetJavaScriptEnabled"})
+    private void setupWebViewIfNeeded(final Activity activity) {
+        if (_webView == null) {
+            _webView = (WebView) _webViewStub.inflate();
+            _webView.setWebChromeClient(new GsWebViewChromeClient(_webView, activity, activity.findViewById(R.id.document__fragment_fullscreen_overlay)));
+            _webView.addJavascriptInterface(this, "Android");
+            _webView.setBackgroundColor(Color.TRANSPARENT);
+            WebSettings webSettings = _webView.getSettings();
+            webSettings.setBuiltInZoomControls(true);
+            webSettings.setDisplayZoomControls(false);
+            webSettings.setTextZoom((int) (_appSettings.getDocumentViewFontSize(_document.path) * VIEW_FONT_SCALE));
+            webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+            webSettings.setDatabaseEnabled(true);
+            webSettings.setGeolocationEnabled(false);
+            webSettings.setJavaScriptEnabled(true);
+            webSettings.setDomStorageEnabled(true);
+            webSettings.setAllowFileAccess(true);
+            webSettings.setAllowContentAccess(true);
+            webSettings.setAllowFileAccessFromFileURLs(true);
+            webSettings.setAllowUniversalAccessFromFileURLs(false);
+            webSettings.setMediaPlaybackRequiresUserGesture(false);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && BuildConfig.IS_TEST_BUILD && BuildConfig.DEBUG) {
+                WebView.setWebContentsDebuggingEnabled(true); // Inspect on computer chromium browser: chrome://inspect/#devices
+            }
+
+            _webViewClient = new MarkorWebViewClient(_webView, activity);
+            _webView.setWebViewClient(_webViewClient);
+        }
+    }
+
+    @SuppressLint({"AddJavascriptInterface", "SetJavaScriptEnabled"})
     public void setViewModeVisibility(boolean show, final boolean animate) {
         final Activity activity = getActivity();
         if (activity == null) {
@@ -887,13 +1021,16 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _format.getActions().recreateActionButtons(_textActionsBar, show ? ActionButtonBase.ActionItem.DisplayMode.VIEW : ActionButtonBase.ActionItem.DisplayMode.EDIT);
         showHideActionBar();
         if (show) {
+            setupWebViewIfNeeded(activity);
             updateViewModeText();
             _cu.showSoftKeyboard(activity, false, _hlEditor);
             _hlEditor.clearFocus();
             _hlEditor.postDelayed(() -> _cu.showSoftKeyboard(activity, false, _hlEditor), 300);
             GsContextUtils.fadeInOut(_webView, _verticalScrollView, animate);
         } else {
-            _webViewClient.setRestoreScrollY(_webView.getScrollY());
+            if (_webView != null) {
+                _webViewClient.setRestoreScrollY(_webView.getScrollY());
+            }
             GsContextUtils.fadeInOut(_verticalScrollView, _webView, animate);
         }
 
@@ -932,10 +1069,12 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     @Override
     public void onDestroy() {
-        try {
-            _webView.loadUrl("about:blank");
-            _webView.destroy();
-        } catch (Exception ignored) {
+        if (_webView != null) {
+            try {
+                _webView.loadUrl("about:blank");
+                _webView.destroy();
+            } catch (Exception ignored) {
+            }
         }
         super.onDestroy();
     }
