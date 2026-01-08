@@ -9,7 +9,6 @@ import com.vladsch.flexmark.ext.gfm.tasklist.TaskListExtension;
 import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.parser.Parser;
 
-
 import java.util.Collections;
 
 /**
