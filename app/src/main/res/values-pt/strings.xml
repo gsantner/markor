@@ -38,6 +38,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Partilhar com&#8230;</string>
     <string name="share">Partilhar</string>
     <string name="search">Pesquisar</string>
+    <string name="previous_match">Correspondência anterior</string>
+    <string name="next_match">Próxima Correspondência</string>
     <string name="display_converted_markup">Mostrar \'markup\' convertida</string>
     <string name="editor">Editor</string>
     <string name="folders">Pastas</string>
@@ -460,6 +462,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Sintaxe de filtragem avançada</a></small>]]></string>
     <string name="filter">Filtro</string>
     <string name="text_case">Letra do texto</string>
+    <string name="toggle_case">Alterar maiúsculas e minúsculas (Case→CASE→case)</string>
+    <string name="switch_case">Trocar maiúsculas de minúsculas (CaSe→cAsE)</string>
+    <string name="capitalize_words">Palavras com maiúsculas (a note→A Note)</string>
+    <string name="capitalize_sentences">Palavras com maiúsculas (a note→A Note)</string>
     <string name="use_tab_to_indent">Recuar linhas com a tecla TAB</string>
     <string name="folder_local">Pasta local</string>
 </resources>
