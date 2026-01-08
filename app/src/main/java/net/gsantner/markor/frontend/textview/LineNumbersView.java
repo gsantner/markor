@@ -13,28 +13,33 @@ import android.view.ViewTreeObserver;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatTextView;
 
 @SuppressWarnings("UnusedReturnValue")
-public class LineNumbersTextView extends AppCompatTextView {
+public class LineNumbersView extends View {
     private EditText editText;
     private LineNumbersDrawer lineNumbersDrawer;
     private boolean lineNumbersEnabled;
 
-    public LineNumbersTextView(Context context) {
+    public LineNumbersView(Context context) {
         super(context);
     }
 
-    public LineNumbersTextView(Context context, AttributeSet attrs) {
+    public LineNumbersView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public LineNumbersTextView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public LineNumbersView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
     @Override
-    protected void onVisibilityChanged(View changedView, int visibility) {
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        setWidth(0); // Initial width
+    }
+
+    @Override
+    protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
         super.onVisibilityChanged(changedView, visibility);
         if (isLineNumbersEnabled() && visibility == View.VISIBLE) {
             refresh();
@@ -42,15 +47,18 @@ public class LineNumbersTextView extends AppCompatTextView {
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void onDraw(@NonNull Canvas canvas) {
         super.onDraw(canvas);
         if (lineNumbersEnabled) {
             lineNumbersDrawer.draw(canvas);
         }
     }
 
+    /**
+     * Refresh LineNumbersView.
+     */
     public void refresh() {
-        setText(""); // To activate LineNumbersTextView refresh
+        invalidate();
         if (getWidth() == 0) {
             lineNumbersDrawer.getEditText().postInvalidate();
         }
@@ -62,6 +70,11 @@ public class LineNumbersTextView extends AppCompatTextView {
         }
         this.editText = editText;
         this.lineNumbersDrawer = null;
+    }
+
+    public void setWidth(int width) {
+        getLayoutParams().width = width;
+        requestLayout();
     }
 
     public void setLineNumbersEnabled(final boolean enabled) {
@@ -76,7 +89,7 @@ public class LineNumbersTextView extends AppCompatTextView {
             if (lineNumbersDrawer == null) {
                 return;
             }
-            lineNumbersDrawer.done();
+            lineNumbersDrawer.cleanup();
         }
         refresh();
     }
@@ -87,7 +100,7 @@ public class LineNumbersTextView extends AppCompatTextView {
 
     static class LineNumbersDrawer {
         private final EditText editText;
-        private final LineNumbersTextView textView;
+        private final LineNumbersView lineNumbersView;
 
         private final Paint paint = new Paint();
 
@@ -96,8 +109,8 @@ public class LineNumbersTextView extends AppCompatTextView {
         private static final int EDITOR_PADDING_LEFT = 8;
         private final int ORIGINAL_PADDING_LEFT;
 
-        private final Rect visibleArea = new Rect();
-        private final Rect lineNumbersArea = new Rect();
+        private final Rect visibleRect = new Rect();
+        private final Rect lineNumbersRect = new Rect();
 
         private int fenceX;
         private int numberX;
@@ -123,7 +136,7 @@ public class LineNumbersTextView extends AppCompatTextView {
             @Override
             public void afterTextChanged(Editable editable) {
                 if (isLayoutLineCountChanged() || isMaxNumberChanged()) {
-                    textView.refresh();
+                    lineNumbersView.refresh();
                 }
             }
         };
@@ -136,14 +149,14 @@ public class LineNumbersTextView extends AppCompatTextView {
                 final long time = System.currentTimeMillis();
                 if (time - lastTime > 125) {
                     lastTime = time;
-                    textView.refresh();
+                    lineNumbersView.refresh();
                 }
             }
         };
 
-        public LineNumbersDrawer(final @NonNull EditText editText, final @NonNull LineNumbersTextView textView) {
+        public LineNumbersDrawer(final @NonNull EditText editText, final @NonNull LineNumbersView lineNumbersView) {
             this.editText = editText;
-            this.textView = textView;
+            this.lineNumbersView = lineNumbersView;
             ORIGINAL_PADDING_LEFT = editText.getPaddingLeft();
             paint.setColor(0xFF999999);
             paint.setTextAlign(Paint.Align.RIGHT);
@@ -154,15 +167,15 @@ public class LineNumbersTextView extends AppCompatTextView {
         }
 
         private boolean isOutOfLineNumbersArea() {
-            final int margin = (int) (visibleArea.height() * 0.5f);
-            final int top = visibleArea.top - margin;
-            final int bottom = visibleArea.bottom + margin;
+            final int margin = (int) (visibleRect.height() * 0.5f);
+            final int top = visibleRect.top - margin;
+            final int bottom = visibleRect.bottom + margin;
 
-            if (top < lineNumbersArea.top || bottom > lineNumbersArea.bottom) {
+            if (top < lineNumbersRect.top || bottom > lineNumbersRect.bottom) {
                 // Set line numbers area
                 // height of line numbers area = (1.5 + 1 + 1.5) * height of visible area
-                lineNumbersArea.top = top - visibleArea.height();
-                lineNumbersArea.bottom = bottom + visibleArea.height();
+                lineNumbersRect.top = top - visibleRect.height();
+                lineNumbersRect.bottom = bottom + visibleRect.height();
                 return true;
             } else {
                 return false;
@@ -262,7 +275,8 @@ public class LineNumbersTextView extends AppCompatTextView {
         public void prepare() {
             setLineTracking(true);
             setRefreshOnScrollChanged(true);
-            textView.setVisibility(VISIBLE);
+            lineNumbersView.setWidth(0);
+            lineNumbersView.setVisibility(VISIBLE);
             editText.setPadding(EDITOR_PADDING_LEFT, editText.getPaddingTop(), editText.getPaddingRight(), editText.getPaddingBottom());
         }
 
@@ -272,7 +286,7 @@ public class LineNumbersTextView extends AppCompatTextView {
          * @param canvas The canvas on which the line numbers will be drawn.
          */
         public void draw(final Canvas canvas) {
-            if (!editText.getLocalVisibleRect(visibleArea)) {
+            if (!editText.getLocalVisibleRect(visibleRect)) {
                 return;
             }
 
@@ -286,7 +300,7 @@ public class LineNumbersTextView extends AppCompatTextView {
             if (isTextSizeChanged() || isMaxNumberDigitsChanged()) {
                 numberX = NUMBER_PADDING_LEFT + (int) paint.measureText(String.valueOf(maxNumber));
                 fenceX = numberX + NUMBER_PADDING_RIGHT;
-                textView.setWidth(fenceX + 1);
+                lineNumbersView.setWidth(fenceX + 1);
             }
 
             // If current visible area is out of current line numbers area,
@@ -299,7 +313,7 @@ public class LineNumbersTextView extends AppCompatTextView {
             }
 
             // Draw right border of the fence
-            canvas.drawLine(fenceX, lineNumbersArea.top, fenceX, lineNumbersArea.bottom, paint);
+            canvas.drawLine(fenceX, lineNumbersRect.top, fenceX, lineNumbersRect.bottom, paint);
 
             // Draw line numbers
             int i = startLine[0];
@@ -308,7 +322,7 @@ public class LineNumbersTextView extends AppCompatTextView {
             final int count = layout.getLineCount();
             final int offsetY = editText.getPaddingTop();
 
-            if (y > lineNumbersArea.top) {
+            if (y > lineNumbersRect.top) {
                 if (invalid) {
                     invalid = false;
                     startLine[0] = i;
@@ -322,14 +336,14 @@ public class LineNumbersTextView extends AppCompatTextView {
             for (; i < count; i++) {
                 if (text.charAt(layout.getLineStart(i) - 1) == '\n') {
                     y = layout.getLineBaseline(i);
-                    if (y > lineNumbersArea.top) {
+                    if (y > lineNumbersRect.top) {
                         if (invalid) {
                             invalid = false;
                             startLine[0] = i;
                             startLine[1] = number;
                         }
                         canvas.drawText(String.valueOf(number), numberX, y + offsetY, paint);
-                        if (y > lineNumbersArea.bottom) {
+                        if (y > lineNumbersRect.bottom) {
                             break;
                         }
                     }
@@ -341,12 +355,11 @@ public class LineNumbersTextView extends AppCompatTextView {
         /**
          * Reset some states related line numbers.
          */
-        public void done() {
+        public void cleanup() {
             setLineTracking(false);
             setRefreshOnScrollChanged(false);
             maxNumberDigits = 0;
-            textView.setWidth(0);
-            textView.setVisibility(GONE);
+            lineNumbersView.setVisibility(GONE);
             editText.setPadding(ORIGINAL_PADDING_LEFT, editText.getPaddingTop(), editText.getPaddingRight(), editText.getPaddingBottom());
         }
     }
