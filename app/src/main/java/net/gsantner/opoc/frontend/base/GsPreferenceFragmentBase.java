@@ -540,7 +540,8 @@ public abstract class GsPreferenceFragmentBase<AS extends GsSharedPreferencesPro
 
     //###############################
     //### Divider
-    ////###############################
+
+    /// /###############################
 
 
     public boolean isDividerVisible() {
