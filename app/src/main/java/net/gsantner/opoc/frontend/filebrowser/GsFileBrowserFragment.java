@@ -30,7 +30,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.ColorInt;
-import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;

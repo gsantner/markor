@@ -42,7 +42,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.core.content.ContextCompat;
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
@@ -52,9 +51,9 @@ import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.TooltipCompat;
+import androidx.core.graphics.ColorUtils;
 import androidx.core.view.WindowCompat;
 import androidx.core.widget.TextViewCompat;
-import androidx.core.graphics.ColorUtils;
 
 import net.gsantner.opoc.util.GsCollectionUtils;
 import net.gsantner.opoc.util.GsContextUtils;

@@ -1,14 +1,14 @@
 package net.gsantner.markor.activity;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.WindowManager;
-import android.util.TypedValue;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.Color;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
