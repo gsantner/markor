@@ -517,7 +517,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     }
 
 
-    ///////////////
+    /// ////////////
 
     private void askForMoveOrCopy(final boolean isMove) {
         final List<File> files = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection());
