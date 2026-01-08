@@ -38,6 +38,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Comparteix amb&#8230;</string>
     <string name="share">Comparteix</string>
     <string name="search">Cerca</string>
+    <string name="previous_match">Coincidència anterior</string>
+    <string name="next_match">Coincidència següent</string>
     <string name="display_converted_markup">Mostra el «markup» convertit</string>
     <string name="editor">Editor</string>
     <string name="folders">Carpetes</string>
@@ -460,6 +462,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Sintaxi de filtratge avançat</a></small>]]></string>
     <string name="filter">Filtre</string>
     <string name="text_case">Majúscula/minúscula</string>
+    <string name="toggle_case">Canvia majúscules i minúscules (Nota→NOTA→nota)</string>
+    <string name="switch_case">Inverteix majúscules i minúscules (NoTa→nOtA)</string>
+    <string name="capitalize_words">Inicia paraules en majúscula (una nota→Una Nota)</string>
+    <string name="capitalize_sentences">Inicia frases en majúscula (una nota→Una nota)</string>
     <string name="use_tab_to_indent">Sagna les línies amb la tecla TAB</string>
     <string name="folder_local">Carpeta local</string>
 </resources>
