@@ -198,7 +198,7 @@ public class DocumentActivity extends MarkorBaseActivity {
             // Start in a specific mode if required. Otherwise let the fragment decide
             Boolean startInPreview = null;
             if (intent.getBooleanExtra(Document.EXTRA_DO_PREVIEW, false) ||
-                file.getName().startsWith("index.")
+                    file.getName().startsWith("index.")
             ) {
                 startInPreview = true;
             }

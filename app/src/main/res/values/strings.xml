@@ -40,6 +40,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Share to&#8230;</string>
     <string name="share">Share</string>
     <string name="search">Search</string>
+    <string name="previous_match">Previous Match</string>
+    <string name="next_match">Next Match</string>
     <string name="display_converted_markup">Display converted markup</string>
     <string name="editor">Editor</string>
     <string name="folders">Folders</string>
@@ -478,10 +480,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Advanced filtering syntax</a></small>]]></string>
     <string name="filter">Filter</string>
     <string name="text_case">Text Case</string>
-    <string name="toggle_case">Toggle Case (Ex: Case->CASE->case)</string>
-    <string name="switch_case">Switch Case (Ex: CaSe->cAsE)</string>
-    <string name="capitalize_words">Capitalize Words (Ex: a note->A Note)</string>
-    <string name="capitalize_sentences">Capitalize Sentences (Ex: case->Case)</string>
+    <string name="toggle_case">Toggle Case (Case→CASE→case)</string>
+    <string name="switch_case">Switch Case (CaSe→cAsE)</string>
+    <string name="capitalize_words">Capitalize Words (a note→A Note)</string>
+    <string name="capitalize_sentences">Capitalize Sentences (a note→A note)</string>
     <string name="use_tab_to_indent">Indent lines with TAB key</string>
     <string name="folder_local">Folder local</string>
 </resources>
