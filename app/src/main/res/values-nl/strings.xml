@@ -460,10 +460,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Geavanceerde filter-syntaxis</a></small>]]></string>
     <string name="filter">Filter</string>
     <string name="text_case">Hoofdlettergebruik</string>
-    <string name="toggle_case">Hoofdletters omwisselen (bijv: Case-&gt;CASE-&gt;case)</string>
-    <string name="switch_case">Afwisselende hoofdletters (bijv: CaSe-&gt;cAsE)</string>
-    <string name="capitalize_words">Begin elk woord met hoofdletter (bijv: a note-&gt;A Note)</string>
-    <string name="capitalize_sentences">Begin zinnen met hoofdletters (bijv: case-&gt;Case)</string>
     <string name="use_tab_to_indent">Regels inspringen met TAB-toets</string>
     <string name="folder_local">Lokale mappen</string>
 </resources>
