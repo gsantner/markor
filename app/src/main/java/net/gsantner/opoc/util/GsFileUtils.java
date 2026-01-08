@@ -672,16 +672,16 @@ public class GsFileUtils {
             while ((bytesRead = fis.read(buffer)) != -1) {
                 digest.update(buffer, 0, bytesRead);
             }
-        
+
             byte[] hashBytes = digest.digest();
             StringBuilder hexString = new StringBuilder();
-            
+
             for (byte b : hashBytes) {
                 hexString.append(String.format("%02x", b));
             }
-            
+
             return hexString.toString();
-    
+
         } catch (IOException | NoSuchAlgorithmException e) {
             e.printStackTrace();
             return null;
@@ -740,6 +740,7 @@ public class GsFileUtils {
     }
 
     /// Get the file extension of the file, with dot
+    ///
     /// @return "" -> "", "index" -> "", "index.html" -> ".html", "my.website.html" -> ".html"
     public static String getFilenameExtension(String name) {
         name = name.replace(".jenc", "");
