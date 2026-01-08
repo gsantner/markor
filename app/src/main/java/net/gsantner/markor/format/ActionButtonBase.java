@@ -1018,7 +1018,7 @@ public abstract class ActionButtonBase {
         if (displayMode == ActionItem.DisplayMode.EDIT) {
             int pos = _hlEditor.getSelectionStart();
             _hlEditor.setSelection(pos == 0 ? _hlEditor.getText().length() : 0);
-        } else if (displayMode == ActionItem.DisplayMode.VIEW) {
+        } else if (displayMode == ActionItem.DisplayMode.VIEW && _webView != null) {
             boolean top = _webView.getScrollY() > 100;
             _webView.scrollTo(0, top ? 0 : _webView.getContentHeight());
             if (!top) {
