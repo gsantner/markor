@@ -458,10 +458,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Avansert filtreringssyntaks</a></small>]]></string>
     <string name="filter">Filter</string>
     <string name="text_case">Store/små bokstaver</string>
-    <string name="toggle_case">Veksle mellom store og små bokstaver (eks.: Stor-&gt;STOR-&gt;stor)</string>
-    <string name="switch_case">Bytt om på store og små bokstaver (eks.: sToR-&gt;StOr)</string>
-    <string name="capitalize_words">Stor forbokstav på ord (eks.: et notat&gt;Et Notat)</string>
-    <string name="capitalize_sentences">Stor forbokstav på setninger (eks.: stor-&gt;Stor)</string>
     <string name="use_tab_to_indent">Indenter linjer med TAB-tast</string>
     <string name="folder_local">Lokal mappe</string>
 </resources>

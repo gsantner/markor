@@ -460,10 +460,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Расширенный синтаксис фильтрации</a></small>]]></string>
     <string name="filter">Фильтр</string>
     <string name="text_case">Регистр</string>
-    <string name="toggle_case">Переключать регистр (напр., Слово-&gt;СЛОВО-&gt;слово)</string>
-    <string name="switch_case">Чередовать регистр (напр., СлОвО-&gt;сЛоВо)</string>
-    <string name="capitalize_words">Слова с заглавной (напр., слово-&gt;Слово)</string>
-    <string name="capitalize_sentences">Предложения с заглавных (напр., слово-&gt;Слово)</string>
     <string name="use_tab_to_indent">Сдвинуть строки вправо используя клавишу TAB</string>
     <string name="folder_local">Локальная папка</string>
 </resources>
