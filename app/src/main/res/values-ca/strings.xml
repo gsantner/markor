@@ -460,10 +460,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Sintaxi de filtratge avançat</a></small>]]></string>
     <string name="filter">Filtre</string>
     <string name="text_case">Majúscula/minúscula</string>
-    <string name="toggle_case">Canvia majúscules i minúscules (p. ex.: Nota-&gt;NOTA-&gt;nota)</string>
-    <string name="switch_case">Inverteix majúscules i minúscules (p. ex.: NoTa-&gt;nOtA)</string>
-    <string name="capitalize_words">Inicia paraules en majúscula (p. ex.: una nota-&gt;Una Nota)</string>
-    <string name="capitalize_sentences">Inicia frases en majúscula (p. ex.: nota-&gt;Nota)</string>
     <string name="use_tab_to_indent">Sagna les línies amb la tecla TAB</string>
     <string name="folder_local">Carpeta local</string>
 </resources>
