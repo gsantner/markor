@@ -30,32 +30,30 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <net.gsantner.markor.frontend.textview.LineNumbersTextView
+            <net.gsantner.markor.frontend.textview.LineNumbersView
                 android:id="@+id/document__fragment__edit__line_numbers_view"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="0"
-                android:text="" />
+                android:layout_height="match_parent" />
 
             <net.gsantner.markor.frontend.textview.HighlightingEditor
                 android:id="@+id/document__fragment__edit__highlighting_editor"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="?android:colorBackground"
                 android:alpha="0"
+                android:background="?android:colorBackground"
                 android:gravity="top"
                 android:imeOptions="flagNoExtractUi"
                 android:inputType="textMultiLine|textCapSentences"
+                android:isScrollContainer="false"
                 android:minHeight="1dp"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingBottom="@dimen/editor_bottom_margin"
-                android:nestedScrollingEnabled="false"
-                android:isScrollContainer="false"
                 android:scrollbars="none"
-                android:overScrollMode="never"
                 android:scrollHorizontally="false"
                 android:textCursorDrawable="@drawable/cursor_accent" />
         </LinearLayout>
@@ -82,10 +80,10 @@
 
     <ViewStub
         android:id="@+id/document__fragment_webview_stub"
-        android:layout="@layout/document__fragment_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/textactions_bar_height" />
+        android:layout_marginBottom="@dimen/textactions_bar_height"
+        android:layout="@layout/document__fragment_view" />
 
     <FrameLayout
         android:id="@+id/document__fragment_fullscreen_overlay"
