@@ -83,6 +83,11 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
     private void applyThemedBars() {
         final int barBackground = getThemedBarBackgroundColor();
         final int actionBarBackground = getActionBarBackgroundColor();
+        int navBarBackground = barBackground;
+        final Integer overrideNavBarBackground = getNewNavigationBarColor();
+        if (overrideNavBarBackground != null) {
+            navBarBackground = overrideNavBarBackground;
+        }
 
         final Toolbar toolbar = findViewById(R.id.toolbar);
         if (toolbar != null) {
@@ -92,13 +97,13 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(actionBarBackground);
-            getWindow().setNavigationBarColor(barBackground);
+            getWindow().setNavigationBarColor(navBarBackground);
         }
 
         final BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation_bar);
         if (bottomNav != null) {
-            bottomNav.setBackgroundColor(barBackground);
-            bottomNav.setItemBackground(new ColorDrawable(barBackground));
+            bottomNav.setBackgroundColor(actionBarBackground);
+            bottomNav.setItemBackground(new ColorDrawable(actionBarBackground));
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -106,7 +111,7 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
             int flags = decorView.getSystemUiVisibility();
             flags = applyLightBarFlag(flags, actionBarBackground, View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                flags = applyLightBarFlag(flags, barBackground, View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
+                flags = applyLightBarFlag(flags, navBarBackground, View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
             }
             decorView.setSystemUiVisibility(flags);
         }
