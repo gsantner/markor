@@ -1,5 +1,7 @@
 package net.gsantner.markor.widget;
 
+import static net.gsantner.markor.format.FormatRegistry.CONVERTER_MARKDOWN;
+
 import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
@@ -12,7 +14,6 @@ import net.gsantner.markor.model.Document;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class TodoWidgetRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
@@ -60,8 +61,8 @@ public class TodoWidgetRemoteViewsFactory implements RemoteViewsService.RemoteVi
 
         String itemText = _tasks.get(position).getDescription();
 
-        String filename = _document.path.toLowerCase(Locale.ROOT);
-        boolean isMarkdown = filename.endsWith(".md") || filename.endsWith(".markdown");
+        boolean isMarkdown = CONVERTER_MARKDOWN.isFileOutOfThisFormat(_document.file);
+
         if (isMarkdown) {
             CharSequence styled = MarkdownWidgetUtils.fromFlexmark(itemText);
             views.setTextViewText(R.id.todo_widget_item_text, styled);
