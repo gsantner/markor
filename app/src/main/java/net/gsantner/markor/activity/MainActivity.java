@@ -12,7 +12,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -24,6 +23,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -136,6 +136,11 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     }
 
     @Override
+    public Integer getNewNavigationBarColor() {
+        return getActionBarBackgroundColor();
+    }
+
+    @Override
     public void onActivityFirstTimeVisible() {
         super.onActivityFirstTimeVisible();
         // Switch to tab if specific folder _not_ requested, and not recreating from saved instance
@@ -194,6 +199,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
             Log.d(MainActivity.class.getName(), "Child fragment not found in onRestoreInstanceState()");
         }
     }
+
 
     // Reduces swipe sensitivity
     // Inspired by https://stackoverflow.com/a/72067439
@@ -265,7 +271,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         getMenuInflater().inflate(R.menu.main__menu, menu);
         menu.findItem(R.id.action_settings).setVisible(_appSettings.isShowSettingsOptionInMainToolbar());
 
-        _cu.tintMenuItems(menu, true, Color.WHITE);
+        _cu.tintMenuItems(menu, true, ContextCompat.getColor(this, R.color.action_bar_content));
         _cu.setSubMenuIconsVisibility(menu, true);
         return true;
     }

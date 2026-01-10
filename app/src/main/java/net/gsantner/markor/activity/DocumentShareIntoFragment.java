@@ -189,7 +189,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
 
         @Override
         public boolean isDividerVisible() {
-            return true;
+            return false;
         }
 
         public ShareIntoImportOptionsFragment setAttachment(File file) {

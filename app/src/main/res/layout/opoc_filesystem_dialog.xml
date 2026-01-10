@@ -24,6 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
+        android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
 
     </androidx.appcompat.widget.Toolbar>
@@ -100,6 +101,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:gravity="end"
         android:orientation="horizontal"
+        android:elevation="4dp"
         android:padding="4dp">
 
         <!-- Neutral Button: Left aligned -->
