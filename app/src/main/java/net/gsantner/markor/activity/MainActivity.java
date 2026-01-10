@@ -12,12 +12,10 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -139,10 +137,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
     @Override
     public Integer getNewNavigationBarColor() {
-        if (_appSettings.isBlackTheme()) {
-            return Color.BLACK;
-        }
-        return resolveThemeColor(R.attr.colorPrimary, R.color.action_bar_background);
+        return getActionBarBackgroundColor();
     }
 
     @Override
@@ -205,13 +200,6 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         }
     }
 
-    private int resolveThemeColor(int attrResId, int fallbackColorResId) {
-        final TypedValue typedValue = new TypedValue();
-        if (getTheme().resolveAttribute(attrResId, typedValue, true)) {
-            return typedValue.data;
-        }
-        return ContextCompat.getColor(this, fallbackColorResId);
-    }
 
     // Reduces swipe sensitivity
     // Inspired by https://stackoverflow.com/a/72067439

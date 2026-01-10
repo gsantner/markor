@@ -51,7 +51,7 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
 
     @Override
     public Integer getNewNavigationBarColor() {
-        return getThemedBarBackgroundColor();
+        return null;
     }
 
     @Override
@@ -83,11 +83,8 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
     private void applyThemedBars() {
         final int barBackground = getThemedBarBackgroundColor();
         final int actionBarBackground = getActionBarBackgroundColor();
-        int navBarBackground = barBackground;
         final Integer overrideNavBarBackground = getNewNavigationBarColor();
-        if (overrideNavBarBackground != null) {
-            navBarBackground = overrideNavBarBackground;
-        }
+        final int navBarBackground = overrideNavBarBackground != null ? overrideNavBarBackground : barBackground;
 
         final Toolbar toolbar = findViewById(R.id.toolbar);
         if (toolbar != null) {
@@ -124,7 +121,7 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
         return resolveThemeColor(android.R.attr.colorBackground, R.color.bar_background);
     }
 
-    private int getActionBarBackgroundColor() {
+    protected int getActionBarBackgroundColor() {
         if (_appSettings.isBlackTheme()) {
             return Color.BLACK;
         }
