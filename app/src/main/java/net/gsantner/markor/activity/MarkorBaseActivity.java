@@ -125,7 +125,7 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
         if (_appSettings.isBlackTheme()) {
             return Color.BLACK;
         }
-        return resolveThemeColor(R.attr.colorPrimary, R.color.action_bar_background);
+        return resolveThemeColor(R.attr.colorSurface, R.color.action_bar_background);
     }
 
     private int getActionBarContentColor() {

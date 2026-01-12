@@ -31,7 +31,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="?attr/colorSurface"
             android:theme="@style/LightTextToolbarOverlay"
             app:popupTheme="?attr/popupTheme"
             android:elevation="@dimen/appbar_elevation"

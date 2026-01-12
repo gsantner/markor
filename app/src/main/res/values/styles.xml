@@ -13,7 +13,7 @@
         <item name="android:windowBackground">@color/dark__background</item>
     </style>
 
-    <style name="AppTheme.Unified" parent="Theme.AppCompat.DayNight.DarkActionBar">
+    <style name="AppTheme.Unified" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="android:windowActionModeOverlay">true</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="windowActionBarOverlay">true</item>
@@ -26,6 +26,9 @@
         <item name="alertDialogTheme">@style/Theme.AppCompat.DayNight.Dialog.Rounded</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorSecondary">@color/colorAccent</item>
+        <item name="colorSurface">@color/action_bar_background</item>
+        <item name="elevationOverlayEnabled">true</item>
         <item name="android:actionModeBackground">@color/action_bar_background</item>
         <item name="actionModeBackground">@color/action_bar_background</item>
         <item name="colorAccent">@color/accent</item>
@@ -53,6 +56,8 @@
     <style name="AppTheme.Unified.Black" parent="AppTheme.Unified">
         <item name="colorPrimary">@color/black</item>
         <item name="colorPrimaryDark">@color/black</item>
+        <item name="colorSurface">@color/black</item>
+        <item name="elevationOverlayEnabled">false</item>
         <item name="android:statusBarColor" tools:targetApi="lollipop">@color/black</item>
         <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/black</item>
         <item name="android:windowBackground">@color/black</item>
@@ -128,9 +133,16 @@
         <item name="android:textColorSecondary">@color/secondary_text</item>
         <item name="colorControlNormal">@color/bar_content</item>
         <item name="colorControlHighlight">@color/bar_content</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Markor.DialogButton</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Markor.DialogButton</item>
+        <item name="buttonBarNeutralButtonStyle">@style/Markor.DialogButton</item>
     </style>
 
     <style name="Theme.AppCompat.DayNight.Dialog.Rounded.Black" parent="Theme.AppCompat.DayNight.Dialog.Rounded" />
+
+    <style name="Markor.DialogButton" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+        <item name="android:textColor">@color/accent</item>
+    </style>
 
     <style name="PopupMenu.Light" parent="Widget.AppCompat.Light.PopupMenu">
         <item name="android:popupBackground">@drawable/popup_menu_background</item>

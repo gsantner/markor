@@ -97,19 +97,7 @@ public class ActionButtonSettingsActivity extends MarkorBaseActivity {
             }
 
             case R.id.action_reorder_reset: {
-                final List<String> savedOrder = _textActions.getActionOrder();
-                final List<String> savedDisabled = _textActions.getDisabledActions();
-
-                _adapter.order.clear();
-                for (final String key : savedOrder) {
-                    final int index = _keys.indexOf(key);
-                    if (index >= 0) {
-                        _adapter.order.add(index);
-                    }
-                }
-                _adapter._disabled.clear();
-                _adapter._disabled.addAll(savedDisabled);
-                _adapter.notifyDataSetChanged();
+                _adapter.reset();
                 return true;
             }
         }
@@ -200,6 +188,8 @@ public class ActionButtonSettingsActivity extends MarkorBaseActivity {
         private final List<String> _keys;
         private final Set<String> _disabled;
         private final List<Integer> order;
+        private final List<Integer> _initialOrder;
+        private final Set<String> _initialDisabled;
 
         private OrderAdapter(List<ActionButtonBase.ActionItem> actions, List<String> keys, List<String> disabled) {
             super();
@@ -211,6 +201,8 @@ public class ActionButtonSettingsActivity extends MarkorBaseActivity {
             for (int i = 0; i < _actions.size(); i++) {
                 order.add(i);
             }
+            _initialOrder = new ArrayList<>(order);
+            _initialDisabled = new HashSet<>(_disabled);
         }
 
         @NonNull
@@ -228,6 +220,14 @@ public class ActionButtonSettingsActivity extends MarkorBaseActivity {
         @Override
         public int getItemCount() {
             return _actions.size();
+        }
+
+        private void reset() {
+            order.clear();
+            order.addAll(_initialOrder);
+            _disabled.clear();
+            _disabled.addAll(_initialDisabled);
+            notifyDataSetChanged();
         }
     }
 
