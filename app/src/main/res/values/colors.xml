@@ -21,7 +21,7 @@
     <color name="popup_menu_background">@color/dialog_background</color>
     <color name="dialog_background">@color/light__background</color>
     <!-- UI chrome/text tint (kept fixed, not tied to editor presets) -->
-    <color name="action_bar_content">@color/icons</color>
+    <color name="action_bar_content">@color/primary_text</color>
     <color name="bar_content">@color/light__primary_text</color>
     <color name="textActionBarColor">@color/background</color>
     <color name="textActionIconColor">@color/bar_content</color>
