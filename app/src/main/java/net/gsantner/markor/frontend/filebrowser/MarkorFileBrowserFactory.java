@@ -59,11 +59,11 @@ public class MarkorFileBrowserFactory {
         opts.contentDescriptionFile = R.string.file;
 
         opts.accentColor = R.color.accent;
-        opts.primaryColor = R.color.primary;
+        opts.primaryColor = R.color.action_bar_background;
         opts.primaryTextColor = R.color.primary_text;
         opts.secondaryTextColor = R.color.secondary_text;
         opts.backgroundColor = R.color.background;
-        opts.titleTextColor = R.color.primary_text;
+        opts.titleTextColor = R.color.dark__primary_text;
         opts.fileColor = R.color.file;
         opts.folderColor = R.color.folder;
         opts.fileImage = R.drawable.ic_file_white_24dp;

@@ -29,7 +29,7 @@
             android:id="@+id/document__fragment__share_into__highlighting_editor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/background_2"
+            android:background="@color/background"
             android:fontFamily="sans-serif-light"
             android:gravity="top"
             android:imeOptions="flagNoExtractUi"

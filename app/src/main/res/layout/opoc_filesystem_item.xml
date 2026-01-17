@@ -17,7 +17,7 @@
     android:clickable="true"
     android:focusable="true"
     android:orientation="horizontal"
-    android:paddingBottom="8dp">
+    android:paddingBottom="13dp">
 
     <ImageView
         android:id="@+id/opoc_filesystem_item__image"
@@ -42,7 +42,7 @@
             android:ellipsize="end"
             android:importantForAccessibility="no"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textSize="19sp"
+            android:textSize="18sp"
             tools:text="how to write a readme.md" />
 
         <TextView
@@ -54,7 +54,7 @@
             android:importantForAccessibility="no"
             android:singleLine="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            android:textSize="15sp"
+            android:textSize="14sp"
             tools:text="/sdcard/Documents/somewhere" />
     </LinearLayout>
 </LinearLayout>

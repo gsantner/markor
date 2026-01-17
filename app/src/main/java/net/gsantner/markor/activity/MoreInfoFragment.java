@@ -50,7 +50,7 @@ public class MoreInfoFragment extends GsPreferenceFragmentBase<AppSettings> {
 
     @Override
     public boolean isDividerVisible() {
-        return true;
+        return false;
     }
 
     @Override
