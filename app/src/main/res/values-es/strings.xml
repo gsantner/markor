@@ -460,10 +460,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Sintaxis de filtrado avanzado</a></small>]]></string>
     <string name="filter">Filtro</string>
     <string name="text_case">Mayúscula/minúscula</string>
-    <string name="toggle_case">Cambiar mayúsculas y minúsculas (p. ej.: Nota-&gt;NOTA-&gt;nota)</string>
-    <string name="switch_case">Invertir mayúsculas y minúsculas (p. ej.: NoTa-&gt;nOtA)</string>
-    <string name="capitalize_words">Iniciar palabras en mayúscula (p. ej.: una nota-&gt;Una Nota)</string>
-    <string name="capitalize_sentences">Iniciar frases en mayúscula (p. ej.: nota-&gt;Nota)</string>
     <string name="use_tab_to_indent">Sangrar líneas con la tecla TAB</string>
     <string name="folder_local">Carpeta local</string>
 </resources>
