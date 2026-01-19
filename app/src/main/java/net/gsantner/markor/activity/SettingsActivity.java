@@ -18,12 +18,15 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import androidx.annotation.StringRes;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceScreen;
+
+import com.rarepebble.colorpicker.ColorPreference;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
@@ -195,6 +198,8 @@ public class SettingsActivity extends MarkorBaseActivity {
             for (final int keyId : experimentalKeys) {
                 setPreferenceVisible(keyId, _appSettings.isExperimentalFeaturesEnabled());
             }
+
+            refreshEditorColorPreferences();
         }
 
         @SuppressLint("ApplySharedPref")
@@ -211,7 +216,10 @@ public class SettingsActivity extends MarkorBaseActivity {
                 _appSettings.setRecreateMainRequired(true);
             } else if (eq(key, R.string.pref_key__app_theme)) {
                 _appSettings.applyAppTheme();
-                getActivity().finish();
+                _appSettings.setRecreateMainRequired(true);
+                if (getActivity() != null) {
+                    getActivity().recreate();
+                }
             } else if (eq(key, R.string.pref_key__theming_hide_system_statusbar)) {
                 activityRetVal = RESULT.RESTART_REQ;
                 _appSettings.setRecreateMainRequired(true);
@@ -315,36 +323,43 @@ public class SettingsActivity extends MarkorBaseActivity {
                 case R.string.pref_key__basic_color_scheme_markor: {
                     _appSettings.setEditorBasicColor(true, R.color.white, R.color.dark_grey);
                     _appSettings.setEditorBasicColor(false, R.color.dark_grey, R.color.light__background);
+                    _appSettings.setRecreateMainRequired(true);
                     break;
                 }
                 case R.string.pref_key__basic_color_scheme_blackorwhite: {
                     _appSettings.setEditorBasicColor(true, R.color.white, R.color.black);
                     _appSettings.setEditorBasicColor(false, R.color.black, R.color.white);
+                    _appSettings.setRecreateMainRequired(true);
                     break;
                 }
                 case R.string.pref_key__basic_color_scheme_solarized: {
                     _appSettings.setEditorBasicColor(true, R.color.solarized_fg, R.color.solarized_bg_dark);
                     _appSettings.setEditorBasicColor(false, R.color.solarized_fg, R.color.solarized_bg_light);
+                    _appSettings.setRecreateMainRequired(true);
                     break;
                 }
                 case R.string.pref_key__basic_color_scheme_gruvbox: {
                     _appSettings.setEditorBasicColor(true, R.color.gruvbox_fg_dark, R.color.gruvbox_bg_dark);
                     _appSettings.setEditorBasicColor(false, R.color.gruvbox_fg_light, R.color.gruvbox_bg_light);
+                    _appSettings.setRecreateMainRequired(true);
                     break;
                 }
                 case R.string.pref_key__basic_color_scheme_nord: {
                     _appSettings.setEditorBasicColor(true, R.color.nord_fg_dark, R.color.nord_bg_dark);
                     _appSettings.setEditorBasicColor(false, R.color.nord_fg_light, R.color.nord_bg_light);
+                    _appSettings.setRecreateMainRequired(true);
                     break;
                 }
                 case R.string.pref_key__basic_color_scheme_greenscale: {
                     _appSettings.setEditorBasicColor(true, R.color.green_dark, R.color.black);
                     _appSettings.setEditorBasicColor(false, R.color.green_light, R.color.white);
+                    _appSettings.setRecreateMainRequired(true);
                     break;
                 }
                 case R.string.pref_key__basic_color_scheme_sepia: {
                     _appSettings.setEditorBasicColor(true, R.color.sepia_bg_light__fg_dark, R.color.sepia_fg_light__bg_dark);
                     _appSettings.setEditorBasicColor(false, R.color.sepia_fg_light__bg_dark, R.color.sepia_bg_light__fg_dark);
+                    _appSettings.setRecreateMainRequired(true);
                     break;
                 }
                 case R.string.pref_key__plaintext__reorder_actions:
@@ -372,14 +387,31 @@ public class SettingsActivity extends MarkorBaseActivity {
 
             if (key.startsWith("pref_key__editor_basic_color_scheme") && !key.contains("_fg_") && !key.contains("_bg_")) {
                 _appSettings.setRecreateMainRequired(true);
-                restartActivity();
+                doUpdatePreferences();
             }
             return null;
         }
 
         @Override
         public boolean isDividerVisible() {
-            return true;
+            return false;
+        }
+
+        private void refreshEditorColorPreferences() {
+            updateColorPreference(R.string.pref_key__basic_color_scheme__bg_light, _appSettings.getInt(R.string.pref_key__basic_color_scheme__bg_light, _cu.rcolor(getContext(), R.color.background)));
+            updateColorPreference(R.string.pref_key__basic_color_scheme__fg_light, _appSettings.getInt(R.string.pref_key__basic_color_scheme__fg_light, _cu.rcolor(getContext(), R.color.primary_text)));
+            updateColorPreference(R.string.pref_key__basic_color_scheme__bg_dark, _appSettings.getInt(R.string.pref_key__basic_color_scheme__bg_dark, _cu.rcolor(getContext(), R.color.background)));
+            updateColorPreference(R.string.pref_key__basic_color_scheme__fg_dark, _appSettings.getInt(R.string.pref_key__basic_color_scheme__fg_dark, _cu.rcolor(getContext(), R.color.primary_text)));
+        }
+
+        private void updateColorPreference(@StringRes int key, int color) {
+            Preference pref = findPreference(key);
+            if (pref instanceof ColorPreference) {
+                try {
+                    ((ColorPreference) pref).setColor(color);
+                } catch (Exception ignored) {
+                }
+            }
         }
     }
 }

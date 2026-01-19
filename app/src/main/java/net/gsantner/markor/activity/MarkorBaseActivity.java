@@ -3,11 +3,14 @@ package net.gsantner.markor.activity;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.WindowManager;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
+import net.gsantner.markor.R;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.frontend.base.GsActivityBase;
@@ -36,7 +39,14 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
 
     @Override
     public Integer getNewNavigationBarColor() {
-        return _appSettings.getAppThemeName().contains("black") ? Color.BLACK : null;
+        if (_appSettings.getAppThemeName().contains("black")) {
+            return Color.BLACK;
+        }
+        final TypedValue typedValue = new TypedValue();
+        if (getTheme().resolveAttribute(android.R.attr.colorBackground, typedValue, true)) {
+            return typedValue.data;
+        }
+        return ContextCompat.getColor(this, R.color.background);
     }
 
     @Override

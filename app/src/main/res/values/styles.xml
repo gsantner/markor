@@ -28,6 +28,10 @@
         <item name="colorPrimary">@color/primary</item>
         <item name="colorAccent">@color/accent</item>
         <item name="android:windowBackground">@color/background</item>
+        <item name="actionBarPopupTheme">@style/ToolbarPopupTheme</item>
+        <item name="android:actionBarPopupTheme">@style/ToolbarPopupTheme</item>
+        <item name="popupMenuStyle">@style/PopupMenuStyle</item>
+        <item name="android:popupMenuStyle">@style/PopupMenuStyle</item>
         <item name="dialogCornerRadius">@dimen/dialog_corner_radius</item>
 
         <!-- Android V21 options; ignore IDE warnings -->
@@ -61,9 +65,26 @@
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="actionMenuTextColor">@android:color/white</item>
         <item name="android:textColorSecondary">@android:color/white</item>
+        <item name="colorControlNormal">@android:color/white</item>
+        <item name="colorControlHighlight">@android:color/white</item>
     </style>
 
     <style name="AppTheme.Light.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="ToolbarPopupTheme" parent="ThemeOverlay.AppCompat.DayNight">
+        <item name="popupMenuStyle">@style/PopupMenuStyle</item>
+        <item name="android:popupMenuStyle">@style/PopupMenuStyle</item>
+        <item name="android:textColorPrimary">@color/primary_text</item>
+        <item name="android:textColorSecondary">@color/secondary_text</item>
+        <item name="colorControlNormal">@color/primary_text</item>
+    </style>
+
+    <style name="PopupMenuStyle" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:popupBackground">@color/background</item>
+        <item name="android:textColorPrimary">@color/primary_text</item>
+        <item name="android:textColorSecondary">@color/secondary_text</item>
+        <item name="colorControlNormal">@color/primary_text</item>
+    </style>
 
     <!-- reduced spacing -->
     <style name="LessSpaceActionButtonStyle" parent="Widget.AppCompat.ActionButton">

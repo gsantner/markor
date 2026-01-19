@@ -31,6 +31,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             android:theme="@style/LightTextToolbarOverlay"
+            app:popupTheme="@style/ToolbarPopupTheme"
             app:subtitleTextColor="@color/secondary_text"
             app:title="@string/app_name">
 

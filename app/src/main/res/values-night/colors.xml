@@ -7,7 +7,7 @@
     <color name="secondary_text">@color/dark__secondary_text</color>
     <color name="file">@color/dark__file</color>
     <color name="folder">@color/dark__folder</color>
-    <color name="background">@color/dark__background</color>
+    <color name="background">@color/dark_grey</color>
     <color name="background_2">@color/dark__background_2</color>
     <color name="textActionBarColor">@color/dark__background_2</color>
     <color name="textActionIconColor">@color/white</color>

@@ -22,7 +22,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SwitchCompat;
-import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -68,7 +68,6 @@ public class ActionButtonSettingsActivity extends MarkorBaseActivity {
         // Set up recyclerview
         final RecyclerView recycler = findViewById(R.id.action_order_activity_recycler);
         recycler.setLayoutManager(new LinearLayoutManager(this));
-        recycler.addItemDecoration(new DividerItemDecoration(recycler.getContext(), DividerItemDecoration.VERTICAL));
 
         extractActionData();
         _adapter = new OrderAdapter(_actions, _keys, _disabled);
@@ -86,7 +85,7 @@ public class ActionButtonSettingsActivity extends MarkorBaseActivity {
         final MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.action_order__menu, menu);
 
-        _cu.tintMenuItems(menu, true, Color.WHITE);
+        _cu.tintMenuItemsByShowAsAction(menu, Color.WHITE, ContextCompat.getColor(this, R.color.primary_text));
         return true;
     }
 
@@ -99,12 +98,7 @@ public class ActionButtonSettingsActivity extends MarkorBaseActivity {
             }
 
             case R.id.action_reorder_reset: {
-                final List<String> activeKeys = _textActions.getActiveActionKeys();
-                for (int i = 0; i < activeKeys.size(); i++) {
-                    String key = activeKeys.get(i);
-                    _adapter.order.set(i, _keys.indexOf(key));
-                }
-                _adapter.notifyDataSetChanged();
+                _adapter.reset();
                 return true;
             }
         }
@@ -195,6 +189,8 @@ public class ActionButtonSettingsActivity extends MarkorBaseActivity {
         private final List<String> _keys;
         private final Set<String> _disabled;
         private final List<Integer> order;
+        private final List<Integer> _initialOrder;
+        private final Set<String> _initialDisabled;
 
         private OrderAdapter(List<ActionButtonBase.ActionItem> actions, List<String> keys, List<String> disabled) {
             super();
@@ -206,6 +202,8 @@ public class ActionButtonSettingsActivity extends MarkorBaseActivity {
             for (int i = 0; i < _actions.size(); i++) {
                 order.add(i);
             }
+            _initialOrder = new ArrayList<>(order);
+            _initialDisabled = new HashSet<>(_disabled);
         }
 
         @NonNull
@@ -223,6 +221,14 @@ public class ActionButtonSettingsActivity extends MarkorBaseActivity {
         @Override
         public int getItemCount() {
             return _actions.size();
+        }
+
+        private void reset() {
+            order.clear();
+            order.addAll(_initialOrder);
+            _disabled.clear();
+            _disabled.addAll(_initialDisabled);
+            notifyDataSetChanged();
         }
     }
 

@@ -30,11 +30,10 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -115,10 +114,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             throw new RuntimeException("Error: " + activity.getClass().getName() + " doesn't implement FilesystemFragmentOptionsListener");
         }
         setDialogOptions(((FilesystemFragmentOptionsListener) activity).getFilesystemFragmentOptions(_dopt));
-
-        LinearLayoutManager lam = (LinearLayoutManager) _recyclerList.getLayoutManager();
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(activity, lam.getOrientation());
-        _recyclerList.addItemDecoration(dividerItemDecoration);
 
         _filesystemViewerAdapter = new GsFileBrowserListAdapter(_dopt, activity);
         _recyclerList.setAdapter(_filesystemViewerAdapter);
@@ -356,7 +351,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.filesystem__menu, menu);
-        _cu.tintMenuItems(menu, true, Color.WHITE);
+        _cu.tintMenuItemsByShowAsAction(menu, Color.WHITE, ContextCompat.getColor(requireContext(), R.color.primary_text));
         _cu.setSubMenuIconsVisibility(menu, true);
 
         List<Pair<File, String>> sdcardFolders = _cu.getAppDataPublicDirs(getContext(), false, true, true);
@@ -365,6 +360,11 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             final MenuItem item = menu.findItem(sdcardResIds[i]);
             item.setTitle(item.getTitle().toString().replaceFirst("[)]\\s*$", " " + sdcardFolders.get(i).second) + ")");
             item.setVisible(true);
+        }
+
+        final Activity activity = getActivity();
+        if (_toolbar != null && activity != null) {
+            _toolbar.setSubtitleTextColor(ContextCompat.getColor(activity, R.color.dark__secondary_text));
         }
 
         _fragmentMenu = menu;

@@ -17,6 +17,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,6 +25,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -146,6 +148,15 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     }
 
     @Override
+    public Integer getNewNavigationBarColor() {
+        final TypedValue typedValue = new TypedValue();
+        if (getTheme().resolveAttribute(R.attr.colorPrimary, typedValue, true)) {
+            return typedValue.data;
+        }
+        return ContextCompat.getColor(this, R.color.primary);
+    }
+
+    @Override
     public void onSaveInstanceState(@NonNull final Bundle outState) {
         super.onSaveInstanceState(outState);
 
@@ -265,7 +276,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         getMenuInflater().inflate(R.menu.main__menu, menu);
         menu.findItem(R.id.action_settings).setVisible(_appSettings.isShowSettingsOptionInMainToolbar());
 
-        _cu.tintMenuItems(menu, true, Color.WHITE);
+        _cu.tintMenuItemsByShowAsAction(menu, Color.WHITE, ContextCompat.getColor(this, R.color.primary_text));
         _cu.setSubMenuIconsVisibility(menu, true);
         return true;
     }
