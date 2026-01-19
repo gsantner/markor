@@ -55,6 +55,7 @@ import net.gsantner.opoc.util.GsFileUtils;
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -257,6 +258,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             selWritable &= f.canWrite();
             selDirectoriesOnly &= f.isDirectory();
             allSelectedFav &= favFiles.contains(f);
+            selWritable &= !Arrays.asList(_appSettings.getQuickNoteFile(), _appSettings.getTodoFile(), _appSettings.getNotebookDirectory()).contains(f);
         }
 
         if (_fragmentMenu != null && _fragmentMenu.findItem(R.id.action_delete_selected_items) != null) {
