@@ -21,8 +21,8 @@
     <color name="popup_menu_background">@color/dialog_background</color>
     <color name="dialog_background">@color/light__background</color>
     <!-- UI chrome/text tint (kept fixed, not tied to editor presets) -->
-    <color name="action_bar_content">@color/primary_text</color>
-    <color name="bar_content">@color/light__primary_text</color>
+    <color name="action_bar_content">@color/icons</color>
+    <color name="bar_content">@color/icons</color>
     <color name="textActionBarColor">@color/background</color>
     <color name="textActionIconColor">@color/bar_content</color>
 
@@ -34,14 +34,14 @@
     <color name="primary_dark">#161828</color>
     <color name="primary_light">#CED9DD</color>
     <color name="accent">#F04B4B</color>
-    <color name="icons">#FFFFFF</color>
+    <color name="icons">@color/light__background</color>
     <color name="divider">#B6B6B6</color>
 
     <color name="accent_light">#FF9800</color>
     <color name="divider_2">#3D3D3D</color>
     <color name="default_link_color">#388E3C</color>
 
-    <color name="light__background">#FAFAFA</color>
+    <color name="light__background">#EEEEEE</color>
     <!-- background_2 removed; using background instead -->
     <color name="light__primary_text">#DE000000</color>
     <color name="light__secondary_text">#99000000</color>

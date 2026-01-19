@@ -13,8 +13,8 @@
     <color name="bar_background">@color/background</color>
     <!-- UI chrome/text tint (kept fixed, not tied to editor presets) -->
     <color name="action_bar_background">@color/primary</color>
-    <color name="action_bar_content">@color/primary_text</color>
-    <color name="bar_content">@color/dark__primary_text</color>
+    <color name="action_bar_content">@color/icons</color>
+    <color name="bar_content">@color/icons</color>
     <color name="popup_menu_background">@color/dialog_background</color>
     <color name="dialog_background">@color/dark__background</color>
     <color name="textActionBarColor">@color/background</color>
