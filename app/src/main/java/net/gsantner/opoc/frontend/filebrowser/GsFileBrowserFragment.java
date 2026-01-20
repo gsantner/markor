@@ -351,7 +351,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.filesystem__menu, menu);
-        _cu.tintMenuItemsByShowAsAction(menu, Color.WHITE, ContextCompat.getColor(requireContext(), R.color.primary_text));
+        _cu.tintMenuItems(menu, true, Color.WHITE);
         _cu.setSubMenuIconsVisibility(menu, true);
 
         List<Pair<File, String>> sdcardFolders = _cu.getAppDataPublicDirs(getContext(), false, true, true);
@@ -360,11 +360,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             final MenuItem item = menu.findItem(sdcardResIds[i]);
             item.setTitle(item.getTitle().toString().replaceFirst("[)]\\s*$", " " + sdcardFolders.get(i).second) + ")");
             item.setVisible(true);
-        }
-
-        final Activity activity = getActivity();
-        if (_toolbar != null && activity != null) {
-            _toolbar.setSubtitleTextColor(ContextCompat.getColor(activity, R.color.dark__secondary_text));
         }
 
         _fragmentMenu = menu;

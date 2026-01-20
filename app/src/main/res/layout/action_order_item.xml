@@ -14,7 +14,7 @@
         android:layout_centerVertical="true"
         android:contentDescription="@string/name"
         android:src="@drawable/ic_format_indent_increase_black_24dp"
-        app:tint="@color/textActionIconColor"
+        app:tint="@color/primary_text"
         android:layout_alignParentLeft="true" />
 
     <TextView
@@ -41,7 +41,7 @@
         android:maxHeight="24dp"
         android:visibility="invisible"
         android:src="@drawable/ic_visibility_black_24dp"
-        app:tint="@color/textActionIconColor" />
+        app:tint="@color/primary_text" />
 
     <ImageView
         android:id="@+id/is_edit_mode_action"
@@ -55,7 +55,7 @@
         android:maxHeight="24dp"
         android:visibility="invisible"
         android:src="@drawable/ic_edit_black_24dp"
-        app:tint="@color/textActionIconColor" />
+        app:tint="@color/primary_text" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/enabled_switch"
@@ -77,5 +77,5 @@
         android:contentDescription="@string/drag"
         android:maxHeight="24dp"
         android:src="@drawable/ic_drag_handle_black_24dp"
-        app:tint="@color/textActionIconColor" />
+        app:tint="@color/primary_text" />
 </RelativeLayout>

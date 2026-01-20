@@ -38,13 +38,13 @@
             <net.gsantner.markor.frontend.textview.HighlightingEditor
                 android:id="@+id/document__fragment__edit__highlighting_editor"
                 android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:alpha="0"
-            android:background="?android:colorBackground"
-            android:gravity="top"
-            android:imeOptions="flagNoExtractUi"
-            android:inputType="textMultiLine|textCapSentences"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:alpha="0"
+                android:background="@color/background"
+                android:gravity="top"
+                android:imeOptions="flagNoExtractUi"
+                android:inputType="textMultiLine|textCapSentences"
                 android:isScrollContainer="false"
                 android:minHeight="1dp"
                 android:nestedScrollingEnabled="false"
@@ -64,7 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/textactions_bar_height"
         android:layout_gravity="bottom"
-        android:background="?android:colorBackground"
+        android:background="@color/background"
         android:paddingTop="4dp"
         android:scrollbars="none">
 
@@ -72,7 +72,7 @@
             android:id="@+id/document__fragment__edit__text_actions_bar"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="?android:colorBackground"
+            android:background="@color/background"
             android:orientation="horizontal" />
     </net.gsantner.opoc.frontend.GsHorizontalScrollView>
 

@@ -120,7 +120,6 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.core.os.ConfigurationCompat;
 import androidx.core.text.TextUtilsCompat;
-import androidx.core.view.MenuItemCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
@@ -892,29 +891,6 @@ public class GsContextUtils {
                 if (item.hasSubMenu() && recurse) {
                     //noinspection ConstantConditions
                     tintMenuItems(item.getSubMenu(), recurse, iconColor);
-                }
-            } catch (Exception ignored) {
-                // This should not happen at all, but may in bad menu.xml configuration
-            }
-        }
-    }
-
-    /**
-     * Tint action items and overflow items separately.
-     */
-    public void tintMenuItemsByShowAsAction(final @Nullable Menu menu, @ColorInt final int actionColor, @ColorInt final int overflowColor) {
-        if (menu == null) {
-            return;
-        }
-
-        for (int i = 0; i < menu.size(); i++) {
-            final MenuItem item = menu.getItem(i);
-            try {
-                final int showAsAction = MenuItemCompat.getShowAsAction(item);
-                final boolean isActionItem = (showAsAction & (MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_IF_ROOM)) != 0;
-                tintDrawable(item.getIcon(), isActionItem ? actionColor : overflowColor);
-                if (item.hasSubMenu()) {
-                    tintMenuItemsByShowAsAction(item.getSubMenu(), actionColor, overflowColor);
                 }
             } catch (Exception ignored) {
                 // This should not happen at all, but may in bad menu.xml configuration
