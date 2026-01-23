@@ -71,6 +71,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="name">이름/제목</string>
     <string name="url_or_path">URL / 경로</string>
     <string name="insert_link">링크 삽입</string>
+    <string name="format_link">링크 형식</string>
     <string name="insert_image">이미지 삽입</string>
     <string name="contributors">기여자</string>
     <string name="save_location">위치 저장</string>
@@ -446,6 +447,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="advanced_filtering">고급 필터</string>
     <string name="match_any">부분 일치</string>
     <string name="match_all">모두 일치</string>
+    <string name="dynamic_notebook_root_links">노트북 루트를 동적 탐색</string>
+    <string name="search_dynamically_for_notebook_root">위키 링크를 따라가려면 notebook.zim 파일을 동적 탐색하여 현재 노트북의 루트 경로를 확인해야 합니다. 여러 개의 zim 노트북을 사용하고 있거나 현재 설정된 노트북 경로가 실제 zim 노트북과 맞지 않는 경우 이 설정을 켜세요.</string>
+    <string name="share_into_format_prefix_for_text_shared">공유 기능을 통해 Markor로 가져온 텍스트의 형식/접두어를 지정합니다. Android의 SimpleDateFormat 규칙을 따릅니다.\n\n{{text}} 자리 표시자를 이용하여 공유받은 텍스트의 위치를 지정합니다. 자리 표시자로 지정하지 않으면 공유받은 텍스트가 뒤에 붙으며 형식이 접두어로 쓰입니다.</string>
+    <string name="share_into_format">공유받은 텍스트의 형식</string>
     <string name="attachment_folder_name">첨부 폴더 이름</string>
     <string name="attachment_folder_name_desc">첨부 파일을 저장할 하위 폴더 이름입니다. 비워두면 현재 폴더에 저장합니다.</string>
     <string name="auto_format">자동 포매팅</string>
@@ -462,4 +467,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="capitalize_words">단어 단위 대문자화 (a note→A Note)</string>
     <string name="capitalize_sentences">문장 단위 대문자화 (a note→A note)</string>
     <string name="use_tab_to_indent">TAB 키로 들여쓰기</string>
+    <string name="folder_local">로컬 폴더</string>
 </resources>
