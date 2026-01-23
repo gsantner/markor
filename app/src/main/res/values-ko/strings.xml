@@ -38,6 +38,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">&#8230; 에 공유</string>
     <string name="share">공유</string>
     <string name="search">검색</string>
+    <string name="previous_match">이전 찾기</string>
+    <string name="next_match">다음 찾기</string>
     <string name="display_converted_markup">변환된 마크업 표시</string>
     <string name="editor">편집기</string>
     <string name="folders">폴더</string>
@@ -59,6 +61,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="last_modified">마지막 변경</string>
     <string name="select_this_folder">이 폴더 선택</string>
     <string name="select">선택</string>
+    <string name="select_all">모두 선택</string>
     <string name="create">만들기</string>
     <string name="select_entries">항목 선택</string>
     <string name="one_item_selected">1개 항목 선택됨</string>
@@ -67,6 +70,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">상태 표시줄 숨기기</string>
     <string name="name">이름/제목</string>
     <string name="url_or_path">URL / 경로</string>
+    <string name="insert_link">링크 삽입</string>
     <string name="insert_image">이미지 삽입</string>
     <string name="contributors">기여자</string>
     <string name="save_location">위치 저장</string>
@@ -118,9 +122,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="files_and_folders">파일과 폴더</string>
     <string name="document_browser">문서 탐색기</string>
     <string name="file_browser">파일 탐색기</string>
+    <string name="set_due_date">마감일 설정</string>
+    <string name="insert_replace_date">날짜 삽입</string>
     <string name="create_note" needed="false">노트 만들기</string>
     <string name="special_documents" needed="false">특수 문서</string>
     <string name="keep_screen_on" needed="false">화면 켜짐 유지</string>
+    <string name="disallow_screenshots">스크린샷 차단</string>
     <string name="back_to_previous_folder" needed="false">이전 폴더로 가기</string>
     <string name="app_settings" needed="false">앱 설정</string>
     <string name="editor_settings" needed="false">편집기 설정</string>
@@ -345,4 +352,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="expand_collapse">확장 / 축소</string>
     <string name="essential">필수</string>
     <string name="append_human_readable_uuid_to_new_tasks">인간이 인식할 수 있는 UUID를 새 할 일에 추가</string>
+    <string name="text_case">대소문자</string>
+    <string name="toggle_case">대소문자 형식 전환 (Case→CASE→case)</string>
+    <string name="switch_case">대소문자 맞바꿈 (CaSe→cAsE)</string>
+    <string name="capitalize_words">단어 단위 대문자화 (a note→A Note)</string>
+    <string name="capitalize_sentences">문장 단위 대문자화 (a note→A note)</string>
+    <string name="use_tab_to_indent">TAB 키로 들여쓰기</string>
 </resources>
