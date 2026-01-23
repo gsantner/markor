@@ -74,6 +74,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">이미지 삽입</string>
     <string name="contributors">기여자</string>
     <string name="save_location">위치 저장</string>
+    <string name="saved_location_to">%s에 저장 완료</string>
     <string name="select_storage_folder">저장 폴더 선택</string>
     <string name="licenses">라이선스</string>
     <string name="changelog">변경사항</string>
@@ -82,6 +83,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">제3자 저작권 표시</string>
     <string name="language_change_restart_description">언어 변경하기. 재시작이 필요합니다.</string>
     <string name="language">언어</string>
+    <string name="storage_permission_required">파일을 읽고 쓰려면 저장공간 권한이 필요합니다</string>
     <string name="open_with">다음으로 열기:</string>
     <string name="sort_by">다음으로 정렬:</string>
     <string name="date">날짜</string>
@@ -164,6 +166,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending_if_two_or_more_spaces">줄의 맨 마지막에 2개 이상의 빈 칸이 있을 때 이를 강조 표시</string>
     <string name="use_monospace_for_code">코드에 모노스페이스 글꼴 사용</string>
     <string name="disable_code_block_highlight">코드 블록 강조 표시 해제</string>
+    <string name="auto_renumber_ordered_list">목록을 정렬할 때 자동으로 번호 다시 매기기</string>
+    <string name="auto_renumber_ordered_list_slowdown">이 설정은 앱 성능에 영향을 줄 수 있습니다.</string>
     <string name="use_different_fonttype_slow_down">다른 글꼴 타입을 활용합니다. 해당 기능 작동 시 앱 성능은 동적으로 영향을 받습니다.</string>
     <string name="general">기본 설정</string>
     <string name="resources">자원</string>
@@ -251,6 +255,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">설명</string>
     <string name="edit_picture">이미지 편집</string>
     <string name="math">수식</string>
+    <string name="enter_yaml_front_matter_attributes_to_show">입력한 YAML 프론트매터 속성을 현재 문서 상단에 표시합니다. 키는 쉼표로 구분합니다. 속성이 없다면 비워두고, 모두 표시하려면 \'*\'를 사용합니다. \n\n문서에 속성(예: title: \'Hello\')이 정의되어 있으면 문서의 {{ post.title }} 문구가 해당하는 속성으로 대체됩니다. 이렇게 사용자 지정 프론트매터 제목을 만들 수 있습니다.</string>
     <string name="table_of_contents">목차</string>
     <string name="miscellaneous">기타</string>
     <string name="prefer_view">편집 대신 읽기 모드 우선</string>
@@ -317,6 +322,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wrap_words">자동 줄바꿈</string>
     <string name="line_numbers">줄 번호</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">텍스트가 화면 너비를 초과할 경우 자동으로 줄을 바꿉니다. 이 기능을 사용하지 않을 경우 가로 스크롤바를 표시합니다.</string>
+    <string name="recursive_search_in_location">%s에서 재귀 검색</string>
     <string name="always_open_with_this_app">항상 이 앱으로 열기</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">목록이 파일 확장자를 포함할 경우 항상 이 앱으로 파일을 열게 됩니다. 웹 파일 또는 확장자가 없는 파일을 편집하고자 할 때는 \'None, .html, .css, .js\'와 같은 예시를 사용하세요.</string>
     <string name="open_file_with">다음으로 파일 열기</string>
@@ -379,15 +385,19 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="toggle_action_visibility">동작을 표시하거나 숨기기</string>
     <string name="load_default_settings">기본 설정 불러오기</string>
     <string name="drag">드래그</string>
+    <string name="created">생성일</string>
     <string name="file_encryption_password">파일 암호화 비밀번호</string>
     <string name="no_password_set_cannot_encrypt_decrypt">비밀번호가 설정되지 않아 암호화와 복호화를 진행할 수 없습니다.\n설정 -&gt; 일반 -&gt; 비밀번호에서 비밀번호를 설정하세요.</string>
     <string name="encrypt_file_content">파일 콘텐츠 암호화</string>
     <string name="utf8_with_bom">UTF-8 with BOM</string>
+    <string name="could_not_encrypt_file_content_the_file_was_not_saved">파일 콘텐츠를 암호화할 수 없습니다. 파일이 저장되지 않았습니다.</string>
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">파일 콘텐츠를 복호화할 수 없습니다. 비밀번호를 잘못 입력했는지, 파일을 정말 Markors AES 암호화로 암호화한 것인지 확인해주세요.</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">비밀번호가 이미 설정되어 있습니다. 새 비밀번호를 설정하면 기존 비밀번호를 덮어쓰게 되며, 비밀번호를 잊어버리면 더 이상 파일에 접근하지 못하게 될 수 있습니다.</string>
     <string name="code_block">코드 블록</string>
     <string name="add_completion_date">완료일 추가</string>
     <string name="add_completion_date_for_todos_when_marking_them_as_done">할 일을 완료로 표시할 때 완료한 날짜를 추가</string>
+    <string name="file_description_format">파일 세부정보 형식</string>
+    <string name="file_description_format_dialog">파일 탐색기 내 파일의 세부정보 형식을 지정합니다. Android의 SimpleDateFormat 규칙을 따르되 FS 키워드로 파일 크기를 표시할 수 있습니다. 비워두면 로캘의 기본 형식을 사용합니다.\n\n예시 입력:\nFS yyyy MMM dd hh:mm:ss aa\n출력 형식:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">기본값 불러오는 중</string>
     <string name="file_settings">파일 설정</string>
     <string name="search_and_replace">찾기 / 바꾸기</string>
@@ -395,6 +405,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_with">바꿀 문자열</string>
     <string name="replace_once">바꾸기 (1)</string>
     <string name="replace_all">모두 바꾸기</string>
+    <string name="matches">일치</string>
     <string name="search_replace_pattern_error_message">찾기 또는 바꾸기 패턴에 오류가 있습니다.</string>
     <string name="backup_settings">설정 백업</string>
     <string name="restore_settings">설정 복원</string>
@@ -406,6 +417,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_in_content">내용 검색</string>
     <string name="max_search_depth">탐색 깊이</string>
     <string name="ignore_list">제외 목록</string>
+    <string name="do_not_search_specified_files_and_folders">Do not search specified files and folders.\n줄바꿈으로 구분합니다.\n정확한 경로 이름은 큰따옴표로 감쌉니다: \"Test\".\n혹은 정규표현식을 이용합니다 \'^[.].*\'\n예시: ^\\..*\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
     <string name="regex_search">정규식 검색</string>
     <string name="case_sensitive">대소문자 구분</string>
     <string name="stop_search_after_first_match">첫 일치 이후에는 검색 중단</string>
@@ -436,6 +448,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="match_all">모두 일치</string>
     <string name="attachment_folder_name">첨부 폴더 이름</string>
     <string name="attachment_folder_name_desc">첨부 파일을 저장할 하위 폴더 이름입니다. 비워두면 현재 폴더에 저장합니다.</string>
+    <string name="auto_format">자동 포매팅</string>
     <string name="insert_snippet">스니펫 삽입</string>
     <string name="snippet_directory">스니펫 / 템플릿 경로</string>
     <string name="error_could_not_open_file">오류: 파일을 열 수 없습니다.</string>
