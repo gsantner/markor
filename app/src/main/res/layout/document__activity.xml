@@ -28,8 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            android:theme="@style/LightTextToolbarOverlay"
-            app:popupTheme="@style/ToolbarPopupTheme">
+            android:theme="@style/LightTextToolbarOverlay">
 
         </androidx.appcompat.widget.Toolbar>
 

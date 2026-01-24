@@ -30,10 +30,6 @@
         <item name="colorPrimary">@color/primary</item>
         <item name="colorAccent">@color/accent</item>
         <item name="android:windowBackground">@color/background</item>
-        <item name="actionBarPopupTheme">@style/ToolbarPopupTheme</item>
-        <item name="android:actionBarPopupTheme">@style/ToolbarPopupTheme</item>
-        <item name="popupMenuStyle">@style/PopupMenuStyle</item>
-        <item name="android:popupMenuStyle">@style/PopupMenuStyle</item>
         <item name="dialogCornerRadius">@dimen/dialog_corner_radius</item>
 
         <!-- Android V21 options; ignore IDE warnings -->
@@ -49,7 +45,7 @@
         <item name="android:dialogCornerRadius" tools:targetApi="p">@dimen/dialog_corner_radius</item>
 
         <!-- android-35 Disable window size overlap -->
-        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement" tools:targetApi="35">true</item>
     </style>
 
     <style name="AppTheme.PreferenceTheme" parent="PreferenceThemeOverlay.v14.Material">
@@ -61,35 +57,16 @@
     </style>
 
     <style name="LightTextToolbarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-        <item name="android:actionModeBackground">@color/dark__background</item>
-        <item name="actionModeBackground">@color/dark__background</item>
+        <item name="android:actionModeBackground">@color/primary</item>
+        <item name="actionModeBackground">@color/primary</item>
 
         <item name="android:textColorPrimary">@color/dark__primary_text</item>
+        <item name="android:actionMenuTextColor">@color/dark__primary_text</item>
         <item name="actionMenuTextColor">@color/dark__primary_text</item>
         <item name="android:textColorSecondary">@color/dark__secondary_text</item>
-        <item name="colorControlNormal">@color/dark__primary_text</item>
-        <item name="colorControlHighlight">@color/dark__primary_text</item>
     </style>
 
     <style name="AppTheme.Light.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="ToolbarPopupTheme" parent="ThemeOverlay.AppCompat.DayNight">
-        <item name="popupMenuStyle">@style/PopupMenuStyle</item>
-        <item name="android:popupMenuStyle">@style/PopupMenuStyle</item>
-        <item name="android:popupBackground">@color/dark__background</item>
-        <item name="android:colorBackground">@color/dark__background</item>
-        <item name="android:colorBackgroundFloating">@color/dark__background</item>
-        <item name="android:textColorPrimary">@color/dark__primary_text</item>
-        <item name="android:textColorSecondary">@color/dark__secondary_text</item>
-        <item name="colorControlNormal">@color/dark__primary_text</item>
-    </style>
-
-    <style name="PopupMenuStyle" parent="Widget.AppCompat.PopupMenu">
-        <item name="android:popupBackground">@color/dark__background</item>
-        <item name="android:textColorPrimary">@color/dark__primary_text</item>
-        <item name="android:textColorSecondary">@color/dark__secondary_text</item>
-        <item name="colorControlNormal">@color/dark__primary_text</item>
-    </style>
 
     <!-- reduced spacing -->
     <style name="LessSpaceActionButtonStyle" parent="Widget.AppCompat.ActionButton">

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <style name="PopupMenuStyle" parent="Widget.AppCompat.PopupMenu">
-        <item name="android:popupBackground">@color/dark__background</item>
-        <item name="android:textColorPrimary">@color/dark__primary_text</item>
-        <item name="android:textColorSecondary">@color/dark__secondary_text</item>
-        <item name="android:colorControlNormal">@color/dark__primary_text</item>
-    </style>
-</resources>

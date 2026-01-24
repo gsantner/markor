@@ -25,7 +25,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.view.ContextThemeWrapper;
 
 import net.gsantner.markor.R;
 import net.gsantner.opoc.format.GsTextUtils;
@@ -121,7 +120,7 @@ public class SearchAndReplaceTextDialog {
 
         recentReplaces = loadRecentReplaces();
 
-        final ListPopupWindow popupWindow = new ListPopupWindow(new ContextThemeWrapper(activity, R.style.ToolbarPopupTheme));
+        final ListPopupWindow popupWindow = new ListPopupWindow(activity);
 
         // Popup window for ComboBox
         popupWindow.setAdapter(new ArrayAdapter<ReplaceGroup>(activity, android.R.layout.simple_list_item_1, recentReplaces) {
