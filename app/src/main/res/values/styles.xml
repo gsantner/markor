@@ -76,9 +76,12 @@
     <style name="ToolbarPopupTheme" parent="ThemeOverlay.AppCompat.DayNight">
         <item name="popupMenuStyle">@style/PopupMenuStyle</item>
         <item name="android:popupMenuStyle">@style/PopupMenuStyle</item>
-        <item name="android:textColorPrimary">@color/primary_text</item>
-        <item name="android:textColorSecondary">@color/secondary_text</item>
-        <item name="colorControlNormal">@color/primary_text</item>
+        <item name="android:popupBackground">@color/dark__background</item>
+        <item name="android:colorBackground">@color/dark__background</item>
+        <item name="android:colorBackgroundFloating">@color/dark__background</item>
+        <item name="android:textColorPrimary">@color/dark__primary_text</item>
+        <item name="android:textColorSecondary">@color/dark__secondary_text</item>
+        <item name="colorControlNormal">@color/dark__primary_text</item>
     </style>
 
     <style name="PopupMenuStyle" parent="Widget.AppCompat.PopupMenu">

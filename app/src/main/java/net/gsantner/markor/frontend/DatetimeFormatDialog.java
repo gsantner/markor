@@ -25,6 +25,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.core.os.ConfigurationCompat;
 
 import net.gsantner.markor.R;
@@ -95,7 +96,7 @@ public class DatetimeFormatDialog {
         cal.set(Calendar.SECOND, 0);
 
         final AtomicReference<GsCallback.a1<String>> callbackInsertTextToEditor = new AtomicReference<>();
-        final ListPopupWindow popupWindow = new ListPopupWindow(activity);
+        final ListPopupWindow popupWindow = new ListPopupWindow(new ContextThemeWrapper(activity, R.style.ToolbarPopupTheme));
         final TextView dateHeadline = viewRoot.findViewById(R.id.date_headline);
         final EditText formatEditText = viewRoot.findViewById(R.id.datetime_format_input);
         final TextView previewTextView = viewRoot.findViewById(R.id.formatted_example);
