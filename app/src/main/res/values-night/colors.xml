@@ -8,7 +8,6 @@
     <color name="file">@color/dark__file</color>
     <color name="folder">@color/dark__folder</color>
     <color name="background">@color/dark__background</color>
-    <color name="dialog_background">@color/dark__background</color>
 
     <!-- All values specified only in base colors.xml  -->
 

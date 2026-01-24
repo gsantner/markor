@@ -24,9 +24,9 @@
         <item name="preferenceTheme">@style/AppTheme.PreferenceTheme</item>
         <item name="dialogTheme">@style/Theme.AppCompat.DayNight.Dialog.Rounded</item>
         <item name="alertDialogTheme">@style/Theme.AppCompat.DayNight.Dialog.Rounded</item>
-        <item name="colorPrimaryDark">@color/primary_dark</item>
-        <item name="android:actionModeBackground">@color/primary_dark</item>
-        <item name="actionModeBackground">@color/primary_dark</item>
+        <item name="colorPrimaryDark">@color/dark__background</item>
+        <item name="android:actionModeBackground">@color/dark__background</item>
+        <item name="actionModeBackground">@color/dark__background</item>
         <item name="colorPrimary">@color/primary</item>
         <item name="colorAccent">@color/accent</item>
         <item name="android:windowBackground">@color/background</item>
@@ -61,8 +61,8 @@
     </style>
 
     <style name="LightTextToolbarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-        <item name="android:actionModeBackground">@color/primary_dark</item>
-        <item name="actionModeBackground">@color/primary_dark</item>
+        <item name="android:actionModeBackground">@color/dark__background</item>
+        <item name="actionModeBackground">@color/dark__background</item>
 
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="actionMenuTextColor">@android:color/white</item>

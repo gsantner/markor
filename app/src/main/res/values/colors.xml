@@ -16,17 +16,12 @@
     <color name="file">@color/light__file</color>
     <color name="folder">@color/light__folder</color>
     <color name="background">@color/light__background</color>
-    <color name="dialog_background">@color/light__background</color>
-    <!-- UI chrome/text tint (kept fixed, not tied to editor presets) -->
-    <color name="action_bar_content">@color/dark__primary_text</color>
 
     <!-- Named colors differing common to day and night -->
     <color name="colorAccent">@color/accent</color>
 
     <!-- Color values -->
     <color name="primary">#1E2135</color>
-    <color name="primary_dark">#161828</color>
-    <color name="primary_light">#CED9DD</color>
     <color name="accent">#F04B4B</color>
     <color name="divider">#B6B6B6</color>
 
@@ -40,7 +35,7 @@
     <color name="light__file">#757575</color>
     <color name="light__folder">#757575</color>
 
-    <color name="dark__background">#1E1E1E</color>
+    <color name="dark__background">@color/dark_grey</color>
     <color name="dark__primary_text">#DDFFFFFF</color>
     <color name="dark__secondary_text">#9E9E9E</color>
     <color name="dark__file">#9E9E9E</color>
