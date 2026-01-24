@@ -64,11 +64,11 @@
         <item name="android:actionModeBackground">@color/dark__background</item>
         <item name="actionModeBackground">@color/dark__background</item>
 
-        <item name="android:textColorPrimary">@android:color/white</item>
-        <item name="actionMenuTextColor">@android:color/white</item>
-        <item name="android:textColorSecondary">@android:color/white</item>
-        <item name="colorControlNormal">@android:color/white</item>
-        <item name="colorControlHighlight">@android:color/white</item>
+        <item name="android:textColorPrimary">@color/dark__primary_text</item>
+        <item name="actionMenuTextColor">@color/dark__primary_text</item>
+        <item name="android:textColorSecondary">@color/dark__secondary_text</item>
+        <item name="colorControlNormal">@color/dark__primary_text</item>
+        <item name="colorControlHighlight">@color/dark__primary_text</item>
     </style>
 
     <style name="AppTheme.Light.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -82,10 +82,10 @@
     </style>
 
     <style name="PopupMenuStyle" parent="Widget.AppCompat.PopupMenu">
-        <item name="android:popupBackground">@color/background</item>
-        <item name="android:textColorPrimary">@color/primary_text</item>
-        <item name="android:textColorSecondary">@color/secondary_text</item>
-        <item name="colorControlNormal">@color/primary_text</item>
+        <item name="android:popupBackground">@color/dark__background</item>
+        <item name="android:textColorPrimary">@color/dark__primary_text</item>
+        <item name="android:textColorSecondary">@color/dark__secondary_text</item>
+        <item name="colorControlNormal">@color/dark__primary_text</item>
     </style>
 
     <!-- reduced spacing -->
