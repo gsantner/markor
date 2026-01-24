@@ -12,7 +12,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -26,6 +25,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
@@ -138,8 +138,9 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             checkBox = new CheckBox(activity);
             checkBox.setText(R.string.format_link);
             checkBox.setTag(CHECKBOX_TAG);
-            CompoundButtonCompat.setButtonTintList(checkBox, ColorStateList.valueOf(Color.WHITE));
-            checkBox.setTextColor(Color.WHITE);
+            final @ColorInt int color = _cu.rcolor(activity, R.color.dark__primary_text);
+            CompoundButtonCompat.setButtonTintList(checkBox, ColorStateList.valueOf(color));
+            checkBox.setTextColor(color);
             checkBox.setLayoutDirection(CheckBox.LAYOUT_DIRECTION_RTL);
 
             final Toolbar.LayoutParams layoutParams = new Toolbar.LayoutParams(
