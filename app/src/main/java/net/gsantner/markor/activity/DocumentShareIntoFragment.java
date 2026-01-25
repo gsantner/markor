@@ -23,6 +23,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.ColorInt;
@@ -33,6 +34,7 @@ import androidx.core.widget.CompoundButtonCompat;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceGroup;
+import androidx.recyclerview.widget.RecyclerView;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.FormatRegistry;
@@ -246,6 +248,24 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             final Preference mrd = findPreference(R.string.pref_key__share_into__most_recent_document);
             mrd.setVisible(mostRecentFile != null);
             mrd.setTitle(mostRecentFile != null ? mostRecentFile.getName() : "");
+
+            shadeOptions();
+        }
+
+        private void shadeOptions() {
+            final RecyclerView list = getListView();
+            final Context context = getContext();
+            if (_editor == null || list == null || context == null) {
+                return ;
+            }
+
+            final @ColorInt int color = _cu.rcolor(getContext(), R.color.background);
+            for (int i = 0; i < list.getChildCount(); i++) {
+                final View view = list.getChildAt(i);
+                if (view != null) {
+                    view.setBackgroundColor(color);
+                }
+            }
         }
 
         private boolean shareAsLink() {

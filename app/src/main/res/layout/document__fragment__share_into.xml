@@ -47,6 +47,7 @@
         android:id="@+id/document__share_into__fragment__placeholder_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/background"
         android:layout_weight="60" />
 
 </net.gsantner.opoc.frontend.GsLinearSplitLayout>

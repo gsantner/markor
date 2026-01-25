@@ -13,7 +13,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?android:colorBackground"
+    android:background="@color/background"
     android:orientation="vertical"
     android:theme="@style/AppTheme.Unified"
     tools:context="net.gsantner.markor.activity.DocumentActivity">
@@ -27,7 +27,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="@color/primary"
             android:theme="@style/LightTextToolbarOverlay">
 
         </androidx.appcompat.widget.Toolbar>
