@@ -1,8 +1,9 @@
-package net.gsantner.markor.frontend.search;
+package net.gsantner.markor.frontend.textsearch;
 
 import android.text.Editable;
 import android.widget.EditText;
 
+import net.gsantner.markor.frontend.textsearch.Selection;
 import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 

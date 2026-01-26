@@ -1,4 +1,4 @@
-package net.gsantner.markor.frontend.search;
+package net.gsantner.markor.frontend.textsearch;
 
 import android.content.Context;
 import android.graphics.PorterDuff;

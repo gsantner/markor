@@ -1,4 +1,4 @@
-package net.gsantner.markor.frontend.search;
+package net.gsantner.markor.frontend.textsearch;
 
 public class Selection {
     public final int color = 0x500000FF;

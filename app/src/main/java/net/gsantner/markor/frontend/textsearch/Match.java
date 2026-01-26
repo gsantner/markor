@@ -1,4 +1,4 @@
-package net.gsantner.markor.frontend.search;
+package net.gsantner.markor.frontend.textsearch;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
