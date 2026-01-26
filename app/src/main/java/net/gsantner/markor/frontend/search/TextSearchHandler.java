@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class OccurrenceHandler {
+public class TextSearchHandler {
     private final ArrayList<Occurrence> occurrences = new ArrayList<>();
     private int currentIndex;
 

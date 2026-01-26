@@ -24,28 +24,28 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.textview.HighlightingEditor;
 
 public class TextSearchFragment extends Fragment {
     private int containerViewId;
+    private FragmentActivity activity;
     private HighlightingEditor editText;
     private EditText searchEditText;
     private EditText replaceEditText;
     private TextView resultTextView;
-    private final OccurrenceHandler occurrenceHandler = new OccurrenceHandler();
-
-    private FragmentManager fragmentManager;
+    private final TextSearchHandler textSearchHandler = new TextSearchHandler();
 
     public static TextSearchFragment newInstance(@IdRes int containerViewId, FragmentActivity activity, HighlightingEditor editText) {
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
         Fragment fragment = fragmentManager.findFragmentByTag(String.valueOf(containerViewId));
-        if (fragment != null && fragment instanceof TextSearchFragment) {
+        if (fragment instanceof TextSearchFragment) {
             return (TextSearchFragment) fragment;
         }
 
         TextSearchFragment newFragment = new TextSearchFragment();
         newFragment.containerViewId = containerViewId;
-        newFragment.fragmentManager = fragmentManager;
+        newFragment.activity = activity;
         newFragment.editText = editText;
 
         return newFragment;
@@ -60,7 +60,7 @@ public class TextSearchFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return getLayoutInflater().inflate(R.layout.search_fragment, container, false);
+        return getLayoutInflater().inflate(R.layout.text_search_fragment, container, false);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class TextSearchFragment extends Fragment {
         replaceEditText = fragmentView.findViewById(R.id.replaceEditText);
         resultTextView = fragmentView.findViewById(R.id.resultTextView);
 
-        occurrenceHandler.setResultChangedListener((current, count) -> {
+        textSearchHandler.setResultChangedListener((current, count) -> {
             if (count > 0) {
                 resultTextView.setText(current + "/" + count);
             } else {
@@ -83,13 +83,13 @@ public class TextSearchFragment extends Fragment {
 
         editText.setOnFocusChangeListener((view, hasFocus) -> {
             if (hasFocus) {
-                occurrenceHandler.handleSelection(editText, searchEditText);
+                textSearchHandler.handleSelection(editText, searchEditText);
             }
         });
 
         searchEditText.setOnTouchListener((view, motionEvent) -> {
             if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                occurrenceHandler.handleSelection(editText, searchEditText);
+                textSearchHandler.handleSelection(editText, searchEditText);
             }
             return false;
         });
@@ -118,72 +118,73 @@ public class TextSearchFragment extends Fragment {
             }
         });
 
-        occurrenceHandler.setFindInSelection(false);
+        textSearchHandler.setFindInSelection(false);
         fragmentView.findViewById(R.id.findInSelectionImageButton).setOnClickListener(new View.OnClickListener() {
             private boolean checked = false;
 
             @Override
             public void onClick(View view) {
                 checked = toggleViewCheckedState(view, checked);
-                occurrenceHandler.setFindInSelection(checked);
-                occurrenceHandler.handleSelection(editText, null);
+                textSearchHandler.setFindInSelection(checked);
+                textSearchHandler.handleSelection(editText, null);
                 find();
             }
         });
 
-        occurrenceHandler.setMatchCase(false);
+        textSearchHandler.setMatchCase(false);
         fragmentView.findViewById(R.id.matchCaseImageButton).setOnClickListener(new View.OnClickListener() {
             private boolean checked = false;
 
             @Override
             public void onClick(View view) {
                 checked = toggleViewCheckedState(view, checked);
-                occurrenceHandler.setMatchCase(checked);
+                textSearchHandler.setMatchCase(checked);
                 find();
             }
         });
 
-        occurrenceHandler.setMatchWholeWord(false);
+        textSearchHandler.setMatchWholeWord(false);
         fragmentView.findViewById(R.id.matchWholeWordImageButton).setOnClickListener(new View.OnClickListener() {
             private boolean checked = false;
 
             @Override
             public void onClick(View view) {
                 checked = toggleViewCheckedState(view, checked);
-                occurrenceHandler.setMatchWholeWord(checked);
+                textSearchHandler.setMatchWholeWord(checked);
                 find();
             }
         });
 
-        occurrenceHandler.setUseRegex(false);
+        textSearchHandler.setUseRegex(false);
         fragmentView.findViewById(R.id.useRegexImageButton).setOnClickListener(new View.OnClickListener() {
             private boolean checked = false;
 
             @Override
             public void onClick(View view) {
                 checked = toggleViewCheckedState(view, checked);
-                occurrenceHandler.setUseRegex(checked);
+                textSearchHandler.setUseRegex(checked);
                 find();
             }
         });
 
-        occurrenceHandler.setPreserveCase(false);
+        textSearchHandler.setPreserveCase(false);
         fragmentView.findViewById(R.id.preserveCaseImageButton).setOnClickListener(new View.OnClickListener() {
             private boolean checked = false;
 
             @Override
             public void onClick(View view) {
                 checked = toggleViewCheckedState(view, checked);
-                occurrenceHandler.setPreserveCase(checked);
+                textSearchHandler.setPreserveCase(checked);
             }
         });
 
         fragmentView.findViewById(R.id.closeImageButton).setOnClickListener(view -> hide());
+        fragmentView.findViewById(R.id.filterImageButton).setOnClickListener(view -> MarkorDialogFactory.showSearchDialog(activity, editText, searchEditText.getText().toString()));
         fragmentView.findViewById(R.id.toggleImageButton).setOnClickListener(view -> toggleFindReplaceLayout(fragmentView));
-        fragmentView.findViewById(R.id.previousImageButton).setOnClickListener(view -> occurrenceHandler.previous(editText));
-        fragmentView.findViewById(R.id.nextImageButton).setOnClickListener(view -> occurrenceHandler.next(editText));
-        fragmentView.findViewById(R.id.replaceImageButton).setOnClickListener(view -> occurrenceHandler.replace(editText, replaceEditText.getText().toString()));
-        fragmentView.findViewById(R.id.replaceAllImageButton).setOnClickListener(view -> occurrenceHandler.replaceAll(editText, replaceEditText.getText().toString()));
+        fragmentView.findViewById(R.id.previousImageButton).setOnClickListener(view -> textSearchHandler.previous(editText));
+        fragmentView.findViewById(R.id.nextImageButton).setOnClickListener(view -> textSearchHandler.next(editText));
+        fragmentView.findViewById(R.id.replaceImageButton).setOnClickListener(view -> textSearchHandler.replace(editText, replaceEditText.getText().toString()));
+        fragmentView.findViewById(R.id.replaceAllImageButton).setOnClickListener(view -> textSearchHandler.replaceAll(editText, replaceEditText.getText().toString()));
     }
 
     public void init(@NonNull View view) {
@@ -224,10 +225,10 @@ public class TextSearchFragment extends Fragment {
         ImageButton imageButton = parent.findViewById(R.id.toggleImageButton);
         if (visible) {
             replaceLinearLayout.setVisibility(View.VISIBLE);
-            imageButton.setImageResource(R.drawable.ic_chevron_down);
+            imageButton.setImageResource(R.drawable.ic_chevron_down_24dp);
         } else {
             replaceLinearLayout.setVisibility(View.GONE);
-            imageButton.setImageResource(R.drawable.ic_chevron_right);
+            imageButton.setImageResource(R.drawable.ic_chevron_right_24dp);
         }
     }
 
@@ -252,15 +253,16 @@ public class TextSearchFragment extends Fragment {
     }
 
     public void find() {
-        occurrenceHandler.find(editText, searchEditText.getText().toString());
-        occurrenceHandler.jumpToNearestOccurrence(editText);
+        textSearchHandler.find(editText, searchEditText.getText().toString());
+        textSearchHandler.jumpToNearestOccurrence(editText);
     }
 
     public void clearMatches() {
-        occurrenceHandler.find(editText, "");
+        textSearchHandler.find(editText, "");
     }
 
     public void show() {
+        FragmentManager fragmentManager = activity.getSupportFragmentManager();
         String tag = String.valueOf(this.containerViewId);
         if (fragmentManager.findFragmentByTag(tag) == null) {
             FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -276,11 +278,11 @@ public class TextSearchFragment extends Fragment {
 
     public void hide() {
         clearMatches();
-        fragmentManager.beginTransaction().hide(this).commit();
+        activity.getSupportFragmentManager().beginTransaction().hide(this).commit();
     }
 
     public void close() {
         clearMatches();
-        fragmentManager.beginTransaction().remove(this).commit();
+        activity.getSupportFragmentManager().beginTransaction().remove(this).commit();
     }
 }

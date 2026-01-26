@@ -743,13 +743,14 @@ public class MarkorDialogFactory {
     }
 
     // Basic search dialog
-    public static void showSearchDialog(final Activity activity, final EditText text) {
+    public static void showSearchDialog(final Activity activity, final EditText text, String searchText) {
         final DialogOptions dopt = baseConf(activity);
         final Editable edit = text.getText();
         dopt.data = Arrays.asList(edit.toString().split("\n", -1)); // Do not ignore empty lines
         dopt.dataFilter = "[^\\s]+"; // Line must have one or more non-whitespace to display
         dopt.titleText = R.string.search_documents;
         dopt.searchHintText = R.string.search;
+        dopt.searchText = searchText;
         dopt.neutralButtonCallback = (dialog) -> {
             dialog.dismiss();
             SearchAndReplaceTextDialog.showSearchReplaceDialog(activity, edit, TextViewUtils.getSelection(text));

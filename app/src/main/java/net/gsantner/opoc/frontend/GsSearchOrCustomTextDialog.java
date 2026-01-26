@@ -146,6 +146,8 @@ public class GsSearchOrCustomTextDialog {
         @StyleRes
         public int dialogStyle = 0;
 
+        public String searchText;
+
         /**
          * Initial state of the dialog. Will be updated when the dialog is dismissed.
          */
@@ -607,6 +609,7 @@ public class GsSearchOrCustomTextDialog {
         searchEditText.setTextColor(dopt.textColor);
         searchEditText.setHintTextColor((dopt.textColor & 0x00FFFFFF) | 0x99000000);
         searchEditText.setHint(dopt.searchHintText);
+        searchEditText.setText(dopt.searchText);
         searchEditText.setInputType(dopt.searchInputType == 0 ? searchEditText.getInputType() : dopt.searchInputType);
         searchEditText.setTag("EDIT"); // So we can easily find the search edit text
 

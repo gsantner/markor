@@ -405,6 +405,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="drag">Drag</string>
     <string name="created">Created</string>
 
+    <string name="line_based_search">Line based search</string>
     <string name="no_results">No results</string>
     <string name="previous">Previous</string>
     <string name="next">Next</string>

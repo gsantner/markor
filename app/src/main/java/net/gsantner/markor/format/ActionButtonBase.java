@@ -115,7 +115,6 @@ public abstract class ActionButtonBase {
 
     // Override to implement custom search action
     public boolean onSearch() {
-        // MarkorDialogFactory.showSearchDialog(_activity, _hlEditor);
         getTextSearchFragment().show();
         return true;
     }
