@@ -317,11 +317,7 @@ public final class TextViewUtils {
         }
     }
 
-    public static void showSelection(final TextView text) {
-        showSelection(text, text.getSelectionStart(), text.getSelectionEnd());
-    }
-
-    public static void showSelection(final TextView text, final int start, final int end) {
+    public static void showSelection(final TextView text, final int start, final int end, int offsetY) {
         // Get view info
         // ------------------------------------------------------------
         final Layout layout = text.getLayout();
@@ -350,8 +346,8 @@ public final class TextViewUtils {
         final int lineHeight = endLineBottom - endLineTop;
 
         final Rect region = new Rect();
-        region.top = Math.max(startLineTop, endLineBottom - viewSize.height() + lineHeight);
-        region.bottom = endLineBottom;
+        region.top = Math.max(startLineTop, endLineBottom - viewSize.height() + lineHeight) + offsetY;
+        region.bottom = endLineBottom + offsetY;
 
         // Region in X - as handling RTL, text alignment, and centred text etc is
         // a huge pain (see TextView.bringPointIntoView), we use a very simple solution.
@@ -363,6 +359,14 @@ public final class TextViewUtils {
         region.right = Math.min(startLeft + halfWidth, text.getWidth());
 
         text.requestRectangleOnScreen(region, true);
+    }
+
+    public static void showSelection(final TextView text, final int start, final int end) {
+        showSelection(text, start, end, 0);
+    }
+
+    public static void showSelection(final TextView text) {
+        showSelection(text, text.getSelectionStart(), text.getSelectionEnd());
     }
 
     public static void setSelectionAndShow(final EditText edit, final int... sel) {
@@ -399,8 +403,9 @@ public final class TextViewUtils {
         Rect visibleRect = new Rect();
         editText.getLocalVisibleRect(visibleRect);
         int line = layout.getLineForOffset(startSelection);
-        if (layout.getLineTop(line) < visibleRect.top || layout.getLineBottom(line) + 30 > visibleRect.bottom) {
-            showSelection(editText, startSelection, startSelection);
+        int lineHeight = editText.getLineHeight();
+        if (layout.getLineTop(line) < visibleRect.top - lineHeight || layout.getLineBottom(line) > visibleRect.bottom - lineHeight) {
+            showSelection(editText, startSelection, startSelection, lineHeight);
         }
     }
 
