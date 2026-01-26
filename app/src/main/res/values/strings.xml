@@ -405,7 +405,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="drag">Drag</string>
     <string name="created">Created</string>
 
-    <string name="search_result">%1$d/%2$d</string>
     <string name="no_results">No results</string>
     <string name="previous">Previous</string>
     <string name="next">Next</string>

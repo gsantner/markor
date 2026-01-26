@@ -38,24 +38,12 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <LinearLayout
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/main__view_pager_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize"
-        android:layout_marginBottom="?attr/actionBarSize"
-        android:orientation="vertical">
-
-        <FrameLayout
-            android:id="@+id/topReplacementLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/main__view_pager_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+        android:layout_marginBottom="?attr/actionBarSize" />
 
     <!--suppress AndroidUnknownAttribute -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -64,7 +52,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
         android:layout_marginBottom="72dp"
         android:contentDescription="@string/create_new_file_or_folder"
         android:src="@drawable/ic_add_white_24dp"

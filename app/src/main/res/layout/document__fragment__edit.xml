@@ -16,48 +16,60 @@
     tools:context="net.gsantner.markor.activity.DocumentEditAndViewFragment"
     tools:showIn="@layout/document__activity">
 
-    <net.gsantner.markor.frontend.DraggableScrollbarScrollView
-        android:id="@+id/document__fragment__edit__content_editor__scrolling_parent"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/textactions_bar_height"
-        android:background="@android:color/transparent"
-        android:fillViewport="true">
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/document__fragment__edit__editor_holder"
+        <!-- For placing TextSearchFragment used to find and replace text -->
+        <FrameLayout
+            android:id="@+id/topPlacetHolder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_gravity="top" />
 
-            <net.gsantner.markor.frontend.textview.LineNumbersView
-                android:id="@+id/document__fragment__edit__line_numbers_view"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
+        <net.gsantner.markor.frontend.DraggableScrollbarScrollView
+            android:id="@+id/document__fragment__edit__content_editor__scrolling_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:fillViewport="true">
 
-            <net.gsantner.markor.frontend.textview.HighlightingEditor
-                android:id="@+id/document__fragment__edit__highlighting_editor"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:id="@+id/document__fragment__edit__editor_holder"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:alpha="0"
-                android:background="@color/background"
-                android:gravity="top"
-                android:imeOptions="flagNoExtractUi"
-                android:inputType="textMultiLine|textCapSentences"
-                android:isScrollContainer="false"
-                android:minHeight="1dp"
-                android:nestedScrollingEnabled="false"
-                android:overScrollMode="never"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingBottom="@dimen/editor_bottom_margin"
-                android:scrollbars="none"
-                android:scrollHorizontally="false"
-                android:textCursorDrawable="@drawable/cursor_accent" />
-        </LinearLayout>
-    </net.gsantner.markor.frontend.DraggableScrollbarScrollView>
+                android:orientation="horizontal">
+
+                <net.gsantner.markor.frontend.textview.LineNumbersView
+                    android:id="@+id/document__fragment__edit__line_numbers_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+
+                <net.gsantner.markor.frontend.textview.HighlightingEditor
+                    android:id="@+id/document__fragment__edit__highlighting_editor"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:alpha="0"
+                    android:background="@color/background"
+                    android:gravity="top"
+                    android:imeOptions="flagNoExtractUi"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:isScrollContainer="false"
+                    android:minHeight="1dp"
+                    android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:paddingBottom="@dimen/editor_bottom_margin"
+                    android:scrollbars="none"
+                    android:scrollHorizontally="false"
+                    android:textCursorDrawable="@drawable/cursor_accent" />
+            </LinearLayout>
+        </net.gsantner.markor.frontend.DraggableScrollbarScrollView>
+    </LinearLayout>
 
     <net.gsantner.opoc.frontend.GsHorizontalScrollView
         android:id="@+id/document__fragment__edit__text_actions_bar__scrolling_parent"

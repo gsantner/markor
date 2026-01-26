@@ -40,7 +40,7 @@ import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.frontend.AttachLinkOrFileDialog;
 import net.gsantner.markor.frontend.DatetimeFormatDialog;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
-import net.gsantner.markor.frontend.search.SearchDialogFragment;
+import net.gsantner.markor.frontend.search.TextSearchFragment;
 import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
@@ -85,7 +85,7 @@ public abstract class ActionButtonBase {
     private static final String ORDER_SUFFIX = "_order";
     private static final String DISABLED_SUFFIX = "_disabled";
 
-    private static final Pattern UNTRIMMED_TEXT = Pattern.compile("(\\s*)(.*?)(\\s*)", Pattern.DOTALL);
+    // private static final Pattern UNTRIMMED_TEXT = Pattern.compile("(\\s*)(.*?)(\\s*)", Pattern.DOTALL);
 
     public ActionButtonBase(@NonNull final Context context, final Document document) {
         _document = document;
@@ -104,12 +104,19 @@ public abstract class ActionButtonBase {
         return runCommonLongPressAction(action);
     }
 
-    private SearchDialogFragment _searchDialogFragment;
+    private TextSearchFragment _textSearchFragment;
+
+    private TextSearchFragment getTextSearchFragment() {
+        if (_textSearchFragment == null) {
+            _textSearchFragment = TextSearchFragment.newInstance(R.id.topPlacetHolder, (FragmentActivity) _activity, _hlEditor);
+        }
+        return _textSearchFragment;
+    }
 
     // Override to implement custom search action
     public boolean onSearch() {
         // MarkorDialogFactory.showSearchDialog(_activity, _hlEditor);
-        _searchDialogFragment.show();
+        getTextSearchFragment().show();
         return true;
     }
 
@@ -587,7 +594,6 @@ public abstract class ActionButtonBase {
         _hlEditor = hlEditor;
         _webView = webview;
         _cu = new MarkorContextUtils(_activity);
-        _searchDialogFragment = SearchDialogFragment.newInstance(R.id.topReplacementLayout, (FragmentActivity) _activity, _hlEditor);
         return this;
     }
 

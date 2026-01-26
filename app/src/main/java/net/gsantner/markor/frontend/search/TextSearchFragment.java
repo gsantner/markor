@@ -26,30 +26,35 @@ import androidx.fragment.app.FragmentTransaction;
 import net.gsantner.markor.R;
 import net.gsantner.markor.frontend.textview.HighlightingEditor;
 
-public class SearchDialogFragment extends Fragment {
-
-    private final static int CHECKED_COLOR = 0xA0EE4B4B;
-
+public class TextSearchFragment extends Fragment {
     private int containerViewId;
-    private FragmentActivity activity;
     private HighlightingEditor editText;
     private EditText searchEditText;
     private EditText replaceEditText;
     private TextView resultTextView;
     private final OccurrenceHandler occurrenceHandler = new OccurrenceHandler();
 
-    public static SearchDialogFragment newInstance(@IdRes int containerViewId, FragmentActivity activity, HighlightingEditor editText) {
-        SearchDialogFragment fragment = new SearchDialogFragment();
-        fragment.containerViewId = containerViewId;
-        fragment.activity = activity;
-        fragment.editText = editText;
+    private FragmentManager fragmentManager;
 
-        return fragment;
+    public static TextSearchFragment newInstance(@IdRes int containerViewId, FragmentActivity activity, HighlightingEditor editText) {
+        FragmentManager fragmentManager = activity.getSupportFragmentManager();
+        Fragment fragment = fragmentManager.findFragmentByTag(String.valueOf(containerViewId));
+        if (fragment != null && fragment instanceof TextSearchFragment) {
+            return (TextSearchFragment) fragment;
+        }
+
+        TextSearchFragment newFragment = new TextSearchFragment();
+        newFragment.containerViewId = containerViewId;
+        newFragment.fragmentManager = fragmentManager;
+        newFragment.editText = editText;
+
+        return newFragment;
     }
 
     @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
+    public void onDestroy() {
+        super.onDestroy();
+        clearMatches();
     }
 
     @Nullable
@@ -70,7 +75,7 @@ public class SearchDialogFragment extends Fragment {
 
         occurrenceHandler.setResultChangedListener((current, count) -> {
             if (count > 0) {
-                resultTextView.setText(String.format(getString(R.string.search_result), current, count));
+                resultTextView.setText(current + "/" + count);
             } else {
                 resultTextView.setText(R.string.no_results);
             }
@@ -174,15 +179,10 @@ public class SearchDialogFragment extends Fragment {
         });
 
         fragmentView.findViewById(R.id.closeImageButton).setOnClickListener(view -> hide());
-
         fragmentView.findViewById(R.id.toggleImageButton).setOnClickListener(view -> toggleFindReplaceLayout(fragmentView));
-
         fragmentView.findViewById(R.id.previousImageButton).setOnClickListener(view -> occurrenceHandler.previous(editText));
-
         fragmentView.findViewById(R.id.nextImageButton).setOnClickListener(view -> occurrenceHandler.next(editText));
-
         fragmentView.findViewById(R.id.replaceImageButton).setOnClickListener(view -> occurrenceHandler.replace(editText, replaceEditText.getText().toString()));
-
         fragmentView.findViewById(R.id.replaceAllImageButton).setOnClickListener(view -> occurrenceHandler.replaceAll(editText, replaceEditText.getText().toString()));
     }
 
@@ -208,11 +208,13 @@ public class SearchDialogFragment extends Fragment {
         requestEditTextFocus(view);
     }
 
+    private final static int BUTTON_CHECKED_COLOR = 0xA0EE4B4B;
+
     private boolean toggleViewCheckedState(View view, boolean checked) {
         if (checked) {
             view.getBackground().clearColorFilter();
         } else {
-            view.getBackground().setColorFilter(CHECKED_COLOR, PorterDuff.Mode.DARKEN);
+            view.getBackground().setColorFilter(BUTTON_CHECKED_COLOR, PorterDuff.Mode.DARKEN);
         }
         return !checked;
     }
@@ -254,39 +256,31 @@ public class SearchDialogFragment extends Fragment {
         occurrenceHandler.jumpToNearestOccurrence(editText);
     }
 
-    public void clear() {
+    public void clearMatches() {
         occurrenceHandler.find(editText, "");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        close();
     }
 
     public void show() {
         String tag = String.valueOf(this.containerViewId);
-        FragmentManager fragmentManager = activity.getSupportFragmentManager();
-        Fragment fragment = fragmentManager.findFragmentByTag(tag);
-        if (fragment == null) {
+        if (fragmentManager.findFragmentByTag(tag) == null) {
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             transaction.replace(this.containerViewId, this, tag);
             transaction.commit();
         } else if (!this.isVisible()) {
             FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.show(fragment);
+            transaction.show(this);
             transaction.commit();
-            requestEditTextFocus(fragment.getView());
+            requestEditTextFocus(this.getView());
         }
     }
 
     public void hide() {
-        clear();
-        activity.getSupportFragmentManager().beginTransaction().hide(this).commit();
+        clearMatches();
+        fragmentManager.beginTransaction().hide(this).commit();
     }
 
     public void close() {
-        clear();
-        activity.getSupportFragmentManager().beginTransaction().remove(this).commit();
+        clearMatches();
+        fragmentManager.beginTransaction().remove(this).commit();
     }
 }
