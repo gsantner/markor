@@ -184,7 +184,7 @@ public class HighlightingEditor extends AppCompatEditText {
                     .clearDynamic()
                     .clearStatic(false)
                     .recompute()
-                    .addAdditional(_occurrences)
+                    .addAdditional(_matches)
                     .applyStatic()
                     .applyDynamic(hlRegion())
             );
@@ -215,7 +215,7 @@ public class HighlightingEditor extends AppCompatEditText {
                         .clearStatic(false)
                         .clearDynamic()
                         .setComputed()
-                        .addAdditional(_occurrences)
+                        .addAdditional(_matches)
                         .applyStatic()
                         .applyDynamic(hlRegion())
                 );
@@ -293,23 +293,23 @@ public class HighlightingEditor extends AppCompatEditText {
     // Additional highlight for search / replace etc
     // ---------------------------------------------------------------------------------------------
 
-    // for highlighting occurrences/matches in searching
-    private final List<SyntaxHighlighterBase.SpanGroup> _occurrences = new ArrayList<>();
+    // for highlighting text search matches/occurrences
+    private final List<SyntaxHighlighterBase.SpanGroup> _matches = new ArrayList<>();
 
-    public void addAdditionalOccurrence(final int start, final int end, final @ColorInt int color) {
-        _occurrences.add(SyntaxHighlighterBase.createBackgroundHighlight(start, end, color));
+    public void addSearchMatch(final int start, final int end, final @ColorInt int color) {
+        _matches.add(SyntaxHighlighterBase.createBackgroundHighlight(start, end, color));
     }
 
-    public void clearAdditionalOccurrences() {
+    public void clearSearchMatches() {
         if (_hl != null) {
-            _hl.clearDynamic().clearAdditional(_occurrences);
+            _hl.clearDynamic().clearAdditional(_matches);
         }
-        _occurrences.clear();
+        _matches.clear();
     }
 
-    public void applyAdditionalOccurrences() {
+    public void applySearchMatches() {
         if (_hl != null) {
-            _hl.addAdditional(_occurrences).clearDynamic().applyDynamic(hlRegion());
+            _hl.addAdditional(_matches).clearDynamic().applyDynamic(hlRegion());
         }
     }
 

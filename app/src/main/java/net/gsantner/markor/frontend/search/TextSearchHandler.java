@@ -11,7 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TextSearchHandler {
-    private final ArrayList<Occurrence> occurrences = new ArrayList<>();
+    private final ArrayList<Match> matches = new ArrayList<>();
     private int currentIndex;
 
     private boolean findInSelection = false;
@@ -33,7 +33,7 @@ public class TextSearchHandler {
         }
 
         currentIndex = 0;
-        occurrences.clear();
+        matches.clear();
         editText.clearAdditionalFocus();
 
         if (target.isEmpty()) {
@@ -62,43 +62,43 @@ public class TextSearchHandler {
                     if (selection.isSelected()) {
                         CharSequence subCharSequence = editable.subSequence(selection.getStartIndex(), selection.getEndIndex());
                         Matcher matcher = pattern.matcher(subCharSequence);
-                        loadOccurrences(matcher, selection.getStartIndex());
+                        loadMatches(matcher, selection.getStartIndex());
                     }
                 } else {
                     Matcher matcher = pattern.matcher(editable);
-                    loadOccurrences(matcher, 0);
+                    loadMatches(matcher, 0);
                 }
             }
 
-            resultChangedListener.onResultChanged(currentIndex + 1, occurrences.size());
+            resultChangedListener.onResultChanged(currentIndex + 1, matches.size());
         }
 
         highlightAll(editText);
     }
 
-    private void loadOccurrences(Matcher matcher, int selectionStart) {
+    private void loadMatches(Matcher matcher, int selectionStart) {
         while (matcher.find()) {
-            Occurrence occurrence = new Occurrence();
-            occurrence.setStart(matcher.start() + selectionStart);
-            occurrence.setEnd(matcher.end() + selectionStart);
-            occurrence.applyNormalColor();
-            occurrences.add(occurrence);
+            Match match = new Match();
+            match.setStart(matcher.start() + selectionStart);
+            match.setEnd(matcher.end() + selectionStart);
+            match.applyMatchColor();
+            matches.add(match);
         }
     }
 
-    private int getNearbyOccurrenceIndex(Selection selection, ArrayList<Occurrence> occurrences) {
-        final int size = occurrences.size();
+    private int getNearbyMatchIndex(Selection selection, ArrayList<Match> matchs) {
+        final int size = matchs.size();
         if (size == 0) {
             return -1;
         }
 
         int i = 0;
         for (; i < size; i++) {
-            Occurrence occurrence = occurrences.get(i);
-            if (occurrence.getStart() > selection.getStartIndex()) {
+            Match match = matchs.get(i);
+            if (match.getStart() > selection.getStartIndex()) {
                 if (i > 0) {
-                    Occurrence lastOccurrence = occurrences.get(i - 1);
-                    if (selection.getStartIndex() - lastOccurrence.getEnd() < occurrence.getStart() - selection.getEndIndex()) {
+                    Match lastMatch = matchs.get(i - 1);
+                    if (selection.getStartIndex() - lastMatch.getEnd() < match.getStart() - selection.getEndIndex()) {
                         return i - 1;
                     } else {
                         return i;
@@ -147,18 +147,18 @@ public class TextSearchHandler {
             return;
         }
 
-        // Clear old occurrence highlight
-        editText.clearAdditionalOccurrences();
+        // Clear old match highlight
+        editText.clearSearchMatches();
 
-        if (!occurrences.isEmpty()) {
-            // Set new occurrence highlight
-            for (Occurrence occurrence : occurrences) {
-                editText.addAdditionalOccurrence(occurrence.getStart(), occurrence.getEnd(), occurrence.color);
+        if (!matches.isEmpty()) {
+            // Set new match highlight
+            for (Match match : matches) {
+                editText.addSearchMatch(match.getStart(), match.getEnd(), match.color);
             }
         }
 
         // Apply
-        editText.applyAdditionalOccurrences();
+        editText.applySearchMatches();
     }
 
     public void jump(HighlightingEditor editText, int index) {
@@ -167,7 +167,7 @@ public class TextSearchHandler {
             return;
         }
 
-        int size = occurrences.size();
+        int size = matches.size();
         if (size == 0) {
             resultChangedListener.onResultChanged(0, 0);
             return;
@@ -176,19 +176,19 @@ public class TextSearchHandler {
             return;
         }
 
-        // Clear focused highlight for last occurrence
+        // Clear active highlight for last match
         editText.clearAdditionalFocus();
 
-        // Apply focused highlight for current occurrence
+        // Apply active highlight for current match
         currentIndex = index;
         try {
-            Occurrence occurrence = occurrences.get(currentIndex).clone();
-            occurrence.applyFocusedColor();
-            editText.addAdditionalFocus(occurrence.getStart(), occurrence.getEnd(), occurrence.color);
+            Match match = matches.get(currentIndex).clone();
+            match.applyActiveMatchColor();
+            editText.addAdditionalFocus(match.getStart(), match.getEnd(), match.color);
 
             resultChangedListener.onResultChanged(currentIndex + 1, size);
 
-            TextViewUtils.showSelection(editText, occurrence.getStart());
+            TextViewUtils.showSelection(editText, match.getStart());
 
             editText.applyAdditionalFocus();
         } catch (CloneNotSupportedException e) {
@@ -196,11 +196,11 @@ public class TextSearchHandler {
         }
     }
 
-    public void jumpToNearestOccurrence(HighlightingEditor editText) {
-        int index = getNearbyOccurrenceIndex(selection, occurrences);
+    public void jumpToNearestMatch(HighlightingEditor editText) {
+        int index = getNearbyMatchIndex(selection, matches);
         if (index > -1) {
             jump(editText, index);
-            TextViewUtils.showSelection(editText, occurrences.get(index).getStart());
+            TextViewUtils.showSelection(editText, matches.get(index).getStart());
         }
     }
 
@@ -210,25 +210,25 @@ public class TextSearchHandler {
             return;
         }
 
-        int size = occurrences.size();
+        int size = matches.size();
         if (size == 0) {
             resultChangedListener.onResultChanged(0, 0);
             return;
         }
 
         if (currentIndex > -1 && currentIndex < size - 1) {
-            // Clear focused highlight for current occurrence
+            // Clear active highlight for current match
             editText.clearAdditionalFocus();
 
             try {
-                // Apply focused highlight for next occurrence
-                Occurrence occurrence = occurrences.get(++currentIndex).clone();
-                occurrence.applyFocusedColor();
-                editText.addAdditionalFocus(occurrence.getStart(), occurrence.getEnd(), occurrence.color);
+                // Apply active highlight for next match
+                Match match = matches.get(++currentIndex).clone();
+                match.applyActiveMatchColor();
+                editText.addAdditionalFocus(match.getStart(), match.getEnd(), match.color);
 
                 resultChangedListener.onResultChanged(currentIndex + 1, size);
 
-                TextViewUtils.showSelection(editText, occurrence.getStart());
+                TextViewUtils.showSelection(editText, match.getStart());
 
                 editText.applyAdditionalFocus();
             } catch (CloneNotSupportedException e) {
@@ -245,24 +245,24 @@ public class TextSearchHandler {
             return;
         }
 
-        int size = occurrences.size();
+        int size = matches.size();
         if (size == 0) {
             resultChangedListener.onResultChanged(0, 0);
             return;
         }
 
         if (currentIndex > 0 && currentIndex < size) {
-            // Clear focused highlight for current occurrence
+            // Clear active highlight for current match
             editText.clearAdditionalFocus();
 
-            // Apply focused highlight for previous occurrence
-            Occurrence occurrence = occurrences.get(--currentIndex);
-            occurrence.applyFocusedColor();
-            editText.addAdditionalFocus(occurrence.getStart(), occurrence.getEnd(), occurrence.color);
+            // Apply active highlight for previous match
+            Match match = matches.get(--currentIndex);
+            match.applyActiveMatchColor();
+            editText.addAdditionalFocus(match.getStart(), match.getEnd(), match.color);
 
             resultChangedListener.onResultChanged(currentIndex + 1, size);
 
-            TextViewUtils.showSelection(editText, occurrence.getStart());
+            TextViewUtils.showSelection(editText, match.getStart());
 
             editText.applyAdditionalFocus();
         } else {
@@ -271,7 +271,7 @@ public class TextSearchHandler {
     }
 
     public int replace(HighlightingEditor editText, String replacement) {
-        if (editText == null || occurrences.isEmpty()) {
+        if (editText == null || matches.isEmpty()) {
             resultChangedListener.onResultChanged(0, 0);
             return 0;
         }
@@ -283,20 +283,20 @@ public class TextSearchHandler {
             }
         }
 
-        Occurrence currentOccurrence = occurrences.get(currentIndex);
+        Match currentMatch = matches.get(currentIndex);
 
         // Replace
         Editable editable = editText.getText();
         if (editable != null) {
-            editable.replace(currentOccurrence.getStart(), currentOccurrence.getEnd(), replacement);
+            editable.replace(currentMatch.getStart(), currentMatch.getEnd(), replacement);
         }
 
-        // Adjust occurrences after replacing
-        occurrences.remove(currentOccurrence);
-        final int size = occurrences.size();
-        final int offset = replacement.length() - currentOccurrence.getLength();
+        // Adjust matchs after replacing
+        matches.remove(currentMatch);
+        final int size = matches.size();
+        final int offset = replacement.length() - currentMatch.getLength();
         for (int i = currentIndex; i < size; i++) {
-            Occurrence o = occurrences.get(i);
+            Match o = matches.get(i);
             // Update index by offset
             o.offsetStart(offset);
             o.offsetEnd(offset);
@@ -308,17 +308,17 @@ public class TextSearchHandler {
             if (currentIndex == size) currentIndex--;
             try {
                 editText.clearAdditionalFocus();
-                Occurrence occurrence = occurrences.get(currentIndex).clone();
-                occurrence.applyFocusedColor();
-                editText.addAdditionalFocus(occurrence.getStart(), occurrence.getEnd(), occurrence.color);
+                Match match = matches.get(currentIndex).clone();
+                match.applyMatchColor();
+                editText.addAdditionalFocus(match.getStart(), match.getEnd(), match.color);
                 editText.applyAdditionalFocus();
             } catch (CloneNotSupportedException e) {
                 throw new RuntimeException(e);
             }
         }
 
-        resultChangedListener.onResultChanged(currentIndex + 1, occurrences.size());
-        return occurrences.size();
+        resultChangedListener.onResultChanged(currentIndex + 1, matches.size());
+        return matches.size();
     }
 
     public void replaceAll(HighlightingEditor editText, String replacement) {

@@ -254,7 +254,7 @@ public class TextSearchFragment extends Fragment {
 
     public void find() {
         textSearchHandler.find(editText, searchEditText.getText().toString());
-        textSearchHandler.jumpToNearestOccurrence(editText);
+        textSearchHandler.jumpToNearestMatch(editText);
     }
 
     public void clearMatches() {

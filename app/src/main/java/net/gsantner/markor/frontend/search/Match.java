@@ -3,26 +3,26 @@ package net.gsantner.markor.frontend.search;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 
-public class Occurrence implements Cloneable {
-    public static final @ColorInt int NORMAL_HIGHLIGHT_COLOR = 0x60FF0000;
-    public static final @ColorInt int FOCUSED_HIGHLIGHT_COLOR = 0x60FFA500;
-    public @ColorInt int color = 0;
+public class Match implements Cloneable {
+    public static final @ColorInt int MATCH_COLOR = 0x60FF0000;
+    public static final @ColorInt int ACTIVE_MATCH_COLOR = 0x60FFA500;
+    public @ColorInt int color;
 
     private int start;
     private int end;
 
     @NonNull
     @Override
-    protected Occurrence clone() throws CloneNotSupportedException {
-        return (Occurrence) super.clone();
+    protected Match clone() throws CloneNotSupportedException {
+        return (Match) super.clone();
     }
 
-    public void applyNormalColor() {
-        color = NORMAL_HIGHLIGHT_COLOR;
+    public void applyMatchColor() {
+        color = MATCH_COLOR;
     }
 
-    public void applyFocusedColor() {
-        color = FOCUSED_HIGHLIGHT_COLOR;
+    public void applyActiveMatchColor() {
+        color = ACTIVE_MATCH_COLOR;
     }
 
     public int getStart() {
