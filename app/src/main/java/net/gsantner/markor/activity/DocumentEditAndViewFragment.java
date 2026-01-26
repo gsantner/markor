@@ -276,7 +276,10 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     @Override
     public void onPause() {
-        saveDocument(false);
+        if(_appSettings.isAutoSaveEnabled()) {
+            saveDocument(false);
+        }
+
         if (_webView != null) {
             _webView.onPause();
         }

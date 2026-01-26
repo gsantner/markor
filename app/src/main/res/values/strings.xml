@@ -165,6 +165,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="empty_file">Empty file</string>
     <string name="break_page_pdf_print">Break page (PDF/Printing)</string>
     <string name="underline">Underline</string>
+    <string name="autosave">Auto-save</string>
+    <string name="autosave_description">Automatically saves changes.</string>
 
 
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Whether to underline hex color codes according to color</string>

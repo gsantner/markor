@@ -148,6 +148,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__app_theme" translatable="false">pref_key__app_theme</string>
     <string name="pref_key__theming_hide_system_statusbar" translatable="false">pref_key__theming_hide_system_statusbar</string>
     <string name="pref_key__language" translatable="false">pref_key__language</string>
+    <string name="pref_key__is_autosave_enabled" translatable="false">pref_key__is_autosave_enabled</string>
     <string name="pref_key__is_main_recreate_required" translatable="false">pref_key__is_main_recreate_required</string>
     <string name="pref_key__file_browser__sort_by_type" translatable="false">pref_key__file_browser__sort_by_type</string>
     <string name="pref_key__sort_reverse" translatable="false">pref_key__sort_reverse</string>

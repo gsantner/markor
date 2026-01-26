@@ -97,6 +97,12 @@
                 android:summary="@string/highlighting_enabled_or_not__appspecific"
                 android:title="@string/syntax_highlighting" />
             <CheckBoxPreference
+                android:defaultValue="true"
+                android:icon="@drawable/ic_save_black_24dp"
+                android:key="@string/pref_key__is_autosave_enabled"
+                android:summary="@string/autosave_description"
+                android:title="@string/autosave" />
+            <CheckBoxPreference
                 android:defaultValue="false"
                 android:icon="@drawable/ic_widgets_black_24dp"
                 android:key="@string/pref_key__is_launcher_for_special_files_enabled"
