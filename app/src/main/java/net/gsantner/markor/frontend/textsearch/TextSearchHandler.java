@@ -251,20 +251,21 @@ public class TextSearchHandler {
             return 0;
         }
 
-        if (isPreserveCase() && !replacement.isEmpty()) {
-            char c = replacement.charAt(0);
-            if (Character.isLetter(c)) {
-                replacement = Character.toLowerCase(c) + (replacement.substring(1));
-            }
+        Editable editable = editText.getText();
+        if (editable == null) {
+            resultChangedListener.onResultChanged(0, 0);
+            return 0;
         }
 
         Match currentMatch = matches.get(currentIndex);
 
-        // Replace
-        Editable editable = editText.getText();
-        if (editable != null) {
-            editable.replace(currentMatch.getStart(), currentMatch.getEnd(), replacement);
+        if (isPreserveCase()) {
+            String originalText = editable.subSequence(currentMatch.getStart(), currentMatch.getEnd()).toString();
+            replacement = applyPreserveCase(originalText, replacement);
         }
+
+        // Replace
+        editable.replace(currentMatch.getStart(), currentMatch.getEnd(), replacement);
 
         // Shift matches after replacing
         matches.remove(currentMatch);
@@ -279,9 +280,10 @@ public class TextSearchHandler {
         }
 
         if (size > 0) {
-            if (currentIndex == size) currentIndex--;
+            if (currentIndex == size) {
+                currentIndex--;
+            }
             matches.get(currentIndex).useActiveMatchColor();
-            editText.applyDynamicHighlight();
         }
 
         editText.applyDynamicHighlight();
@@ -290,11 +292,63 @@ public class TextSearchHandler {
         return matches.size();
     }
 
-    public void replaceAll(HighlightingEditor editText, String replacement) {
-        int result = replace(editText, replacement);
-        while (result != 0) {
-            result = replace(editText, replacement);
+    private String applyPreserveCase(String originalText, String replacement) {
+        if (replacement.isEmpty() || originalText.isEmpty()) {
+            return replacement;
         }
+
+        boolean isAllUpperCase = true;
+        boolean hasLetters = false;
+        for (char c : originalText.toCharArray()) {
+            if (Character.isLetter(c)) {
+                hasLetters = true;
+                if (Character.isLowerCase(c)) {
+                    isAllUpperCase = false;
+                    break;
+                }
+            }
+        }
+        if (!hasLetters) {
+            isAllUpperCase = false;
+        }
+
+        if (isAllUpperCase) {
+            return replacement.toUpperCase();
+        }
+
+        if (Character.isUpperCase(originalText.charAt(0))) {
+            return Character.toUpperCase(replacement.charAt(0)) + replacement.substring(1);
+        }
+
+        return replacement;
+    }
+
+    public void replaceAll(HighlightingEditor editText, String replacement) {
+        if (editText == null || matches.isEmpty()) {
+            resultChangedListener.onResultChanged(0, 0);
+            return;
+        }
+        final Editable editable = editText.getText();
+        if (editable == null) {
+            resultChangedListener.onResultChanged(0, 0);
+            return;
+        }
+
+        for (int i = matches.size() - 1; i >= 0; i--) {
+            Match match = matches.get(i);
+            String actualReplacement = replacement;
+            if (isPreserveCase()) {
+                String originalText = editable.subSequence(match.getStart(), match.getEnd()).toString();
+                actualReplacement = applyPreserveCase(originalText, replacement);
+            }
+            editable.replace(match.getStart(), match.getEnd(), actualReplacement);
+        }
+
+        matches.clear();
+        editText.clearSearchMatches();
+        editText.applyDynamicHighlight();
+        resultChangedListener.onResultChanged(0, 0);
+        currentIndex = -1;
     }
 
     private final Selection selection = new Selection();
