@@ -28,16 +28,18 @@ public class TextSearchHandler {
 
     public void find(HighlightingEditor editText, String target, int activeIndex) {
         matches.clear();
-        if (target.isEmpty()) {
+        if (editText == null) {
             resultChangedListener.onResultChanged(0, 0);
             return;
         }
-        if (editText == null) {
+        if (target.isEmpty()) {
+            editText.clearSearchMatches();
             resultChangedListener.onResultChanged(0, 0);
             return;
         }
         Editable editable = editText.getText();
         if (editable == null) {
+            editText.clearSearchMatches();
             resultChangedListener.onResultChanged(0, 0);
             return;
         }
