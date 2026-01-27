@@ -298,7 +298,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
     public void setSearchMatches(List<SyntaxHighlighterBase.SpanGroup> spanGroups) {
         if (_hl != null) {
-            _hl.clearDynamic().clearAdditional(_matches);
+            _hl.clearAdditional(_matches);
         }
         _matches.clear();
         if (spanGroups != null) {
@@ -307,7 +307,6 @@ public class HighlightingEditor extends AppCompatEditText {
         if (_hl != null) {
             _hl.addAdditional(_matches);
         }
-        // _hl.applyDynamic();
     }
 
     public void removeSearchMatch(SyntaxHighlighterBase.SpanGroup spanGroup) {

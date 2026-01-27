@@ -34,14 +34,16 @@ public class TextSearchHandler {
             resultChangedListener.onResultChanged(0, 0);
             return;
         }
+        editText.clearSearchMatches();
         if (target.isEmpty()) {
-            editText.clearSearchMatches();
             resultChangedListener.onResultChanged(0, 0);
             return;
         }
         Editable editable = editText.getText();
         if (editable == null) {
-            editText.clearSearchMatches();
+            resultChangedListener.onResultChanged(0, 0);
+            return;
+        } else if (editable.length() == 0) {
             resultChangedListener.onResultChanged(0, 0);
             return;
         }
