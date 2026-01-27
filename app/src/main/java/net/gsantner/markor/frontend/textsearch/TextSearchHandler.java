@@ -4,9 +4,11 @@ import android.text.Editable;
 import android.widget.EditText;
 
 import net.gsantner.markor.frontend.textview.HighlightingEditor;
+import net.gsantner.markor.frontend.textview.SyntaxHighlighterBase;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -96,19 +98,15 @@ public class TextSearchHandler {
             return;
         }
 
-        // Clear old match highlight
-        editText.clearSearchMatches();
-
-        if (!matches.isEmpty()) {
-            // Set new match highlight
+        if (matches.isEmpty()) {
+            editText.clearSearchMatches();
+        } else {
+            List<SyntaxHighlighterBase.SpanGroup> spanGroups = new ArrayList<>();
             for (Match match : matches) {
-                editText.putSearchMatch(match.spanGroup);
+                spanGroups.add(match.spanGroup);
             }
-            editText.addSearchMatches();
+            editText.setSearchMatches(spanGroups);
         }
-
-        // Apply
-        // editText.applyDynamicHighlight();
     }
 
     public int getCurrentIndex() {

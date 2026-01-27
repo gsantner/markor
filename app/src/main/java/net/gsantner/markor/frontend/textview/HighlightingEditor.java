@@ -296,14 +296,18 @@ public class HighlightingEditor extends AppCompatEditText {
     // for highlight text search matches/occurrences
     private final List<SyntaxHighlighterBase.SpanGroup> _matches = new ArrayList<>();
 
-    public void putSearchMatch(SyntaxHighlighterBase.SpanGroup spanGroup) {
-        _matches.add(spanGroup);
-    }
-
-    public void addSearchMatches() {
+    public void setSearchMatches(List<SyntaxHighlighterBase.SpanGroup> spanGroups) {
+        if (_hl != null) {
+            _hl.clearDynamic().clearAdditional(_matches);
+        }
+        _matches.clear();
+        if (spanGroups != null) {
+            _matches.addAll(spanGroups);
+        }
         if (_hl != null) {
             _hl.addAdditional(_matches);
         }
+        // _hl.applyDynamic();
     }
 
     public void removeSearchMatch(SyntaxHighlighterBase.SpanGroup spanGroup) {
