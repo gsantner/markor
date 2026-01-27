@@ -253,13 +253,38 @@ public class TextSearchFragment extends Fragment {
     }
 
     public void find() {
-        textSearchHandler.find(editText, searchEditText.getText().toString());
-        textSearchHandler.jumpToNearestMatch(editText);
+        textSearchHandler.find(editText, searchEditText.getText().toString(), -1);
+    }
+
+    public void find2() {
+        String searchText = searchEditText.getText().toString();
+        if (searchText.isEmpty()) {
+            return;
+        }
+        textSearchHandler.find(editText, searchText, textSearchHandler.getCurrentIndex());
     }
 
     public void clearMatches() {
-        textSearchHandler.find(editText, "");
+        textSearchHandler.find(editText, "", 0);
     }
+
+    private final Runnable findTask2 = this::find2;
+    private final TextWatcher editTextChangedListener = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            Handler handler = editText.getHandler();
+            handler.removeCallbacks(findTask2);
+            handler.postDelayed(findTask2, 800);
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+        }
+    };
 
     public void show() {
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
@@ -274,15 +299,18 @@ public class TextSearchFragment extends Fragment {
             transaction.commit();
             requestEditTextFocus(this.getView());
         }
+        editText.addTextChangedListener(editTextChangedListener);
     }
 
     public void hide() {
         clearMatches();
+        editText.removeTextChangedListener(editTextChangedListener);
         activity.getSupportFragmentManager().beginTransaction().hide(this).commit();
     }
 
     public void close() {
         clearMatches();
+        editText.removeTextChangedListener(editTextChangedListener);
         activity.getSupportFragmentManager().beginTransaction().remove(this).commit();
     }
 }

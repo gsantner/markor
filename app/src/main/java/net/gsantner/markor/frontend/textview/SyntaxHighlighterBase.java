@@ -151,8 +151,8 @@ public abstract class SyntaxHighlighterBase {
      * A class holding any span
      */
     public static class SpanGroup implements Comparable<SpanGroup> {
-        int start, end;
-        final Object span;
+        public int start, end;
+        public final Object span;
         final boolean isStatic;
         final boolean needsReflow;
         final int type;

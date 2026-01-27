@@ -293,11 +293,24 @@ public class HighlightingEditor extends AppCompatEditText {
     // Additional highlight for search / replace etc
     // ---------------------------------------------------------------------------------------------
 
-    // for highlighting text search matches/occurrences
+    // for highlight text search matches/occurrences
     private final List<SyntaxHighlighterBase.SpanGroup> _matches = new ArrayList<>();
 
-    public void addSearchMatch(final int start, final int end, final @ColorInt int color) {
-        _matches.add(SyntaxHighlighterBase.createBackgroundHighlight(start, end, color));
+    public void putSearchMatch(SyntaxHighlighterBase.SpanGroup spanGroup) {
+        _matches.add(spanGroup);
+    }
+
+    public void addSearchMatches() {
+        if (_hl != null) {
+            _hl.addAdditional(_matches);
+        }
+    }
+
+    public void removeSearchMatch(SyntaxHighlighterBase.SpanGroup spanGroup) {
+        if (_hl != null) {
+            _hl.clearDynamic().clearAdditional(spanGroup);
+        }
+        _matches.remove(spanGroup);
     }
 
     public void clearSearchMatches() {
@@ -307,49 +320,26 @@ public class HighlightingEditor extends AppCompatEditText {
         _matches.clear();
     }
 
-    public void applySearchMatches() {
+    public void applyDynamicHighlight() {
         if (_hl != null) {
-            _hl.addAdditional(_matches).clearDynamic().applyDynamic(hlRegion());
+            _hl.clearDynamic().applyDynamic(hlRegion());
         }
     }
 
-    // for highlighting find-in-selection region
-    private SyntaxHighlighterBase.SpanGroup _selection = null;
+    // for highlight find-in-selection region
+    private SyntaxHighlighterBase.SpanGroup _searchSelection = null;
 
-    public void addAdditionalSelection(final int start, final int end, final @ColorInt int color) {
-        _selection = SyntaxHighlighterBase.createBackgroundHighlight(start, end, color);
-    }
-
-    public void clearAdditionalSelection() {
+    public void addSearchSelection(final int start, final int end, final @ColorInt int color) {
+        _searchSelection = SyntaxHighlighterBase.createBackgroundHighlight(start, end, color);
         if (_hl != null) {
-            _hl.clearDynamic().clearAdditional(_selection);
-        }
-        _selection = null;
-    }
-
-    public void applyAdditionalSelection() {
-        if (_hl != null) {
-            _hl.addAdditional(_selection).clearDynamic().applyDynamic(hlRegion());
+            _hl.addAdditional(_searchSelection);
         }
     }
 
-    // for highlighting current occurrence/match
-    private SyntaxHighlighterBase.SpanGroup _focus = null;
-
-    public void addAdditionalFocus(final int start, final int end, final @ColorInt int color) {
-        _focus = SyntaxHighlighterBase.createBackgroundHighlight(start, end, color);
-    }
-
-    public void clearAdditionalFocus() {
+    public void clearSearchSelection() {
         if (_hl != null) {
-            _hl.clearDynamic().clearAdditional(_focus);
-        }
-        _focus = null;
-    }
-
-    public void applyAdditionalFocus() {
-        if (_hl != null) {
-            _hl.addAdditional(_focus).clearDynamic().applyDynamic(hlRegion());
+            _hl.clearDynamic().clearAdditional(_searchSelection);
+            _searchSelection = null;
         }
     }
 
