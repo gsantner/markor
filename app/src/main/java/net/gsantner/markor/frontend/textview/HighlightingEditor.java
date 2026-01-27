@@ -318,7 +318,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
     public void clearSearchMatches() {
         if (_hl != null) {
-            _hl.clearDynamic().clearAdditional(_matches);
+            _hl.clearDynamic().clearAdditional(_matches).applyDynamic(hlRegion());
         }
         _matches.clear();
     }
