@@ -465,9 +465,9 @@ public class MarkorDialogFactory {
         final DialogOptions dopt = makeSttLineSelectionDialog(activity, text, t -> true);
         dopt.titleText = R.string.search_documents;
         dopt.neutralButtonText = R.string.search_and_replace;
-        dopt.neutralButtonCallback = (dialog) -> {
+        dopt.neutralButtonCallback2 = (dialog, searchText) -> {
             dialog.dismiss();
-            SearchAndReplaceTextDialog.showSearchReplaceDialog(activity, text.getText(), TextViewUtils.getSelection(text));
+            SearchAndReplaceTextDialog.showSearchReplaceDialog(activity, text.getText(), searchText, TextViewUtils.getSelection(text));
         };
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
@@ -743,20 +743,21 @@ public class MarkorDialogFactory {
     }
 
     // Basic search dialog
-    public static void showSearchDialog(final Activity activity, final EditText text, String searchText) {
+    public static void showSearchDialog(final Activity activity, final EditText editText, String searchText) {
         final DialogOptions dopt = baseConf(activity);
-        final Editable edit = text.getText();
+        final Editable edit = editText.getText();
         dopt.data = Arrays.asList(edit.toString().split("\n", -1)); // Do not ignore empty lines
         dopt.dataFilter = "[^\\s]+"; // Line must have one or more non-whitespace to display
         dopt.titleText = R.string.search_documents;
         dopt.searchHintText = R.string.search;
         dopt.searchText = searchText;
-        dopt.neutralButtonCallback = (dialog) -> {
+        dopt.neutralButtonCallback = null;
+        dopt.neutralButtonCallback2 = (dialog, searchText2) -> {
             dialog.dismiss();
-            SearchAndReplaceTextDialog.showSearchReplaceDialog(activity, edit, TextViewUtils.getSelection(text));
+            SearchAndReplaceTextDialog.showSearchReplaceDialog(activity, edit, searchText2, TextViewUtils.getSelection(editText));
         };
         dopt.neutralButtonText = R.string.search_and_replace;
-        dopt.positionCallback = (result) -> TextViewUtils.selectLines(text, result);
+        dopt.positionCallback = (result) -> TextViewUtils.selectLines(editText, result);
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 

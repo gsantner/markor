@@ -19,6 +19,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Parcelable;
+import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.Spannable;
@@ -124,6 +125,7 @@ public class GsSearchOrCustomTextDialog {
         public String dataFilter = null; // Regex pattern to filter data
         public GsCallback.a1<Spannable> highlighter = null;
         public GsCallback.a1<AlertDialog> neutralButtonCallback = null;
+        public GsCallback.a2<AlertDialog, Editable> neutralButtonCallback2 = null;
         public GsCallback.a1<DialogInterface> dismissCallback = null;
         public @Nullable InputFilter searchInputFilter = null;
 
@@ -438,10 +440,16 @@ public class GsSearchOrCustomTextDialog {
         }
 
         final Button neutralButton = dialog.getButton(AlertDialog.BUTTON_NEUTRAL);
-        if (neutralButton != null && dopt.neutralButtonText != 0 && dopt.neutralButtonCallback != null) {
+        if (neutralButton != null && dopt.neutralButtonText != 0) {
             neutralButton.setVisibility(Button.VISIBLE);
             neutralButton.setText(dopt.neutralButtonText);
-            neutralButton.setOnClickListener((button) -> dopt.neutralButtonCallback.callback(dialog));
+
+            if (dopt.neutralButtonCallback != null) {
+                neutralButton.setOnClickListener((button) -> dopt.neutralButtonCallback.callback(dialog));
+            } else if (dopt.neutralButtonCallback2 != null) {
+                // Open search & replace dialog with search text of current search dialog, no need to input it again
+                neutralButton.setOnClickListener((button) -> dopt.neutralButtonCallback2.callback(dialog, searchEditText.getText()));
+            }
         }
 
         if (dopt.state.searchText != null) {
