@@ -264,7 +264,6 @@ public final class TextViewUtils {
         return i;
     }
 
-
     public static void selectLines(final EditText edit, final Integer... positions) {
         selectLines(edit, Arrays.asList(positions));
     }
@@ -317,7 +316,7 @@ public final class TextViewUtils {
         }
     }
 
-    public static void showSelection(final TextView text, final int start, final int end, int offsetY) {
+    public static void showSelection(final TextView text, Rect visible, final int start, final int end, int offsetY) {
         // Get view info
         // ------------------------------------------------------------
         final Layout layout = text.getLayout();
@@ -332,9 +331,6 @@ public final class TextViewUtils {
         }
         final int lineStart = TextViewUtils.getLineStart(text.getText(), _start);
 
-        final Rect viewSize = new Rect();
-        text.getLocalVisibleRect(viewSize);
-
         // Region in Y
         // ------------------------------------------------------------
         final int startLine = layout.getLineForOffset(lineStart);
@@ -346,14 +342,14 @@ public final class TextViewUtils {
         final int lineHeight = endLineBottom - endLineTop;
 
         final Rect region = new Rect();
-        region.top = Math.max(startLineTop, endLineBottom - viewSize.height() + lineHeight) + offsetY;
+        region.top = Math.max(startLineTop, endLineBottom - visible.height() + lineHeight) + offsetY;
         region.bottom = endLineBottom + offsetY;
 
         // Region in X - as handling RTL, text alignment, and centred text etc is
         // a huge pain (see TextView.bringPointIntoView), we use a very simple solution.
         // ------------------------------------------------------------
         final int startLeft = (int) layout.getPrimaryHorizontal(_start);
-        final int halfWidth = viewSize.width() / 2;
+        final int halfWidth = visible.width() / 2;
         // Push the start to the middle of the screen
         region.left = Math.max(startLeft - halfWidth, 0);
         region.right = Math.min(startLeft + halfWidth, text.getWidth());
@@ -362,7 +358,9 @@ public final class TextViewUtils {
     }
 
     public static void showSelection(final TextView text, final int start, final int end) {
-        showSelection(text, start, end, 0);
+        Rect visible = new Rect();
+        text.getLocalVisibleRect(visible);
+        showSelection(text, visible, start, end, visible.height() - text.getLineHeight());
     }
 
     public static void showSelection(final TextView text) {
@@ -400,14 +398,14 @@ public final class TextViewUtils {
             return;
         }
 
-        Rect visibleRect = new Rect();
-        editText.getLocalVisibleRect(visibleRect);
+        Rect visible = new Rect();
+        editText.getLocalVisibleRect(visible);
         int line = layout.getLineForOffset(startSelection);
         int lineHeight = editText.getLineHeight();
-        if (layout.getLineTop(line) < visibleRect.top - lineHeight) {
-            showSelection(editText, startSelection, startSelection);
-        } else if (layout.getLineBottom(line) > visibleRect.bottom - lineHeight) {
-            showSelection(editText, startSelection, startSelection, lineHeight);
+        if (layout.getLineTop(line) < visible.top - lineHeight) {
+            showSelection(editText, visible, startSelection, startSelection, -lineHeight);
+        } else if (layout.getLineBottom(line) > visible.bottom - lineHeight) {
+            showSelection(editText, visible, startSelection, startSelection, lineHeight * 4);
         }
     }
 

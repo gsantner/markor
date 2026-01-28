@@ -834,6 +834,7 @@ public class MarkorDialogFactory {
             final int line = headings.get(index).line;
 
             TextViewUtils.selectLines(edit, line);
+
             final String jumpJs = "document.querySelector('[line=\"" + line + "\"]').scrollIntoView();";
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && webView != null) {
                 webView.evaluateJavascript(jumpJs, null);
