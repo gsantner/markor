@@ -17,6 +17,7 @@ import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.RippleDrawable;
 import android.os.Build;
 import android.os.Parcelable;
 import android.text.Editable;
@@ -49,11 +50,13 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.widget.TextViewCompat;
 
+import net.gsantner.markor.R;
 import net.gsantner.opoc.util.GsCollectionUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
@@ -625,10 +628,15 @@ public class GsSearchOrCustomTextDialog {
         editLp.gravity = Gravity.START | Gravity.BOTTOM;
         searchLayout.addView(searchEditText, editLp);
 
-        // 'Button to clear the search box'
+        // Button to clear the search box
         final ImageView clearButton = new ImageView(context);
         clearButton.setImageResource(dopt.clearInputIcon);
-        TooltipCompat.setTooltipText(clearButton, context.getString(android.R.string.cancel));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            RippleDrawable rippleDrawable = new RippleDrawable(AppCompatResources.getColorStateList(context, R.color.accent), null, null);
+            rippleDrawable.setRadius(64);
+            clearButton.setBackground(rippleDrawable);
+        }
+        TooltipCompat.setTooltipText(clearButton, context.getString(R.string.clear));
         clearButton.setColorFilter(dopt.isDarkDialog ? Color.WHITE : Color.parseColor("#ff505050"));
         clearButton.setOnClickListener((v) -> searchEditText.setText(""));
         clearButton.setPadding(margin, 0, margin, 0);

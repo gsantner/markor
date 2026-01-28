@@ -130,7 +130,7 @@
                         android:minHeight="48dp"
                         android:textSize="16sp" />
 
-                    <TextView
+                    <ImageView
                         android:id="@+id/clearSearchTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -138,10 +138,9 @@
                         android:layout_marginEnd="2dp"
                         android:background="?attr/selectableItemBackground"
                         android:contentDescription="@string/clear"
-                        android:gravity="center"
                         android:padding="1dp"
-                        android:tooltipText="@string/clear"
-                        app:drawableStartCompat="@drawable/ic_baseline_clear_24" />
+                        android:src="@drawable/ic_baseline_clear_24"
+                        android:tooltipText="@string/clear" />
 
                     <ImageButton
                         android:id="@+id/matchCaseImageButton"
@@ -196,7 +195,7 @@
                         android:minHeight="48dp"
                         android:textSize="16sp" />
 
-                    <TextView
+                    <ImageView
                         android:id="@+id/clearReplaceTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -204,10 +203,9 @@
                         android:layout_marginEnd="2dp"
                         android:background="?attr/selectableItemBackground"
                         android:contentDescription="@string/clear"
-                        android:gravity="center"
                         android:padding="1dp"
-                        android:tooltipText="@string/clear"
-                        app:drawableStartCompat="@drawable/ic_baseline_clear_24" />
+                        android:src="@drawable/ic_baseline_clear_24"
+                        android:tooltipText="@string/clear" />
 
                     <ImageButton
                         android:id="@+id/preserveCaseImageButton"
