@@ -212,8 +212,8 @@ public class TextSearchFragment extends Fragment {
         requestEditTextFocus(view);
     }
 
-    private final static int BUTTON_CHECKED_COLOR = 0xFFFAA0A0;
-    private final static int BUTTON_CHECKED_COLOR_DARK = 0xFFFA8080;
+    private final static int BUTTON_CHECKED_COLOR = 0xFFF0A0A0;
+    private final static int BUTTON_CHECKED_COLOR_DARK = 0xFFF08080;
 
     private boolean toggleViewCheckedState(View view, boolean checked) {
         if (checked) {

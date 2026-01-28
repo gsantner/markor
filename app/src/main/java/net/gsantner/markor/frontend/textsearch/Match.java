@@ -6,10 +6,10 @@ import androidx.appcompat.app.AppCompatDelegate;
 import net.gsantner.markor.frontend.textview.SyntaxHighlighterBase;
 
 public class Match {
-    public static final @ColorInt int MATCH_COLOR = 0x80FFAF00;
-    public static final @ColorInt int ACTIVE_MATCH_COLOR = 0x70FF0000;
-    public static final @ColorInt int MATCH_COLOR_DARK = 0x90FFAA00;
-    public static final @ColorInt int ACTIVE_MATCH_COLOR_DARK = 0x90FF0000;
+    public static final @ColorInt int MATCH_COLOR = 0x80FFCC00;
+    public static final @ColorInt int ACTIVE_MATCH_COLOR = 0x80FF0000;
+    public static final @ColorInt int MATCH_COLOR_DARK = 0x80FFBB00;
+    public static final @ColorInt int ACTIVE_MATCH_COLOR_DARK = 0x80FF0000;
 
     public SyntaxHighlighterBase.SpanGroup spanGroup;
     private SyntaxHighlighterBase.HighlightSpan span;
