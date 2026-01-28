@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
+    android:layout_gravity="start"
     android:background="@drawable/text_search_fragment_background"
     android:elevation="5dp"
     android:minWidth="300dp">
@@ -123,13 +123,25 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:ems="5"
+                        android:ems="18"
                         android:hint="@string/find"
                         android:importantForAutofill="no"
                         android:inputType="text"
-                        android:maxWidth="400dp"
                         android:minHeight="48dp"
                         android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/clearSearchTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="2dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:contentDescription="@string/clear"
+                        android:gravity="center"
+                        android:padding="1dp"
+                        android:tooltipText="@string/clear"
+                        app:drawableStartCompat="@drawable/ic_baseline_clear_24" />
 
                     <ImageButton
                         android:id="@+id/matchCaseImageButton"
@@ -177,13 +189,25 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:ems="5"
+                        android:ems="18"
                         android:hint="@string/replace"
                         android:importantForAutofill="no"
                         android:inputType="text"
-                        android:maxWidth="400dp"
                         android:minHeight="48dp"
                         android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/clearReplaceTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="2dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:contentDescription="@string/clear"
+                        android:gravity="center"
+                        android:padding="1dp"
+                        android:tooltipText="@string/clear"
+                        app:drawableStartCompat="@drawable/ic_baseline_clear_24" />
 
                     <ImageButton
                         android:id="@+id/preserveCaseImageButton"

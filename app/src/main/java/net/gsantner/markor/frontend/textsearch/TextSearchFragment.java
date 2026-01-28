@@ -185,6 +185,8 @@ public class TextSearchFragment extends Fragment {
         fragmentView.findViewById(R.id.nextImageButton).setOnClickListener(view -> textSearchHandler.next(editText));
         fragmentView.findViewById(R.id.replaceImageButton).setOnClickListener(view -> textSearchHandler.replace(editText, replaceEditText.getText().toString()));
         fragmentView.findViewById(R.id.replaceAllImageButton).setOnClickListener(view -> textSearchHandler.replaceAll(editText, replaceEditText.getText().toString()));
+        fragmentView.findViewById(R.id.clearSearchTextView).setOnClickListener(view -> searchEditText.setText(""));
+        fragmentView.findViewById(R.id.clearReplaceTextView).setOnClickListener(view -> replaceEditText.setText(""));
     }
 
     public void init(@NonNull View view) {
