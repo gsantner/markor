@@ -633,7 +633,7 @@ public class GsSearchOrCustomTextDialog {
         clearButton.setImageResource(dopt.clearInputIcon);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             RippleDrawable rippleDrawable = new RippleDrawable(AppCompatResources.getColorStateList(context, R.color.accent), null, null);
-            rippleDrawable.setRadius(64);
+            rippleDrawable.setRadius(60);
             clearButton.setBackground(rippleDrawable);
         }
         TooltipCompat.setTooltipText(clearButton, context.getString(R.string.clear));

@@ -322,8 +322,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">Black</string>
     <string name="white">White</string>
     <string name="view">View</string>
-    <string name="view_mode">View mode</string>
-    <string name="edit_mode">Edit mode</string>
+    <string name="view_mode">View Mode</string>
+    <string name="edit_mode">Edit Mode</string>
     <string name="mount_storage">Mount storage</string>
     <string name="application_needs_access_to_storage_mount_it">Permission is required to access this storage. Mount the storage to give access. Confirm this dialog to get a popup. Select the storage there and press select.</string>
     <string name="share_into">Share into</string>
