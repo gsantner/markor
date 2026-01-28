@@ -57,6 +57,7 @@ import androidx.core.view.WindowCompat;
 import androidx.core.widget.TextViewCompat;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.opoc.util.GsCollectionUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
@@ -268,7 +269,7 @@ public class GsSearchOrCustomTextDialog {
         }
 
         public void filter(final CharSequence searchText) {
-            _lastConstraint = searchText.toString().trim();
+            _lastConstraint = searchText.toString();
 
             if (_dopt.data != null) {
                 _filteredItems.clear();
@@ -381,9 +382,21 @@ public class GsSearchOrCustomTextDialog {
             }
         };
 
-        searchEditText.addTextChangedListener(GsTextWatcherAdapter.after((constraint) -> {
-            listAdapter.filter(constraint);
-            setSelectAllButtonState.callback();
+        searchEditText.addTextChangedListener(GsTextWatcherAdapter.after(new GsCallback.a1<Editable>() {
+            private Runnable searchTask;
+            private CharSequence searchText = new SpannableString("");
+
+            @Override
+            public void callback(Editable constraint) {
+                if (searchTask == null) {
+                    searchTask = TextViewUtils.makeDebounced(searchEditText.getHandler(), 400, () -> {
+                        listAdapter.filter(searchText);
+                        setSelectAllButtonState.callback();
+                    });
+                }
+                searchText = constraint;
+                searchTask.run();
+            }
         }));
 
         // Ok button only present under these circumstances

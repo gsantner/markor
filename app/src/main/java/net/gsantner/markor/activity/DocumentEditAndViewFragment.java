@@ -699,8 +699,8 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
         searchView.setQueryHint(getString(R.string.search));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            private String searchText = "";
             private Runnable searchTask;
+            private String searchText = "";
 
             private boolean search(String text) {
                 if (_webView == null) {
