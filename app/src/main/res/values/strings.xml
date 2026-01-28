@@ -410,7 +410,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="previous">Previous</string>
     <string name="next">Next</string>
     <string name="toggle_find_replace">Toggle Find/Replace</string>
-    <string name="find">Find</string>
     <string name="match_case">Match Case</string>
     <string name="match_whole_word">Match Whole Word</string>
     <string name="use_regular_expression">Use Regular Expression</string>

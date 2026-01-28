@@ -24,7 +24,9 @@ import android.text.Editable;
 import android.text.Html;
 import android.text.InputType;
 import android.text.Spannable;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.util.Pair;
 import android.view.WindowManager;
 import android.webkit.WebView;
@@ -736,7 +738,7 @@ public class MarkorDialogFactory {
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    // Get a callback which applies highligting spans to a todo.txt line
+    // Get a callback which applies highlighting spans to a todo.txt line
     private static GsCallback.a1<Spannable> getSttHighlighter(final AppSettings as) {
         final SyntaxHighlighterBase h = new TodoTxtBasicSyntaxHighlighter(as).configure();
         return s -> h.setSpannable(s).recompute().applyStatic().applyDynamic();
@@ -813,6 +815,19 @@ public class MarkorDialogFactory {
         dopt.searchHintText = R.string.search;
         dopt.isSearchEnabled = true;
         dopt.isSoftInputVisible = false;
+        dopt.highlighter = new GsCallback.a1<Spannable>() {
+            private Pattern pattern = Pattern.compile("^#{1,6}");
+            private ForegroundColorSpan span = new ForegroundColorSpan(0xFFC0C0C0); // Silver
+
+            @Override
+            public void callback(Spannable spannable) {
+                Matcher matcher = pattern.matcher(spannable);
+                if (matcher.find()) {
+                    // Fade the color of '#' to emphasize the content of the headline
+                    spannable.setSpan(span, matcher.start(), matcher.end(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                }
+            }
+        };
 
         dopt.positionCallback = result -> {
             final int index = filtered.get(result.get(0));

@@ -124,7 +124,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ems="18"
-                        android:hint="@string/find"
+                        android:hint="@string/search"
                         android:importantForAutofill="no"
                         android:inputType="text"
                         android:minHeight="48dp"
