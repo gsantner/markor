@@ -369,7 +369,7 @@ public class TextSearchHandler {
         Editable editable = editText.getText();
         if (selection.isSelected() && editable != null) {
             if (isFindInSelection()) {
-                editText.addSearchSelection(selection.getStartIndex(), selection.getEndIndex(), selection.color);
+                editText.addSearchSelection(selection.getStartIndex(), selection.getEndIndex(), selection.getColor());
             } else if (searchEditText != null) {
                 String target = editable.subSequence(selection.getStartIndex(), selection.getEndIndex()).toString();
                 if (!target.isEmpty()) {

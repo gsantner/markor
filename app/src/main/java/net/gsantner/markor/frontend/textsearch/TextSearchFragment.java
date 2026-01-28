@@ -18,6 +18,7 @@ import android.widget.TextView;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -211,13 +212,20 @@ public class TextSearchFragment extends Fragment {
         requestEditTextFocus(view);
     }
 
-    private final static int BUTTON_CHECKED_COLOR = 0xA0EE4B4B;
+    private final static int BUTTON_CHECKED_COLOR = 0xFFFAA0A0;
+    private final static int BUTTON_CHECKED_COLOR_DARK = 0xFFFA8080;
 
     private boolean toggleViewCheckedState(View view, boolean checked) {
         if (checked) {
             view.getBackground().clearColorFilter();
         } else {
-            view.getBackground().setColorFilter(BUTTON_CHECKED_COLOR, PorterDuff.Mode.DARKEN);
+            int color;
+            if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+                color = BUTTON_CHECKED_COLOR_DARK;
+            } else {
+                color = BUTTON_CHECKED_COLOR;
+            }
+            view.getBackground().setColorFilter(color, PorterDuff.Mode.DARKEN);
         }
         return !checked;
     }
@@ -304,15 +312,19 @@ public class TextSearchFragment extends Fragment {
         editText.addTextChangedListener(editTextChangedListener);
     }
 
-    public void hide() {
+    private void clear() {
         clearMatches();
+        textSearchHandler.clearSelection(editText, false);
         editText.removeTextChangedListener(editTextChangedListener);
+    }
+
+    public void hide() {
+        clear();
         activity.getSupportFragmentManager().beginTransaction().hide(this).commit();
     }
 
     public void close() {
-        clearMatches();
-        editText.removeTextChangedListener(editTextChangedListener);
+        clear();
         activity.getSupportFragmentManager().beginTransaction().remove(this).commit();
     }
 }

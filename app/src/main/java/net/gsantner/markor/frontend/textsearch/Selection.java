@@ -1,10 +1,21 @@
 package net.gsantner.markor.frontend.textsearch;
 
+import androidx.appcompat.app.AppCompatDelegate;
+
 public class Selection {
-    public final int color = 0x500000FF;
+    public static final int COLOR = 0x605050FF;
+    public static final int COLOR_DARK = 0x609090FF;
 
     private int startIndex;
     private int endIndex;
+
+    public int getColor() {
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            return COLOR_DARK;
+        } else {
+            return COLOR;
+        }
+    }
 
     public void reset() {
         startIndex = 0;
