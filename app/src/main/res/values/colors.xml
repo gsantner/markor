@@ -23,10 +23,9 @@
     <!-- Color values -->
     <color name="primary">#1E2135</color>
     <color name="accent">#F04B4B</color>
-    <color name="divider">#B6B6B6</color>
+    <color name="divider">#808080</color>
 
     <color name="accent_light">#FF9800</color>
-    <color name="divider_2">#3D3D3D</color>
     <color name="default_link_color">#388E3C</color>
 
     <color name="light__background">#EEEEEE</color>

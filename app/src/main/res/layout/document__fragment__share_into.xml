@@ -48,6 +48,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/background"
+        android:elevation="4dp"
+        android:translationZ="4dp"
         android:layout_weight="60" />
 
 </net.gsantner.opoc.frontend.GsLinearSplitLayout>

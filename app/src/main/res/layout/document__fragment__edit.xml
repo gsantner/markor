@@ -66,6 +66,8 @@
         android:layout_gravity="bottom"
         android:background="@color/background"
         android:paddingTop="4dp"
+        android:elevation="4dp"
+        android:translationZ="4dp"
         android:scrollbars="none">
 
         <LinearLayout

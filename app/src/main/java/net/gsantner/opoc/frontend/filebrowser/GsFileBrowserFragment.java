@@ -20,7 +20,7 @@ package net.gsantner.opoc.frontend.filebrowser;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.Menu;
@@ -34,6 +34,9 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -114,6 +117,8 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             throw new RuntimeException("Error: " + activity.getClass().getName() + " doesn't implement FilesystemFragmentOptionsListener");
         }
         setDialogOptions(((FilesystemFragmentOptionsListener) activity).getFilesystemFragmentOptions(_dopt));
+
+        addDivider(activity, _recyclerList);
 
         _filesystemViewerAdapter = new GsFileBrowserListAdapter(_dopt, activity);
         _recyclerList.setAdapter(_filesystemViewerAdapter);
@@ -629,5 +634,26 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     @Override
     public MarkorContextUtils createContextUtilsInstance(Context context) {
         return new MarkorContextUtils(context);
+    }
+
+    public static void addDivider(final Activity activity, final RecyclerView recyclerView) {
+        if (recyclerView == null || activity == null) {
+            return;
+        }
+
+        final LinearLayoutManager lam = (LinearLayoutManager) recyclerView.getLayoutManager();
+
+        if (lam == null) {
+            return;
+        }
+
+        final DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(activity, lam.getOrientation());
+        final @ColorInt int dividerColor = ContextCompat.getColor(activity, R.color.divider);
+        final Drawable dividerDrawable = dividerItemDecoration.getDrawable();
+        if (dividerDrawable == null) {
+            return;
+        }
+        dividerDrawable.setTint(dividerColor);
+        recyclerView.addItemDecoration(dividerItemDecoration);
     }
 }
