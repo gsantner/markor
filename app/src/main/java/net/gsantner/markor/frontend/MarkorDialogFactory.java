@@ -51,6 +51,7 @@ import net.gsantner.markor.frontend.filesearch.FileSearchResultSelectorDialog;
 import net.gsantner.markor.frontend.textview.SyntaxHighlighterBase;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
+import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.frontend.GsSearchOrCustomTextDialog;
 import net.gsantner.opoc.frontend.GsSearchOrCustomTextDialog.DialogOptions;
@@ -64,6 +65,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -266,7 +268,7 @@ public class MarkorDialogFactory {
             dopt2.messageText = Html.fromHtml(activity.getString(R.string.advanced_filtering_help));
             final String[] queryHolder = new String[1];
             dopt2.searchFunction = (query, line, index) -> {
-                queryHolder[0] = query.toString();
+                queryHolder[0] = query;
                 return TodoTxtFilter.isMatchQuery(new TodoTxtTask(line), query);
             };
             addSaveQuery(activity, dopt2, () -> queryHolder[0]);
@@ -276,7 +278,7 @@ public class MarkorDialogFactory {
         // Add saved views
         final List<Pair<String, String>> savedViews = TodoTxtFilter.loadSavedFilters(activity);
         final List<Integer> indices = GsCollectionUtils.range(savedViews.size());
-        Collections.sort(indices, (a, b) -> savedViews.get(a).first.compareTo(savedViews.get(b).first));
+        Collections.sort(indices, Comparator.comparing(a -> savedViews.get(a).first));
 
         for (final int i : indices) {
             // No icon for the saved searches
@@ -291,12 +293,10 @@ public class MarkorDialogFactory {
                 // Delete view
                 doptView.neutralButtonText = R.string.delete;
                 doptView.isSoftInputVisible = false;
-                doptView.neutralButtonCallback = viewDialog -> {
-                    showConfirmDialog(activity, R.string.confirm_delete, title, null, () -> {
-                        viewDialog.dismiss();
-                        TodoTxtFilter.deleteFilterIndex(activity, i);
-                    });
-                };
+                doptView.neutralButtonCallback = viewDialog -> showConfirmDialog(activity, R.string.confirm_delete, title, null, () -> {
+                    viewDialog.dismiss();
+                    TodoTxtFilter.deleteFilterIndex(activity, i);
+                });
 
                 GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, doptView);
             });
@@ -657,15 +657,15 @@ public class MarkorDialogFactory {
 
         dopt.positionCallback = i -> {
             switch (i.get(0)) {
-                default:
-                case 0:
-                    selectItemDialog(activity, R.string.recently_viewed_documents, as.getRecentFiles(), File::getName, callback);
-                    break;
                 case 1:
                     selectItemDialog(activity, R.string.popular_documents, as.getPopularFiles(), File::getName, callback);
                     break;
                 case 2:
                     selectItemDialog(activity, R.string.favourites, as.getFavouriteFiles(), File::getName, callback);
+                    break;
+                case 0:
+                default:
+                    selectItemDialog(activity, R.string.recently_viewed_documents, as.getRecentFiles(), File::getName, callback);
                     break;
             }
         };
@@ -706,7 +706,9 @@ public class MarkorDialogFactory {
             dopt2.titleText = R.string.select;
             dopt2.isSearchEnabled = true;
             dopt2.data = GsCollectionUtils.map(found, File::getPath);
-            dopt2.positionCallback = (result) -> callback.callback(found.get(result.get(0)));
+            if (found != null) {
+                dopt2.positionCallback = (result) -> callback.callback(found.get(result.get(0)));
+            }
             dopt2.neutralButtonText = R.string.search;
             dopt2.neutralButtonCallback = dialog2 -> {
                 dialog2.dismiss();
@@ -763,7 +765,7 @@ public class MarkorDialogFactory {
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    private static class Heading {
+    public static class Heading {
         final int level, line;
         final String str;
 
@@ -785,28 +787,31 @@ public class MarkorDialogFactory {
      */
     public static void showHeadlineDialog(
             final Activity activity,
+            final Document _document,
             final EditText edit,
             final WebView webView,
             final ActionButtonBase.HeadlineState state,
             final GsCallback.r3<Integer, CharSequence, Integer, Integer> levelCallback
     ) {
-        // Get all headings and their levels
         final CharSequence text = edit.getText();
-        final List<Heading> headings = new ArrayList<>();
-        GsTextUtils.forEachline(text, (line, start, end) -> {
-            final int level = levelCallback.callback(text, start, end);
-            if (level > 0) {
-                headings.add(new Heading(level, text.subSequence(start, end), line));
-            }
-            return true;
-        });
+        if (!_document.isContentSame(text) || state.levels == null) {
+            // Get all headings and their levels
+            state.headings.clear();
+            GsTextUtils.forEachline(text, (line, start, end) -> {
+                final int level = levelCallback.callback(text, start, end);
+                if (level > 0) {
+                    state.headings.add(new Heading(level, text.subSequence(start, end), line));
+                }
+                return true;
+            });
 
-        // List of levels present in text
-        final List<Integer> levels = new ArrayList<>(new TreeSet<>(GsCollectionUtils.map(headings, h -> h.level)));
+            // List of levels present in text
+            state.levels = new ArrayList<>(new TreeSet<>(GsCollectionUtils.map(state.headings, h -> h.level)));
+        }
 
         // Currently filtered headings
-        final List<Integer> filtered = GsCollectionUtils.indices(headings, h -> !state.disabledLevels.contains(h.level));
-        final List<String> data = GsCollectionUtils.map(filtered, i -> headings.get(i).str);
+        final List<Integer> filtered = GsCollectionUtils.indices(state.headings, h -> !state.disabledLevels.contains(h.level));
+        final List<String> data = GsCollectionUtils.map(filtered, i -> state.headings.get(i).str);
 
         final DialogOptions dopt = baseConf(activity);
         dopt.state.copyFrom(state);
@@ -816,14 +821,14 @@ public class MarkorDialogFactory {
         dopt.isSearchEnabled = true;
         dopt.isSoftInputVisible = false;
         dopt.highlighter = new GsCallback.a1<Spannable>() {
-            private Pattern pattern = Pattern.compile("^#{1,6}");
-            private ForegroundColorSpan span = new ForegroundColorSpan(0xFFC0C0C0); // Silver
+            private final Pattern pattern = Pattern.compile("^#{1,6}");
+            private final ForegroundColorSpan span = new ForegroundColorSpan(0xFFC0C0C0); // Silver
 
             @Override
             public void callback(Spannable spannable) {
                 Matcher matcher = pattern.matcher(spannable);
                 if (matcher.find()) {
-                    // Fade the color of '#' to emphasize the content of the headline
+                    // Fade the color of prefix '#' to emphasize the content of the headline
                     spannable.setSpan(span, matcher.start(), matcher.end(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
             }
@@ -831,7 +836,7 @@ public class MarkorDialogFactory {
 
         dopt.positionCallback = result -> {
             final int index = filtered.get(result.get(0));
-            final int line = headings.get(index).line;
+            final int line = state.headings.get(index).line;
 
             TextViewUtils.selectLines(edit, line);
 
@@ -844,25 +849,26 @@ public class MarkorDialogFactory {
         dopt.neutralButtonText = R.string.filter;
         dopt.neutralButtonCallback = (dialog) -> {
             final DialogOptions dopt2 = baseConf(activity);
-            dopt2.preSelected = GsCollectionUtils.indices(levels, l -> !state.disabledLevels.contains(l));
-            dopt2.data = GsCollectionUtils.map(levels, l -> "H" + l);
+            dopt2.preSelected = GsCollectionUtils.indices(state.levels, l -> !state.disabledLevels.contains(l));
+            dopt2.data = GsCollectionUtils.map(state.levels, l -> "H" + l);
             dopt2.titleText = R.string.filter;
             dopt2.isSearchEnabled = false;
             dopt2.selectionMode = DialogOptions.SelectionMode.MULTIPLE;
             dopt2.positionCallback = (selected) -> {
                 // Update levels so the selected ones are true
                 state.disabledLevels.clear();
-                state.disabledLevels.addAll(GsCollectionUtils.setDiff(levels, GsCollectionUtils.map(selected, levels::get)));
+                state.disabledLevels.addAll(GsCollectionUtils.setDiff(state.levels, GsCollectionUtils.map(selected, state.levels::get)));
 
                 // Update selection and data
                 filtered.clear();
-                filtered.addAll(GsCollectionUtils.indices(headings, h -> !state.disabledLevels.contains(h.level)));
+                filtered.addAll(GsCollectionUtils.indices(state.headings, h -> !state.disabledLevels.contains(h.level)));
 
                 data.clear();
-                data.addAll(GsCollectionUtils.map(filtered, (si, i) -> headings.get(si).str));
+                data.addAll(GsCollectionUtils.map(filtered, (si, i) -> state.headings.get(si).str));
 
                 // Refresh
-                GsSearchOrCustomTextDialog.getAdapter(dialog).update();
+                GsSearchOrCustomTextDialog.Adapter adapter = GsSearchOrCustomTextDialog.getAdapter(dialog);
+                if (adapter != null) adapter.update();
             };
             GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
         };
@@ -1075,7 +1081,7 @@ public class MarkorDialogFactory {
             dopt.longPressCallback = (pos) -> callback.callback(searchResults.get(pos).file, true);
             dopt.searchFunction = (contraint, str, index) -> {
                 final String name = searchResults.get(index).file.getName();
-                return name.toLowerCase().contains(contraint.toString().toLowerCase());
+                return name.toLowerCase().contains(contraint.toLowerCase());
             };
 
             if (state != null) {
@@ -1156,14 +1162,14 @@ public class MarkorDialogFactory {
         dopt.showSelectAllButton = false;
 
         final Set<Integer> prevSelection = new HashSet<>(dopt.preSelected);
-        final boolean[] resetGlobal = {false};
+        // final boolean[] resetGlobal = {false};
         final Set<Integer> radioSet = new HashSet<>(Arrays.asList(1, 2, 3, 4));
         dopt.selectionChangedCallback = (selection) -> {
             final Set<Integer> added = GsCollectionUtils.setDiff(selection, prevSelection);
             final Set<Integer> removed = GsCollectionUtils.setDiff(prevSelection, selection);
             if (globalOrder != null && currentOrder.isFolderLocal && removed.contains(0)) {
                 // Reset to global if folder local is unchecked
-                resetGlobal[0] = true;
+                // resetGlobal[0] = true;
                 selection.clear();
                 if (globalOrder.folderFirst) selection.add(5);
                 if (globalOrder.reverse) selection.add(6);

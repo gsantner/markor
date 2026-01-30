@@ -40,6 +40,7 @@ import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.frontend.AttachLinkOrFileDialog;
 import net.gsantner.markor.frontend.DatetimeFormatDialog;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
+import net.gsantner.markor.frontend.MarkorDialogFactory.Heading;
 import net.gsantner.markor.frontend.textsearch.TextSearchFragment;
 import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
@@ -1043,6 +1044,8 @@ public abstract class ActionButtonBase {
     }
 
     public static class HeadlineState extends GsSearchOrCustomTextDialog.DialogState {
+        public final List<Heading> headings = new ArrayList<>();
+        public List<Integer> levels;
         public final List<Integer> disabledLevels = new ArrayList<>();
     }
 }
