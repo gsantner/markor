@@ -72,8 +72,8 @@ public class HighlightingEditor extends AppCompatEditText {
     private boolean _saveInstanceState = true;
     private final ExecutorService executor = new ThreadPoolExecutor(0, 3, 60, TimeUnit.SECONDS, new SynchronousQueue<>());
     private final AtomicBoolean _textUnchangedWhileHighlighting = new AtomicBoolean(true);
-    private long _textChangedTime;
-    private final Runnable _textChangedTimeRecorder = TextViewUtils.makeDebounced(getHandler(), 1000, () -> _textChangedTime = System.currentTimeMillis());
+    private int _textChangedNumber;
+    private final Runnable _textChangedRecorder = TextViewUtils.makeDebounced(getHandler(), 1000, () -> _textChangedNumber++);
 
     public HighlightingEditor(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -106,7 +106,7 @@ public class HighlightingEditor extends AppCompatEditText {
                 if (_hlEnabled && _hl != null && _hlDebounced != null) {
                     _hlDebounced.run();
                 }
-                _textChangedTimeRecorder.run();
+                _textChangedRecorder.run();
             }
         });
 
@@ -601,11 +601,13 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     /**
-     * Get last text changed time.
+     * Get a number representing the current text changed state.
+     * This number will increase by 1 every time the text is changed.
+     * This is lighter weight than hash to represent text changed state.
      *
-     * @return the last text changed time, time error within 1000ms.
+     * @return the number representing text last changed state, update time error within 1000ms.
      */
-    public long getTextChangedTime() {
-        return _textChangedTime;
+    public int getTextChangedNumber() {
+        return _textChangedNumber;
     }
 }

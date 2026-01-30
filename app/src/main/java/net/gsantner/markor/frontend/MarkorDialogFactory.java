@@ -791,13 +791,13 @@ public class MarkorDialogFactory {
             final ActionButtonBase.HeadlineState state,
             final GsCallback.r3<Integer, CharSequence, Integer, Integer> levelCallback
     ) {
-        long textChangedTime = 0;
+        int textChangedNumber = 0;
         if (edit instanceof HighlightingEditor) {
-            textChangedTime = ((HighlightingEditor) edit).getTextChangedTime();
+            textChangedNumber = ((HighlightingEditor) edit).getTextChangedNumber();
         }
 
-        if (textChangedTime != state.lastTextChangedTime || state.levels == null) {
-            state.lastTextChangedTime = textChangedTime;
+        if (textChangedNumber != state.lastTextChangedNumber) {
+            state.lastTextChangedNumber = textChangedNumber;
             // Get all headings and their levels
             final CharSequence text = edit.getText();
             state.headings.clear();
@@ -810,7 +810,11 @@ public class MarkorDialogFactory {
             });
 
             // List of levels present in text
-            state.levels = new ArrayList<>(new TreeSet<>(GsCollectionUtils.map(state.headings, h -> h.level)));
+            state.levels.clear();
+            TreeSet<Integer> treeSet = new TreeSet<>(GsCollectionUtils.map(state.headings, h -> h.level));
+            for (int level : treeSet) {
+                state.levels.add(level);
+            }
         }
 
         // Currently filtered headings

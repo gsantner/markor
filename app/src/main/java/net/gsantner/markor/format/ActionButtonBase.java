@@ -1045,8 +1045,8 @@ public abstract class ActionButtonBase {
 
     public static class HeadlineState extends GsSearchOrCustomTextDialog.DialogState {
         public final List<Heading> headings = new ArrayList<>();
-        public List<Integer> levels;
+        public final List<Integer> levels = new ArrayList<>();
         public final List<Integer> disabledLevels = new ArrayList<>();
-        public long lastTextChangedTime;
+        public long lastTextChangedNumber = -1;
     }
 }
