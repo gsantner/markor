@@ -48,10 +48,10 @@ import net.gsantner.markor.format.todotxt.TodoTxtTask;
 import net.gsantner.markor.frontend.filesearch.FileSearchDialog;
 import net.gsantner.markor.frontend.filesearch.FileSearchEngine;
 import net.gsantner.markor.frontend.filesearch.FileSearchResultSelectorDialog;
+import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.frontend.textview.SyntaxHighlighterBase;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
-import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.frontend.GsSearchOrCustomTextDialog;
 import net.gsantner.opoc.frontend.GsSearchOrCustomTextDialog.DialogOptions;
@@ -65,7 +65,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -278,7 +277,7 @@ public class MarkorDialogFactory {
         // Add saved views
         final List<Pair<String, String>> savedViews = TodoTxtFilter.loadSavedFilters(activity);
         final List<Integer> indices = GsCollectionUtils.range(savedViews.size());
-        Collections.sort(indices, Comparator.comparing(a -> savedViews.get(a).first));
+        Collections.sort(indices, (a, b) -> savedViews.get(a).first.compareTo(savedViews.get(b).first));
 
         for (final int i : indices) {
             // No icon for the saved searches
@@ -787,15 +786,20 @@ public class MarkorDialogFactory {
      */
     public static void showHeadlineDialog(
             final Activity activity,
-            final Document _document,
             final EditText edit,
             final WebView webView,
             final ActionButtonBase.HeadlineState state,
             final GsCallback.r3<Integer, CharSequence, Integer, Integer> levelCallback
     ) {
-        final CharSequence text = edit.getText();
-        if (!_document.isContentSame(text) || state.levels == null) {
+        long textChangedTime = 0;
+        if (edit instanceof HighlightingEditor) {
+            textChangedTime = ((HighlightingEditor) edit).getTextChangedTime();
+        }
+
+        if (textChangedTime != state.lastTextChangedTime || state.levels == null) {
+            state.lastTextChangedTime = textChangedTime;
             // Get all headings and their levels
+            final CharSequence text = edit.getText();
             state.headings.clear();
             GsTextUtils.forEachline(text, (line, start, end) -> {
                 final int level = levelCallback.callback(text, start, end);

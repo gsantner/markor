@@ -1047,5 +1047,6 @@ public abstract class ActionButtonBase {
         public final List<Heading> headings = new ArrayList<>();
         public List<Integer> levels;
         public final List<Integer> disabledLevels = new ArrayList<>();
+        public long lastTextChangedTime;
     }
 }

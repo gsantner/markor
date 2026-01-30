@@ -72,6 +72,8 @@ public class HighlightingEditor extends AppCompatEditText {
     private boolean _saveInstanceState = true;
     private final ExecutorService executor = new ThreadPoolExecutor(0, 3, 60, TimeUnit.SECONDS, new SynchronousQueue<>());
     private final AtomicBoolean _textUnchangedWhileHighlighting = new AtomicBoolean(true);
+    private long _textChangedTime;
+    private final Runnable _textChangedTimeRecorder = TextViewUtils.makeDebounced(getHandler(), 1000, () -> _textChangedTime = System.currentTimeMillis());
 
     public HighlightingEditor(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -104,6 +106,7 @@ public class HighlightingEditor extends AppCompatEditText {
                 if (_hlEnabled && _hl != null && _hlDebounced != null) {
                     _hlDebounced.run();
                 }
+                _textChangedTimeRecorder.run();
             }
         });
 
@@ -595,5 +598,14 @@ public class HighlightingEditor extends AppCompatEditText {
                 // Cleanup if needed
             }
         });
+    }
+
+    /**
+     * Get last text changed time.
+     *
+     * @return the last text changed time, time error within 1000ms.
+     */
+    public long getTextChangedTime() {
+        return _textChangedTime;
     }
 }
