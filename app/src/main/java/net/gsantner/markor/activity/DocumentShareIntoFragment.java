@@ -23,7 +23,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.ColorInt;
@@ -256,7 +255,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             final RecyclerView list = getListView();
             final Context context = getContext();
             if (_editor == null || list == null || context == null) {
-                return ;
+                return;
             }
 
             final @ColorInt int color = _cu.rcolor(getContext(), R.color.background);
