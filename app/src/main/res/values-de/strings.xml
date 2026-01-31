@@ -38,6 +38,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Teilen zu…</string>
     <string name="share">Teilen</string>
     <string name="search">Suchen</string>
+    <string name="previous_match">Vorheriger Treffer</string>
+    <string name="next_match">Nächster Treffer</string>
     <string name="display_converted_markup">Konvertiertes Markup anzeigen</string>
     <string name="editor">Editor</string>
     <string name="folders">Ordner</string>
@@ -460,10 +462,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Erweiterte Filterregel</a></small>]]></string>
     <string name="filter">Filter</string>
     <string name="text_case">Groß-/Kleinschreibung</string>
-    <string name="toggle_case">Alles groß- bzw. kleinschreiben (Bsp: Markor-&gt;MARKOR-&gt;markor)</string>
-    <string name="switch_case">Großbuchstaben kleinschreiben und umgekehrt (Bsp:MaRkor-&gt;mArKOR)</string>
-    <string name="capitalize_words">Alles großschreiben (Bsp: Markor-&gt;MARKOR)</string>
-    <string name="capitalize_sentences">Satzanfänge großschreiben (Bsp: markor-&gt;Markor)</string>
     <string name="use_tab_to_indent">Zeilen einrücken mit der TAB-Taste</string>
     <string name="folder_local">Lokale Ordner</string>
 </resources>

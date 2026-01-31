@@ -2067,7 +2067,7 @@ public class GsContextUtils {
             // and launch the desired Url with CustomTabsIntent.launchUrl()
             CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
             builder.setToolbarColor(ContextCompat.getColor(context, getResId(context, GsContextUtils.ResType.COLOR, "primary")));
-            builder.setSecondaryToolbarColor(ContextCompat.getColor(context, getResId(context, GsContextUtils.ResType.COLOR, "primary_dark")));
+            builder.setSecondaryToolbarColor(ContextCompat.getColor(context, getResId(context, GsContextUtils.ResType.COLOR, "dark_background")));
             builder.addDefaultShareMenuItem();
             CustomTabsIntent customTabsIntent = builder.build();
             enableChromeCustomTabsForOtherBrowsers(context, customTabsIntent.intent);
