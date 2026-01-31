@@ -22,6 +22,7 @@ import com.vladsch.flexmark.ext.gitlab.GitLabExtension;
 import com.vladsch.flexmark.ext.ins.InsExtension;
 import com.vladsch.flexmark.ext.jekyll.front.matter.JekyllFrontMatterExtension;
 import com.vladsch.flexmark.ext.jekyll.tag.JekyllTagExtension;
+import com.vladsch.flexmark.ext.superscript.SuperscriptExtension;
 import com.vladsch.flexmark.ext.tables.TablesExtension;
 import com.vladsch.flexmark.ext.toc.SimTocExtension;
 import com.vladsch.flexmark.ext.toc.TocExtension;
@@ -36,18 +37,20 @@ import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.html.renderer.AttributablePart;
 import com.vladsch.flexmark.html.renderer.LinkResolverContext;
 import com.vladsch.flexmark.parser.Parser;
-import com.vladsch.flexmark.superscript.SuperscriptExtension;
 import com.vladsch.flexmark.util.ast.Document;
 import com.vladsch.flexmark.util.ast.Node;
-import com.vladsch.flexmark.util.builder.Extension;
-import com.vladsch.flexmark.util.html.Attributes;
-import com.vladsch.flexmark.util.options.MutableDataHolder;
-import com.vladsch.flexmark.util.options.MutableDataSet;
+import com.vladsch.flexmark.util.data.MutableDataHolder;
+import com.vladsch.flexmark.util.data.MutableDataSet;
+import com.vladsch.flexmark.util.html.MutableAttributes;
+import com.vladsch.flexmark.util.misc.Extension;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextConverterBase;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.util.GsContextUtils;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -321,7 +324,7 @@ public class MarkdownTextConverter extends TextConverterBase {
         ////////////
         // Markup parsing - afterwards = HTML
         Document document = flexmarkParser.parse(markup);
-        converted = fmaText + flexmarkRenderer.withOptions(options).render(document);
+        converted = fmaText + flexmarkRenderer.builder(options).build().render(document);
 
         // After render changes: Fixes for Footnotes (converter creates footnote + <br> + ref#(click) --> remove line break)
         if (converted.contains("footnote-")) {
@@ -453,7 +456,7 @@ public class MarkdownTextConverter extends TextConverterBase {
 
     private static class LineNumberIdProvider implements AttributeProvider {
         @Override
-        public void setAttributes(Node node, AttributablePart part, Attributes attributes) {
+        public void setAttributes(@NotNull Node node, @NotNull AttributablePart part, @NotNull MutableAttributes attributes) {
             final Document document = node.getDocument();
             final int lineNumber = document.getLineNumber(node.getStartOffset());
             attributes.addValue("line", "" + lineNumber);
@@ -463,12 +466,12 @@ public class MarkdownTextConverter extends TextConverterBase {
     private static class LineNumberIdProviderFactory implements AttributeProviderFactory {
 
         @Override
-        public Set<Class<? extends AttributeProviderFactory>> getAfterDependents() {
+        public @Nullable Set<Class<?>> getAfterDependents() {
             return null;
         }
 
         @Override
-        public Set<Class<? extends AttributeProviderFactory>> getBeforeDependents() {
+        public @Nullable Set<Class<?>> getBeforeDependents() {
             return null;
         }
 
@@ -478,7 +481,7 @@ public class MarkdownTextConverter extends TextConverterBase {
         }
 
         @Override
-        public AttributeProvider create(LinkResolverContext context) {
+        public @NotNull AttributeProvider apply(@NotNull LinkResolverContext context) {
             return new LineNumberIdProvider();
         }
     }
