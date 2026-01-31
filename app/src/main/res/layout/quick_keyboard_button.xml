@@ -19,6 +19,6 @@
     android:paddingRight="4dp"
     android:paddingBottom="8dp"
     android:scaleType="fitCenter"
-    android:tint="@color/textActionIconColor"
+    android:tint="@color/primary_text"
     tools:ignore="ContentDescription"
     tools:src="@drawable/ic_check_box_black_24dp" />
