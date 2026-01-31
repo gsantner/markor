@@ -402,6 +402,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="loading_default_value">S\'està carregant el valor per defecte</string>
     <string name="file_settings">Configuració dels fitxers</string>
     <string name="search_and_replace">Cercar / Reemplaça</string>
+    <string name="replace">Reemplaça</string>
     <string name="search_for">Cerca per</string>
     <string name="replace_with">Reemplaça per</string>
     <string name="replace_once">Reemplaça (1)</string>
