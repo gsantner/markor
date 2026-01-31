@@ -460,10 +460,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Sintaxă avansată de filtrare</a></small>]]></string>
     <string name="filter">Filtru</string>
     <string name="text_case">Formatare text</string>
-    <string name="toggle_case">Inversează majuscule/minuscule (Ex: Text-&gt;TEXT-&gt;text)</string>
-    <string name="switch_case">Schimbă majuscule/minuscule (Ex: TeXt-&gt;tExT)</string>
-    <string name="capitalize_words">Cuvinte cu majuscule (Ex: a note-&gt;A Note)</string>
-    <string name="capitalize_sentences">Majusculă la începutul propoziției (Ex: text-&gt;Text)</string>
     <string name="use_tab_to_indent">Indentează liniile cu tasta TAB</string>
     <string name="folder_local">Dosar local</string>
 </resources>

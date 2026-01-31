@@ -37,8 +37,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import net.gsantner.markor.R;
@@ -153,6 +151,7 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         _toolBar.setTitle(_dopt.titleText);
         _toolBar.setSubtitleTextColor(rcolor(_dopt.secondaryTextColor));
         setSubtitleApprearance(_toolBar);
+        _toolBar.setBackgroundColor(rcolor(_dopt.primaryColor != 0 ? _dopt.primaryColor : R.color.primary));
 
         _homeButton.setImageResource(_dopt.homeButtonImage);
         _homeButton.setVisibility(_dopt.homeButtonEnable ? View.VISIBLE : View.GONE);
@@ -175,9 +174,8 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
 
         root.setBackgroundColor(rcolor(_dopt.backgroundColor));
 
-        final LinearLayoutManager lam = (LinearLayoutManager) _recyclerList.getLayoutManager();
-        final DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(activity, lam.getOrientation());
-        _recyclerList.addItemDecoration(dividerItemDecoration);
+        GsFileBrowserFragment.addDivider(activity, _recyclerList);
+
         _recyclerList.setItemViewCacheSize(20);
 
         _filesystemViewerAdapter = new GsFileBrowserListAdapter(_dopt, activity);

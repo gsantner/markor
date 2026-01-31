@@ -7,7 +7,9 @@ import android.view.KeyEvent;
 import android.view.WindowManager;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
+import net.gsantner.markor.R;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.frontend.base.GsActivityBase;
@@ -36,7 +38,10 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
 
     @Override
     public Integer getNewNavigationBarColor() {
-        return _appSettings.getAppThemeName().contains("black") ? Color.BLACK : null;
+        if (_appSettings.getAppThemeName().contains("black")) {
+            return Color.BLACK;
+        }
+        return ContextCompat.getColor(this, R.color.background);
     }
 
     @Override

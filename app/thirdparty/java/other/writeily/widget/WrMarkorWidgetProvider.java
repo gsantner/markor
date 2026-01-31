@@ -44,7 +44,7 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
 
         final int staticFlags = PendingIntent.FLAG_UPDATE_CURRENT | (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PendingIntent.FLAG_IMMUTABLE : 0);
         final int mutableFlags = PendingIntent.FLAG_UPDATE_CURRENT | (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S ? PendingIntent.FLAG_MUTABLE : 0);
-        final @ColorInt int color = ContextCompat.getColor(context, R.color.white);
+        final @ColorInt int color = ContextCompat.getColor(context, R.color.dark__primary_text);
 
         // Perform this loop procedure for each App Widget that belongs to this provider
         for (final int appWidgetId : appWidgetIds) {
