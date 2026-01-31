@@ -20,7 +20,7 @@ package net.gsantner.opoc.frontend.filebrowser;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.Menu;
@@ -30,9 +30,11 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -116,9 +118,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         }
         setDialogOptions(((FilesystemFragmentOptionsListener) activity).getFilesystemFragmentOptions(_dopt));
 
-        LinearLayoutManager lam = (LinearLayoutManager) _recyclerList.getLayoutManager();
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(activity, lam.getOrientation());
-        _recyclerList.addItemDecoration(dividerItemDecoration);
+        addDivider(activity, _recyclerList);
 
         _filesystemViewerAdapter = new GsFileBrowserListAdapter(_dopt, activity);
         _recyclerList.setAdapter(_filesystemViewerAdapter);
@@ -287,7 +287,8 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
 
             final MenuItem sortItem = _fragmentMenu.findItem(R.id.action_sort);
             if (sortItem != null) {
-                _cu.tintDrawable(sortItem.getIcon(), _dopt.sortOrder.isFolderLocal ? GsFileBrowserListAdapter.FAVOURITE_COLOR : Color.WHITE);
+                final @ColorInt int colorWhite = _cu.rcolor(getContext(), R.color.dark__primary_text);
+                _cu.tintDrawable(sortItem.getIcon(), _dopt.sortOrder.isFolderLocal ? GsFileBrowserListAdapter.FAVOURITE_COLOR : colorWhite);
             }
         }
 
@@ -356,7 +357,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.filesystem__menu, menu);
-        _cu.tintMenuItems(menu, true, Color.WHITE);
+        _cu.tintMenuItems(menu, true, _cu.rcolor(getContext(), R.color.dark__primary_text));
         _cu.setSubMenuIconsVisibility(menu, true);
 
         List<Pair<File, String>> sdcardFolders = _cu.getAppDataPublicDirs(getContext(), false, true, true);
@@ -633,5 +634,26 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     @Override
     public MarkorContextUtils createContextUtilsInstance(Context context) {
         return new MarkorContextUtils(context);
+    }
+
+    public static void addDivider(final Activity activity, final RecyclerView recyclerView) {
+        if (recyclerView == null || activity == null) {
+            return;
+        }
+
+        final LinearLayoutManager lam = (LinearLayoutManager) recyclerView.getLayoutManager();
+
+        if (lam == null) {
+            return;
+        }
+
+        final DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(activity, lam.getOrientation());
+        final @ColorInt int dividerColor = ContextCompat.getColor(activity, R.color.divider);
+        final Drawable dividerDrawable = dividerItemDecoration.getDrawable();
+        if (dividerDrawable == null) {
+            return;
+        }
+        dividerDrawable.setTint(dividerColor);
+        recyclerView.addItemDecoration(dividerItemDecoration);
     }
 }

@@ -15,7 +15,6 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
-import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;

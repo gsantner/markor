@@ -10,40 +10,32 @@
 <resources>
     <!-- Named colors -->
     <color name="colorPrimary">@color/primary</color>
+    <color name="colorPrimaryDark">@color/primary</color>
     <color name="primary_text">@color/light__primary_text</color>
     <color name="secondary_text">@color/light__secondary_text</color>
     <color name="file">@color/light__file</color>
     <color name="folder">@color/light__folder</color>
     <color name="background">@color/light__background</color>
-    <color name="background_2">@color/light__background_2</color>
-    <color name="textActionBarColor">@color/lighter_grey</color>
-    <color name="textActionIconColor">@color/grey</color>
 
     <!-- Named colors differing common to day and night -->
     <color name="colorAccent">@color/accent</color>
 
     <!-- Color values -->
     <color name="primary">#1E2135</color>
-    <color name="primary_dark">#161828</color>
-    <color name="primary_light">#CED9DD</color>
     <color name="accent">#F04B4B</color>
-    <color name="icons">#FFFFFF</color>
-    <color name="divider">#B6B6B6</color>
+    <color name="divider">#808080</color>
 
     <color name="accent_light">#FF9800</color>
-    <color name="divider_2">#3D3D3D</color>
     <color name="default_link_color">#388E3C</color>
 
     <color name="light__background">#EEEEEE</color>
-    <color name="light__background_2">#F9F9F9</color>
-    <color name="light__primary_text">#212121</color>
-    <color name="light__secondary_text">#757575</color>
+    <color name="light__primary_text">#DE000000</color>
+    <color name="light__secondary_text">#99000000</color>
     <color name="light__file">#757575</color>
     <color name="light__folder">#757575</color>
 
-    <color name="dark__background">#222222</color>
-    <color name="dark__background_2">#424242</color>
-    <color name="dark__primary_text">@color/white</color>
+    <color name="dark__background">@color/dark_grey</color>
+    <color name="dark__primary_text">#DDFFFFFF</color>
     <color name="dark__secondary_text">#9E9E9E</color>
     <color name="dark__file">#9E9E9E</color>
     <color name="dark__folder">#9E9E9E</color>

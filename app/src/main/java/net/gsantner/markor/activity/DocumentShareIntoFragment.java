@@ -12,7 +12,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -26,6 +25,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
@@ -33,6 +33,7 @@ import androidx.core.widget.CompoundButtonCompat;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceGroup;
+import androidx.recyclerview.widget.RecyclerView;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.FormatRegistry;
@@ -138,8 +139,9 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             checkBox = new CheckBox(activity);
             checkBox.setText(R.string.format_link);
             checkBox.setTag(CHECKBOX_TAG);
-            CompoundButtonCompat.setButtonTintList(checkBox, ColorStateList.valueOf(Color.WHITE));
-            checkBox.setTextColor(Color.WHITE);
+            final @ColorInt int color = _cu.rcolor(activity, R.color.dark__primary_text);
+            CompoundButtonCompat.setButtonTintList(checkBox, ColorStateList.valueOf(color));
+            checkBox.setTextColor(color);
             checkBox.setLayoutDirection(CheckBox.LAYOUT_DIRECTION_RTL);
 
             final Toolbar.LayoutParams layoutParams = new Toolbar.LayoutParams(
@@ -189,7 +191,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
 
         @Override
         public boolean isDividerVisible() {
-            return true;
+            return false;
         }
 
         public ShareIntoImportOptionsFragment setAttachment(File file) {
@@ -245,6 +247,24 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             final Preference mrd = findPreference(R.string.pref_key__share_into__most_recent_document);
             mrd.setVisible(mostRecentFile != null);
             mrd.setTitle(mostRecentFile != null ? mostRecentFile.getName() : "");
+
+            shadeOptions();
+        }
+
+        private void shadeOptions() {
+            final RecyclerView list = getListView();
+            final Context context = getContext();
+            if (_editor == null || list == null || context == null) {
+                return;
+            }
+
+            final @ColorInt int color = _cu.rcolor(getContext(), R.color.background);
+            for (int i = 0; i < list.getChildCount(); i++) {
+                final View view = list.getChildAt(i);
+                if (view != null) {
+                    view.setBackgroundColor(color);
+                }
+            }
         }
 
         private boolean shareAsLink() {
