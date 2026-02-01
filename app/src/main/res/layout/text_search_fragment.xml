@@ -60,20 +60,20 @@
                 android:id="@+id/nextImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/next"
+                android:contentDescription="@string/next_match"
                 android:minWidth="48dp"
                 android:minHeight="48dp"
-                android:tooltipText="@string/next"
+                android:tooltipText="@string/next_match"
                 app:srcCompat="@drawable/ic_arrow_down_24dp" />
 
             <ImageButton
                 android:id="@+id/previousImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/previous"
+                android:contentDescription="@string/previous_match"
                 android:minWidth="48dp"
                 android:minHeight="48dp"
-                android:tooltipText="@string/previous"
+                android:tooltipText="@string/previous_match"
                 app:srcCompat="@drawable/ic_arrow_up_24dp" />
 
             <TextView

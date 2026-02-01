@@ -390,7 +390,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
     @Override
     public boolean onTextContextMenuItem(int id) {
-        // Copy-paste fix by bad richtext pasting - example text from code at https://plantuml.com/activity-diagram-beta
+        // Copy-paste fix by bad rich-text pasting - example text from code at https://plantuml.com/activity-diagram-beta
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && id == android.R.id.paste) {
             id = android.R.id.pasteAsPlainText;
         }
@@ -584,13 +584,11 @@ public class HighlightingEditor extends AppCompatEditText {
 
             @Override
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.string.option_select_lines:
-                        HighlightingEditor.this.selectLines();
-                        return true;
-                    default:
-                        return false;
+                if (item.getItemId() == R.string.option_select_lines) {
+                    HighlightingEditor.this.selectLines();
+                    return true;
                 }
+                return false;
             }
 
             @Override

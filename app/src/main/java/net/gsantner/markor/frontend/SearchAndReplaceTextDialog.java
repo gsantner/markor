@@ -27,6 +27,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.model.GsSharedPreferencesPropertyBackend;
 
@@ -161,6 +162,8 @@ public class SearchAndReplaceTextDialog {
         popupWindow.setModal(true);
         viewRoot.findViewById(R.id.recent_show_spinner).setOnClickListener(v -> popupWindow.show());
 
+        final Runnable updateUITask = TextViewUtils.makeDebounced(searchEditText.getHandler(), 400, this::updateUI);
+
         final TextWatcher textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -174,7 +177,7 @@ public class SearchAndReplaceTextDialog {
 
             @Override
             public void afterTextChanged(Editable s) {
-                updateUI();
+                updateUITask.run();
             }
         };
 
@@ -260,7 +263,6 @@ public class SearchAndReplaceTextDialog {
 
         if (searchEditText.length() > 0) {
             try {
-
                 final Pattern sp = makePattern();
 
                 // Determine count
@@ -271,7 +273,6 @@ public class SearchAndReplaceTextDialog {
                 if (count > 0) {
                     getReplacement(false);
                 }
-
             } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
                 error = true;
             }
