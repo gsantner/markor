@@ -1,5 +1,6 @@
 package net.gsantner.markor.frontend.textsearch;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -7,9 +8,9 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -65,6 +66,7 @@ public class TextSearchFragment extends Fragment {
     }
 
     @Override
+    @SuppressLint("SetTextI18n")
     public void onViewCreated(@NonNull View fragmentView, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(fragmentView, savedInstanceState);
 
@@ -88,19 +90,6 @@ public class TextSearchFragment extends Fragment {
             }
         });
 
-        searchEditText.setOnTouchListener((view, motionEvent) -> {
-            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                textSearchHandler.handleSelection(editText, searchEditText);
-            }
-            return false;
-        });
-
-        searchEditText.setOnFocusChangeListener((view, hasFocus) -> {
-            if (hasFocus) {
-                find();
-            }
-        });
-
         final Runnable findTask = this::find;
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -118,6 +107,21 @@ public class TextSearchFragment extends Fragment {
             public void afterTextChanged(Editable editable) {
             }
         });
+
+        searchEditText.setOnFocusChangeListener((view, hasFocus) -> {
+            if (hasFocus && textSearchHandler.isFindInSelection()) find();
+        });
+
+        searchEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        searchEditText.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                textSearchHandler.next(editText);
+                return true;
+            }
+            return false;
+        });
+
+        replaceEditText.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
         textSearchHandler.setFindInSelection(false);
         fragmentView.findViewById(R.id.findInSelectionImageButton).setOnClickListener(new View.OnClickListener() {

@@ -245,6 +245,38 @@ public class TextSearchHandler {
         }
     }
 
+    private String applyPreserveCase(String originalText, String replacement) {
+        if (replacement.isEmpty() || originalText.isEmpty()) {
+            return replacement;
+        }
+
+        boolean isAllUpperCase = true;
+        boolean hasLetters = false;
+        for (char c : originalText.toCharArray()) {
+            if (Character.isLetter(c)) {
+                hasLetters = true;
+                if (Character.isLowerCase(c)) {
+                    isAllUpperCase = false;
+                    break;
+                }
+            }
+        }
+
+        if (!hasLetters) {
+            isAllUpperCase = false;
+        }
+
+        if (isAllUpperCase) {
+            return replacement.toUpperCase();
+        }
+
+        if (Character.isUpperCase(originalText.charAt(0))) {
+            return Character.toUpperCase(replacement.charAt(0)) + replacement.substring(1);
+        }
+
+        return replacement;
+    }
+
     public int replace(HighlightingEditor editText, String replacement) {
         if (editText == null || matches.isEmpty()) {
             resultChangedListener.onResultChanged(0, 0);
@@ -273,10 +305,10 @@ public class TextSearchHandler {
         final int size = matches.size();
         final int offset = replacement.length() - currentMatch.getLength();
         for (int i = currentIndex; i < size; i++) {
-            Match o = matches.get(i);
+            Match match = matches.get(i);
             // Shift index by offset
-            o.shiftStart(offset);
-            o.shiftEnd(offset);
+            match.shiftStart(offset);
+            match.shiftEnd(offset);
         }
 
         if (size > 0) {
@@ -290,37 +322,6 @@ public class TextSearchHandler {
 
         resultChangedListener.onResultChanged(currentIndex + 1, matches.size());
         return matches.size();
-    }
-
-    private String applyPreserveCase(String originalText, String replacement) {
-        if (replacement.isEmpty() || originalText.isEmpty()) {
-            return replacement;
-        }
-
-        boolean isAllUpperCase = true;
-        boolean hasLetters = false;
-        for (char c : originalText.toCharArray()) {
-            if (Character.isLetter(c)) {
-                hasLetters = true;
-                if (Character.isLowerCase(c)) {
-                    isAllUpperCase = false;
-                    break;
-                }
-            }
-        }
-        if (!hasLetters) {
-            isAllUpperCase = false;
-        }
-
-        if (isAllUpperCase) {
-            return replacement.toUpperCase();
-        }
-
-        if (Character.isUpperCase(originalText.charAt(0))) {
-            return Character.toUpperCase(replacement.charAt(0)) + replacement.substring(1);
-        }
-
-        return replacement;
     }
 
     public void replaceAll(HighlightingEditor editText, String replacement) {

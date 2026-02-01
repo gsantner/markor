@@ -12,7 +12,7 @@ public class Match {
     public static final @ColorInt int ACTIVE_MATCH_COLOR_DARK = 0x80FF0000;
 
     public SyntaxHighlighterBase.SpanGroup spanGroup;
-    private SyntaxHighlighterBase.HighlightSpan span;
+    private final SyntaxHighlighterBase.HighlightSpan span;
 
     public Match() {
         spanGroup = SyntaxHighlighterBase.createBackgroundHighlight(0, 0, 0);
