@@ -402,6 +402,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="loading_default_value">Carregando valor padrão</string>
     <string name="file_settings">Configurações do arquivo</string>
     <string name="search_and_replace">Pesquisar/Substituir</string>
+    <string name="replace">Substituir</string>
     <string name="search_for">Pesquisar por</string>
     <string name="replace_with">Substituir por</string>
     <string name="replace_once">Substituir (1)</string>
