@@ -432,6 +432,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="loading_default_value">Loading default value</string>
     <string name="file_settings">File Settings</string>
     <string name="search_and_replace">Search / Replace</string>
+    <string name="replace">Replace</string>
     <string name="search_for">Search for</string>
     <string name="replace_with">Replace with</string>
     <string name="replace_once">Replace</string>

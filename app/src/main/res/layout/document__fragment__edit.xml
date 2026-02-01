@@ -76,14 +76,17 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/textactions_bar_height"
         android:layout_gravity="bottom"
-        android:background="@color/textActionBarColor"
-        android:paddingTop="4dp">
+        android:background="@color/background"
+        android:paddingTop="4dp"
+        android:elevation="4dp"
+        android:translationZ="4dp"
+        android:scrollbars="none">
 
         <LinearLayout
             android:id="@+id/document__fragment__edit__text_actions_bar"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@color/textActionBarColor"
+            android:background="@color/background"
             android:orientation="horizontal" />
     </net.gsantner.opoc.frontend.GsHorizontalScrollView>
 
@@ -98,6 +101,6 @@
         android:id="@+id/document__fragment_fullscreen_overlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black"
+        android:background="@color/background"
         android:visibility="gone" />
 </FrameLayout>

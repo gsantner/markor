@@ -151,7 +151,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         // It may cause reads or writes to _silently fail_
         // Instead we try to create it, and exit if that isn't possible
         if (isStateBad()) {
-            Toast.makeText(activity, R.string.error_could_not_open_file, Toast.LENGTH_LONG).show();
+            Toast.makeText(activity, R.string.error_could_not_open_file + " " + getDocument().file, Toast.LENGTH_LONG).show();
             if (activity != null) {
                 activity.finish();
             }
@@ -299,7 +299,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.document__edit__menu, menu);
-        _cu.tintMenuItems(menu, true, Color.WHITE);
+        _cu.tintMenuItems(menu, true, _cu.rcolor(getContext(), R.color.dark__primary_text));
         _cu.setSubMenuIconsVisibility(menu, true);
 
         final boolean isExperimentalFeaturesEnabled = _appSettings.isExperimentalFeaturesEnabled();
@@ -908,7 +908,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             new MarkorContextUtils(context).setClipboard(getContext(), text);
         }
         // Always show error message
-        Toast.makeText(getContext(), R.string.error_could_not_open_file, Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), getString(R.string.error_could_not_open_file) + " " + getDocument().file, Toast.LENGTH_LONG).show();
         Log.i(DocumentEditAndViewFragment.class.getName(), "Triggering error text clipping");
     }
 

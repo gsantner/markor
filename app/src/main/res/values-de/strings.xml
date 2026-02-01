@@ -38,6 +38,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Teilen zu…</string>
     <string name="share">Teilen</string>
     <string name="search">Suchen</string>
+    <string name="previous_match">Vorheriger Treffer</string>
+    <string name="next_match">Nächster Treffer</string>
     <string name="display_converted_markup">Konvertiertes Markup anzeigen</string>
     <string name="editor">Editor</string>
     <string name="folders">Ordner</string>

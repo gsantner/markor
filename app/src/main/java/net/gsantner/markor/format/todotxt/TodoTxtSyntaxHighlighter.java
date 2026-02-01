@@ -18,12 +18,10 @@ import androidx.annotation.NonNull;
 
 import net.gsantner.markor.frontend.textview.SyntaxHighlighterBase;
 import net.gsantner.markor.model.AppSettings;
-
-import java.util.regex.Pattern;
+import net.gsantner.markor.util.MarkorContextUtils;
 
 public class TodoTxtSyntaxHighlighter extends TodoTxtBasicSyntaxHighlighter {
 
-    private final static Pattern LINE_OF_TEXT = Pattern.compile("(?m)(.*)?");
     private ParagraphDividerSpan _paragraphSpan;
 
     public TodoTxtSyntaxHighlighter(final AppSettings as) {
@@ -35,7 +33,8 @@ public class TodoTxtSyntaxHighlighter extends TodoTxtBasicSyntaxHighlighter {
         super.configure(paint);
 
         _delay = _appSettings.getHighlightingDelayTodoTxt();
-        _paragraphSpan = new ParagraphDividerSpan(paint, _textColor);
+        final boolean dark = MarkorContextUtils.instance.isDarkModeEnabled(_appSettings.getContext());
+        _paragraphSpan = new ParagraphDividerSpan(paint, dark ? 0x44FFFFFF : 0xFFDDDDDD);
 
         return this;
     }
@@ -67,9 +66,16 @@ public class TodoTxtSyntaxHighlighter extends TodoTxtBasicSyntaxHighlighter {
         @Override
         public void drawBackground(@NonNull Canvas canvas, @NonNull Paint paint, int left, int right, int top, int baseline, int bottom, @NonNull CharSequence text, int start, int end, int lineNumber) {
             if (end > 0 && text.charAt(end - 1) == '\n') {
-                paint.setColor(_lineColor);
-                paint.setStrokeWidth(0);
-                canvas.drawLine(left, bottom, right, bottom, paint);
+                final int prevColor = paint.getColor();
+                final float prevStrokeWidth = paint.getStrokeWidth();
+                try {
+                    paint.setColor(_lineColor);
+                    paint.setStrokeWidth(0);
+                    canvas.drawLine(left, bottom, right, bottom, paint);
+                } finally {
+                    paint.setColor(prevColor);
+                    paint.setStrokeWidth(prevStrokeWidth);
+                }
             }
         }
 
@@ -92,4 +98,3 @@ public class TodoTxtSyntaxHighlighter extends TodoTxtBasicSyntaxHighlighter {
         }
     }
 }
-

@@ -239,6 +239,7 @@
 
             <com.rarepebble.colorpicker.ColorPreference
                 android:defaultValue="@color/background"
+                android:icon="@drawable/ic_border_outer_black_24dp"
                 android:key="@string/pref_key__basic_color_scheme__bg_light"
                 android:title="BG Light" />
 
@@ -249,7 +250,7 @@
                 android:title="FG Light" />
 
             <com.rarepebble.colorpicker.ColorPreference
-                android:defaultValue="@color/dark_grey"
+                android:defaultValue="@color/dark__background"
                 android:icon="@drawable/ic_border_outer_black_24dp"
                 android:key="@string/pref_key__basic_color_scheme__bg_dark"
                 android:title="BG Dark" />

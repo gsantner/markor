@@ -18,6 +18,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.RippleDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Parcelable;
 import android.text.Editable;
@@ -53,6 +54,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.TooltipCompat;
+import androidx.core.graphics.ColorUtils;
 import androidx.core.view.WindowCompat;
 import androidx.core.widget.TextViewCompat;
 
@@ -244,7 +246,7 @@ public class GsSearchOrCustomTextDialog {
                 textView.setCompoundDrawablesWithIntrinsicBounds(_dopt.iconsForData.get(index), 0, 0, 0);
                 textView.setCompoundDrawablePadding(32);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    TextViewCompat.setCompoundDrawableTintList(textView, ColorStateList.valueOf(_dopt.isDarkDialog ? Color.WHITE : Color.BLACK));
+                    TextViewCompat.setCompoundDrawableTintList(textView, ColorStateList.valueOf(_dopt.textColor));
                 }
             } else {
                 textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
@@ -341,6 +343,8 @@ public class GsSearchOrCustomTextDialog {
         final ListView listView = new ListView(activity);
         listView.setId(LIST_VIEW_ID);
         listView.setAdapter(listAdapter);
+        listView.setDivider(new ColorDrawable(Color.TRANSPARENT));
+        listView.setDividerHeight(GsContextUtils.instance.convertDpToPx(activity, 8));
 
         if (dopt.state.listState != null) {
             listView.onRestoreInstanceState(dopt.state.listState);
@@ -631,7 +635,7 @@ public class GsSearchOrCustomTextDialog {
         searchEditText.setText(dopt.state.searchText);
         searchEditText.setSingleLine(true);
         searchEditText.setTextColor(dopt.textColor);
-        searchEditText.setHintTextColor((dopt.textColor & 0x00FFFFFF) | 0x99000000);
+        searchEditText.setHintTextColor(ColorUtils.setAlphaComponent(dopt.textColor, 0x99));
         searchEditText.setHint(dopt.searchHintText);
         searchEditText.setText(dopt.searchText);
         searchEditText.setInputType(dopt.searchInputType == 0 ? searchEditText.getInputType() : dopt.searchInputType);
@@ -650,7 +654,7 @@ public class GsSearchOrCustomTextDialog {
             clearButton.setBackground(rippleDrawable);
         }
         TooltipCompat.setTooltipText(clearButton, context.getString(R.string.clear));
-        clearButton.setColorFilter(dopt.isDarkDialog ? Color.WHITE : Color.parseColor("#ff505050"));
+        clearButton.setColorFilter(dopt.textColor);
         clearButton.setOnClickListener((v) -> searchEditText.setText(""));
         clearButton.setPadding(margin, 0, margin, 0);
 

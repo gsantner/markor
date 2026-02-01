@@ -465,7 +465,7 @@ public class MarkorDialogFactory {
     public static void showSttSearchDialog(final Activity activity, final EditText text) {
         final DialogOptions dopt = makeSttLineSelectionDialog(activity, text, t -> true);
         dopt.titleText = R.string.search_documents;
-        dopt.neutralButtonText = R.string.search_and_replace;
+        dopt.neutralButtonText = R.string.replace;
         dopt.neutralButtonCallback2 = (dialog, searchText) -> {
             dialog.dismiss();
             SearchAndReplaceTextDialog.showSearchReplaceDialog(activity, text.getText(), searchText, TextViewUtils.getSelection(text));
@@ -759,7 +759,7 @@ public class MarkorDialogFactory {
             dialog.dismiss();
             SearchAndReplaceTextDialog.showSearchReplaceDialog(activity, edit, searchText2, TextViewUtils.getSelection(editText));
         };
-        dopt.neutralButtonText = R.string.search_and_replace;
+        dopt.neutralButtonText = R.string.replace;
         dopt.positionCallback = (result) -> TextViewUtils.selectLines(editText, result);
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
