@@ -83,7 +83,7 @@ public class TextSearchFragment extends Fragment {
 
         textSearchHandler.setResultChangedListener((current, count, msg) -> {
             if (count > 0) {
-                resultTextView.setText(current + "/" + count);
+                resultTextView.setText((current + 1) + "/" + count);
             } else if (count == 0) {
                 resultTextView.setText(R.string.no_results);
             } else if (count == TextSearchHandler.RESULT_BAD_PATTERN) {

@@ -25,16 +25,17 @@ public class TextSearchHandler {
 
     private SearchResultChangedListener resultChangedListener;
 
-    public static final int RESULT_BAD_PATTERN = -1;
     public static final int ACTIVE_INDEX_KEEP = -1;
     public static final int ACTIVE_INDEX_NEARBY = -2;
 
+    public static final int RESULT_BAD_PATTERN = -1;
+
     public interface SearchResultChangedListener {
-        default void onResultChanged(int current, int count) {
-            onResultChanged(current, count, null);
+        default void onResultChanged(int active, int count) {
+            onResultChanged(active, count, null);
         }
 
-        void onResultChanged(int current, int count, String msg);
+        void onResultChanged(int active, int count, String msg);
     }
 
     public void find(HighlightingEditor editText, String target, int activeIndex) {
@@ -91,12 +92,12 @@ public class TextSearchHandler {
         // End searching
 
         calculateCurrentIndex(activeIndex);
-        if (currentIndex >= 0) {
+        if (matches.size() > 0) {
             matches.get(currentIndex).useActiveMatchColor();
             highlightMatches(editText);
             jump(editText, currentIndex);
         }
-        resultChangedListener.onResultChanged(currentIndex + 1, matches.size());
+        resultChangedListener.onResultChanged(currentIndex, matches.size());
     }
 
     private void loadMatches(Matcher matcher, int selectionStart) {
@@ -127,14 +128,16 @@ public class TextSearchHandler {
 
     private void calculateCurrentIndex(int activeIndex) {
         if (matches.isEmpty()) {
-            currentIndex = -1;
+            currentIndex = 0;
             return;
         }
 
         if (activeIndex < 0) {
             if (activeIndex == ACTIVE_INDEX_NEARBY) {
                 currentIndex = findNearbyIndex(selection, matches);
-            } else if (activeIndex != ACTIVE_INDEX_KEEP) {
+            } else if (activeIndex == ACTIVE_INDEX_KEEP) {
+                currentIndex = currentIndex < matches.size() ? currentIndex : findNearbyIndex(selection, matches);
+            } else {
                 currentIndex = 0;
             }
         } else if (activeIndex < matches.size()) {
@@ -190,7 +193,7 @@ public class TextSearchHandler {
         Match match = matches.get(currentIndex);
         match.useActiveMatchColor();
 
-        resultChangedListener.onResultChanged(currentIndex + 1, size);
+        resultChangedListener.onResultChanged(currentIndex, size);
 
         int start = match.getStart();
         TextViewUtils.showSelection(editText, start);
@@ -218,7 +221,7 @@ public class TextSearchHandler {
             Match match = matches.get(--currentIndex);
             match.useActiveMatchColor();
 
-            resultChangedListener.onResultChanged(currentIndex + 1, size);
+            resultChangedListener.onResultChanged(currentIndex, size);
 
             int start = match.getStart();
             TextViewUtils.showSelection(editText, start);
@@ -250,7 +253,7 @@ public class TextSearchHandler {
             Match match = matches.get(++currentIndex);
             match.useActiveMatchColor();
 
-            resultChangedListener.onResultChanged(currentIndex + 1, size);
+            resultChangedListener.onResultChanged(currentIndex, size);
 
             int start = match.getStart();
             TextViewUtils.showSelection(editText, start);
@@ -337,7 +340,7 @@ public class TextSearchHandler {
 
         editText.applyDynamicHighlight();
 
-        resultChangedListener.onResultChanged(currentIndex + 1, matches.size());
+        resultChangedListener.onResultChanged(currentIndex, matches.size());
         return matches.size();
     }
 
@@ -366,7 +369,7 @@ public class TextSearchHandler {
         editText.clearSearchMatches();
         editText.applyDynamicHighlight();
         resultChangedListener.onResultChanged(0, 0);
-        currentIndex = -1;
+        currentIndex = 0;
     }
 
     private final Selection selection = new Selection();
