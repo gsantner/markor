@@ -26,6 +26,8 @@ public class TextSearchHandler {
     private SearchResultChangedListener resultChangedListener;
 
     public static final int RESULT_BAD_PATTERN = -1;
+    public static final int ACTIVE_INDEX_KEEP = -1;
+    public static final int ACTIVE_INDEX_NEARBY = -2;
 
     public interface SearchResultChangedListener {
         default void onResultChanged(int current, int count) {
@@ -123,31 +125,28 @@ public class TextSearchHandler {
         }
     }
 
-    public int getCurrentIndex() {
-        return currentIndex;
-    }
-
     private void calculateCurrentIndex(int activeIndex) {
-        if (!matches.isEmpty()) {
-            if (activeIndex < 0) {
-                currentIndex = getNearbyMatchIndex(selection, matches);
-            } else if (activeIndex == 0) {
-                currentIndex = 0;
-            } else if (activeIndex < matches.size()) {
-                currentIndex = activeIndex;
-            } else {
-                currentIndex = matches.size() - 1;
-            }
-        } else {
+        if (matches.isEmpty()) {
             currentIndex = -1;
+            return;
+        }
+
+        if (activeIndex < 0) {
+            if (activeIndex == ACTIVE_INDEX_NEARBY) {
+                currentIndex = findNearbyIndex(selection, matches);
+            } else if (activeIndex != ACTIVE_INDEX_KEEP) {
+                currentIndex = 0;
+            }
+        } else if (activeIndex < matches.size()) {
+            currentIndex = activeIndex;
+        } else {
+            currentIndex = matches.size() - 1;
         }
     }
 
-    private int getNearbyMatchIndex(Selection selection, ArrayList<Match> matches) {
+    private int findNearbyIndex(Selection selection, ArrayList<Match> matches) {
         final int size = matches.size();
-        if (size == 0) {
-            return -1;
-        }
+        if (size == 0) return -1;
 
         int i = 0;
         for (; i < size; i++) {
@@ -193,7 +192,9 @@ public class TextSearchHandler {
 
         resultChangedListener.onResultChanged(currentIndex + 1, size);
 
-        TextViewUtils.showSelection(editText, match.getStart());
+        int start = match.getStart();
+        TextViewUtils.showSelection(editText, start);
+        selection.setStartIndex(start);
         editText.applyDynamicHighlight();
     }
 
@@ -219,7 +220,9 @@ public class TextSearchHandler {
 
             resultChangedListener.onResultChanged(currentIndex + 1, size);
 
-            TextViewUtils.showSelection(editText, match.getStart());
+            int start = match.getStart();
+            TextViewUtils.showSelection(editText, start);
+            selection.setStartIndex(start);
             editText.applyDynamicHighlight();
         } else {
             matches.get(0).useMatchColor();
@@ -249,7 +252,9 @@ public class TextSearchHandler {
 
             resultChangedListener.onResultChanged(currentIndex + 1, size);
 
-            TextViewUtils.showSelection(editText, match.getStart());
+            int start = match.getStart();
+            TextViewUtils.showSelection(editText, start);
+            selection.setStartIndex(start);
             editText.applyDynamicHighlight();
         } else {
             matches.get(size - 1).useMatchColor();

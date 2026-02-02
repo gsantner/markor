@@ -226,7 +226,7 @@ public class TextSearchFragment extends Fragment {
         requestEditTextFocus(view);
     }
 
-    private final static int BUTTON_CHECKED_COLOR = 0xFFF09090;
+    private final static int BUTTON_CHECKED_COLOR = 0xFFFAB0B0;
     private final static int BUTTON_CHECKED_COLOR_DARK = 0xFFE07070;
 
     private boolean toggleViewCheckedState(View view, boolean checked) {
@@ -277,15 +277,16 @@ public class TextSearchFragment extends Fragment {
     }
 
     public void find() {
-        textSearchHandler.find(editText, searchEditText.getText().toString(), -1);
+        textSearchHandler.find(editText, searchEditText.getText().toString(), TextSearchHandler.ACTIVE_INDEX_NEARBY);
     }
 
     public void find2() {
+        if (searchEditText == null) return;
         String searchText = searchEditText.getText().toString();
         if (searchText.isEmpty()) {
             return;
         }
-        textSearchHandler.find(editText, searchText, textSearchHandler.getCurrentIndex());
+        textSearchHandler.find(editText, searchText, TextSearchHandler.ACTIVE_INDEX_KEEP);
     }
 
     public void clearMatches() {
@@ -323,6 +324,7 @@ public class TextSearchFragment extends Fragment {
             transaction.commit();
             requestEditTextFocus(this.getView());
         }
+        find2();
         editText.addTextChangedListener(editTextChangedListener);
     }
 
