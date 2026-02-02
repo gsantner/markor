@@ -1,7 +1,6 @@
 package net.gsantner.markor.frontend.textsearch;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -16,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,10 +36,14 @@ public class TextSearchFragment extends Fragment {
     private int containerViewId;
     private FragmentActivity activity;
     private HighlightingEditor editText;
+
     private EditText searchEditText;
     private EditText replaceEditText;
     private TextView resultTextView;
-    private final TextSearchHandler textSearchHandler = new TextSearchHandler();
+
+    private TextSearchHandler textSearchHandler;
+
+    private boolean initialized;
 
     public static TextSearchFragment newInstance(@IdRes int containerViewId, FragmentActivity activity, HighlightingEditor editText) {
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
@@ -54,6 +56,7 @@ public class TextSearchFragment extends Fragment {
         newFragment.containerViewId = containerViewId;
         newFragment.activity = activity;
         newFragment.editText = editText;
+        newFragment.textSearchHandler = new TextSearchHandler();
 
         return newFragment;
     }
@@ -61,7 +64,9 @@ public class TextSearchFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        clearMatches();
+        if (initialized) {
+            clearMatches();
+        }
     }
 
     @Nullable
@@ -75,7 +80,15 @@ public class TextSearchFragment extends Fragment {
     public void onViewCreated(@NonNull View fragmentView, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(fragmentView, savedInstanceState);
 
-        fragmentView.post(() -> init(fragmentView));
+        initialized = !(activity == null || editText == null || textSearchHandler == null);
+
+        if (!initialized) {
+            close();
+            return;
+        }
+
+        fragmentView.bringToFront();
+        requestEditTextFocus(fragmentView);
 
         searchEditText = fragmentView.findViewById(R.id.searchEditText);
         replaceEditText = fragmentView.findViewById(R.id.replaceEditText);
@@ -212,28 +225,6 @@ public class TextSearchFragment extends Fragment {
         });
     }
 
-    public void init(@NonNull View view) {
-        Context context = getContext();
-        int displayWidth = 1040;
-        int width = displayWidth;
-        if (context != null) {
-            displayWidth = context.getResources().getDisplayMetrics().widthPixels;
-            if (displayWidth < 1080) {
-                width = displayWidth - 20;
-            }
-        }
-
-        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(width, FrameLayout.LayoutParams.MATCH_PARENT);
-        layoutParams.topMargin = 10;
-        layoutParams.bottomMargin = 10;
-        view.setLayoutParams(layoutParams);
-        view.setX((displayWidth - width) / 2f);
-        view.setY(0);
-        view.bringToFront();
-
-        requestEditTextFocus(view);
-    }
-
     private final static int BUTTON_CHECKED_COLOR = 0xFFFAB0B0;
     private final static int BUTTON_CHECKED_COLOR_DARK = 0xFFE07070;
 
@@ -337,9 +328,11 @@ public class TextSearchFragment extends Fragment {
     }
 
     private void clear() {
-        clearMatches();
-        textSearchHandler.clearSelection(editText, false);
-        editText.removeTextChangedListener(editTextChangedListener);
+        if (initialized) {
+            clearMatches();
+            textSearchHandler.clearSelection(editText, false);
+            editText.removeTextChangedListener(editTextChangedListener);
+        }
     }
 
     public void hide() {
@@ -349,6 +342,9 @@ public class TextSearchFragment extends Fragment {
 
     public void close() {
         clear();
-        activity.getSupportFragmentManager().beginTransaction().remove(this).commit();
+        FragmentActivity fragmentActivity = getActivity();
+        if (fragmentActivity != null) {
+            fragmentActivity.getSupportFragmentManager().beginTransaction().remove(this).commit();
+        }
     }
 }

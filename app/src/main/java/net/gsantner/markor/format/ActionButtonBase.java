@@ -109,7 +109,7 @@ public abstract class ActionButtonBase {
 
     private TextSearchFragment getTextSearchFragment() {
         if (_textSearchFragment == null) {
-            _textSearchFragment = TextSearchFragment.newInstance(R.id.topPlacetHolder, (FragmentActivity) _activity, _hlEditor);
+            _textSearchFragment = TextSearchFragment.newInstance(R.id.topViewContainer, (FragmentActivity) _activity, _hlEditor);
         }
         return _textSearchFragment;
     }

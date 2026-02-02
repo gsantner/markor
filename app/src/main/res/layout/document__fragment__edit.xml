@@ -21,12 +21,11 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!-- For placing TextSearchFragment used to find and replace text -->
+        <!-- for text search fragment -->
         <FrameLayout
-            android:id="@+id/topPlacetHolder"
+            android:id="@+id/topViewContainer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top" />
+            android:layout_height="wrap_content" />
 
         <net.gsantner.markor.frontend.DraggableScrollbarScrollView
             android:id="@+id/document__fragment__edit__content_editor__scrolling_parent"
@@ -77,10 +76,10 @@
         android:layout_height="@dimen/textactions_bar_height"
         android:layout_gravity="bottom"
         android:background="@color/background"
-        android:paddingTop="4dp"
         android:elevation="4dp"
-        android:translationZ="4dp"
-        android:scrollbars="none">
+        android:paddingTop="4dp"
+        android:scrollbars="none"
+        android:translationZ="4dp">
 
         <LinearLayout
             android:id="@+id/document__fragment__edit__text_actions_bar"
