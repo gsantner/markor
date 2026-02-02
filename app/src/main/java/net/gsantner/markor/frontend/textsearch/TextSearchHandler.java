@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 public class TextSearchHandler {
     private final ArrayList<Match> matches = new ArrayList<>();
@@ -24,8 +25,14 @@ public class TextSearchHandler {
 
     private SearchResultChangedListener resultChangedListener;
 
+    public static final int RESULT_BAD_PATTERN = -1;
+
     public interface SearchResultChangedListener {
-        void onResultChanged(int current, int count);
+        default void onResultChanged(int current, int count) {
+            onResultChanged(current, count, null);
+        }
+
+        void onResultChanged(int current, int count, String msg);
     }
 
     public void find(HighlightingEditor editText, String target, int activeIndex) {
@@ -58,10 +65,15 @@ public class TextSearchHandler {
             target = "\\b" + target + "\\b";
         }
 
-        if (isMatchCase()) {
-            pattern = Pattern.compile(target);
-        } else {
-            pattern = Pattern.compile(target, Pattern.CASE_INSENSITIVE);
+        try {
+            if (isMatchCase()) {
+                pattern = Pattern.compile(target);
+            } else {
+                pattern = Pattern.compile(target, Pattern.CASE_INSENSITIVE);
+            }
+        } catch (PatternSyntaxException e) {
+            resultChangedListener.onResultChanged(0, RESULT_BAD_PATTERN, e.getMessage());
+            return;
         }
 
         if (isFindInSelection()) {

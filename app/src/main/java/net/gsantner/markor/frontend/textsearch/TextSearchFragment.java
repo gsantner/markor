@@ -2,11 +2,15 @@ package net.gsantner.markor.frontend.textsearch;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextWatcher;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +19,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
@@ -76,11 +81,16 @@ public class TextSearchFragment extends Fragment {
         replaceEditText = fragmentView.findViewById(R.id.replaceEditText);
         resultTextView = fragmentView.findViewById(R.id.resultTextView);
 
-        textSearchHandler.setResultChangedListener((current, count) -> {
+        textSearchHandler.setResultChangedListener((current, count, msg) -> {
             if (count > 0) {
                 resultTextView.setText(current + "/" + count);
-            } else {
+            } else if (count == 0) {
                 resultTextView.setText(R.string.no_results);
+            } else if (count == TextSearchHandler.RESULT_BAD_PATTERN) {
+                SpannableString spannable = new SpannableString(getString(R.string.bad_pattern));
+                spannable.setSpan(new ForegroundColorSpan(Color.RED), 0, spannable.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                resultTextView.setText(spannable);
+                Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
             }
         });
 
