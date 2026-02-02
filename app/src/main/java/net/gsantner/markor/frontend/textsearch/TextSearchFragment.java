@@ -11,10 +11,10 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -122,16 +122,14 @@ public class TextSearchFragment extends Fragment {
             if (hasFocus && textSearchHandler.isFindInSelection()) find();
         });
 
-        searchEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        // searchEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         searchEditText.setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId == EditorInfo.IME_ACTION_NEXT) {
+            if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
                 textSearchHandler.next(editText);
                 return true;
             }
             return false;
         });
-
-        replaceEditText.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
         textSearchHandler.setFindInSelection(false);
         fragmentView.findViewById(R.id.findInSelectionImageButton).setOnClickListener(new View.OnClickListener() {
@@ -202,6 +200,16 @@ public class TextSearchFragment extends Fragment {
         fragmentView.findViewById(R.id.replaceAllImageButton).setOnClickListener(view -> textSearchHandler.replaceAll(editText, replaceEditText.getText().toString()));
         fragmentView.findViewById(R.id.clearSearchTextView).setOnClickListener(view -> searchEditText.setText(""));
         fragmentView.findViewById(R.id.clearReplaceTextView).setOnClickListener(view -> replaceEditText.setText(""));
+        fragmentView.findViewById(R.id.newLineSearchTextView).setOnClickListener(view -> {
+            Editable editable = searchEditText.getText();
+            int start = searchEditText.getSelectionStart();
+            int end = searchEditText.getSelectionEnd();
+            if (start == end) {
+                editable.insert(start, "\n");
+            } else {
+                editable.replace(start, end, "\n");
+            }
+        });
     }
 
     public void init(@NonNull View view) {

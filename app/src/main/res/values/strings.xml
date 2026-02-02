@@ -408,6 +408,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="line_based_search">Line Based Search</string>
     <string name="no_results">No results</string>
     <string name="bad_pattern">Invalid pattern</string>
+    <string name="new_line">New Line</string>
     <string name="toggle_find_replace">Toggle Find/Replace</string>
     <string name="match_case">Match Case</string>
     <string name="match_whole_word">Match Whole Word</string>
