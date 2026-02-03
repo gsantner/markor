@@ -215,7 +215,7 @@ public class TextSearchHandler {
 
         if (currentIndex > 0 && currentIndex < size) {
             Match currentMatch = matches.get(currentIndex);
-            if (editText.getSelectionStart() > currentMatch.getEnd()) {
+            if (editText.hasFocus() && editText.getSelectionStart() > currentMatch.getEnd()) {
                 markSelection(editText, currentMatch.getStart(), currentMatch.getEnd(), true);
                 TextViewUtils.showSelection(editText, currentMatch.getStart());
                 return;
@@ -254,7 +254,7 @@ public class TextSearchHandler {
 
         if (currentIndex >= 0 && currentIndex <= size - 2) {
             Match currentMatch = matches.get(currentIndex);
-            if (editText.getSelectionStart() <= currentMatch.getStart()) {
+            if (editText.hasFocus() && editText.getSelectionStart() <= currentMatch.getStart()) {
                 markSelection(editText, currentMatch.getStart(), currentMatch.getEnd(), true);
                 TextViewUtils.showSelection(editText, currentMatch.getStart());
                 return;
@@ -392,7 +392,7 @@ public class TextSearchHandler {
         selection.setStart(start);
         selection.setEnd(end);
 
-        if (setSelection) {
+        if (editText.hasFocus() && setSelection) {
             editText.setSelection(end);
         }
     }
