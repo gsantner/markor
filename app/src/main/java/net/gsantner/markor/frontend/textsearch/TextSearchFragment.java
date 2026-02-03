@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Editable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -31,6 +30,7 @@ import androidx.fragment.app.FragmentTransaction;
 import net.gsantner.markor.R;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.textview.HighlightingEditor;
+import net.gsantner.markor.frontend.textview.TextViewUtils;
 
 public class TextSearchFragment extends Fragment {
     private int containerViewId;
@@ -109,11 +109,11 @@ public class TextSearchFragment extends Fragment {
 
         editText.setOnFocusChangeListener((view, hasFocus) -> {
             if (hasFocus) {
-                textSearchHandler.handleSelection(editText, searchEditText);
+                textSearchHandler.handleSearchSelection(editText, searchEditText);
             }
         });
 
-        final Runnable findTask = this::find;
+        final Runnable findTask = TextViewUtils.makeDebounced(800, this::find);
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -121,13 +121,11 @@ public class TextSearchFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                Handler handler = editText.getHandler();
-                handler.removeCallbacks(findTask);
-                handler.postDelayed(findTask, 800);
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
+                findTask.run();
             }
         });
 
@@ -152,7 +150,7 @@ public class TextSearchFragment extends Fragment {
             public void onClick(View view) {
                 checked = toggleViewCheckedState(view, checked);
                 textSearchHandler.setFindInSelection(checked);
-                textSearchHandler.handleSelection(editText, null);
+                textSearchHandler.handleSearchSelection(editText, null);
                 find();
             }
         });
@@ -292,7 +290,7 @@ public class TextSearchFragment extends Fragment {
         textSearchHandler.find(editText, "", 0);
     }
 
-    private final Runnable findTask2 = this::find2;
+    private final Runnable findTask2 = TextViewUtils.makeDebounced(800, this::find2);
     private final TextWatcher editTextChangedListener = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -300,13 +298,11 @@ public class TextSearchFragment extends Fragment {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            Handler handler = editText.getHandler();
-            handler.removeCallbacks(findTask2);
-            handler.postDelayed(findTask2, 800);
         }
 
         @Override
         public void afterTextChanged(Editable s) {
+            findTask2.run();
         }
     };
 
@@ -330,7 +326,7 @@ public class TextSearchFragment extends Fragment {
     private void clear() {
         if (initialized) {
             clearMatches();
-            textSearchHandler.clearSelection(editText, false);
+            textSearchHandler.clearSearchSelection(editText, false);
             editText.removeTextChangedListener(editTextChangedListener);
         }
     }
