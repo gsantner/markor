@@ -170,7 +170,7 @@ public class NewFileDialog extends DialogFragment {
             int times = Integer.parseInt(templateSpinner.getTag().toString());
             if (times < 2) { // Skip
                 templateSpinner.setTag(++times);
-            } else { // Show suggested title name when clicking template file items
+            } else if (pos > 0) { // Show suggested title name when clicking template file items
                 MarkorDialogFactory.showPopupWindow(titleEdit, template, () -> {
                     titleEdit.setText(template.substring(0, template.lastIndexOf('.')));
                     titleEdit.setSelection(titleEdit.length());
