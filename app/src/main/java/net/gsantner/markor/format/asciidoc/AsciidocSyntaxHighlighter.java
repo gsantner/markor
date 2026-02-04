@@ -145,19 +145,19 @@ public class AsciidocSyntaxHighlighter extends SyntaxHighlighterBase {
     // private static final int TOL_PURPLE = Color.parseColor("#AA3377");
     // private static final int TOL_GRAY = Color.parseColor("#BBBBBB");
 
-    private static final int TOL_PALE_BLUE = Color.parseColor("#BBCCEE");
-    private static final int TOL_PALE_CYAN = Color.parseColor("#CCEEFF");
-    private static final int TOL_PALE_GREEN = Color.parseColor("#CCDDAA");
-    private static final int TOL_PALE_YELLOW = Color.parseColor("#EEEEBB");
-    private static final int TOL_PALE_RED = Color.parseColor("#FFCCCC");
-    private static final int TOL_PALE_GRAY = Color.parseColor("#DDDDDD");
+    private static final int TOL_PALE_BLUE = Color.parseColor("#99BBCCEE");
+    private static final int TOL_PALE_CYAN = Color.parseColor("#99CCEEFF");
+    private static final int TOL_PALE_GREEN = Color.parseColor("#99CCDDAA");
+    private static final int TOL_PALE_YELLOW = Color.parseColor("#99EEEEBB");
+    private static final int TOL_PALE_RED = Color.parseColor("#99FFCCCC");
+    private static final int TOL_PALE_GRAY = Color.parseColor("#99DDDDDD");
 
-    private static final int TOL_DARK_BLUE = Color.parseColor("#222255");
-    private static final int TOL_DARK_CYAN = Color.parseColor("#225555");
-    private static final int TOL_DARK_GREEN = Color.parseColor("#225522");
-    private static final int TOL_DARK_YELLOW = Color.parseColor("#666633");
-    private static final int TOL_DARK_RED = Color.parseColor("#663333");
-    private static final int TOL_DARK_GRAY = Color.parseColor("#555555");
+    private static final int TOL_DARK_BLUE = Color.parseColor("#99222255");
+    private static final int TOL_DARK_CYAN = Color.parseColor("#99225555");
+    private static final int TOL_DARK_GREEN = Color.parseColor("#99225522");
+    private static final int TOL_DARK_YELLOW = Color.parseColor("#99666633");
+    private static final int TOL_DARK_RED = Color.parseColor("#99663333");
+    private static final int TOL_DARK_GRAY = Color.parseColor("#99555555");
 
     // Here the concrete use of the colors for AsciiDoc:
     private static final int AD_FORECOLOR_LIGHT_HEADING = TOL_RED;
@@ -190,8 +190,8 @@ public class AsciidocSyntaxHighlighter extends SyntaxHighlighterBase {
     private static final int AD_BACKCOLOR_DARK_BLOCKTITLE = TOL_DARK_GRAY;
 
     // Use the same highlight for light and dark theme
-    private static final int AD_BACKCOLOR_LIGHT_HIGHLIGHT = Color.YELLOW;
-    private static final int AD_BACKCOLOR_DARK_HIGHLIGHT = Color.YELLOW;
+    private static final int AD_BACKCOLOR_LIGHT_HIGHLIGHT = 0x80FFFF00; // Yellow
+    private static final int AD_BACKCOLOR_DARK_HIGHLIGHT = 0x80FFFF00;
     // Black on yellow
     private static final int AD_FORECOLOR_HIGHLIGHT = Color.BLACK;
 
@@ -336,4 +336,3 @@ public class AsciidocSyntaxHighlighter extends SyntaxHighlighterBase {
         // createColoredUnderlineSpanForMatches(ROLE_UNDERLINE, AD_COLOR_UNDERLINE_ROLE_UNDERLINE);
     }
 }
-
