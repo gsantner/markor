@@ -137,27 +137,27 @@ public class AsciidocSyntaxHighlighter extends SyntaxHighlighterBase {
 
     */
 
-    private static final int TOL_RED = Color.parseColor("#EE6677");
-    // private static final int TOL_YELLOW = Color.parseColor("#CCBB44");
-    // private static final int TOL_BLUE = Color.parseColor("#4477AA");
-    // private static final int TOL_GREEN = Color.parseColor("#228833");
-    private static final int TOL_CYAN = Color.parseColor("#66CCEE");
-    // private static final int TOL_PURPLE = Color.parseColor("#AA3377");
-    // private static final int TOL_GRAY = Color.parseColor("#BBBBBB");
+    private static final int TOL_RED = 0xFFEE6677;
+    // private static final int TOL_YELLOW = 0xFFCCBB44;
+    // private static final int TOL_BLUE = 0xFF4477AA;
+    // private static final int TOL_GREEN = 0xFF228833;
+    private static final int TOL_CYAN = 0xFF66CCEE;
+    // private static final int TOL_PURPLE = 0xFFAA3377;
+    // private static final int TOL_GRAY = 0xFFBBBBBB;
 
-    private static final int TOL_PALE_BLUE = Color.parseColor("#99BBCCEE");
-    private static final int TOL_PALE_CYAN = Color.parseColor("#99CCEEFF");
-    private static final int TOL_PALE_GREEN = Color.parseColor("#99CCDDAA");
-    private static final int TOL_PALE_YELLOW = Color.parseColor("#99EEEEBB");
-    private static final int TOL_PALE_RED = Color.parseColor("#99FFCCCC");
-    private static final int TOL_PALE_GRAY = Color.parseColor("#99DDDDDD");
+    private static final int TOL_PALE_BLUE = 0x99BBCCEE;
+    private static final int TOL_PALE_CYAN = 0x99CCEEFF;
+    private static final int TOL_PALE_GREEN = 0x99CCDDAA;
+    private static final int TOL_PALE_YELLOW = 0x99EEEEBB;
+    private static final int TOL_PALE_RED = 0x99FFCCCC;
+    private static final int TOL_PALE_GRAY = 0x99DDDDDD;
 
-    private static final int TOL_DARK_BLUE = Color.parseColor("#99222255");
-    private static final int TOL_DARK_CYAN = Color.parseColor("#99225555");
-    private static final int TOL_DARK_GREEN = Color.parseColor("#99225522");
-    private static final int TOL_DARK_YELLOW = Color.parseColor("#99666633");
-    private static final int TOL_DARK_RED = Color.parseColor("#99663333");
-    private static final int TOL_DARK_GRAY = Color.parseColor("#99555555");
+    private static final int TOL_DARK_BLUE = 0x99222255;
+    private static final int TOL_DARK_CYAN = 0x99225555;
+    private static final int TOL_DARK_GREEN = 0x99225522;
+    private static final int TOL_DARK_YELLOW = 0x99666633;
+    private static final int TOL_DARK_RED = 0x99663333;
+    private static final int TOL_DARK_GRAY = 0x99555555;
 
     // Here the concrete use of the colors for AsciiDoc:
     private static final int AD_FORECOLOR_LIGHT_HEADING = TOL_RED;
