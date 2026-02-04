@@ -161,10 +161,21 @@ public class NewFileDialog extends DialogFragment {
         templateAdapter.addAll(GsCollectionUtils.map(templates, p -> p.first));
         templateSpinner.setAdapter(templateAdapter);
 
+        templateSpinner.setTag(0);
         templateSpinner.setOnItemSelectedListener(new GsAndroidSpinnerOnItemSelectedAdapter(pos -> {
             final String template = templateAdapter.getItem(pos);
-            final String fmt = appSettings.getTemplateTitleFormat(template);
-            formatEdit.setText(fmt);
+            final String format = appSettings.getTemplateTitleFormat(template);
+            formatEdit.setText(format);
+
+            int times = Integer.parseInt(templateSpinner.getTag().toString());
+            if (times < 2) { // Skip
+                templateSpinner.setTag(++times);
+            } else { // Show suggested title name when clicking template file items
+                MarkorDialogFactory.showPopupWindow(titleEdit, template, () -> {
+                    titleEdit.setText(template.substring(0, template.lastIndexOf('.')));
+                    titleEdit.setSelection(titleEdit.length());
+                });
+            }
         }));
 
         // Setup type / format spinner and action
