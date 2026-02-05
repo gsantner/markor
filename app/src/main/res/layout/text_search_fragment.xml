@@ -181,7 +181,7 @@
                             android:minWidth="48dp"
                             android:minHeight="48dp"
                             android:tooltipText="@string/match_whole_word"
-                            app:srcCompat="@drawable/ic_whole_word_24dp" />
+                            app:srcCompat="@drawable/outline_match_word_24" />
 
                         <ImageButton
                             android:id="@+id/useRegexImageButton"
