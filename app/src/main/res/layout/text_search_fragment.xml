@@ -38,7 +38,7 @@
                 android:minWidth="48dp"
                 android:minHeight="48dp"
                 android:tooltipText="@string/close"
-                app:srcCompat="@drawable/ic_chrome_close_24dp" />
+                app:srcCompat="@drawable/baseline_close_24" />
 
             <ImageButton
                 android:id="@+id/filterImageButton"
