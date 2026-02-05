@@ -246,10 +246,10 @@ public class TextSearchFragment extends Fragment {
         ImageButton imageButton = parent.findViewById(R.id.toggleImageButton);
         if (visible) {
             replaceLinearLayout.setVisibility(View.VISIBLE);
-            imageButton.setImageResource(R.drawable.ic_chevron_down_24dp);
+            imageButton.setImageResource(R.drawable.baseline_keyboard_arrow_down_24);
         } else {
             replaceLinearLayout.setVisibility(View.GONE);
-            imageButton.setImageResource(R.drawable.ic_chevron_right_24dp);
+            imageButton.setImageResource(R.drawable.baseline_chevron_right_24);
         }
     }
 

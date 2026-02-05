@@ -104,7 +104,7 @@
                 android:layout_height="match_parent"
                 android:contentDescription="@string/toggle_find_replace"
                 android:tooltipText="@string/toggle_find_replace"
-                app:srcCompat="@drawable/ic_chevron_right_24dp" />
+                app:srcCompat="@drawable/baseline_chevron_right_24" />
 
             <LinearLayout
                 android:layout_width="match_parent"
