@@ -9,6 +9,8 @@ package net.gsantner.markor.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -105,7 +107,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     private DraggableScrollbarScrollView _verticalScrollView;
     private HorizontalScrollView _horizontalScrollView;
     private LineNumbersView _lineNumbersView;
-    private SearchView _menuSearchViewForViewMode;
     private Document _document;
     private FormatRegistry _format;
     private MarkorContextUtils _cu;
@@ -1007,6 +1008,21 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
             _webViewClient = new MarkorWebViewClient(_webView, activity);
             _webView.setWebViewClient(_webViewClient);
+
+            // For copying link address to clipboard in view-mode
+            _webView.setOnLongClickListener(v -> {
+                WebView.HitTestResult hitResult = _webView.getHitTestResult();
+                if (hitResult.getType() == WebView.HitTestResult.SRC_ANCHOR_TYPE) {
+                    String url = hitResult.getExtra();
+                    if (url != null) {
+                        ClipboardManager clipboard = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
+                        clipboard.setPrimaryClip(ClipData.newPlainText("URL", url));
+                        Toast.makeText(activity, R.string.link_copied, Toast.LENGTH_SHORT).show();
+                        return true;
+                    }
+                }
+                return false;
+            });
         }
     }
 

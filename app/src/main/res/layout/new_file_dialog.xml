@@ -49,13 +49,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="70"
+                android:layout_weight="75"
                 android:hint="@string/title"
                 android:importantForAutofill="no"
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 android:textSize="15sp"
-                tools:ignore="HardcodedText,TextFields"/>
+                tools:ignore="HardcodedText,TextFields" />
 
             <EditText
                 android:id="@+id/new_file_dialog__ext"
@@ -64,9 +64,9 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
-                android:layout_weight="30"
-                android:gravity="end"
-                android:hint=".md"
+                android:layout_weight="25"
+                android:gravity="start"
+                android:hint=".md ..."
                 android:importantForAutofill="no"
                 android:inputType="text|textNoSuggestions"
                 android:lines="1"
@@ -105,7 +105,7 @@
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 android:textSize="15sp"
-                tools:ignore="HardcodedText,TextFields"/>
+                tools:ignore="HardcodedText,TextFields" />
 
             <TextView
                 android:id="@+id/new_file_dialog__name_format_spinner"
@@ -116,8 +116,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerInParent="true"
                 android:layout_gravity="center_vertical"
-                android:layout_marginRight="-16dp"
                 android:layout_marginEnd="-16dp"
+                android:layout_marginRight="-16dp"
                 android:contentDescription="@string/choose_format"
                 android:inputType="none" />
 
@@ -134,11 +134,12 @@
             android:text="@string/type"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
-        <view class="net.gsantner.markor.frontend.NewFileDialog$ReselectSpinner"
+        <view
             android:id="@+id/new_file_dialog__type"
+            class="net.gsantner.markor.frontend.NewFileDialog$ReselectSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawSelectorOnTop="true"/>
+            android:drawSelectorOnTop="true" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -150,11 +151,12 @@
             android:text="@string/template"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
-        <view class="net.gsantner.markor.frontend.NewFileDialog$ReselectSpinner"
+        <view
             android:id="@+id/new_file_dialog__template"
+            class="net.gsantner.markor.frontend.NewFileDialog$ReselectSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawSelectorOnTop="true"/>
+            android:drawSelectorOnTop="true" />
 
         <CheckBox
             android:id="@+id/new_file_dialog__encrypt"
