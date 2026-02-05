@@ -68,7 +68,7 @@
                 android:minWidth="48dp"
                 android:minHeight="48dp"
                 android:tooltipText="@string/next_match"
-                app:srcCompat="@drawable/ic_arrow_down_24dp" />
+                app:srcCompat="@drawable/ic_baseline_arrow_downward_24" />
 
             <ImageButton
                 android:id="@+id/previousImageButton"
@@ -78,7 +78,7 @@
                 android:minWidth="48dp"
                 android:minHeight="48dp"
                 android:tooltipText="@string/previous_match"
-                app:srcCompat="@drawable/ic_arrow_up_24dp" />
+                app:srcCompat="@drawable/ic_baseline_arrow_upward_24" />
 
             <TextView
                 android:id="@+id/resultTextView"
