@@ -48,7 +48,7 @@
                 android:minWidth="48dp"
                 android:minHeight="48dp"
                 android:tooltipText="@string/line_based_search"
-                app:srcCompat="@drawable/ic_filter_24dp" />
+                app:srcCompat="@drawable/baseline_filter_alt_24" />
 
             <ImageButton
                 android:id="@+id/findInSelectionImageButton"
