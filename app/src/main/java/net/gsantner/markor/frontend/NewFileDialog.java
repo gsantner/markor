@@ -107,12 +107,12 @@ public class NewFileDialog extends DialogFragment {
 
         final EditText titleEdit = root.findViewById(R.id.new_file_dialog__name);
         final EditText extEdit = root.findViewById(R.id.new_file_dialog__ext);
-        final CheckBox encryptCheckbox = root.findViewById(R.id.new_file_dialog__encrypt);
-        final CheckBox utf8BomCheckbox = root.findViewById(R.id.new_file_dialog__utf8_bom);
-        final Spinner typeSpinner = root.findViewById(R.id.new_file_dialog__type);
-        final Spinner templateSpinner = root.findViewById(R.id.new_file_dialog__template);
         final EditText formatEdit = root.findViewById(R.id.new_file_dialog__name_format);
         final TextView formatSpinner = root.findViewById(R.id.new_file_dialog__name_format_spinner);
+        final Spinner typeSpinner = root.findViewById(R.id.new_file_dialog__type);
+        final Spinner templateSpinner = root.findViewById(R.id.new_file_dialog__template);
+        final CheckBox utf8BomCheckbox = root.findViewById(R.id.new_file_dialog__utf8_bom);
+        final CheckBox encryptCheckbox = root.findViewById(R.id.new_file_dialog__encrypt);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && appSettings.isDefaultPasswordSet()) {
             encryptCheckbox.setChecked(appSettings.getNewFileDialogLastUsedEncryption());
@@ -172,8 +172,18 @@ public class NewFileDialog extends DialogFragment {
                 templateSpinner.setTag(++times);
             } else if (pos > 0) { // Show suggested title name when clicking template file items
                 MarkorDialogFactory.showPopupWindow(titleEdit, template, () -> {
-                    titleEdit.setText(template.substring(0, template.lastIndexOf('.')));
+                    int end = template.lastIndexOf('.');
+                    titleEdit.setText(end > 0 ? template.substring(0, end) : template);
                     titleEdit.setSelection(titleEdit.length());
+
+                    if (end > 0 && end < template.length() - 1) {
+                        extEdit.setText(template.substring(end));
+                        if (extEdit.hasFocus()) {
+                            extEdit.setSelection(extEdit.length());
+                        }
+                    } else {
+                        extEdit.setText("");
+                    }
                 });
             }
         }));
