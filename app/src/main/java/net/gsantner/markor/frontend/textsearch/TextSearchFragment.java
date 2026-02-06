@@ -8,6 +8,7 @@ import android.text.Editable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextWatcher;
+import android.text.method.ReplacementTransformationMethod;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.KeyEvent;
@@ -121,18 +122,18 @@ public class TextSearchFragment extends Fragment {
         final Runnable findTask = TextViewUtils.makeDebounced(800, this::find);
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
 
             private boolean paused;
             private Pattern pattern = Pattern.compile("\\n");
 
             @Override
-            public void afterTextChanged(Editable editable) {
+            public void afterTextChanged(Editable s) {
                 if (paused) {
                     return;
                 }
@@ -140,7 +141,7 @@ public class TextSearchFragment extends Fragment {
                 findTask.run();
 
                 // Highlight invisible character '\n'
-                Matcher matcher = pattern.matcher(editable);
+                Matcher matcher = pattern.matcher(s);
                 paused = true;
                 while (matcher.find()) {
                     SpannableString spannable = new SpannableString("\n");
@@ -148,6 +149,18 @@ public class TextSearchFragment extends Fragment {
                     searchEditText.getText().replace(matcher.start(), matcher.end(), spannable);
                 }
                 paused = false;
+            }
+        });
+
+        searchEditText.setTransformationMethod(new ReplacementTransformationMethod() {
+            @Override
+            protected char[] getOriginal() {
+                return new char[]{'\n'};
+            }
+
+            @Override
+            protected char[] getReplacement() {
+                return new char[]{'↵'};
             }
         });
 
