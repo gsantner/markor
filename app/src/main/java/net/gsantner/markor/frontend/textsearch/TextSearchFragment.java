@@ -8,6 +8,7 @@ import android.text.Editable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextWatcher;
+import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -32,6 +33,9 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TextSearchFragment extends Fragment {
     private int containerViewId;
@@ -124,9 +128,26 @@ public class TextSearchFragment extends Fragment {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
 
+            private boolean paused;
+            private Pattern pattern = Pattern.compile("\\n");
+
             @Override
             public void afterTextChanged(Editable editable) {
+                if (paused) {
+                    return;
+                }
+
                 findTask.run();
+
+                // Highlight invisible character '\n'
+                Matcher matcher = pattern.matcher(editable);
+                paused = true;
+                while (matcher.find()) {
+                    SpannableString spannable = new SpannableString("\n");
+                    spannable.setSpan(new BackgroundColorSpan(Match.getMatchColor()), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    searchEditText.getText().replace(matcher.start(), matcher.end(), spannable);
+                }
+                paused = false;
             }
         });
 

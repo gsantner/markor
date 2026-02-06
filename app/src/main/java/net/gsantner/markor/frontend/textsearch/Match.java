@@ -19,6 +19,14 @@ public class Match {
         span = (SyntaxHighlighterBase.HighlightSpan) spanGroup.span;
     }
 
+    public static int getMatchColor() {
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            return MATCH_COLOR_DARK;
+        } else {
+            return MATCH_COLOR;
+        }
+    }
+
     public void useMatchColor() {
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             span.setBackColor(MATCH_COLOR_DARK);
