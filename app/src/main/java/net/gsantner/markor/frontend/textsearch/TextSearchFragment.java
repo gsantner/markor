@@ -13,6 +13,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -133,11 +134,13 @@ public class TextSearchFragment extends Fragment {
             if (hasFocus && textSearchHandler.isFindInSelection()) find();
         });
 
-        // searchEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        searchEditText.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
         searchEditText.setOnEditorActionListener((v, actionId, event) -> {
-            if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
-                textSearchHandler.next(editText);
-                return true;
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                if (event == null || event.getAction() == KeyEvent.ACTION_DOWN) {
+                    textSearchHandler.next(editText);
+                    return true;
+                }
             }
             return false;
         });

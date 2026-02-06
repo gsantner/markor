@@ -130,9 +130,10 @@
                         android:ems="16"
                         android:hint="@string/search"
                         android:importantForAutofill="no"
-                        android:inputType="textMultiLine"
-                        android:maxLines="5"
+                        android:inputType="text"
                         android:minHeight="48dp"
+                        android:nextFocusRight="@id/searchEditText"
+                        android:nextFocusDown="@id/searchEditText"
                         android:textSize="16sp" />
 
                     <LinearLayout
