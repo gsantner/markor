@@ -9,6 +9,7 @@
 #########################################################*/
 package net.gsantner.markor.frontend.textview;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Build;
@@ -21,12 +22,14 @@ import android.text.Selection;
 import android.text.Spannable;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.WindowInsets;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import net.gsantner.markor.util.TextCasingUtils;
 import net.gsantner.opoc.format.GsTextUtils;
@@ -853,5 +856,11 @@ public final class TextViewUtils {
         filterList.remove(filter);
         view.setFilters(filterList.toArray(new InputFilter[0]));
         return true;
+    }
+
+    public static void setSelectableItemBackgroundBorderless(View view, Context context) {
+        TypedValue outValue = new TypedValue();
+        context.getTheme().resolveAttribute(android.R.attr.selectableItemBackgroundBorderless, outValue, true);
+        view.setBackground(ContextCompat.getDrawable(context, outValue.resourceId));
     }
 }

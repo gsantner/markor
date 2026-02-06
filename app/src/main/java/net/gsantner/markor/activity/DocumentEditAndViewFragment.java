@@ -35,6 +35,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -756,23 +757,28 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             return;
         }
 
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.gravity = Gravity.CENTER;
+
         Context searchViewContext = searchView.getContext();
         LinearLayout linearLayout = new LinearLayout(searchViewContext);
+        linearLayout.setLayoutParams(layoutParams);
 
         // Add search result TextView
         TextView resultTextView = new TextView(searchViewContext);
+        LinearLayout.LayoutParams textViewLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        textViewLayoutParams.setMarginEnd(30);
+        resultTextView.setLayoutParams(textViewLayoutParams);
         resultTextView.setGravity(Gravity.CENTER);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.MATCH_PARENT
-        );
-        layoutParams.setMarginEnd(14);
-        resultTextView.setLayoutParams(layoutParams);
+        resultTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
         linearLayout.addView(resultTextView);
 
         // Add previous match Button
-        ImageButton previousButton = new ImageButton(searchViewContext);
+        ImageView previousButton = new ImageView(searchViewContext);
         previousButton.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24);
+        previousButton.setLayoutParams(layoutParams);
+        previousButton.setPadding(24, 24, 24, 24);
+        TextViewUtils.setSelectableItemBackgroundBorderless(previousButton, searchViewContext);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             previousButton.setTooltipText(getString(R.string.previous_match));
         }
@@ -781,6 +787,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         // Add next match Button
         ImageButton nextButton = new ImageButton(searchViewContext);
         nextButton.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24);
+        nextButton.setLayoutParams(layoutParams);
+        nextButton.setPadding(24, 24, 24, 24);
+        TextViewUtils.setSelectableItemBackgroundBorderless(nextButton, searchViewContext);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             nextButton.setTooltipText(getString(R.string.next_match));
         }
