@@ -17,9 +17,11 @@ import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Parcelable;
+import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.Spannable;
@@ -49,12 +51,15 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.graphics.ColorUtils;
 import androidx.core.view.WindowCompat;
 import androidx.core.widget.TextViewCompat;
 
+import net.gsantner.markor.R;
+import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.opoc.util.GsCollectionUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
@@ -126,6 +131,7 @@ public class GsSearchOrCustomTextDialog {
         public String dataFilter = null; // Regex pattern to filter data
         public GsCallback.a1<Spannable> highlighter = null;
         public GsCallback.a1<AlertDialog> neutralButtonCallback = null;
+        public GsCallback.a2<AlertDialog, Editable> neutralButtonCallback2 = null;
         public GsCallback.a1<DialogInterface> dismissCallback = null;
         public @Nullable InputFilter searchInputFilter = null;
 
@@ -147,6 +153,8 @@ public class GsSearchOrCustomTextDialog {
         public int clearInputIcon = android.R.drawable.ic_menu_close_clear_cancel;
         @StyleRes
         public int dialogStyle = 0;
+
+        public String searchText;
 
         /**
          * Initial state of the dialog. Will be updated when the dialog is dismissed.
@@ -263,7 +271,7 @@ public class GsSearchOrCustomTextDialog {
         }
 
         public void filter(final CharSequence searchText) {
-            _lastConstraint = searchText.toString().trim();
+            _lastConstraint = searchText.toString();
 
             if (_dopt.data != null) {
                 _filteredItems.clear();
@@ -378,9 +386,21 @@ public class GsSearchOrCustomTextDialog {
             }
         };
 
-        searchEditText.addTextChangedListener(GsTextWatcherAdapter.after((constraint) -> {
-            listAdapter.filter(constraint);
-            setSelectAllButtonState.callback();
+        searchEditText.addTextChangedListener(GsTextWatcherAdapter.after(new GsCallback.a1<Editable>() {
+            private Runnable searchTask;
+            private CharSequence searchText = new SpannableString("");
+
+            @Override
+            public void callback(Editable constraint) {
+                if (searchTask == null) {
+                    searchTask = TextViewUtils.makeDebounced(searchEditText.getHandler(), 400, () -> {
+                        listAdapter.filter(searchText);
+                        setSelectAllButtonState.callback();
+                    });
+                }
+                searchText = constraint;
+                searchTask.run();
+            }
         }));
 
         // Ok button only present under these circumstances
@@ -440,10 +460,16 @@ public class GsSearchOrCustomTextDialog {
         }
 
         final Button neutralButton = dialog.getButton(AlertDialog.BUTTON_NEUTRAL);
-        if (neutralButton != null && dopt.neutralButtonText != 0 && dopt.neutralButtonCallback != null) {
+        if (neutralButton != null && dopt.neutralButtonText != 0) {
             neutralButton.setVisibility(Button.VISIBLE);
             neutralButton.setText(dopt.neutralButtonText);
-            neutralButton.setOnClickListener((button) -> dopt.neutralButtonCallback.callback(dialog));
+
+            if (dopt.neutralButtonCallback != null) {
+                neutralButton.setOnClickListener((button) -> dopt.neutralButtonCallback.callback(dialog));
+            } else if (dopt.neutralButtonCallback2 != null) {
+                // Open search & replace dialog with search text of current search dialog, no need to input it again
+                neutralButton.setOnClickListener((button) -> dopt.neutralButtonCallback2.callback(dialog, searchEditText.getText()));
+            }
         }
 
         if (dopt.state.searchText != null) {
@@ -524,7 +550,7 @@ public class GsSearchOrCustomTextDialog {
                 }
             });
 
-            listView.setOnItemLongClickListener((parent, view, pos, id) -> directActivate.callback(pos, true));
+            // listView.setOnItemLongClickListener((parent, view, pos, id) -> directActivate.callback(pos, true));
         }
     }
 
@@ -611,6 +637,7 @@ public class GsSearchOrCustomTextDialog {
         searchEditText.setTextColor(dopt.textColor);
         searchEditText.setHintTextColor(ColorUtils.setAlphaComponent(dopt.textColor, 0x99));
         searchEditText.setHint(dopt.searchHintText);
+        searchEditText.setText(dopt.searchText);
         searchEditText.setInputType(dopt.searchInputType == 0 ? searchEditText.getInputType() : dopt.searchInputType);
         searchEditText.setTag("EDIT"); // So we can easily find the search edit text
 
@@ -618,10 +645,15 @@ public class GsSearchOrCustomTextDialog {
         editLp.gravity = Gravity.START | Gravity.BOTTOM;
         searchLayout.addView(searchEditText, editLp);
 
-        // 'Button to clear the search box'
+        // Button to clear the search box
         final ImageView clearButton = new ImageView(context);
         clearButton.setImageResource(dopt.clearInputIcon);
-        TooltipCompat.setTooltipText(clearButton, context.getString(android.R.string.cancel));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            RippleDrawable rippleDrawable = new RippleDrawable(AppCompatResources.getColorStateList(context, R.color.accent), null, null);
+            rippleDrawable.setRadius(60);
+            clearButton.setBackground(rippleDrawable);
+        }
+        TooltipCompat.setTooltipText(clearButton, context.getString(R.string.clear));
         clearButton.setColorFilter(dopt.textColor);
         clearButton.setOnClickListener((v) -> searchEditText.setText(""));
         clearButton.setPadding(margin, 0, margin, 0);

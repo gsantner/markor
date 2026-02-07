@@ -1,0 +1,471 @@
+package net.gsantner.markor.frontend.textsearch;
+
+import android.text.Editable;
+import android.widget.EditText;
+
+import net.gsantner.markor.frontend.textview.HighlightingEditor;
+import net.gsantner.markor.frontend.textview.SyntaxHighlighterBase;
+import net.gsantner.markor.frontend.textview.TextViewUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
+
+public class TextSearchHandler {
+    private final ArrayList<Match> matches = new ArrayList<>();
+    private int currentIndex;
+
+    private boolean matchCase = false;
+    private boolean matchWholeWord = false;
+    private boolean useRegex = false;
+    private boolean findInSelection = false;
+    private boolean preserveCase = false;
+
+    private SearchResultChangedListener resultChangedListener;
+
+    public static final int ACTIVE_INDEX_KEEP = -1;
+    public static final int ACTIVE_INDEX_NEARBY = -2;
+
+    public static final int RESULT_BAD_PATTERN = -1;
+
+    public interface SearchResultChangedListener {
+        default void onResultChanged(int active, int count) {
+            onResultChanged(active, count, null);
+        }
+
+        void onResultChanged(int active, int count, String msg);
+    }
+
+    public void find(HighlightingEditor editText, String target, int activeIndex) {
+        matches.clear();
+        if (editText == null) {
+            resultChangedListener.onResultChanged(0, 0);
+            return;
+        }
+        editText.clearSearchMatches();
+        if (target.isEmpty()) {
+            resultChangedListener.onResultChanged(0, 0);
+            return;
+        }
+        Editable editable = editText.getText();
+        if (editable == null) {
+            resultChangedListener.onResultChanged(0, 0);
+            return;
+        } else if (editable.length() == 0) {
+            resultChangedListener.onResultChanged(0, 0);
+            return;
+        }
+
+        // Start searching
+        Pattern pattern;
+        if (!isUseRegex()) {
+            target = Pattern.quote(target);
+        }
+
+        if (isMatchWholeWord()) {
+            target = "\\b" + target + "\\b";
+        }
+
+        try {
+            if (isMatchCase()) {
+                pattern = Pattern.compile(target);
+            } else {
+                pattern = Pattern.compile(target, Pattern.CASE_INSENSITIVE);
+            }
+        } catch (PatternSyntaxException e) {
+            resultChangedListener.onResultChanged(0, RESULT_BAD_PATTERN, e.getMessage());
+            return;
+        }
+
+        if (isFindInSelection()) {
+            if (selection.isSelected()) {
+                CharSequence subCharSequence = editable.subSequence(selection.getStart(), selection.getEnd());
+                Matcher matcher = pattern.matcher(subCharSequence);
+                loadMatches(matcher, selection.getStart());
+            }
+        } else {
+            Matcher matcher = pattern.matcher(editable);
+            loadMatches(matcher, 0);
+        }
+        // End searching
+
+        calculateCurrentIndex(activeIndex);
+        if (!matches.isEmpty()) {
+            matches.get(currentIndex).useActiveMatchColor();
+            highlightMatches(editText);
+            jump(editText, currentIndex, activeIndex != TextSearchHandler.ACTIVE_INDEX_KEEP);
+        }
+        resultChangedListener.onResultChanged(currentIndex, matches.size());
+    }
+
+    private void loadMatches(Matcher matcher, int selectionStart) {
+        while (matcher.find()) {
+            Match match = new Match();
+            match.setStart(matcher.start() + selectionStart);
+            match.setEnd(matcher.end() + selectionStart);
+            match.useMatchColor();
+            matches.add(match);
+        }
+    }
+
+    private void highlightMatches(HighlightingEditor editText) {
+        if (editText == null) {
+            return;
+        }
+
+        if (matches.isEmpty()) {
+            editText.clearSearchMatches();
+        } else {
+            List<SyntaxHighlighterBase.SpanGroup> spanGroups = new ArrayList<>();
+            for (Match match : matches) {
+                spanGroups.add(match.spanGroup);
+            }
+            editText.setSearchMatches(spanGroups);
+        }
+    }
+
+    private void calculateCurrentIndex(int activeIndex) {
+        if (matches.isEmpty()) {
+            currentIndex = 0;
+            return;
+        }
+
+        if (activeIndex < 0) {
+            if (activeIndex == ACTIVE_INDEX_NEARBY) {
+                currentIndex = findNearbyIndex(selection, matches);
+            } else if (activeIndex == ACTIVE_INDEX_KEEP) {
+                currentIndex = currentIndex < matches.size() ? currentIndex : findNearbyIndex(selection, matches);
+            } else {
+                currentIndex = 0;
+            }
+        } else if (activeIndex < matches.size()) {
+            currentIndex = activeIndex;
+        } else {
+            currentIndex = matches.size() - 1;
+        }
+    }
+
+    private int findNearbyIndex(Selection selection, ArrayList<Match> matches) {
+        final int size = matches.size();
+        if (size == 0) return -1;
+
+        int i = 0;
+        for (; i < size; i++) {
+            Match match = matches.get(i);
+            if (match.getStart() > selection.getStart()) {
+                if (i > 0) {
+                    Match lastMatch = matches.get(i - 1);
+                    if (selection.getStart() - lastMatch.getEnd() < match.getStart() - selection.getEnd()) {
+                        return i - 1;
+                    } else {
+                        return i;
+                    }
+                } else {
+                    return i;
+                }
+            }
+        }
+
+        return Math.max(i - 1, 0);
+    }
+
+    public void jump(HighlightingEditor editText, int index, boolean setSelection) {
+        if (editText == null) {
+            resultChangedListener.onResultChanged(0, 0);
+            return;
+        }
+
+        int size = matches.size();
+        if (size == 0) {
+            resultChangedListener.onResultChanged(0, 0);
+            return;
+        }
+        if (index < 0 || index > size - 1) {
+            return;
+        }
+
+        // Clear active highlight for last active match
+        matches.get(index).useMatchColor();
+        // Apply active highlight for current active match
+        currentIndex = index;
+        Match match = matches.get(currentIndex);
+        match.useActiveMatchColor();
+
+        resultChangedListener.onResultChanged(currentIndex, size);
+
+        int start = match.getStart();
+        TextViewUtils.showSelection(editText, start);
+        markSelection(editText, start, match.getEnd(), setSelection);
+        editText.applyDynamicHighlight();
+    }
+
+    public void previous(HighlightingEditor editText) {
+        if (editText == null) {
+            resultChangedListener.onResultChanged(0, 0);
+            return;
+        }
+
+        int size = matches.size();
+        if (size == 0) {
+            resultChangedListener.onResultChanged(0, 0);
+            return;
+        }
+
+        if (currentIndex > 0 && currentIndex < size) {
+            Match currentMatch = matches.get(currentIndex);
+            if (editText.hasFocus() && editText.getSelectionStart() > currentMatch.getEnd()) {
+                markSelection(editText, currentMatch.getStart(), currentMatch.getEnd(), true);
+                TextViewUtils.showSelection(editText, currentMatch.getStart());
+                return;
+            }
+
+            // Clear active highlight for current active match
+            currentMatch.useMatchColor();
+
+            // Apply active highlight for previous match
+            Match match = matches.get(--currentIndex);
+            match.useActiveMatchColor();
+
+            resultChangedListener.onResultChanged(currentIndex, size);
+
+            int start = match.getStart();
+            TextViewUtils.showSelection(editText, start);
+            markSelection(editText, start, match.getEnd(), true);
+            editText.applyDynamicHighlight();
+        } else {
+            matches.get(0).useMatchColor();
+            jump(editText, size - 1, true);
+        }
+    }
+
+    public void next(HighlightingEditor editText) {
+        if (editText == null) {
+            resultChangedListener.onResultChanged(0, 0);
+            return;
+        }
+
+        int size = matches.size();
+        if (size == 0) {
+            resultChangedListener.onResultChanged(0, 0);
+            return;
+        }
+
+        if (currentIndex >= 0 && currentIndex <= size - 2) {
+            Match currentMatch = matches.get(currentIndex);
+            if (editText.hasFocus() && editText.getSelectionStart() <= currentMatch.getStart()) {
+                markSelection(editText, currentMatch.getStart(), currentMatch.getEnd(), true);
+                TextViewUtils.showSelection(editText, currentMatch.getStart());
+                return;
+            }
+
+            // Clear active highlight for current active match
+            currentMatch.useMatchColor();
+
+            // Apply active highlight for next match
+            Match match = matches.get(++currentIndex);
+            match.useActiveMatchColor();
+
+            resultChangedListener.onResultChanged(currentIndex, size);
+
+            int start = match.getStart();
+            TextViewUtils.showSelection(editText, start);
+            markSelection(editText, start, match.getEnd(), true);
+            editText.applyDynamicHighlight();
+        } else {
+            matches.get(size - 1).useMatchColor();
+            jump(editText, 0, true);
+        }
+    }
+
+    private String applyPreserveCase(String originalText, String replacement) {
+        if (replacement.isEmpty() || originalText.isEmpty()) {
+            return replacement;
+        }
+
+        boolean isAllUpperCase = true;
+        boolean hasLetters = false;
+        for (char c : originalText.toCharArray()) {
+            if (Character.isLetter(c)) {
+                hasLetters = true;
+                if (Character.isLowerCase(c)) {
+                    isAllUpperCase = false;
+                    break;
+                }
+            }
+        }
+
+        if (!hasLetters) {
+            isAllUpperCase = false;
+        }
+
+        if (isAllUpperCase) {
+            return replacement.toUpperCase();
+        }
+
+        if (Character.isUpperCase(originalText.charAt(0))) {
+            return Character.toUpperCase(replacement.charAt(0)) + replacement.substring(1);
+        }
+
+        return replacement;
+    }
+
+    public int replace(HighlightingEditor editText, String replacement) {
+        if (editText == null || matches.isEmpty()) {
+            resultChangedListener.onResultChanged(0, 0);
+            return 0;
+        }
+
+        Editable editable = editText.getText();
+        if (editable == null) {
+            resultChangedListener.onResultChanged(0, 0);
+            return 0;
+        }
+
+        Match currentMatch = matches.get(currentIndex);
+
+        if (isPreserveCase()) {
+            String originalText = editable.subSequence(currentMatch.getStart(), currentMatch.getEnd()).toString();
+            replacement = applyPreserveCase(originalText, replacement);
+        }
+
+        // Replace
+        editable.replace(currentMatch.getStart(), currentMatch.getEnd(), replacement);
+
+        // Shift matches after replacing
+        matches.remove(currentMatch);
+        editText.removeSearchMatch(currentMatch.spanGroup);
+        final int size = matches.size();
+        final int offset = replacement.length() - currentMatch.getLength();
+        for (int i = currentIndex; i < size; i++) {
+            Match match = matches.get(i);
+            // Shift index by offset
+            match.shiftStart(offset);
+            match.shiftEnd(offset);
+        }
+
+        if (size > 0) {
+            if (currentIndex == size) {
+                currentIndex--;
+            }
+            matches.get(currentIndex).useActiveMatchColor();
+        }
+
+        editText.applyDynamicHighlight();
+
+        resultChangedListener.onResultChanged(currentIndex, matches.size());
+        return matches.size();
+    }
+
+    public void replaceAll(HighlightingEditor editText, String replacement) {
+        if (editText == null || matches.isEmpty()) {
+            resultChangedListener.onResultChanged(0, 0);
+            return;
+        }
+        final Editable editable = editText.getText();
+        if (editable == null) {
+            resultChangedListener.onResultChanged(0, 0);
+            return;
+        }
+
+        for (int i = matches.size() - 1; i >= 0; i--) {
+            Match match = matches.get(i);
+            String actualReplacement = replacement;
+            if (isPreserveCase()) {
+                String originalText = editable.subSequence(match.getStart(), match.getEnd()).toString();
+                actualReplacement = applyPreserveCase(originalText, replacement);
+            }
+            editable.replace(match.getStart(), match.getEnd(), actualReplacement);
+        }
+
+        matches.clear();
+        editText.clearSearchMatches();
+        editText.applyDynamicHighlight();
+        resultChangedListener.onResultChanged(0, 0);
+        currentIndex = 0;
+    }
+
+    private final Selection selection = new Selection(); // Search selection
+
+    private void markSelection(EditText editText, int start, int end, boolean setSelection) {
+        selection.setStart(start);
+        selection.setEnd(end);
+
+        if (editText.hasFocus() && setSelection) {
+            editText.setSelection(end);
+        }
+    }
+
+    public void clearSearchSelection(HighlightingEditor editText, boolean force) {
+        if (force || selection.isSelected()) {
+            editText.clearSearchSelection();
+            selection.reset();
+        }
+    }
+
+    public void handleSearchSelection(HighlightingEditor editText, EditText searchEditText) {
+        clearSearchSelection(editText, false);
+
+        selection.setStart(editText.getSelectionStart());
+        selection.setEnd(editText.getSelectionEnd());
+
+        Editable editable = editText.getText();
+        if (selection.isSelected() && editable != null) {
+            if (isFindInSelection()) {
+                editText.addSearchSelection(selection.getStart(), selection.getEnd(), selection.getColor());
+            } else if (searchEditText != null) {
+                String target = editable.subSequence(selection.getStart(), selection.getEnd()).toString();
+                if (!target.isEmpty()) {
+                    searchEditText.setText(target);
+                }
+            }
+        }
+
+        editText.applyDynamicHighlight();
+    }
+
+    public boolean isFindInSelection() {
+        return findInSelection;
+    }
+
+    public boolean isMatchCase() {
+        return matchCase;
+    }
+
+    public boolean isMatchWholeWord() {
+        return matchWholeWord;
+    }
+
+    public boolean isUseRegex() {
+        return useRegex;
+    }
+
+    public boolean isPreserveCase() {
+        return preserveCase;
+    }
+
+    public void setFindInSelection(boolean findInSelection) {
+        this.findInSelection = findInSelection;
+    }
+
+    public void setMatchCase(boolean matchCase) {
+        this.matchCase = matchCase;
+    }
+
+    public void setMatchWholeWord(boolean matchWholeWord) {
+        this.matchWholeWord = matchWholeWord;
+    }
+
+    public void setUseRegex(boolean useRegex) {
+        this.useRegex = useRegex;
+    }
+
+    public void setPreserveCase(boolean preserveCase) {
+        this.preserveCase = preserveCase;
+    }
+
+    public void setResultChangedListener(SearchResultChangedListener resultChangedListener) {
+        this.resultChangedListener = resultChangedListener;
+    }
+}

@@ -31,7 +31,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             android:theme="@style/LightTextToolbarOverlay"
-            app:subtitleTextColor="@color/secondary_text"
+            app:subtitleTextColor="@color/dark__secondary_text"
             app:title="@string/app_name">
 
         </androidx.appcompat.widget.Toolbar>
@@ -52,7 +52,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
         android:layout_marginBottom="72dp"
         android:contentDescription="@string/create_new_file_or_folder"
         android:src="@drawable/ic_add_white_24dp"

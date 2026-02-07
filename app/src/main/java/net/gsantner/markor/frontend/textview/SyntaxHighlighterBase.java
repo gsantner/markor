@@ -151,8 +151,8 @@ public abstract class SyntaxHighlighterBase {
      * A class holding any span
      */
     public static class SpanGroup implements Comparable<SpanGroup> {
-        int start, end;
-        final Object span;
+        public int start, end;
+        public final Object span;
         final boolean isStatic;
         final boolean needsReflow;
         final int type;
@@ -369,7 +369,6 @@ public abstract class SyntaxHighlighterBase {
         }
         return this;
     }
-
 
     public SyntaxHighlighterBase applyStatic() {
         if (_spannable != null && !_staticApplied) {
@@ -673,8 +672,23 @@ public abstract class SyntaxHighlighterBase {
         return this;
     }
 
+    public SyntaxHighlighterBase addAdditional(final SpanGroup additionalSpan) {
+        if (additionalSpan != null) {
+            _groups.add(additionalSpan);
+            Collections.sort(_groups);
+        }
+        return this;
+    }
+
     public SyntaxHighlighterBase clearAdditional(final Collection<SpanGroup> additionalSpans) {
         _groups.removeAll(additionalSpans);
+        return this;
+    }
+
+    public SyntaxHighlighterBase clearAdditional(SpanGroup additionalSpan) {
+        if (additionalSpan != null) {
+            _groups.remove(additionalSpan);
+        }
         return this;
     }
 

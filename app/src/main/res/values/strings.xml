@@ -131,7 +131,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_current_folder_do_copy__appspecific">The file is not located in the current folder. Do you want to copy it to the current folder? This will overwrite any existing file with the same name.</string>
     <string name="files_and_folders">Files and folders</string>
     <string name="document_browser">Document browser</string>
-    <string name="file_browser">File browser</string>
+    <string name="file_browser">File Browser</string>
     <string name="set_due_date">Set due date</string>
     <string name="insert_replace_date">Insert date</string>
 
@@ -149,7 +149,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="main_view">Main View</string>
     <string name="overall_theme_used_in_app">The overall theme used in the app</string>
     <string name="remember_last_directory">Remember last directory</string>
-    <string name="syntax_highlighting">Syntax highlighting</string>
+    <string name="syntax_highlighting">Syntax Highlighting</string>
     <string name="highlighting_delay">Highlighting delay</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Delay in milliseconds for highlighting refresh. A lower value will start highlighting earlier, but it will drain your battery and may slow down the app on older devices.</string>
     <string name="highlighting_enabled_or_not__appspecific">Control whether entered text should be highlighted or not</string>
@@ -322,8 +322,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">Black</string>
     <string name="white">White</string>
     <string name="view">View</string>
-    <string name="view_mode">View mode</string>
-    <string name="edit_mode">Edit mode</string>
+    <string name="view_mode">View Mode</string>
+    <string name="edit_mode">Edit Mode</string>
     <string name="mount_storage">Mount storage</string>
     <string name="application_needs_access_to_storage_mount_it">Permission is required to access this storage. Mount the storage to give access. Confirm this dialog to get a popup. Select the storage there and press select.</string>
     <string name="share_into">Share into</string>
@@ -336,8 +336,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">The selected file may be a plaintext file. Do you want to open it in the editor, or in another app?\n\nDo not try to open binary files. If you are not sure, open with other app.</string>
     <string name="list_in_recent_files">List in recent files</string>
     <string name="reload">Reload</string>
-    <string name="wrap_words">Wrap words</string>
-    <string name="line_numbers">Line numbers</string>
+    <string name="wrap_words">Wrap Words</string>
+    <string name="line_numbers">Line Numbers</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Soft break if text doesn\'t fit to screen width. Else enable horizontal scrolling.</string>
     <string name="recursive_search_in_location">Recursive search in %s</string>
     <string name="always_open_with_this_app">Always open with this app</string>
@@ -405,6 +405,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="drag">Drag</string>
     <string name="created">Created</string>
 
+    <string name="line_based_search">Line Based Search</string>
+    <string name="no_results">No results</string>
+    <string name="bad_pattern">Invalid pattern</string>
+    <string name="new_line">New Line</string>
+    <string name="toggle_find_replace">Toggle Find/Replace</string>
+    <string name="match_case">Match Case</string>
+    <string name="match_whole_word">Match Whole Word</string>
+    <string name="use_regular_expression">Use Regular Expression</string>
+    <string name="find_in_selection">Find in Selection</string>
+    <string name="preserve_case">Preserve Case</string>
+
     <string name="file_encryption_password">File encryption password</string>
     <string name="no_password_set_cannot_encrypt_decrypt">No password set, cannot encrypt or decrypt.\nGo to Settings -> General -> Password to set a password.</string>
     <string name="encrypt_file_content">Encrypt file content</string>
@@ -418,7 +429,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">File description format</string>
     <string name="file_description_format_dialog">Format for the description under each file in the file browser. Follows Android\'s SimpleDateFormat rules, with the addition of FS for showing file size. Leave blank to use the default format for your locale.\n\nExample input:\nFS yyyy MMM dd hh:mm:ss aa\nOutput format:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">Loading default value</string>
-    <string name="file_settings">File settings</string>
+    <string name="file_settings">File Settings</string>
     <string name="search_and_replace">Search / Replace</string>
     <string name="replace">Replace</string>
     <string name="search_for">Search for</string>
