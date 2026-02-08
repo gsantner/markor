@@ -7,6 +7,8 @@
 #########################################################*/
 package net.gsantner.markor.frontend.textview;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -39,7 +41,10 @@ import androidx.core.content.ContextCompat;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.MainActivity;
+import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.model.AppSettings;
+import net.gsantner.markor.service.HtmlConversionService;
+import net.gsantner.markor.service.HtmlConversionServiceFactory;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
@@ -433,8 +438,9 @@ public class HighlightingEditor extends AppCompatEditText {
     public boolean onTextContextMenuItem(int id) {
         // Copy-paste fix by bad rich-text pasting - example text from code at https://plantuml.com/activity-diagram-beta
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && id == android.R.id.paste) {
-            id = android.R.id.pasteAsPlainText;
+            return handlePaste();
         }
+
         try {
             // i.e. DeadSystemRuntimeException can happen here
             return super.onTextContextMenuItem(id);
@@ -529,6 +535,29 @@ public class HighlightingEditor extends AppCompatEditText {
         } else {
             return super.dispatchKeyEvent(event);
         }
+    }
+
+    // Plain text and rich text pasting
+    // ---------------------------------------------------------------------------------------------
+
+    private boolean handlePaste() {
+        ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+        if (clipboard != null && clipboard.hasPrimaryClip()) {
+            ClipData clip = clipboard.getPrimaryClip();
+            if (clip != null && clip.getItemCount() > 0) {
+                String htmlText = clip.getItemAt(0).getHtmlText();
+                if (htmlText == null) {
+                    return super.onTextContextMenuItem(android.R.id.pasteAsPlainText);
+                }
+
+                HtmlConversionService service = HtmlConversionServiceFactory.getHtmlConversionService(FormatRegistry.FORMAT_MARKDOWN);
+                if (service != null) {
+                    setText(service.convert(htmlText));
+                    return true;
+                }
+            }
+        }
+        return super.onTextContextMenuItem(android.R.id.paste);
     }
 
     // Auto-format
