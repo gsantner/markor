@@ -195,6 +195,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__share_into__open_in_browser" translatable="false">pref_key__share_into__open_in_browser</string>
     <string name="pref_key__inject_to_head" translatable="false">pref_key__inject_to_head</string>
     <string name="pref_key__inject_to_body" translatable="false">pref_key__inject_to_body</string>
+    <string name="pref_key__markdown_extended_highlight" translatable="false">pref_key__markdown_extended_highlight</string>
     <string name="pref_key__markdown_render_math" translatable="false">pref_key__markdown_render_math</string>
     <string name="pref_key__markdown_always_shown_yaml_front_matter_keys" translatable="false">pref_key__markdown_always_shown_yaml_front_matter_keys</string>
     <string name="pref_key__markdown_newline_newparagraph" translatable="false">pref_key__markdown_newline_newparagraph</string>
