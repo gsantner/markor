@@ -236,6 +236,9 @@ public class MarkdownActionButtons extends ActionButtonBase {
                 } else if (keyCode == KeyEvent.KEYCODE_I) {
                     onActionClick(R.string.abid_markdown_italic);
                     return true;
+                } else if (keyCode == KeyEvent.KEYCODE_K) {
+                    onActionClick(R.string.abid_common_insert_link);
+                    return true;
                 }
             }
         } else {
