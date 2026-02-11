@@ -176,6 +176,9 @@ public abstract class ActionButtonBase {
                         onSearch();
                     }
                     return true;
+                } else if (keyCode == KeyEvent.KEYCODE_P) {
+                    fragment.print();
+                    return true;
                 } else if (keyCode == KeyEvent.KEYCODE_SLASH) {
                     fragment.togglePreview();
                     return true;

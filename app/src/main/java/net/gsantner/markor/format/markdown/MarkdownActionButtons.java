@@ -295,7 +295,6 @@ public class MarkdownActionButtons extends ActionButtonBase {
                     return true;
                 }
             }
-        } else {
         }
 
         return super.onKeyPress(fromEditor, keyCode, event, fragment);

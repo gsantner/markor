@@ -445,6 +445,13 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         }
     }
 
+    public void print() {
+        MenuItem menuItem = getFragmentMenu().findItem(R.id.action_share_pdf);
+        if (menuItem != null) {
+            onOptionsItemSelected(menuItem);
+        }
+    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull final MenuItem item) {
         final Activity activity = getActivity();
