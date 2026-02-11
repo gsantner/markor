@@ -234,6 +234,12 @@ public class MarkdownActionButtons extends ActionButtonBase {
         runSurroundAction("<mark>", "</mark>", false);
     }
 
+    private void mathBlock() {
+        int selectionStart = _hlEditor.getSelectionStart();
+        _hlEditor.insertOrReplaceTextOnCursor("$$\n\n$$\n");
+        _hlEditor.setSelection(selectionStart + 3);
+    }
+
     @Override
     public boolean onKeyPress(boolean fromEditor, int keyCode, KeyEvent event, DocumentEditAndViewFragment fragment) {
         if (fromEditor) {
@@ -247,6 +253,9 @@ public class MarkdownActionButtons extends ActionButtonBase {
                         return true;
                     } else if (keyCode == KeyEvent.KEYCODE_K) {
                         onActionLongClick(R.string.abid_markdown_code_inline);
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_M) {
+                        mathBlock();
                         return true;
                     }
                 }
