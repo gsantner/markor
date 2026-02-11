@@ -170,7 +170,11 @@ public abstract class ActionButtonBase {
         } else { // Operations within the scope of the fragment
             if (event.isCtrlPressed()) {
                 if (keyCode == KeyEvent.KEYCODE_F) {
-                    onSearch();
+                    if (fragment.isViewModeVisibility()) {
+                        fragment.showSearchView();
+                    } else {
+                        onSearch();
+                    }
                     return true;
                 } else if (keyCode == KeyEvent.KEYCODE_SLASH) {
                     fragment.togglePreview();

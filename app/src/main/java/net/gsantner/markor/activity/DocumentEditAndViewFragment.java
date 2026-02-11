@@ -820,6 +820,18 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         });
     }
 
+    /**
+     * Show SearchView for view-mode.
+     */
+    public void showSearchView() {
+        SearchView searchView = (SearchView) getFragmentMenu().findItem(R.id.action_search_view).getActionView();
+        if (searchView != null) {
+            if (searchView.isIconified()) {
+                searchView.setIconified(false);
+            }
+        }
+    }
+
     private void setMarginBottom(final View view, final int marginBottom) {
         final ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
         if (params != null) {
@@ -985,6 +997,10 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     public void setViewModeVisibility(final boolean show) {
         setViewModeVisibility(show, true);
+    }
+
+    public boolean isViewModeVisibility() {
+        return _isPreviewVisible;
     }
 
     @SuppressLint({"SetJavaScriptEnabled"})
