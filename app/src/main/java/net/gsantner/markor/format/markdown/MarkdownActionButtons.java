@@ -250,6 +250,9 @@ public class MarkdownActionButtons extends ActionButtonBase {
                 } else if (keyCode == KeyEvent.KEYCODE_M) {
                     mark();
                     return true;
+                } else if (keyCode == KeyEvent.KEYCODE_T) {
+                    onActionClick(R.string.abid_markdown_table_insert_columns);
+                    return true;
                 } else if (keyCode == KeyEvent.KEYCODE_U) {
                     underline();
                     return true;
