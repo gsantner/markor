@@ -85,7 +85,7 @@ public abstract class ActionButtonBase {
     private static final String ORDER_SUFFIX = "_order";
     private static final String DISABLED_SUFFIX = "_disabled";
 
-    private static final Pattern UNTRIMMED_TEXT = Pattern.compile("(\\s*)(.*?)(\\s*)", Pattern.DOTALL);
+    // private static final Pattern UNTRIMMED_TEXT = Pattern.compile("(\\s*)(.*?)(\\s*)", Pattern.DOTALL);
 
     public ActionButtonBase(@NonNull final Context context, final Document document) {
         _document = document;
@@ -115,7 +115,7 @@ public abstract class ActionButtonBase {
      * @return false if the key press event was not be handled/proceed, true if it was consumed here.
      */
     public boolean onKeyPress(final boolean fromEditor, final int keyCode, final KeyEvent event, final DocumentEditAndViewFragment fragment) {
-        // Common keyboard shortcuts implementation
+        // Common of implementation keyboard shortcuts
 
         Log.i("AAA", "isCtrlPressed: " + event.isCtrlPressed() + " isShiftPressed: " + event.isShiftPressed() + " isAltPressed: " + event.isAltPressed());
         Log.i("AAA", "fromEditor: " + fromEditor + " keyCode: " + keyCode);
@@ -142,16 +142,19 @@ public abstract class ActionButtonBase {
                         fragment.redo();
                         return true;
                     } else if (keyCode == KeyEvent.KEYCODE_K) {
-                        deleteCurrentLine();
+                        deleteLine();
                         return true;
                     }
                 }
 
                 if (keyCode == KeyEvent.KEYCODE_K) {
-                    deleteLineFromSelectionStart();
+                    deleteLineAfterSelectionStart();
                     return true;
                 } else if (keyCode == KeyEvent.KEYCODE_S) {
                     fragment.saveDocument(true);
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_X) {
+                    cutLine();
                     return true;
                 } else if (keyCode == KeyEvent.KEYCODE_Y) {
                     fragment.redo();
@@ -724,8 +727,8 @@ public abstract class ActionButtonBase {
         }
     }
 
-    // Delete current line from selectionStart
-    public void deleteLineFromSelectionStart() {
+    // Delete current line after selectionStart
+    public void deleteLineAfterSelectionStart() {
         int start = _hlEditor.getSelectionStart();
         CharSequence text = _hlEditor.getText();
         int lineStart = TextViewUtils.getLineStart(text, start);
@@ -737,7 +740,7 @@ public abstract class ActionButtonBase {
     }
 
     // Delete current line
-    public void deleteCurrentLine() {
+    public void deleteLine() {
         int selectionStartStart = _hlEditor.getSelectionStart();
         CharSequence text = _hlEditor.getText();
         int lineStart = TextViewUtils.getLineStart(text, selectionStartStart);
@@ -747,13 +750,26 @@ public abstract class ActionButtonBase {
         _hlEditor.setSelection(selectionStartStart);
     }
 
-    // Move line up/down
+    // Cut current line
+    public void cutLine() {
+        CharSequence text = _hlEditor.getText();
+        int selectionStart = _hlEditor.getSelectionStart();
+        int lineStart = TextViewUtils.getLineStart(text, selectionStart);
+        int lineEnd = TextViewUtils.getLineEnd(text, selectionStart);
+        if (lineStart != lineEnd) {
+            new MarkorContextUtils(getContext()).setClipboard(getContext(), text.subSequence(lineStart, lineEnd));
+            _hlEditor.setSelection(lineStart, lineEnd);
+            _hlEditor.insertOrReplaceTextOnCursor("");
+        }
+    }
+
+    // Move current line up/down
     public void moveLine(boolean toUp) {
         moveLineSelectionBy1(_hlEditor, toUp);
         runRenumberOrderedListIfRequired();
     }
 
-    // Copy line up/down
+    // Copy current line up/down
     public void copyLine(boolean toUp) {
         CharSequence text = _hlEditor.getText();
         int selectionStart = _hlEditor.getSelectionStart();
