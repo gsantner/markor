@@ -436,6 +436,15 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         setViewModeVisibility(!_isPreviewVisible);
     }
 
+    public void reload() {
+        if (_document != null) {
+            _document.resetChangeTracking(); // Force next load
+            if (loadDocument()) {
+                Toast.makeText(getActivity(), "✔", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull final MenuItem item) {
         final Activity activity = getActivity();
@@ -458,10 +467,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 return true;
             }
             case R.id.action_reload: {
-                _document.resetChangeTracking(); // Force next load
-                if (loadDocument()) {
-                    Toast.makeText(activity, "✔", Toast.LENGTH_SHORT).show();
-                }
+                reload();
                 return true;
             }
             case R.id.action_preview: {
