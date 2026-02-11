@@ -19,7 +19,6 @@ import android.text.Selection;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -115,10 +114,8 @@ public abstract class ActionButtonBase {
      * @return false if the key press event was not be handled/proceed, true if it was consumed here.
      */
     public boolean onKeyPress(final boolean fromEditor, final int keyCode, final KeyEvent event, final DocumentEditAndViewFragment fragment) {
-        // Common of implementation keyboard shortcuts
+        // Common implementation of keyboard shortcuts
 
-        Log.i("AAA", "isCtrlPressed: " + event.isCtrlPressed() + " isShiftPressed: " + event.isShiftPressed() + " isAltPressed: " + event.isAltPressed());
-        Log.i("AAA", "fromEditor: " + fromEditor + " keyCode: " + keyCode);
         if (fromEditor) { // Operations within the scope of the editor
             if (keyCode == KeyEvent.KEYCODE_TAB && _appSettings.isIndentWithTabKey()) {
                 runIndentLines(event.isShiftPressed());
@@ -148,7 +145,7 @@ public abstract class ActionButtonBase {
                 }
 
                 if (keyCode == KeyEvent.KEYCODE_K) {
-                    deleteLineAfterSelectionStart();
+                    deleteToLineEnd();
                     return true;
                 } else if (keyCode == KeyEvent.KEYCODE_S) {
                     fragment.saveDocument(true);
@@ -727,8 +724,8 @@ public abstract class ActionButtonBase {
         }
     }
 
-    // Delete current line after selectionStart
-    public void deleteLineAfterSelectionStart() {
+    // Delete the text from selectionStart to lineEnd
+    public void deleteToLineEnd() {
         int start = _hlEditor.getSelectionStart();
         CharSequence text = _hlEditor.getText();
         int lineStart = TextViewUtils.getLineStart(text, start);
@@ -758,7 +755,7 @@ public abstract class ActionButtonBase {
         int lineEnd = TextViewUtils.getLineEnd(text, selectionStart);
         if (lineStart != lineEnd) {
             new MarkorContextUtils(getContext()).setClipboard(getContext(), text.subSequence(lineStart, lineEnd));
-            _hlEditor.setSelection(lineStart, lineEnd);
+            _hlEditor.setSelection(lineStart, lineEnd + 1);
             _hlEditor.insertOrReplaceTextOnCursor("");
         }
     }
