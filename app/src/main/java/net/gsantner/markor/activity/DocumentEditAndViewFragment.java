@@ -105,7 +105,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     private DraggableScrollbarScrollView _verticalScrollView;
     private HorizontalScrollView _horizontalScrollView;
     private LineNumbersView _lineNumbersView;
-    private SearchView _menuSearchViewForViewMode;
     private Document _document;
     private FormatRegistry _format;
     private MarkorContextUtils _cu;
@@ -340,39 +339,10 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     @Override
     public boolean onReceiveKeyPress(int keyCode, KeyEvent event) {
-        if (_format != null && _format.getActions().onReceiveKeyPress(keyCode, event)) {
-            return true;
+        if (_format == null) {
+            return false;
         }
-
-        if (event.isCtrlPressed()) {
-            if (event.isShiftPressed() && keyCode == KeyEvent.KEYCODE_Z) {
-                if (_editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanRedo()) {
-                    _hlEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::redo);
-                    updateUndoRedoIconStates();
-                }
-                return true;
-            } else if (keyCode == KeyEvent.KEYCODE_S) {
-                saveDocument(true);
-                return true;
-            } else if (keyCode == KeyEvent.KEYCODE_Y) {
-                if (_editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanRedo()) {
-                    _hlEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::redo);
-                    updateUndoRedoIconStates();
-                }
-                return true;
-            } else if (keyCode == KeyEvent.KEYCODE_Z) {
-                if (_editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanUndo()) {
-                    _hlEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::undo);
-                    updateUndoRedoIconStates();
-                }
-                return true;
-            } else if (keyCode == KeyEvent.KEYCODE_SLASH) {
-                setViewModeVisibility(!_isPreviewVisible);
-                return true;
-            }
-        }
-
-        return false;
+        return _format.getActions().handleReceiveKeyPress(keyCode, event, this);
     }
 
     private void updateUndoRedoIconStates() {
@@ -418,6 +388,24 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         return false;
     }
 
+    public void undo() {
+        if (_editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanUndo()) {
+            _hlEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::undo);
+            updateUndoRedoIconStates();
+        }
+    }
+
+    public void redo() {
+        if (_editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanRedo()) {
+            _hlEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::redo);
+            updateUndoRedoIconStates();
+        }
+    }
+
+    public void togglePreview() {
+        setViewModeVisibility(!_isPreviewVisible);
+    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull final MenuItem item) {
         final Activity activity = getActivity();
@@ -428,17 +416,11 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         final int itemId = item.getItemId();
         switch (itemId) {
             case R.id.action_undo: {
-                if (_editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanUndo()) {
-                    _hlEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::undo);
-                    updateUndoRedoIconStates();
-                }
+                undo();
                 return true;
             }
             case R.id.action_redo: {
-                if (_editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanRedo()) {
-                    _hlEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::redo);
-                    updateUndoRedoIconStates();
-                }
+                redo();
                 return true;
             }
             case R.id.action_save: {
@@ -461,7 +443,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 return true;
             }
             case R.id.action_preview_edit_toggle: {
-                setViewModeVisibility(!_isPreviewVisible);
+                togglePreview();
                 return true;
             }
             case R.id.action_share_path: {

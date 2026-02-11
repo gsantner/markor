@@ -36,6 +36,7 @@ import androidx.appcompat.widget.TooltipCompat;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentActivity;
+import net.gsantner.markor.activity.DocumentEditAndViewFragment;
 import net.gsantner.markor.frontend.AttachLinkOrFileDialog;
 import net.gsantner.markor.frontend.DatetimeFormatDialog;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
@@ -1022,12 +1023,32 @@ public abstract class ActionButtonBase {
         }
     }
 
-    public boolean onReceiveKeyPress(final int keyCode, final KeyEvent event) {
+    public boolean handleReceiveKeyPress(final int keyCode, final KeyEvent event, DocumentEditAndViewFragment documentEditAndViewFragment) {
         if (keyCode == KeyEvent.KEYCODE_TAB && _appSettings.isIndentWithTabKey()) {
             runIndentLines(event.isShiftPressed());
             runRenumberOrderedListIfRequired();
             return true;
         }
+
+        if (event.isCtrlPressed()) {
+            if (event.isShiftPressed() && keyCode == KeyEvent.KEYCODE_Z) {
+                documentEditAndViewFragment.redo();
+                return true;
+            } else if (keyCode == KeyEvent.KEYCODE_S) {
+                documentEditAndViewFragment.saveDocument(true);
+                return true;
+            } else if (keyCode == KeyEvent.KEYCODE_Y) {
+                documentEditAndViewFragment.redo();
+                return true;
+            } else if (keyCode == KeyEvent.KEYCODE_Z) {
+                documentEditAndViewFragment.undo();
+                return true;
+            } else if (keyCode == KeyEvent.KEYCODE_SLASH) {
+                documentEditAndViewFragment.togglePreview();
+                return true;
+            }
+        }
+
         return false;
     }
 

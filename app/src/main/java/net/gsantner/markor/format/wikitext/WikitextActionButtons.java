@@ -16,6 +16,7 @@ import androidx.annotation.StringRes;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentActivity;
+import net.gsantner.markor.activity.DocumentEditAndViewFragment;
 import net.gsantner.markor.format.ActionButtonBase;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.textview.AutoTextFormatter;
@@ -273,7 +274,7 @@ public class WikitextActionButtons extends ActionButtonBase {
     }
 
     @Override
-    public boolean onReceiveKeyPress(final int keyCode, final KeyEvent event) {
+    public boolean handleReceiveKeyPress(final int keyCode, final KeyEvent event, DocumentEditAndViewFragment documentEditAndViewFragment) {
         if (keyCode == KeyEvent.KEYCODE_TAB && _appSettings.isIndentWithTabKey()) {
             if (event.isShiftPressed()) {
                 runRegexReplaceAction(WikitextReplacePatternGenerator.deindentOneTab());
@@ -284,6 +285,6 @@ public class WikitextActionButtons extends ActionButtonBase {
             return true;
         }
 
-        return super.onReceiveKeyPress(keyCode, event);
+        return super.handleReceiveKeyPress(keyCode, event, documentEditAndViewFragment);
     }
 }
