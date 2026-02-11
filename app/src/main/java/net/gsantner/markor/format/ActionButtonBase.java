@@ -104,8 +104,18 @@ public abstract class ActionButtonBase {
     }
 
     // Override to implement custom keyboard shortcuts
+
+    /**
+     * Override to implement custom keyboard shortcuts.
+     * This method has implemented some common keyboard shortcuts in ActionButtonBase.
+     *
+     * @param keyCode                     the received key code
+     * @param event                       the key event
+     * @param documentEditAndViewFragment the instance of DocumentEditAndViewFragment
+     * @return false if the key press event was not be handled/proceed, true if it was consumed here.
+     */
     public boolean onKeyPress(final int keyCode, final KeyEvent event, DocumentEditAndViewFragment documentEditAndViewFragment) {
-        // Common implementation of keyboard shortcuts
+        // Common keyboard shortcuts implementation
         if (keyCode == KeyEvent.KEYCODE_TAB && _appSettings.isIndentWithTabKey()) {
             runIndentLines(event.isShiftPressed());
             runRenumberOrderedListIfRequired();
