@@ -126,6 +126,9 @@ public abstract class ActionButtonBase {
             if (event.isShiftPressed() && keyCode == KeyEvent.KEYCODE_Z) {
                 documentEditAndViewFragment.redo();
                 return true;
+            } else if (keyCode == KeyEvent.KEYCODE_F) {
+                onSearch();
+                return true;
             } else if (keyCode == KeyEvent.KEYCODE_S) {
                 documentEditAndViewFragment.saveDocument(true);
                 return true;
