@@ -19,6 +19,7 @@ import android.text.Selection;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -116,6 +117,8 @@ public abstract class ActionButtonBase {
     public boolean onKeyPress(final boolean fromEditor, final int keyCode, final KeyEvent event, final DocumentEditAndViewFragment fragment) {
         // Common keyboard shortcuts implementation
 
+        Log.i("AAA", "fromEditor: " + fromEditor + " keyCode: " + keyCode);
+        Log.i("AAA", "isAltPressed: " + event.isAltPressed() + " isShiftPressed: " + event.isShiftPressed());
         if (fromEditor) { // Operations within the scope of the editor
             if (keyCode == KeyEvent.KEYCODE_TAB && _appSettings.isIndentWithTabKey()) {
                 runIndentLines(event.isShiftPressed());
@@ -138,6 +141,12 @@ public abstract class ActionButtonBase {
                     return true;
                 } else if (keyCode == KeyEvent.KEYCODE_Z) {
                     fragment.undo();
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
+                    moveLine(true);
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+                    moveLine(false);
                     return true;
                 }
             }
