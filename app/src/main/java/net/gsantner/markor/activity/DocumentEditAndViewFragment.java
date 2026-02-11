@@ -343,11 +343,11 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     /**
-     * Key press from DocumentEditAndViewFragment.
+     * Key press from {@code DocumentEditAndViewFragment}.
      *
-     * @param keyCode the keyCode from DocumentEditAndViewFragment
-     * @param event   the KeyEvent from DocumentEditAndViewFragment
-     * @return false if the key press event was not be handled/proceed, true if it was consumed here.
+     * @param keyCode the keyCode from {@code DocumentEditAndViewFragment}
+     * @param event   the KeyEvent from {@code DocumentEditAndViewFragment}
+     * @return {@code false} if the key press event was not be handled/proceed, {@code true} if it was consumed here.
      */
     @Override
     public boolean onReceiveKeyPress(int keyCode, KeyEvent event) {
@@ -358,12 +358,12 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     /**
-     * To solve the issue that some key events (e.g. event.isCtrlPressed(), KeyEvent.KEYCODE_DPAD_UP, KeyEvent.KEYCODE_DPAD_DOWN, ...)
-     * cannot be listened by DocumentEditAndViewFragment.
+     * To solve the issue that some key events (e.g. {@code event.isCtrlPressed()}, {@code KeyEvent.KEYCODE_DPAD_UP}, {@code KeyEvent.KEYCODE_DPAD_DOWN}, ...)
+     * cannot be listened by {@code DocumentEditAndViewFragment}.
      *
-     * @param keyCode the keyCode from HighlightingEditor
-     * @param event   the KeyEvent from HighlightingEditor
-     * @return false if the key press event was not be handled/proceed, true if it was consumed here.
+     * @param keyCode the keyCode from {@code HighlightingEditor}
+     * @param event   the KeyEvent from {@code HighlightingEditor}
+     * @return {@code false} if the key press event was not be handled/proceed, {@code true} if it was consumed here.
      */
     private boolean onEditorKeyDown(int keyCode, KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_DOWN) {

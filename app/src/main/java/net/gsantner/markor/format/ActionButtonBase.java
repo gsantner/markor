@@ -105,13 +105,13 @@ public abstract class ActionButtonBase {
 
     /**
      * Override to implement custom keyboard shortcuts.
-     * This method has implemented some common keyboard shortcuts in ActionButtonBase.
+     * This method has implemented some common keyboard shortcuts in {@code ActionButtonBase}.
      *
-     * @param fromEditor true if this key event is form HighlightingEditor, false if it is form DocumentEditAndViewFragment
+     * @param fromEditor {@code true} if this key event is form {@code HighlightingEditor}, {@code false} if it is form {@code DocumentEditAndViewFragment}
      * @param keyCode    the received key code
      * @param event      the key event
-     * @param fragment   the instance of DocumentEditAndViewFragment
-     * @return false if the key press event was not be handled/proceed, true if it was consumed here.
+     * @param fragment   the instance of {@code DocumentEditAndViewFragment}
+     * @return {@code false} if the key press event was not be handled/proceed, {@code true} if it was consumed here.
      */
     public boolean onKeyPress(final boolean fromEditor, final int keyCode, final KeyEvent event, final DocumentEditAndViewFragment fragment) {
         // Common implementation of keyboard shortcuts
