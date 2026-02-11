@@ -230,6 +230,9 @@ public class MarkdownActionButtons extends ActionButtonBase {
     public boolean onKeyPress(boolean fromEditor, int keyCode, KeyEvent event, DocumentEditAndViewFragment fragment) {
         if (fromEditor) {
             if (event.isCtrlPressed()) {
+                if (keyCode == KeyEvent.KEYCODE_B) {
+                    onActionClick(R.string.abid_markdown_bold);
+                }
             }
         } else {
         }
