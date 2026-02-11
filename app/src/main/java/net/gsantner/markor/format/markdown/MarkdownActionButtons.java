@@ -232,6 +232,10 @@ public class MarkdownActionButtons extends ActionButtonBase {
             if (event.isCtrlPressed()) {
                 if (keyCode == KeyEvent.KEYCODE_B) {
                     onActionClick(R.string.abid_markdown_bold);
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_I) {
+                    onActionClick(R.string.abid_markdown_italic);
+                    return true;
                 }
             }
         } else {
