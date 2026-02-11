@@ -153,6 +153,18 @@ public abstract class ActionButtonBase {
         return true;
     }
 
+    // For Ctrl + K
+    public void deleteLineFromSelectionStart(HighlightingEditor _hlEditor) {
+        int start = _hlEditor.getSelectionStart();
+        CharSequence text = _hlEditor.getText();
+        int lineStart = TextViewUtils.getLineStart(text, start);
+        int lineEnd = TextViewUtils.getLineEnd(text, start);
+        if (_hlEditor.isFocused() && start >= lineStart && start < lineEnd) {
+            _hlEditor.setSelection(start, lineEnd);
+            _hlEditor.insertOrReplaceTextOnCursor("");
+        }
+    }
+
     // Override to implement custom title action
     public boolean runTitleClick() {
         return false;
