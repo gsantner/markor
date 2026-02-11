@@ -173,6 +173,20 @@ public class WikitextActionButtons extends ActionButtonBase {
         }
     }
 
+    @Override
+    public boolean onKeyPress(final int keyCode, final KeyEvent event, DocumentEditAndViewFragment documentEditAndViewFragment) {
+        if (keyCode == KeyEvent.KEYCODE_TAB && _appSettings.isIndentWithTabKey()) {
+            if (event.isShiftPressed()) {
+                runRegexReplaceAction(WikitextReplacePatternGenerator.deindentOneTab());
+            } else {
+                runRegexReplaceAction(WikitextReplacePatternGenerator.indentOneTab());
+            }
+            runRenumberOrderedListIfRequired();
+            return true;
+        }
+
+        return super.onKeyPress(keyCode, event, documentEditAndViewFragment);
+    }
 
     private void openLink() {
         String fullWikitextLink = tryExtractWikitextLink();
@@ -271,20 +285,5 @@ public class WikitextActionButtons extends ActionButtonBase {
     @Override
     protected void renumberOrderedList() {
         AutoTextFormatter.renumberOrderedList(_hlEditor.getText(), WikitextReplacePatternGenerator.formatPatterns);
-    }
-
-    @Override
-    public boolean handleReceiveKeyPress(final int keyCode, final KeyEvent event, DocumentEditAndViewFragment documentEditAndViewFragment) {
-        if (keyCode == KeyEvent.KEYCODE_TAB && _appSettings.isIndentWithTabKey()) {
-            if (event.isShiftPressed()) {
-                runRegexReplaceAction(WikitextReplacePatternGenerator.deindentOneTab());
-            } else {
-                runRegexReplaceAction(WikitextReplacePatternGenerator.indentOneTab());
-            }
-            runRenumberOrderedListIfRequired();
-            return true;
-        }
-
-        return super.handleReceiveKeyPress(keyCode, event, documentEditAndViewFragment);
     }
 }

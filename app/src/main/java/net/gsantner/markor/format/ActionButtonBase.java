@@ -103,6 +103,37 @@ public abstract class ActionButtonBase {
         return runCommonLongPressAction(action);
     }
 
+    // Override to implement custom keyboard shortcuts
+    public boolean onKeyPress(final int keyCode, final KeyEvent event, DocumentEditAndViewFragment documentEditAndViewFragment) {
+        // Common implementation of keyboard shortcuts
+        if (keyCode == KeyEvent.KEYCODE_TAB && _appSettings.isIndentWithTabKey()) {
+            runIndentLines(event.isShiftPressed());
+            runRenumberOrderedListIfRequired();
+            return true;
+        }
+
+        if (event.isCtrlPressed()) {
+            if (event.isShiftPressed() && keyCode == KeyEvent.KEYCODE_Z) {
+                documentEditAndViewFragment.redo();
+                return true;
+            } else if (keyCode == KeyEvent.KEYCODE_S) {
+                documentEditAndViewFragment.saveDocument(true);
+                return true;
+            } else if (keyCode == KeyEvent.KEYCODE_Y) {
+                documentEditAndViewFragment.redo();
+                return true;
+            } else if (keyCode == KeyEvent.KEYCODE_Z) {
+                documentEditAndViewFragment.undo();
+                return true;
+            } else if (keyCode == KeyEvent.KEYCODE_SLASH) {
+                documentEditAndViewFragment.togglePreview();
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     // Override to implement custom search action
     public boolean onSearch() {
         MarkorDialogFactory.showSearchDialog(_activity, _hlEditor);
@@ -1021,35 +1052,6 @@ public abstract class ActionButtonBase {
                 _webView.scrollBy(0, 1000);
             }
         }
-    }
-
-    public boolean handleReceiveKeyPress(final int keyCode, final KeyEvent event, DocumentEditAndViewFragment documentEditAndViewFragment) {
-        if (keyCode == KeyEvent.KEYCODE_TAB && _appSettings.isIndentWithTabKey()) {
-            runIndentLines(event.isShiftPressed());
-            runRenumberOrderedListIfRequired();
-            return true;
-        }
-
-        if (event.isCtrlPressed()) {
-            if (event.isShiftPressed() && keyCode == KeyEvent.KEYCODE_Z) {
-                documentEditAndViewFragment.redo();
-                return true;
-            } else if (keyCode == KeyEvent.KEYCODE_S) {
-                documentEditAndViewFragment.saveDocument(true);
-                return true;
-            } else if (keyCode == KeyEvent.KEYCODE_Y) {
-                documentEditAndViewFragment.redo();
-                return true;
-            } else if (keyCode == KeyEvent.KEYCODE_Z) {
-                documentEditAndViewFragment.undo();
-                return true;
-            } else if (keyCode == KeyEvent.KEYCODE_SLASH) {
-                documentEditAndViewFragment.togglePreview();
-                return true;
-            }
-        }
-
-        return false;
     }
 
     public static class HeadlineState extends GsSearchOrCustomTextDialog.DialogState {

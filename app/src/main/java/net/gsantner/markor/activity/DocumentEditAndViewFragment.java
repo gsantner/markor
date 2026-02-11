@@ -342,7 +342,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         if (_format == null) {
             return false;
         }
-        return _format.getActions().handleReceiveKeyPress(keyCode, event, this);
+        return _format.getActions().onKeyPress(keyCode, event, this);
     }
 
     private void updateUndoRedoIconStates() {
