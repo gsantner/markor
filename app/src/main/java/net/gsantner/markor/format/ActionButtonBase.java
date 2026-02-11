@@ -137,9 +137,14 @@ public abstract class ActionButtonBase {
                     }
                 }
 
-                if (event.isShiftPressed() && keyCode == KeyEvent.KEYCODE_Z) {
-                    fragment.redo();
-                    return true;
+                if (event.isShiftPressed()) {
+                    if (keyCode == KeyEvent.KEYCODE_Z) {
+                        fragment.redo();
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_K) {
+                        deleteCurrentLine();
+                        return true;
+                    }
                 }
 
                 if (keyCode == KeyEvent.KEYCODE_K) {
@@ -708,6 +713,17 @@ public abstract class ActionButtonBase {
             _hlEditor.setSelection(start, lineEnd);
             _hlEditor.insertOrReplaceTextOnCursor("");
         }
+    }
+
+    // Delete current line
+    public void deleteCurrentLine() {
+        int selectionStartStart = _hlEditor.getSelectionStart();
+        CharSequence text = _hlEditor.getText();
+        int lineStart = TextViewUtils.getLineStart(text, selectionStartStart);
+        int lineEnd = TextViewUtils.getLineEnd(text, selectionStartStart);
+        _hlEditor.setSelection(lineStart, lineEnd + 1);
+        _hlEditor.insertOrReplaceTextOnCursor("");
+        _hlEditor.setSelection(selectionStartStart);
     }
 
     // Move line up/down
