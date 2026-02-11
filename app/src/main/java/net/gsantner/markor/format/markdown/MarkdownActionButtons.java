@@ -238,6 +238,13 @@ public class MarkdownActionButtons extends ActionButtonBase {
     public boolean onKeyPress(boolean fromEditor, int keyCode, KeyEvent event, DocumentEditAndViewFragment fragment) {
         if (fromEditor) {
             if (event.isCtrlPressed()) {
+                if (event.isShiftPressed()) {
+                    if (keyCode == KeyEvent.KEYCODE_I) {
+                        onActionClick(R.string.abid_common_insert_image);
+                        return true;
+                    }
+                }
+
                 if (keyCode == KeyEvent.KEYCODE_1) {
                     onActionClick(R.string.abid_markdown_h1);
                     return true;
