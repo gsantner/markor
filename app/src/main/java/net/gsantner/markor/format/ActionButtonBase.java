@@ -180,6 +180,9 @@ public abstract class ActionButtonBase {
                         _hlEditor.requestFocus();
                         return true;
                     }
+                } else if (keyCode == KeyEvent.KEYCODE_SEMICOLON) {
+                    runSpecialKeyAction();
+                    return true;
                 }
             }
         }
