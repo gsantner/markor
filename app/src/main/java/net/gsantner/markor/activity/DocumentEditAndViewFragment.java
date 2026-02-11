@@ -338,6 +338,10 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         updateUndoRedoIconStates();
     }
 
+    public void showMoreOptionsMenu() {
+        getActivity().openOptionsMenu();
+    }
+
     /**
      * Key press from DocumentEditAndViewFragment.
      *

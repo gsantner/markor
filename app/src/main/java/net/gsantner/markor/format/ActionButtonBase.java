@@ -118,7 +118,7 @@ public abstract class ActionButtonBase {
         // Common keyboard shortcuts implementation
 
         Log.i("AAA", "fromEditor: " + fromEditor + " keyCode: " + keyCode);
-        Log.i("AAA", "isCtrlPressed: " + event.isCtrlPressed() + "isAltPressed: " + event.isAltPressed() + " isShiftPressed: " + event.isShiftPressed());
+        Log.i("AAA", "isCtrlPressed: " + event.isCtrlPressed() + " isAltPressed: " + event.isAltPressed() + " isShiftPressed: " + event.isShiftPressed());
         if (fromEditor) { // Operations within the scope of the editor
             if (keyCode == KeyEvent.KEYCODE_TAB && _appSettings.isIndentWithTabKey()) {
                 runIndentLines(event.isShiftPressed());
@@ -184,8 +184,11 @@ public abstract class ActionButtonBase {
                         _hlEditor.requestFocus();
                         return true;
                     }
-                } else if (keyCode == KeyEvent.KEYCODE_SEMICOLON) {
+                } else if (keyCode == KeyEvent.KEYCODE_COMMA) {
                     runSpecialKeyAction();
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_SEMICOLON) {
+                    fragment.showMoreOptionsMenu();
                     return true;
                 }
             }
