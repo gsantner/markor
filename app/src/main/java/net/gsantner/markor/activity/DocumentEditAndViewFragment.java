@@ -434,6 +434,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     public void togglePreview() {
         setViewModeVisibility(!_isPreviewVisible);
+        _hlEditor.requestFocus();
     }
 
     public void reload() {
