@@ -17,6 +17,7 @@ import androidx.annotation.StringRes;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentActivity;
+import net.gsantner.markor.activity.DocumentEditAndViewFragment;
 import net.gsantner.markor.format.ActionButtonBase;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.textview.AutoTextFormatter;
@@ -223,6 +224,17 @@ public class MarkdownActionButtons extends ActionButtonBase {
                 return runCommonLongPressAction(action);
             }
         }
+    }
+
+    @Override
+    public boolean onKeyPress(boolean fromEditor, int keyCode, KeyEvent event, DocumentEditAndViewFragment fragment) {
+        if (fromEditor) {
+            if (event.isCtrlPressed()) {
+            }
+        } else {
+        }
+
+        return super.onKeyPress(fromEditor, keyCode, event, fragment);
     }
 
     public static class Link {
