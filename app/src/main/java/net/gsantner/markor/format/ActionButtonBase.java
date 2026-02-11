@@ -118,7 +118,7 @@ public abstract class ActionButtonBase {
         // Common keyboard shortcuts implementation
 
         Log.i("AAA", "fromEditor: " + fromEditor + " keyCode: " + keyCode);
-        Log.i("AAA", "isAltPressed: " + event.isAltPressed() + " isShiftPressed: " + event.isShiftPressed());
+        Log.i("AAA", "isCtrlPressed: " + event.isCtrlPressed() + "isAltPressed: " + event.isAltPressed() + " isShiftPressed: " + event.isShiftPressed());
         if (fromEditor) { // Operations within the scope of the editor
             if (keyCode == KeyEvent.KEYCODE_TAB && _appSettings.isIndentWithTabKey()) {
                 runIndentLines(event.isShiftPressed());
@@ -127,10 +127,22 @@ public abstract class ActionButtonBase {
             }
 
             if (event.isCtrlPressed()) {
+                if (event.isAltPressed()) {
+                    if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
+                        copyLine(true);
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+                        copyLine(false);
+                        return true;
+                    }
+                }
+
                 if (event.isShiftPressed() && keyCode == KeyEvent.KEYCODE_Z) {
                     fragment.redo();
                     return true;
-                } else if (keyCode == KeyEvent.KEYCODE_K) {
+                }
+
+                if (keyCode == KeyEvent.KEYCODE_K) {
                     deleteLineFromSelectionStart();
                     return true;
                 } else if (keyCode == KeyEvent.KEYCODE_S) {
@@ -699,9 +711,27 @@ public abstract class ActionButtonBase {
     }
 
     // Move line up/down
-    public void moveLine(boolean isUp) {
-        moveLineSelectionBy1(_hlEditor, isUp);
+    public void moveLine(boolean toUp) {
+        moveLineSelectionBy1(_hlEditor, toUp);
         runRenumberOrderedListIfRequired();
+    }
+
+    // Copy line up/down
+    public void copyLine(boolean toUp) {
+        CharSequence text = _hlEditor.getText();
+        int selectionStart = _hlEditor.getSelectionStart();
+        int lineStart = TextViewUtils.getLineStart(text, selectionStart);
+        int lineEnd = TextViewUtils.getLineEnd(text, selectionStart);
+        CharSequence line = text.subSequence(lineStart, lineEnd);
+        if (toUp) {
+            _hlEditor.setSelection(lineStart);
+            line = line + "\n";
+        } else {
+            _hlEditor.setSelection(lineEnd);
+            line = "\n" + line;
+        }
+        _hlEditor.insertOrReplaceTextOnCursor(line.toString());
+        _hlEditor.setSelection(selectionStart + (toUp ? 0 : line.length()));
     }
 
     // Some actions common to multiple file types
