@@ -175,6 +175,11 @@ public abstract class ActionButtonBase {
                 } else if (keyCode == KeyEvent.KEYCODE_SLASH) {
                     fragment.togglePreview();
                     return true;
+                } else if (keyCode == KeyEvent.KEYCODE_PERIOD) {
+                    if (_hlEditor != null) {
+                        _hlEditor.requestFocus();
+                        return true;
+                    }
                 }
             }
         }
