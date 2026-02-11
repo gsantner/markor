@@ -103,44 +103,53 @@ public abstract class ActionButtonBase {
         return runCommonLongPressAction(action);
     }
 
-    // Override to implement custom keyboard shortcuts
-
     /**
      * Override to implement custom keyboard shortcuts.
      * This method has implemented some common keyboard shortcuts in ActionButtonBase.
      *
-     * @param keyCode                     the received key code
-     * @param event                       the key event
-     * @param documentEditAndViewFragment the instance of DocumentEditAndViewFragment
+     * @param fromEditor true if this key event is form HighlightingEditor, false if it is form DocumentEditAndViewFragment
+     * @param keyCode    the received key code
+     * @param event      the key event
+     * @param fragment   the instance of DocumentEditAndViewFragment
      * @return false if the key press event was not be handled/proceed, true if it was consumed here.
      */
-    public boolean onKeyPress(final int keyCode, final KeyEvent event, DocumentEditAndViewFragment documentEditAndViewFragment) {
+    public boolean onKeyPress(final boolean fromEditor, final int keyCode, final KeyEvent event, final DocumentEditAndViewFragment fragment) {
         // Common keyboard shortcuts implementation
-        if (keyCode == KeyEvent.KEYCODE_TAB && _appSettings.isIndentWithTabKey()) {
-            runIndentLines(event.isShiftPressed());
-            runRenumberOrderedListIfRequired();
-            return true;
-        }
 
-        if (event.isCtrlPressed()) {
-            if (event.isShiftPressed() && keyCode == KeyEvent.KEYCODE_Z) {
-                documentEditAndViewFragment.redo();
+        if (fromEditor) { // Operations within the scope of the editor
+            if (keyCode == KeyEvent.KEYCODE_TAB && _appSettings.isIndentWithTabKey()) {
+                runIndentLines(event.isShiftPressed());
+                runRenumberOrderedListIfRequired();
                 return true;
-            } else if (keyCode == KeyEvent.KEYCODE_F) {
-                onSearch();
-                return true;
-            } else if (keyCode == KeyEvent.KEYCODE_S) {
-                documentEditAndViewFragment.saveDocument(true);
-                return true;
-            } else if (keyCode == KeyEvent.KEYCODE_Y) {
-                documentEditAndViewFragment.redo();
-                return true;
-            } else if (keyCode == KeyEvent.KEYCODE_Z) {
-                documentEditAndViewFragment.undo();
-                return true;
-            } else if (keyCode == KeyEvent.KEYCODE_SLASH) {
-                documentEditAndViewFragment.togglePreview();
-                return true;
+            }
+
+            if (event.isCtrlPressed()) {
+                if (event.isShiftPressed() && keyCode == KeyEvent.KEYCODE_Z) {
+                    fragment.redo();
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_K) {
+                    deleteLineFromSelectionStart();
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_S) {
+                    fragment.saveDocument(true);
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_Y) {
+                    fragment.redo();
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_Z) {
+                    fragment.undo();
+                    return true;
+                }
+            }
+        } else { // Operations within the scope of the fragment
+            if (event.isCtrlPressed()) {
+                if (keyCode == KeyEvent.KEYCODE_F) {
+                    onSearch();
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_SLASH) {
+                    fragment.togglePreview();
+                    return true;
+                }
             }
         }
 
@@ -151,18 +160,6 @@ public abstract class ActionButtonBase {
     public boolean onSearch() {
         MarkorDialogFactory.showSearchDialog(_activity, _hlEditor);
         return true;
-    }
-
-    // For Ctrl + K
-    public void deleteLineFromSelectionStart(HighlightingEditor _hlEditor) {
-        int start = _hlEditor.getSelectionStart();
-        CharSequence text = _hlEditor.getText();
-        int lineStart = TextViewUtils.getLineStart(text, start);
-        int lineEnd = TextViewUtils.getLineEnd(text, start);
-        if (_hlEditor.isFocused() && start >= lineStart && start < lineEnd) {
-            _hlEditor.setSelection(start, lineEnd);
-            _hlEditor.insertOrReplaceTextOnCursor("");
-        }
     }
 
     // Override to implement custom title action
@@ -680,6 +677,24 @@ public abstract class ActionButtonBase {
         }
     }
 
+    // Delete current line from selectionStart
+    public void deleteLineFromSelectionStart() {
+        int start = _hlEditor.getSelectionStart();
+        CharSequence text = _hlEditor.getText();
+        int lineStart = TextViewUtils.getLineStart(text, start);
+        int lineEnd = TextViewUtils.getLineEnd(text, start);
+        if (_hlEditor.isFocused() && start >= lineStart && start < lineEnd) {
+            _hlEditor.setSelection(start, lineEnd);
+            _hlEditor.insertOrReplaceTextOnCursor("");
+        }
+    }
+
+    // Move line up/down
+    public void moveLine(boolean isUp) {
+        moveLineSelectionBy1(_hlEditor, isUp);
+        runRenumberOrderedListIfRequired();
+    }
+
     // Some actions common to multiple file types
     // Can be called _explicitly_ by a derived class
     protected final boolean runCommonAction(final @StringRes int action) {
@@ -723,8 +738,7 @@ public abstract class ActionButtonBase {
             }
             case R.string.abid_common_move_text_one_line_up:
             case R.string.abid_common_move_text_one_line_down: {
-                moveLineSelectionBy1(_hlEditor, action == R.string.abid_common_move_text_one_line_up);
-                runRenumberOrderedListIfRequired();
+                moveLine(action == R.string.abid_common_move_text_one_line_up);
                 return true;
             }
             case R.string.abid_common_indent:

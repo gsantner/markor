@@ -207,6 +207,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             updateUndoRedoIconStates();
         });
         _hlEditor.addTextChangedListener(GsTextWatcherAdapter.after(s -> debounced.run()));
+        _hlEditor.setOnKeyListener((v, keyCode, event) -> onEditorKeyDown(keyCode, event));
 
         // We set the keyboard to be hidden if it was hidden when we lost focus
         // This works well to preserve keyboard state.
@@ -337,12 +338,37 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         updateUndoRedoIconStates();
     }
 
+    /**
+     * Key press from DocumentEditAndViewFragment.
+     *
+     * @param keyCode the keyCode from DocumentEditAndViewFragment
+     * @param event   the KeyEvent from DocumentEditAndViewFragment
+     * @return false if the key press event was not be handled/proceed, true if it was consumed here.
+     */
     @Override
     public boolean onReceiveKeyPress(int keyCode, KeyEvent event) {
         if (_format == null) {
             return false;
         }
-        return _format.getActions().onKeyPress(keyCode, event, this);
+        return _format.getActions().onKeyPress(false, keyCode, event, this);
+    }
+
+    /**
+     * To solve the issue that some key events (e.g. event.isCtrlPressed(), KeyEvent.KEYCODE_DPAD_UP, KeyEvent.KEYCODE_DPAD_DOWN, ...)
+     * cannot be listened by DocumentEditAndViewFragment.
+     *
+     * @param keyCode the keyCode from HighlightingEditor
+     * @param event   the KeyEvent from HighlightingEditor
+     * @return false if the key press event was not be handled/proceed, true if it was consumed here.
+     */
+    private boolean onEditorKeyDown(int keyCode, KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+            if (_format == null) {
+                return false;
+            }
+            return _format.getActions().onKeyPress(true, keyCode, event, this);
+        }
+        return false;
     }
 
     private void updateUndoRedoIconStates() {

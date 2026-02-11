@@ -174,8 +174,8 @@ public class WikitextActionButtons extends ActionButtonBase {
     }
 
     @Override
-    public boolean onKeyPress(final int keyCode, final KeyEvent event, DocumentEditAndViewFragment documentEditAndViewFragment) {
-        if (keyCode == KeyEvent.KEYCODE_TAB && _appSettings.isIndentWithTabKey()) {
+    public boolean onKeyPress(final boolean fromEditor, final int keyCode, final KeyEvent event, final DocumentEditAndViewFragment fragment) {
+        if (fromEditor && keyCode == KeyEvent.KEYCODE_TAB && _appSettings.isIndentWithTabKey()) {
             if (event.isShiftPressed()) {
                 runRegexReplaceAction(WikitextReplacePatternGenerator.deindentOneTab());
             } else {
@@ -185,7 +185,7 @@ public class WikitextActionButtons extends ActionButtonBase {
             return true;
         }
 
-        return super.onKeyPress(keyCode, event, documentEditAndViewFragment);
+        return super.onKeyPress(fromEditor, keyCode, event, fragment);
     }
 
     private void openLink() {
