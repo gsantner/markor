@@ -230,6 +230,10 @@ public class MarkdownActionButtons extends ActionButtonBase {
         runSurroundAction("<u>", "</u>", false);
     }
 
+    private void mark() {
+        runSurroundAction("<mark>", "</mark>", false);
+    }
+
     @Override
     public boolean onKeyPress(boolean fromEditor, int keyCode, KeyEvent event, DocumentEditAndViewFragment fragment) {
         if (fromEditor) {
@@ -242,6 +246,9 @@ public class MarkdownActionButtons extends ActionButtonBase {
                     return true;
                 } else if (keyCode == KeyEvent.KEYCODE_K) {
                     onActionClick(R.string.abid_common_insert_link);
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_M) {
+                    mark();
                     return true;
                 } else if (keyCode == KeyEvent.KEYCODE_U) {
                     underline();
