@@ -245,6 +245,9 @@ public class MarkdownActionButtons extends ActionButtonBase {
                     } else if (keyCode == KeyEvent.KEYCODE_I) {
                         onActionClick(R.string.abid_common_insert_image);
                         return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_K) {
+                        onActionLongClick(R.string.abid_markdown_code_inline);
+                        return true;
                     }
                 }
 
