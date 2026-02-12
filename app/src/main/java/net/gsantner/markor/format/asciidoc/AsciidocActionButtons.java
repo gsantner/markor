@@ -243,20 +243,6 @@ public class AsciidocActionButtons extends ActionButtonBase {
 
     }
 
-    @Override
-    public boolean onKeyPress(boolean fromEditor, int keyCode, KeyEvent event, DocumentEditAndViewFragment fragment) {
-        if (fromEditor) {
-            if (event.isCtrlPressed()) {
-                if (keyCode == KeyEvent.KEYCODE_I) {
-                    onActionClick(R.string.abid_asciidoc_italic);
-                    return true;
-                }
-            }
-        }
-
-        return super.onKeyPress(fromEditor, keyCode, event, fragment);
-    }
-
     private String rstr(@StringRes int resKey) {
         return getContext().getString(resKey);
     }
@@ -417,9 +403,17 @@ public class AsciidocActionButtons extends ActionButtonBase {
         return R.string.pref_key__asciidoc__action_keys;
     }
 
-    // @Override
-    // protected void renumberOrderedList() {
-    //     AutoTextFormatter.renumberOrderedList(_hlEditor.getText(),
-    //     AsciidocReplacePatternGenerator.formatPatterns);
-    // }
+    @Override
+    public boolean onKeyPress(boolean fromEditor, int keyCode, KeyEvent event, DocumentEditAndViewFragment fragment) {
+        if (fromEditor) {
+            if (event.isCtrlPressed()) {
+                if (keyCode == KeyEvent.KEYCODE_I) {
+                    onActionClick(R.string.abid_asciidoc_italic);
+                    return true;
+                }
+            }
+        }
+
+        return super.onKeyPress(fromEditor, keyCode, event, fragment);
+    }
 }

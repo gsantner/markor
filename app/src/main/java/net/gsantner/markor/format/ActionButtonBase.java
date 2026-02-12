@@ -104,117 +104,6 @@ public abstract class ActionButtonBase {
         return runCommonLongPressAction(action);
     }
 
-    /**
-     * Override this method to implement custom keyboard shortcuts.
-     * This method has implemented some common keyboard shortcuts in ActionButtonBase.<br>
-     * You can call {@code return super.onKeyPress(fromEditor, keyCode, event, fragment)}
-     * at the end of your override method to use the common keyboard shortcuts as default implementation.
-     *
-     * @param fromEditor set {@code true} if this key event is form HighlightingEditor, {@code false} if form DocumentEditAndViewFragment
-     * @param keyCode    the received key code
-     * @param event      the key event
-     * @param fragment   the instance of DocumentEditAndViewFragment
-     * @return {@code false} if the key press event was not be handled/proceed, {@code true} if it was consumed here.
-     */
-    public boolean onKeyPress(final boolean fromEditor, final int keyCode, final KeyEvent event, final DocumentEditAndViewFragment fragment) {
-        // Common implementation of keyboard shortcuts
-
-        Log.i("AAA", "isCtrlPressed: " + event.isCtrlPressed() + " isShiftPressed: " + event.isShiftPressed() + " isAltPressed: " + event.isAltPressed());
-        Log.i("AAA", "fromEditor: " + fromEditor + " keyCode: " + keyCode);
-        if (fromEditor) { // Operations within the scope of the editor
-            if (keyCode == KeyEvent.KEYCODE_TAB && _appSettings.isIndentWithTabKey()) {
-                runIndentLines(event.isShiftPressed());
-                runRenumberOrderedListIfRequired();
-                return true;
-            }
-
-            if (event.isCtrlPressed()) { // Ctrl
-                if (event.isAltPressed()) { // Ctrl + Alt
-                    if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
-                        copyLine(true);
-                        return true;
-                    } else if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
-                        copyLine(false);
-                        return true;
-                    }
-                } else if (event.isShiftPressed()) { // Ctrl + Shift
-                    if (keyCode == KeyEvent.KEYCODE_K) {
-                        deleteLine();
-                        return true;
-                    } else if (keyCode == KeyEvent.KEYCODE_U) {
-                        runCommonAction(R.string.abid_common_change_case);
-                        return true;
-                    } else if (keyCode == KeyEvent.KEYCODE_Z) {
-                        fragment.redo();
-                        return true;
-                    }
-                } else if (keyCode == KeyEvent.KEYCODE_K) { // Ctrl + ordinary key
-                    deleteToLineEnd();
-                    return true;
-                } else if (keyCode == KeyEvent.KEYCODE_L) {
-                    selectCurrentLine(_hlEditor.getText());
-                    return true;
-                } else if (keyCode == KeyEvent.KEYCODE_S) {
-                    fragment.saveDocument(true);
-                    return true;
-                } else if (keyCode == KeyEvent.KEYCODE_X) {
-                    cutLine();
-                    return true;
-                } else if (keyCode == KeyEvent.KEYCODE_Y) {
-                    fragment.redo();
-                    return true;
-                } else if (keyCode == KeyEvent.KEYCODE_Z) {
-                    fragment.undo();
-                    return true;
-                } else if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
-                    moveLine(true);
-                    return true;
-                } else if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
-                    moveLine(false);
-                    return true;
-                }
-            } else if (event.isShiftPressed()) { // Shift
-                if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                    runCommonAction(R.string.abid_common_new_line_below);
-                    return true;
-                }
-            }
-        } else { // Operations within the scope of the fragment
-            if (event.isCtrlPressed()) { // Ctrl
-                if (keyCode == KeyEvent.KEYCODE_F) { // Ctrl + ordinary key
-                    if (fragment.isViewModeVisibility()) {
-                        fragment.showSearchView();
-                    } else {
-                        onSearch();
-                    }
-                    return true;
-                } else if (keyCode == KeyEvent.KEYCODE_P) {
-                    fragment.print();
-                    return true;
-                } else if (keyCode == KeyEvent.KEYCODE_SLASH) {
-                    fragment.togglePreview();
-                    return true;
-                } else if (keyCode == KeyEvent.KEYCODE_PERIOD) {
-                    if (_hlEditor != null) {
-                        _hlEditor.requestFocus();
-                        return true;
-                    }
-                } else if (keyCode == KeyEvent.KEYCODE_COMMA) {
-                    runSpecialKeyAction();
-                    return true;
-                } else if (keyCode == KeyEvent.KEYCODE_SEMICOLON) {
-                    fragment.showMoreOptionsMenu();
-                    return true;
-                } else if (keyCode == KeyEvent.KEYCODE_APOSTROPHE) {
-                    runTitleClick();
-                    return true;
-                }
-            }
-        }
-
-        return false; // Important
-    }
-
     // Override to implement custom search action
     public boolean onSearch() {
         MarkorDialogFactory.showSearchDialog(_activity, _hlEditor);
@@ -1196,5 +1085,116 @@ public abstract class ActionButtonBase {
 
     public static class HeadlineState extends GsSearchOrCustomTextDialog.DialogState {
         public final List<Integer> disabledLevels = new ArrayList<>();
+    }
+
+    /**
+     * Override this method to implement custom keyboard shortcuts.
+     * This method has implemented some common keyboard shortcuts in ActionButtonBase.<br>
+     * You can call {@code return super.onKeyPress(fromEditor, keyCode, event, fragment)}
+     * at the end of your override method to use the common keyboard shortcuts as default implementation.
+     *
+     * @param fromEditor set {@code true} if this key event is form HighlightingEditor, {@code false} if form DocumentEditAndViewFragment
+     * @param keyCode    the received key code
+     * @param event      the key event
+     * @param fragment   the instance of DocumentEditAndViewFragment
+     * @return {@code false} if the key press event was not be handled/proceed, {@code true} if it was consumed here.
+     */
+    public boolean onKeyPress(final boolean fromEditor, final int keyCode, final KeyEvent event, final DocumentEditAndViewFragment fragment) {
+        // Common implementation of keyboard shortcuts
+
+        Log.i("AAA", "isCtrlPressed: " + event.isCtrlPressed() + " isShiftPressed: " + event.isShiftPressed() + " isAltPressed: " + event.isAltPressed());
+        Log.i("AAA", "fromEditor: " + fromEditor + " keyCode: " + keyCode);
+        if (fromEditor) { // Operations within the scope of the editor
+            if (keyCode == KeyEvent.KEYCODE_TAB && _appSettings.isIndentWithTabKey()) {
+                runIndentLines(event.isShiftPressed());
+                runRenumberOrderedListIfRequired();
+                return true;
+            }
+
+            if (event.isCtrlPressed()) { // Ctrl
+                if (event.isAltPressed()) { // Ctrl + Alt
+                    if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
+                        copyLine(true);
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+                        copyLine(false);
+                        return true;
+                    }
+                } else if (event.isShiftPressed()) { // Ctrl + Shift
+                    if (keyCode == KeyEvent.KEYCODE_K) {
+                        deleteLine();
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_U) {
+                        runCommonAction(R.string.abid_common_change_case);
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_Z) {
+                        fragment.redo();
+                        return true;
+                    }
+                } else if (keyCode == KeyEvent.KEYCODE_K) { // Ctrl + ordinary key
+                    deleteToLineEnd();
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_L) {
+                    selectCurrentLine(_hlEditor.getText());
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_S) {
+                    fragment.saveDocument(true);
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_X) {
+                    cutLine();
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_Y) {
+                    fragment.redo();
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_Z) {
+                    fragment.undo();
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
+                    moveLine(true);
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+                    moveLine(false);
+                    return true;
+                }
+            } else if (event.isShiftPressed()) { // Shift
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                    runCommonAction(R.string.abid_common_new_line_below);
+                    return true;
+                }
+            }
+        } else { // Operations within the scope of the fragment
+            if (event.isCtrlPressed()) { // Ctrl
+                if (keyCode == KeyEvent.KEYCODE_F) { // Ctrl + ordinary key
+                    if (fragment.isViewModeVisibility()) {
+                        fragment.showSearchView();
+                    } else {
+                        onSearch();
+                    }
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_P) {
+                    fragment.print();
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_SLASH) {
+                    fragment.togglePreview();
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_PERIOD) {
+                    if (_hlEditor != null) {
+                        _hlEditor.requestFocus();
+                        return true;
+                    }
+                } else if (keyCode == KeyEvent.KEYCODE_COMMA) {
+                    runSpecialKeyAction();
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_SEMICOLON) {
+                    fragment.showMoreOptionsMenu();
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_APOSTROPHE) {
+                    runTitleClick();
+                    return true;
+                }
+            }
+        }
+
+        return false; // Important
     }
 }

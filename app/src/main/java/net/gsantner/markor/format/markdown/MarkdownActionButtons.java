@@ -226,80 +226,6 @@ public class MarkdownActionButtons extends ActionButtonBase {
         }
     }
 
-    private void underline() {
-        runSurroundAction("<u>", "</u>", false);
-    }
-
-    private void mark() {
-        runSurroundAction("<mark>", "</mark>", false);
-    }
-
-    private void mathBlock() {
-        int selectionStart = _hlEditor.getSelectionStart();
-        _hlEditor.insertOrReplaceTextOnCursor("$$\n\n$$\n");
-        _hlEditor.setSelection(selectionStart + 3);
-    }
-
-    @Override
-    public boolean onKeyPress(boolean fromEditor, int keyCode, KeyEvent event, DocumentEditAndViewFragment fragment) {
-        if (fromEditor) {
-            if (event.isCtrlPressed()) {
-                if (event.isShiftPressed()) {
-                    if (keyCode == KeyEvent.KEYCODE_I) {
-                        onActionClick(R.string.abid_common_insert_image);
-                        return true;
-                    } else if (keyCode == KeyEvent.KEYCODE_I) {
-                        onActionClick(R.string.abid_common_insert_image);
-                        return true;
-                    } else if (keyCode == KeyEvent.KEYCODE_K) {
-                        onActionLongClick(R.string.abid_markdown_code_inline);
-                        return true;
-                    } else if (keyCode == KeyEvent.KEYCODE_M) {
-                        mathBlock();
-                        return true;
-                    } else if (keyCode == KeyEvent.KEYCODE_R) {
-                        fragment.reload();
-                        return true;
-                    } else if (keyCode == KeyEvent.KEYCODE_GRAVE) {
-                        onActionClick(R.string.abid_markdown_strikeout);
-                        return true;
-                    }
-                } else {
-                    if (keyCode == KeyEvent.KEYCODE_1) {
-                        onActionClick(R.string.abid_markdown_h1);
-                        return true;
-                    } else if (keyCode == KeyEvent.KEYCODE_2) {
-                        onActionClick(R.string.abid_markdown_h2);
-                        return true;
-                    } else if (keyCode == KeyEvent.KEYCODE_3) {
-                        onActionClick(R.string.abid_markdown_h3);
-                        return true;
-                    } else if (keyCode == KeyEvent.KEYCODE_B) {
-                        onActionClick(R.string.abid_markdown_bold);
-                        return true;
-                    } else if (keyCode == KeyEvent.KEYCODE_I) {
-                        onActionClick(R.string.abid_markdown_italic);
-                        return true;
-                    } else if (keyCode == KeyEvent.KEYCODE_K) {
-                        onActionClick(R.string.abid_common_insert_link);
-                        return true;
-                    } else if (keyCode == KeyEvent.KEYCODE_M) {
-                        mark();
-                        return true;
-                    } else if (keyCode == KeyEvent.KEYCODE_T) {
-                        onActionClick(R.string.abid_markdown_table_insert_columns);
-                        return true;
-                    } else if (keyCode == KeyEvent.KEYCODE_U) {
-                        underline();
-                        return true;
-                    }
-                }
-            }
-        }
-
-        return super.onKeyPress(fromEditor, keyCode, event, fragment);
-    }
-
     public static class Link {
         public final String title, link;
         public final boolean isImage;
@@ -408,5 +334,79 @@ public class MarkdownActionButtons extends ActionButtonBase {
     @Override
     protected void renumberOrderedList() {
         AutoTextFormatter.renumberOrderedList(_hlEditor.getText(), MarkdownReplacePatternGenerator.formatPatterns);
+    }
+
+    private void underline() {
+        runSurroundAction("<u>", "</u>", false);
+    }
+
+    private void mark() {
+        runSurroundAction("<mark>", "</mark>", false);
+    }
+
+    private void mathBlock() {
+        int selectionStart = _hlEditor.getSelectionStart();
+        _hlEditor.insertOrReplaceTextOnCursor("$$\n\n$$\n");
+        _hlEditor.setSelection(selectionStart + 3);
+    }
+
+    @Override
+    public boolean onKeyPress(boolean fromEditor, int keyCode, KeyEvent event, DocumentEditAndViewFragment fragment) {
+        if (fromEditor) {
+            if (event.isCtrlPressed()) {
+                if (event.isShiftPressed()) {
+                    if (keyCode == KeyEvent.KEYCODE_I) {
+                        onActionClick(R.string.abid_common_insert_image);
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_I) {
+                        onActionClick(R.string.abid_common_insert_image);
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_K) {
+                        onActionLongClick(R.string.abid_markdown_code_inline);
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_M) {
+                        mathBlock();
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_R) {
+                        fragment.reload();
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_GRAVE) {
+                        onActionClick(R.string.abid_markdown_strikeout);
+                        return true;
+                    }
+                } else {
+                    if (keyCode == KeyEvent.KEYCODE_1) {
+                        onActionClick(R.string.abid_markdown_h1);
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_2) {
+                        onActionClick(R.string.abid_markdown_h2);
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_3) {
+                        onActionClick(R.string.abid_markdown_h3);
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_B) {
+                        onActionClick(R.string.abid_markdown_bold);
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_I) {
+                        onActionClick(R.string.abid_markdown_italic);
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_K) {
+                        onActionClick(R.string.abid_common_insert_link);
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_M) {
+                        mark();
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_T) {
+                        onActionClick(R.string.abid_markdown_table_insert_columns);
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_U) {
+                        underline();
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return super.onKeyPress(fromEditor, keyCode, event, fragment);
     }
 }
