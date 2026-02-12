@@ -8,11 +8,13 @@
 package net.gsantner.markor.format.asciidoc;
 
 import android.content.Context;
+import android.view.KeyEvent;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.activity.DocumentEditAndViewFragment;
 import net.gsantner.markor.format.ActionButtonBase;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.model.Document;
@@ -239,6 +241,20 @@ public class AsciidocActionButtons extends ActionButtonBase {
             }
         }
 
+    }
+
+    @Override
+    public boolean onKeyPress(boolean fromEditor, int keyCode, KeyEvent event, DocumentEditAndViewFragment fragment) {
+        if (fromEditor) {
+            if (event.isCtrlPressed()) {
+                if (keyCode == KeyEvent.KEYCODE_I) {
+                    onActionClick(R.string.abid_asciidoc_italic);
+                    return true;
+                }
+            }
+        }
+
+        return super.onKeyPress(fromEditor, keyCode, event, fragment);
     }
 
     private String rstr(@StringRes int resKey) {
