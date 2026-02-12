@@ -136,11 +136,14 @@ public abstract class ActionButtonBase {
                         return true;
                     }
                 } else if (event.isShiftPressed()) { // Ctrl + Shift
-                    if (keyCode == KeyEvent.KEYCODE_Z) {
-                        fragment.redo();
-                        return true;
-                    } else if (keyCode == KeyEvent.KEYCODE_K) {
+                    if (keyCode == KeyEvent.KEYCODE_K) {
                         deleteLine();
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_U) {
+                        runCommonAction(R.string.abid_common_change_case);
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_Z) {
+                        fragment.redo();
                         return true;
                     }
                 } else if (keyCode == KeyEvent.KEYCODE_K) { // Ctrl + ordinary key
