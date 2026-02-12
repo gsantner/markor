@@ -175,14 +175,23 @@ public class WikitextActionButtons extends ActionButtonBase {
 
     @Override
     public boolean onKeyPress(final boolean fromEditor, final int keyCode, final KeyEvent event, final DocumentEditAndViewFragment fragment) {
-        if (fromEditor && keyCode == KeyEvent.KEYCODE_TAB && _appSettings.isIndentWithTabKey()) {
-            if (event.isShiftPressed()) {
-                runRegexReplaceAction(WikitextReplacePatternGenerator.deindentOneTab());
-            } else {
-                runRegexReplaceAction(WikitextReplacePatternGenerator.indentOneTab());
+        if (fromEditor) {
+            if (keyCode == KeyEvent.KEYCODE_TAB && _appSettings.isIndentWithTabKey()) {
+                if (event.isShiftPressed()) {
+                    runRegexReplaceAction(WikitextReplacePatternGenerator.deindentOneTab());
+                } else {
+                    runRegexReplaceAction(WikitextReplacePatternGenerator.indentOneTab());
+                }
+                runRenumberOrderedListIfRequired();
+                return true;
             }
-            runRenumberOrderedListIfRequired();
-            return true;
+
+            if (event.isCtrlPressed()) { // Ctrl
+                if (keyCode == KeyEvent.KEYCODE_I) {
+                    onActionClick(R.string.abid_wikitext_italic);
+                    return true;
+                }
+            }
         }
 
         return super.onKeyPress(fromEditor, keyCode, event, fragment);
