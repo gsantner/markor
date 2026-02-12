@@ -43,6 +43,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.FragmentActivity;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.BuildConfig;
@@ -207,13 +208,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             updateUndoRedoIconStates();
         });
         _hlEditor.addTextChangedListener(GsTextWatcherAdapter.after(s -> debounced.run()));
-        // _hlEditor.setOnKeyListener((v, keyCode, event) -> onEditorKeyDown(keyCode, event));
-        _hlEditor.setOnDispatchKeyListener(new HighlightingEditor.OnDispatchKeyListener() {
-            @Override
-            public boolean onDispatchKey(int keyCode, KeyEvent event) {
-                return onEditorKeyDown(keyCode, event);
-            }
-        });
+        _hlEditor.setOnDispatchKeyListener(this::onEditorKeyDown);
 
         // We set the keyboard to be hidden if it was hidden when we lost focus
         // This works well to preserve keyboard state.
@@ -345,7 +340,10 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     public void showMoreOptionsMenu() {
-        getActivity().openOptionsMenu();
+        FragmentActivity fragmentActivity = getActivity();
+        if (fragmentActivity != null) {
+            fragmentActivity.openOptionsMenu();
+        }
     }
 
     /**

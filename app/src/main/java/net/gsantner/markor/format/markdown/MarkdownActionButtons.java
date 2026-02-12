@@ -264,35 +264,35 @@ public class MarkdownActionButtons extends ActionButtonBase {
                         onActionClick(R.string.abid_markdown_strikeout);
                         return true;
                     }
-                }
-
-                if (keyCode == KeyEvent.KEYCODE_1) {
-                    onActionClick(R.string.abid_markdown_h1);
-                    return true;
-                } else if (keyCode == KeyEvent.KEYCODE_2) {
-                    onActionClick(R.string.abid_markdown_h2);
-                    return true;
-                } else if (keyCode == KeyEvent.KEYCODE_3) {
-                    onActionClick(R.string.abid_markdown_h3);
-                    return true;
-                } else if (keyCode == KeyEvent.KEYCODE_B) {
-                    onActionClick(R.string.abid_markdown_bold);
-                    return true;
-                } else if (keyCode == KeyEvent.KEYCODE_I) {
-                    onActionClick(R.string.abid_markdown_italic);
-                    return true;
-                } else if (keyCode == KeyEvent.KEYCODE_K) {
-                    onActionClick(R.string.abid_common_insert_link);
-                    return true;
-                } else if (keyCode == KeyEvent.KEYCODE_M) {
-                    mark();
-                    return true;
-                } else if (keyCode == KeyEvent.KEYCODE_T) {
-                    onActionClick(R.string.abid_markdown_table_insert_columns);
-                    return true;
-                } else if (keyCode == KeyEvent.KEYCODE_U) {
-                    underline();
-                    return true;
+                } else {
+                    if (keyCode == KeyEvent.KEYCODE_1) {
+                        onActionClick(R.string.abid_markdown_h1);
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_2) {
+                        onActionClick(R.string.abid_markdown_h2);
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_3) {
+                        onActionClick(R.string.abid_markdown_h3);
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_B) {
+                        onActionClick(R.string.abid_markdown_bold);
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_I) {
+                        onActionClick(R.string.abid_markdown_italic);
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_K) {
+                        onActionClick(R.string.abid_common_insert_link);
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_M) {
+                        mark();
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_T) {
+                        onActionClick(R.string.abid_markdown_table_insert_columns);
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_U) {
+                        underline();
+                        return true;
+                    }
                 }
             }
         }

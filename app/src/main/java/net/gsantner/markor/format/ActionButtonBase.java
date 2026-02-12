@@ -126,8 +126,8 @@ public abstract class ActionButtonBase {
                 return true;
             }
 
-            if (event.isCtrlPressed()) {
-                if (event.isAltPressed()) {
+            if (event.isCtrlPressed()) { // Ctrl
+                if (event.isAltPressed()) { // Ctrl + Alt
                     if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
                         copyLine(true);
                         return true;
@@ -135,9 +135,7 @@ public abstract class ActionButtonBase {
                         copyLine(false);
                         return true;
                     }
-                }
-
-                if (event.isShiftPressed()) {
+                } else if (event.isShiftPressed()) { // Ctrl + Shift
                     if (keyCode == KeyEvent.KEYCODE_Z) {
                         fragment.redo();
                         return true;
@@ -145,9 +143,7 @@ public abstract class ActionButtonBase {
                         deleteLine();
                         return true;
                     }
-                }
-
-                if (keyCode == KeyEvent.KEYCODE_K) {
+                } else if (keyCode == KeyEvent.KEYCODE_K) { // Ctrl + ordinary key
                     deleteToLineEnd();
                     return true;
                 } else if (keyCode == KeyEvent.KEYCODE_S) {
@@ -169,10 +165,15 @@ public abstract class ActionButtonBase {
                     moveLine(false);
                     return true;
                 }
+            } else if (event.isShiftPressed()) { // Shift
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                    runCommonAction(R.string.abid_common_new_line_below);
+                    return true;
+                }
             }
         } else { // Operations within the scope of the fragment
-            if (event.isCtrlPressed()) {
-                if (keyCode == KeyEvent.KEYCODE_F) {
+            if (event.isCtrlPressed()) { // Ctrl
+                if (keyCode == KeyEvent.KEYCODE_F) { // Ctrl + ordinary key
                     if (fragment.isViewModeVisibility()) {
                         fragment.showSearchView();
                     } else {
@@ -203,7 +204,7 @@ public abstract class ActionButtonBase {
             }
         }
 
-        return false;
+        return false; // Important
     }
 
     // Override to implement custom search action
