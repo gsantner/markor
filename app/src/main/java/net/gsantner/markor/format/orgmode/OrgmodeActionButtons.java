@@ -1,11 +1,13 @@
 package net.gsantner.markor.format.orgmode;
 
 import android.content.Context;
+import android.view.KeyEvent;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.activity.DocumentEditAndViewFragment;
 import net.gsantner.markor.format.ActionButtonBase;
 import net.gsantner.markor.frontend.textview.AutoTextFormatter;
 import net.gsantner.markor.model.Document;
@@ -106,5 +108,19 @@ public class OrgmodeActionButtons extends ActionButtonBase {
                 return runCommonAction(action);
             }
         }
+    }
+
+    @Override
+    public boolean onKeyPress(boolean fromEditor, int keyCode, KeyEvent event, DocumentEditAndViewFragment fragment) {
+        if (fromEditor) {
+            if (event.isCtrlPressed()) {
+                if (keyCode == KeyEvent.KEYCODE_I) {
+                    onActionClick(R.string.abid_orgmode_italic);
+                    return true;
+                }
+            }
+        }
+
+        return super.onKeyPress(fromEditor, keyCode, event, fragment);
     }
 }
