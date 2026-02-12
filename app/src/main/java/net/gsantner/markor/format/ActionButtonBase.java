@@ -105,8 +105,10 @@ public abstract class ActionButtonBase {
     }
 
     /**
-     * Override to implement custom keyboard shortcuts.
-     * This method has implemented some common keyboard shortcuts in ActionButtonBase.
+     * Override this method to implement custom keyboard shortcuts.
+     * This method has implemented some common keyboard shortcuts in ActionButtonBase.<br>
+     * You can call {@code return super.onKeyPress(fromEditor, keyCode, event, fragment)}
+     * at the end of your override method to use the common keyboard shortcuts as default implementation.
      *
      * @param fromEditor set {@code true} if this key event is form HighlightingEditor, {@code false} if form DocumentEditAndViewFragment
      * @param keyCode    the received key code
