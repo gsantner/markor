@@ -626,25 +626,31 @@ public abstract class ActionButtonBase {
 
     // Delete the text from selectionStart to lineEnd
     public void deleteToLineEnd() {
-        int start = _hlEditor.getSelectionStart();
+        int selectionStart = _hlEditor.getSelectionStart();
+        if (selectionStart < 0) {
+            return;
+        }
         CharSequence text = _hlEditor.getText();
-        int lineStart = TextViewUtils.getLineStart(text, start);
-        int lineEnd = TextViewUtils.getLineEnd(text, start);
-        if (_hlEditor.isFocused() && start >= lineStart && start < lineEnd) {
-            _hlEditor.setSelection(start, lineEnd);
+        int lineStart = TextViewUtils.getLineStart(text, selectionStart);
+        int lineEnd = TextViewUtils.getLineEnd(text, selectionStart);
+        if (_hlEditor.isFocused() && selectionStart >= lineStart && selectionStart < lineEnd) {
+            _hlEditor.setSelection(selectionStart, lineEnd);
             _hlEditor.insertOrReplaceTextOnCursor("");
         }
     }
 
     // Delete current line
     public void deleteLine() {
-        int selectionStartStart = _hlEditor.getSelectionStart();
+        int selectionStart = _hlEditor.getSelectionStart();
+        if (selectionStart < 0) {
+            return;
+        }
         CharSequence text = _hlEditor.getText();
-        int lineStart = TextViewUtils.getLineStart(text, selectionStartStart);
-        int lineEnd = TextViewUtils.getLineEnd(text, selectionStartStart);
+        int lineStart = TextViewUtils.getLineStart(text, selectionStart);
+        int lineEnd = TextViewUtils.getLineEnd(text, selectionStart);
         _hlEditor.setSelection(lineStart, lineEnd + 1);
         _hlEditor.insertOrReplaceTextOnCursor("");
-        _hlEditor.setSelection(selectionStartStart);
+        _hlEditor.setSelection(selectionStart);
     }
 
     /**
@@ -680,8 +686,11 @@ public abstract class ActionButtonBase {
 
     // Copy current line up/down
     public void copyLine(boolean toUp) {
-        CharSequence text = _hlEditor.getText();
         int selectionStart = _hlEditor.getSelectionStart();
+        if (selectionStart < 0) {
+            return;
+        }
+        CharSequence text = _hlEditor.getText();
         int lineStart = TextViewUtils.getLineStart(text, selectionStart);
         int lineEnd = TextViewUtils.getLineEnd(text, selectionStart);
         CharSequence line = text.subSequence(lineStart, lineEnd);
