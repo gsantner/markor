@@ -362,6 +362,9 @@ public class MarkdownActionButtons extends ActionButtonBase {
                     } else if (keyCode == KeyEvent.KEYCODE_K) {
                         onActionLongClick(R.string.abid_markdown_code_inline);
                         return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_L) {
+                        onActionClick(R.string.abid_common_insert_link);
+                        return true;
                     } else if (keyCode == KeyEvent.KEYCODE_M) {
                         mathBlock();
                         return true;
@@ -387,9 +390,6 @@ public class MarkdownActionButtons extends ActionButtonBase {
                         return true;
                     } else if (keyCode == KeyEvent.KEYCODE_I) {
                         onActionClick(R.string.abid_markdown_italic);
-                        return true;
-                    } else if (keyCode == KeyEvent.KEYCODE_K) {
-                        onActionClick(R.string.abid_common_insert_link);
                         return true;
                     } else if (keyCode == KeyEvent.KEYCODE_M) {
                         mark();
