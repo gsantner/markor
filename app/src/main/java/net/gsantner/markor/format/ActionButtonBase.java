@@ -19,6 +19,7 @@ import android.text.Selection;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -105,17 +106,19 @@ public abstract class ActionButtonBase {
 
     /**
      * Override to implement custom keyboard shortcuts.
-     * This method has implemented some common keyboard shortcuts in {@code ActionButtonBase}.
+     * This method has implemented some common keyboard shortcuts in ActionButtonBase.
      *
-     * @param fromEditor {@code true} if this key event is form {@code HighlightingEditor}, {@code false} if it is form {@code DocumentEditAndViewFragment}
+     * @param fromEditor set {@code true} if this key event is form HighlightingEditor, {@code false} if form DocumentEditAndViewFragment
      * @param keyCode    the received key code
      * @param event      the key event
-     * @param fragment   the instance of {@code DocumentEditAndViewFragment}
+     * @param fragment   the instance of DocumentEditAndViewFragment
      * @return {@code false} if the key press event was not be handled/proceed, {@code true} if it was consumed here.
      */
     public boolean onKeyPress(final boolean fromEditor, final int keyCode, final KeyEvent event, final DocumentEditAndViewFragment fragment) {
         // Common implementation of keyboard shortcuts
 
+        Log.i("AAA", "isCtrlPressed: " + event.isCtrlPressed() + " isShiftPressed: " + event.isShiftPressed() + " isAltPressed: " + event.isAltPressed());
+        Log.i("AAA", "fromEditor: " + fromEditor + " keyCode: " + keyCode);
         if (fromEditor) { // Operations within the scope of the editor
             if (keyCode == KeyEvent.KEYCODE_TAB && _appSettings.isIndentWithTabKey()) {
                 runIndentLines(event.isShiftPressed());

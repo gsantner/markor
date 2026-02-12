@@ -207,7 +207,13 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             updateUndoRedoIconStates();
         });
         _hlEditor.addTextChangedListener(GsTextWatcherAdapter.after(s -> debounced.run()));
-        _hlEditor.setOnKeyListener((v, keyCode, event) -> onEditorKeyDown(keyCode, event));
+        // _hlEditor.setOnKeyListener((v, keyCode, event) -> onEditorKeyDown(keyCode, event));
+        _hlEditor.setOnDispatchKeyListener(new HighlightingEditor.OnDispatchKeyListener() {
+            @Override
+            public boolean onDispatchKey(int keyCode, KeyEvent event) {
+                return onEditorKeyDown(keyCode, event);
+            }
+        });
 
         // We set the keyboard to be hidden if it was hidden when we lost focus
         // This works well to preserve keyboard state.
@@ -343,10 +349,10 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     /**
-     * Key press from {@code DocumentEditAndViewFragment}.
+     * Key press from DocumentEditAndViewFragment.
      *
-     * @param keyCode the keyCode from {@code DocumentEditAndViewFragment}
-     * @param event   the KeyEvent from {@code DocumentEditAndViewFragment}
+     * @param keyCode the keyCode from DocumentEditAndViewFragment
+     * @param event   the KeyEvent from DocumentEditAndViewFragment
      * @return {@code false} if the key press event was not be handled/proceed, {@code true} if it was consumed here.
      */
     @Override
@@ -358,11 +364,11 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     /**
-     * To solve the issue that some key events (e.g. {@code event.isCtrlPressed()}, {@code KeyEvent.KEYCODE_DPAD_UP}, {@code KeyEvent.KEYCODE_DPAD_DOWN}, ...)
-     * cannot be listened by {@code DocumentEditAndViewFragment}.
+     * To solve the issue that some key events (e.g. event.isCtrlPressed(), KeyEvent.KEYCODE_DPAD_UP, KeyEvent.KEYCODE_DPAD_DOWN, ...)
+     * cannot be listened by DocumentEditAndViewFragment.
      *
-     * @param keyCode the keyCode from {@code HighlightingEditor}
-     * @param event   the KeyEvent from {@code HighlightingEditor}
+     * @param keyCode the keyCode from HighlightingEditor
+     * @param event   the KeyEvent from HighlightingEditor
      * @return {@code false} if the key press event was not be handled/proceed, {@code true} if it was consumed here.
      */
     private boolean onEditorKeyDown(int keyCode, KeyEvent event) {
