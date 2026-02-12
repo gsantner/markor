@@ -647,15 +647,27 @@ public abstract class ActionButtonBase {
         _hlEditor.setSelection(selectionStartStart);
     }
 
-    // Cut current line
-    public void cutLine() {
-        CharSequence text = _hlEditor.getText();
+    /**
+     * Cut current line or selected text
+     */
+    public void cut() {
         int selectionStart = _hlEditor.getSelectionStart();
-        int lineStart = TextViewUtils.getLineStart(text, selectionStart);
-        int lineEnd = TextViewUtils.getLineEnd(text, selectionStart);
-        if (lineStart != lineEnd) {
-            new MarkorContextUtils(getContext()).setClipboard(getContext(), text.subSequence(lineStart, lineEnd));
-            _hlEditor.setSelection(lineStart, lineEnd + 1);
+        if (selectionStart < 0) {
+            return;
+        }
+        int selectionEnd = _hlEditor.getSelectionEnd();
+        CharSequence text = _hlEditor.getText();
+
+        if (selectionStart == selectionEnd) { // Cut current line
+            int lineStart = TextViewUtils.getLineStart(text, selectionStart);
+            int lineEnd = TextViewUtils.getLineEnd(text, selectionStart);
+            if (lineStart != lineEnd) {
+                new MarkorContextUtils(getContext()).setClipboard(getContext(), text.subSequence(lineStart, lineEnd));
+                _hlEditor.setSelection(lineStart, lineEnd + 1);
+                _hlEditor.insertOrReplaceTextOnCursor("");
+            }
+        } else { // Cut selected text
+            new MarkorContextUtils(getContext()).setClipboard(getContext(), text.subSequence(selectionStart, selectionEnd));
             _hlEditor.insertOrReplaceTextOnCursor("");
         }
     }
@@ -1143,7 +1155,7 @@ public abstract class ActionButtonBase {
                     TextViewUtils.selectWord(_hlEditor);
                     return true;
                 } else if (keyCode == KeyEvent.KEYCODE_X) {
-                    cutLine();
+                    cut();
                     return true;
                 } else if (keyCode == KeyEvent.KEYCODE_Y) {
                     fragment.redo();
