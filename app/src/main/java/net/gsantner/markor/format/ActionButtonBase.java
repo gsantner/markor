@@ -146,6 +146,9 @@ public abstract class ActionButtonBase {
                 } else if (keyCode == KeyEvent.KEYCODE_K) { // Ctrl + ordinary key
                     deleteToLineEnd();
                     return true;
+                } else if (keyCode == KeyEvent.KEYCODE_L) {
+                    selectCurrentLine(_hlEditor.getText());
+                    return true;
                 } else if (keyCode == KeyEvent.KEYCODE_S) {
                     fragment.saveDocument(true);
                     return true;
@@ -1140,7 +1143,7 @@ public abstract class ActionButtonBase {
             } else if (callbackPayload.equals(rstr(R.string.move_text_one_line_down))) {
                 ActionButtonBase.moveLineSelectionBy1(_hlEditor, false);
             } else if (callbackPayload.equals(rstr(R.string.select_current_line))) {
-                selectWholeLines(_hlEditor.getText());
+                selectCurrentLine(_hlEditor.getText());
             } else if (callbackPayload.equals(rstr(R.string.key_ctrl_a))) {
                 _hlEditor.setSelection(0, _hlEditor.length());
             } else if (callbackPayload.equals(rstr(R.string.key_tab))) {
@@ -1165,7 +1168,7 @@ public abstract class ActionButtonBase {
         });
     }
 
-    public static void selectWholeLines(final @Nullable Spannable text) {
+    public static void selectCurrentLine(final @Nullable Spannable text) {
         final int[] sel = TextViewUtils.getLineSelection(text);
         if (sel[0] >= 0) {
             Selection.setSelection(text, sel[0], sel[1]);
