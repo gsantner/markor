@@ -61,6 +61,7 @@ import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.MarkorContextUtils;
+import net.gsantner.markor.web.DraggableScrollbarWebView;
 import net.gsantner.markor.web.MarkorWebViewClient;
 import net.gsantner.markor.widget.TodoWidgetProvider;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
@@ -358,7 +359,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         if (_format == null) {
             return false;
         }
-        return _format.getActions().onKeyPress(false, keyCode, event, this);
+        return _format.getActions().onKeyPress(this, keyCode, event, this);
     }
 
     /**
@@ -374,7 +375,24 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             if (_format == null) {
                 return false;
             }
-            return _format.getActions().onKeyPress(true, keyCode, event, this);
+            return _format.getActions().onKeyPress(_hlEditor, keyCode, event, this);
+        }
+        return false;
+    }
+
+    /**
+     * To solve the issue that cannot capture key events when the focus lost from editor to webView in view-mode.
+     *
+     * @param keyCode the keyCode from DraggableScrollbarWebView
+     * @param event   the KeyEvent from DraggableScrollbarWebView
+     * @return {@code false} if the key press event was not be handled/proceed, {@code true} if it was consumed here.
+     */
+    private boolean onWebViewKeyDown(int keyCode, KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+            if (_format == null) {
+                return false;
+            }
+            return _format.getActions().onKeyPress(_webView, keyCode, event, this);
         }
         return false;
     }
@@ -434,11 +452,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             _hlEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::redo);
             updateUndoRedoIconStates();
         }
-    }
-
-    public void togglePreview() {
-        setViewModeVisibility(!_isPreviewVisible);
-        _hlEditor.requestFocus();
     }
 
     public void reload() {
@@ -1019,6 +1032,13 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     public void setViewModeVisibility(final boolean show) {
         setViewModeVisibility(show, true);
+        if (!show) {
+            _hlEditor.requestFocus();
+        }
+    }
+
+    public void togglePreview() {
+        setViewModeVisibility(!_isPreviewVisible);
     }
 
     public boolean isViewModeVisibility() {
@@ -1053,6 +1073,10 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
             _webViewClient = new MarkorWebViewClient(_webView, activity);
             _webView.setWebViewClient(_webViewClient);
+
+            if (_webView instanceof DraggableScrollbarWebView) {
+                ((DraggableScrollbarWebView) _webView).setOnDispatchKeyListener(this::onWebViewKeyDown);
+            }
         }
     }
 

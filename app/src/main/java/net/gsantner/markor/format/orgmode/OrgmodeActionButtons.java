@@ -10,6 +10,7 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentEditAndViewFragment;
 import net.gsantner.markor.format.ActionButtonBase;
 import net.gsantner.markor.frontend.textview.AutoTextFormatter;
+import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.model.Document;
 
 import java.util.Arrays;
@@ -111,8 +112,8 @@ public class OrgmodeActionButtons extends ActionButtonBase {
     }
 
     @Override
-    public boolean onKeyPress(boolean fromEditor, int keyCode, KeyEvent event, DocumentEditAndViewFragment fragment) {
-        if (fromEditor) {
+    public boolean onKeyPress(Object source, int keyCode, KeyEvent event, DocumentEditAndViewFragment fragment) {
+        if (source instanceof HighlightingEditor) {
             if (event.isCtrlPressed()) {
                 if (keyCode == KeyEvent.KEYCODE_I) {
                     onActionClick(R.string.abid_orgmode_italic);
@@ -121,6 +122,6 @@ public class OrgmodeActionButtons extends ActionButtonBase {
             }
         }
 
-        return super.onKeyPress(fromEditor, keyCode, event, fragment);
+        return super.onKeyPress(source, keyCode, event, fragment);
     }
 }

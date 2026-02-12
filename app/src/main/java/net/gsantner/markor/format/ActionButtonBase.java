@@ -1092,16 +1092,18 @@ public abstract class ActionButtonBase {
      * You can call {@code return super.onKeyPress(fromEditor, keyCode, event, fragment)}
      * at the end of your override method to use the common keyboard shortcuts as default implementation.
      *
-     * @param fromEditor set {@code true} if this key event is form HighlightingEditor, {@code false} if form DocumentEditAndViewFragment
-     * @param keyCode    the received key code
-     * @param event      the key event
-     * @param fragment   the instance of DocumentEditAndViewFragment
+     * @param source   the source of the event, indicate where the event came from,
+     *                 e.g. HighlightingEditor, DraggableScrollbarWebView and DocumentEditAndViewFragment.
+     *                 To handle key events from different focused objects.
+     * @param keyCode  the received key code
+     * @param event    the key event
+     * @param fragment the instance of DocumentEditAndViewFragment
      * @return {@code false} if the key press event was not be handled/proceed, {@code true} if it was consumed here.
      */
-    public boolean onKeyPress(final boolean fromEditor, final int keyCode, final KeyEvent event, final DocumentEditAndViewFragment fragment) {
+    public boolean onKeyPress(final Object source, final int keyCode, final KeyEvent event, final DocumentEditAndViewFragment fragment) {
         // Common implementation of keyboard shortcuts
 
-        if (fromEditor) { // Operations within the scope of the editor
+        if (source instanceof HighlightingEditor) { // Operations within the scope of the editor
             if (keyCode == KeyEvent.KEYCODE_TAB && _appSettings.isIndentWithTabKey()) {
                 runIndentLines(event.isShiftPressed());
                 runRenumberOrderedListIfRequired();
@@ -1178,20 +1180,29 @@ public abstract class ActionButtonBase {
                     fragment.togglePreview();
                     return true;
                 } else if (keyCode == KeyEvent.KEYCODE_PERIOD) {
-                    if (_hlEditor != null && !fragment.isViewModeVisibility()) {
+                    if (fragment.isViewModeVisibility()) {
+                        if (source instanceof WebView) { // Clear focus on WebView
+                            WebView webView = (WebView) source;
+                            if (webView.isFocused()) {
+                                webView.clearFocus();
+                                fragment.getView().requestFocus();
+                                return true;
+                            }
+                        }
+                    } else if (_hlEditor != null) {
                         _hlEditor.requestFocus();
                         return true;
                     }
-                } else if (keyCode == KeyEvent.KEYCODE_COMMA) {
-                    runSpecialKeyAction();
-                    return true;
-                } else if (keyCode == KeyEvent.KEYCODE_SEMICOLON) {
-                    fragment.showMoreOptionsMenu();
-                    return true;
-                } else if (keyCode == KeyEvent.KEYCODE_APOSTROPHE) {
-                    runTitleClick();
-                    return true;
                 }
+            } else if (keyCode == KeyEvent.KEYCODE_COMMA) {
+                runSpecialKeyAction();
+                return true;
+            } else if (keyCode == KeyEvent.KEYCODE_SEMICOLON) {
+                fragment.showMoreOptionsMenu();
+                return true;
+            } else if (keyCode == KeyEvent.KEYCODE_APOSTROPHE) {
+                runTitleClick();
+                return true;
             }
         }
 

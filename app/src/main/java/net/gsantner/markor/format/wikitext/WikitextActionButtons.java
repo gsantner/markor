@@ -20,6 +20,7 @@ import net.gsantner.markor.activity.DocumentEditAndViewFragment;
 import net.gsantner.markor.format.ActionButtonBase;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.textview.AutoTextFormatter;
+import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.Document;
 
@@ -273,8 +274,8 @@ public class WikitextActionButtons extends ActionButtonBase {
     }
 
     @Override
-    public boolean onKeyPress(final boolean fromEditor, final int keyCode, final KeyEvent event, final DocumentEditAndViewFragment fragment) {
-        if (fromEditor) {
+    public boolean onKeyPress(final Object source, final int keyCode, final KeyEvent event, final DocumentEditAndViewFragment fragment) {
+        if (source instanceof HighlightingEditor) {
             if (keyCode == KeyEvent.KEYCODE_TAB && _appSettings.isIndentWithTabKey()) {
                 if (event.isShiftPressed()) {
                     runRegexReplaceAction(WikitextReplacePatternGenerator.deindentOneTab());
@@ -293,6 +294,6 @@ public class WikitextActionButtons extends ActionButtonBase {
             }
         }
 
-        return super.onKeyPress(fromEditor, keyCode, event, fragment);
+        return super.onKeyPress(source, keyCode, event, fragment);
     }
 }

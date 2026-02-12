@@ -5,9 +5,12 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
+
+import net.gsantner.markor.frontend.textview.HighlightingEditor;
 
 @SuppressLint("ClickableViewAccessibility")
 public class DraggableScrollbarWebView extends WebView {
@@ -105,5 +108,31 @@ public class DraggableScrollbarWebView extends WebView {
                 anim.start();
             }
         }, delay);
+    }
+
+    public interface OnDispatchKeyListener {
+        /**
+         * Override it to implement custom keyboard shortcuts.
+         *
+         * @param keyCode the key code
+         * @param event   the event
+         * @return {@code false} if the key press event was not be handled, {@code true} if it was consumed here.
+         */
+        boolean onDispatchKey(int keyCode, KeyEvent event);
+    }
+
+    private HighlightingEditor.OnDispatchKeyListener onDispatchKeyListener;
+
+    public void setOnDispatchKeyListener(HighlightingEditor.OnDispatchKeyListener onDispatchKeyListener) {
+        this.onDispatchKeyListener = onDispatchKeyListener;
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (onDispatchKeyListener != null && onDispatchKeyListener.onDispatchKey(event.getKeyCode(), event)) {
+            return true;
+        } else {
+            return super.dispatchKeyEvent(event);
+        }
     }
 }

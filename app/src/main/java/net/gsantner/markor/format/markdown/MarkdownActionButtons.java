@@ -21,6 +21,7 @@ import net.gsantner.markor.activity.DocumentEditAndViewFragment;
 import net.gsantner.markor.format.ActionButtonBase;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.textview.AutoTextFormatter;
+import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.format.GsTextUtils;
@@ -351,8 +352,8 @@ public class MarkdownActionButtons extends ActionButtonBase {
     }
 
     @Override
-    public boolean onKeyPress(boolean fromEditor, int keyCode, KeyEvent event, DocumentEditAndViewFragment fragment) {
-        if (fromEditor) {
+    public boolean onKeyPress(Object source, int keyCode, KeyEvent event, DocumentEditAndViewFragment fragment) {
+        if (source instanceof HighlightingEditor) {
             if (event.isCtrlPressed()) {
                 if (event.isShiftPressed()) {
                     if (keyCode == KeyEvent.KEYCODE_I) {
@@ -404,6 +405,6 @@ public class MarkdownActionButtons extends ActionButtonBase {
             }
         }
 
-        return super.onKeyPress(fromEditor, keyCode, event, fragment);
+        return super.onKeyPress(source, keyCode, event, fragment);
     }
 }
