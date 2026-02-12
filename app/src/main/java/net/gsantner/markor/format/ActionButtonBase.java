@@ -1178,7 +1178,7 @@ public abstract class ActionButtonBase {
                     fragment.togglePreview();
                     return true;
                 } else if (keyCode == KeyEvent.KEYCODE_PERIOD) {
-                    if (_hlEditor != null) {
+                    if (_hlEditor != null && !fragment.isViewModeVisibility()) {
                         _hlEditor.requestFocus();
                         return true;
                     }
