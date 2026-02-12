@@ -264,6 +264,24 @@ public final class TextViewUtils {
         return i;
     }
 
+    private static boolean isLetterOrDigit(char c) {
+        return Character.isLetter(c) || Character.isDigit(c);
+    }
+
+    public static void selectWord(final EditText edit) {
+        CharSequence text = edit.getText();
+        int length = edit.length();
+        int selectionStart = edit.getSelectionStart();
+        int wordStart = selectionStart;
+        int wordEnd = selectionStart;
+        while (wordStart > 0 && isLetterOrDigit(text.charAt(wordStart - 1))) {
+            wordStart--;
+        }
+        while (wordEnd < length && isLetterOrDigit(text.charAt(wordEnd))) {
+            wordEnd++;
+        }
+        edit.setSelection(wordStart, wordEnd);
+    }
 
     public static void selectLines(final EditText edit, final Integer... positions) {
         selectLines(edit, Arrays.asList(positions));

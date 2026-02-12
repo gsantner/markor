@@ -1140,6 +1140,9 @@ public abstract class ActionButtonBase {
                 } else if (keyCode == KeyEvent.KEYCODE_S) {
                     fragment.saveDocument(true);
                     return true;
+                } else if (keyCode == KeyEvent.KEYCODE_W) {
+                    TextViewUtils.selectWord(_hlEditor);
+                    return true;
                 } else if (keyCode == KeyEvent.KEYCODE_X) {
                     cutLine();
                     return true;
