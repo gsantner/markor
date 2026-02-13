@@ -1140,7 +1140,10 @@ public abstract class ActionButtonBase {
 
             if (event.isCtrlPressed()) { // Ctrl
                 if (event.isAltPressed()) { // Ctrl + Alt
-                    if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
+                    if (keyCode == KeyEvent.KEYCODE_K) {
+                        deleteLine();
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
                         copyLine(true);
                         return true;
                     } else if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
@@ -1148,10 +1151,7 @@ public abstract class ActionButtonBase {
                         return true;
                     }
                 } else if (event.isShiftPressed()) { // Ctrl + Shift
-                    if (keyCode == KeyEvent.KEYCODE_K) {
-                        deleteLine();
-                        return true;
-                    } else if (keyCode == KeyEvent.KEYCODE_U) {
+                    if (keyCode == KeyEvent.KEYCODE_U) {
                         runCommonAction(R.string.abid_common_change_case);
                         return true;
                     } else if (keyCode == KeyEvent.KEYCODE_Z) {
