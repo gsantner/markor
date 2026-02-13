@@ -1117,20 +1117,21 @@ public abstract class ActionButtonBase {
      * Override this method to implement custom keyboard shortcuts.
      * This method has implemented some common keyboard shortcuts in ActionButtonBase.<br>
      * You can call {@code return super.onKeyPress(fromEditor, keyCode, event, fragment)}
-     * at the end of your override method to use the common keyboard shortcuts as default implementation.
+     * at the end of your override method to use the common keyboard shortcuts as the default implementation.
      *
-     * @param source   the source of the event, indicate where the event came from,
-     *                 e.g. HighlightingEditor, DraggableScrollbarWebView and DocumentEditAndViewFragment.
-     *                 To handle key events from different focused objects.
+     * @param source   the source of the event, indicate where (which instance) the event came from,
+     *                 e.g. HighlightingEditor, WebView and DocumentEditAndViewFragment.
+     *                 If an object lost focus, we will not be able to capture key events through that object,
+     *                 so we need to capture key events from multiple objects that may be focused on by users.
      * @param keyCode  the received key code
      * @param event    the key event
      * @param fragment the instance of DocumentEditAndViewFragment
-     * @return {@code false} if the key press event was not be handled/proceed, {@code true} if it was consumed here.
+     * @return {@code false} if the key press event was not be handled, {@code true} if it was consumed here.
      */
     public boolean onKeyPress(final Object source, final int keyCode, final KeyEvent event, final DocumentEditAndViewFragment fragment) {
-        // Common implementation of keyboard shortcuts
+        // Common implementation of keyboard shortcuts here
 
-        if (source instanceof HighlightingEditor) { // Operations within the scope of the editor
+        if (source instanceof HighlightingEditor) { // The scope of the HighlightingEditor
             if (keyCode == KeyEvent.KEYCODE_TAB && _appSettings.isIndentWithTabKey()) {
                 runIndentLines(event.isShiftPressed());
                 runRenumberOrderedListIfRequired();
@@ -1191,7 +1192,7 @@ public abstract class ActionButtonBase {
                     return true;
                 }
             }
-        } else { // Operations within the scope of the fragment
+        } else { // The scope of the DocumentEditAndViewFragment or WebView
             if (event.isCtrlPressed()) { // Ctrl
                 if (keyCode == KeyEvent.KEYCODE_F) { // Ctrl + ordinary key
                     if (fragment.isViewModeVisibility()) {

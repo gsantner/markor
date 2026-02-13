@@ -88,6 +88,7 @@ public class MarkdownActionButtons extends ActionButtonBase {
         );
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onActionClick(final @StringRes int action) {
         switch (action) {

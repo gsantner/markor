@@ -348,11 +348,12 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     /**
-     * Key press from DocumentEditAndViewFragment.
+     * Receive key press from DocumentEditAndViewFragment.
+     * But it cannot receive some key events (e.g. Ctrl, Enter, Directional Pad Up/Down/Left/Right, ...)
      *
-     * @param keyCode the keyCode from DocumentEditAndViewFragment
-     * @param event   the KeyEvent from DocumentEditAndViewFragment
-     * @return {@code false} if the key press event was not be handled/proceed, {@code true} if it was consumed here.
+     * @param keyCode the key code from DocumentEditAndViewFragment
+     * @param event   the key event from DocumentEditAndViewFragment
+     * @return {@code false} if the key press event was not be handled, {@code true} if it was consumed here.
      */
     @Override
     public boolean onReceiveKeyPress(int keyCode, KeyEvent event) {
@@ -363,12 +364,13 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     /**
-     * To solve the issue that some key events (e.g. event.isCtrlPressed(), KeyEvent.KEYCODE_DPAD_UP, KeyEvent.KEYCODE_DPAD_DOWN, ...)
-     * cannot be listened by DocumentEditAndViewFragment.
+     * Receive key press from HighlightingEditor.
+     * It can receive the key events (e.g. Ctrl, Enter, Directional Pad Up/Down/Left/Right, ...)
+     * that cannot be received from DocumentEditAndViewFragment.
      *
-     * @param keyCode the keyCode from HighlightingEditor
-     * @param event   the KeyEvent from HighlightingEditor
-     * @return {@code false} if the key press event was not be handled/proceed, {@code true} if it was consumed here.
+     * @param keyCode the key code from HighlightingEditor
+     * @param event   the key event from HighlightingEditor
+     * @return {@code false} if the key press event was not be handled, {@code true} if it was consumed here.
      */
     private boolean onEditorKeyDown(int keyCode, KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
@@ -381,11 +383,13 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     /**
-     * To solve the issue that cannot capture key events when the focus lost from editor to webView in view-mode.
+     * Receive key press from WebView.
+     * To solve the problem that cannot capture key events when the listened object lost the focus,
+     * and the WebView get focus in view-mode.
      *
-     * @param keyCode the keyCode from DraggableScrollbarWebView
-     * @param event   the KeyEvent from DraggableScrollbarWebView
-     * @return {@code false} if the key press event was not be handled/proceed, {@code true} if it was consumed here.
+     * @param keyCode the key code from WebView
+     * @param event   the key event from WebView
+     * @return {@code false} if the key press event was not be handled, {@code true} if it was consumed here.
      */
     private boolean onWebViewKeyDown(int keyCode, KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_DOWN) {

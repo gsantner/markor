@@ -424,11 +424,11 @@ public class HighlightingEditor extends AppCompatEditText {
 
     public interface OnDispatchKeyListener {
         /**
-         * Override it to implement custom keyboard shortcuts.
+         * Override this method to implement custom keyboard shortcuts.
          *
-         * @param keyCode the key code from the editor
-         * @param event   the event from the editor
-         * @return {@code false} if the key press event was not be handled/proceed, {@code true} if it was consumed here.
+         * @param keyCode the key code from HighlightingEditor
+         * @param event   the key event from HighlightingEditor
+         * @return {@code false} if the key press event was not be handled, {@code true} if it was consumed here.
          */
         boolean onDispatchKey(int keyCode, KeyEvent event);
     }
@@ -436,10 +436,10 @@ public class HighlightingEditor extends AppCompatEditText {
     private OnDispatchKeyListener onDispatchKeyListener;
 
     /**
-     * Better approach to capture keyboard events.
-     * It can capture enter events like Ctrl + Enter, Ctrl + Shift + Enter.
+     * This method can capture complete keyboard events.
+     * For example, it can capture the Enter key events like Ctrl + Enter, Ctrl + Shift + Enter, ...
      *
-     * @param onDispatchKeyListener the dispatchKeyListener
+     * @param onDispatchKeyListener the key listener to listen to dispatch key events
      */
     public void setOnDispatchKeyListener(OnDispatchKeyListener onDispatchKeyListener) {
         this.onDispatchKeyListener = onDispatchKeyListener;
