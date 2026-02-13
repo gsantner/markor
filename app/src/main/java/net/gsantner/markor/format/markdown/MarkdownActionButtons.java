@@ -164,10 +164,10 @@ public class MarkdownActionButtons extends ActionButtonBase {
      * Not super intelligent about how patterns can be combined.
      * Current regexes just look for the literal delimiters.
      *
-     * @param pattern - Pattern to match if delimiter is present
-     * @param delim   - Delimiter to surround text with
+     * @param pattern   - the pattern to match if delimiter is present
+     * @param delimiter - the delimiter to surround text with
      */
-    private void runLineSurroundAction(final Pattern pattern, final String delim) {
+    private void runLineSurroundAction(final Pattern pattern, final String delimiter) {
         final int[] sel = TextViewUtils.getSelection(_hlEditor);
         if (sel[0] < 0) {
             return;
@@ -176,18 +176,31 @@ public class MarkdownActionButtons extends ActionButtonBase {
         final String lineBefore = sel[0] == sel[1] ? TextViewUtils.getSelectedLines(_hlEditor, sel[0]) : null;
         runRegexReplaceAction(
                 new ReplacePattern(pattern, "$1$2$4$6"),
-                new ReplacePattern(LINE_NONE, "$1$2" + delim + "$3" + delim + "$4")
+                new ReplacePattern(LINE_NONE, "$1$2" + delimiter + "$3" + delimiter + "$4")
         );
 
-        // This logic sets the cursor to the inside of the delimiters if the delimiters were empty
+        // Set the cursor to the inside of the delimiters if the delimiters were empty
+        int delimiterLength = delimiter.length();
         if (lineBefore != null) {
             final String lineAfter = TextViewUtils.getSelectedLines(_hlEditor, sel[0]);
-            final String pair = delim + delim;
+            final String pair = delimiter + delimiter;
             if (lineAfter.length() - lineBefore.length() == pair.length() && lineAfter.trim().endsWith(pair)) {
                 final Editable text = _hlEditor.getText();
                 final int end = TextViewUtils.getLineEnd(text, sel[0]);
-                final int ns = TextViewUtils.getLastNonWhitespace(text, end) - delim.length();
+                final int ns = TextViewUtils.getLastNonWhitespace(text, end) - delimiterLength;
                 _hlEditor.setSelection(ns);
+            }
+            if (lineAfter.length() > lineBefore.length()) {
+                _hlEditor.setSelection(_hlEditor.getSelectionStart() - delimiterLength);
+            } else {
+                _hlEditor.setSelection(_hlEditor.getSelectionStart() + delimiterLength);
+            }
+        } else { // Offset selection if text is selected
+            int newSelectionStart = _hlEditor.getSelectionStart();
+            if (sel[0] < newSelectionStart) {
+                _hlEditor.setSelection(sel[0] + delimiterLength, sel[1] + delimiterLength);
+            } else {
+                _hlEditor.setSelection(sel[0] - delimiterLength, sel[1] - delimiterLength);
             }
         }
     }
