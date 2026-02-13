@@ -83,7 +83,7 @@ public class MarkorDialogFactory {
         dopt.titleText = R.string.special_key;
         dopt.isSearchEnabled = false;
         dopt.okButtonText = 0;
-        dopt.state.copyFrom(state);
+        dopt.state = state;
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
