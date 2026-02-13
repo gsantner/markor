@@ -1151,7 +1151,16 @@ public abstract class ActionButtonBase {
                         return true;
                     }
                 } else if (event.isShiftPressed()) { // Ctrl + Shift
-                    if (keyCode == KeyEvent.KEYCODE_U) {
+                    if (keyCode == KeyEvent.KEYCODE_R) {
+                        if (fragment.isUnsaved()) {
+                            MarkorDialogFactory.showConfirmDialog(getActivity(), R.string.app_name, getResString(R.string.reload_or_not), null, () -> {
+                                fragment.reload();
+                            });
+                        } else {
+                            fragment.reload();
+                        }
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_U) {
                         runCommonAction(R.string.abid_common_change_case);
                         return true;
                     } else if (keyCode == KeyEvent.KEYCODE_Z) {
@@ -1235,6 +1244,13 @@ public abstract class ActionButtonBase {
                 runTitleClick();
                 return true;
             }
+        }
+
+        if (keyCode == KeyEvent.KEYCODE_ESCAPE && fragment.isUnsaved()) {
+            MarkorDialogFactory.showConfirmDialog(getActivity(), R.string.app_name, getResString(R.string.save_or_not), null, () -> {
+                fragment.getActivity().getOnBackPressedDispatcher().onBackPressed();
+            });
+            return true;
         }
 
         return false; // Important

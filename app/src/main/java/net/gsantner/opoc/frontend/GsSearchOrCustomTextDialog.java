@@ -463,6 +463,10 @@ public class GsSearchOrCustomTextDialog {
             }
         };
 
+        if (okButton != null && !dopt.isSearchEnabled) {
+            okButton.requestFocus();
+        }
+
         // Set ok button text initially
         setOkButtonState.callback();
 

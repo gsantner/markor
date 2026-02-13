@@ -382,9 +382,6 @@ public class MarkdownActionButtons extends ActionButtonBase {
                     } else if (keyCode == KeyEvent.KEYCODE_M) {
                         mathBlock();
                         return true;
-                    } else if (keyCode == KeyEvent.KEYCODE_R) {
-                        fragment.reload();
-                        return true;
                     } else if (keyCode == KeyEvent.KEYCODE_GRAVE) {
                         onActionClick(R.string.abid_markdown_strikeout);
                         return true;

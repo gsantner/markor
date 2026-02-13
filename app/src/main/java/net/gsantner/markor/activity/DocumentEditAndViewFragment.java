@@ -693,6 +693,10 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         }
     }
 
+    public boolean isUnsaved() {
+        return _saveMenuItem != null && _saveMenuItem.isEnabled();
+    }
+
     @Override
     public void applyTextFormat(final int textFormatId) {
         final Activity activity = getActivity();
