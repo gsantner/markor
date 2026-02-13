@@ -12,8 +12,7 @@ package net.gsantner.opoc.util;
 import static android.graphics.Bitmap.CompressFormat;
 
 import android.Manifest;
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
+import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -170,7 +169,7 @@ public class GsContextUtils {
     }
 
     protected <T extends GsContextUtils> T thisp() {
-        //noinspection unchecked
+        // noinspection unchecked
         return (T) this;
     }
 
@@ -181,7 +180,7 @@ public class GsContextUtils {
     public final static Locale INITIAL_LOCALE = Locale.getDefault();
     public final static String EXTRA_FILEPATH = "EXTRA_FILEPATH";
     public final static String EXTRA_URI = "EXTRA_URI";
-    public final static SimpleDateFormat DATEFORMAT_RFC3339ISH = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss", INITIAL_LOCALE);
+    public final static SimpleDateFormat DATE_FORMAT_RFC3339ISH = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss", INITIAL_LOCALE);
     public final static String MIME_TEXT_PLAIN = "text/plain";
     public final static String PREF_KEY__SAF_TREE_URI = "pref_key__saf_tree_uri";
     public final static String CONTENT_RESOLVER_FILE_PROXY_SEGMENT = "CONTENT_RESOLVER_FILE_PROXY_SEGMENT";
@@ -192,9 +191,8 @@ public class GsContextUtils {
     public final static int REQUEST_STORAGE_PERMISSION_M = 50004;
     public final static int REQUEST_STORAGE_PERMISSION_R = 50005;
     public final static int REQUEST_RECORD_AUDIO = 50006;
-    private final static int BLINK_ANIMATOR_TAG = -1206813720;
 
-    public static int TEXTFILE_OVERWRITE_MIN_TEXT_LENGTH = 2;
+    public static int TEXT_FILE_OVERWRITE_MIN_TEXT_LENGTH = 2;
     protected static Pair<File, List<Pair<String, String>>> m_cacheLastExtractFileMetadata;
     protected static String _lastCameraPictureFilepath = null;
     protected static WeakReference<GsCallback.a1<String>> _receivePathCallback = null;
@@ -2278,7 +2276,7 @@ public class GsContextUtils {
         try {
             OutputStream fileOutputStream = null;
             ParcelFileDescriptor pfd = null;
-            final boolean existingEmptyFile = file.canWrite() && file.length() < TEXTFILE_OVERWRITE_MIN_TEXT_LENGTH;
+            final boolean existingEmptyFile = file.canWrite() && file.length() < TEXT_FILE_OVERWRITE_MIN_TEXT_LENGTH;
             final boolean nonExistingCreatableFile = !file.exists() && file.getParentFile() != null && file.getParentFile().canWrite();
             if (isContentResolverProxyFile(file)) {
                 // File initially read from Activity, Intent & ContentResolver -> write back to it
@@ -2908,39 +2906,21 @@ public class GsContextUtils {
         if (view == null) {
             return;
         }
-
-        final ObjectAnimator animator = ObjectAnimator
+        ObjectAnimator
                 .ofFloat(view, View.ALPHA, 0.2f, 1.0f)
-                .setDuration(500L);
-
-        view.setTag(BLINK_ANIMATOR_TAG, new WeakReference<>(animator));
-
-        animator.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                view.setAlpha(1.0f);
-                view.setTag(BLINK_ANIMATOR_TAG, null);
-            }
-        });
-
-        animator.start();
+                .setDuration(500L)
+                .start();
     }
 
-    public static void stopBlinking(final View view) {
+    public static void blinkView2(final View view) {
         if (view == null) {
             return;
         }
-
-        final Object tagRef = view.getTag(BLINK_ANIMATOR_TAG);
-        if (tagRef instanceof WeakReference) {
-            final Object tag = ((WeakReference<?>) tagRef).get();
-            if (tag instanceof ObjectAnimator) {
-                final ObjectAnimator anim = ((ObjectAnimator) tag);
-                if (anim.isRunning()) {
-                    anim.cancel();
-                }
-            }
-        }
+        ObjectAnimator animator = ObjectAnimator.
+                ofInt(view, "backgroundColor", 0x30888888, 0x50888888, 0x00888888)
+                .setDuration(600);
+        animator.setEvaluator(new ArgbEvaluator());
+        animator.start();
     }
 
     public static boolean fadeInOut(final View in, final View out, final boolean animate) {

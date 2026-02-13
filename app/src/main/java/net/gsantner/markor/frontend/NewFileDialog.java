@@ -297,7 +297,7 @@ public class NewFileDialog extends DialogFragment {
                 appSettings.saveTitleFormat(titleFormat, MAX_TITLE_FORMATS);
             }
 
-            if (!file.exists() || file.length() <= GsContextUtils.TEXTFILE_OVERWRITE_MIN_TEXT_LENGTH) {
+            if (!file.exists() || file.length() <= GsContextUtils.TEXT_FILE_OVERWRITE_MIN_TEXT_LENGTH) {
                 document.saveContent(activity, content.first, cu, true);
 
                 // We only make these changes if the file did not already exist
