@@ -84,8 +84,6 @@ public abstract class ActionButtonBase {
     private static final String ORDER_SUFFIX = "_order";
     private static final String DISABLED_SUFFIX = "_disabled";
 
-    // private static final Pattern UNTRIMMED_TEXT = Pattern.compile("(\\s*)(.*?)(\\s*)", Pattern.DOTALL);
-
     public ActionButtonBase(@NonNull final Context context, final Document document) {
         _document = document;
         _appSettings = AppSettings.get(context);
@@ -197,7 +195,7 @@ public abstract class ActionButtonBase {
      * @return List or resource strings
      */
     public List<String> getActiveActionKeys() {
-        return GsCollectionUtils.map(getActionList(), item -> rstr(item.keyId));
+        return GsCollectionUtils.map(getActionList(), item -> getResString(item.keyId));
     }
 
     /**
@@ -226,12 +224,12 @@ public abstract class ActionButtonBase {
 
     private void saveActionPreference(final String suffix, final Collection<String> values) {
         final SharedPreferences settings = getContext().getSharedPreferences(ACTION_ORDER_PREF_NAME, Context.MODE_PRIVATE);
-        final String formatKey = rstr(getFormatActionsKey()) + suffix;
+        final String formatKey = getResString(getFormatActionsKey()) + suffix;
         settings.edit().putString(formatKey, TextUtils.join(",", values)).apply();
     }
 
     private List<String> loadActionPreference(final String suffix) {
-        String formatKey = rstr(getFormatActionsKey()) + suffix;
+        String formatKey = getResString(getFormatActionsKey()) + suffix;
         SharedPreferences settings = getContext().getSharedPreferences(ACTION_ORDER_PREF_NAME, Context.MODE_PRIVATE);
         String combinedKeys = settings.getString(formatKey, null);
         return combinedKeys != null ? Arrays.asList(combinedKeys.split(",")) : Collections.emptyList();
@@ -332,7 +330,7 @@ public abstract class ActionButtonBase {
     protected void appendActionButtonToBar(final ViewGroup barLayout, final @NonNull ActionItem action) {
         final ImageView btn = (ImageView) _activity.getLayoutInflater().inflate(R.layout.quick_keyboard_button, null);
         btn.setImageResource(action.iconId);
-        final String desc = rstr(action.stringId);
+        final String desc = getResString(action.stringId);
         btn.setContentDescription(desc);
         TooltipCompat.setTooltipText(btn, desc);
 
@@ -365,11 +363,7 @@ public abstract class ActionButtonBase {
     }
 
     protected void runRegularPrefixAction(String action) {
-        runRegularPrefixAction(action, null, false);
-    }
-
-    protected void runRegularPrefixAction(String action, Boolean ignoreIndent) {
-        runRegularPrefixAction(action, null, ignoreIndent);
+        runRegularPrefixAction(action, null, true);
     }
 
     protected void runRegularPrefixAction(String action, String replaceString) {
@@ -507,16 +501,16 @@ public abstract class ActionButtonBase {
         TextViewUtils.setSelectionFromOffsets(editable, offsets);
     }
 
-    public static void surroundBlock(final Editable text, final String delim) {
+    public static void surroundBlock(final Editable text, final String delimiter) {
         final int[] sel = TextViewUtils.getLineSelection(text);
         if (text != null && sel[0] >= 0) {
             final CharSequence line = text.subSequence(sel[0], sel[1]);
-            text.replace(sel[0], sel[1], delim + "\n" + line + "\n" + delim);
+            text.replace(sel[0], sel[1], delimiter + "\n" + line + "\n" + delimiter);
         }
     }
 
-    protected void runSurroundAction(final String delim) {
-        runSurroundAction(delim, delim, true);
+    protected void runSurroundAction(final String delimiter) {
+        runSurroundAction(delimiter, delimiter, true);
     }
 
     /**
@@ -534,15 +528,18 @@ public abstract class ActionButtonBase {
             return;
         }
 
-        // Detect if delims within or around selection
+        // Detect if delimiters within or around selection
         // If so, remove it
         // -------------------------------------------------------------------------
         final int ss = sel[0], se = sel[1];
         final int ol = open.length(), cl = close.length(), sl = se - ss;
         // Left as a CharSequence to help maintain spans
+        if (text == null) {
+            return;
+        }
         final CharSequence selection = text.subSequence(ss, se);
 
-        // Case delims around selection
+        // Case delimiters around selection
         if ((ss >= ol) && ((se + cl) <= text.length())) {
             final String before = text.subSequence(ss - ol, ss).toString();
             final String after = text.subSequence(se, se + cl).toString();
@@ -553,7 +550,7 @@ public abstract class ActionButtonBase {
             }
         }
 
-        // Case delims within selection
+        // Case delimiters within selection
         if ((se - ss) >= (ol + cl)) {
             final String within = text.subSequence(ss, se).toString();
             if (within.startsWith(open) && within.endsWith(close)) {
@@ -663,6 +660,9 @@ public abstract class ActionButtonBase {
         }
         int selectionEnd = _hlEditor.getSelectionEnd();
         CharSequence text = _hlEditor.getText();
+        if (text == null) {
+            return;
+        }
 
         if (selectionStart == selectionEnd) { // Cut current line
             int lineStart = TextViewUtils.getLineStart(text, selectionStart);
@@ -691,6 +691,10 @@ public abstract class ActionButtonBase {
             return;
         }
         CharSequence text = _hlEditor.getText();
+        if (text == null) {
+            return;
+        }
+
         int lineStart = TextViewUtils.getLineStart(text, selectionStart);
         int lineEnd = TextViewUtils.getLineEnd(text, selectionStart);
         CharSequence line = text.subSequence(lineStart, lineEnd);
@@ -707,11 +711,12 @@ public abstract class ActionButtonBase {
 
     // Some actions common to multiple file types
     // Can be called _explicitly_ by a derived class
+    @SuppressLint("NonConstantResourceId")
     protected final boolean runCommonAction(final @StringRes int action) {
         final Editable text = _hlEditor.getText();
         switch (action) {
             case R.string.abid_common_unordered_list_char: {
-                runRegularPrefixAction(_appSettings.getUnorderedListCharacter() + " ", true);
+                runRegularPrefixAction(_appSettings.getUnorderedListCharacter() + " ");
                 return true;
             }
             case R.string.abid_common_checkbox_list: {
@@ -719,7 +724,7 @@ public abstract class ActionButtonBase {
                 return true;
             }
             case R.string.abid_common_ordered_list_number: {
-                runRegularPrefixAction("1. ", true);
+                runRegularPrefixAction("1. ");
                 return true;
             }
             case R.string.abid_common_time: {
@@ -727,7 +732,7 @@ public abstract class ActionButtonBase {
                 return true;
             }
             case R.string.abid_common_accordion: {
-                _hlEditor.insertOrReplaceTextOnCursor("<details markdown='1'><summary>" + rstr(R.string.expand_collapse) + "</summary>\n" + HighlightingEditor.PLACE_CURSOR_HERE_TOKEN + "\n\n</details>");
+                _hlEditor.insertOrReplaceTextOnCursor("<details markdown='1'><summary>" + getResString(R.string.expand_collapse) + "</summary>\n" + HighlightingEditor.PLACE_CURSOR_HERE_TOKEN + "\n\n</details>");
                 return true;
             }
             case R.string.abid_common_insert_audio: {
@@ -992,6 +997,9 @@ public abstract class ActionButtonBase {
         // cursor is preserved regarding column position (helpful for editing the
         // newly created line at the selected position right away).
         final Editable text = hlEditor.getText();
+        if (text == null) {
+            return;
+        }
         final int[] sel = TextViewUtils.getSelection(text);
         if (sel[0] >= 0) {
             final int linesStart = TextViewUtils.getLineStart(text, sel[0]);
@@ -1031,7 +1039,7 @@ public abstract class ActionButtonBase {
         }
     }
 
-    private String rstr(@StringRes int resKey) {
+    private String getResString(@StringRes int resKey) {
         return getContext().getString(resKey);
     }
 
@@ -1040,43 +1048,43 @@ public abstract class ActionButtonBase {
             if (!_hlEditor.hasSelection() && _hlEditor.length() > 0) {
                 _hlEditor.requestFocus();
             }
-            if (callbackPayload.equals(rstr(R.string.key_page_down))) {
+            if (callbackPayload.equals(getResString(R.string.key_page_down))) {
                 _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_PAGE_DOWN);
-            } else if (callbackPayload.equals(rstr(R.string.key_page_up))) {
+            } else if (callbackPayload.equals(getResString(R.string.key_page_up))) {
                 _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_PAGE_UP);
-            } else if (callbackPayload.equals(rstr(R.string.key_pos_1))) {
+            } else if (callbackPayload.equals(getResString(R.string.key_pos_1))) {
                 _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_MOVE_HOME);
-            } else if (callbackPayload.equals(rstr(R.string.key_pos_end))) {
+            } else if (callbackPayload.equals(getResString(R.string.key_pos_end))) {
                 _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_MOVE_END);
-            } else if (callbackPayload.equals(rstr(R.string.key_pos_1_document))) {
+            } else if (callbackPayload.equals(getResString(R.string.key_pos_1_document))) {
                 _hlEditor.setSelection(0);
-            } else if (callbackPayload.equals(rstr(R.string.key_pos_end_document))) {
+            } else if (callbackPayload.equals(getResString(R.string.key_pos_end_document))) {
                 _hlEditor.setSelection(_hlEditor.length());
-            } else if (callbackPayload.equals(rstr(R.string.move_text_one_line_up))) {
+            } else if (callbackPayload.equals(getResString(R.string.move_text_one_line_up))) {
                 ActionButtonBase.moveLineSelectionBy1(_hlEditor, true);
-            } else if (callbackPayload.equals(rstr(R.string.move_text_one_line_down))) {
+            } else if (callbackPayload.equals(getResString(R.string.move_text_one_line_down))) {
                 ActionButtonBase.moveLineSelectionBy1(_hlEditor, false);
-            } else if (callbackPayload.equals(rstr(R.string.select_current_line))) {
+            } else if (callbackPayload.equals(getResString(R.string.select_current_line))) {
                 selectCurrentLine(_hlEditor.getText());
-            } else if (callbackPayload.equals(rstr(R.string.key_ctrl_a))) {
+            } else if (callbackPayload.equals(getResString(R.string.key_ctrl_a))) {
                 _hlEditor.setSelection(0, _hlEditor.length());
-            } else if (callbackPayload.equals(rstr(R.string.key_tab))) {
-                _hlEditor.insertOrReplaceTextOnCursor("\u0009");
-            } else if (callbackPayload.equals(rstr(R.string.zero_width_space))) {
+            } else if (callbackPayload.equals(getResString(R.string.key_tab))) {
+                _hlEditor.insertOrReplaceTextOnCursor("\t"); // Unicode escape sequence 'u0009' can be replaced with '\t'
+            } else if (callbackPayload.equals(getResString(R.string.zero_width_space))) {
                 _hlEditor.insertOrReplaceTextOnCursor("\u200B");
-            } else if (callbackPayload.equals(rstr(R.string.em_space))) {
+            } else if (callbackPayload.equals(getResString(R.string.em_space))) {
                 _hlEditor.insertOrReplaceTextOnCursor("\u2003");
-            } else if (callbackPayload.equals(rstr(R.string.break_page_pdf_print))) {
+            } else if (callbackPayload.equals(getResString(R.string.break_page_pdf_print))) {
                 _hlEditor.insertOrReplaceTextOnCursor("<div style='page-break-after:always;'></div>");
-            } else if (callbackPayload.equals(rstr(R.string.search))) {
+            } else if (callbackPayload.equals(getResString(R.string.search))) {
                 onSearch();
-            } else if (callbackPayload.equals(rstr(R.string.ohm))) {
+            } else if (callbackPayload.equals(getResString(R.string.ohm))) {
                 _hlEditor.insertOrReplaceTextOnCursor("Ω");
-            } else if (callbackPayload.equals(rstr(R.string.char_punctation_mark_arrows))) {
+            } else if (callbackPayload.equals(getResString(R.string.char_punctation_mark_arrows))) {
                 _hlEditor.insertOrReplaceTextOnCursor("»«");
-            } else if (callbackPayload.equals(rstr(R.string.continued_overline))) {
+            } else if (callbackPayload.equals(getResString(R.string.continued_overline))) {
                 _hlEditor.insertOrReplaceTextOnCursor("‾‾‾‾‾");
-            } else if (callbackPayload.equals(rstr(R.string.shrug))) {
+            } else if (callbackPayload.equals(getResString(R.string.shrug))) {
                 _hlEditor.insertOrReplaceTextOnCursor("¯\\_(ツ)_/¯");
             }
         });
@@ -1092,7 +1100,7 @@ public abstract class ActionButtonBase {
     public void runJumpBottomTopAction(ActionItem.DisplayMode displayMode) {
         if (displayMode == ActionItem.DisplayMode.EDIT) {
             int pos = _hlEditor.getSelectionStart();
-            _hlEditor.setSelection(pos == 0 ? _hlEditor.getText().length() : 0);
+            _hlEditor.setSelection(pos == 0 ? _hlEditor.length() : 0);
         } else if (displayMode == ActionItem.DisplayMode.VIEW && _webView != null) {
             boolean top = _webView.getScrollY() > 100;
             _webView.scrollTo(0, top ? 0 : _webView.getContentHeight());
@@ -1206,7 +1214,10 @@ public abstract class ActionButtonBase {
                             WebView webView = (WebView) source;
                             if (webView.isFocused()) {
                                 webView.clearFocus();
-                                fragment.getView().requestFocus();
+                                View view = fragment.getView();
+                                if (view != null) {
+                                    view.requestFocus();
+                                }
                                 return true;
                             }
                         }
