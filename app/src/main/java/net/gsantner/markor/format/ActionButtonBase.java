@@ -872,27 +872,25 @@ public abstract class ActionButtonBase {
                 });
                 return true;
             }
-            case R.string.abid_common_open_link_browser: {
-                return onSearch();
-            }
             case R.string.abid_common_special_key: {
                 runJumpBottomTopAction(ActionItem.DisplayMode.EDIT);
                 return true;
             }
             case R.string.abid_common_time: {
                 try {
-                    _hlEditor.insertOrReplaceTextOnCursor(DatetimeFormatDialog.getMostRecentDate(getContext()));
+                    String date = DatetimeFormatDialog.getMostRecentDate(getContext());
+                    if (date.isEmpty()) {
+                        return false; // Just display the tooltip text
+                    } else {
+                        _hlEditor.insertOrReplaceTextOnCursor(date);
+                        return true;
+                    }
                 } catch (Exception ignored) {
                 }
                 return true;
             }
             case R.string.abid_common_ordered_list_number: {
                 runRenumberOrderedListIfRequired(true);
-                return true;
-            }
-            case R.string.abid_common_move_text_one_line_up:
-            case R.string.abid_common_move_text_one_line_down: {
-                TextViewUtils.showSelection(_hlEditor);
                 return true;
             }
             case R.string.abid_common_insert_snippet: {
@@ -943,10 +941,10 @@ public abstract class ActionButtonBase {
 
         public enum DisplayMode {EDIT, VIEW, ANY}
 
-        public ActionItem(@StringRes int key, @DrawableRes int icon, @StringRes int string) {
+        public ActionItem(@StringRes int key, @DrawableRes int icon, @StringRes int description) {
             keyId = key;
             iconId = icon;
-            stringId = string;
+            stringId = description;
         }
 
         public ActionItem setDisplayMode(DisplayMode mode) {
