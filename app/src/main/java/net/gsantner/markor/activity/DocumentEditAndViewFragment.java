@@ -43,6 +43,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.FragmentActivity;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.BuildConfig;
@@ -60,6 +61,7 @@ import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.MarkorContextUtils;
+import net.gsantner.markor.web.DraggableScrollbarWebView;
 import net.gsantner.markor.web.MarkorWebViewClient;
 import net.gsantner.markor.widget.TodoWidgetProvider;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
@@ -105,7 +107,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     private DraggableScrollbarScrollView _verticalScrollView;
     private HorizontalScrollView _horizontalScrollView;
     private LineNumbersView _lineNumbersView;
-    private SearchView _menuSearchViewForViewMode;
     private Document _document;
     private FormatRegistry _format;
     private MarkorContextUtils _cu;
@@ -208,6 +209,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             updateUndoRedoIconStates();
         });
         _hlEditor.addTextChangedListener(GsTextWatcherAdapter.after(s -> debounced.run()));
+        _hlEditor.setOnDispatchKeyListener(this::onEditorKeyDown);
 
         // We set the keyboard to be hidden if it was hidden when we lost focus
         // This works well to preserve keyboard state.
@@ -338,40 +340,64 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         updateUndoRedoIconStates();
     }
 
+    public void showMoreOptionsMenu() {
+        FragmentActivity fragmentActivity = getActivity();
+        if (fragmentActivity != null) {
+            fragmentActivity.openOptionsMenu();
+        }
+    }
+
+    /**
+     * Receive key press from DocumentEditAndViewFragment.
+     * But it cannot receive some key events (e.g. Ctrl, Enter, Directional Pad Up/Down/Left/Right, ...)
+     *
+     * @param keyCode the key code from DocumentEditAndViewFragment
+     * @param event   the key event from DocumentEditAndViewFragment
+     * @return {@code false} if the key press event was not be handled, {@code true} if it was consumed here.
+     */
     @Override
     public boolean onReceiveKeyPress(int keyCode, KeyEvent event) {
-        if (_format != null && _format.getActions().onReceiveKeyPress(keyCode, event)) {
-            return true;
+        if (_format == null) {
+            return false;
         }
+        return _format.getActions().onKeyPress(this, keyCode, event, this);
+    }
 
-        if (event.isCtrlPressed()) {
-            if (event.isShiftPressed() && keyCode == KeyEvent.KEYCODE_Z) {
-                if (_editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanRedo()) {
-                    _hlEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::redo);
-                    updateUndoRedoIconStates();
-                }
-                return true;
-            } else if (keyCode == KeyEvent.KEYCODE_S) {
-                saveDocument(true);
-                return true;
-            } else if (keyCode == KeyEvent.KEYCODE_Y) {
-                if (_editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanRedo()) {
-                    _hlEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::redo);
-                    updateUndoRedoIconStates();
-                }
-                return true;
-            } else if (keyCode == KeyEvent.KEYCODE_Z) {
-                if (_editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanUndo()) {
-                    _hlEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::undo);
-                    updateUndoRedoIconStates();
-                }
-                return true;
-            } else if (keyCode == KeyEvent.KEYCODE_SLASH) {
-                setViewModeVisibility(!_isPreviewVisible);
-                return true;
+    /**
+     * Receive key press from HighlightingEditor.
+     * It can receive the key events (e.g. Ctrl, Enter, Directional Pad Up/Down/Left/Right, ...)
+     * that cannot be received from DocumentEditAndViewFragment.
+     *
+     * @param keyCode the key code from HighlightingEditor
+     * @param event   the key event from HighlightingEditor
+     * @return {@code false} if the key press event was not be handled, {@code true} if it was consumed here.
+     */
+    private boolean onEditorKeyDown(int keyCode, KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+            if (_format == null) {
+                return false;
             }
+            return _format.getActions().onKeyPress(_hlEditor, keyCode, event, this);
         }
+        return false;
+    }
 
+    /**
+     * Receive key press from WebView.
+     * To solve the problem that cannot capture key events when the listened object lost the focus,
+     * and the WebView get focus in view-mode.
+     *
+     * @param keyCode the key code from WebView
+     * @param event   the key event from WebView
+     * @return {@code false} if the key press event was not be handled, {@code true} if it was consumed here.
+     */
+    private boolean onWebViewKeyDown(int keyCode, KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+            if (_format == null) {
+                return false;
+            }
+            return _format.getActions().onKeyPress(_webView, keyCode, event, this);
+        }
         return false;
     }
 
@@ -418,6 +444,53 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         return false;
     }
 
+    public void undo() {
+        if (_editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanUndo()) {
+            _hlEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::undo);
+            updateUndoRedoIconStates();
+        }
+    }
+
+    public void redo() {
+        if (_editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanRedo()) {
+            _hlEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::redo);
+            updateUndoRedoIconStates();
+        }
+    }
+
+    public void reload() {
+        if (_document != null) {
+            _document.resetChangeTracking(); // Force next load
+            if (loadDocument()) {
+                Toast.makeText(getActivity(), "✔", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    /**
+     * Let the editor get focus or clear the webView focus.
+     */
+    public void focus() {
+        if (isViewModeVisibility()) {
+            if (_webView != null && _webView.isFocused()) {
+                _webView.clearFocus();
+                View view = getView();
+                if (view != null) {
+                    view.requestFocus();
+                }
+            }
+        } else if (_hlEditor != null) {
+            _hlEditor.requestFocus();
+        }
+    }
+
+    public void print() {
+        MenuItem menuItem = getFragmentMenu().findItem(R.id.action_share_pdf);
+        if (menuItem != null) {
+            onOptionsItemSelected(menuItem);
+        }
+    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull final MenuItem item) {
         final Activity activity = getActivity();
@@ -428,17 +501,11 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         final int itemId = item.getItemId();
         switch (itemId) {
             case R.id.action_undo: {
-                if (_editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanUndo()) {
-                    _hlEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::undo);
-                    updateUndoRedoIconStates();
-                }
+                undo();
                 return true;
             }
             case R.id.action_redo: {
-                if (_editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanRedo()) {
-                    _hlEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::redo);
-                    updateUndoRedoIconStates();
-                }
+                redo();
                 return true;
             }
             case R.id.action_save: {
@@ -446,10 +513,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 return true;
             }
             case R.id.action_reload: {
-                _document.resetChangeTracking(); // Force next load
-                if (loadDocument()) {
-                    Toast.makeText(activity, "✔", Toast.LENGTH_SHORT).show();
-                }
+                reload();
                 return true;
             }
             case R.id.action_preview: {
@@ -461,7 +525,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 return true;
             }
             case R.id.action_preview_edit_toggle: {
-                setViewModeVisibility(!_isPreviewVisible);
+                togglePreview();
                 return true;
             }
             case R.id.action_share_path: {
@@ -646,6 +710,10 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         }
     }
 
+    public boolean isUnsaved() {
+        return _saveMenuItem != null && _saveMenuItem.isEnabled();
+    }
+
     @Override
     public void applyTextFormat(final int textFormatId) {
         final Activity activity = getActivity();
@@ -812,6 +880,18 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         });
     }
 
+    /**
+     * Show SearchView for view-mode.
+     */
+    public void showSearchView() {
+        SearchView searchView = (SearchView) getFragmentMenu().findItem(R.id.action_search_view).getActionView();
+        if (searchView != null) {
+            if (searchView.isIconified()) {
+                searchView.setIconified(false);
+            }
+        }
+    }
+
     private void setMarginBottom(final View view, final int marginBottom) {
         final ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
         if (params != null) {
@@ -941,7 +1021,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         // Document is written iff writeable && content has changed
         final CharSequence text = _hlEditor.getText();
         if (!_document.isContentSame(text)) {
-            final int minLength = GsContextUtils.TEXTFILE_OVERWRITE_MIN_TEXT_LENGTH;
+            final int minLength = GsContextUtils.TEXT_FILE_OVERWRITE_MIN_TEXT_LENGTH;
             if (!forceSaveEmpty && text != null && text.length() < minLength) {
                 final String message = activity.getString(R.string.wont_save_min_length, minLength);
                 Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
@@ -977,6 +1057,17 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     public void setViewModeVisibility(final boolean show) {
         setViewModeVisibility(show, true);
+        if (!show) {
+            _hlEditor.requestFocus();
+        }
+    }
+
+    public void togglePreview() {
+        setViewModeVisibility(!_isPreviewVisible);
+    }
+
+    public boolean isViewModeVisibility() {
+        return _isPreviewVisible;
     }
 
     @SuppressLint({"SetJavaScriptEnabled"})
@@ -1007,6 +1098,10 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
             _webViewClient = new MarkorWebViewClient(_webView, activity);
             _webView.setWebViewClient(_webViewClient);
+
+            if (_webView instanceof DraggableScrollbarWebView) {
+                ((DraggableScrollbarWebView) _webView).setOnDispatchKeyListener(this::onWebViewKeyDown);
+            }
         }
     }
 

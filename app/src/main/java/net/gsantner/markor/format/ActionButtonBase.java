@@ -36,6 +36,7 @@ import androidx.appcompat.widget.TooltipCompat;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentActivity;
+import net.gsantner.markor.activity.DocumentEditAndViewFragment;
 import net.gsantner.markor.frontend.AttachLinkOrFileDialog;
 import net.gsantner.markor.frontend.DatetimeFormatDialog;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
@@ -82,8 +83,6 @@ public abstract class ActionButtonBase {
     public static final String ACTION_ORDER_PREF_NAME = "action_order";
     private static final String ORDER_SUFFIX = "_order";
     private static final String DISABLED_SUFFIX = "_disabled";
-
-    private static final Pattern UNTRIMMED_TEXT = Pattern.compile("(\\s*)(.*?)(\\s*)", Pattern.DOTALL);
 
     public ActionButtonBase(@NonNull final Context context, final Document document) {
         _document = document;
@@ -196,7 +195,7 @@ public abstract class ActionButtonBase {
      * @return List or resource strings
      */
     public List<String> getActiveActionKeys() {
-        return GsCollectionUtils.map(getActionList(), item -> rstr(item.keyId));
+        return GsCollectionUtils.map(getActionList(), item -> getResString(item.keyId));
     }
 
     /**
@@ -225,12 +224,12 @@ public abstract class ActionButtonBase {
 
     private void saveActionPreference(final String suffix, final Collection<String> values) {
         final SharedPreferences settings = getContext().getSharedPreferences(ACTION_ORDER_PREF_NAME, Context.MODE_PRIVATE);
-        final String formatKey = rstr(getFormatActionsKey()) + suffix;
+        final String formatKey = getResString(getFormatActionsKey()) + suffix;
         settings.edit().putString(formatKey, TextUtils.join(",", values)).apply();
     }
 
     private List<String> loadActionPreference(final String suffix) {
-        String formatKey = rstr(getFormatActionsKey()) + suffix;
+        String formatKey = getResString(getFormatActionsKey()) + suffix;
         SharedPreferences settings = getContext().getSharedPreferences(ACTION_ORDER_PREF_NAME, Context.MODE_PRIVATE);
         String combinedKeys = settings.getString(formatKey, null);
         return combinedKeys != null ? Arrays.asList(combinedKeys.split(",")) : Collections.emptyList();
@@ -331,7 +330,7 @@ public abstract class ActionButtonBase {
     protected void appendActionButtonToBar(final ViewGroup barLayout, final @NonNull ActionItem action) {
         final ImageView btn = (ImageView) _activity.getLayoutInflater().inflate(R.layout.quick_keyboard_button, null);
         btn.setImageResource(action.iconId);
-        final String desc = rstr(action.stringId);
+        final String desc = getResString(action.stringId);
         btn.setContentDescription(desc);
         TooltipCompat.setTooltipText(btn, desc);
 
@@ -364,11 +363,7 @@ public abstract class ActionButtonBase {
     }
 
     protected void runRegularPrefixAction(String action) {
-        runRegularPrefixAction(action, null, false);
-    }
-
-    protected void runRegularPrefixAction(String action, Boolean ignoreIndent) {
-        runRegularPrefixAction(action, null, ignoreIndent);
+        runRegularPrefixAction(action, null, true);
     }
 
     protected void runRegularPrefixAction(String action, String replaceString) {
@@ -506,16 +501,16 @@ public abstract class ActionButtonBase {
         TextViewUtils.setSelectionFromOffsets(editable, offsets);
     }
 
-    public static void surroundBlock(final Editable text, final String delim) {
+    public static void surroundBlock(final Editable text, final String delimiter) {
         final int[] sel = TextViewUtils.getLineSelection(text);
         if (text != null && sel[0] >= 0) {
             final CharSequence line = text.subSequence(sel[0], sel[1]);
-            text.replace(sel[0], sel[1], delim + "\n" + line + "\n" + delim);
+            text.replace(sel[0], sel[1], delimiter + "\n" + line + "\n" + delimiter);
         }
     }
 
-    protected void runSurroundAction(final String delim) {
-        runSurroundAction(delim, delim, true);
+    protected void runSurroundAction(final String delimiter) {
+        runSurroundAction(delimiter, delimiter, true);
     }
 
     /**
@@ -533,15 +528,18 @@ public abstract class ActionButtonBase {
             return;
         }
 
-        // Detect if delims within or around selection
+        // Detect if delimiters within or around selection
         // If so, remove it
         // -------------------------------------------------------------------------
         final int ss = sel[0], se = sel[1];
         final int ol = open.length(), cl = close.length(), sl = se - ss;
         // Left as a CharSequence to help maintain spans
+        if (text == null) {
+            return;
+        }
         final CharSequence selection = text.subSequence(ss, se);
 
-        // Case delims around selection
+        // Case delimiters around selection
         if ((ss >= ol) && ((se + cl) <= text.length())) {
             final String before = text.subSequence(ss - ol, ss).toString();
             final String after = text.subSequence(se, se + cl).toString();
@@ -552,7 +550,7 @@ public abstract class ActionButtonBase {
             }
         }
 
-        // Case delims within selection
+        // Case delimiters within selection
         if ((se - ss) >= (ol + cl)) {
             final String within = text.subSequence(ss, se).toString();
             if (within.startsWith(open) && within.endsWith(close)) {
@@ -623,13 +621,102 @@ public abstract class ActionButtonBase {
         }
     }
 
+    // Delete the text from selectionStart to lineEnd
+    public void deleteToLineEnd() {
+        int selectionStart = _hlEditor.getSelectionStart();
+        if (selectionStart < 0) {
+            return;
+        }
+        CharSequence text = _hlEditor.getText();
+        int lineStart = TextViewUtils.getLineStart(text, selectionStart);
+        int lineEnd = TextViewUtils.getLineEnd(text, selectionStart);
+        if (_hlEditor.isFocused() && selectionStart >= lineStart && selectionStart < lineEnd) {
+            _hlEditor.setSelection(selectionStart, lineEnd);
+            _hlEditor.insertOrReplaceTextOnCursor("");
+        }
+    }
+
+    // Delete current line
+    public void deleteLine() {
+        int selectionStart = _hlEditor.getSelectionStart();
+        if (selectionStart < 0) {
+            return;
+        }
+        CharSequence text = _hlEditor.getText();
+        int lineStart = TextViewUtils.getLineStart(text, selectionStart);
+        int lineEnd = TextViewUtils.getLineEnd(text, selectionStart);
+        _hlEditor.setSelection(lineStart, lineEnd + 1);
+        _hlEditor.insertOrReplaceTextOnCursor("");
+        _hlEditor.setSelection(selectionStart);
+    }
+
+    /**
+     * Cut current line or selected text
+     */
+    public void cut() {
+        int selectionStart = _hlEditor.getSelectionStart();
+        if (selectionStart < 0) {
+            return;
+        }
+        int selectionEnd = _hlEditor.getSelectionEnd();
+        CharSequence text = _hlEditor.getText();
+        if (text == null) {
+            return;
+        }
+
+        if (selectionStart == selectionEnd) { // Cut current line
+            int lineStart = TextViewUtils.getLineStart(text, selectionStart);
+            int lineEnd = TextViewUtils.getLineEnd(text, selectionStart);
+            if (lineStart != lineEnd) {
+                new MarkorContextUtils(getContext()).setClipboard(getContext(), text.subSequence(lineStart, lineEnd));
+                _hlEditor.setSelection(lineStart, lineEnd + 1);
+                _hlEditor.insertOrReplaceTextOnCursor("");
+            }
+        } else { // Cut selected text
+            new MarkorContextUtils(getContext()).setClipboard(getContext(), text.subSequence(selectionStart, selectionEnd));
+            _hlEditor.insertOrReplaceTextOnCursor("");
+        }
+    }
+
+    // Move current line up/down
+    public void moveLine(boolean toUp) {
+        moveLineSelectionBy1(_hlEditor, toUp);
+        runRenumberOrderedListIfRequired();
+    }
+
+    // Copy current line up/down
+    public void copyLine(boolean toUp) {
+        int selectionStart = _hlEditor.getSelectionStart();
+        if (selectionStart < 0) {
+            return;
+        }
+        CharSequence text = _hlEditor.getText();
+        if (text == null) {
+            return;
+        }
+
+        int lineStart = TextViewUtils.getLineStart(text, selectionStart);
+        int lineEnd = TextViewUtils.getLineEnd(text, selectionStart);
+        CharSequence line = text.subSequence(lineStart, lineEnd);
+        if (toUp) {
+            _hlEditor.setSelection(lineStart);
+            line = line + "\n";
+        } else {
+            _hlEditor.setSelection(lineEnd);
+            line = "\n" + line;
+        }
+        _hlEditor.insertOrReplaceTextOnCursor(line.toString());
+        _hlEditor.setSelection(selectionStart + (toUp ? 0 : line.length()));
+    }
+
     // Some actions common to multiple file types
     // Can be called _explicitly_ by a derived class
+    @SuppressLint("NonConstantResourceId")
     protected final boolean runCommonAction(final @StringRes int action) {
         final Editable text = _hlEditor.getText();
         switch (action) {
             case R.string.abid_common_unordered_list_char: {
-                runRegularPrefixAction(_appSettings.getUnorderedListCharacter() + " ", true);
+                runRegularPrefixAction(_appSettings.getUnorderedListCharacter() + " ");
                 return true;
             }
             case R.string.abid_common_checkbox_list: {
@@ -637,7 +724,7 @@ public abstract class ActionButtonBase {
                 return true;
             }
             case R.string.abid_common_ordered_list_number: {
-                runRegularPrefixAction("1. ", true);
+                runRegularPrefixAction("1. ");
                 return true;
             }
             case R.string.abid_common_time: {
@@ -645,7 +732,7 @@ public abstract class ActionButtonBase {
                 return true;
             }
             case R.string.abid_common_accordion: {
-                _hlEditor.insertOrReplaceTextOnCursor("<details markdown='1'><summary>" + rstr(R.string.expand_collapse) + "</summary>\n" + HighlightingEditor.PLACE_CURSOR_HERE_TOKEN + "\n\n</details>");
+                _hlEditor.insertOrReplaceTextOnCursor("<details markdown='1'><summary>" + getResString(R.string.expand_collapse) + "</summary>\n" + HighlightingEditor.PLACE_CURSOR_HERE_TOKEN + "\n\n</details>");
                 return true;
             }
             case R.string.abid_common_insert_audio: {
@@ -666,8 +753,7 @@ public abstract class ActionButtonBase {
             }
             case R.string.abid_common_move_text_one_line_up:
             case R.string.abid_common_move_text_one_line_down: {
-                moveLineSelectionBy1(_hlEditor, action == R.string.abid_common_move_text_one_line_up);
-                runRenumberOrderedListIfRequired();
+                moveLine(action == R.string.abid_common_move_text_one_line_up);
                 return true;
             }
             case R.string.abid_common_indent:
@@ -750,11 +836,7 @@ public abstract class ActionButtonBase {
                 return true;
             }
             case R.string.abid_common_web_jump_to_table_of_contents: {
-                if (_appSettings.isMarkdownTableOfContentsEnabled()) {
-                    _webView.loadUrl("javascript:document.getElementsByClassName('toc')[0].scrollIntoView();");
-                } else {
-                    runTitleClick();
-                }
+                runTitleClick();
                 return true;
             }
             case R.string.abid_common_view_file_in_other_app: {
@@ -786,27 +868,25 @@ public abstract class ActionButtonBase {
                 });
                 return true;
             }
-            case R.string.abid_common_open_link_browser: {
-                return onSearch();
-            }
             case R.string.abid_common_special_key: {
                 runJumpBottomTopAction(ActionItem.DisplayMode.EDIT);
                 return true;
             }
             case R.string.abid_common_time: {
                 try {
-                    _hlEditor.insertOrReplaceTextOnCursor(DatetimeFormatDialog.getMostRecentDate(getContext()));
+                    String date = DatetimeFormatDialog.getMostRecentDate(getContext());
+                    if (date.isEmpty()) {
+                        return false; // Just display the tooltip text
+                    } else {
+                        _hlEditor.insertOrReplaceTextOnCursor(date);
+                        return true;
+                    }
                 } catch (Exception ignored) {
                 }
                 return true;
             }
             case R.string.abid_common_ordered_list_number: {
                 runRenumberOrderedListIfRequired(true);
-                return true;
-            }
-            case R.string.abid_common_move_text_one_line_up:
-            case R.string.abid_common_move_text_one_line_down: {
-                TextViewUtils.showSelection(_hlEditor);
                 return true;
             }
             case R.string.abid_common_insert_snippet: {
@@ -857,10 +937,10 @@ public abstract class ActionButtonBase {
 
         public enum DisplayMode {EDIT, VIEW, ANY}
 
-        public ActionItem(@StringRes int key, @DrawableRes int icon, @StringRes int string) {
+        public ActionItem(@StringRes int key, @DrawableRes int icon, @StringRes int description) {
             keyId = key;
             iconId = icon;
-            stringId = string;
+            stringId = description;
         }
 
         public ActionItem setDisplayMode(DisplayMode mode) {
@@ -911,6 +991,9 @@ public abstract class ActionButtonBase {
         // cursor is preserved regarding column position (helpful for editing the
         // newly created line at the selected position right away).
         final Editable text = hlEditor.getText();
+        if (text == null) {
+            return;
+        }
         final int[] sel = TextViewUtils.getSelection(text);
         if (sel[0] >= 0) {
             final int linesStart = TextViewUtils.getLineStart(text, sel[0]);
@@ -950,7 +1033,7 @@ public abstract class ActionButtonBase {
         }
     }
 
-    private String rstr(@StringRes int resKey) {
+    private String getResString(@StringRes int resKey) {
         return getContext().getString(resKey);
     }
 
@@ -959,49 +1042,49 @@ public abstract class ActionButtonBase {
             if (!_hlEditor.hasSelection() && _hlEditor.length() > 0) {
                 _hlEditor.requestFocus();
             }
-            if (callbackPayload.equals(rstr(R.string.key_page_down))) {
+            if (callbackPayload.equals(getResString(R.string.key_page_down))) {
                 _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_PAGE_DOWN);
-            } else if (callbackPayload.equals(rstr(R.string.key_page_up))) {
+            } else if (callbackPayload.equals(getResString(R.string.key_page_up))) {
                 _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_PAGE_UP);
-            } else if (callbackPayload.equals(rstr(R.string.key_pos_1))) {
+            } else if (callbackPayload.equals(getResString(R.string.key_pos_1))) {
                 _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_MOVE_HOME);
-            } else if (callbackPayload.equals(rstr(R.string.key_pos_end))) {
+            } else if (callbackPayload.equals(getResString(R.string.key_pos_end))) {
                 _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_MOVE_END);
-            } else if (callbackPayload.equals(rstr(R.string.key_pos_1_document))) {
+            } else if (callbackPayload.equals(getResString(R.string.key_pos_1_document))) {
                 _hlEditor.setSelection(0);
-            } else if (callbackPayload.equals(rstr(R.string.key_pos_end_document))) {
+            } else if (callbackPayload.equals(getResString(R.string.key_pos_end_document))) {
                 _hlEditor.setSelection(_hlEditor.length());
-            } else if (callbackPayload.equals(rstr(R.string.move_text_one_line_up))) {
+            } else if (callbackPayload.equals(getResString(R.string.move_text_one_line_up))) {
                 ActionButtonBase.moveLineSelectionBy1(_hlEditor, true);
-            } else if (callbackPayload.equals(rstr(R.string.move_text_one_line_down))) {
+            } else if (callbackPayload.equals(getResString(R.string.move_text_one_line_down))) {
                 ActionButtonBase.moveLineSelectionBy1(_hlEditor, false);
-            } else if (callbackPayload.equals(rstr(R.string.select_current_line))) {
-                selectWholeLines(_hlEditor.getText());
-            } else if (callbackPayload.equals(rstr(R.string.key_ctrl_a))) {
+            } else if (callbackPayload.equals(getResString(R.string.select_current_line))) {
+                selectCurrentLine(_hlEditor.getText());
+            } else if (callbackPayload.equals(getResString(R.string.key_ctrl_a))) {
                 _hlEditor.setSelection(0, _hlEditor.length());
-            } else if (callbackPayload.equals(rstr(R.string.key_tab))) {
-                _hlEditor.insertOrReplaceTextOnCursor("\u0009");
-            } else if (callbackPayload.equals(rstr(R.string.zero_width_space))) {
+            } else if (callbackPayload.equals(getResString(R.string.key_tab))) {
+                _hlEditor.insertOrReplaceTextOnCursor("\t"); // Unicode escape sequence 'u0009' can be replaced with '\t'
+            } else if (callbackPayload.equals(getResString(R.string.zero_width_space))) {
                 _hlEditor.insertOrReplaceTextOnCursor("\u200B");
-            } else if (callbackPayload.equals(rstr(R.string.em_space))) {
+            } else if (callbackPayload.equals(getResString(R.string.em_space))) {
                 _hlEditor.insertOrReplaceTextOnCursor("\u2003");
-            } else if (callbackPayload.equals(rstr(R.string.break_page_pdf_print))) {
+            } else if (callbackPayload.equals(getResString(R.string.break_page_pdf_print))) {
                 _hlEditor.insertOrReplaceTextOnCursor("<div style='page-break-after:always;'></div>");
-            } else if (callbackPayload.equals(rstr(R.string.search))) {
+            } else if (callbackPayload.equals(getResString(R.string.search))) {
                 onSearch();
-            } else if (callbackPayload.equals(rstr(R.string.ohm))) {
+            } else if (callbackPayload.equals(getResString(R.string.ohm))) {
                 _hlEditor.insertOrReplaceTextOnCursor("Ω");
-            } else if (callbackPayload.equals(rstr(R.string.char_punctation_mark_arrows))) {
+            } else if (callbackPayload.equals(getResString(R.string.char_punctation_mark_arrows))) {
                 _hlEditor.insertOrReplaceTextOnCursor("»«");
-            } else if (callbackPayload.equals(rstr(R.string.continued_overline))) {
+            } else if (callbackPayload.equals(getResString(R.string.continued_overline))) {
                 _hlEditor.insertOrReplaceTextOnCursor("‾‾‾‾‾");
-            } else if (callbackPayload.equals(rstr(R.string.shrug))) {
+            } else if (callbackPayload.equals(getResString(R.string.shrug))) {
                 _hlEditor.insertOrReplaceTextOnCursor("¯\\_(ツ)_/¯");
             }
         });
     }
 
-    public static void selectWholeLines(final @Nullable Spannable text) {
+    public static void selectCurrentLine(final @Nullable Spannable text) {
         final int[] sel = TextViewUtils.getLineSelection(text);
         if (sel[0] >= 0) {
             Selection.setSelection(text, sel[0], sel[1]);
@@ -1011,7 +1094,7 @@ public abstract class ActionButtonBase {
     public void runJumpBottomTopAction(ActionItem.DisplayMode displayMode) {
         if (displayMode == ActionItem.DisplayMode.EDIT) {
             int pos = _hlEditor.getSelectionStart();
-            _hlEditor.setSelection(pos == 0 ? _hlEditor.getText().length() : 0);
+            _hlEditor.setSelection(pos == 0 ? _hlEditor.length() : 0);
         } else if (displayMode == ActionItem.DisplayMode.VIEW && _webView != null) {
             boolean top = _webView.getScrollY() > 100;
             _webView.scrollTo(0, top ? 0 : _webView.getContentHeight());
@@ -1022,16 +1105,136 @@ public abstract class ActionButtonBase {
         }
     }
 
-    public boolean onReceiveKeyPress(final int keyCode, final KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_TAB && _appSettings.isIndentWithTabKey()) {
-            runIndentLines(event.isShiftPressed());
-            runRenumberOrderedListIfRequired();
-            return true;
-        }
-        return false;
-    }
-
     public static class HeadlineState extends GsSearchOrCustomTextDialog.DialogState {
         public final List<Integer> disabledLevels = new ArrayList<>();
+    }
+
+    /**
+     * Override this method to implement custom keyboard shortcuts.
+     * This method has implemented some common keyboard shortcuts in ActionButtonBase.<br>
+     * You can call {@code return super.onKeyPress(fromEditor, keyCode, event, fragment)}
+     * at the end of your override method to use the common keyboard shortcuts as the default implementation.
+     *
+     * @param source   the source of the event, indicate where (which instance) the event came from,
+     *                 e.g. HighlightingEditor, WebView and DocumentEditAndViewFragment.
+     *                 If an object lost focus, we will not be able to capture key events through that object,
+     *                 so we need to capture key events from multiple objects that may be focused on by users.
+     * @param keyCode  the received key code
+     * @param event    the key event
+     * @param fragment the instance of DocumentEditAndViewFragment
+     * @return {@code false} if the key press event was not be handled, {@code true} if it was consumed here.
+     */
+    public boolean onKeyPress(final Object source, final int keyCode, final KeyEvent event, final DocumentEditAndViewFragment fragment) {
+        // Common implementation of keyboard shortcuts here
+
+        if (source instanceof HighlightingEditor) { // The scope of the HighlightingEditor
+            if (keyCode == KeyEvent.KEYCODE_TAB && _appSettings.isIndentWithTabKey()) {
+                runIndentLines(event.isShiftPressed());
+                runRenumberOrderedListIfRequired();
+                return true;
+            }
+
+            if (event.isCtrlPressed()) { // Ctrl
+                if (event.isAltPressed()) { // Ctrl + Alt
+                    if (keyCode == KeyEvent.KEYCODE_K) {
+                        deleteLine();
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
+                        copyLine(true);
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+                        copyLine(false);
+                        return true;
+                    }
+                } else if (event.isShiftPressed()) { // Ctrl + Shift
+                    if (keyCode == KeyEvent.KEYCODE_R) {
+                        if (fragment.isUnsaved()) {
+                            MarkorDialogFactory.showConfirmDialog(getActivity(), R.string.app_name, getResString(R.string.reload_or_not), null, () -> {
+                                fragment.reload();
+                            });
+                        } else {
+                            fragment.reload();
+                        }
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_U) {
+                        runCommonAction(R.string.abid_common_change_case);
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_Z) {
+                        fragment.redo();
+                        return true;
+                    }
+                } else if (keyCode == KeyEvent.KEYCODE_K) { // Ctrl + ordinary key
+                    deleteToLineEnd();
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_L) {
+                    selectCurrentLine(_hlEditor.getText());
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_S) {
+                    fragment.saveDocument(true);
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_W) {
+                    TextViewUtils.selectWord(_hlEditor);
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_X) {
+                    cut();
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_Y) {
+                    fragment.redo();
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_Z) {
+                    fragment.undo();
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
+                    moveLine(true);
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+                    moveLine(false);
+                    return true;
+                }
+            } else if (event.isShiftPressed()) { // Shift
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                    runCommonAction(R.string.abid_common_new_line_below);
+                    return true;
+                }
+            }
+        } else { // The scope of the DocumentEditAndViewFragment or WebView
+            if (event.isCtrlPressed()) { // Ctrl
+                if (keyCode == KeyEvent.KEYCODE_F) { // Ctrl + ordinary key
+                    if (fragment.isViewModeVisibility()) {
+                        fragment.showSearchView();
+                    } else {
+                        onSearch();
+                    }
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_P) {
+                    fragment.print();
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_SLASH) {
+                    fragment.togglePreview();
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_PERIOD) {
+                    fragment.focus();
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_COMMA) {
+                    runSpecialKeyAction();
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_SEMICOLON) {
+                    fragment.showMoreOptionsMenu();
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_APOSTROPHE) {
+                    runTitleClick();
+                    return true;
+                }
+            }
+        }
+
+        if (keyCode == KeyEvent.KEYCODE_ESCAPE && fragment.isUnsaved()) {
+            MarkorDialogFactory.showConfirmDialog(getActivity(), R.string.app_name, getResString(R.string.save_or_not), null, () -> {
+                fragment.getActivity().getOnBackPressedDispatcher().onBackPressed();
+            });
+            return true;
+        }
+
+        return false; // Important
     }
 }

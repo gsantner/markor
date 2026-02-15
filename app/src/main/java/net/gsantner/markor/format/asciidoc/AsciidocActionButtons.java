@@ -8,13 +8,16 @@
 package net.gsantner.markor.format.asciidoc;
 
 import android.content.Context;
+import android.view.KeyEvent;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.activity.DocumentEditAndViewFragment;
 import net.gsantner.markor.format.ActionButtonBase;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
+import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.model.Document;
 
 import java.util.Arrays;
@@ -401,9 +404,17 @@ public class AsciidocActionButtons extends ActionButtonBase {
         return R.string.pref_key__asciidoc__action_keys;
     }
 
-    // @Override
-    // protected void renumberOrderedList() {
-    //     AutoTextFormatter.renumberOrderedList(_hlEditor.getText(),
-    //     AsciidocReplacePatternGenerator.formatPatterns);
-    // }
+    @Override
+    public boolean onKeyPress(Object source, int keyCode, KeyEvent event, DocumentEditAndViewFragment fragment) {
+        if (source instanceof HighlightingEditor) {
+            if (event.isCtrlPressed()) {
+                if (keyCode == KeyEvent.KEYCODE_I) {
+                    onActionClick(R.string.abid_asciidoc_italic);
+                    return true;
+                }
+            }
+        }
+
+        return super.onKeyPress(source, keyCode, event, fragment);
+    }
 }
