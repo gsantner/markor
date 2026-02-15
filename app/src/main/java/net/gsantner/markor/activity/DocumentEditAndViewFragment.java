@@ -467,6 +467,23 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         }
     }
 
+    /**
+     * Let the editor get focus or clear the webView focus.
+     */
+    public void focus() {
+        if (isViewModeVisibility()) {
+            if (_webView != null && _webView.isFocused()) {
+                _webView.clearFocus();
+                View view = getView();
+                if (view != null) {
+                    view.requestFocus();
+                }
+            }
+        } else if (_hlEditor != null) {
+            _hlEditor.requestFocus();
+        }
+    }
+
     public void print() {
         MenuItem menuItem = getFragmentMenu().findItem(R.id.action_share_pdf);
         if (menuItem != null) {

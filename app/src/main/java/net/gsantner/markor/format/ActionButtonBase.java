@@ -1217,32 +1217,18 @@ public abstract class ActionButtonBase {
                     fragment.togglePreview();
                     return true;
                 } else if (keyCode == KeyEvent.KEYCODE_PERIOD) {
-                    if (fragment.isViewModeVisibility()) {
-                        if (source instanceof WebView) { // Clear focus on WebView
-                            WebView webView = (WebView) source;
-                            if (webView.isFocused()) {
-                                webView.clearFocus();
-                                View view = fragment.getView();
-                                if (view != null) {
-                                    view.requestFocus();
-                                }
-                                return true;
-                            }
-                        }
-                    } else if (_hlEditor != null) {
-                        _hlEditor.requestFocus();
-                        return true;
-                    }
+                    fragment.focus();
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_COMMA) {
+                    runSpecialKeyAction();
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_SEMICOLON) {
+                    fragment.showMoreOptionsMenu();
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_APOSTROPHE) {
+                    runTitleClick();
+                    return true;
                 }
-            } else if (keyCode == KeyEvent.KEYCODE_COMMA) {
-                runSpecialKeyAction();
-                return true;
-            } else if (keyCode == KeyEvent.KEYCODE_SEMICOLON) {
-                fragment.showMoreOptionsMenu();
-                return true;
-            } else if (keyCode == KeyEvent.KEYCODE_APOSTROPHE) {
-                runTitleClick();
-                return true;
             }
         }
 
