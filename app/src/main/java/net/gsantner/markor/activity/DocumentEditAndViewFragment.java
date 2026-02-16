@@ -1008,6 +1008,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             _webViewClient = new MarkorWebViewClient(_webView, activity);
             _webView.setWebViewClient(_webViewClient);
         }
+        if (_format != null) {
+            _format.getActions().setUiReferences(activity, _hlEditor, _webView);
+        }
     }
 
     @SuppressLint({"AddJavascriptInterface", "SetJavaScriptEnabled"})
