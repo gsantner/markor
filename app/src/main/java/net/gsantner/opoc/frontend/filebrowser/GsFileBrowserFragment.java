@@ -22,7 +22,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Pair;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -167,7 +169,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                 onFsViewerCancel(_dopt.requestId);
                 break;
             }
-
         }
     }
 
@@ -482,6 +483,37 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         }
 
         return false;
+    }
+
+    private boolean onFileBrowserKeyDown(int keyCode, KeyEvent event) {
+        Log.i("AAA", "" + keyCode);
+        if (_recyclerList == null) {
+            return false;
+        }
+
+        int itemCount = _recyclerList.getAdapter().getItemCount();
+        if (itemCount == 0) {
+            return false;
+        }
+
+        if (keyCode == KeyEvent.KEYCODE_MOVE_HOME) {
+            _recyclerList.scrollToPosition(0); // Move to start
+            return true;
+        } else if (keyCode == KeyEvent.KEYCODE_MOVE_END) {
+            _recyclerList.scrollToPosition(itemCount - 1); // Move to end
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean onReceiveKeyPress(int keyCode, KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_DOWN && onFileBrowserKeyDown(keyCode, event)) {
+            return true;
+        }
+
+        return super.onReceiveKeyPress(keyCode, event);
     }
 
     private void searchCallback(final File load, final Integer lineNumber, final boolean longPress) {
