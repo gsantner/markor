@@ -357,10 +357,10 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
      */
     @Override
     public boolean onReceiveKeyPress(int keyCode, KeyEvent event) {
-        if (_format == null) {
-            return false;
+        if (_format != null && _format.getActions().onKeyPress(this, keyCode, event, this)) {
+            return true;
         }
-        return _format.getActions().onKeyPress(this, keyCode, event, this);
+        return super.onReceiveKeyPress(keyCode, event);
     }
 
     /**
@@ -374,10 +374,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
      */
     private boolean onEditorKeyDown(int keyCode, KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
-            if (_format == null) {
-                return false;
+            if (_format != null && _format.getActions().onKeyPress(_hlEditor, keyCode, event, this)) {
+                return true;
             }
-            return _format.getActions().onKeyPress(_hlEditor, keyCode, event, this);
         }
         return false;
     }
@@ -393,10 +392,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
      */
     private boolean onWebViewKeyDown(int keyCode, KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
-            if (_format == null) {
-                return false;
+            if (_format != null && _format.getActions().onKeyPress(_webView, keyCode, event, this)) {
+                return true;
             }
-            return _format.getActions().onKeyPress(_webView, keyCode, event, this);
         }
         return false;
     }
@@ -881,14 +879,29 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     /**
-     * Show SearchView for view-mode.
+     * Show/close SearchView for view-mode.
      */
-    public void showSearchView() {
+    public void toggleSearchView(boolean show) {
         SearchView searchView = (SearchView) getFragmentMenu().findItem(R.id.action_search_view).getActionView();
         if (searchView != null) {
             if (searchView.isIconified()) {
-                searchView.setIconified(false);
+                if (show) {
+                    searchView.setIconified(false);
+                }
+            } else {
+                if (!show) {
+                    searchView.setIconified(true);
+                }
             }
+        }
+    }
+
+    public boolean isSearchViewIconified() {
+        SearchView searchView = (SearchView) getFragmentMenu().findItem(R.id.action_search_view).getActionView();
+        if (searchView == null) {
+            return true;
+        } else {
+            return searchView.isIconified();
         }
     }
 

@@ -33,6 +33,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.TooltipCompat;
+import androidx.fragment.app.FragmentActivity;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentActivity;
@@ -1149,9 +1150,7 @@ public abstract class ActionButtonBase {
                 } else if (event.isShiftPressed()) { // Ctrl + Shift
                     if (keyCode == KeyEvent.KEYCODE_R) {
                         if (fragment.isUnsaved()) {
-                            MarkorDialogFactory.showConfirmDialog(getActivity(), R.string.app_name, getResString(R.string.reload_or_not), null, () -> {
-                                fragment.reload();
-                            });
+                            MarkorDialogFactory.showConfirmDialog(getActivity(), R.string.app_name, getResString(R.string.reload_or_not), null, fragment::reload);
                         } else {
                             fragment.reload();
                         }
@@ -1201,7 +1200,7 @@ public abstract class ActionButtonBase {
             if (event.isCtrlPressed()) { // Ctrl
                 if (keyCode == KeyEvent.KEYCODE_F) { // Ctrl + ordinary key
                     if (fragment.isViewModeVisibility()) {
-                        fragment.showSearchView();
+                        fragment.toggleSearchView(true);
                     } else {
                         onSearch();
                     }
@@ -1228,11 +1227,19 @@ public abstract class ActionButtonBase {
             }
         }
 
-        if (keyCode == KeyEvent.KEYCODE_ESCAPE && fragment.isUnsaved()) {
-            MarkorDialogFactory.showConfirmDialog(getActivity(), R.string.app_name, getResString(R.string.save_or_not), null, () -> {
-                fragment.getActivity().getOnBackPressedDispatcher().onBackPressed();
-            });
-            return true;
+        if (keyCode == KeyEvent.KEYCODE_ESCAPE) {
+            if (fragment.isViewModeVisibility() && !fragment.isSearchViewIconified()) {
+                fragment.toggleSearchView(false);
+                return true;
+            } else if (fragment.isUnsaved()) {
+                MarkorDialogFactory.showConfirmDialog(getActivity(), R.string.app_name, getResString(R.string.save_or_not), null, () -> {
+                    FragmentActivity activity = fragment.getActivity();
+                    if (activity != null) {
+                        activity.getOnBackPressedDispatcher().onBackPressed();
+                    }
+                });
+                return true;
+            }
         }
 
         return false; // Important
