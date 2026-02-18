@@ -1055,6 +1055,8 @@ public abstract class ActionButtonBase {
                 _hlEditor.setSelection(0);
             } else if (callbackPayload.equals(getResString(R.string.key_pos_end_document))) {
                 _hlEditor.setSelection(_hlEditor.length());
+            } else if (callbackPayload.equals(getResString(R.string.go_to_line_hotkey))) {
+                MarkorDialogFactory.showGoToLineDialog(_activity, _hlEditor);
             } else if (callbackPayload.equals(getResString(R.string.move_text_one_line_up))) {
                 ActionButtonBase.moveLineSelectionBy1(_hlEditor, true);
             } else if (callbackPayload.equals(getResString(R.string.move_text_one_line_down))) {

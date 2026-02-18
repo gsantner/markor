@@ -197,6 +197,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_pos_end">Line End (End)</string>
     <string name="key_pos_1_document">Document Start (Alt + ↑)</string>
     <string name="key_pos_end_document">Document End (Alt + ↓)</string>
+    <string name="go_to_line_hotkey">Go to line (Ctrl + G)</string>
     <string name="move_text_one_line_up">Move line up (Ctrl + ↑)</string>
     <string name="move_text_one_line_down">Move line down (Ctrl + ↓)</string>
     <string name="start_new_line_below">Start new line (Shift + Enter)</string>
