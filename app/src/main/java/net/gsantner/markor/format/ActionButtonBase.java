@@ -1162,7 +1162,10 @@ public abstract class ActionButtonBase {
                         fragment.redo();
                         return true;
                     }
-                } else if (keyCode == KeyEvent.KEYCODE_K) { // Ctrl + ordinary key
+                } else if (keyCode == KeyEvent.KEYCODE_G) { // Ctrl + ordinary key
+                    MarkorDialogFactory.showGoToLineDialog(getActivity(), _hlEditor);
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_K) {
                     deleteToLineEnd();
                     return true;
                 } else if (keyCode == KeyEvent.KEYCODE_L) {

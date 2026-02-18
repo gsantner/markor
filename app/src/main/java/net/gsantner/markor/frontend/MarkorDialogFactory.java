@@ -46,6 +46,7 @@ import net.gsantner.markor.format.todotxt.TodoTxtTask;
 import net.gsantner.markor.frontend.filesearch.FileSearchDialog;
 import net.gsantner.markor.frontend.filesearch.FileSearchEngine;
 import net.gsantner.markor.frontend.filesearch.FileSearchResultSelectorDialog;
+import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.frontend.textview.SyntaxHighlighterBase;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
@@ -1206,6 +1207,34 @@ public class MarkorDialogFactory {
         }
 
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+    }
+
+    public static void showGoToLineDialog(
+            final Activity activity,
+            final @Nullable HighlightingEditor editText
+    ) {
+        final DialogOptions options = baseConf(activity);
+
+        options.titleText = R.string.app_name_real;
+        options.messageText = activity != null ? activity.getString(R.string.go_to_line) : "";
+        options.isSearchEnabled = true;
+        options.searchHintText = R.string.line_number;
+        options.searchInputType = InputType.TYPE_CLASS_NUMBER; // Limit users to only input non-negative integers
+        options.selectionMode = DialogOptions.SelectionMode.NONE;
+        options.callback = (input) -> {
+            if (!input.isEmpty()) {
+                int lineNumber = Integer.parseInt(input);
+                if (lineNumber < 1) {
+                    lineNumber = 1;
+                }
+                CharSequence text = editText.getText();
+                int selectionStart = TextViewUtils.getIndexFromLineOffset(text, lineNumber - 1, 0);
+                int lineStart = TextViewUtils.getLineStart(text, selectionStart);
+                TextViewUtils.setSelectionAndShow(editText, lineStart);
+            }
+        };
+
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, options);
     }
 
     public static DialogOptions baseConf(final Context context) {
