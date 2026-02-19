@@ -84,6 +84,7 @@ public abstract class ActionButtonBase {
     public static final String ACTION_ORDER_PREF_NAME = "action_order";
     private static final String ORDER_SUFFIX = "_order";
     private static final String DISABLED_SUFFIX = "_disabled";
+    private static final String VISIBLE_SUFFIX = "_visible";
 
     public ActionButtonBase(@NonNull final Context context, final Document document) {
         _document = document;
@@ -234,6 +235,18 @@ public abstract class ActionButtonBase {
         SharedPreferences settings = getContext().getSharedPreferences(ACTION_ORDER_PREF_NAME, Context.MODE_PRIVATE);
         String combinedKeys = settings.getString(formatKey, null);
         return combinedKeys != null ? Arrays.asList(combinedKeys.split(",")) : Collections.emptyList();
+    }
+
+    public void saveActionBarVisible(final boolean visible) {
+        final SharedPreferences settings = getContext().getSharedPreferences(ACTION_ORDER_PREF_NAME, Context.MODE_PRIVATE);
+        final String formatKey = getResString(getFormatActionsKey()) + VISIBLE_SUFFIX;
+        settings.edit().putBoolean(formatKey, visible).apply();
+    }
+
+    public boolean loadActionBarVisible() {
+        final SharedPreferences settings = getContext().getSharedPreferences(ACTION_ORDER_PREF_NAME, Context.MODE_PRIVATE);
+        final String formatKey = getResString(getFormatActionsKey()) + VISIBLE_SUFFIX;
+        return settings.getBoolean(formatKey, true);
     }
 
     /**

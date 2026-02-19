@@ -374,9 +374,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
      */
     private boolean onEditorKeyDown(int keyCode, KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
-            if (_format != null && _format.getActions().onKeyPress(_hlEditor, keyCode, event, this)) {
-                return true;
-            }
+            return _format != null && _format.getActions().onKeyPress(_hlEditor, keyCode, event, this);
         }
         return false;
     }
@@ -392,9 +390,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
      */
     private boolean onWebViewKeyDown(int keyCode, KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
-            if (_format != null && _format.getActions().onKeyPress(_webView, keyCode, event, this)) {
-                return true;
-            }
+            return _format != null && _format.getActions().onKeyPress(_webView, keyCode, event, this);
         }
         return false;
     }
@@ -739,7 +735,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             final View viewScroll = activity.findViewById(R.id.document__fragment_view_webview);
 
             if (bar != null && parent != null && _verticalScrollView != null) {
-                final boolean hide = _textActionsBar.getChildCount() == 0;
+                final boolean hide = _textActionsBar.getChildCount() == 0 || !_format.getActions().loadActionBarVisible();
                 parent.setVisibility(hide ? View.GONE : View.VISIBLE);
                 final int marginBottom = hide ? 0 : (int) getResources().getDimension(R.dimen.textactions_bar_height);
                 setMarginBottom(_verticalScrollView, marginBottom);
