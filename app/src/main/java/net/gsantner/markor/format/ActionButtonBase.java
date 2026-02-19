@@ -295,6 +295,10 @@ public abstract class ActionButtonBase {
 
     @SuppressWarnings("ConstantConditions")
     public void recreateActionButtons(final ViewGroup barLayout, final ActionItem.DisplayMode displayMode) {
+        if (!loadActionBarVisible()) {
+            return;
+        }
+
         barLayout.removeAllViews();
         final Map<String, ActionItem> map = getActiveActionMap();
         final List<String> orderedKeys = getActionOrder();

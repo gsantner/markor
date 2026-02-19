@@ -728,12 +728,12 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     private void setActionBarVisibility() {
-        final Activity activity = getActivity();
-        if (activity == null) {
+        final View view = getView();
+        if (view == null) {
             return;
         }
 
-        final View parent = activity.findViewById(R.id.document__fragment__edit__text_actions_bar__scrolling_parent);
+        final View parent = view.findViewById(R.id.document__fragment__edit__text_actions_bar__scrolling_parent);
         if (parent == null) {
             return;
         }
@@ -743,12 +743,12 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             return;
         }
 
-        final View bar = activity.findViewById(R.id.document__fragment__edit__text_actions_bar);
+        final View bar = view.findViewById(R.id.document__fragment__edit__text_actions_bar);
         if (bar != null && _verticalScrollView != null) {
             parent.setVisibility(visible ? View.VISIBLE : View.GONE);
             final int marginBottom = visible ? (int) getResources().getDimension(R.dimen.textactions_bar_height) : 0;
             setMarginBottom(_verticalScrollView, marginBottom);
-            final View viewScroll = activity.findViewById(R.id.document__fragment_view_webview);
+            final View viewScroll = view.findViewById(R.id.document__fragment_view_webview);
             if (viewScroll != null) {
                 setMarginBottom(viewScroll, marginBottom);
             }
