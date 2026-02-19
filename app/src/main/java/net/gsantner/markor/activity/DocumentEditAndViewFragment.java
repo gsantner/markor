@@ -724,24 +724,33 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 .setUiReferences(activity, _hlEditor, _webView)
                 .recreateActionButtons(_textActionsBar, _isPreviewVisible ? ActionButtonBase.ActionItem.DisplayMode.VIEW : ActionButtonBase.ActionItem.DisplayMode.EDIT);
         updateMenuToggleStates(_format.getFormatId());
-        showHideActionBar();
+        setActionBarVisibility();
     }
 
-    private void showHideActionBar() {
+    private void setActionBarVisibility() {
         final Activity activity = getActivity();
-        if (activity != null) {
-            final View bar = activity.findViewById(R.id.document__fragment__edit__text_actions_bar);
-            final View parent = activity.findViewById(R.id.document__fragment__edit__text_actions_bar__scrolling_parent);
-            final View viewScroll = activity.findViewById(R.id.document__fragment_view_webview);
+        if (activity == null) {
+            return;
+        }
 
-            if (bar != null && parent != null && _verticalScrollView != null) {
-                final boolean hide = _textActionsBar.getChildCount() == 0 || !_format.getActions().loadActionBarVisible();
-                parent.setVisibility(hide ? View.GONE : View.VISIBLE);
-                final int marginBottom = hide ? 0 : (int) getResources().getDimension(R.dimen.textactions_bar_height);
-                setMarginBottom(_verticalScrollView, marginBottom);
-                if (viewScroll != null) {
-                    setMarginBottom(viewScroll, marginBottom);
-                }
+        final View parent = activity.findViewById(R.id.document__fragment__edit__text_actions_bar__scrolling_parent);
+        if (parent == null) {
+            return;
+        }
+
+        final boolean visible = _format.getActions().loadActionBarVisible() && _textActionsBar.getChildCount() > 0;
+        if (visible && parent.getVisibility() == View.VISIBLE) {
+            return;
+        }
+
+        final View bar = activity.findViewById(R.id.document__fragment__edit__text_actions_bar);
+        if (bar != null && _verticalScrollView != null) {
+            parent.setVisibility(visible ? View.VISIBLE : View.GONE);
+            final int marginBottom = visible ? (int) getResources().getDimension(R.dimen.textactions_bar_height) : 0;
+            setMarginBottom(_verticalScrollView, marginBottom);
+            final View viewScroll = activity.findViewById(R.id.document__fragment_view_webview);
+            if (viewScroll != null) {
+                setMarginBottom(viewScroll, marginBottom);
             }
         }
     }
@@ -1123,7 +1132,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
         show |= _document.isBinaryFileNoTextLoading();
         _format.getActions().recreateActionButtons(_textActionsBar, show ? ActionButtonBase.ActionItem.DisplayMode.VIEW : ActionButtonBase.ActionItem.DisplayMode.EDIT);
-        showHideActionBar();
         if (show) {
             setupWebViewIfNeeded(activity);
             updateViewModeText();
@@ -1141,6 +1149,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _nextConvertToPrintMode = false;
         _isPreviewVisible = show;
 
+        setActionBarVisibility();
         ((AppCompatActivity) activity).supportInvalidateOptionsMenu();
     }
 
