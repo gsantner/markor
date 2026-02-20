@@ -1080,6 +1080,8 @@ public abstract class ActionButtonBase {
                 ActionButtonBase.moveLineSelectionBy1(_hlEditor, false);
             } else if (callbackPayload.equals(getResString(R.string.select_current_line))) {
                 selectCurrentLine(_hlEditor.getText());
+            } else if (callbackPayload.equals(getResString(R.string.select_lines_hotkey))) {
+                MarkorDialogFactory.showSelectLinesDialog(_activity, _hlEditor);
             } else if (callbackPayload.equals(getResString(R.string.key_ctrl_a))) {
                 _hlEditor.setSelection(0, _hlEditor.length());
             } else if (callbackPayload.equals(getResString(R.string.key_tab))) {
@@ -1158,6 +1160,9 @@ public abstract class ActionButtonBase {
                 if (event.isAltPressed()) { // Ctrl + Alt
                     if (keyCode == KeyEvent.KEYCODE_K) {
                         deleteLine();
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_L) {
+                        MarkorDialogFactory.showSelectLinesDialog(getActivity(), _hlEditor);
                         return true;
                     } else if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
                         copyLine(true);

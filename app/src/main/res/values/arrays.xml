@@ -56,6 +56,7 @@
         <item translatable="false">@string/move_text_one_line_up</item>
         <item translatable="false">@string/move_text_one_line_down</item>
         <item translatable="false">@string/select_current_line</item>
+        <item translatable="false">@string/select_lines_hotkey</item>
         <item translatable="false">@string/key_ctrl_a</item>
         <item translatable="false">@string/key_tab</item>
         <item translatable="false">@string/key_pos_1_document</item>

@@ -202,6 +202,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="move_text_one_line_down">Move line down (Ctrl + ↓)</string>
     <string name="start_new_line_below">Start new line (Shift + Enter)</string>
     <string name="select_current_line">Select current line (Ctrl + L)</string>
+    <string name="select_lines_hotkey">Select lines (Ctrl + Alt + L)</string>
     <string name="key_ctrl_a">Select all (Ctrl+A)</string>
     <string name="key_tab">Tabulator (Tab)</string>
     <string name="zero_width_space">Zero-width space (&amp;#8203;)</string>
@@ -314,6 +315,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="folder_first">Folder first</string>
     <string name="go_to">Go to</string>
     <string name="go_to_line">Go to a specific line</string>
+    <string name="select_lines">Select lines</string>
+    <string name="current_line">Current line</string>
+    <string name="select_lines_sample">e.g. 1:2, 1:, :2, :, 1</string>
     <string name="line_number">Line number</string>
     <string name="appdata_public">AppData (public)</string>
     <string name="appdata_private">AppData (private)</string>
