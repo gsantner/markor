@@ -1219,7 +1219,7 @@ public class MarkorDialogFactory {
         options.messageText = activity != null ? activity.getString(R.string.go_to_line) : "";
         options.isSearchEnabled = true;
         options.searchHintText = R.string.line_number;
-        options.searchInputType = InputType.TYPE_CLASS_NUMBER; // Limit users to only input non-negative integers
+        options.searchInputType = InputType.TYPE_CLASS_NUMBER; // Restrict users to only input non-negative integers
         options.selectionMode = DialogOptions.SelectionMode.NONE;
         options.callback = (input) -> {
             if (!input.isEmpty()) {

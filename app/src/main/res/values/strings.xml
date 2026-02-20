@@ -313,7 +313,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="swipe_to_change_to_edit_or_view_mode">Swipe to change to edit or view mode (opposite of the current mode)</string>
     <string name="folder_first">Folder first</string>
     <string name="go_to">Go to</string>
-    <string name="go_to_line">Go to line</string>
+    <string name="go_to_line">Go to a specific line</string>
     <string name="line_number">Line number</string>
     <string name="appdata_public">AppData (public)</string>
     <string name="appdata_private">AppData (private)</string>
