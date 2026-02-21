@@ -1093,6 +1093,8 @@ public abstract class ActionButtonBase {
                 ActionButtonBase.moveLineSelectionBy1(_hlEditor, true);
             } else if (callbackPayload.equals(getResString(R.string.move_text_one_line_down))) {
                 ActionButtonBase.moveLineSelectionBy1(_hlEditor, false);
+            } else if (callbackPayload.equals(getResString(R.string.duplicate_hotkey))) {
+                duplicate(false);
             } else if (callbackPayload.equals(getResString(R.string.select_current_line))) {
                 selectCurrentLine(_hlEditor.getText());
             } else if (callbackPayload.equals(getResString(R.string.select_lines_hotkey))) {
