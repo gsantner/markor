@@ -696,14 +696,22 @@ public abstract class ActionButtonBase {
         }
     }
 
-    // Move current line up/down
-    public void moveLine(boolean toUp) {
-        moveLineSelectionBy1(_hlEditor, toUp);
+    /**
+     * Move current line up/down.
+     *
+     * @param up move the line up if true else down
+     */
+    public void moveLine(boolean up) {
+        moveLineSelectionBy1(_hlEditor, up);
         runRenumberOrderedListIfRequired();
     }
 
-    // Copy current line up/down
-    public void copyLine(boolean toUp) {
+    /**
+     * Duplicate current line or selected text up/down.
+     *
+     * @param up duplicate the line or selected text up if true else down
+     */
+    public void duplicate(boolean up) {
         int selectionStart = _hlEditor.getSelectionStart();
         if (selectionStart < 0) {
             return;
@@ -713,18 +721,25 @@ public abstract class ActionButtonBase {
             return;
         }
 
-        int lineStart = TextViewUtils.getLineStart(text, selectionStart);
-        int lineEnd = TextViewUtils.getLineEnd(text, selectionStart);
-        CharSequence line = text.subSequence(lineStart, lineEnd);
-        if (toUp) {
-            _hlEditor.setSelection(lineStart);
-            line = line + "\n";
+        int selectionEnd = _hlEditor.getSelectionEnd();
+        if (selectionStart == selectionEnd) {
+            int lineStart = TextViewUtils.getLineStart(text, selectionStart);
+            int lineEnd = TextViewUtils.getLineEnd(text, selectionStart);
+            CharSequence line = text.subSequence(lineStart, lineEnd);
+            if (up) {
+                _hlEditor.setSelection(lineStart);
+                line = line + "\n";
+            } else {
+                _hlEditor.setSelection(lineEnd);
+                line = "\n" + line;
+            }
+            _hlEditor.insertOrReplaceTextOnCursor(line.toString());
+            _hlEditor.setSelection(selectionStart + (up ? 0 : line.length()));
         } else {
-            _hlEditor.setSelection(lineEnd);
-            line = "\n" + line;
+            CharSequence selectedText = text.subSequence(selectionStart, selectionEnd);
+            _hlEditor.setSelection(up ? selectionStart : selectionEnd);
+            _hlEditor.insertOrReplaceTextOnCursor(selectedText.toString());
         }
-        _hlEditor.insertOrReplaceTextOnCursor(line.toString());
-        _hlEditor.setSelection(selectionStart + (toUp ? 0 : line.length()));
     }
 
     // Some actions common to multiple file types
@@ -1165,10 +1180,10 @@ public abstract class ActionButtonBase {
                         MarkorDialogFactory.showSelectLinesDialog(getActivity(), _hlEditor);
                         return true;
                     } else if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
-                        copyLine(true);
+                        duplicate(true);
                         return true;
                     } else if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
-                        copyLine(false);
+                        duplicate(false);
                         return true;
                     }
                 } else if (event.isShiftPressed()) { // Ctrl + Shift
@@ -1186,7 +1201,10 @@ public abstract class ActionButtonBase {
                         fragment.redo();
                         return true;
                     }
-                } else if (keyCode == KeyEvent.KEYCODE_G) { // Ctrl + ordinary key
+                } else if (keyCode == KeyEvent.KEYCODE_D) { // Ctrl + ordinary key
+                    duplicate(false);
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_G) {
                     MarkorDialogFactory.showGoToLineDialog(getActivity(), _hlEditor);
                     return true;
                 } else if (keyCode == KeyEvent.KEYCODE_K) {
