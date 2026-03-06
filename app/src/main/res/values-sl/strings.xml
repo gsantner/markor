@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
 Maintained 2017-2025 by Gregor Santner <gsantner AT mailbox DOT org>
 
 To the extent possible under law, the person who associated CC0 with
@@ -27,15 +28,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_new_document">Ustvari nov dokument</string>
     <string name="move">Premakni</string>
     <string name="info">Podatki</string>
-
     <string name="file_folder_already_exists_please_use_a_different_name">Datoteka/mapa s tem imenom že obstaja! Uporabite drugo ime</string>
-
     <string name="import_from_device">Uvozi z naprave</string>
     <string name="import_">Uvozi</string>
     <string name="append_to_witharg">Pripni k/h %s</string>
     <string name="select_folder">Izberi mapo</string>
     <string name="edit">Uredi</string>
-
     <string name="search_documents">Išči v dokumentu</string>
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Deli z&#8230;</string>
     <string name="share">Deli</string>
@@ -49,7 +47,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document">Dokument</string>
     <string name="documents">Dokumenti</string>
     <string name="html_as_plaintext">HTML (kot navadno besedilo)</string>
-
     <string name="document_editor_font">Pisava urejevalnika dokumentov</string>
     <string name="theme">Tema</string>
     <string name="open_existing_files_in_view_mode">Odpri obstoječe datoteke v ogledovalnem načinu</string>
@@ -60,7 +57,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="font_size">Velikost pisave</string>
     <string name="render_rtl_language">Upodabljanje za jezike, ki se pišejo od desne proti levi</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Napaka: ni bilo mogoče ustvariti imenika beležke</string>
-
     <string name="last_modified_witharg">Zadnjič spremenjeno: %s</string>
     <string name="last_modified">Zadnja sprememba</string>
     <string name="select_this_folder">Izberi to mapo</string>
@@ -70,16 +66,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Ustvari vnose</string>
     <string name="one_item_selected">Izbran en predmet</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">Izbranih %d predmetov</string>
-
     <string name="hide_statusbar_at_this_view">Skrij vrstico stanja v tem pogledu</string>
     <string name="hide_statusbar">Skrij vrstico stanja</string>
-
     <string name="name">Ime</string>
     <string name="url_or_path">URL / pot</string>
     <string name="insert_link">Vstavi povezavo</string>
     <string name="format_link">Oblikuj povezavo</string>
     <string name="insert_image">Vstavi sliko</string>
-
     <string name="contributors">Sodelavci</string>
     <string name="save_location">Shrani mesto</string>
     <string name="saved_location_to">Shranjeno v %s</string>
@@ -88,7 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="changelog">Dnevnik sprememb</string>
     <string name="more_info">Več podakov</string>
     <string name="show_license_of_the_app">Prikaži dovoljenje orodja</string>
-	<string name="show_third_party_licenses">Prikaži dovoljenja tretje strani</string>
+    <string name="show_third_party_licenses">Prikaži dovoljenja tretje strani</string>
     <string name="language_change_restart_description">Spremenite jezik tega orodja. Za uveljavitev sprememb ponovno zaženite orodje</string>
     <string name="language">Jezik</string>
     <string name="storage_permission_required">Dovoljenja do pomnilnika, zahtevana za branje in urejanje datotek</string>
@@ -123,7 +116,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive">Arhiviraj</string>
     <string name="add_task">Dodaj opravilo</string>
     <string name="add_x_witharg">Dodaj %s</string>
-    <string name="document_to_be_loaded_and_saved_as_witharg">Dokument bo naložen in shranjen kot "%s"</string>
+    <string name="document_to_be_loaded_and_saved_as_witharg">Dokument bo naložen in shranjen kot \"%s\"</string>
     <string name="refresh">Osveži</string>
     <string name="create_shortcut">Ustvari bližnjico</string>
     <string name="tried_to_create_shortcut_for_this_notice">Poskusili smo ustvariti bližnjico na vašem domačem zaslonu. Zavedajte se, da nekateri zaganjalniki tega morda ne podpirajo.</string>
@@ -134,7 +127,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_browser">Brskalnik datotek</string>
     <string name="set_due_date">Določi rok</string>
     <string name="insert_replace_date">Vstavi datum</string>
-
     <string name="create_note" needed="false">Ustavri opombo</string>
     <string name="special_documents" needed="false">Posebni dokumenti</string>
     <string name="keep_screen_on" needed="false">Ohrani zaslon prižgan</string>
@@ -144,7 +136,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="editor_settings" needed="false">Nastavitve urejevalnika</string>
     <string name="remember_last_folder_location_on_startup" needed="false">Zapomni si mesto zadnje mape ob zagonu</string>
     <string name="number_of_files_witharg" needed="false">Število datotek: %d</string>
-
     <string name="app_wide">Za celotno orodje</string>
     <string name="main_view">Glavni pogled</string>
     <string name="overall_theme_used_in_app">Splošna tema, uporabljena v orodju</string>
@@ -165,7 +156,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="empty_file">Prazna datoteka</string>
     <string name="break_page_pdf_print">Prelomi strani (PDF/tisk)</string>
     <string name="underline">Podčrtano</string>
-
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Ali naj se šestnajstiške barvne kode (HEX) označujejo glede na barvo</string>
     <string name="underline_hex_color_codes">Podčrtaj šestnajstiške barvne kode (HEX)</string>
     <string name="insert_current_date_when_starting_new_task">Ob ustvarjanju noveha opravila vstavi trenutni datum</string>
@@ -237,8 +227,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more_info_and_help">Več o orodju in pomoč</string>
     <string name="report_bugs">Poročilo o hroščih</string>
     <string name="do_you_have_a_question_or_problem">Imate vprašanje ali težavo?</string>
-
-
     <string name="join_community">Pridružite se skupnosti</string>
     <string name="bug_reports_suggest_improvements">Delite povratne informacije, poročajte o napakah ali predlagajte izboljšave</string>
     <string name="help_translating_this_app">Prevedite to orodje v druge jezike</string>
@@ -248,10 +236,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_team">Ekipa projekta</string>
     <string name="community">Skupnost</string>
     <string name="contributors_public_add_yourself_description">Prikaži podatke o prispevanju. Posredujte jih, da se po prispevkih prikažejo tukaj, v kar privolite.</string>
-
     <string name="descending">Padajoče</string>
     <string name="ascending">Naraščajoče</string>
-
     <string name="disable_spelling_underline">Onemogoči podčrtavanje napačnega črkovanja</string>
     <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Predlogi tipkovnice ostanejo, rdeče podčrtavanje izgine</string>
     <string name="location">Mesto</string>
@@ -273,7 +259,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="enter_yaml_front_matter_attributes_to_show">Prikaži vnesene oznake YAML Front Matter na vrhu prikazanih dokumentov. Vnesite ključe, ločene z vejicami. Pustite prazno, če ni ničesar, ali uporabite \‚*\‘ za vse. \n\nČe je v dokumentu opredeljena katera koli oznaka (npr. naslov: \‚Hello\‘) in je v dokumentu tudi {{ post.title }} , se ta nadomesti. Na ta način lahko ustvarite lastno naslovno vrstico Front Matter.</string>
     <string name="table_of_contents">Kazalo</string>
     <string name="miscellaneous">Razno</string>
-
     <string name="prefer_view">Prednostni pogled</string>
     <string name="no_calendar_app_is_installed">Nobeno orodje za koledar ni nameščeno!</string>
     <string name="popular_documents">Priljubljeni dokumentis</string>
@@ -389,7 +374,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Dodaj okvir</string>
     <string name="add_project">Dodaj projekt</string>
     <string name="archive_completed_tasks">Arhiviraj končana opravila</string>
-
     <string name="create_new_file_or_folder">Ustvari novo datoteko ali mapo</string>
     <string name="choose_format">Izberi obliko datoteke</string>
     <string name="clear_selection">Počisti izbiro</string>
@@ -403,9 +387,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="load_default_settings">Naloži privzete nastavitve</string>
     <string name="drag">Povleči</string>
     <string name="created">Ustvarjeno</string>
-
     <string name="file_encryption_password">Geslo šifriranja datoteke</string>
-    <string name="no_password_set_cannot_encrypt_decrypt">Ni nastavljenega gesla, šifriranje in odšifriranje ni mogoče.\nPojdite v Nastavitve -> Splošno -> Geslo za nastavitev gesla.</string>
+    <string name="no_password_set_cannot_encrypt_decrypt">Ni nastavljenega gesla, šifriranje in odšifriranje ni mogoče.\nPojdite v Nastavitve -&gt; Splošno -&gt; Geslo za nastavitev gesla.</string>
     <string name="encrypt_file_content">Zašifriraj vsebino datoteke</string>
     <string name="utf8_with_bom">UTF-8 z BOM</string>
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">Ni bilo mogoče zašifrirati vsebine datoteke Datoteka ni bila shranjena.</string>
