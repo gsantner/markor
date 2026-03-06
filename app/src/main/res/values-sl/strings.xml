@@ -88,7 +88,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="changelog">Dnevnik sprememb</string>
     <string name="more_info">Več podakov</string>
     <string name="show_license_of_the_app">Prikaži dovoljenje orodja</string>
-    <string name="show_third_party_licenses">Prikaži dovoljenja tretje strani<string>
+	<string name="show_third_party_licenses">Prikaži dovoljenja tretje strani</string>
     <string name="language_change_restart_description">Spremenite jezik tega orodja. Za uveljavitev sprememb ponovno zaženite orodje</string>
     <string name="language">Jezik</string>
     <string name="storage_permission_required">Dovoljenja do pomnilnika, zahtevana za branje in urejanje datotek</string>
