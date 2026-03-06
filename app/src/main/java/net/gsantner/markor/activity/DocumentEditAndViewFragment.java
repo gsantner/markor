@@ -106,6 +106,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     private HorizontalScrollView _horizontalScrollView;
     private LineNumbersView _lineNumbersView;
     private SearchView _menuSearchViewForViewMode;
+    private TextView _searchResultTextView;
     private Document _document;
     private FormatRegistry _format;
     private MarkorContextUtils _cu;
@@ -693,10 +694,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         if (searchView == null) {
             return;
         }
-        // Only setup SearchView for view-mode, to avoid unnecessary setup for edit-mode
-        if (!_isPreviewVisible || _webView == null) {
-            return;
-        }
+        _menuSearchViewForViewMode = searchView;
 
         searchView.setQueryHint(getString(R.string.search));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -730,22 +728,25 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 return search(text);
             }
         });
-        searchView.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
-            @Override
-            public void onViewAttachedToWindow(@NonNull View v) {
-            }
+        if (searchView.getTag(R.id.action_search_view) == null) {
+            searchView.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
+                @Override
+                public void onViewAttachedToWindow(@NonNull View v) {
+                }
 
-            @Override
-            public void onViewDetachedFromWindow(@NonNull View v) {
-                // Clear search when SearchView is closed abnormally, e.g. switch from QuickNote to To-Do when SearchView is opened
-                if (searchView.getQuery().length() > 0) {
-                    searchView.setQuery("", false); // This will make onQueryTextChange be called back
+                @Override
+                public void onViewDetachedFromWindow(@NonNull View v) {
+                    // Clear search when SearchView is closed abnormally, e.g. switch from QuickNote to To-Do when SearchView is opened
+                    if (searchView.getQuery().length() > 0) {
+                        searchView.setQuery("", false); // This will make onQueryTextChange be called back
+                    }
+                    if (!searchView.isIconified()) {
+                        searchView.setIconified(true);
+                    }
                 }
-                if (!searchView.isIconified()) {
-                    searchView.setIconified(true);
-                }
-            }
-        });
+            });
+            searchView.setTag(R.id.action_search_view, Boolean.TRUE);
+        }
 
         // Because SearchView doesn't provide a public API to add custom buttons
         // We must get the searchPlate (the layout containing the text field and close button) from SearchView
@@ -758,37 +759,50 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         }
 
         Context searchViewContext = searchView.getContext();
-        LinearLayout linearLayout = new LinearLayout(searchViewContext);
+        LinearLayout linearLayout = searchPlate.findViewWithTag("markor_search_nav_controls");
+        TextView resultTextView;
+        ImageButton previousButton;
+        ImageButton nextButton;
+        if (linearLayout == null) {
+            linearLayout = new LinearLayout(searchViewContext);
+            linearLayout.setTag("markor_search_nav_controls");
 
-        // Add search result TextView
-        TextView resultTextView = new TextView(searchViewContext);
-        resultTextView.setGravity(Gravity.CENTER);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.MATCH_PARENT
-        );
-        layoutParams.setMarginEnd(14);
-        resultTextView.setLayoutParams(layoutParams);
-        linearLayout.addView(resultTextView);
+            // Add search result TextView
+            resultTextView = new TextView(searchViewContext);
+            resultTextView.setTag("markor_search_nav_result");
+            resultTextView.setGravity(Gravity.CENTER);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT
+            );
+            layoutParams.setMarginEnd(14);
+            resultTextView.setLayoutParams(layoutParams);
+            linearLayout.addView(resultTextView);
 
-        // Add previous match Button
-        ImageButton previousButton = new ImageButton(searchViewContext);
-        previousButton.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            previousButton.setTooltipText(getString(R.string.previous_match));
+            // Add previous match Button
+            previousButton = new ImageButton(searchViewContext);
+            previousButton.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                previousButton.setTooltipText(getString(R.string.previous_match));
+            }
+            linearLayout.addView(previousButton);
+
+            // Add next match Button
+            nextButton = new ImageButton(searchViewContext);
+            nextButton.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                nextButton.setTooltipText(getString(R.string.next_match));
+            }
+            linearLayout.addView(nextButton);
+
+            // Apply to SearchView
+            searchPlate.addView(linearLayout, 1);
+        } else {
+            resultTextView = linearLayout.findViewWithTag("markor_search_nav_result");
+            previousButton = (ImageButton) linearLayout.getChildAt(1);
+            nextButton = (ImageButton) linearLayout.getChildAt(2);
         }
-        linearLayout.addView(previousButton);
-
-        // Add next match Button
-        ImageButton nextButton = new ImageButton(searchViewContext);
-        nextButton.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            nextButton.setTooltipText(getString(R.string.next_match));
-        }
-        linearLayout.addView(nextButton);
-
-        // Apply to SearchView
-        searchPlate.addView(linearLayout, 1);
+        _searchResultTextView = resultTextView;
 
         // Set listeners
         previousButton.setOnClickListener(v -> {
@@ -801,13 +815,20 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 _webView.findNext(true);
             }
         });
+        bindWebViewSearchListener();
+    }
+
+    private void bindWebViewSearchListener() {
+        if (_webView == null || _searchResultTextView == null) {
+            return;
+        }
         _webView.setFindListener((activeMatchOrdinal, numberOfMatches, isDoneCounting) -> {
             if (isDoneCounting) {
                 String searchResult = "";
                 if (numberOfMatches > 0) {
                     searchResult = (activeMatchOrdinal + 1) + "/" + numberOfMatches;
                 }
-                resultTextView.setText(searchResult);
+                _searchResultTextView.setText(searchResult);
             }
         });
     }
@@ -1008,6 +1029,10 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             _webViewClient = new MarkorWebViewClient(_webView, activity);
             _webView.setWebViewClient(_webViewClient);
         }
+        if (_format != null) {
+            _format.getActions().setUiReferences(activity, _hlEditor, _webView);
+        }
+        bindWebViewSearchListener();
     }
 
     @SuppressLint({"AddJavascriptInterface", "SetJavaScriptEnabled"})
@@ -1068,7 +1093,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     @Override
-    public void onDestroy() {
+    public void onDestroyView() {
         if (_webView != null) {
             try {
                 _webView.loadUrl("about:blank");
@@ -1076,7 +1101,13 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             } catch (Exception ignored) {
             }
         }
-        super.onDestroy();
+        _webView = null;
+        _webViewClient = null;
+        _searchResultTextView = null;
+        if (_format != null) {
+            _format.getActions().setUiReferences(getActivity(), _hlEditor, null);
+        }
+        super.onDestroyView();
     }
 
     public Document getDocument() {
