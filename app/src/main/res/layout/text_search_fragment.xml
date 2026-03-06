@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="start"
+    android:layout_marginStart="5dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginEnd="5dp"
+    android:layout_marginBottom="4dp"
+    android:background="@drawable/text_search_fragment_background"
+    android:elevation="5dp"
+    android:minWidth="300dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layoutDirection="rtl"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/closeImageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:contentDescription="@string/close"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                android:tooltipText="@string/close"
+                app:srcCompat="@drawable/baseline_close_24" />
+
+            <ImageButton
+                android:id="@+id/filterImageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/line_based_search"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                android:tooltipText="@string/line_based_search"
+                app:srcCompat="@drawable/baseline_filter_alt_24" />
+
+            <ImageButton
+                android:id="@+id/findInSelectionImageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/find_in_selection"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                android:tooltipText="@string/find_in_selection"
+                app:srcCompat="@drawable/ic_list_selection_24dp" />
+
+            <ImageButton
+                android:id="@+id/nextImageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/next_match"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                android:tooltipText="@string/next_match"
+                app:srcCompat="@drawable/ic_baseline_arrow_downward_24" />
+
+            <ImageButton
+                android:id="@+id/previousImageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/previous_match"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                android:tooltipText="@string/previous_match"
+                app:srcCompat="@drawable/ic_baseline_arrow_upward_24" />
+
+            <TextView
+                android:id="@+id/resultTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:gravity="center"
+                android:text="@string/no_results"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/toggleImageButton"
+                android:layout_width="36dp"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/toggle_find_replace"
+                android:tooltipText="@string/toggle_find_replace"
+                app:srcCompat="@drawable/baseline_chevron_right_24" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <EditText
+                        android:id="@+id/searchEditText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="16"
+                        android:hint="@string/search"
+                        android:importantForAutofill="no"
+                        android:inputType="text"
+                        android:minHeight="48dp"
+                        android:nextFocusRight="@id/searchEditText"
+                        android:nextFocusDown="@id/searchEditText"
+                        android:textSize="16sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/newLineSearchTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="?attr/selectableItemBackground"
+                            android:contentDescription="@string/new_line"
+                            android:padding="1dp"
+                            android:src="@drawable/ic_new_line_24dp"
+                            android:tooltipText="@string/new_line" />
+
+                        <ImageView
+                            android:id="@+id/clearSearchTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginEnd="2dp"
+                            android:background="?attr/selectableItemBackground"
+                            android:contentDescription="@string/clear"
+                            android:padding="1dp"
+                            android:src="@drawable/ic_baseline_clear_24"
+                            android:tooltipText="@string/clear" />
+
+                        <ImageButton
+                            android:id="@+id/matchCaseImageButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/match_case"
+                            android:minWidth="48dp"
+                            android:minHeight="48dp"
+                            android:tooltipText="@string/match_case"
+                            app:srcCompat="@drawable/outline_match_case_24" />
+
+                        <ImageButton
+                            android:id="@+id/matchWholeWordImageButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/match_whole_word"
+                            android:minWidth="48dp"
+                            android:minHeight="48dp"
+                            android:tooltipText="@string/match_whole_word"
+                            app:srcCompat="@drawable/outline_match_word_24" />
+
+                        <ImageButton
+                            android:id="@+id/useRegexImageButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/use_regular_expression"
+                            android:minWidth="48dp"
+                            android:minHeight="48dp"
+                            android:tooltipText="@string/use_regular_expression"
+                            app:srcCompat="@drawable/ic_regex_24dp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/replaceLinearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <EditText
+                        android:id="@+id/replaceEditText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="16"
+                        android:hint="@string/replace"
+                        android:importantForAutofill="no"
+                        android:inputType="textMultiLine"
+                        android:maxLines="5"
+                        android:minHeight="48dp"
+                        android:textSize="16sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/clearReplaceTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginEnd="2dp"
+                            android:background="?attr/selectableItemBackground"
+                            android:contentDescription="@string/clear"
+                            android:padding="1dp"
+                            android:src="@drawable/ic_baseline_clear_24"
+                            android:tooltipText="@string/clear" />
+
+                        <ImageButton
+                            android:id="@+id/preserveCaseImageButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/preserve_case"
+                            android:minWidth="48dp"
+                            android:minHeight="48dp"
+                            android:tooltipText="@string/preserve_case"
+                            app:srcCompat="@drawable/ic_preserve_case_24dp" />
+
+                        <ImageButton
+                            android:id="@+id/replaceImageButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/replace_once"
+                            android:minWidth="48dp"
+                            android:minHeight="48dp"
+                            android:tooltipText="@string/replace_once"
+                            app:srcCompat="@drawable/ic_replace_24dp" />
+
+                        <ImageButton
+                            android:id="@+id/replaceAllImageButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/replace_all"
+                            android:minWidth="48dp"
+                            android:minHeight="48dp"
+                            android:tooltipText="@string/replace_all"
+                            app:srcCompat="@drawable/ic_replace_all_24dp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

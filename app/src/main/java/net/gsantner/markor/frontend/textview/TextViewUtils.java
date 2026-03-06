@@ -9,6 +9,7 @@
 #########################################################*/
 package net.gsantner.markor.frontend.textview;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Build;
@@ -21,12 +22,14 @@ import android.text.Selection;
 import android.text.Spannable;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.WindowInsets;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import net.gsantner.markor.util.TextCasingUtils;
 import net.gsantner.opoc.format.GsTextUtils;
@@ -264,7 +267,6 @@ public final class TextViewUtils {
         return i;
     }
 
-
     public static void selectLines(final EditText edit, final Integer... positions) {
         selectLines(edit, Arrays.asList(positions));
     }
@@ -317,12 +319,7 @@ public final class TextViewUtils {
         }
     }
 
-    public static void showSelection(final TextView text) {
-        showSelection(text, text.getSelectionStart(), text.getSelectionEnd());
-    }
-
-    public static void showSelection(final TextView text, final int start, final int end) {
-
+    public static void showSelection(final TextView text, Rect visible, final int start, final int end, int offsetY) {
         // Get view info
         // ------------------------------------------------------------
         final Layout layout = text.getLayout();
@@ -337,9 +334,6 @@ public final class TextViewUtils {
         }
         final int lineStart = TextViewUtils.getLineStart(text.getText(), _start);
 
-        final Rect viewSize = new Rect();
-        text.getLocalVisibleRect(viewSize);
-
         // Region in Y
         // ------------------------------------------------------------
         final int startLine = layout.getLineForOffset(lineStart);
@@ -351,19 +345,29 @@ public final class TextViewUtils {
         final int lineHeight = endLineBottom - endLineTop;
 
         final Rect region = new Rect();
-        region.top = Math.max(startLineTop, endLineBottom - viewSize.height() + lineHeight);
-        region.bottom = endLineBottom;
+        region.top = Math.max(startLineTop, endLineBottom - visible.height() + lineHeight) + offsetY;
+        region.bottom = endLineBottom + offsetY;
 
         // Region in X - as handling RTL, text alignment, and centred text etc is
         // a huge pain (see TextView.bringPointIntoView), we use a very simple solution.
         // ------------------------------------------------------------
         final int startLeft = (int) layout.getPrimaryHorizontal(_start);
-        final int halfWidth = viewSize.width() / 2;
+        final int halfWidth = visible.width() / 2;
         // Push the start to the middle of the screen
         region.left = Math.max(startLeft - halfWidth, 0);
         region.right = Math.min(startLeft + halfWidth, text.getWidth());
 
         text.requestRectangleOnScreen(region, true);
+    }
+
+    public static void showSelection(final TextView text, final int start, final int end) {
+        Rect visible = new Rect();
+        text.getLocalVisibleRect(visible);
+        showSelection(text, visible, start, end, visible.height() - text.getLineHeight());
+    }
+
+    public static void showSelection(final TextView text) {
+        showSelection(text, text.getSelectionStart(), text.getSelectionEnd());
     }
 
     public static void setSelectionAndShow(final EditText edit, final int... sel) {
@@ -381,6 +385,30 @@ public final class TextViewUtils {
 
             edit.setSelection(start, end);
             showSelection(edit, start, end);
+        }
+    }
+
+    /**
+     * Scroll EditText view to the region that contains the start selection and don‘t insert this selection.
+     * If start selection is already in current visible region, it will not scroll EditText view.
+     *
+     * @param editText       EditText view
+     * @param startSelection Start selection
+     */
+    public static void showSelection(final EditText editText, final int startSelection) {
+        Layout layout = editText.getLayout();
+        if (layout == null) {
+            return;
+        }
+
+        Rect visible = new Rect();
+        editText.getLocalVisibleRect(visible);
+        int line = layout.getLineForOffset(startSelection);
+        int lineHeight = editText.getLineHeight();
+        if (layout.getLineTop(line) < visible.top - lineHeight) {
+            showSelection(editText, visible, startSelection, startSelection, -lineHeight);
+        } else if (layout.getLineBottom(line) > visible.bottom - lineHeight) {
+            showSelection(editText, visible, startSelection, startSelection, lineHeight * 4);
         }
     }
 
@@ -828,5 +856,11 @@ public final class TextViewUtils {
         filterList.remove(filter);
         view.setFilters(filterList.toArray(new InputFilter[0]));
         return true;
+    }
+
+    public static void setSelectableItemBackgroundBorderless(View view, Context context) {
+        TypedValue outValue = new TypedValue();
+        context.getTheme().resolveAttribute(android.R.attr.selectableItemBackgroundBorderless, outValue, true);
+        view.setBackground(ContextCompat.getDrawable(context, outValue.resourceId));
     }
 }

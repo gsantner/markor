@@ -402,6 +402,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="loading_default_value">正在加载默认值</string>
     <string name="file_settings">文件设置</string>
     <string name="search_and_replace">搜索/替换</string>
+    <string name="replace">替换</string>
     <string name="search_for">搜索</string>
     <string name="replace_with">替换为</string>
     <string name="replace_once">替换 (1)</string>

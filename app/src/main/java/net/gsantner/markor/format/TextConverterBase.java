@@ -36,7 +36,7 @@ public abstract class TextConverterBase {
     //########################
     protected static final String UTF_CHARSET = "utf-8";
     protected static final String CONTENT_TYPE_HTML = "text/html";
-    protected static final String CONTENT_TYPE_PLAIN = "text/plain";
+    // protected static final String CONTENT_TYPE_PLAIN = "text/plain";
 
     protected static final String CSS_S = "<style type='text/css'>";
     protected static final String CSS_E = "</style>";
@@ -71,9 +71,11 @@ public abstract class TextConverterBase {
 
     // onPageLoaded_markor_private() invokes the user injected function onPageLoaded()
     protected static final String HTML500_BODY = "</head>\n<body class='" + TOKEN_TEXT_CONVERTER_CSS_CLASS + "' onload='onPageLoaded_markor_private();'>\n\n<!-- USER DOCUMENT CONTENT -->\n\n\n";
-    //protected static final String HTML900_TO_TOP = "<a class='back_to_top'>&uarr;</a>"
-    //        + CSS_S + ".back_to_top { position: fixed; bottom: 80px; right: 40px; z-index: 9999; width: 30px; height: 30px; text-align: center; line-height: 30px; background: #f5f5f5; color: #444; cursor: pointer; border-radius: 2px; display: none; } .back_to_top:hover { background: #e9ebec; } .back_to_top-show { display: block; }" +CSS_E
-    //        + "<script>" + "(function() { 'use strict'; function trackScroll() { var scrolled = window.pageYOffset; var coords = document.documentElement.clientHeight; if (scrolled > coords) { goTopBtn.classList.add('back_to_top-show'); } if (scrolled < coords) { goTopBtn.classList.remove('back_to_top-show'); } } function backToTop() { if (window.pageYOffset > 0) { window.scrollBy(0, -80); setTimeout(backToTop, 0); } } var goTopBtn = document.querySelector('.back_to_top'); window.addEventListener('scroll', trackScroll); goTopBtn.addEventListener('click', backToTop); })();" + "</script>";
+    /**
+     * protected static final String HTML900_TO_TOP = "<a class='back_to_top'>&uarr;</a>"
+     * + CSS_S + ".back_to_top { position: fixed; bottom: 80px; right: 40px; z-index: 9999; width: 30px; height: 30px; text-align: center; line-height: 30px; background: #f5f5f5; color: #444; cursor: pointer; border-radius: 2px; display: none; } .back_to_top:hover { background: #e9ebec; } .back_to_top-show { display: block; }" +CSS_E
+     * + "<script>" + "(function() { 'use strict'; function trackScroll() { var scrolled = window.pageYOffset; var coords = document.documentElement.clientHeight; if (scrolled > coords) { goTopBtn.classList.add('back_to_top-show'); } if (scrolled < coords) { goTopBtn.classList.remove('back_to_top-show'); } } function backToTop() { if (window.pageYOffset > 0) { window.scrollBy(0, -80); setTimeout(backToTop, 0); } } var goTopBtn = document.querySelector('.back_to_top'); window.addEventListener('scroll', trackScroll); goTopBtn.addEventListener('click', backToTop); })();" + "</script>";
+     */
     protected static final String HTML990_BODY_END = "\n\n<!-- USER DOCUMENT CONTENT END -->\n\n</body></html>";
 
     protected static final String HTML_ON_PAGE_LOAD_S = "<script> function onPageLoaded_markor_private() {\n";
@@ -92,9 +94,8 @@ public abstract class TextConverterBase {
      *
      * @param document The document containing the contents
      * @param webView  The WebView content to be shown in
-     * @return Copy of converted html
      */
-    public String convertMarkupShowInWebView(
+    public void convertMarkupShowInWebView(
             final Document document,
             final String content,
             final Activity context,
@@ -124,8 +125,6 @@ public abstract class TextConverterBase {
         for (int i = (html.contains(TOKEN_TEXT_CONVERTER_MAX_ZOOM_OUT_BY_DEFAULT) ? 0 : 99); i < 30; i++) {
             webView.postDelayed(webView::zoomOut, 210 * (i < 5 ? 1 : (i < 10 ? 2 : (i < 15 ? 3 : (i < 20 ? 5 : 9)))));
         }
-
-        return html;
     }
 
     /**
@@ -133,8 +132,8 @@ public abstract class TextConverterBase {
      *
      * @param markup    Markup text
      * @param context   Android Context
-     * @param lightMode
-     * @param lineNum
+     * @param lightMode light/dark mode
+     * @param lineNum   line number
      * @return html as String
      */
     public abstract String convertMarkup(String markup, Context context, boolean lightMode, boolean lineNum, File file);
@@ -188,9 +187,9 @@ public abstract class TextConverterBase {
                 .replace(TOKEN_ACCENT_COLOR, GsTextUtils.colorToHexString(ContextCompat.getColor(context, R.color.accent)))
                 .replace(TOKEN_TEXT_DIRECTION, as.isRenderRtl() ? "right" : "left")
                 .replace(TOKEN_FONT, font)
-                .replace(TOKEN_TEXT_CONVERTER_CSS_CLASS, "format-" + getClass().getSimpleName().toLowerCase().replace("textconverter", "").replace("converter", "") + " fileext-" + GsFileUtils.getFilenameExtension(file).replace(".", ""))
+                .replace(TOKEN_TEXT_CONVERTER_CSS_CLASS, "format-" + getClass().getSimpleName().toLowerCase().replace("textconverter", "").replace("converter", "") + (file == null ? "" : " fileext-" + GsFileUtils.getFilenameExtension(file).replace(".", "")))
                 .replace(TOKEN_POST_TODAY_DATE, DateFormat.getDateFormat(context).format(new Date()))
-                .replace(TOKEN_FILEURI_VIEWED_FILE, (file != null ? Uri.fromFile(file.getAbsoluteFile()).toString() : "file:///dummy").replace("'", "\\'").replace("\"", "\\\""));
+                .replace(TOKEN_FILEURI_VIEWED_FILE, (file == null ? "" : Uri.fromFile(file.getAbsoluteFile()).toString().replace("'", "\\'").replace("\"", "\\\"")));
 
         return html;
     }
