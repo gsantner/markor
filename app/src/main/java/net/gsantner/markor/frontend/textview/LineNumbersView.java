@@ -14,7 +14,6 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 
-@SuppressWarnings("UnusedReturnValue")
 public class LineNumbersView extends View {
     private EditText editText;
     private LineNumbersDrawer lineNumbersDrawer;
