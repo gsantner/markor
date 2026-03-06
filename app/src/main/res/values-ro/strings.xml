@@ -122,7 +122,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_current_folder_do_copy__appspecific">Fișierul nu se află în dosarul curent. Doriți să îl copiați în dosarul curent? Aceasta va suprascrie orice fișier existent cu același nume.</string>
     <string name="files_and_folders">Fișiere și dosare</string>
     <string name="document_browser">Browser de documente</string>
-    <string name="file_browser">Browser de fișiere</string>
     <string name="set_due_date">Setează data scadentă</string>
     <string name="insert_replace_date">Inserează data</string>
     <string name="create_note" needed="false">Creează o notă</string>
@@ -138,7 +137,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="main_view">Vizualizare principală</string>
     <string name="overall_theme_used_in_app">Tema generală utilizată în aplicație</string>
     <string name="remember_last_directory">Memorează ultimul director</string>
-    <string name="syntax_highlighting">Evidențiere sintaxă</string>
     <string name="highlighting_delay">Întârziere evidenţiere</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Întârziere în milisecunde pentru reîmprospătarea evidențierii. O valoare mai mică va începe evidențierea mai devreme, dar va consuma bateria și poate încetini aplicația pe dispozitivele mai vechi.</string>
     <string name="highlighting_enabled_or_not__appspecific">Controlează dacă textul introdus ar trebui evidențiat sau nu</string>
@@ -304,8 +302,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">Negru</string>
     <string name="white">Alb</string>
     <string name="view">Vizualizare</string>
-    <string name="view_mode">Mod vizualizare</string>
-    <string name="edit_mode">Mod editare</string>
     <string name="mount_storage">Montează stocarea</string>
     <string name="application_needs_access_to_storage_mount_it">Este necesară permisiunea pentru a accesa acest spațiu de stocare. Montați spațiul de stocare pentru a permite accesul. Confirmați această fereastră de dialog pentru a obține o fereastră pop-up. Selectați spațiul de stocare de acolo și apăsați Selectare.</string>
     <string name="share_into">Partajează în</string>
@@ -318,8 +314,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Fișierul selectat ar putea fi un fișier text simplu. Doriți să-l deschideți în editor sau într-o altă aplicație?\n\nNu încercați să deschideți fișiere binare. Dacă nu sunteți sigur, deschideți cu altă aplicație.</string>
     <string name="list_in_recent_files">Listează în fişierele recente</string>
     <string name="reload">Reîncarcă</string>
-    <string name="wrap_words">Încadrează cuvintele</string>
-    <string name="line_numbers">Numere de linie</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Întrerupere ușoară dacă textul nu se potrivește cu lățimea ecranului. Altfel activează derularea orizontală.</string>
     <string name="recursive_search_in_location">Caută recursiv în %s</string>
     <string name="always_open_with_this_app">Deschide întotdeauna cu această aplicație</string>
@@ -398,7 +392,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Format descriere fișier</string>
     <string name="file_description_format_dialog">Formatul descrierii de sub fiecare fișier din navigatorul de fișiere. Urmează regulile SimpleDateFormat ale Android, cu adăugarea FS pentru afișarea dimensiunii fișierului. Lăsați necompletat pentru a utiliza formatul implicit pentru setările regionale.\n\nExemplu de intrare:\nFS yyyy MMM dd hh:mm:ss aa\nFormatul rezultat:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">Se încarcă valoarea implicită</string>
-    <string name="file_settings">Setări fișier</string>
     <string name="search_and_replace">Caută / Înlocuiește</string>
     <string name="search_for">Caută după</string>
     <string name="replace_with">Înlocuiește cu</string>
