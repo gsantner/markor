@@ -27,6 +27,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.model.GsSharedPreferencesPropertyBackend;
 
@@ -46,8 +47,8 @@ public class SearchAndReplaceTextDialog {
     private static final String RECENT_SEARCH_REPLACE_STRING = "search_replace_dialog__recent_search_replace_history";
     private static final int MAX_RECENT_SEARCH_REPLACE = 10;
 
-    private final EditText searchText;
-    private final EditText replaceText;
+    private final EditText searchEditText;
+    private final EditText replaceEditText;
     private final CheckBox regexCheckBox;
     private final CheckBox multilineCheckBox;
     private final TextView matchState;
@@ -74,12 +75,15 @@ public class SearchAndReplaceTextDialog {
 
     private final List<ReplaceGroup> recentReplaces;
 
-    public static void showSearchReplaceDialog(final Activity activity, final Editable edit, final int[] sel) {
-        new SearchAndReplaceTextDialog(activity, edit, sel);
+    public static void showSearchReplaceDialog(final Activity activity, final Editable edit, Editable searchText, final int[] sel) {
+        new SearchAndReplaceTextDialog(activity, edit, searchText, sel);
     }
 
-    private SearchAndReplaceTextDialog(final Activity activity, final Editable edit, final int[] sel) {
+    public static void showSearchReplaceDialog(final Activity activity, final Editable edit, final int[] sel) {
+        showSearchReplaceDialog(activity, edit, null, sel);
+    }
 
+    private SearchAndReplaceTextDialog(final Activity activity, final Editable edit, Editable searchText, final int[] sel) {
         _activity = activity;
         _edit = edit;
 
@@ -110,14 +114,15 @@ public class SearchAndReplaceTextDialog {
         final View viewRoot = activity.getLayoutInflater().inflate(R.layout.search_replace_dialog, null);
         final AtomicReference<Dialog> dialog = new AtomicReference<>();
 
-        searchText = viewRoot.findViewById(R.id.search_input);
-        replaceText = viewRoot.findViewById(R.id.replace_input);
+        searchEditText = viewRoot.findViewById(R.id.search_input);
+        replaceEditText = viewRoot.findViewById(R.id.replace_input);
         regexCheckBox = viewRoot.findViewById(R.id.enable_regex);
         multilineCheckBox = viewRoot.findViewById(R.id.multiline);
         matchState = viewRoot.findViewById(R.id.match_count_or_error);
         replaceFirst = viewRoot.findViewById(R.id.replace_once);
         replaceAll = viewRoot.findViewById(R.id.replace_all);
 
+        if (searchText != null && searchText.length() > 0) searchEditText.setText(searchText);
         recentReplaces = loadRecentReplaces();
 
         final ListPopupWindow popupWindow = new ListPopupWindow(activity);
@@ -145,8 +150,8 @@ public class SearchAndReplaceTextDialog {
 
         popupWindow.setOnItemClickListener((parent, view, position, id) -> {
             final ReplaceGroup r = recentReplaces.get(position);
-            searchText.setText(r._search);
-            replaceText.setText(r._replace);
+            searchEditText.setText(r._search);
+            replaceEditText.setText(r._replace);
             regexCheckBox.setChecked(r._isRegex);
             multilineCheckBox.setChecked(r._isMultiline);
             updateUI();
@@ -156,6 +161,8 @@ public class SearchAndReplaceTextDialog {
         popupWindow.setAnchorView(viewRoot.findViewById(R.id.search_replace_text_group));
         popupWindow.setModal(true);
         viewRoot.findViewById(R.id.recent_show_spinner).setOnClickListener(v -> popupWindow.show());
+
+        final Runnable updateUITask = TextViewUtils.makeDebounced(searchEditText.getHandler(), 400, this::updateUI);
 
         final TextWatcher textWatcher = new TextWatcher() {
             @Override
@@ -170,12 +177,12 @@ public class SearchAndReplaceTextDialog {
 
             @Override
             public void afterTextChanged(Editable s) {
-                updateUI();
+                updateUITask.run();
             }
         };
 
-        searchText.addTextChangedListener(textWatcher);
-        replaceText.addTextChangedListener(textWatcher);
+        searchEditText.addTextChangedListener(textWatcher);
+        replaceEditText.addTextChangedListener(textWatcher);
 
         regexCheckBox.setOnClickListener(
                 v -> updateUI()
@@ -237,26 +244,25 @@ public class SearchAndReplaceTextDialog {
     private Pattern makePattern() {
         if (regexCheckBox.isChecked()) {
             if (multilineCheckBox.isChecked()) {
-                return Pattern.compile(searchText.getText().toString(), Pattern.MULTILINE);
+                return Pattern.compile(searchEditText.getText().toString(), Pattern.MULTILINE);
             } else {
-                return Pattern.compile(searchText.getText().toString());
+                return Pattern.compile(searchEditText.getText().toString());
             }
         } else {
-            return Pattern.compile(searchText.getText().toString(), Pattern.LITERAL);
+            return Pattern.compile(searchEditText.getText().toString(), Pattern.LITERAL);
         }
     }
 
     private String getReplacePattern() {
-        return GsTextUtils.unescapeString(replaceText.getText().toString());
+        return GsTextUtils.unescapeString(replaceEditText.getText().toString());
     }
 
     private void updateUI() {
         boolean error = false;
         int count = 0;
 
-        if (searchText.length() > 0) {
+        if (searchEditText.length() > 0) {
             try {
-
                 final Pattern sp = makePattern();
 
                 // Determine count
@@ -267,7 +273,6 @@ public class SearchAndReplaceTextDialog {
                 if (count > 0) {
                     getReplacement(false);
                 }
-
             } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
                 error = true;
             }
@@ -294,7 +299,7 @@ public class SearchAndReplaceTextDialog {
         try {
             final SharedPreferences settings = _activity.getSharedPreferences(GsSharedPreferencesPropertyBackend.SHARED_PREF_APP, Context.MODE_PRIVATE);
             final String jsonString = settings.getString(RECENT_SEARCH_REPLACE_STRING, "");
-            if (jsonString.length() > 0) {
+            if (!jsonString.isEmpty()) {
                 final JSONArray array = new JSONArray(jsonString);
                 for (int i = 0; i < array.length(); i++) {
                     recents.add(ReplaceGroup.fromJson(array.getJSONObject(i)));
@@ -318,7 +323,7 @@ public class SearchAndReplaceTextDialog {
         final Set<String> dedupSet = new HashSet<>();
 
         final ReplaceGroup newReplace = new ReplaceGroup(
-                searchText.getText(), replaceText.getText(), regexCheckBox.isChecked(), multilineCheckBox.isChecked());
+                searchEditText.getText(), replaceEditText.getText(), regexCheckBox.isChecked(), multilineCheckBox.isChecked());
 
         newReplaces.add(newReplace);
         dedupSet.add(newReplace.key());
