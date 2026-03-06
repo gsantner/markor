@@ -122,7 +122,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_current_folder_do_copy__appspecific">Fail ei asu praeguses kaustas. Kas soovite selle praegusesse kausta kopeerida? See kirjutab üle kõik sama nimega failid.</string>
     <string name="files_and_folders">Failid ja kaustad</string>
     <string name="document_browser">Dokumentide sirvija</string>
-    <string name="file_browser">Failide sirvija</string>
     <string name="set_due_date">Sea tähtaeg</string>
     <string name="insert_replace_date">Sisesta kuupäev</string>
     <string name="create_note" needed="false">Puhasta märge</string>
@@ -138,7 +137,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="main_view">Põhivaade</string>
     <string name="overall_theme_used_in_app">Üle kogu äpi kasutatud kujundus</string>
     <string name="remember_last_directory">Mäleta viimast kausta</string>
-    <string name="syntax_highlighting">Süntaksi esiletõstmine</string>
     <string name="highlighting_delay">Viivitus esiletõstmisel</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Viivitus millisekundites enne esiletõstmist. Lühem viivitus aeglustab vana seadet ja kulutab rohkem akut.</string>
     <string name="highlighting_enabled_or_not__appspecific">Kas sisestatud tekst tõstetakse esile või mitte</string>
@@ -296,8 +294,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">Must</string>
     <string name="white">Valge</string>
     <string name="view">Vaade</string>
-    <string name="view_mode">Vaate olek</string>
-    <string name="edit_mode">Toimeti olek</string>
     <string name="mount_storage">Ühenda hoidla</string>
     <string name="application_needs_access_to_storage_mount_it">Selles hoidlas tegutsemiseks on vaja luba. Loa andmiseks ühenda see hoidla. Kinnita see dialoog vastava hüpikakna nägemiseks. Vali sealt see hoidla ja toksa vali.</string>
     <string name="share_into">Jaga teavet</string>
@@ -310,8 +306,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Valitud fail võib olla lihttekst. Kas Sa tahad selle avada toimetis või teises rakenduses?\n\nÄra proovi avada kahendfaile. Kui Sa pole kindel, ava teises rakenduses.</string>
     <string name="list_in_recent_files">Hiljutiste failide loendisse</string>
     <string name="reload">Lae uuesti</string>
-    <string name="wrap_words">Reamurdmine</string>
-    <string name="line_numbers">Reanumbrid</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Pehme murdmine, kui tekst ei mahu ekraanilaiusesse. Muidu luba rõht kerimine.</string>
     <string name="recursive_search_in_location">Rekursiivne otsing %s</string>
     <string name="always_open_with_this_app">Alati ava selle rakendusega</string>
@@ -389,7 +383,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Faili kirjelduse vorming</string>
     <string name="file_description_format_dialog">Iga faili all oleva kirjelduse vorming failihalduris. Järgib Androidi SimpleDateFormat reegleid, millele on lisatud faili suuruse kuvamiseks FS. Oma asukoha vaikevormingu kasutamiseks jätke väli tühjaks.\n\nNäidis sisend:\nFS yyyy MMM pp hh:mm:ss aa\nVäljundvorming:\n30KB 20. mär 2020 23:24:52</string>
     <string name="loading_default_value">Laadi vaikimisi väärtus</string>
-    <string name="file_settings">Faili sesaded</string>
     <string name="search_and_replace">Otsi / asenda</string>
     <string name="search_for">Otsi</string>
     <string name="replace_with">Asenda sellega</string>
