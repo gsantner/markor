@@ -124,7 +124,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_current_folder_do_copy__appspecific">El fitxer no es troba a la carpeta actual. Voleu copiar-lo a la carpeta actual? Això sobreescriurà qualsevol fitxer amb el mateix nom.</string>
     <string name="files_and_folders">Fitxers i carpetes</string>
     <string name="document_browser">Navegador de documents</string>
-    <string name="file_browser">Gestor de fitxers</string>
     <string name="set_due_date">Fixa la data de venciment</string>
     <string name="insert_replace_date">Insereix una data</string>
     <string name="create_note" needed="false">Crea una nota</string>
@@ -140,7 +139,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="main_view">Vista principal</string>
     <string name="overall_theme_used_in_app">El tema principal utilitza en l\'aplicació</string>
     <string name="remember_last_directory">Recorda el darrer directori</string>
-    <string name="syntax_highlighting">Destacament de la sintaxi</string>
     <string name="highlighting_delay">Retard del destacament</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Retard en mil·lisegons per ressaltar l\'actualització. Un valor inferior començarà a ressaltar abans, però esgotarà més aviat la bateria i pot alentir l\'aplicació en dispositius més antics.</string>
     <string name="highlighting_enabled_or_not__appspecific">Controla si el text introduït s\'ha de ressaltar o no</string>
@@ -306,8 +304,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">Negre</string>
     <string name="white">Blanc</string>
     <string name="view">Vista</string>
-    <string name="view_mode">Mode de vista</string>
-    <string name="edit_mode">Mode d\'edició</string>
     <string name="mount_storage">Munta l\'emmagatzematge</string>
     <string name="application_needs_access_to_storage_mount_it">Cal el permís per accedir a aquest emmagatzematge. Munteu l\'emmagatzematge per donar accés. Confirmeu aquest diàleg per obtenir una finestra emergent. Seleccioneu l\'emmagatzematge allà i premeu selecciona.</string>
     <string name="share_into">Comparteix en</string>
@@ -320,8 +316,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">El fitxer seleccionat pot ser un fitxer de text simple. Voleu obrir-lo en l\'editor o en una altra aplicació?\n\nNo intenteu obrir fitxers binaris. Si no esteu segurs, obriu-lo amb una altra aplicació.</string>
     <string name="list_in_recent_files">Mostra-ho als fitxers recents</string>
     <string name="reload">Recarrega</string>
-    <string name="wrap_words">Ajusta les paraules</string>
-    <string name="line_numbers">Números de línies</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Salt suau si el text no s\'ajusta a l\'amplada de la pantalla. En cas contrari, activeu el desplaçament horitzontal.</string>
     <string name="recursive_search_in_location">Cerca recursiva a %s</string>
     <string name="always_open_with_this_app">Obre sempre amb aquesta aplicació</string>
@@ -400,7 +394,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Format de descripció del fitxer</string>
     <string name="file_description_format_dialog">Format per a la descripció sota cada arxiu en el navegador d\'arxius. Segueix les regles de SimpleDateFormat, amb l\'addició de FS per mostrar la mida del fitxer. Deixeu-lo en blanc per utilitzar el format per defecte de la vostra configuració regional.\n\nExemple d\'entrada:\nFS yyyy MMM dd hh:mm:ss aa\nFormat de sortida:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">S\'està carregant el valor per defecte</string>
-    <string name="file_settings">Configuració dels fitxers</string>
     <string name="search_and_replace">Cercar / Reemplaça</string>
     <string name="replace">Reemplaça</string>
     <string name="search_for">Cerca per</string>
