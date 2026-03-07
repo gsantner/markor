@@ -9,8 +9,6 @@ package net.gsantner.markor.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -1024,8 +1022,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 if (hitResult.getType() == WebView.HitTestResult.SRC_ANCHOR_TYPE) {
                     String url = hitResult.getExtra();
                     if (url != null) {
-                        ClipboardManager clipboard = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
-                        clipboard.setPrimaryClip(ClipData.newPlainText("URL", url));
+                        _cu.setClipboard(getContext(), url);
                         Toast.makeText(activity, R.string.link_copied, Toast.LENGTH_SHORT).show();
                         return true;
                     }
