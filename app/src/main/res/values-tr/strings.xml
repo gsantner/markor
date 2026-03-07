@@ -38,6 +38,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Şununla paylaş…</string>
     <string name="share">Paylaş</string>
     <string name="search">Arama</string>
+    <string name="previous_match">Önceki Eşleşme</string>
+    <string name="next_match">Sonraki Eşleşme</string>
     <string name="display_converted_markup">Dönüştürülmüş markup biçiminde görüntüleyin</string>
     <string name="editor">Düzenleyici</string>
     <string name="folders">Klasörler</string>
@@ -400,6 +402,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="loading_default_value">Varsayılan değer yükleniyor</string>
     <string name="file_settings">Dosya ayarları</string>
     <string name="search_and_replace">Ara / Değiştir</string>
+    <string name="replace">Değiştir</string>
     <string name="search_for">Bunun için ara</string>
     <string name="replace_with">Şununla değiştir</string>
     <string name="replace_once">Değiştir (1)</string>
