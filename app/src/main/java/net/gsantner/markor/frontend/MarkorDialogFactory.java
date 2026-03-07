@@ -34,6 +34,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
@@ -86,7 +87,7 @@ public class MarkorDialogFactory {
         dopt.titleText = R.string.special_key;
         dopt.isSearchEnabled = false;
         dopt.okButtonText = 0;
-        dopt.state.copyFrom(state);
+        dopt.state = state;
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
@@ -1238,6 +1239,112 @@ public class MarkorDialogFactory {
         }
 
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+    }
+
+    public static void showGoToLineDialog(
+            final Activity activity,
+            final @NonNull HighlightingEditor editText
+    ) {
+        final DialogOptions options = baseConf(activity);
+
+        options.titleText = R.string.go_to;
+        options.messageText = activity != null ? activity.getString(R.string.go_to_line) : "";
+        options.isSearchEnabled = true;
+        options.searchHintText = R.string.line_number;
+        options.searchInputType = InputType.TYPE_CLASS_NUMBER; // Restrict users to only input non-negative integers
+        options.selectionMode = DialogOptions.SelectionMode.NONE;
+        options.callback = (input) -> {
+            if (!input.isEmpty()) {
+                int lineNumber = Integer.parseInt(input);
+                if (lineNumber < 1) {
+                    lineNumber = 1;
+                }
+                CharSequence text = editText.getText();
+                int selectionStart = TextViewUtils.getIndexFromLineOffset(text, lineNumber - 1, 0);
+                int lineStart = TextViewUtils.getLineStart(text, selectionStart);
+                TextViewUtils.setSelectionAndShow(editText, lineStart);
+            }
+        };
+
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, options);
+    }
+
+    public static void showSelectLinesDialog(
+            final Activity activity,
+            final @NonNull HighlightingEditor editText
+    ) {
+        final DialogOptions options = baseConf(activity);
+
+        options.titleText = R.string.select_lines;
+        options.isSearchEnabled = true;
+        options.searchHintText = R.string.select_lines_sample;
+        options.selectionMode = DialogOptions.SelectionMode.NONE;
+
+        if (activity != null) {
+            final int currentSelectionStart = editText.getSelectionStart();
+            int currentLine = 0;
+            CharSequence text = editText.getText();
+            if (text != null && currentSelectionStart >= 0) {
+                for (int i = 0; i < currentSelectionStart; i++) {
+                    if (text.charAt(i) == '\n') {
+                        currentLine++;
+                    }
+                }
+                currentLine++;
+            }
+
+            if (currentLine > 0) {
+                options.messageText = activity.getString(R.string.current_line) + ": " + currentLine;
+            }
+        }
+
+        options.callback = (input) -> {
+            input = input.trim();
+            if (input.isEmpty()) {
+                return;
+            }
+
+            // Match input format, e.g. 1:2, 1:, :2, :, 1
+            Pattern pattern = Pattern.compile("^(?:[1-9]\\d*)?:?([1-9]\\d*:?)?$");
+            if (!pattern.matcher(input).matches()) {
+                return;
+            }
+
+            int index = input.indexOf(":");
+            int startLine;
+            int endLine;
+            if (index > 0) {
+                if (index == input.length() - 1) { // 1:
+                    startLine = Integer.parseInt(input.substring(0, index));
+                    endLine = 0;
+                } else { // 1:2
+                    startLine = Integer.parseInt(input.substring(0, index));
+                    endLine = Integer.parseInt(input.substring(index + 1));
+                }
+            } else if (index == 0) {
+                if (input.length() == 1) { // :
+                    startLine = 1;
+                    endLine = 0;
+                } else { // :2
+                    startLine = 1;
+                    endLine = Integer.parseInt(input.substring(1));
+                }
+            } else { // 1
+                startLine = Integer.parseInt(input);
+                endLine = startLine;
+            }
+
+            // Convert to line index
+            startLine--;
+            endLine--;
+
+            CharSequence text = editText.getText();
+            int selectionStart = startLine == 0 ? 0 : TextViewUtils.getIndexFromLineOffset(text, startLine - 1, 0) + 1;
+            int selectionEnd = endLine == -1 ? editText.length() : TextViewUtils.getIndexFromLineOffset(text, endLine, 0);
+            editText.setSelection(selectionStart, selectionEnd);
+        };
+
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, options);
     }
 
     public static DialogOptions baseConf(final Context context) {

@@ -16,9 +16,11 @@ import androidx.annotation.StringRes;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentActivity;
+import net.gsantner.markor.activity.DocumentEditAndViewFragment;
 import net.gsantner.markor.format.ActionButtonBase;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.textview.AutoTextFormatter;
+import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.Document;
 
@@ -172,7 +174,6 @@ public class WikitextActionButtons extends ActionButtonBase {
         }
     }
 
-
     private void openLink() {
         String fullWikitextLink = tryExtractWikitextLink();
 
@@ -273,17 +274,26 @@ public class WikitextActionButtons extends ActionButtonBase {
     }
 
     @Override
-    public boolean onReceiveKeyPress(final int keyCode, final KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_TAB && _appSettings.isIndentWithTabKey()) {
-            if (event.isShiftPressed()) {
-                runRegexReplaceAction(WikitextReplacePatternGenerator.deindentOneTab());
-            } else {
-                runRegexReplaceAction(WikitextReplacePatternGenerator.indentOneTab());
+    public boolean onKeyPress(final Object source, final int keyCode, final KeyEvent event, final DocumentEditAndViewFragment fragment) {
+        if (source instanceof HighlightingEditor) {
+            if (keyCode == KeyEvent.KEYCODE_TAB && _appSettings.isIndentWithTabKey()) {
+                if (event.isShiftPressed()) {
+                    runRegexReplaceAction(WikitextReplacePatternGenerator.deindentOneTab());
+                } else {
+                    runRegexReplaceAction(WikitextReplacePatternGenerator.indentOneTab());
+                }
+                runRenumberOrderedListIfRequired();
+                return true;
             }
-            runRenumberOrderedListIfRequired();
-            return true;
+
+            if (event.isCtrlPressed()) { // Ctrl
+                if (keyCode == KeyEvent.KEYCODE_I) {
+                    onActionClick(R.string.abid_wikitext_italic);
+                    return true;
+                }
+            }
         }
 
-        return super.onReceiveKeyPress(keyCode, event);
+        return super.onKeyPress(source, keyCode, event, fragment);
     }
 }
