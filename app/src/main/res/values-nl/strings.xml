@@ -122,7 +122,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_current_folder_do_copy__appspecific">Het bestand is niet in de huidige map geplaatst. Wilt u het kopiëren naar de huidige map? Dit overschrijft elk bestaand bestand met dezelfde naam.</string>
     <string name="files_and_folders">Bestanden en mappen</string>
     <string name="document_browser">Document verkenner</string>
-    <string name="file_browser">Bestandsbrowser</string>
     <string name="set_due_date">Vervaldatum instellen</string>
     <string name="insert_replace_date">Insert date</string>
     <string name="create_note" needed="false">Maak notitie</string>
@@ -138,7 +137,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="main_view">Hoofdweergave</string>
     <string name="overall_theme_used_in_app">Het algemene thema gebruikt in de app</string>
     <string name="remember_last_directory">Herinner laatste folder</string>
-    <string name="syntax_highlighting">Syntaxis markering</string>
     <string name="highlighting_delay">Gemarkeerde vertraging</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Vertraging in milliseconden voor het markeren van verversing. Een lagere waarde zal eerder markeren, maar het zal uw batterij verliezen en kan de app op oudere apparaten vertragen.</string>
     <string name="highlighting_enabled_or_not__appspecific">Controleren of ingevoerde tekst moet worden gemarkeerd of niet</string>
@@ -304,8 +302,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">Zwart</string>
     <string name="white">Wit</string>
     <string name="view">Bekijk</string>
-    <string name="view_mode">Bekijk modus</string>
-    <string name="edit_mode">Bewerk modus</string>
     <string name="mount_storage">Koppel opslag</string>
     <string name="application_needs_access_to_storage_mount_it">Toegang is vereist om deze opslag te kunnen gebruiken. Koppel de opslag om toegang te geven. Bevestig dit dialoogvenster om een pop-up te krijgen. Selecteer de opslag en druk op selecteer.</string>
     <string name="share_into">Delen in</string>
@@ -318,8 +314,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Het geselecteerde bestand kan een platte tekst bestand zijn. Wil je het openen in de editor of in een andere app?\n\nProbeer niet binaire bestanden te openen. Als u niet zeker bent, open dan met een andere app.</string>
     <string name="list_in_recent_files">Lijst in recente bestanden</string>
     <string name="reload">Herladen</string>
-    <string name="wrap_words">Woorden weghalen</string>
-    <string name="line_numbers">Regelnummers</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Soft break als tekst niet past bij schermbreedte. Schakel horizontaal scrollen in.</string>
     <string name="recursive_search_in_location">Recursief zoeken in %s</string>
     <string name="always_open_with_this_app">Altijd open met deze app</string>
@@ -398,7 +392,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Bestand beschrijving formaat</string>
     <string name="file_description_format_dialog">Formaat voor de beschrijving onder elk bestand in de browser. Volgt Android\'s SimpleDateFormaty-regels, met toevoeging van FS voor het tonen van bestandsgrootte. Laat leeg om het standaardformaat voor uw taal te gebruiken.\n\nVoorbeeld invoer:\nFS yyyy MMM dd hhh:mm:ss aa\nOutput formaat:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">Standaardwaarde wordt geladen</string>
-    <string name="file_settings">Bestand instellingen</string>
     <string name="search_and_replace">Zoeken / vervangen</string>
     <string name="search_for">Zoeken naar</string>
     <string name="replace_with">Vervangen door</string>

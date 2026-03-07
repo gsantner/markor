@@ -107,7 +107,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_shortcut">دروستکردنی کورتکراوە</string>
     <string name="files_and_folders">فایل و فۆڵدەرەکان</string>
     <string name="document_browser">گەڕان بۆ بەڵگەنامە</string>
-    <string name="file_browser">گەڕان بۆ فایل</string>
     <string name="set_due_date">ڕێکخستنی بەروار</string>
     <string name="insert_replace_date">زیادکردنی بەروار</string>
     <string name="create_note" needed="false">دروستکردنی تێبینی</string>
@@ -188,8 +187,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">ڕەش</string>
     <string name="white">سپی</string>
     <string name="view">بینین</string>
-    <string name="view_mode">شێوازی پیشاندان</string>
-    <string name="edit_mode">شێوازی دەستکاریکردن</string>
     <string name="share_into">ناردن بۆ</string>
     <string name="favourite">دڵخواز</string>
     <string name="favourites">دڵخوازەکان</string>
@@ -223,7 +220,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back">گەڕانەوە</string>
     <string name="drag">ڕایکێشە</string>
     <string name="created">دروستکرا</string>
-    <string name="file_settings">ڕێکخستنەکانی فایل</string>
     <string name="search_and_replace">گەڕان / گۆڕین</string>
     <string name="search_for">گەڕان بۆ</string>
     <string name="replace_with">گۆڕین لەگەڵ</string>

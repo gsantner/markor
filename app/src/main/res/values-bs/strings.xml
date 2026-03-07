@@ -117,7 +117,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_current_folder_do_copy__appspecific">Datoteka se ne nalazi u ovom direktoriju. Želite li je kopirati u otvoreni direktorij? Time ćete prepisati datoteku s istom nazivom, ukoliko postoji.</string>
     <string name="files_and_folders">Datoteke i direktoriji</string>
     <string name="document_browser">Preglednik dokumenata</string>
-    <string name="file_browser">Preglednik datoteka</string>
     <string name="set_due_date">Odredi dan dospjeća</string>
     <string name="insert_replace_date">Unesi datum</string>
     <string name="create_note" needed="false">Kreiraj bilješku</string>
@@ -132,7 +131,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="main_view">Glavni prikaz</string>
     <string name="overall_theme_used_in_app">Osnovna tema programa</string>
     <string name="remember_last_directory">Zapamti zadnji direktorij</string>
-    <string name="syntax_highlighting">Obilježavanje sintakse</string>
     <string name="highlighting_delay">Odgoda markiranja</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Koliko će milisekundi biti odgođeno osvježavanje. Niža vrijednost znači da će markiranje početi ranije, ali će se to odraziti na bateriju i može usporiti program na starijim uređajima.</string>
     <string name="highlighting_enabled_or_not__appspecific">Hoće li uneseni tekst biti markiran ili ne</string>
@@ -283,8 +281,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">Crna</string>
     <string name="white">Bijela</string>
     <string name="view">Prikaz</string>
-    <string name="view_mode">Pregled</string>
-    <string name="edit_mode">Uređivanje</string>
     <string name="mount_storage">Pripremi memoriju</string>
     <string name="application_needs_access_to_storage_mount_it">Potrebno je dopuštenje za pristupanje memoriji. Pripremite memoriju da omogućite pristup. Potvrdite ovdje za nastavak. Označite memoriju i pritisnite odaberi.</string>
     <string name="share_into">Podijeli sa</string>
@@ -297,7 +293,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Odabrana datoteka može biti obična tekstualna datoteka. Želite li je otvoriti u Markoru ili drugoj aplikaciji?\n\nNe pokušavajte otvoriti binarne datoteke. Ukoliko ste u nedoumici, otvorite je pomoću druge aplikacije.</string>
     <string name="list_in_recent_files">Prikaži u nedavno otvorenim datotekama</string>
     <string name="reload">Učitaj ponovo</string>
-    <string name="wrap_words">Prijelom redova</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Kad tekst prelazi širinu ekrana, koristiti blagi prijelom. Ako ne, tad aktivirati vodoravno pomjeranje.</string>
     <string name="always_open_with_this_app">Uvijek otvori u ovoj aplikaciji</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Datoteke uvijek otvori u ovoj aplikaciji kad popis sadržava ekstenziju. Koristi \'None, .html, .css, .js\' i slično za uređivanje web-datoteka i datoteka bez ekstenzije.</string>
@@ -370,7 +365,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Format opisa datoteke</string>
     <string name="file_description_format_dialog">Format za opis ispod svake datoteke u pregledniku datoteka. Slijedi Androidova SimpleDateFormat pravila, s dodatkom FS za prikazivanje veličine datoteke. Ostavite prazno da biste koristili predefinisani format za Vaše područje.\n\nPrimjer:\nFS yyyy MMM dd hh:mm:ss aa\nRezultat:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">Učitavam predefinisane vrijednosti</string>
-    <string name="file_settings">Postavke</string>
     <string name="search_and_replace">Traži / zamijeni</string>
     <string name="search_for">Traži</string>
     <string name="replace_with">Zamijeni sa</string>

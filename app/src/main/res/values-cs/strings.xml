@@ -120,7 +120,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_current_folder_do_copy__appspecific">Soubor není umístěn v aktuální složce. Chcete jej zkopírovat do aktuální složky? Tímto bude přepsán jakýkoliv existující soubor se stejným názvem.</string>
     <string name="files_and_folders">Soubory a složky</string>
     <string name="document_browser">prohlížeč dokumentů</string>
-    <string name="file_browser">Správce souborů</string>
     <string name="set_due_date">Nastavit termín dokončení</string>
     <string name="insert_replace_date">Vložit datum</string>
     <string name="create_note" needed="false">Vytvořit poznámku</string>
@@ -136,7 +135,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="main_view">Hlavní pohled</string>
     <string name="overall_theme_used_in_app">Celkové téma použité v aplikaci</string>
     <string name="remember_last_directory">Pamatuj si poslední složku</string>
-    <string name="syntax_highlighting">Zvýraznění syntaxe</string>
     <string name="highlighting_delay">Zpoždění zvýraznění</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Prodleva v milisekundách pro aktualizaci zvýraznění. Nižší hodnota začne zvýrazňovat dříve, ale bude vybíjet baterii a může zpomalit aplikaci na starších zařízeních.</string>
     <string name="highlighting_enabled_or_not__appspecific">Kontrolovat, zda zadaný text by měl být zvýrazněn, nebo ne</string>
@@ -292,8 +290,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">Černá</string>
     <string name="white">Bílá</string>
     <string name="view">Zobrazení</string>
-    <string name="view_mode">Režim zobrazení</string>
-    <string name="edit_mode">Režim úprav</string>
     <string name="mount_storage">Připojit úložiště</string>
     <string name="application_needs_access_to_storage_mount_it">Pro přístup k tomuto úložišti je vyžadováno oprávnění. Pro povolení přístupu připojte úložiště. Potvrďte toto dialogové okno, aby se zobrazilo vyskakovací okno. Vyberte úložiště a potvrďte výběr tlačítkem.</string>
     <string name="share_into">Sdílet do</string>
@@ -306,8 +302,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Vybraný soubor může být prostý soubor. Chcete jej otevřít v editoru nebo v jiné aplikaci?\n\nNepokoušejte se otevírat binární soubory. Pokud si nejste jistí, otevřete soubor jinou aplikací.</string>
     <string name="list_in_recent_files">Zobrazit v posledních souborech</string>
     <string name="reload">Aktualizovat</string>
-    <string name="wrap_words">Zalamování slov</string>
-    <string name="line_numbers">Čísla řádků</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Měkké zalomení, pokud text neodpovídá šířce obrazovky. Jinak je třeba povolit horizontální posuv.</string>
     <string name="recursive_search_in_location">Rekurzivní vyhledávání v %s</string>
     <string name="always_open_with_this_app">Vždy otvírat pomocí této aplikace</string>
@@ -384,7 +378,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Formát popisu souboru</string>
     <string name="file_description_format_dialog">Formát pro popis každého souboru v prohlížeči souborů. Postupujte podle pravidel SimpleDateFormat Android s přidáním FS pro zobrazení velikosti souboru. Ponechte prázdné pro použití výchozího formátu pro vaše locale.\n\nPříklad vstupu:\nFS yyyy MMM dd hh:mm:ss aa\nVýstupní formát:\n30KB 2020 bře 20 11:24:52</string>
     <string name="loading_default_value">Načítání výchozí hodnoty</string>
-    <string name="file_settings">Nastavení souboru</string>
     <string name="search_and_replace">Hledat / nahradit</string>
     <string name="search_for">Hledat</string>
     <string name="replace_with">Nahradit pomocí</string>
