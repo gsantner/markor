@@ -122,7 +122,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_current_folder_do_copy__appspecific">El archivo no está ubicado en la carpeta actual. ¿Desea copiarlo a la carpeta actual? Esto sobreescribirá cualquier archivo existente con el mismo nombre.</string>
     <string name="files_and_folders">Archivos y carpetas</string>
     <string name="document_browser">Navegador de documentos</string>
-    <string name="file_browser">Explorador de archivos</string>
     <string name="set_due_date">Fecha límite</string>
     <string name="insert_replace_date">Insertar fecha</string>
     <string name="create_note" needed="false">Crear nota</string>
@@ -138,7 +137,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="main_view">Vista principal</string>
     <string name="overall_theme_used_in_app">El tema principal usado en la app</string>
     <string name="remember_last_directory">Recordar última carpeta</string>
-    <string name="syntax_highlighting">Resaltado de sintaxis</string>
     <string name="highlighting_delay">Retraso para resaltar</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Retraso en milisegundos para refrescar el resaltado. Un valor menor iniciará el énfasis pronto, pero afectará a la batería y al desempeño en equipos antiguos.</string>
     <string name="highlighting_enabled_or_not__appspecific">Controla si el texto ingresado debe ser resaltado o no</string>
@@ -304,8 +302,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">Negro</string>
     <string name="white">Blanco</string>
     <string name="view">Ver</string>
-    <string name="view_mode">Modo de vista</string>
-    <string name="edit_mode">Modo edición</string>
     <string name="mount_storage">Montar el almacenamiento</string>
     <string name="application_needs_access_to_storage_mount_it">Se requiere permiso para acceder a este almacenamiento. Monta el almacenamiento para dar acceso. Confirma este diálogo para obtener un ventana emergente. Selecciona el almacenamiento allí y presiona seleccionar.</string>
     <string name="share_into">Compartir en</string>
@@ -318,8 +314,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">El archivo seleccionado puede ser un archivo de texto plano. ¿Desea abrirlo en el editor, o en otra aplicación?\n\nNo intente abrir archivos binarios. Si no está seguro, abra con otra aplicación.</string>
     <string name="list_in_recent_files">Lista de archivos recientes</string>
     <string name="reload">Refrescar</string>
-    <string name="wrap_words">Cambio de línea</string>
-    <string name="line_numbers">Número de línea</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Desliza suavemente si el texto no se ajusta al ancho de pantalla. De lo contrario, activa el desplazamiento horizontal.</string>
     <string name="recursive_search_in_location">Búsqueda recursiva en %s</string>
     <string name="always_open_with_this_app">Siempre abierto con esta aplicación</string>
@@ -398,7 +392,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Formato de descripción de archivo</string>
     <string name="file_description_format_dialog">Formato para la descripción bajo cada archivo en el navegador de archivos. Siga las reglas de SimpleDateFormat, con la adición de FS para mostrar el tamaño del archivo. Deje en blanco para usar el formato predeterminado para su ubicación.\n\nEjemplo de entrada:\nFS yyyy MMM dd hh:mm:ss aa\nFormato de salida:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">Cargando valor por defecto</string>
-    <string name="file_settings">Ajustes de archivo</string>
     <string name="search_and_replace">Buscar / Reemplazar</string>
     <string name="search_for">Buscar por</string>
     <string name="replace_with">Reemplazar por</string>

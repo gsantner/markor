@@ -28,10 +28,15 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.util.Pair;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -1362,5 +1367,19 @@ public class MarkorDialogFactory {
         dopt.dialogStyle = R.style.Theme_AppCompat_DayNight_Dialog_Rounded;
 
         return dopt;
+    }
+
+    public static void showPopupWindow(View anchorView, String text, GsCallback.a0 callbackOnClick) {
+        View popupView = LayoutInflater.from(anchorView.getContext()).inflate(R.layout.text_popup_window, null);
+        TextView textView = popupView.findViewById(R.id.popupTextView);
+        textView.setText(text);
+
+        PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, false);
+        textView.setOnClickListener(v -> {
+            callbackOnClick.callback();
+            popupWindow.dismiss();
+        });
+        popupWindow.showAsDropDown(anchorView, 130, -100);
+        anchorView.getHandler().postDelayed(() -> popupWindow.dismiss(), 3000);
     }
 }

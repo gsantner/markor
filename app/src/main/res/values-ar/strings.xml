@@ -122,7 +122,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_current_folder_do_copy__appspecific">الملف غير موجود في المجلد الحالي. هل تريد نسخه إلى المجلد الحالي؟ سيؤدي هذا إلى استبدال أي ملف موجود بنفس الاسم.</string>
     <string name="files_and_folders">الملفات والمجلدات</string>
     <string name="document_browser">متصفح المستندات</string>
-    <string name="file_browser">متصفح الملفات</string>
     <string name="set_due_date">تعيين تاريخ الاستحقاق</string>
     <string name="insert_replace_date">Insert date</string>
     <string name="create_note" needed="false">إنشاء ملاحظة</string>
@@ -138,7 +137,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="main_view">العرض العام</string>
     <string name="overall_theme_used_in_app">الشكل العام للتطبيق</string>
     <string name="remember_last_directory">تذكر آخر مجلد</string>
-    <string name="syntax_highlighting">تظليل بناء الجملة</string>
     <string name="highlighting_delay">تأخر التظليل</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">تأخر التظليل بالمللي ثانية. القيمة الأقل ستفعل التظليل أسرع، ولكن قد تستهلك البطارية أكثر أو تبطئ التطبيق في الهواتف القديمة.</string>
     <string name="highlighting_enabled_or_not__appspecific">اختيار تظليل النص من عدمه</string>
@@ -303,8 +301,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">أسود</string>
     <string name="white">أبيض</string>
     <string name="view">عرض</string>
-    <string name="view_mode">طريقة العرض</string>
-    <string name="edit_mode">وضع التحرير</string>
     <string name="mount_storage">تحميل التخزين</string>
     <string name="application_needs_access_to_storage_mount_it">مطلوب إذن للوصول إلى هذه التخزين. قم بتحميل وحدة التخزين لمنح حق الوصول. تأكيد مربع الحوار هذا للحصول على منبثق. حدد وحدة التخزين هناك واضغط على التحديد.</string>
     <string name="share_into">شارك في</string>
@@ -317,8 +313,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">قد يكون الملف المحدد ملفا ملصقا. هل تريد فتحه في المحرر أو في تطبيق آخر؟\n\nلا تحاول فتح ملفات ثنائية. إذا كنت غير متأكد، قم بفتح التطبيق الآخر.</string>
     <string name="list_in_recent_files">ادرجه في الملفات الحديثة</string>
     <string name="reload">إنعاش</string>
-    <string name="wrap_words">كلمات مخفية</string>
-    <string name="line_numbers">أرقام الأسطر</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">استراحة ناعمة إذا كان النص غير مناسب لعرض الشاشة. وإلا تمكين التمرير الأفقي.</string>
     <string name="recursive_search_in_location">البحث المتكرر في%s</string>
     <string name="always_open_with_this_app">افتحه دائما بهذا التطبيق</string>
@@ -397,7 +391,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">تنسيق وصف الملف</string>
     <string name="file_description_format_dialog">تنسيق الوصف تحت كل ملف في متصفح الملفات. يتبع قواعد SimpleDateFormat الخاصة بالأندرويد، مع إضافة FS لعرض حجم الملف. اتركه فارغاً لاستخدام التنسيق الافتراضي للغة الخاصة بك.\n\nمثال المدخلات:\nFS yyyy MMM dd hh:mm:ss aa\nتنسيق المخرج:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">تحميل القيمة الافتراضية</string>
-    <string name="file_settings">إعدادات الملف</string>
     <string name="search_and_replace">البحث / استبدال</string>
     <string name="search_for">البحث عن</string>
     <string name="replace_with">استبدل بـ</string>

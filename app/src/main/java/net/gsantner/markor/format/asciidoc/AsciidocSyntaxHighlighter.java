@@ -63,11 +63,9 @@ public class AsciidocSyntaxHighlighter extends SyntaxHighlighterBase {
     public final static Pattern SQUAREBRACKETS = Pattern.compile("\\[([^\\[]*)\\]");
     public final static Pattern HIGHLIGHT = Pattern.compile(
             "(?m)(?<!])((#(?!#)(.*?)#(?!#))|(##(?!#)(.*?)##))");
-    public final static Pattern ROLE_GENERAL = Pattern.compile(
-            "(?m)\\[([^\\[]*)\\]((#(?!#)(.*?)#(?!#))|(##(?!#)(.*?)##))");
+    // public final static Pattern ROLE_GENERAL = Pattern.compile("(?m)\\[([^\\[]*)\\]((#(?!#)(.*?)#(?!#))|(##(?!#)(.*?)##))");
 
-    public final static Pattern ROLE_UNDERLINE = Pattern.compile(
-            "(?m)\\[\\.underline\\]((#(?!#)(.*?)#(?!#))|(##(?!#)(.*?)##))");
+    // public final static Pattern ROLE_UNDERLINE = Pattern.compile("(?m)\\[\\.underline\\]((#(?!#)(.*?)#(?!#))|(##(?!#)(.*?)##))");
     public final static Pattern ROLE_STRIKETHROUGH = Pattern.compile(
             "(?m)\\[\\.line-through\\]((#(?!#)(.*?)#(?!#))|(##(?!#)(.*?)##))");
 
@@ -102,8 +100,7 @@ public class AsciidocSyntaxHighlighter extends SyntaxHighlighterBase {
     // original, adapted from Mardown: issues with content, created in Windows and directly copied to android
     // public final static Pattern DOUBLESPACE_LINE_ENDING = Pattern.compile("(?m)(?<=\\S)([^\\S\\n]{2,})\\n");
     // corrected and adapted:
-    public final static Pattern DOUBLESPACE_LINE_ENDING = Pattern.compile(
-            "(?m)(?<=\\S)([^\\S\\r\\n]{2,})[\\r\\n]");
+    // public final static Pattern DOUBLESPACE_LINE_ENDING = Pattern.compile("(?m)(?<=\\S)([^\\S\\r\\n]{2,})[\\r\\n]");
 
     /*
     https://personal.sron.nl/~pault/[Paul Tol's Notes, Colour schemes and templates, 18 August 2021]
@@ -140,38 +137,38 @@ public class AsciidocSyntaxHighlighter extends SyntaxHighlighterBase {
 
     */
 
-    private static final int TOL_BLUE = Color.parseColor("#4477AA");
-    private static final int TOL_CYAN = Color.parseColor("#66CCEE");
-    private static final int TOL_GREEN = Color.parseColor("#228833");
-    private static final int TOL_YELLOW = Color.parseColor("#CCBB44");
-    private static final int TOL_RED = Color.parseColor("#EE6677");
-    private static final int TOL_PURPLE = Color.parseColor("#AA3377");
-    private static final int TOL_GRAY = Color.parseColor("#BBBBBB");
+    private static final int TOL_RED = 0xFFEE6677;
+    // private static final int TOL_YELLOW = 0xFFCCBB44;
+    // private static final int TOL_BLUE = 0xFF4477AA;
+    // private static final int TOL_GREEN = 0xFF228833;
+    private static final int TOL_CYAN = 0xFF66CCEE;
+    // private static final int TOL_PURPLE = 0xFFAA3377;
+    // private static final int TOL_GRAY = 0xFFBBBBBB;
 
-    private static final int TOL_PALE_BLUE = Color.parseColor("#BBCCEE");
-    private static final int TOL_PALE_CYAN = Color.parseColor("#CCEEFF");
-    private static final int TOL_PALE_GREEN = Color.parseColor("#CCDDAA");
-    private static final int TOL_PALE_YELLOW = Color.parseColor("#EEEEBB");
-    private static final int TOL_PALE_RED = Color.parseColor("#FFCCCC");
-    private static final int TOL_PALE_GRAY = Color.parseColor("#DDDDDD");
+    private static final int TOL_PALE_BLUE = 0x99BBCCEE;
+    private static final int TOL_PALE_CYAN = 0x99CCEEFF;
+    private static final int TOL_PALE_GREEN = 0x99CCDDAA;
+    private static final int TOL_PALE_YELLOW = 0x99EEEEBB;
+    private static final int TOL_PALE_RED = 0x99FFCCCC;
+    private static final int TOL_PALE_GRAY = 0x99DDDDDD;
 
-    private static final int TOL_DARK_BLUE = Color.parseColor("#222255");
-    private static final int TOL_DARK_CYAN = Color.parseColor("#225555");
-    private static final int TOL_DARK_GREEN = Color.parseColor("#225522");
-    private static final int TOL_DARK_YELLOW = Color.parseColor("#666633");
-    private static final int TOL_DARK_RED = Color.parseColor("#663333");
-    private static final int TOL_DARK_GRAY = Color.parseColor("#555555");
+    private static final int TOL_DARK_BLUE = 0x99222255;
+    private static final int TOL_DARK_CYAN = 0x99225555;
+    private static final int TOL_DARK_GREEN = 0x99225522;
+    private static final int TOL_DARK_YELLOW = 0x99666633;
+    private static final int TOL_DARK_RED = 0x99663333;
+    private static final int TOL_DARK_GRAY = 0x99555555;
 
-    //Here the concrete use of the colors for AsciiDoc:
+    // Here the concrete use of the colors for AsciiDoc:
     private static final int AD_FORECOLOR_LIGHT_HEADING = TOL_RED;
     private static final int AD_FORECOLOR_DARK_HEADING = TOL_RED;
-    //TOL_BLUE link on background (attributes reference, squarebrackets) problematic
-    //Test TOL_CYAN, better
+    // TOL_BLUE link on background (attributes reference, squarebrackets) problematic
+    // Test TOL_CYAN, better
     private static final int AD_FORECOLOR_LIGHT_LINK = TOL_DARK_CYAN;
     private static final int AD_FORECOLOR_DARK_LINK = TOL_CYAN;
-    private static final int AD_FORECOLOR_LIGHT_LIST = TOL_DARK_YELLOW;
-    private static final int AD_FORECOLOR_DARK_LIST = TOL_YELLOW; //OK
-    private static final int AD_FORECOLOR_ADMONITION = TOL_RED; //OK
+    // private static final int AD_FORECOLOR_LIGHT_LIST = TOL_DARK_YELLOW;
+    // private static final int AD_FORECOLOR_DARK_LIST = TOL_YELLOW; // OK
+    private static final int AD_FORECOLOR_ADMONITION = TOL_RED; // OK
 
     private static final int AD_BACKCOLOR_LIGHT_QUOTE = TOL_PALE_GREEN;
     private static final int AD_BACKCOLOR_DARK_QUOTE = TOL_DARK_GREEN;
@@ -183,7 +180,8 @@ public class AsciidocSyntaxHighlighter extends SyntaxHighlighterBase {
     private static final int AD_BACKCOLOR_DARK_TABLE = TOL_DARK_YELLOW;
     private static final int AD_BACKCOLOR_LIGHT_ATTRIBUTE = TOL_PALE_CYAN;
     private static final int AD_BACKCOLOR_DARK_ATTRIBUTE = TOL_DARK_CYAN;
-    // we use gray for miscellaneous to avoid too much variety
+
+    // We use gray for miscellaneous to avoid too much variety
     private static final int AD_BACKCOLOR_LIGHT_MONOSPACE = TOL_PALE_GRAY;
     private static final int AD_BACKCOLOR_DARK_MONOSPACE = TOL_DARK_GRAY;
     private static final int AD_BACKCOLOR_LIGHT_SQUAREBRACKETS = TOL_PALE_GRAY;
@@ -191,10 +189,10 @@ public class AsciidocSyntaxHighlighter extends SyntaxHighlighterBase {
     private static final int AD_BACKCOLOR_LIGHT_BLOCKTITLE = TOL_PALE_GRAY;
     private static final int AD_BACKCOLOR_DARK_BLOCKTITLE = TOL_DARK_GRAY;
 
-    // use the same highlight for light and dark theme
-    private static final int AD_BACKCOLOR_LIGHT_HIGHLIGHT = Color.YELLOW;
-    private static final int AD_BACKCOLOR_DARK_HIGHLIGHT = Color.YELLOW;
-    // black on yellow
+    // Use the same highlight for light and dark theme
+    private static final int AD_BACKCOLOR_LIGHT_HIGHLIGHT = 0x80FFFF00; // Yellow
+    private static final int AD_BACKCOLOR_DARK_HIGHLIGHT = 0x80FFFF00;
+    // Black on yellow
     private static final int AD_FORECOLOR_HIGHLIGHT = Color.BLACK;
 
     // ..._COLOR_LIGHT_... = Color for light theme
@@ -205,12 +203,10 @@ public class AsciidocSyntaxHighlighter extends SyntaxHighlighterBase {
     private static final int AD_FORECOLOR_LIGHT_COMMENT = Color.GRAY;
     private static final int AD_FORECOLOR_DARK_COMMENT = Color.GRAY;
 
-
     private boolean _highlightLineEnding;
     private boolean _highlightCodeChangeFont;
     private boolean _highlightBiggerHeadings;
     private boolean _highlightCodeBlock;
-
 
     public AsciidocSyntaxHighlighter(AppSettings as) {
         super(as);
@@ -340,4 +336,3 @@ public class AsciidocSyntaxHighlighter extends SyntaxHighlighterBase {
         // createColoredUnderlineSpanForMatches(ROLE_UNDERLINE, AD_COLOR_UNDERLINE_ROLE_UNDERLINE);
     }
 }
-

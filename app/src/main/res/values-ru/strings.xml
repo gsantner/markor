@@ -122,7 +122,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_current_folder_do_copy__appspecific">Этот файл не находится в текущей папке. Скопировать его сюда? Если файл с таким именем существует, он будет перезаписан.</string>
     <string name="files_and_folders">Файлы и папки</string>
     <string name="document_browser">Обозреватель документов</string>
-    <string name="file_browser">Обозреватель файлов</string>
     <string name="set_due_date">Установить срок выполнения</string>
     <string name="insert_replace_date">Вставить дату</string>
     <string name="create_note" needed="false">Создать заметку</string>
@@ -138,7 +137,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="main_view">Главный экран</string>
     <string name="overall_theme_used_in_app">Используемая тема оформления</string>
     <string name="remember_last_directory">Запоминать последнюю папку</string>
-    <string name="syntax_highlighting">Подсветка синтаксиса</string>
     <string name="highlighting_delay">Задержка подсветки</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Задержка в мсек при подсветке синтаксиса. Чем она меньше, тем быстрее обновление и больше расход энергии. Старые устройства могут замедляться.</string>
     <string name="highlighting_enabled_or_not__appspecific">Подсвечивать введённый текст</string>
@@ -304,8 +302,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">Чёрный</string>
     <string name="white">Белый</string>
     <string name="view">Просмотр</string>
-    <string name="view_mode">Режим просмотра</string>
-    <string name="edit_mode">Режим редактирования</string>
     <string name="mount_storage">Подключение хранилища</string>
     <string name="application_needs_access_to_storage_mount_it">Для доступа к этому хранилищу требуется разрешение. Подключите хранилище для предоставления доступа. Подтвердите этот диалог, чтобы получить всплывающее окно. Выберите хранилище и нажмите кнопку \"Выбрать\".</string>
     <string name="share_into">Поделиться в</string>
@@ -318,8 +314,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Выберите текстовый файл. Вы хотите открыть его в редакторе или в другом приложении? \n\nНе пытайтесь открывать бинарные файлы. Если вы не уверены, откройте другим приложением.</string>
     <string name="list_in_recent_files">Показывать в недавних файлах</string>
     <string name="reload">Обновить</string>
-    <string name="wrap_words">Переносить слова</string>
-    <string name="line_numbers">Нумерация строк</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Вставлять мягкие переносы вместо отображения ползунка горизонтальной прокрутки, когда текст не помещается по ширине на экране.</string>
     <string name="recursive_search_in_location">Рекурсивный поиск в %s</string>
     <string name="always_open_with_this_app">Всегда открывать в этом приложении</string>
@@ -398,7 +392,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Формат описания файла</string>
     <string name="file_description_format_dialog">Формат описания для каждого файла в обозревателе. Следуйте правилам SimpleDateFormat Android, добавив FS для отображения размера файла. Оставьте пустым, чтобы использовать формат по умолчанию для вашей локали.\n\nПример ввода:\nFS yyyy MMM dd hh:mm:ss aa\nФормат вывода:\n30KB 2020 Мар 20 11:24:52 PM</string>
     <string name="loading_default_value">Загрузка значения по умолчанию</string>
-    <string name="file_settings">Настройки файла</string>
     <string name="search_and_replace">Поиск / Замена</string>
     <string name="search_for">Искать</string>
     <string name="replace_with">Заменить на</string>

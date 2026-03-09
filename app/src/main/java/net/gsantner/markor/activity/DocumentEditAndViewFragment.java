@@ -1113,10 +1113,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             webSettings.setGeolocationEnabled(false);
             webSettings.setJavaScriptEnabled(true);
             webSettings.setDomStorageEnabled(true);
-            webSettings.setAllowFileAccess(true);
             webSettings.setAllowContentAccess(true);
-            webSettings.setAllowFileAccessFromFileURLs(true);
-            webSettings.setAllowUniversalAccessFromFileURLs(false);
             webSettings.setMediaPlaybackRequiresUserGesture(false);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && BuildConfig.IS_TEST_BUILD && BuildConfig.DEBUG) {
@@ -1129,6 +1126,20 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             if (_webView instanceof DraggableScrollbarWebView) {
                 ((DraggableScrollbarWebView) _webView).setOnDispatchKeyListener(this::onWebViewKeyDown);
             }
+
+            // For copying link address to clipboard in view-mode
+            _webView.setOnLongClickListener(v -> {
+                WebView.HitTestResult hitResult = _webView.getHitTestResult();
+                if (hitResult.getType() == WebView.HitTestResult.SRC_ANCHOR_TYPE) {
+                    String url = hitResult.getExtra();
+                    if (url != null) {
+                        _cu.setClipboard(getContext(), url);
+                        Toast.makeText(activity, R.string.link_copied, Toast.LENGTH_SHORT).show();
+                        return true;
+                    }
+                }
+                return false;
+            });
         }
     }
 
