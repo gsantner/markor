@@ -374,6 +374,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Afegeix context</string>
     <string name="add_project">Afegeix un projecte</string>
     <string name="archive_completed_tasks">Arxivar les tasques completades</string>
+    <string name="overline">Sobreratllat</string>
+    <string name="superscript">Superíndex</string>
+    <string name="subscript">Subíndex</string>
     <string name="create_new_file_or_folder">Crea un fitxer o carpeta nova</string>
     <string name="choose_format">Trieu el format</string>
     <string name="clear_selection">Neteja la selecció</string>
