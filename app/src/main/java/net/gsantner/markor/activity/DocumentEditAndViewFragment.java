@@ -1003,10 +1003,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             webSettings.setGeolocationEnabled(false);
             webSettings.setJavaScriptEnabled(true);
             webSettings.setDomStorageEnabled(true);
-            webSettings.setAllowFileAccess(true);
             webSettings.setAllowContentAccess(true);
-            webSettings.setAllowFileAccessFromFileURLs(true);
-            webSettings.setAllowUniversalAccessFromFileURLs(false);
             webSettings.setMediaPlaybackRequiresUserGesture(false);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && BuildConfig.IS_TEST_BUILD && BuildConfig.DEBUG) {
