@@ -1012,6 +1012,20 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
             _webViewClient = new MarkorWebViewClient(_webView, activity);
             _webView.setWebViewClient(_webViewClient);
+
+            // For copying link address to clipboard in view-mode
+            _webView.setOnLongClickListener(v -> {
+                WebView.HitTestResult hitResult = _webView.getHitTestResult();
+                if (hitResult.getType() == WebView.HitTestResult.SRC_ANCHOR_TYPE) {
+                    String url = hitResult.getExtra();
+                    if (url != null) {
+                        _cu.setClipboard(getContext(), url);
+                        Toast.makeText(activity, R.string.link_copied, Toast.LENGTH_SHORT).show();
+                        return true;
+                    }
+                }
+                return false;
+            });
         }
     }
 
