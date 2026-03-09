@@ -118,7 +118,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="main_view">Iẓri agejdan</string>
     <string name="overall_theme_used_in_app">Asentel agejdan i yeseqdac usnas</string>
     <string name="remember_last_directory">Mmekti akaram aneggaru</string>
-    <string name="syntax_highlighting">Asebrureq n tseddast</string>
     <string name="highlighting_delay">Amenḍar n usebrurq</string>
     <string name="highlighting_enabled_or_not__appspecific">Ma yella aḍris yettwaskecmen ad yettusebrureq neɣ ala</string>
     <string name="control_font_size_in_editor">Sbadu tiddi n tsefsit yettwasqedcen deg umaẓrag</string>

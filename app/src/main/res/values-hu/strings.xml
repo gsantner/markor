@@ -117,7 +117,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_current_folder_do_copy__appspecific">A fájl nem a jelenlegi mappában található. Szeretnéd ide másolni? Ha van már ilyen nevű fájl a mappában, felül fog íródni.</string>
     <string name="files_and_folders">Fájlok és mappák</string>
     <string name="document_browser">Dokumentum böngésző</string>
-    <string name="file_browser">Fájlkezelő</string>
     <string name="set_due_date">Határidő beállítása</string>
     <string name="insert_replace_date">Dátum beszúrása</string>
     <string name="create_note" needed="false">Jegyzet létrehozása</string>
@@ -132,7 +131,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="main_view">Alap nézet</string>
     <string name="overall_theme_used_in_app">Az alkalmazás témája</string>
     <string name="remember_last_directory">Utoljára használt mappa megjegyzése</string>
-    <string name="syntax_highlighting">Szintaxis kiemelés</string>
     <string name="highlighting_delay">Kiemelés késleltetése</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Kiemelés késleltetése ezredmásodpercben. Alacsony érték esetén hamarabb kezdődik a kiemelés, viszont lemeríti az akkumulátort és lassíthatja az alkalmazást régebbi készülékeken.</string>
     <string name="highlighting_enabled_or_not__appspecific">A bevitt szöveg ki legyen-e emelve</string>
@@ -279,8 +277,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">Fekete</string>
     <string name="white">Fehér</string>
     <string name="view">Megtekintés</string>
-    <string name="view_mode">Olvasó mód</string>
-    <string name="edit_mode">Szerkesztő mód</string>
     <string name="mount_storage">Tárhely csatolása</string>
     <string name="share_into">Megoszás ide: </string>
     <string name="favourite">Kedvenc</string>
@@ -292,7 +288,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">A kiválasztott fájl egyszerű szövegfájl lehet. A szerkesztőben nyitod meg, vagy más alkalmazásban?\n\nNe nyiss meg bináris fájlokat! Ha nem vagy biztos benne, nyisd meg mással.</string>
     <string name="list_in_recent_files">Megjelenítés a legutóbbi fájlok között</string>
     <string name="reload">Újratölt</string>
-    <string name="wrap_words">Sortörés</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Sorok törése, ha a szöveg szélesebb a képernyőnél. Egyébként vízszintes görgetés bekapcsolása.</string>
     <string name="always_open_with_this_app">Mindig ezzel az alkalmazással nyissa meg</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Mindig ezzel az alkalmazással nyissa meg a fájlt, ha a kiterjesztése szerepel a listában. Például ha webfájlokat és kiterjesztés nélkülieket szeretnél szerkeszteni: \'None, .html, .css , .js\'</string>
@@ -364,7 +359,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Fájl leírásának formátuma</string>
     <string name="file_description_format_dialog">A fájlok alatt található leírás formátuma a fájlböngészőben. Az Android \"SimpleDateFormat\" szabályait követi, azzal a kiegészítéssel, hogy az FS mutatja a fájlméretet. Hagyd üresen az alapértelmezett formátum használatához.\n\nPélda bemenet:\nFS yyyy MMM dd hh:mm:ss aa\nKimenet:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">Alapértelmezett érték betöltése</string>
-    <string name="file_settings">Fájl beállítások</string>
     <string name="search_and_replace">Keresés / Csere</string>
     <string name="search_for">Keresés</string>
     <string name="replace_with">Csere erre</string>

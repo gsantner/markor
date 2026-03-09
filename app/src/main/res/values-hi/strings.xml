@@ -118,7 +118,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="remember_last_folder_location_on_startup" needed="false">स्टार्टअप पर अंतिम फ़ोल्डर स्थान याद रखें</string>
     <string name="number_of_files_witharg" needed="false">फ़ाइलों की संख्या: %d</string>
     <string name="main_view">प्रमुख राय</string>
-    <string name="syntax_highlighting">सिंटेक्स हाईलाइट</string>
     <string name="format">स्वरूप</string>
     <string name="contexts">प्रसंग</string>
     <string name="project">प्रोजेक्ट</string>
@@ -181,8 +180,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">काला</string>
     <string name="white">सफ़ेद</string>
     <string name="view">दृश्य</string>
-    <string name="view_mode">दृश्य मोड</string>
-    <string name="edit_mode">संपादन मोड</string>
     <string name="share_into">साझा करें</string>
     <string name="favourite">पसंदीदा</string>
     <string name="favourites">पसंदीदा</string>

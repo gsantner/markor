@@ -122,7 +122,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_current_folder_do_copy__appspecific">該檔案不在目前的資料夾中。您要將它複製到現行的資料夾裡嗎？這將會覆寫任何已存在的同名檔案。</string>
     <string name="files_and_folders">檔案和資料夾</string>
     <string name="document_browser">文件瀏覽器</string>
-    <string name="file_browser">檔案瀏覽器</string>
     <string name="set_due_date">設定到期日</string>
     <string name="insert_replace_date">插入日期</string>
     <string name="create_note" needed="false">建立筆記</string>
@@ -138,7 +137,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="main_view">主頁</string>
     <string name="overall_theme_used_in_app">使用於程式整體的主題</string>
     <string name="remember_last_directory">記住最近使用的目錄</string>
-    <string name="syntax_highlighting">同步標記</string>
     <string name="highlighting_delay">標記延遲</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">延遲的閃亮標記以毫秒更新記時，較低值會提早開始標記，但會降低效能與耗電。</string>
     <string name="highlighting_enabled_or_not__appspecific">不管輸入的文字是否已標記都要調整</string>
@@ -303,8 +301,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">黑色</string>
     <string name="white">白色</string>
     <string name="view">檢視</string>
-    <string name="view_mode">檢視模式</string>
-    <string name="edit_mode">編輯模式</string>
     <string name="mount_storage">掛載儲存裝置</string>
     <string name="application_needs_access_to_storage_mount_it">存取儲存空間需要權限，儲存空間掛載後才能存取；在跳出的對話框選擇儲存的位置，按下確認。</string>
     <string name="share_into">分享至</string>
@@ -317,8 +313,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">所選的檔案可能是純文字文件，您想用文字編輯器或是他程式開啟？\n\n執行檔案無法開啟，如果不確定，以其他程式開啟。</string>
     <string name="list_in_recent_files">最近開啟的文件列表</string>
     <string name="reload">重新下載</string>
-    <string name="wrap_words">文字斷行</string>
-    <string name="line_numbers">行號</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">如果文字超過螢幕寬度時會自動換行。停用該功能則開啟水平捲動。</string>
     <string name="recursive_search_in_location">在 %s 中遞迴搜​​尋</string>
     <string name="always_open_with_this_app">總是使用此應用程式開啟</string>
@@ -396,7 +390,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">檔案加密格式</string>
     <string name="file_description_format_dialog">檔案瀏覽器中每個檔案下的描述格式。遵循 Android 的 SimpleDateFormat 規則，並且新增 FS 用於顯示檔案大小。留空以使用你所在地區的預設格式。\n\n輸入範例：\nFS yyyy MMM dd hh:mm:ss aa\n輸出格式：\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">正在載入預設值</string>
-    <string name="file_settings">檔案設定</string>
     <string name="search_and_replace">搜尋 / 取代</string>
     <string name="search_for">搜尋</string>
     <string name="replace_with">取代為</string>

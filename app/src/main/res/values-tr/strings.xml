@@ -124,7 +124,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_current_folder_do_copy__appspecific">Dosya geçerli dizinde bulunmuyor.  Geçerli dizine kopyalamak istiyor musunuz?  Bu aynı ada sahip herhangi bir dosyanın üzerine yazacaktır.</string>
     <string name="files_and_folders">Dosyalar ve klasörler</string>
     <string name="document_browser">Belge görüntüleyici</string>
-    <string name="file_browser">Dosya gezgini</string>
     <string name="set_due_date">Bitiş tarihi belirle</string>
     <string name="insert_replace_date">Tarih gir</string>
     <string name="create_note" needed="false">Not Oluştur</string>
@@ -140,7 +139,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="main_view">Ana Görünüm</string>
     <string name="overall_theme_used_in_app">Uygulamada kullanılan genel tema</string>
     <string name="remember_last_directory">Son dizini hatırla</string>
-    <string name="syntax_highlighting">Sözdizimini vurgula</string>
     <string name="highlighting_delay">Vurgulama gecikmesi</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Vurgulamayı yenilemek için milisaniye cinsinden gecikme değeri. Daha düşük bir değer, daha erken vurgulamaya başlar, ancak pilinizi tüketir ve eski cihazlarda uygulamayı yavaşlatabilir.</string>
     <string name="highlighting_enabled_or_not__appspecific">Girilen metnin vurgulanıp vurgulanmayacağını kontrol edin</string>
@@ -306,8 +304,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">Siyah</string>
     <string name="white">Beyaz</string>
     <string name="view">Görünüm</string>
-    <string name="view_mode">Görünüm modu</string>
-    <string name="edit_mode">Düzenleme modu</string>
     <string name="mount_storage">Depolama bağla</string>
     <string name="application_needs_access_to_storage_mount_it">Bu depolamaya erişmek için izin gerekli. Erişimi sağlamak için depolamayı bağlayın. Bir açılır pencere almak için bu iletişim kutusunu onaylayın. Oradaki depolamayı seçin ve seç tuşuna basın.</string>
     <string name="share_into">İçine paylaş</string>
@@ -320,8 +316,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Seçilen dosya bir düz metin dosyası olabilir. Düzenleyicide veya başka bir uygulamada açmak ister misiniz?\n\nİkili dosyaları açmayı denemeyin. Emin değilseniz diğer uygulamalarla açın.</string>
     <string name="list_in_recent_files">Son dosyalarda listele</string>
     <string name="reload">Yeniden Yükle</string>
-    <string name="wrap_words">Kelimeleri kaydır</string>
-    <string name="line_numbers">Satır numaraları</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Metin ekran genişliğine sığmıyorsa yumuşak ara ver. Başka şekilde yatay kaydırmayı etkinleştirir.</string>
     <string name="recursive_search_in_location">%s içindeki dosyayı ve içindeki dosyaları ara</string>
     <string name="always_open_with_this_app">Her zaman bu uygulamayla aç</string>
@@ -400,7 +394,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Dosya açıklama biçimi</string>
     <string name="file_description_format_dialog">Dosya tarayıcısında her dosyanın altındaki açıklamanın biçimi. Dosya boyutunu göstermek için FS\'nin eklenmesiyle Android\'in SimpleDateFormat kurallarına uyar. Yerel ayarınız için varsayılan biçimi kullanmak için boş bırakın.\n\nÖrnek giriş:\nFS yyyy MMM dd hh:mm:ss aa\nçıktı biçimi:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">Varsayılan değer yükleniyor</string>
-    <string name="file_settings">Dosya ayarları</string>
     <string name="search_and_replace">Ara / Değiştir</string>
     <string name="replace">Değiştir</string>
     <string name="search_for">Bunun için ara</string>

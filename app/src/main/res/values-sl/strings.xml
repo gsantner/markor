@@ -124,7 +124,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_current_folder_do_copy__appspecific">Datoteke ni v trenutni mapi. Jo želite kopirati v trenutno mapo? To bo prepisalo morebitno že obstoječo datoteko z enakim imenom.</string>
     <string name="files_and_folders">Datoteke in mape</string>
     <string name="document_browser">Brskalnik dokumentov</string>
-    <string name="file_browser">Brskalnik datotek</string>
     <string name="set_due_date">Določi rok</string>
     <string name="insert_replace_date">Vstavi datum</string>
     <string name="create_note" needed="false">Ustavri opombo</string>
@@ -140,7 +139,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="main_view">Glavni pogled</string>
     <string name="overall_theme_used_in_app">Splošna tema, uporabljena v orodju</string>
     <string name="remember_last_directory">Zapomni si zadnji imenik</string>
-    <string name="syntax_highlighting">Označevanje skladnje</string>
     <string name="highlighting_delay">Zakasnitev označevanja</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Zakasnitev v osveževanja označevanja v milisekundah. Nižja vrednost pomeni hitrejše označevanje, vendar tudi hitrejše praznenje baterije, lahko tudi upočasni delovanje orodja na starejših napravah.</string>
     <string name="highlighting_enabled_or_not__appspecific">Nadzirajte, ali naj bo vnešeno besedilo označeno ali ne</string>
@@ -306,8 +304,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">Črna</string>
     <string name="white">Bela</string>
     <string name="view">Pogled</string>
-    <string name="view_mode">Način pogleda</string>
-    <string name="edit_mode">Uredi način</string>
     <string name="mount_storage">Priklopi zunanji pomnilnik</string>
     <string name="application_needs_access_to_storage_mount_it">Za dostop do pomnilnika je zahtevano dovoljenje. Priklopite zunanji pomnilnik, da podelite dostop. Potrdite to pogovorno okno, da se prikaže pojavno okno. Izberite pomnilnik in pritisnite Izberi.</string>
     <string name="share_into">Deli v</string>
@@ -320,8 +316,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Izbrana datoteka je morda v obliki navadnega besedila. Jo želite odpreti v urejevalniku ali v drugem orodju?\n\nNe poskušajte odpreti binarnih datotek. Če niste prepričani, jo odprite v drugem orodju.</string>
     <string name="list_in_recent_files">Navedi v nedavnih datotekah</string>
     <string name="reload">Ponovno naloži</string>
-    <string name="wrap_words">Prelomi besede</string>
-    <string name="line_numbers">Oštevilčene vrstice</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Mehak prelom, če besedilo ne ustreza širini zaslona. Sicer omogoči vodoravno pomikanje.</string>
     <string name="recursive_search_in_location">Rekurzivno iskanje v %s</string>
     <string name="always_open_with_this_app">Vedno odpri s tem orodjem</string>
@@ -400,7 +394,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Oblika opisa datoteke</string>
     <string name="file_description_format_dialog">Oblika opisa pod vsako datoteko v brskalniku datotek. Sledi Androidovim pravilom SimpleDateFormat z dodatkom FS za prikaz velikosti datotek. Pustite prazno za uporabo privzete oblike po lokalnih nastavitvah.\n\n Primer vhoda:\nFS llll MMM dd uu:mm:ss aa\nOblika izhoda:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">Nalaganje privzete vrednosti</string>
-    <string name="file_settings">Nastavitve datoteke</string>
     <string name="search_and_replace">Poišči / zamenjaj</string>
     <string name="replace">Zamenjaj</string>
     <string name="search_for">Išči</string>

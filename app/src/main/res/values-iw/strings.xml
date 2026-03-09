@@ -122,7 +122,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_current_folder_do_copy__appspecific">הקובץ לא נמצא בתיקיה הנוכחית. האם ברצונך להעתיק אותו לתיקיה הנוכחית? פעולה זו תחליף כל קובץ קיים עם אותו שם.</string>
     <string name="files_and_folders">קבצים ותיקיות</string>
     <string name="document_browser">דפדפן מסמכים</string>
-    <string name="file_browser">מנהל קבצים</string>
     <string name="set_due_date">הגדר תאריך יעד</string>
     <string name="insert_replace_date">הוסף תאריך</string>
     <string name="create_note" needed="false">צור פתק</string>
@@ -138,7 +137,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="main_view">תצוגה ראשית</string>
     <string name="overall_theme_used_in_app">ערכת הנושא הכללית לשימוש על ידי האפליקציה</string>
     <string name="remember_last_directory">זכור מיקום אחרון</string>
-    <string name="syntax_highlighting">הדגשת תחביר</string>
     <string name="highlighting_delay">השהיית הדגשה</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">השהיה במילי-שניות עבור רענון הדגשה. ערך נמוך יתחיל את ההדגשה מוקדם יותר, אבל יגרום לצריכה מוגברת של הסוללה ועלול להאט את האפליקציה במכשירים ישנים.</string>
     <string name="highlighting_enabled_or_not__appspecific">שלוט האם הטקסט המוכנס צריך להיות מודגש או לא</string>
@@ -300,8 +298,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">שחור</string>
     <string name="white">לבן</string>
     <string name="view">הצג</string>
-    <string name="view_mode">מצב תצוגה</string>
-    <string name="edit_mode">מצב עריכה</string>
     <string name="mount_storage">הטמע אחסון</string>
     <string name="application_needs_access_to_storage_mount_it">גישה לאכסון זה דורשת הרשאות. יש לעגן (mount) את האכסון על מנת לתת גישה. לחץ אישור בכדי לקבל פופ-אפ שבו עליכם לבחור את האכסון.</string>
     <string name="share_into">שתף ל</string>
@@ -314,8 +310,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">יתכן שהקובץ הנבחר הינו טקסט פשוט. האם ברצונכם לפתוח אותו בעורך או ביישום אחר?\n\nאין לנסות לפתוח קבצים בינאריים. אם אינכם בטוחים, פתחו באמצעות יישום אחר.</string>
     <string name="list_in_recent_files">הצג בקבצים אחרונים</string>
     <string name="reload">רענן</string>
-    <string name="wrap_words">גלישת שורות</string>
-    <string name="line_numbers">מספור שורות</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">שבירת שורות במקרה של טקטס רחב מהמסך. אחרת אפשר גלילה אופקית.</string>
     <string name="recursive_search_in_location">חיפוש רקורסיבי ב-%s</string>
     <string name="always_open_with_this_app">פתח תמיד עם יישום זה</string>
@@ -401,7 +395,6 @@ FS yyyy MMM dd hh:mm:ss aa
 תוצאה:
 30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">טוען ערך ברירת מחדל</string>
-    <string name="file_settings">הגדרות קובץ</string>
     <string name="search_and_replace">חיפוש / החלפה</string>
     <string name="search_for">חפש</string>
     <string name="replace_with">החלף ב</string>
