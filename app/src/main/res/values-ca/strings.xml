@@ -218,6 +218,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="center_text">Centra el text</string>
     <string name="edit_text_in_center_of_screen">Edita el text al centre de la pantalla</string>
     <string name="clipboard">Porta-retalls</string>
+    <string name="link_copied">S\'ha copiat l\'enllaç!</string>
     <string name="select_existing_document">Seleccioneu el document existent</string>
     <string name="select_create_document">Seleccioneu o creeu un document</string>
     <string name="select_create_folder">Seleccioneu o creeu una carpeta</string>
