@@ -218,6 +218,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="center_text">Centrar texto</string>
     <string name="edit_text_in_center_of_screen">Editar texto no centro do ecrã</string>
     <string name="clipboard">Área de transferência</string>
+    <string name="link_copied">Ligação copiada!</string>
     <string name="select_existing_document">Selecionar documento</string>
     <string name="select_create_document">Selecionar ou criar documento</string>
     <string name="select_create_folder">Selecionar ou criar pasta</string>
@@ -374,6 +375,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Adicionar contexto</string>
     <string name="add_project">Adicionar projeto</string>
     <string name="archive_completed_tasks">Arquivar tarefas concluídas</string>
+    <string name="overline">Sobrelinha</string>
+    <string name="superscript">Sobrescrito</string>
+    <string name="subscript">Subscrito</string>
     <string name="create_new_file_or_folder">Criar um novo ficheiro ou pasta</string>
     <string name="choose_format">Escolher formato</string>
     <string name="clear_selection">Limpar seleção</string>
