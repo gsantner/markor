@@ -28,10 +28,13 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.util.Pair;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.LinearInterpolator;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -1369,17 +1372,71 @@ public class MarkorDialogFactory {
         return dopt;
     }
 
-    public static void showPopupWindow(View anchorView, String text, GsCallback.a0 callbackOnClick) {
+    public static class PopupWindowOption {
+        public final boolean showAtLocation;
+        public final int x;
+        public final int y;
+        public int gravity = Gravity.LEFT;
+        public int paddingHorizontal = 8;
+        public int paddingVertical = 6;
+        public int duration = 3000;
+
+        public PopupWindowOption(boolean showAtLocation, int x, int y) {
+            this.showAtLocation = showAtLocation;
+            this.x = x;
+            this.y = y;
+        }
+    }
+
+    public static void showPopupWindow(View anchorView, PopupWindowOption option, String text, GsCallback.a0 callbackOnClick) {
         View popupView = LayoutInflater.from(anchorView.getContext()).inflate(R.layout.text_popup_window, null);
+
         TextView textView = popupView.findViewById(R.id.popupTextView);
         textView.setText(text);
+        textView.setPadding(option.paddingHorizontal, option.paddingVertical, option.paddingHorizontal, option.paddingVertical);
 
         PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, false);
         textView.setOnClickListener(v -> {
             callbackOnClick.callback();
             popupWindow.dismiss();
         });
-        popupWindow.showAsDropDown(anchorView, 130, -100);
-        anchorView.getHandler().postDelayed(() -> popupWindow.dismiss(), 3000);
+
+        textView.setOnTouchListener(new View.OnTouchListener() {
+            float touchDownX = 0;
+            int duration = 200;
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    touchDownX = event.getX();
+                }
+                if (event.getAction() == MotionEvent.ACTION_MOVE) {
+                    if (Math.abs(touchDownX - event.getX()) > 32 && duration > 0) {
+                        popupView.animate()
+                                .translationXBy(600)
+                                .setDuration(duration)
+                                .setInterpolator(new LinearInterpolator())
+                                .start();
+                        popupView.postDelayed(() -> popupWindow.dismiss(), duration);
+                        duration = -1;
+                    }
+                }
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (duration == -1) {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+        });
+
+        if (option.showAtLocation) {
+            popupWindow.showAtLocation(anchorView, option.gravity, option.x, option.y);
+        } else {
+            popupWindow.showAsDropDown(anchorView, option.x, option.y, option.gravity);
+        }
+
+        anchorView.getHandler().postDelayed(() -> popupWindow.dismiss(), option.duration);
     }
 }

@@ -247,20 +247,51 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     @Override
     protected void onFragmentFirstTimeVisible() {
+        // Restore to last selection
+        final int lastSelection = _appSettings.getLastEditPosition(_document.path, _hlEditor.length());
+        _hlEditor.setSelection(lastSelection);
+
+        // Set scroll position by line number
         final Bundle args = getArguments();
-        int startPos = _appSettings.getLastEditPosition(_document.path, _hlEditor.length());
         if (args != null && args.containsKey(Document.EXTRA_FILE_LINE_NUMBER)) {
-            final int lno = args.getInt(Document.EXTRA_FILE_LINE_NUMBER);
-            if (lno >= 0) {
-                startPos = TextViewUtils.getIndexFromLineOffset(_hlEditor.getText(), lno, 0);
-            } else {
-                startPos = _hlEditor.length();
-            }
+            final int lineNumber = args.getInt(Document.EXTRA_FILE_LINE_NUMBER);
+            int selection = lineNumber >= 0 ? TextViewUtils.getIndexFromLineOffset(_hlEditor.getText(), lineNumber, 0) : _hlEditor.length();
+            TextViewUtils.setSelectionAndShow(_hlEditor, selection);
+        }
+
+        if (_format.getFormatId() == FormatRegistry.FORMAT_TODOTXT) {
+            _hlEditor.requestFocus();
+        } else {
+            // Ask the user if want to restore to last position in a precise way
+            MarkorDialogFactory.PopupWindowOption popupOption = new MarkorDialogFactory.PopupWindowOption(true, 20, 0);
+            popupOption.gravity = Gravity.RIGHT | Gravity.CENTER_VERTICAL;
+            popupOption.paddingHorizontal = 40;
+            popupOption.paddingVertical = 40;
+            MarkorDialogFactory.showPopupWindow(_verticalScrollView, popupOption, getString(R.string.go_back_to_last_position), () -> {
+                int lastEditHeight = _appSettings.getLastEditHeight(_document.path, 0);
+                int lastEditScrollY = _appSettings.getLastEditScrollY(_document.path, 0);
+                // Ensure last scroll Y is effective
+                if (lastEditHeight == _verticalScrollView.getHeight() && lastEditScrollY > 0) {
+                    _verticalScrollView.post(() -> {
+                        _verticalScrollView.scrollTo(0, lastEditScrollY);
+                        _hlEditor.requestFocus();
+                    });
+                } else { // Show last selection if last scroll Y is not effective
+                    TextViewUtils.setSelectionAndShow(_hlEditor, lastSelection);
+                }
+
+                if (_webView != null) {
+                    int lastViewHeight = _appSettings.getLastViewHeight(_document.path, 0);
+                    int lastViewScrollY = _appSettings.getLastViewScrollY(_document.path, 0);
+                    if (lastViewHeight == _webView.getHeight() && lastViewScrollY > 0) {
+                        // Restore if last scroll Y is effective
+                        _verticalScrollView.post(() -> _webView.scrollTo(0, lastViewScrollY));
+                    }
+                }
+            });
         }
 
         _hlEditor.recomputeHighlighting(); // Run before setting scroll position
-        TextViewUtils.setSelectionAndShow(_hlEditor, startPos);
-
         // Fade in to hide initial jank
         _hlEditor.post(() -> _hlEditor.animate().alpha(1).setDuration(250).start());
     }
@@ -282,11 +313,14 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         saveDocument(false);
         if (_webView != null) {
             _webView.onPause();
+            _appSettings.setLastViewScrollY(_document.path, _webView.getScrollY());
+            _appSettings.setLastViewHeight(_document.path, _webView.getHeight());
         }
         _appSettings.addRecentFile(_document.file);
         _appSettings.setDocumentPreviewState(_document.path, _isPreviewVisible);
         _appSettings.setLastEditPosition(_document.path, TextViewUtils.getSelection(_hlEditor)[0]);
         _appSettings.setLastEditScrollY(_document.path, _verticalScrollView.getScrollY());
+        _appSettings.setLastEditHeight(_document.path, _verticalScrollView.getHeight());
         if (_document.path.equals(_appSettings.getTodoFile().getAbsolutePath())) {
             TodoWidgetProvider.updateTodoWidgets();
         }

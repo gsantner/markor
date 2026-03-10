@@ -171,7 +171,8 @@ public class NewFileDialog extends DialogFragment {
             if (times < 2) { // Skip
                 templateSpinner.setTag(++times);
             } else if (pos > 0) { // Show suggested title name when clicking template file items
-                MarkorDialogFactory.showPopupWindow(titleEdit, template, () -> {
+                MarkorDialogFactory.PopupWindowOption popupOption = new MarkorDialogFactory.PopupWindowOption(false, 130, -100);
+                MarkorDialogFactory.showPopupWindow(titleEdit, popupOption, template, () -> {
                     int end = template.lastIndexOf('.');
                     titleEdit.setText(end > 0 ? template.substring(0, end) : template);
                     titleEdit.setSelection(titleEdit.length());
