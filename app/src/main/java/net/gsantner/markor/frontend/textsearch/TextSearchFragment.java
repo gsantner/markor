@@ -42,6 +42,7 @@ public class TextSearchFragment extends Fragment {
     private int containerViewId;
     private FragmentActivity activity;
     private HighlightingEditor editText;
+    private String fragmentTag;
 
     private EditText searchEditText;
     private EditText replaceEditText;
@@ -51,9 +52,11 @@ public class TextSearchFragment extends Fragment {
 
     private boolean initialized;
 
-    public static TextSearchFragment newInstance(@IdRes int containerViewId, FragmentActivity activity, HighlightingEditor editText) {
+    public static TextSearchFragment newInstance(@IdRes int containerViewId, FragmentActivity activity, HighlightingEditor editText, @Nullable String fragmentTag) {
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
-        Fragment fragment = fragmentManager.findFragmentByTag(String.valueOf(containerViewId));
+        // Use the provided tag if available, otherwise fall back to containerViewId for backward compatibility
+        String tag = fragmentTag != null ? fragmentTag : String.valueOf(containerViewId);
+        Fragment fragment = fragmentManager.findFragmentByTag(tag);
         if (fragment instanceof TextSearchFragment) {
             return (TextSearchFragment) fragment;
         }
@@ -63,6 +66,7 @@ public class TextSearchFragment extends Fragment {
         newFragment.activity = activity;
         newFragment.editText = editText;
         newFragment.textSearchHandler = new TextSearchHandler();
+        newFragment.fragmentTag = tag;
 
         return newFragment;
     }
@@ -130,7 +134,7 @@ public class TextSearchFragment extends Fragment {
             }
 
             private boolean paused;
-            private Pattern pattern = Pattern.compile("\\n");
+            private final Pattern pattern = Pattern.compile("\\n");
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -345,7 +349,8 @@ public class TextSearchFragment extends Fragment {
 
     public void show() {
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
-        String tag = String.valueOf(this.containerViewId);
+        // Use fragmentTag if available, otherwise fall back to containerViewId for backward compatibility
+        String tag = (fragmentTag != null && !fragmentTag.isEmpty()) ? fragmentTag : String.valueOf(this.containerViewId);
         if (fragmentManager.findFragmentByTag(tag) == null) {
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             transaction.replace(this.containerViewId, this, tag);

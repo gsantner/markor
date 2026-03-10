@@ -720,9 +720,15 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _hlEditor.setHighlighter(_format.getHighlighter());
         _hlEditor.setAutoFormatters(_format.getAutoFormatInputFilter(), _format.getAutoFormatTextWatcher());
         _hlEditor.setAutoFormatEnabled(_appSettings.getDocumentAutoFormatEnabled(_document.path));
+
+        // Set a unique tag for the search fragment to ensure it shows in the correct location
+        // Use the fragment's hashCode as unique identifier for each instance (QuickNote, To-Do, etc.)
+        final String uniqueSearchTag = "TextSearchFragment_" + this.hashCode();
+
         _format.getActions()
                 .setDocument(_document)
                 .setUiReferences(activity, _hlEditor, _webView)
+                .setSearchFragmentTag(uniqueSearchTag)
                 .recreateActionButtons(_textActionsBar, _isPreviewVisible ? ActionButtonBase.ActionItem.DisplayMode.VIEW : ActionButtonBase.ActionItem.DisplayMode.EDIT);
         updateMenuToggleStates(_format.getFormatId());
         setActionBarVisibility();

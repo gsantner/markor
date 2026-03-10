@@ -106,10 +106,24 @@ public abstract class ActionButtonBase {
     }
 
     private TextSearchFragment _textSearchFragment;
+    private String _searchFragmentTag;
+
+    /**
+     * Set a unique tag for the search fragment to ensure each fragment (e.g., QuickNote, To-Do)
+     * has its own search fragment instance.
+     *
+     * @param tag Unique tag to identify this fragment's search instance
+     */
+    public ActionButtonBase setSearchFragmentTag(final String tag) {
+        _searchFragmentTag = tag;
+        // Reset the search fragment so it gets recreated with the new tag
+        _textSearchFragment = null;
+        return this;
+    }
 
     private TextSearchFragment getTextSearchFragment() {
         if (_textSearchFragment == null) {
-            _textSearchFragment = TextSearchFragment.newInstance(R.id.topViewContainer, (FragmentActivity) _activity, _hlEditor);
+            _textSearchFragment = TextSearchFragment.newInstance(R.id.topViewContainer, (FragmentActivity) _activity, _hlEditor, _searchFragmentTag);
         }
         return _textSearchFragment;
     }
