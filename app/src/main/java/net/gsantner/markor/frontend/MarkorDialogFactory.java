@@ -1376,7 +1376,7 @@ public class MarkorDialogFactory {
         public final boolean showAtLocation;
         public final int x;
         public final int y;
-        public int gravity = Gravity.LEFT;
+        public int gravity = Gravity.START;
         public int paddingHorizontal = 8;
         public int paddingVertical = 6;
         public int duration = 3000;
@@ -1390,12 +1390,13 @@ public class MarkorDialogFactory {
 
     public static void showPopupWindow(View anchorView, PopupWindowOption option, String text, GsCallback.a0 callbackOnClick) {
         View popupView = LayoutInflater.from(anchorView.getContext()).inflate(R.layout.text_popup_window, null);
+        PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, false);
 
         TextView textView = popupView.findViewById(R.id.popupTextView);
         textView.setText(text);
+        textView.setElevation(8f);
         textView.setPadding(option.paddingHorizontal, option.paddingVertical, option.paddingHorizontal, option.paddingVertical);
 
-        PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, false);
         textView.setOnClickListener(v -> {
             callbackOnClick.callback();
             popupWindow.dismiss();
@@ -1417,14 +1418,12 @@ public class MarkorDialogFactory {
                                 .setDuration(duration)
                                 .setInterpolator(new LinearInterpolator())
                                 .start();
-                        popupView.postDelayed(() -> popupWindow.dismiss(), duration);
+                        popupView.postDelayed(popupWindow::dismiss, duration);
                         duration = -1;
                     }
                 }
                 if (event.getAction() == MotionEvent.ACTION_UP) {
-                    if (duration == -1) {
-                        return true;
-                    }
+                    return duration == -1;
                 }
 
                 return false;
@@ -1437,6 +1436,6 @@ public class MarkorDialogFactory {
             popupWindow.showAsDropDown(anchorView, option.x, option.y, option.gravity);
         }
 
-        anchorView.getHandler().postDelayed(() -> popupWindow.dismiss(), option.duration);
+        anchorView.getHandler().postDelayed(popupWindow::dismiss, option.duration);
     }
 }

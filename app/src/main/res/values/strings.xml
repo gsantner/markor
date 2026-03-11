@@ -63,7 +63,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 
     <string name="last_modified_witharg">Last modified: %s</string>
     <string name="last_modified">Last modified</string>
-    <string name="go_back_to_last_position">Go back to last position</string>
+    <string name="continue_where_you_left">Continue where you left off</string>
     <string name="select_this_folder">Select this folder</string>
     <string name="select">Select</string>
     <string name="select_all">Select all</string>

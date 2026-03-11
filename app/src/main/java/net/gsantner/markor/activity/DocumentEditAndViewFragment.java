@@ -267,7 +267,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             popupOption.gravity = Gravity.RIGHT | Gravity.CENTER_VERTICAL;
             popupOption.paddingHorizontal = 40;
             popupOption.paddingVertical = 40;
-            MarkorDialogFactory.showPopupWindow(_verticalScrollView, popupOption, getString(R.string.go_back_to_last_position), () -> {
+            MarkorDialogFactory.showPopupWindow(_verticalScrollView, popupOption, getString(R.string.continue_where_you_left), () -> {
                 int lastEditHeight = _appSettings.getLastEditHeight(_document.path, 0);
                 int lastEditScrollY = _appSettings.getLastEditScrollY(_document.path, 0);
                 // Ensure last scroll Y is effective
