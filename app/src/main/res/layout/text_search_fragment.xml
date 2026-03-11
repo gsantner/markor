@@ -149,7 +149,7 @@
                             android:background="?attr/selectableItemBackground"
                             android:contentDescription="@string/new_line"
                             android:padding="1dp"
-                            android:src="@drawable/ic_new_line_24dp"
+                            android:src="@drawable/ic_baseline_keyboard_return_24"
                             android:tooltipText="@string/new_line" />
 
                         <ImageView
