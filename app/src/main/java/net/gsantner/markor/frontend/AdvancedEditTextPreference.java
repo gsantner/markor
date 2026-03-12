@@ -49,6 +49,9 @@ public class AdvancedEditTextPreference extends DialogPreference {
     @Override
     protected Object onGetDefaultValue(@NonNull TypedArray a, int index) {
         defaultValue = a.getString(index);
+        if (defaultValue == null) {
+            defaultValue = "";
+        }
         return defaultValue;
     }
 
@@ -63,7 +66,7 @@ public class AdvancedEditTextPreference extends DialogPreference {
         editText.setOnPreparedListener(() -> {
             editText.setText(getPersistedString(defaultValue));
             editText.requestFocusFromTouch();
-            defaultValue = null;
+            defaultValue = "";
         });
 
         TextView textView = view.findViewById(R.id.title);
