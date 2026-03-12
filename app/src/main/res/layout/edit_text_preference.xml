@@ -26,6 +26,13 @@
             android:orientation="horizontal">
 
             <ImageButton
+                android:id="@+id/reset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_rotate_left_black_24dp"
+                android:tooltipText="@string/reset" />
+
+            <ImageButton
                 android:id="@+id/undo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

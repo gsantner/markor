@@ -51,6 +51,9 @@ public class AdvancedEditTextPreference extends DialogPreference {
         defaultValue = a.getString(index);
         if (defaultValue == null) {
             defaultValue = "";
+        } else {
+            // Prettify indentation with 2 spaces
+            defaultValue = defaultValue.replaceAll("\n ", "\n  ");
         }
         return defaultValue;
     }
@@ -72,6 +75,7 @@ public class AdvancedEditTextPreference extends DialogPreference {
         textView.setText(getTitle());
         view.findViewById(R.id.undo).setOnClickListener(v -> editText.undo());
         view.findViewById(R.id.redo).setOnClickListener(v -> editText.redo());
+        view.findViewById(R.id.reset).setOnClickListener(v -> editText.setText(defaultValue));
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setView(view);

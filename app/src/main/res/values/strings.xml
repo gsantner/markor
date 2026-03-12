@@ -104,6 +104,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="exit">Exit</string>
     <string name="undo">Undo</string>
     <string name="redo">Redo</string>
+    <string name="reset">Reset</string>
     <string name="more">More</string>
     <string name="notebook">Notebook</string>
     <string name="help">Help</string>
