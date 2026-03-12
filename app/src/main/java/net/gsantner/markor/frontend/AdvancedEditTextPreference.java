@@ -57,11 +57,12 @@ public class AdvancedEditTextPreference extends DialogPreference {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         view.setMinimumWidth((int) (displayMetrics.widthPixels * 0.9));
-        view.setMinimumHeight((int) (displayMetrics.heightPixels * 0.5));
+        view.setMinimumHeight((int) (displayMetrics.heightPixels * 0.52));
 
         editText = view.findViewById(R.id.editor);
         editText.setOnPreparedListener(() -> {
             editText.setText(getPersistedString(defaultValue));
+            editText.requestFocusFromTouch();
             defaultValue = null;
         });
 
