@@ -305,6 +305,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">my_note</string>
     <string name="close">Close</string>
     <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
     <string name="app_start_tab">App start tab</string>
     <string name="tab_to_select_at_start">Tab to select when starting the app</string>
     <string name="swipe_to_change_mode">Swipe to change mode</string>

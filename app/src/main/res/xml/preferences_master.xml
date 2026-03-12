@@ -401,13 +401,13 @@
             android:title="@string/swipe_to_change_mode" />
 
         <PreferenceCategory android:title="@string/inject">
-            <androidx.preference.EditTextPreference
+            <net.gsantner.markor.frontend.AdvancedEditTextPreference
                 android:defaultValue="@string/inject_to_head_default"
                 android:icon="@drawable/ic_add_white_24dp"
                 android:key="@string/pref_key__inject_to_head"
                 android:summary="@string/js_css"
                 android:title="@string/inject_to_head" />
-            <androidx.preference.EditTextPreference
+            <net.gsantner.markor.frontend.AdvancedEditTextPreference
                 android:defaultValue="@string/empty_string"
                 android:icon="@drawable/ic_add_white_24dp"
                 android:key="@string/pref_key__inject_to_body"

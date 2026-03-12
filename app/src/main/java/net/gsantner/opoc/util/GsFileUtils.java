@@ -27,6 +27,7 @@ import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.CharArrayWriter;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -38,6 +39,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
@@ -70,6 +72,8 @@ import java.util.zip.CRC32;
 
 @SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "SpellCheckingInspection"})
 public class GsFileUtils {
+    public static final String DEFAULT_CHARSET = "UTF-8";
+
     @SuppressLint("ConstantLocale")
     public final static Locale INITIAL_LOCALE = Locale.getDefault();
     public final static SimpleDateFormat DATEFORMAT_IMG = new SimpleDateFormat("yyyyMMdd-HHmmss", INITIAL_LOCALE); //20190511-230845
@@ -152,6 +156,57 @@ public class GsFileUtils {
         }
 
         return "";
+    }
+
+    /**
+     * Byte input stream -> Character array.
+     *
+     * @param inputStream Byte input stream
+     * @param charset     Character code
+     * @return Character array
+     */
+    public static char[] readChars(InputStream inputStream, String charset) {
+        char[] chars = null;
+        try {
+            InputStreamReader inputStreamReader;
+            if (charset == null) {
+                inputStreamReader = new InputStreamReader(inputStream);
+            } else {
+                inputStreamReader = new InputStreamReader(inputStream, charset);
+            }
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            char[] buffer = new char[BUFFER_SIZE];
+            int length;
+            CharArrayWriter charArrayWriter = new CharArrayWriter();
+            while ((length = bufferedReader.read(buffer)) != -1) {
+                charArrayWriter.write(buffer, 0, length);
+            }
+            charArrayWriter.flush();
+            bufferedReader.close();
+            inputStreamReader.close();
+            inputStream.close();
+
+            chars = charArrayWriter.toCharArray();
+            charArrayWriter.close();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return chars;
+    }
+
+    /**
+     * Byte input stream -> Character array.
+     *
+     * @return Character array
+     */
+    public static char[] readChars(InputStream inputStream) {
+        return readChars(inputStream, DEFAULT_CHARSET);
+    }
+
+    public static String readText(InputStream inputStream) {
+        return String.valueOf(readChars(inputStream));
     }
 
     public static String readCloseTextStream(final InputStream stream) {

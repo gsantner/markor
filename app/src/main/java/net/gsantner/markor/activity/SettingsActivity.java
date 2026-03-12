@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.Preference;
@@ -29,6 +30,7 @@ import androidx.preference.PreferenceScreen;
 import com.rarepebble.colorpicker.ColorPreference;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.frontend.AdvancedEditTextPreference;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.model.AppSettings;
@@ -142,6 +144,16 @@ public class SettingsActivity extends MarkorBaseActivity {
 
     public static class SettingsFragmentMaster extends MarkorSettingsFragment {
         public static final String TAG = "SettingsFragmentMaster";
+
+        @Override
+        public void onDisplayPreferenceDialog(Preference preference) {
+            FragmentActivity activity = getActivity();
+            if (preference instanceof AdvancedEditTextPreference && activity != null) {
+                ((AdvancedEditTextPreference) preference).createDialog(activity).show();
+            } else {
+                super.onDisplayPreferenceDialog(preference);
+            }
+        }
 
         @Override
         public int getPreferenceResourceForInflation() {
