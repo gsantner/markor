@@ -11,7 +11,7 @@ class EditorBridge {
     const isDarkTheme = isDarkMode();
 
     const theme = EditorView.theme({
-      "&": { height: "100%", fontSize: "18px" },
+      "&": { height: "100%", fontSize: "16px" },
       ".cm-scroller": { overflow: "auto" }
     }, { dark: isDarkTheme });
 

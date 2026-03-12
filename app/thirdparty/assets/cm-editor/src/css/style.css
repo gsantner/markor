@@ -17,3 +17,7 @@ body {
     border-radius: 6px;
     background-color: lightblue;
 }
+
+.cm-gutters {
+    user-select: none;
+}
