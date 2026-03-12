@@ -19,9 +19,10 @@ class EditorBridge {
       basicSetup,
       theme,
       history(),
-      html(),
-      EditorView.lineWrapping
+      html()
     ];
+
+    // exts.push(EditorView.lineWrapping);
 
     if (isDarkTheme) {
       exts.push(oneDark);
