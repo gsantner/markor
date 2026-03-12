@@ -2,24 +2,34 @@ import { EditorView, basicSetup } from "codemirror"
 import { EditorState } from "@codemirror/state"
 import { history, undo, redo } from "@codemirror/commands";
 import { html } from "@codemirror/lang-html"
+import { oneDark } from "@codemirror/theme-one-dark"
+import { isDarkMode } from "./theme.js";
 // import { callback } from "./test";
 
 class EditorBridge {
   constructor(element) {
-    this.parent = element;
+    const isDarkTheme = isDarkMode();
+
+    const theme = EditorView.theme({
+      "&": { height: "100%", fontSize: "18px" },
+      ".cm-scroller": { overflow: "auto" }
+    }, { dark: isDarkTheme });
+
+    const exts = [
+      basicSetup,
+      theme,
+      history(),
+      html(),
+      EditorView.lineWrapping
+    ];
+
+    if (isDarkTheme) {
+      exts.push(oneDark);
+    }
 
     const state = EditorState.create({
       doc: "",
-      extensions: [
-        basicSetup,
-        history(),
-        html(),
-        EditorView.theme({
-          "&": { height: "100%", fontSize: "18px" },
-          ".cm-scroller": { overflow: "auto" }
-        }),
-        EditorView.lineWrapping
-      ]
+      extensions: exts
     });
 
     this.editor = new EditorView({ state, parent: element });

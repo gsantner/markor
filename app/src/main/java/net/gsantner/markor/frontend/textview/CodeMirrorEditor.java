@@ -12,6 +12,7 @@ import android.webkit.WebViewClient;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 
 import org.apache.commons.text.StringEscapeUtils;
@@ -27,6 +28,7 @@ public class CodeMirrorEditor extends WebView {
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
+            setVisibility(VISIBLE);
             if (onPreparedListener != null) {
                 onPreparedListener.onPageFinished();
             }
@@ -70,6 +72,7 @@ public class CodeMirrorEditor extends WebView {
 
     @SuppressLint("SetJavaScriptEnabled")
     public void load() {
+        setVisibility(INVISIBLE);
         setWebViewClient(webViewClient);
         addJavascriptInterface(new CallbackInterface(), "callbackInterface");
         getSettings().setJavaScriptEnabled(true);
@@ -77,6 +80,9 @@ public class CodeMirrorEditor extends WebView {
 
         try {
             String index = GsFileUtils.readText(getContext().getAssets().open(BASE_HTML_PATH));
+            if (GsContextUtils.instance.isDarkModeEnabled(getContext())) {
+                index = index.replace("content=\"light\"", "content=\"dark\"");
+            }
             loadDataWithBaseURL(BASE_DIR_URL, index, "text/html", "utf-8", null);
         } catch (IOException e) {
             throw new RuntimeException(e);
