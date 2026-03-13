@@ -69,6 +69,7 @@ public class AdvancedEditTextPreference extends DialogPreference {
         editText.setOnPreparedListener(() -> {
             editText.setText(getPersistedString(defaultValue));
             editText.requestFocusFromTouch();
+            editText.focus();
         });
 
         TextView textView = view.findViewById(R.id.title);
@@ -79,7 +80,7 @@ public class AdvancedEditTextPreference extends DialogPreference {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setView(view);
-        builder.setPositiveButton(activity.getString(R.string.ok),
+        builder.setPositiveButton(activity.getString(R.string.save),
                 (dialog, which) -> editText.getText(this::persistString));
         builder.setNegativeButton(activity.getString(R.string.cancel), null);
 

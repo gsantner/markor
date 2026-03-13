@@ -89,6 +89,10 @@ public class CodeMirrorEditor extends WebView {
         }
     }
 
+    public void focus() {
+        loadUrl("javascript: editorBridge.focus()");
+    }
+
     public interface OnTextReadListener {
         void onTextRead(String value);
     }

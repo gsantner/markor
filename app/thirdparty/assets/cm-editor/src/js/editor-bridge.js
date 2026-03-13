@@ -1,8 +1,8 @@
-import { EditorView, basicSetup } from "codemirror"
-import { EditorState } from "@codemirror/state"
+import { EditorView, basicSetup } from "codemirror";
+import { EditorState } from "@codemirror/state";
 import { history, undo, redo } from "@codemirror/commands";
-import { html } from "@codemirror/lang-html"
-import { oneDark } from "@codemirror/theme-one-dark"
+import { html } from "@codemirror/lang-html";
+import { oneDark } from "@codemirror/theme-one-dark";
 import { isDarkMode } from "./theme.js";
 // import { callback } from "./test";
 
@@ -36,6 +36,24 @@ class EditorBridge {
     this.editor = new EditorView({ state, parent: element });
 
     // this.setText(`<!DOCTYPE html>\n<!-- Hello, CodeMirror! -->`);
+
+    this.#setup();
+  }
+
+  #setup() {
+    const that = this;
+    document.querySelector('.cm-gutters').addEventListener('click', function () {
+      that.focus();
+    });
+  }
+
+  focus() {
+    if (this.contentElement) {
+      this.contentElement.focus();
+    } else {
+      this.contentElement = document.querySelector('.cm-content');
+      this.contentElement.focus();
+    }
   }
 
   setText(text) {
