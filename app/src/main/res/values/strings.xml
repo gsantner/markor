@@ -61,7 +61,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Render for right-to-left languages</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Error: Cannot create notebook directory</string>
 
-    <string name="last_modified_witharg">Last modified: %s</string>
+    <string name="last_modified_with_arg">Last modified: %s</string>
     <string name="last_modified">Last modified</string>
     <string name="select_this_folder">Select this folder</string>
     <string name="select">Select</string>
@@ -312,6 +312,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="swipe_to_change_mode">Swipe to change mode</string>
     <string name="swipe_to_change_to_edit_or_view_mode">Swipe to change to edit or view mode (opposite of the current mode)</string>
     <string name="folder_first">Folder first</string>
+    <string name="favorite_first">Favorite first</string>
     <string name="go_to">Go to</string>
     <string name="appdata_public">AppData (public)</string>
     <string name="appdata_private">AppData (private)</string>

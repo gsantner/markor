@@ -373,6 +373,10 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
     @Override
     public void onBackPressed() {
+        if (getNotebook().clearSelection()) {
+            return;
+        }
+
         // Check if fragment handled back press
         final GsFragmentBase<?, ?> frag = getPosFragment(getCurrentPos());
         if (frag == null || !frag.onBackPressed()) {

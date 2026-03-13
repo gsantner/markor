@@ -1110,8 +1110,7 @@ public class MarkorDialogFactory {
             final Activity activity,
             final GsFileUtils.SortOrder currentOrder,
             final GsFileUtils.SortOrder globalOrder,
-            final GsCallback.a1<GsFileUtils.SortOrder> callback
-    ) {
+            final GsCallback.a1<GsFileUtils.SortOrder> callback) {
         final DialogOptions dopt = new DialogOptions();
         baseConf(activity, dopt);
 
@@ -1143,6 +1142,10 @@ public class MarkorDialogFactory {
         icons.add(R.drawable.ic_baseline_rule_folder_24);
         layouts.add(android.R.layout.simple_list_item_multiple_choice);
 
+        data.add(activity.getString(R.string.favorite_first));
+        icons.add(R.drawable.ic_favorite_black_24dp);
+        layouts.add(android.R.layout.simple_list_item_multiple_choice);
+
         data.add(activity.getString(R.string.reverse_order));
         icons.add(R.drawable.ic_baseline_arrow_upward_24);
         layouts.add(android.R.layout.simple_list_item_multiple_choice);
@@ -1158,8 +1161,9 @@ public class MarkorDialogFactory {
         dopt.preSelected = new HashSet<>();
         if (currentOrder.isFolderLocal) dopt.preSelected.add(0);
         if (currentOrder.folderFirst) dopt.preSelected.add(5);
-        if (currentOrder.reverse) dopt.preSelected.add(6);
-        if (currentOrder.showDotFiles) dopt.preSelected.add(7);
+        if (currentOrder.favoriteFirst) dopt.preSelected.add(6);
+        if (currentOrder.reverse) dopt.preSelected.add(7);
+        if (currentOrder.showDotFiles) dopt.preSelected.add(8);
 
         final Map<String, Integer> typeToPos = new HashMap<>();
         typeToPos.put(GsFileUtils.SORT_BY_NAME, 1);
@@ -1185,8 +1189,9 @@ public class MarkorDialogFactory {
                 // resetGlobal[0] = true;
                 selection.clear();
                 if (globalOrder.folderFirst) selection.add(5);
-                if (globalOrder.reverse) selection.add(6);
-                if (globalOrder.showDotFiles) selection.add(7);
+                if (globalOrder.favoriteFirst) selection.add(6);
+                if (globalOrder.reverse) selection.add(7);
+                if (globalOrder.showDotFiles) selection.add(8);
                 selection.add(GsCollectionUtils.getOrDefault(typeToPos, globalOrder.sortByType, 1));
             } else if (!Collections.disjoint(removed, radioSet)) {
                 // If a radio button is unchecked add it back
@@ -1203,8 +1208,9 @@ public class MarkorDialogFactory {
             final GsFileUtils.SortOrder order = new GsFileUtils.SortOrder();
             order.isFolderLocal = selection.contains(0);
             order.folderFirst = selection.contains(5);
-            order.reverse = selection.contains(6);
-            order.showDotFiles = selection.contains(7);
+            order.favoriteFirst = selection.contains(6);
+            order.reverse = selection.contains(7);
+            order.showDotFiles = selection.contains(8);
             if (selection.contains(2)) order.sortByType = GsFileUtils.SORT_BY_MTIME;
             else if (selection.contains(3)) order.sortByType = GsFileUtils.SORT_BY_FILESIZE;
             else if (selection.contains(4)) order.sortByType = GsFileUtils.SORT_BY_MIMETYPE;

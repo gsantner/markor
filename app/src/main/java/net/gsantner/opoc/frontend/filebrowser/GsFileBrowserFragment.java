@@ -314,6 +314,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         if (_filesystemViewerAdapter != null && _filesystemViewerAdapter.goBack()) {
             return true;
         }
+
         return super.onBackPressed();
     }
 
@@ -513,14 +514,19 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                 });
     }
 
-    public void clearSelection() {
-        if (_filesystemViewerAdapter != null) { // Happens when restoring after rotation etc
+    /**
+     * Clear file selection.
+     *
+     * @return true if it has selection and clear
+     */
+    public boolean clearSelection() {
+        if (_filesystemViewerAdapter != null && _filesystemViewerAdapter.getCurrentSelectionSize() > 0) {
+            // Happens when restoring after rotation etc
             _filesystemViewerAdapter.unselectAll();
+            return true;
         }
+        return false;
     }
-
-
-    /// ////////////
 
     private void askForMoveOrCopy(final boolean isMove) {
         final List<File> files = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection());

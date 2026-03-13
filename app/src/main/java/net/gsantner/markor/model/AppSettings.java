@@ -410,7 +410,6 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     public void toggleFavouriteFile(File file) {
-        final List<String> list = new ArrayList<>();
         final Set<File> favourites = getFavouriteFiles();
         if (favourites.contains(file)) {
             favourites.remove(file);
