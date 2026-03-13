@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -78,7 +79,7 @@ public class SettingsActivity extends MarkorBaseActivity {
         GsFontPreferenceCompat.additionalyCheckedFolder = new File(_appSettings.getNotebookDirectory(), ".app/fonts");
         toolbar.setTitle(R.string.settings);
         setSupportActionBar(findViewById(R.id.toolbar));
-        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_white_24dp));
+        toolbar.setNavigationIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_arrow_back_white_24dp, getTheme()));
         toolbar.setNavigationOnClickListener(view -> SettingsActivity.this.onBackPressed());
         showFragment(SettingsFragmentMaster.TAG, false);
     }
@@ -122,7 +123,6 @@ public class SettingsActivity extends MarkorBaseActivity {
         }
 
         @Override
-        @SuppressWarnings("rawtypes")
         protected void onPreferenceScreenChanged(PreferenceFragmentCompat preferenceFragmentCompat, PreferenceScreen preferenceScreen) {
             super.onPreferenceScreenChanged(preferenceFragmentCompat, preferenceScreen);
             final CharSequence title = preferenceScreen.getTitle();
@@ -195,7 +195,7 @@ public class SettingsActivity extends MarkorBaseActivity {
             updateSummary(R.string.pref_key__snippet_directory_path, _appSettings.getSnippetsDirectory().getAbsolutePath());
 
             final String fileDescFormat = _appSettings.getString(R.string.pref_key__file_description_format, "");
-            if (fileDescFormat.equals("")) {
+            if (fileDescFormat.isEmpty()) {
                 updateSummary(R.string.pref_key__file_description_format, getString(R.string.default_));
             } else {
                 updateSummary(R.string.pref_key__file_description_format, fileDescFormat);
@@ -266,7 +266,7 @@ public class SettingsActivity extends MarkorBaseActivity {
         }
 
         @Override
-        @SuppressWarnings({"ConstantConditions", "ConstantIfStatement", "StatementWithEmptyBody"})
+        @SuppressWarnings({"ConstantConditions", "ConstantIfStatement"})
         public Boolean onPreferenceClicked(Preference preference, String key, int keyResId) {
             final FragmentManager fragManager = getActivity().getSupportFragmentManager();
             switch (keyResId) {
@@ -396,11 +396,11 @@ public class SettingsActivity extends MarkorBaseActivity {
                     break;
                 }
                 case R.string.pref_key__backup_settings: {
-                    BackupUtils.showBackupWriteToDialog(getContext(), getFragmentManager());
+                    BackupUtils.showBackupWriteToDialog(getContext(), getParentFragmentManager());
                     break;
                 }
                 case R.string.pref_key__restore_settings: {
-                    BackupUtils.showBackupSelectFromDialog(getContext(), getFragmentManager());
+                    BackupUtils.showBackupSelectFromDialog(getContext(), getParentFragmentManager());
                     break;
                 }
             }
