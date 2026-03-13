@@ -54,7 +54,6 @@ import net.gsantner.opoc.model.GsSharedPreferencesPropertyBackend;
 import net.gsantner.opoc.util.GsCollectionUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
-import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -444,15 +443,11 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             case R.id.action_info_selected_item: {
                 if (_filesystemViewerAdapter.areItemsSelected()) {
                     File file = new ArrayList<>(currentSelection).get(0);
-                    _dopt.favouriteFiles.contains(file);
-                    FileInfoDialog.show(file, getChildFragmentManager(), new GsCallback.a1<Boolean>() {
-                        @Override
-                        public void callback(Boolean favorite) {
-                            int position = _filesystemViewerAdapter.getPosition(file);
-                            if (position >= 0) {
-                                _dopt.favouriteFiles = _appSettings.getFavouriteFiles();
-                                _filesystemViewerAdapter.notifyItemChanged(position);
-                            }
+                    FileInfoDialog.show(file, getChildFragmentManager(), () -> {
+                        int position = _filesystemViewerAdapter.getPosition(file);
+                        if (position >= 0) {
+                            _dopt.favouriteFiles = _appSettings.getFavouriteFiles();
+                            _filesystemViewerAdapter.notifyItemChanged(position);
                         }
                     });
                 }
