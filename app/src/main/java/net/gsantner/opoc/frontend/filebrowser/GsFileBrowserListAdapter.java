@@ -173,7 +173,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         _virtualMapping.put(VIRTUAL_STORAGE_FAVOURITE, VIRTUAL_STORAGE_FAVOURITE);
 
         _virtualMapping.putAll(_dopt.storageMaps);
-
     }
 
     @NonNull
@@ -189,6 +188,10 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
     public boolean isFileWriteable(File file, boolean isGoUp) {
         return file != null && (canWrite(file) || isGoUp || _virtualMapping.containsKey(file));
+    }
+
+    public int getPosition(File file) {
+        return file == null ? -1 : _adapterDataFiltered.indexOf(file);
     }
 
     @Override

@@ -29,6 +29,7 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
+import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.File;
 import java.util.Locale;
@@ -37,6 +38,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class FileInfoDialog extends DialogFragment {
     public static final String EXTRA_FILEPATH = "EXTRA_FILEPATH";
     public static final String FRAGMENT_TAG = "fileInfoDialog";
+    private GsCallback.a0 refreshCallback;
+
+    public void setRefreshCallback(GsCallback.a0 refreshCallback) {
+        this.refreshCallback = refreshCallback;
+    }
 
     public static FileInfoDialog newInstance(File sourceFile) {
         FileInfoDialog dialog = new FileInfoDialog();
@@ -46,8 +52,17 @@ public class FileInfoDialog extends DialogFragment {
         return dialog;
     }
 
-    public static FileInfoDialog show(File sourceFile, FragmentManager fragmentManager) {
+    /**
+     * Show the file information dialog.
+     *
+     * @param sourceFile      the source file
+     * @param fragmentManager the fragment manager
+     * @param refreshCallback the callback to refresh the file item view if favorite state is changed
+     * @return the file information dialog
+     */
+    public static FileInfoDialog show(File sourceFile, FragmentManager fragmentManager, GsCallback.a0 refreshCallback) {
         FileInfoDialog dialog = FileInfoDialog.newInstance(sourceFile);
+        dialog.setRefreshCallback(refreshCallback);
         dialog.show(fragmentManager, FileInfoDialog.FRAGMENT_TAG);
         return dialog;
     }
@@ -87,17 +102,15 @@ public class FileInfoDialog extends DialogFragment {
         tv(root, R.id.ui__file_info_dialog__mimetype_description).setText(GsFileUtils.getMimeType(file));
         tv(root, R.id.ui__file_info_dialog__sha_256).setText(GsFileUtils.sha256(file));
         tv(root, R.id.ui__file_info_dialog__location).setOnLongClickListener(v -> {
-                    GsContextUtils.instance.setClipboard(v.getContext(), file.getAbsolutePath());
-                    Toast.makeText(v.getContext(), R.string.copied, Toast.LENGTH_SHORT).show();
-                    return true;
-                }
-        );
+            GsContextUtils.instance.setClipboard(v.getContext(), file.getAbsolutePath());
+            Toast.makeText(v.getContext(), R.string.copied, Toast.LENGTH_SHORT).show();
+            return true;
+        });
         tv(root, R.id.ui__file_info_dialog__sha_256).setOnLongClickListener(v -> {
-                    GsContextUtils.instance.setClipboard(v.getContext(), GsFileUtils.sha256(file));
-                    Toast.makeText(v.getContext(), R.string.copied, Toast.LENGTH_SHORT).show();
-                    return true;
-                }
-        );
+            GsContextUtils.instance.setClipboard(v.getContext(), GsFileUtils.sha256(file));
+            Toast.makeText(v.getContext(), R.string.copied, Toast.LENGTH_SHORT).show();
+            return true;
+        });
 
         // Number of lines and character count only apply for files
         root.findViewById(R.id.ui__file_info_dialog__text_info).setVisibility(View.GONE);
@@ -124,7 +137,12 @@ public class FileInfoDialog extends DialogFragment {
 
         CheckBox checkFavorite = root.findViewById(R.id.ui__file_info_dialog__favorite);
         checkFavorite.setChecked(appSettings.getFavouriteFiles().contains(file));
-        checkFavorite.setOnCheckedChangeListener((buttonView, isChecked) -> appSettings.toggleFavouriteFile(file));
+        checkFavorite.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            appSettings.toggleFavouriteFile(file);
+            if (refreshCallback != null) {
+                refreshCallback.callback();
+            }
+        });
 
         return dialogBuilder;
     }
