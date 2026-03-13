@@ -1,3 +1,5 @@
+# CodeMirror Editor Support for Markor
+
 ## Development
 
 ### Install Node.js Module Dependencies
@@ -40,3 +42,6 @@ npm run build
 
 [CodeMirror Huge Doc Demo](https://codemirror.net/examples/million/)
 
+### Who is using CodeMirror
+
+[Sponsors](https://codemirror.net/#sponsors)
