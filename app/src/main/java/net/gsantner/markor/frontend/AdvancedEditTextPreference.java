@@ -2,6 +2,7 @@ package net.gsantner.markor.frontend;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Point;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.preference.DialogPreference;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.frontend.textview.CodeMirrorEditor;
+import net.gsantner.opoc.util.GsContextUtils;
 
 public class AdvancedEditTextPreference extends DialogPreference {
 
@@ -62,8 +64,9 @@ public class AdvancedEditTextPreference extends DialogPreference {
         View view = activity.getLayoutInflater().inflate(R.layout.edit_text_preference, null);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        view.setMinimumWidth((int) (displayMetrics.widthPixels * 0.94));
-        view.setMinimumHeight((int) (displayMetrics.heightPixels * 0.52));
+        Point size = GsContextUtils.calculateDialogSize(displayMetrics, 0.94f, 1020, 0.52f, 1900);
+        view.setMinimumWidth(size.x);
+        view.setMinimumHeight(size.y);
 
         editText = view.findViewById(R.id.editor);
         editText.setOnPreparedListener(() -> {

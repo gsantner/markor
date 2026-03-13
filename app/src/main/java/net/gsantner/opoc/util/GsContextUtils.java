@@ -46,6 +46,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.AdaptiveIconDrawable;
 import android.graphics.drawable.BitmapDrawable;
@@ -660,6 +661,30 @@ public class GsContextUtils {
     public static int calculateHeight(DisplayMetrics displayMetrics, float ratio, int maxHeight) {
         int height = (int) (displayMetrics.heightPixels * ratio);
         return height > maxHeight ? maxHeight : height;
+    }
+
+    /**
+     * Calculate size for dialogs.
+     * It can automatically adapt to landscape and portrait screens.
+     *
+     * @param displayMetrics  the display metrics
+     * @param horizontalRatio the horizontal ratio
+     * @param horizontalMax   the max horizontal size
+     * @param verticalRatio   the vertical ratio
+     * @param verticalMax     the max vertical size
+     * @return the dialog size
+     */
+    public static Point calculateDialogSize(DisplayMetrics displayMetrics,
+                                            float horizontalRatio, int horizontalMax,
+                                            float verticalRatio, int verticalMax) {
+        int horizontalSize = GsContextUtils.calculateWidth(displayMetrics, horizontalRatio, horizontalMax);
+        int verticalSize = GsContextUtils.calculateHeight(displayMetrics, verticalRatio, verticalMax);
+
+        if (horizontalSize < verticalSize) { // Portrait
+            return new Point(horizontalSize, verticalSize);
+        } else { // Landscape
+            return new Point(verticalSize, horizontalSize);
+        }
     }
 
     /**
