@@ -13,6 +13,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
@@ -74,7 +76,7 @@ public class TodoTxtActionButtons extends ActionButtonBase {
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onActionClick(final @StringRes int action) {
-        final List<TodoTxtTask> selTasks = TodoTxtTask.getSelectedTasks(_hlEditor);
+        final List<TodoTxtTask> selTasks = TodoTxtTask.getSelectedTasks((TextView) _hlEditor.getView());
 
         switch (action) {
             case R.string.abid_todotxt_toggle_done: {
@@ -141,11 +143,11 @@ public class TodoTxtActionButtons extends ActionButtonBase {
 
         switch (action) {
             case R.string.abid_todotxt_add_context: {
-                MarkorDialogFactory.showSttKeySearchDialog(getActivity(), _hlEditor, R.string.browse_by_context, true, true, TodoTxtFilter.TYPE.CONTEXT);
+                MarkorDialogFactory.showSttKeySearchDialog(getActivity(), (EditText) _hlEditor.getView(), R.string.browse_by_context, true, true, TodoTxtFilter.TYPE.CONTEXT);
                 return true;
             }
             case R.string.abid_todotxt_add_project: {
-                MarkorDialogFactory.showSttKeySearchDialog(getActivity(), _hlEditor, R.string.browse_by_project, true, true, TodoTxtFilter.TYPE.PROJECT);
+                MarkorDialogFactory.showSttKeySearchDialog(getActivity(), (EditText) _hlEditor.getView(), R.string.browse_by_project, true, true, TodoTxtFilter.TYPE.PROJECT);
                 return true;
             }
             case R.string.abid_todotxt_sort_todo: {
@@ -159,7 +161,7 @@ public class TodoTxtActionButtons extends ActionButtonBase {
             }
             case R.string.abid_todotxt_priority: {
                 final Editable text = _hlEditor.getText();
-                final int[] sel = TextViewUtils.getSelection(_hlEditor);
+                final int[] sel = TextViewUtils.getSelection(_hlEditor.getText());
                 final int lineStart = TextViewUtils.getLineStart(text, sel[0]);
                 final int lineEnd = TextViewUtils.getLineEnd(text, sel[1]);
                 final List<TodoTxtTask> tasks = TodoTxtTask.getTasks(text, new int[]{sel[0], sel[1]});
@@ -245,7 +247,7 @@ public class TodoTxtActionButtons extends ActionButtonBase {
                 if (new Document(doneFile).saveContent(getActivity(), doneContents.toString())) {
                     final String tasksString = TodoTxtTask.tasksToString(keep);
                     _hlEditor.setText(tasksString);
-                    TextViewUtils.setSelectionFromOffsets(_hlEditor, offsets);
+                    TextViewUtils.setSelectionFromOffsets((TextView) _hlEditor.getView(), offsets);
                 }
             }
             _appSettings.setLastTodoDoneName(_document.path, doneName);
@@ -254,13 +256,13 @@ public class TodoTxtActionButtons extends ActionButtonBase {
 
     @Override
     public boolean runTitleClick() {
-        MarkorDialogFactory.showSttFilteringDialog(getActivity(), _hlEditor);
+        MarkorDialogFactory.showSttFilteringDialog(getActivity(), (EditText) _hlEditor.getView());
         return true;
     }
 
     @Override
     public boolean onSearch() {
-        MarkorDialogFactory.showSttSearchDialog(getActivity(), _hlEditor);
+        MarkorDialogFactory.showSttSearchDialog(getActivity(), (EditText) _hlEditor.getView());
         return true;
     }
 
@@ -273,7 +275,7 @@ public class TodoTxtActionButtons extends ActionButtonBase {
         final TodoTxtTask additional = new TodoTxtTask(_appSettings.getTodotxtAdditionalContextsAndProjects());
         all.addAll(keyGetter.callback(Collections.singletonList(additional)));
 
-        final Set<String> current = new HashSet<>(keyGetter.callback(TodoTxtTask.getSelectedTasks(_hlEditor)));
+        final Set<String> current = new HashSet<>(keyGetter.callback(TodoTxtTask.getSelectedTasks((TextView) _hlEditor.getView())));
 
         final boolean append = _appSettings.isTodoAppendProConOnEndEnabled();
 
@@ -396,7 +398,7 @@ public class TodoTxtActionButtons extends ActionButtonBase {
 
 
     private void setDueDate(final int offset) {
-        final String dueString = TodoTxtTask.getSelectedTasks(_hlEditor).get(0).getDueDate();
+        final String dueString = TodoTxtTask.getSelectedTasks((TextView) _hlEditor.getView()).get(0).getDueDate();
         Calendar initDate = parseDateString(dueString, Calendar.getInstance());
         initDate.add(Calendar.DAY_OF_MONTH, (dueString == null || dueString.isEmpty()) ? offset : 0);
 

@@ -30,6 +30,7 @@ import android.widget.Toast;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatEditText;
 
@@ -50,13 +51,14 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @SuppressWarnings("UnusedReturnValue")
-public class HighlightingEditor extends AppCompatEditText {
+public class HighlightingEditor extends AppCompatEditText implements MarkorEditor {
 
     final static int HIGHLIGHT_SHIFT_LINES = 8;              // Lines to scroll before hl updated
     final static float HIGHLIGHT_REGION_SIZE = 0.75f;        // Minimum extra screens to highlight (should be > 0.5 to cover screen)
 
-    public final static String PLACE_CURSOR_HERE_TOKEN = "%%PLACE_CURSOR_HERE%%";
-    public final static String INSERT_SELECTION_HERE_TOKEN = "%%INSERT_SELECTION_HERE%%";
+    // Tokens are now defined in MarkorEditor interface — kept here for backward compat
+    public final static String PLACE_CURSOR_HERE_TOKEN = MarkorEditor.PLACE_CURSOR_HERE_TOKEN;
+    public final static String INSERT_SELECTION_HERE_TOKEN = MarkorEditor.INSERT_SELECTION_HERE_TOKEN;
 
     private boolean _accessibilityEnabled = true;
     private final boolean _isSpellingRedUnderline;
@@ -608,4 +610,14 @@ public class HighlightingEditor extends AppCompatEditText {
     public int getTextChangedNumber() {
         return _textChangedNumber;
     }
+
+    // MarkorEditor interface
+    // ---------------------------------------------------------------------------------------------
+
+    @NonNull
+    @Override
+    public View getView() {
+        return this;
+    }
+
 }

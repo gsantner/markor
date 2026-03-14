@@ -47,7 +47,7 @@
 
                 <net.gsantner.markor.frontend.textview.HighlightingEditor
                     android:id="@+id/document__fragment__edit__highlighting_editor"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:alpha="0"
@@ -66,8 +66,22 @@
                     android:scrollbars="none"
                     android:scrollHorizontally="false"
                     android:textCursorDrawable="@drawable/cursor_accent" />
+
             </LinearLayout>
         </net.gsantner.markor.frontend.DraggableScrollbarScrollView>
+
+        <net.gsantner.markor.frontend.textview.RecyclerTextEditor
+            android:id="@+id/document__fragment__edit__recycler_editor"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:alpha="0"
+            android:background="@color/background"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingBottom="@dimen/editor_bottom_margin"
+            android:visibility="gone" />
     </LinearLayout>
 
     <net.gsantner.opoc.frontend.GsHorizontalScrollView
