@@ -38,7 +38,7 @@ import androidx.fragment.app.DialogFragment;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.FormatRegistry;
-import net.gsantner.markor.frontend.textview.HighlightingEditor;
+import net.gsantner.markor.frontend.textview.MarkorEditor;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
@@ -393,11 +393,11 @@ public class NewFileDialog extends DialogFragment {
     private Pair<String, Integer> getTemplateContent(final String template, final String name) {
         String text = TextViewUtils.interpolateSnippet(template, name, "");
 
-        final int startingIndex = text.indexOf(HighlightingEditor.PLACE_CURSOR_HERE_TOKEN);
-        text = text.replaceAll(HighlightingEditor.PLACE_CURSOR_HERE_TOKEN, "");
+        final int startingIndex = text.indexOf(MarkorEditor.PLACE_CURSOR_HERE_TOKEN);
+        text = text.replaceAll(MarkorEditor.PLACE_CURSOR_HERE_TOKEN, "");
 
         // Has no utility in a new file
-        text = text.replaceAll(HighlightingEditor.INSERT_SELECTION_HERE_TOKEN, "");
+        text = text.replaceAll(MarkorEditor.INSERT_SELECTION_HERE_TOKEN, "");
 
         return Pair.create(text, startingIndex);
     }

@@ -32,7 +32,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
-import net.gsantner.markor.frontend.textview.HighlightingEditor;
+import net.gsantner.markor.frontend.textview.MarkorEditor;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 
 import java.util.regex.Matcher;
@@ -41,7 +41,7 @@ import java.util.regex.Pattern;
 public class TextSearchFragment extends Fragment {
     private int containerViewId;
     private FragmentActivity activity;
-    private HighlightingEditor editText;
+    private MarkorEditor editText;
 
     private EditText searchEditText;
     private EditText replaceEditText;
@@ -51,7 +51,7 @@ public class TextSearchFragment extends Fragment {
 
     private boolean initialized;
 
-    public static TextSearchFragment newInstance(@IdRes int containerViewId, FragmentActivity activity, HighlightingEditor editText) {
+    public static TextSearchFragment newInstance(@IdRes int containerViewId, FragmentActivity activity, MarkorEditor editText) {
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
         Fragment fragment = fragmentManager.findFragmentByTag(String.valueOf(containerViewId));
         if (fragment instanceof TextSearchFragment) {
@@ -240,7 +240,11 @@ public class TextSearchFragment extends Fragment {
         });
 
         fragmentView.findViewById(R.id.closeImageButton).setOnClickListener(view -> hide());
-        fragmentView.findViewById(R.id.filterImageButton).setOnClickListener(view -> MarkorDialogFactory.showSearchDialog(activity, editText, searchEditText.getText().toString()));
+        fragmentView.findViewById(R.id.filterImageButton).setOnClickListener(view -> {
+            if (editText.getView() instanceof EditText) {
+                MarkorDialogFactory.showSearchDialog(activity, (EditText) editText.getView(), searchEditText.getText().toString());
+            }
+        });
         fragmentView.findViewById(R.id.toggleImageButton).setOnClickListener(view -> toggleFindReplaceLayout(fragmentView));
         fragmentView.findViewById(R.id.previousImageButton).setOnClickListener(view -> textSearchHandler.previous(editText));
         fragmentView.findViewById(R.id.nextImageButton).setOnClickListener(view -> textSearchHandler.next(editText));

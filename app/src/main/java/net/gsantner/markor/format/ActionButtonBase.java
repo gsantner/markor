@@ -27,6 +27,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
@@ -42,7 +43,7 @@ import net.gsantner.markor.frontend.DatetimeFormatDialog;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.MarkorDialogFactory.Heading;
 import net.gsantner.markor.frontend.textsearch.TextSearchFragment;
-import net.gsantner.markor.frontend.textview.HighlightingEditor;
+import net.gsantner.markor.frontend.textview.MarkorEditor;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
@@ -74,7 +75,7 @@ public abstract class ActionButtonBase {
     private final int _buttonHorizontalMargin;
     private String _lastSnip;
 
-    protected HighlightingEditor _hlEditor;
+    protected MarkorEditor _hlEditor;
     protected WebView _webView;
     protected Document _document;
     protected AppSettings _appSettings;
@@ -458,7 +459,7 @@ public abstract class ActionButtonBase {
         runRegexReplaceAction(Collections.singletonList(new ReplacePattern(pattern, replace)));
     }
 
-    public static void runRegexReplaceAction(final EditText editor, final ReplacePattern... patterns) {
+    public static void runRegexReplaceAction(final MarkorEditor editor, final ReplacePattern... patterns) {
         runRegexReplaceAction(editor, Arrays.asList(patterns));
     }
 
@@ -468,9 +469,17 @@ public abstract class ActionButtonBase {
      *
      * @param patterns An array of ReplacePattern
      */
+    public static void runRegexReplaceAction(final MarkorEditor editor, final List<ReplacePattern> patterns) {
+        editor.withAutoFormatDisabled(() -> runRegexReplaceAction(editor.getText(), patterns));
+    }
+
+    public static void runRegexReplaceAction(final EditText editor, final ReplacePattern... patterns) {
+        runRegexReplaceAction(editor, Arrays.asList(patterns));
+    }
+
     public static void runRegexReplaceAction(final EditText editor, final List<ReplacePattern> patterns) {
-        if (editor instanceof HighlightingEditor) {
-            ((HighlightingEditor) editor).withAutoFormatDisabled(() -> runRegexReplaceAction(editor.getText(), patterns));
+        if (editor instanceof MarkorEditor) {
+            runRegexReplaceAction((MarkorEditor) editor, patterns);
         } else {
             runRegexReplaceAction(editor.getText(), patterns);
         }
@@ -589,7 +598,7 @@ public abstract class ActionButtonBase {
         _hlEditor.setSelection(ss + ol, se + ol);
     }
 
-    public ActionButtonBase setUiReferences(@Nullable final Activity activity, @Nullable final HighlightingEditor hlEditor, @Nullable final WebView webview) {
+    public ActionButtonBase setUiReferences(@Nullable final Activity activity, @Nullable final MarkorEditor hlEditor, @Nullable final WebView webview) {
         _activity = activity;
         _hlEditor = hlEditor;
         _webView = webview;
@@ -657,7 +666,7 @@ public abstract class ActionButtonBase {
                 return true;
             }
             case R.string.abid_common_accordion: {
-                _hlEditor.insertOrReplaceTextOnCursor("<details markdown='1'><summary>" + rstr(R.string.expand_collapse) + "</summary>\n" + HighlightingEditor.PLACE_CURSOR_HERE_TOKEN + "\n\n</details>");
+                _hlEditor.insertOrReplaceTextOnCursor("<details markdown='1'><summary>" + rstr(R.string.expand_collapse) + "</summary>\n" + MarkorEditor.PLACE_CURSOR_HERE_TOKEN + "\n\n</details>");
                 return true;
             }
             case R.string.abid_common_insert_audio: {
@@ -690,18 +699,18 @@ public abstract class ActionButtonBase {
             }
             case R.string.abid_common_insert_snippet: {
                 MarkorDialogFactory.showInsertSnippetDialog(_activity, (snip) -> {
-                    _hlEditor.insertOrReplaceTextOnCursor(TextViewUtils.interpolateSnippet(snip, _document.title, TextViewUtils.getSelectedText(_hlEditor)));
+                    _hlEditor.insertOrReplaceTextOnCursor(TextViewUtils.interpolateSnippet(snip, _document.title, TextViewUtils.getSelectedText(_hlEditor.getText())));
                     _lastSnip = snip;
                 });
                 return true;
             }
             case R.string.abid_common_open_link_browser: {
-                final int sel = TextViewUtils.getSelection(_hlEditor)[0];
+                final int sel = TextViewUtils.getSelection(_hlEditor.getText())[0];
                 if (sel < 0) {
                     return true;
                 }
 
-                final String line = TextViewUtils.getSelectedLines(_hlEditor, sel);
+                final String line = TextViewUtils.getSelectedLines(_hlEditor.getText(), sel);
                 final int cursor = sel - TextViewUtils.getLineStart(_hlEditor.getText(), sel);
 
                 // First try to pull a resource
@@ -736,7 +745,7 @@ public abstract class ActionButtonBase {
             }
             case R.string.abid_common_new_line_below: {
                 // Go to end of line, works with wrapped lines too
-                final int sel = TextViewUtils.getSelection(_hlEditor)[1];
+                final int sel = TextViewUtils.getSelection(_hlEditor.getText())[1];
                 if (sel > 0) {
                     _hlEditor.setSelection(TextViewUtils.getLineEnd(text, sel));
                     _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_ENTER);
@@ -818,12 +827,14 @@ public abstract class ActionButtonBase {
             }
             case R.string.abid_common_move_text_one_line_up:
             case R.string.abid_common_move_text_one_line_down: {
-                TextViewUtils.showSelection(_hlEditor);
+                if (_hlEditor.getView() instanceof TextView) {
+                    TextViewUtils.showSelection((TextView) _hlEditor.getView());
+                }
                 return true;
             }
             case R.string.abid_common_insert_snippet: {
                 if (!TextUtils.isEmpty(_lastSnip)) {
-                    _hlEditor.insertOrReplaceTextOnCursor(TextViewUtils.interpolateSnippet(_lastSnip, _document.title, TextViewUtils.getSelectedText(_hlEditor)));
+                    _hlEditor.insertOrReplaceTextOnCursor(TextViewUtils.interpolateSnippet(_lastSnip, _document.title, TextViewUtils.getSelectedText(_hlEditor.getText())));
                 }
                 return true;
             }
@@ -886,7 +897,7 @@ public abstract class ActionButtonBase {
         }
     }
 
-    public static void moveLineSelectionBy1(final HighlightingEditor hlEditor, final boolean isUp) {
+    public static void moveLineSelectionBy1(final MarkorEditor hlEditor, final boolean isUp) {
         final Editable text = hlEditor.getText();
         final int[] sel = TextViewUtils.getSelection(text);
         if (text == null || sel[0] < 0) {
@@ -918,7 +929,7 @@ public abstract class ActionButtonBase {
         }
     }
 
-    public static void duplicateLineSelection(final HighlightingEditor hlEditor) {
+    public static void duplicateLineSelection(final MarkorEditor hlEditor) {
         // Duplication is performed downwards, selection is moving alongside it and
         // cursor is preserved regarding column position (helpful for editing the
         // newly created line at the selected position right away).

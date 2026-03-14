@@ -11,6 +11,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.Editable;
 import android.view.KeyEvent;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
@@ -165,12 +166,12 @@ public class MarkdownActionButtons extends ActionButtonBase {
      * @param delim   - Delimiter to surround text with
      */
     private void runLineSurroundAction(final Pattern pattern, final String delim) {
-        final int[] sel = TextViewUtils.getSelection(_hlEditor);
+        final int[] sel = TextViewUtils.getSelection(_hlEditor.getText());
         if (sel[0] < 0) {
             return;
         }
 
-        final String lineBefore = sel[0] == sel[1] ? TextViewUtils.getSelectedLines(_hlEditor, sel[0]) : null;
+        final String lineBefore = sel[0] == sel[1] ? TextViewUtils.getSelectedLines(_hlEditor.getText(), sel[0]) : null;
         runRegexReplaceAction(
                 new ReplacePattern(pattern, "$1$2$4$6"),
                 new ReplacePattern(LINE_NONE, "$1$2" + delim + "$3" + delim + "$4")
@@ -178,7 +179,7 @@ public class MarkdownActionButtons extends ActionButtonBase {
 
         // This logic sets the cursor to the inside of the delimiters if the delimiters were empty
         if (lineBefore != null) {
-            final String lineAfter = TextViewUtils.getSelectedLines(_hlEditor, sel[0]);
+            final String lineAfter = TextViewUtils.getSelectedLines(_hlEditor.getText(), sel[0]);
             final String pair = delim + delim;
             if (lineAfter.length() - lineBefore.length() == pair.length() && lineAfter.trim().endsWith(pair)) {
                 final Editable text = _hlEditor.getText();
@@ -216,7 +217,11 @@ public class MarkdownActionButtons extends ActionButtonBase {
             case R.string.abid_common_checkbox_list: {
                 MarkorDialogFactory.showDocumentChecklistDialog(
                         getActivity(), _hlEditor.getText(), CHECKED_LIST_LINE, 4, "xX", " ",
-                        pos -> TextViewUtils.setSelectionAndShow(_hlEditor, pos));
+                        pos -> {
+                            if (_hlEditor.getView() instanceof EditText) {
+                                TextViewUtils.setSelectionAndShow((EditText) _hlEditor.getView(), pos);
+                            }
+                        });
                 return true;
             }
             default: {
@@ -264,7 +269,7 @@ public class MarkdownActionButtons extends ActionButtonBase {
     }
 
     private boolean followLinkUnderCursor() {
-        final int sel = TextViewUtils.getSelection(_hlEditor)[0];
+        final int sel = TextViewUtils.getSelection(_hlEditor.getText())[0];
         if (sel < 0) {
             return false;
         }
@@ -291,7 +296,7 @@ public class MarkdownActionButtons extends ActionButtonBase {
         _hlEditor.requestFocus();
 
         // Append if current line empty
-        final int[] sel = TextViewUtils.getLineSelection(_hlEditor);
+        final int[] sel = TextViewUtils.getLineSelection(_hlEditor.getText());
         if (sel[0] != -1 && sel[0] == sel[1]) {
             sb.append("\n");
         }
@@ -321,7 +326,7 @@ public class MarkdownActionButtons extends ActionButtonBase {
     @Override
     public boolean runTitleClick() {
         final Matcher m = MarkdownReplacePatternGenerator.PREFIX_ATX_HEADING.matcher("");
-        MarkorDialogFactory.showHeadlineDialog(getActivity(), _hlEditor, _webView, _headlineDialogState, (text, start, end) -> {
+        MarkorDialogFactory.showHeadlineDialog(getActivity(), (EditText) _hlEditor.getView(), _webView, _headlineDialogState, (text, start, end) -> {
             if (m.reset(text.subSequence(start, end)).find()) {
                 return m.end(2) - m.start(2) - 1;
             }

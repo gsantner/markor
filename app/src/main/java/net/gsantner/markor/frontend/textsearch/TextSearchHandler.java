@@ -3,7 +3,7 @@ package net.gsantner.markor.frontend.textsearch;
 import android.text.Editable;
 import android.widget.EditText;
 
-import net.gsantner.markor.frontend.textview.HighlightingEditor;
+import net.gsantner.markor.frontend.textview.MarkorEditor;
 import net.gsantner.markor.frontend.textview.SyntaxHighlighterBase;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 
@@ -38,7 +38,7 @@ public class TextSearchHandler {
         void onResultChanged(int active, int count, String msg);
     }
 
-    public void find(HighlightingEditor editText, String target, int activeIndex) {
+    public void find(MarkorEditor editText, String target, int activeIndex) {
         matches.clear();
         if (editText == null) {
             resultChangedListener.onResultChanged(0, 0);
@@ -110,7 +110,7 @@ public class TextSearchHandler {
         }
     }
 
-    private void highlightMatches(HighlightingEditor editText) {
+    private void highlightMatches(MarkorEditor editText) {
         if (editText == null) {
             return;
         }
@@ -171,7 +171,7 @@ public class TextSearchHandler {
         return Math.max(i - 1, 0);
     }
 
-    public void jump(HighlightingEditor editText, int index, boolean setSelection) {
+    public void jump(MarkorEditor editText, int index, boolean setSelection) {
         if (editText == null) {
             resultChangedListener.onResultChanged(0, 0);
             return;
@@ -196,12 +196,14 @@ public class TextSearchHandler {
         resultChangedListener.onResultChanged(currentIndex, size);
 
         int start = match.getStart();
-        TextViewUtils.showSelection(editText, start);
+        if (editText.getView() instanceof EditText) {
+            TextViewUtils.showSelection((EditText) editText.getView(), start);
+        }
         markSelection(editText, start, match.getEnd(), setSelection);
         editText.applyDynamicHighlight();
     }
 
-    public void previous(HighlightingEditor editText) {
+    public void previous(MarkorEditor editText) {
         if (editText == null) {
             resultChangedListener.onResultChanged(0, 0);
             return;
@@ -217,7 +219,9 @@ public class TextSearchHandler {
             Match currentMatch = matches.get(currentIndex);
             if (editText.hasFocus() && editText.getSelectionStart() > currentMatch.getEnd()) {
                 markSelection(editText, currentMatch.getStart(), currentMatch.getEnd(), true);
-                TextViewUtils.showSelection(editText, currentMatch.getStart());
+                if (editText.getView() instanceof EditText) {
+                    TextViewUtils.showSelection((EditText) editText.getView(), currentMatch.getStart());
+                }
                 return;
             }
 
@@ -231,7 +235,9 @@ public class TextSearchHandler {
             resultChangedListener.onResultChanged(currentIndex, size);
 
             int start = match.getStart();
-            TextViewUtils.showSelection(editText, start);
+            if (editText.getView() instanceof EditText) {
+                TextViewUtils.showSelection((EditText) editText.getView(), start);
+            }
             markSelection(editText, start, match.getEnd(), true);
             editText.applyDynamicHighlight();
         } else {
@@ -240,7 +246,7 @@ public class TextSearchHandler {
         }
     }
 
-    public void next(HighlightingEditor editText) {
+    public void next(MarkorEditor editText) {
         if (editText == null) {
             resultChangedListener.onResultChanged(0, 0);
             return;
@@ -256,7 +262,9 @@ public class TextSearchHandler {
             Match currentMatch = matches.get(currentIndex);
             if (editText.hasFocus() && editText.getSelectionStart() <= currentMatch.getStart()) {
                 markSelection(editText, currentMatch.getStart(), currentMatch.getEnd(), true);
-                TextViewUtils.showSelection(editText, currentMatch.getStart());
+                if (editText.getView() instanceof EditText) {
+                    TextViewUtils.showSelection((EditText) editText.getView(), currentMatch.getStart());
+                }
                 return;
             }
 
@@ -270,7 +278,9 @@ public class TextSearchHandler {
             resultChangedListener.onResultChanged(currentIndex, size);
 
             int start = match.getStart();
-            TextViewUtils.showSelection(editText, start);
+            if (editText.getView() instanceof EditText) {
+                TextViewUtils.showSelection((EditText) editText.getView(), start);
+            }
             markSelection(editText, start, match.getEnd(), true);
             editText.applyDynamicHighlight();
         } else {
@@ -311,7 +321,7 @@ public class TextSearchHandler {
         return replacement;
     }
 
-    public int replace(HighlightingEditor editText, String replacement) {
+    public int replace(MarkorEditor editText, String replacement) {
         if (editText == null || matches.isEmpty()) {
             resultChangedListener.onResultChanged(0, 0);
             return 0;
@@ -358,7 +368,7 @@ public class TextSearchHandler {
         return matches.size();
     }
 
-    public void replaceAll(HighlightingEditor editText, String replacement) {
+    public void replaceAll(MarkorEditor editText, String replacement) {
         if (editText == null || matches.isEmpty()) {
             resultChangedListener.onResultChanged(0, 0);
             return;
@@ -388,7 +398,7 @@ public class TextSearchHandler {
 
     private final Selection selection = new Selection(); // Search selection
 
-    private void markSelection(EditText editText, int start, int end, boolean setSelection) {
+    private void markSelection(MarkorEditor editText, int start, int end, boolean setSelection) {
         selection.setStart(start);
         selection.setEnd(end);
 
@@ -397,14 +407,14 @@ public class TextSearchHandler {
         }
     }
 
-    public void clearSearchSelection(HighlightingEditor editText, boolean force) {
+    public void clearSearchSelection(MarkorEditor editText, boolean force) {
         if (force || selection.isSelected()) {
             editText.clearSearchSelection();
             selection.reset();
         }
     }
 
-    public void handleSearchSelection(HighlightingEditor editText, EditText searchEditText) {
+    public void handleSearchSelection(MarkorEditor editText, EditText searchEditText) {
         clearSearchSelection(editText, false);
 
         selection.setStart(editText.getSelectionStart());

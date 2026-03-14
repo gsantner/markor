@@ -10,6 +10,7 @@ package net.gsantner.markor.format.wikitext;
 import android.content.Context;
 import android.os.Build;
 import android.view.KeyEvent;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
@@ -196,7 +197,7 @@ public class WikitextActionButtons extends ActionButtonBase {
     }
 
     private String tryExtractWikitextLink() {
-        int cursorPos = TextViewUtils.getSelection(_hlEditor)[0];
+        int cursorPos = TextViewUtils.getSelection(_hlEditor.getText())[0];
         CharSequence text = _hlEditor.getText();
         int lineStart = TextViewUtils.getLineStart(text, cursorPos);
         int lineEnd = TextViewUtils.getLineEnd(text, cursorPos);
@@ -216,11 +217,11 @@ public class WikitextActionButtons extends ActionButtonBase {
         final CharSequence text = _hlEditor.getText();
         runRegexReplaceAction(WikitextReplacePatternGenerator.setOrUnsetHeadingWithLevel(headingLevel));
 
-        final int[] lineSelection = TextViewUtils.getLineSelection(_hlEditor);
+        final int[] lineSelection = TextViewUtils.getLineSelection(_hlEditor.getText());
         Matcher m = WikitextSyntaxHighlighter.HEADING.matcher(text.subSequence(lineSelection[0], lineSelection[1]));
         if (m.find()) {
             final int afterHeadingTextOffset = m.end(3);
-            final int lineStart = TextViewUtils.getLineStart(text, TextViewUtils.getSelection(_hlEditor)[0]);
+            final int lineStart = TextViewUtils.getLineStart(text, TextViewUtils.getSelection(_hlEditor.getText())[0]);
             _hlEditor.setSelection(lineStart + afterHeadingTextOffset);
         }
     }
@@ -258,7 +259,7 @@ public class WikitextActionButtons extends ActionButtonBase {
     @Override
     public boolean runTitleClick() {
         final Matcher m = WikitextSyntaxHighlighter.HEADING.matcher("");
-        MarkorDialogFactory.showHeadlineDialog(getActivity(), _hlEditor, _webView, _headlineDialogState, (text, start, end) -> {
+        MarkorDialogFactory.showHeadlineDialog(getActivity(), (EditText) _hlEditor.getView(), _webView, _headlineDialogState, (text, start, end) -> {
             if (m.reset(text.subSequence(start, end)).find()) {
                 return 7 - (m.end(2) - m.start(2));
             }

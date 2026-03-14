@@ -435,7 +435,7 @@ public final class TextViewUtils {
                 .replace("{{title}}", title)
                 .replace("{{weekday}}", weekday)
                 .replace("{{sel}}", selectedText)
-                .replace("{{cursor}}", HighlightingEditor.PLACE_CURSOR_HERE_TOKEN);
+                .replace("{{cursor}}", MarkorEditor.PLACE_CURSOR_HERE_TOKEN);
 
         while (text.contains("{{uuid}}")) {
             text = text.replaceFirst("\\{\\{uuid\\}\\}", UUID.randomUUID().toString());
