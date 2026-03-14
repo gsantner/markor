@@ -232,14 +232,14 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             });
         }
 
-        final Runnable ensureMinHeight = () -> _hlEditor.post(() -> {
-            final int height = _verticalScrollView.getHeight();
-            if (height > 0 && height != _hlEditor.getMinHeight()) {
-                _hlEditor.setMinHeight(height);
+        // Keep this as a one-shot min-height sync. Do not use a persistent layout listener here,
+        // otherwise large documents trigger repeated relayout work during startup.
+        _verticalScrollView.post(() -> {
+            final int parentHeight = _verticalScrollView.getHeight();
+            if (parentHeight > 0 && parentHeight != _hlEditor.getMinHeight()) {
+                _hlEditor.setMinHeight(parentHeight);
             }
         });
-        _verticalScrollView.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> ensureMinHeight.run());
-        _verticalScrollView.post(ensureMinHeight);
     }
 
     @Override
@@ -257,6 +257,15 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
         _hlEditor.recomputeHighlighting(); // Run before setting scroll position
         TextViewUtils.setSelectionAndShow(_hlEditor, startPos);
+
+        // One-shot floor for first render after content/highlighting setup.
+        // Do not replace with per-layout updates; they regress big-file open performance.
+        _editorHolder.post(() -> {
+            final int parentHeight = _editorHolder.getHeight();
+            if (parentHeight > 0 && parentHeight != _hlEditor.getMinHeight()) {
+                _hlEditor.setMinHeight(parentHeight);
+            }
+        });
 
         // Fade in to hide initial jank
         _hlEditor.post(() -> _hlEditor.animate().alpha(1).setDuration(250).start());

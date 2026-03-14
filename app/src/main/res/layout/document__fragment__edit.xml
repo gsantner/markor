@@ -47,7 +47,7 @@
 
                 <net.gsantner.markor.frontend.textview.HighlightingEditor
                     android:id="@+id/document__fragment__edit__highlighting_editor"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:alpha="0"
