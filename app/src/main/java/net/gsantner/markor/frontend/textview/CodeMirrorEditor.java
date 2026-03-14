@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -45,10 +44,16 @@ public class CodeMirrorEditor extends WebView {
         this.onPreparedListener = onPreparedListener;
     }
 
-    private static class CallbackInterface {
+    private class CallbackInterface {
         @JavascriptInterface
         public void callback(String msg) {
-            Log.i(CallbackInterface.class.getName(), msg);
+            if (msg == null) {
+                return;
+            }
+
+            if (msg.equals("$focus")) {
+                CodeMirrorEditor.this.requestFocusFromTouch();
+            }
         }
     }
 

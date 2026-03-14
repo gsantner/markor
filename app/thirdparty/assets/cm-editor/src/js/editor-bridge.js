@@ -43,7 +43,7 @@ class EditorBridge {
   #setup() {
     const that = this;
     document.querySelector('.cm-gutters').addEventListener('click', function () {
-      that.focus();
+      that.editor.contentDOM.focus({ preventScroll: true });
     });
   }
 
