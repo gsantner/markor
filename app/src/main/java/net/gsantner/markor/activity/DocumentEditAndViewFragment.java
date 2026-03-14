@@ -56,6 +56,7 @@ import net.gsantner.markor.frontend.FileInfoDialog;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.frontend.textview.HighlightingEditor;
+import net.gsantner.markor.frontend.textview.MarkorEditor;
 import net.gsantner.markor.frontend.textview.LineNumbersView;
 import net.gsantner.markor.frontend.textview.RecyclerTextEditor;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
@@ -100,6 +101,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     private HighlightingEditor _hlEditor;
     private RecyclerTextEditor _recyclerEditor;
+    private MarkorEditor _activeEditor;
     private WebView _webView;
     private ViewStub _webViewStub;
     private MarkorWebViewClient _webViewClient;
@@ -165,6 +167,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         }
 
         _isRecyclerEditorEnabled = shouldUseRecyclerEditor();
+        _activeEditor = _isRecyclerEditorEnabled ? _recyclerEditor : _hlEditor;
         _verticalScrollView.setVisibility(_isRecyclerEditorEnabled ? View.GONE : View.VISIBLE);
         _hlEditor.setVisibility(_isRecyclerEditorEnabled ? View.GONE : View.VISIBLE);
         _recyclerEditor.setVisibility(_isRecyclerEditorEnabled ? View.VISIBLE : View.GONE);
@@ -343,23 +346,23 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
         final boolean isExperimentalFeaturesEnabled = _appSettings.isExperimentalFeaturesEnabled();
         final boolean isText = !_document.isBinaryFileNoTextLoading();
-        final boolean supportsEditTextActions = !_isRecyclerEditorEnabled;
+        final boolean supportsUndoRedo = !_isRecyclerEditorEnabled;
 
-        menu.findItem(R.id.action_undo).setVisible(isText && supportsEditTextActions && _appSettings.isEditorHistoryEnabled());
-        menu.findItem(R.id.action_redo).setVisible(isText && supportsEditTextActions && _appSettings.isEditorHistoryEnabled());
+        menu.findItem(R.id.action_undo).setVisible(isText && supportsUndoRedo && _appSettings.isEditorHistoryEnabled());
+        menu.findItem(R.id.action_redo).setVisible(isText && supportsUndoRedo && _appSettings.isEditorHistoryEnabled());
         menu.findItem(R.id.action_send_debug_log).setVisible(MainActivity.IS_DEBUG_ENABLED && !isDisplayedAtMainActivity() && !_isPreviewVisible);
 
         // Undo / Redo / Save (keep visible, but deactivated and tinted grey if not executable)
-        _undoMenuItem = menu.findItem(R.id.action_undo).setVisible(isText && supportsEditTextActions && !_isPreviewVisible);
-        _redoMenuItem = menu.findItem(R.id.action_redo).setVisible(isText && supportsEditTextActions && !_isPreviewVisible);
+        _undoMenuItem = menu.findItem(R.id.action_undo).setVisible(isText && supportsUndoRedo && !_isPreviewVisible);
+        _redoMenuItem = menu.findItem(R.id.action_redo).setVisible(isText && supportsUndoRedo && !_isPreviewVisible);
         _saveMenuItem = menu.findItem(R.id.action_save).setVisible(isText && !_isPreviewVisible);
 
         // Edit / Preview switch
         menu.findItem(R.id.action_edit).setVisible(isText && _isPreviewVisible);
         menu.findItem(R.id.action_preview).setVisible(isText && !_isPreviewVisible);
-        menu.findItem(R.id.action_search).setVisible(isText && supportsEditTextActions && !_isPreviewVisible);
+        menu.findItem(R.id.action_search).setVisible(isText && !_isPreviewVisible);
         menu.findItem(R.id.action_search_view).setVisible(isText && _isPreviewVisible);
-        menu.findItem(R.id.submenu_format_selection).setVisible(isText && supportsEditTextActions && !_isPreviewVisible);
+        menu.findItem(R.id.submenu_format_selection).setVisible(isText && !_isPreviewVisible);
         menu.findItem(R.id.submenu_share).setVisible(isText);
         menu.findItem(R.id.submenu_tools).setVisible(isText);
         menu.findItem(R.id.submenu_per_file_settings).setVisible(isText);
@@ -379,14 +382,14 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     @Override
     public boolean onReceiveKeyPress(int keyCode, KeyEvent event) {
-        if (!_isRecyclerEditorEnabled && _format != null && _format.getActions().onReceiveKeyPress(keyCode, event)) {
+        if (_activeEditor != null && _format != null && _format.getActions().onReceiveKeyPress(keyCode, event)) {
             return true;
         }
 
         if (event.isCtrlPressed()) {
             if (event.isShiftPressed() && keyCode == KeyEvent.KEYCODE_Z) {
-                if (!_isRecyclerEditorEnabled && _editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanRedo()) {
-                    _hlEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::redo);
+                if (_activeEditor != null && _editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanRedo()) {
+                    _activeEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::redo);
                     updateUndoRedoIconStates();
                 }
                 return true;
@@ -394,14 +397,14 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 saveDocument(true);
                 return true;
             } else if (keyCode == KeyEvent.KEYCODE_Y) {
-                if (!_isRecyclerEditorEnabled && _editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanRedo()) {
-                    _hlEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::redo);
+                if (_activeEditor != null && _editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanRedo()) {
+                    _activeEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::redo);
                     updateUndoRedoIconStates();
                 }
                 return true;
             } else if (keyCode == KeyEvent.KEYCODE_Z) {
-                if (!_isRecyclerEditorEnabled && _editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanUndo()) {
-                    _hlEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::undo);
+                if (_activeEditor != null && _editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanUndo()) {
+                    _activeEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::undo);
                     updateUndoRedoIconStates();
                 }
                 return true;
@@ -474,23 +477,23 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         final int itemId = item.getItemId();
         switch (itemId) {
             case R.id.action_undo: {
-                if (_isRecyclerEditorEnabled) {
+                if (_activeEditor == null) {
                     Toast.makeText(activity, R.string.large_file_action_not_supported, Toast.LENGTH_SHORT).show();
                     return true;
                 }
                 if (_editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanUndo()) {
-                    _hlEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::undo);
+                    _activeEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::undo);
                     updateUndoRedoIconStates();
                 }
                 return true;
             }
             case R.id.action_redo: {
-                if (_isRecyclerEditorEnabled) {
+                if (_activeEditor == null) {
                     Toast.makeText(activity, R.string.large_file_action_not_supported, Toast.LENGTH_SHORT).show();
                     return true;
                 }
                 if (_editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanRedo()) {
-                    _hlEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::redo);
+                    _activeEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::redo);
                     updateUndoRedoIconStates();
                 }
                 return true;
@@ -651,23 +654,23 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 return true;
             }
             case R.id.action_enable_highlighting: {
-                if (_isRecyclerEditorEnabled) {
+                if (_activeEditor == null) {
                     Toast.makeText(activity, R.string.large_file_action_not_supported, Toast.LENGTH_SHORT).show();
                     return true;
                 }
-                final boolean newState = !_hlEditor.getHighlightingEnabled();
-                _hlEditor.setHighlightingEnabled(newState);
+                final boolean newState = !_activeEditor.getHighlightingEnabled();
+                _activeEditor.setHighlightingEnabled(newState);
                 _appSettings.setDocumentHighlightState(_document.path, newState);
                 updateMenuToggleStates(0);
                 return true;
             }
             case R.id.action_enable_auto_format: {
-                if (_isRecyclerEditorEnabled) {
+                if (_activeEditor == null) {
                     Toast.makeText(activity, R.string.large_file_action_not_supported, Toast.LENGTH_SHORT).show();
                     return true;
                 }
-                final boolean newState = !_hlEditor.getAutoFormatEnabled();
-                _hlEditor.setAutoFormatEnabled(newState);
+                final boolean newState = !_activeEditor.getAutoFormatEnabled();
+                _activeEditor.setAutoFormatEnabled(newState);
                 _appSettings.setDocumentAutoFormatEnabled(_document.path, newState);
                 updateMenuToggleStates(0);
                 return true;
@@ -728,19 +731,17 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         }
         _format = FormatRegistry.getFormat(textFormatId, activity, _document);
         _document.setFormat(_format.getFormatId());
-        if (_isRecyclerEditorEnabled) {
-            _hlEditor.setHighlighter(null);
-            _hlEditor.setAutoFormatEnabled(false);
-            _textActionsBar.removeAllViews();
-            _format.getActions().setDocument(_document);
-        } else {
-            _hlEditor.setHighlighter(_format.getHighlighter());
-            _hlEditor.setAutoFormatters(_format.getAutoFormatInputFilter(), _format.getAutoFormatTextWatcher());
-            _hlEditor.setAutoFormatEnabled(_appSettings.getDocumentAutoFormatEnabled(_document.path));
+        if (_activeEditor != null) {
+            _activeEditor.setHighlighter(_format.getHighlighter());
+            _activeEditor.setAutoFormatters(_format.getAutoFormatInputFilter(), _format.getAutoFormatTextWatcher());
+            _activeEditor.setAutoFormatEnabled(_appSettings.getDocumentAutoFormatEnabled(_document.path));
             _format.getActions()
                     .setDocument(_document)
-                    .setUiReferences(activity, _hlEditor, _webView)
+                    .setUiReferences(activity, _activeEditor, _webView)
                     .recreateActionButtons(_textActionsBar, _isPreviewVisible ? ActionButtonBase.ActionItem.DisplayMode.VIEW : ActionButtonBase.ActionItem.DisplayMode.EDIT);
+        } else {
+            _textActionsBar.removeAllViews();
+            _format.getActions().setDocument(_document);
         }
         updateMenuToggleStates(_format.getFormatId());
         showHideActionBar();
@@ -754,7 +755,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             final View viewScroll = activity.findViewById(R.id.document__fragment_view_webview);
 
             if (bar != null && parent != null && _verticalScrollView != null) {
-                final boolean hide = _isRecyclerEditorEnabled || _textActionsBar.getChildCount() == 0;
+                final boolean hide = _textActionsBar.getChildCount() == 0;
                 parent.setVisibility(hide ? View.GONE : View.VISIBLE);
                 final int marginBottom = hide ? 0 : (int) getResources().getDimension(R.dimen.textactions_bar_height);
                 setMarginBottom(getCurrentEditContainer(), marginBottom);
@@ -915,16 +916,16 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             mi.setChecked(isWrapped());
         }
         if ((mi = _fragmentMenu.findItem(R.id.action_enable_highlighting)) != null) {
-            mi.setVisible(!_isRecyclerEditorEnabled);
-            mi.setChecked(!_isRecyclerEditorEnabled && _hlEditor.getHighlightingEnabled());
+            mi.setVisible(_activeEditor != null);
+            mi.setChecked(_activeEditor != null && _activeEditor.getHighlightingEnabled());
         }
         if ((mi = _fragmentMenu.findItem(R.id.action_line_numbers)) != null) {
             mi.setVisible(!_isRecyclerEditorEnabled);
             mi.setChecked(!_isRecyclerEditorEnabled && _lineNumbersView.isLineNumbersEnabled());
         }
         if ((mi = _fragmentMenu.findItem(R.id.action_enable_auto_format)) != null) {
-            mi.setVisible(!_isRecyclerEditorEnabled);
-            mi.setChecked(!_isRecyclerEditorEnabled && _hlEditor.getAutoFormatEnabled());
+            mi.setVisible(_activeEditor != null);
+            mi.setChecked(_activeEditor != null && _activeEditor.getAutoFormatEnabled());
         }
 
         final SubMenu su;

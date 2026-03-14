@@ -28,7 +28,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.os.ConfigurationCompat;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.frontend.textview.HighlightingEditor;
+import net.gsantner.markor.frontend.textview.MarkorEditor;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.model.GsSharedPreferencesPropertyBackend;
 import net.gsantner.opoc.util.GsContextUtils;
@@ -78,10 +78,10 @@ public class DatetimeFormatDialog {
 
     /**
      * @param activity {@link Activity} from which is {@link DatetimeFormatDialog} called
-     * @param hlEditor {@link HighlightingEditor} which 'll add selected result to cursor position
+     * @param hlEditor {@link MarkorEditor} which 'll add selected result to cursor position
      */
     @SuppressLint({"ClickableViewAccessibility", "SetTextI18n, InflateParams"})
-    public static void showDatetimeFormatDialog(final Activity activity, final HighlightingEditor hlEditor) {
+    public static void showDatetimeFormatDialog(final Activity activity, final MarkorEditor hlEditor) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(activity, R.style.Theme_AppCompat_DayNight_Dialog_Rounded);
         final View viewRoot = activity.getLayoutInflater().inflate(R.layout.time_format_dialog, null);
 
