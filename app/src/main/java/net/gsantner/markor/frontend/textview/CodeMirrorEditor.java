@@ -20,8 +20,8 @@ import java.io.IOException;
 
 public class CodeMirrorEditor extends WebView {
 
-    private static final String BASE_DIR_URL = "file:///android_asset/cm-editor/dist/";
-    private static final String BASE_HTML_PATH = "cm-editor/dist/index.html";
+    private static final String BASE_DIR_URL = "file:///android_asset/cm-editor/";
+    private static final String BASE_HTML_PATH = "cm-editor/index.html";
 
     private final WebViewClient webViewClient = new WebViewClient() {
         @Override
