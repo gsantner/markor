@@ -20,7 +20,7 @@ npm run dev
 npm run build
 ```
 
-The build output directory is `../app/thirdparty/assets/cm-editor`, see `vite.config.js`.
+The build output directory is `../app/thirdparty/assets/cm-editor`.
 
 ## About CodeMirror
 

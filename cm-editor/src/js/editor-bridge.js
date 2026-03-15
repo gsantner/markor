@@ -48,12 +48,7 @@ class EditorBridge {
   }
 
   focus() {
-    if (this.contentElement) {
-      this.contentElement.focus();
-    } else {
-      this.contentElement = document.querySelector('.cm-content');
-      this.contentElement.focus();
-    }
+    this.view.contentDOM.focus();
   }
 
   /**
