@@ -4,7 +4,6 @@ import { undo, redo, undoDepth } from "@codemirror/commands";
 import { html } from "@codemirror/lang-html";
 import { oneDark } from "@codemirror/theme-one-dark";
 import { isDarkMode } from "./theme.js";
-// import { callback } from "./test";
 
 class EditorBridge {
   constructor(element) {
@@ -24,7 +23,7 @@ class EditorBridge {
     // this.exts.push(EditorView.lineWrapping);
 
     if (isDarkTheme) {
-      exts.push(oneDark);
+      this.exts.push(oneDark);
     }
 
     const that = this;

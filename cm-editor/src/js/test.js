@@ -1,7 +1,5 @@
 import Dashboard from './dashboard.js'
 
-// editorBridge.setText("hello");
-
 export function callback() {
     if (typeof callbackInterface === 'undefined') {
         console.log("'callbackInterface' is undefined");
@@ -12,7 +10,6 @@ export function callback() {
 
 let dashboard;
 
-// For development
 export function toggleDashboard(show) {
     if (show) {
         if (dashboard == null) {
@@ -24,6 +21,7 @@ export function toggleDashboard(show) {
     }
 }
 
+// For development
 function setupDashboard() {
     const dashboard = new Dashboard();
     dashboard.addButton('setText', () => editorBridge.setText('// Hello'));
