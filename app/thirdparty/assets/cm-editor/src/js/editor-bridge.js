@@ -1,6 +1,6 @@
 import { EditorView, basicSetup } from "codemirror";
 import { EditorState } from "@codemirror/state";
-import { history, undo, redo } from "@codemirror/commands";
+import { undo, redo, undoDepth } from "@codemirror/commands";
 import { html } from "@codemirror/lang-html";
 import { oneDark } from "@codemirror/theme-one-dark";
 import { isDarkMode } from "./theme.js";
@@ -15,25 +15,25 @@ class EditorBridge {
       ".cm-scroller": { overflow: "auto" }
     }, { dark: isDarkTheme });
 
-    const exts = [
+    this.exts = [
       basicSetup,
       theme,
-      history(),
       html()
     ];
 
-    // exts.push(EditorView.lineWrapping);
+    // this.exts.push(EditorView.lineWrapping);
 
     if (isDarkTheme) {
       exts.push(oneDark);
     }
 
+    const that = this;
     const state = EditorState.create({
       doc: "",
-      extensions: exts
+      extensions: that.exts
     });
 
-    this.editor = new EditorView({ state, parent: element });
+    this.view = new EditorView({ state, parent: element });
 
     // this.setText(`<!DOCTYPE html>\n<!-- Hello, CodeMirror! -->`);
 
@@ -43,7 +43,7 @@ class EditorBridge {
   #setup() {
     const that = this;
     document.querySelector('.cm-gutters').addEventListener('click', function () {
-      that.editor.contentDOM.focus({ preventScroll: true });
+      that.view.contentDOM.focus({ preventScroll: true });
     });
   }
 
@@ -56,24 +56,51 @@ class EditorBridge {
     }
   }
 
-  setText(text) {
-    // https://stackoverflow.com/questions/72716094/how-to-programmatically-change-the-editors-value-in-codemirror-6/
-    this.editor.dispatch({
-      changes: { from: 0, to: this.editor.state.doc.length, insert: text }
+  /**
+   * Set text and reset state.
+   * @param {*} text the text
+   */
+  reset(text) {
+    const that = this;
+    const newState = EditorState.create({
+      doc: text,
+      extensions: that.exts
     });
+    this.view.setState(newState);
+  }
+
+  insert(text, start, end) {
+    // https://stackoverflow.com/questions/72716094/how-to-programmatically-change-the-editors-value-in-codemirror-6/
+    this.view.dispatch({
+      changes: {
+        from: start, to: end, insert: text
+      }
+    });
+  }
+
+  setText(text) {
+    this.insert(text, 0, this.length());
   }
 
   getText() {
     // https://stackoverflow.com/questions/72982051/how-to-get-the-text-value-of-a-codemirror-6-editor/
-    return this.editor.state.doc.toString();
+    return this.view.state.doc.toString();
+  }
+
+  length() {
+    return this.view.state.doc.length;
   }
 
   undo() {
-    undo(this.editor);
+    undo(this.view);
   }
 
   redo() {
-    redo(this.editor);
+    redo(this.view);
+  }
+
+  getUndoDepth() {
+    return undoDepth(this.view.state);
   }
 }
 

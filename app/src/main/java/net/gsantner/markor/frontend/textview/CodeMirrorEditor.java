@@ -114,6 +114,15 @@ public class CodeMirrorEditor extends WebView {
         loadUrl("javascript: editorBridge.setText(\"" + StringEscapeUtils.escapeJava(text) + "\")");
     }
 
+    /**
+     * Set text and reset state.
+     *
+     * @param text the text
+     */
+    public void reset(String text) {
+        loadUrl("javascript: editorBridge.reset(\"" + StringEscapeUtils.escapeJava(text) + "\")");
+    }
+
     public void undo() {
         loadUrl("javascript: editorBridge.undo()");
     }

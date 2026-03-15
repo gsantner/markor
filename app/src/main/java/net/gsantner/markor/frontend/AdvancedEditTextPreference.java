@@ -70,7 +70,7 @@ public class AdvancedEditTextPreference extends DialogPreference {
 
         editText = view.findViewById(R.id.editor);
         editText.setOnPreparedListener(() -> {
-            editText.setText(getPersistedString(defaultValue));
+            editText.reset(getPersistedString(defaultValue));
             editText.requestFocusFromTouch();
             editText.focus();
         });
