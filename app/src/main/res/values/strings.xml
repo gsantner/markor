@@ -57,6 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file">File</string>
     <string name="image">Image</string>
     <string name="font_size">Font Size</string>
+    <string name="font_size_follow_editor">-1: Follow the font size of editor</string>
     <string name="render_rtl_language">Render for right-to-left languages</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Error: Cannot create notebook directory</string>
 
