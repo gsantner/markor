@@ -389,7 +389,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="inline_code">Inline code</string>
     <string name="horizontal_line">Horizontal line</string>
     <string name="toggle_done">Toggle done</string>
-    <string name="link_color">Link color</string>
+    <string name="link_text_color">Link text color</string>
     <string name="add_context">Add context</string>
     <string name="add_project">Add project</string>
     <string name="archive_completed_tasks">Archive completed tasks</string>
