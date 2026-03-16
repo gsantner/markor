@@ -22,6 +22,7 @@ public class AdvancedEditTextPreference extends DialogPreference {
 
     private String defaultValue;
     private CodeMirrorEditor editText;
+    private boolean initialized;
 
     public AdvancedEditTextPreference(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
@@ -44,7 +45,10 @@ public class AdvancedEditTextPreference extends DialogPreference {
     }
 
     private void init() {
-        setDialogLayoutResource(R.layout.edit_text_preference);
+        if (!initialized) {
+            setDialogLayoutResource(R.layout.edit_text_preference);
+            initialized = true;
+        }
     }
 
     @Nullable

@@ -2,27 +2,42 @@
  * Dashboard is used for development, not production.
  */
 class Dashboard {
+    #viewList;
+
     constructor() {
-        this.buttonList = document.createElement('ol');
-        this.buttonList.style.listStyleType = 'none';
-        this.buttonList.style.padding = 0;
-        this.buttonList.style.margin = 0;
-        this.#getDashboard().appendChild(this.buttonList);
+        this.#viewList = document.createElement('ol');
+        this.#viewList.style.listStyleType = 'none';
+        this.#viewList.style.padding = 0;
+        this.#viewList.style.margin = 0;
+        this.#getDashboard().appendChild(this.#viewList);
     }
 
     #getDashboard() {
         return document.getElementById('dashboard');
     }
 
-    addButton(text, onclick) {
-        let button = document.createElement('button');
-        button.innerText = text;
-        button.onclick = onclick;
+    addView(name, id, text) {
+        let element = document.createElement(name);
+        if (id) {
+            element.id = id;
+        }
+        if (text) {
+            element.innerText = text;
+        }
 
         let li = document.createElement('li');
-        li.appendChild(button);
+        li.appendChild(element);
+        this.#viewList.appendChild(li);
 
-        this.buttonList.appendChild(li);
+        return element;
+    }
+
+    addButton(text, onclick) {
+        this.addView('button', null, text).onclick = onclick;
+    }
+
+    isHide() {
+        return this.#getDashboard().style.display === 'none';
     }
 
     show() {
@@ -34,9 +49,7 @@ class Dashboard {
 
     hide() {
         let dashboard = this.#getDashboard();
-        if (dashboard.style.display != 'none') {
-            dashboard.style.display = 'none';
-        }
+        dashboard.style.display = 'none';
     }
 }
 

@@ -4,9 +4,11 @@ import { undo, redo, undoDepth } from "@codemirror/commands";
 import { html } from "@codemirror/lang-html";
 import { oneDark } from "@codemirror/theme-one-dark";
 import { isDarkMode } from "./theme.js";
+// import { getLog } from "./test.js";
 
 class EditorBridge {
   constructor(element) {
+    const that = this;
     const isDarkTheme = isDarkMode();
 
     const theme = EditorView.theme({
@@ -14,10 +16,18 @@ class EditorBridge {
       ".cm-scroller": { overflow: "auto" }
     }, { dark: isDarkTheme });
 
+    const blurHandler = EditorView.domEventHandlers({
+      blur(event, view) {
+        view.contentDOM.focus({ preventScroll: true });
+        return false;
+      }
+    });
+
     this.exts = [
       basicSetup,
       theme,
-      html()
+      html(),
+      blurHandler
     ];
 
     // this.exts.push(EditorView.lineWrapping);
@@ -26,7 +36,6 @@ class EditorBridge {
       this.exts.push(oneDark);
     }
 
-    const that = this;
     const state = EditorState.create({
       doc: "",
       extensions: that.exts
@@ -35,19 +44,10 @@ class EditorBridge {
     this.view = new EditorView({ state, parent: element });
 
     // this.setText(`<!DOCTYPE html>\n<!-- Hello, CodeMirror! -->`);
-
-    this.#setup();
-  }
-
-  #setup() {
-    const that = this;
-    document.querySelector('.cm-gutters').addEventListener('click', function () {
-      that.view.contentDOM.focus({ preventScroll: true });
-    });
   }
 
   focus() {
-    this.view.contentDOM.focus();
+    this.view.focus();
   }
 
   /**

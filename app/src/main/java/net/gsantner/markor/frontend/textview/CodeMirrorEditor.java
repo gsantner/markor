@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -22,6 +23,7 @@ public class CodeMirrorEditor extends WebView {
 
     private static final String BASE_DIR_URL = "file:///android_asset/cm-editor/";
     private static final String BASE_HTML_PATH = "cm-editor/index.html";
+    private boolean initialized;
 
     private final WebViewClient webViewClient = new WebViewClient() {
         @Override
@@ -59,24 +61,31 @@ public class CodeMirrorEditor extends WebView {
 
     public CodeMirrorEditor(@NonNull Context context) {
         super(context);
+        init();
     }
 
     public CodeMirrorEditor(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        init();
     }
 
     public CodeMirrorEditor(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init();
     }
 
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        load();
+    private void init() {
+        if (!initialized) {
+            setFocusable(true);
+            setFocusableInTouchMode(true);
+            requestFocus(View.FOCUS_DOWN);
+            load();
+            initialized = true;
+        }
     }
 
     @SuppressLint("SetJavaScriptEnabled")
-    public void load() {
+    private void load() {
         setVisibility(INVISIBLE);
         setWebViewClient(webViewClient);
         addJavascriptInterface(new CallbackInterface(), "callbackInterface");
