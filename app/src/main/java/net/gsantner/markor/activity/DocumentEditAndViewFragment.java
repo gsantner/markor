@@ -81,7 +81,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     public static final String FRAGMENT_TAG = "DocumentEditAndViewFragment";
     public static final String SAVESTATE_DOCUMENT = "DOCUMENT";
     public static final String START_PREVIEW = "START_PREVIEW";
-    private static final long RECYCLER_EDITOR_FILE_BYTES_THRESHOLD = 500L * 1024L;
+    private static final long RECYCLER_EDITOR_FILE_BYTES_THRESHOLD = 50L * 1024L;
 
     public static float VIEW_FONT_SCALE = 100f / 15.7f;
 

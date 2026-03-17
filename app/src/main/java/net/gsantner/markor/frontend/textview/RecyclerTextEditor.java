@@ -86,7 +86,7 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
         if (_hlEnabled) {
             _highlightingDebounced.run();
         }
-        _adapter.notifyDataSetChanged();
+        notifyDataSetChangedPreservingFocus();
         applySelectionToVisibleLineEditor();
     }
 
@@ -245,8 +245,15 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
 
     @Override
     public void setAutoFormatters(@Nullable InputFilter inputFilter, @Nullable TextWatcher modifier) {
+        final boolean enabled = _autoFormatEnabled;
+        if (enabled) {
+            setAutoFormatEnabled(false);
+        }
         _autoFormatFilter = inputFilter;
         _autoFormatModifier = modifier;
+        if (enabled) {
+            setAutoFormatEnabled(true);
+        }
     }
 
     @Override
@@ -256,7 +263,15 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
 
     @Override
     public void setAutoFormatEnabled(boolean enable) {
+        if (enable && !_autoFormatEnabled) {
+            if (_autoFormatModifier != null && !_textWatcherListeners.contains(_autoFormatModifier)) {
+                _textWatcherListeners.add(_autoFormatModifier);
+            }
+        } else if (!enable && _autoFormatEnabled) {
+            _textWatcherListeners.remove(_autoFormatModifier);
+        }
         _autoFormatEnabled = enable;
+        _adapter.notifyItemRangeChanged(0, _lines.size());
     }
 
     @Override
@@ -297,7 +312,7 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
             _highlightingDebounced.run();
         } else if (_highlighter != null) {
             _highlighter.clearDynamic().clearStatic(true).clearComputed();
-            _adapter.notifyDataSetChanged();
+            notifyDataSetChangedPreservingFocus();
         }
         return previous;
     }
@@ -323,7 +338,7 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
             _highlighter.addAdditional(_searchSelection);
         }
         _highlighter.applyStatic();
-        refreshVisibleLineEditors(false);
+        notifyDataSetChangedPreservingFocus();
     }
 
     @Override
@@ -478,8 +493,16 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
         parseToLines(_editorText.toString());
         _selectionStart = clampToLength(getSelectionStart());
         _selectionEnd = clampToLength(getSelectionEnd());
-        _adapter.notifyDataSetChanged();
+        notifyDataSetChangedPreservingFocus();
         applySelectionToVisibleLineEditor();
+    }
+
+    private void notifyDataSetChangedPreservingFocus() {
+        final boolean hadFocusedLineEditor = findFocusedLineEditor() != null;
+        _adapter.notifyDataSetChanged();
+        if (hadFocusedLineEditor) {
+            post(this::applySelectionToVisibleLineEditor);
+        }
     }
 
     private void onEditorTextMutated() {
@@ -737,6 +760,9 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
             _edit.setBackgroundColor(_backgroundColor);
             _edit.setLineSpacing(0f, _lineSpacingMultiplier);
             _edit.setHorizontallyScrolling(!_wrapEnabled);
+            _edit.setFilters(_autoFormatEnabled && _autoFormatFilter != null
+                    ? new InputFilter[]{_autoFormatFilter}
+                    : new InputFilter[0]);
             _edit.setOnFocusChangeListener((v, hasFocus) -> {
                 if (hasFocus) {
                     updateSelectionFromLineEditor(position, _edit.getSelectionStart(), _edit.getSelectionEnd());
@@ -766,6 +792,7 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
                         return;
                     }
                     _lines.set(pos, s != null ? s.toString() : "");
+                    syncEditorTextFromLines();
                     dispatchOnTextChanged(_editorText, _globalStart, before, count);
                 }
 
