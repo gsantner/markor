@@ -339,7 +339,7 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
             _highlighter.addAdditional(_searchSelection);
         }
         _highlighter.applyStatic();
-        notifyDataSetChangedPreservingFocus();
+        refreshVisibleLineEditors(false);
     }
 
     @Override
@@ -810,10 +810,16 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
                     if (pos == NO_POSITION) {
                         return;
                     }
+                    final boolean hasNewline = s != null && s.toString().contains("\n");
                     _lines.set(pos, s != null ? s.toString() : "");
                     updateSelectionFromLineEditor(pos, _edit.getSelectionStart(), _edit.getSelectionEnd());
                     syncEditorTextFromLines();
                     dispatchAfterTextChanged(_editorText);
+
+                    if (hasNewline) {
+                        syncFromEditorText();
+                    }
+
                     _textChangedRecorder.run();
                     notifyTextChanged();
                     if (_hlEnabled) {
