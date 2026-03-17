@@ -40,6 +40,10 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
     private final ArrayList<Runnable> _textChangedListeners = new ArrayList<>();
     private final ArrayList<TextWatcher> _textWatcherListeners = new ArrayList<>();
     private final ArrayList<SyntaxHighlighterBase.SpanGroup> _matches = new ArrayList<>();
+    private final RecyclerEditable _editorText = new RecyclerEditable();
+    private int _textChangedNumber;
+    private final Runnable _textChangedRecorder = TextViewUtils.makeDebounced(1000, () -> _textChangedNumber++);
+    private final Runnable _highlightingDebounced = TextViewUtils.makeDebounced(220, this::recomputeHighlighting);
 
     private boolean _trailingNewline;
     private float _textSizeSp = 16f;
@@ -48,6 +52,7 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
     private int _backgroundColor;
     private Typeface _typeface;
     private boolean _wrapEnabled = true;
+
     private int _selectionStart;
     private int _selectionEnd;
     private InputFilter _autoFormatFilter;
@@ -56,9 +61,9 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
     private SyntaxHighlighterBase _highlighter;
     private boolean _hlEnabled;
     private SyntaxHighlighterBase.SpanGroup _searchSelection;
-    private int _textChangedNumber;
-    private final Runnable _textChangedRecorder = TextViewUtils.makeDebounced(getHandler(), 1000, () -> _textChangedNumber++);
     private boolean _saveInstanceState = true;
+    private boolean _suppressEditorTextCallback;
+    private View.OnFocusChangeListener _externalFocusChangeListener;
 
     public RecyclerTextEditor(@NonNull Context context) {
         this(context, null);
@@ -70,34 +75,16 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
         setAdapter(_adapter);
         setItemAnimator(null);
         _lines.add("");
-        _selectionStart = 0;
-        _selectionEnd = 0;
+        syncEditorTextFromLines();
     }
 
     @Override
     public void setText(@Nullable CharSequence text) {
-        _lines.clear();
-        _trailingNewline = false;
-        final String content = text != null ? text.toString() : "";
-        final int len = content.length();
-        int start = 0;
-        for (int i = 0; i < len; i++) {
-            if (content.charAt(i) == '\n') {
-                _lines.add(content.substring(start, i));
-                start = i + 1;
-            }
+        parseToLines(text != null ? text.toString() : "");
+        syncEditorTextFromLines();
+        if (_hlEnabled) {
+            _highlightingDebounced.run();
         }
-        if (start < len) {
-            _lines.add(content.substring(start));
-        } else {
-            _trailingNewline = len > 0;
-        }
-
-        if (_lines.isEmpty()) {
-            _lines.add("");
-        }
-        _selectionStart = clampToLength(_selectionStart);
-        _selectionEnd = clampToLength(_selectionEnd);
         _adapter.notifyDataSetChanged();
         applySelectionToVisibleLineEditor();
     }
@@ -105,35 +92,12 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
     @NonNull
     @Override
     public Editable getText() {
-        final StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < _lines.size(); i++) {
-            if (i > 0) {
-                sb.append('\n');
-            }
-            sb.append(_lines.get(i));
-        }
-        if (_trailingNewline && !_lines.isEmpty()) {
-            sb.append('\n');
-        }
-        final SpannableStringBuilder fullText = new SpannableStringBuilder(sb);
-        final int selStart = clampToLength(_selectionStart);
-        final int selEnd = clampToLength(_selectionEnd);
-        if (GsTextUtils.inRange(0, fullText.length(), selStart, selEnd)) {
-            Selection.setSelection(fullText, selStart, selEnd);
-        }
-        return fullText;
+        return _editorText;
     }
 
     @Override
     public int length() {
-        int total = _trailingNewline && !_lines.isEmpty() ? 1 : 0;
-        for (int i = 0; i < _lines.size(); i++) {
-            total += _lines.get(i).length();
-            if (i > 0) {
-                total += 1;
-            }
-        }
-        return total;
+        return _editorText.length();
     }
 
     @Override
@@ -178,14 +142,6 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
         }
     }
 
-    private void notifyTextChanged() {
-        for (Runnable listener : _textChangedListeners) {
-            if (listener != null) {
-                listener.run();
-            }
-        }
-    }
-
     @Override
     public void addTextChangedListener(@NonNull TextWatcher watcher) {
         if (!_textWatcherListeners.contains(watcher)) {
@@ -203,6 +159,7 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
         if (indexesValid(index)) {
             _selectionStart = index;
             _selectionEnd = index;
+            Selection.setSelection(_editorText, index);
             applySelectionToVisibleLineEditor();
         }
     }
@@ -212,61 +169,66 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
         if (indexesValid(start, stop)) {
             _selectionStart = start;
             _selectionEnd = stop;
-            applySelectionToVisibleLineEditor();
         } else if (indexesValid(start, stop - 1)) {
             _selectionStart = start;
             _selectionEnd = stop - 1;
-            applySelectionToVisibleLineEditor();
         } else if (indexesValid(start + 1, stop)) {
             _selectionStart = start + 1;
             _selectionEnd = stop;
-            applySelectionToVisibleLineEditor();
+        } else {
+            return;
         }
+        Selection.setSelection(_editorText, _selectionStart, _selectionEnd);
+        applySelectionToVisibleLineEditor();
     }
 
     @Override
     public int getSelectionStart() {
-        return _selectionStart;
+        final int sel = Selection.getSelectionStart(_editorText);
+        return sel >= 0 ? sel : _selectionStart;
     }
 
     @Override
     public int getSelectionEnd() {
-        return _selectionEnd;
+        final int sel = Selection.getSelectionEnd(_editorText);
+        return sel >= 0 ? sel : _selectionEnd;
     }
 
     @Override
     public boolean hasSelection() {
-        return _selectionStart != _selectionEnd;
+        return getSelectionStart() != getSelectionEnd();
     }
 
     @Override
     public void selectLines() {
-        final int[] lineSelection = TextViewUtils.getLineSelection(getText());
+        final int[] lineSelection = TextViewUtils.getLineSelection(_editorText);
         setSelection(lineSelection[0], lineSelection[1]);
     }
 
     @Override
     public void insertOrReplaceTextOnCursor(String newText) {
-        final Editable editable = getText();
-        if (editable == null || newText == null) {
+        final Editable edit = getText();
+        if (newText == null) {
             return;
         }
 
-        final int selStart = Math.min(_selectionStart, _selectionEnd);
-        final int selEnd = Math.max(_selectionStart, _selectionEnd);
-        final CharSequence selected = editable.subSequence(selStart, selEnd);
-        String expanded = newText.replace(INSERT_SELECTION_HERE_TOKEN, selected);
+        final int[] sel = TextViewUtils.getSelection(edit);
+        final CharSequence selected = TextViewUtils.toString(edit, Math.max(sel[0], 0), Math.max(sel[1], 0));
+        final String expanded = newText.replace(INSERT_SELECTION_HERE_TOKEN, selected);
 
         final int newCursorPos = expanded.indexOf(PLACE_CURSOR_HERE_TOKEN);
         final String finalText = expanded.replace(PLACE_CURSOR_HERE_TOKEN, "");
 
-        editable.replace(selStart, selEnd, finalText);
-        setText(editable);
+        final int start = Math.max(sel[0], 0);
+        final int end = Math.max(sel[1], start);
+        if (newCursorPos >= 0) {
+            setSelection(start);
+        }
+
+        withAutoFormatDisabled(() -> edit.replace(start, end, finalText));
 
         if (newCursorPos >= 0) {
-            setSelection(selStart + newCursorPos);
-        } else {
-            setSelection(selStart + finalText.length());
+            setSelection(start + newCursorPos);
         }
     }
 
@@ -309,9 +271,13 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
 
     @Override
     public void setHighlighter(@Nullable SyntaxHighlighterBase highlighter) {
+        if (_highlighter != null) {
+            _highlighter.clearDynamic().clearStatic(true);
+        }
         _highlighter = highlighter;
         if (_hlEnabled) {
-            recomputeHighlighting();
+            initHighlighter();
+            _highlightingDebounced.run();
         }
     }
 
@@ -327,6 +293,10 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
         _hlEnabled = enable;
         if (_hlEnabled) {
             initHighlighter();
+            _highlightingDebounced.run();
+        } else if (_highlighter != null) {
+            _highlighter.clearDynamic().clearStatic(true).clearComputed();
+            _adapter.notifyDataSetChanged();
         }
         return previous;
     }
@@ -338,15 +308,27 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
 
     @Override
     public void recomputeHighlighting() {
-        if (_hlEnabled && _highlighter != null) {
-            _highlighter.setSpannable(getText()).configure();
+        if (!_hlEnabled || _highlighter == null) {
+            return;
         }
+        _highlighter
+                .setSpannable(_editorText)
+                .configure()
+                .clearDynamic()
+                .clearStatic(false)
+                .recompute()
+                .addAdditional(_matches);
+        if (_searchSelection != null) {
+            _highlighter.addAdditional(_searchSelection);
+        }
+        _highlighter.applyStatic();
+        _adapter.notifyDataSetChanged();
     }
 
     @Override
     public void initHighlighter() {
         if (_highlighter != null) {
-            _highlighter.setSpannable(getText()).configure();
+            _highlighter.setSpannable(_editorText).configure();
         }
     }
 
@@ -356,30 +338,48 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
         if (spanGroups != null) {
             _matches.addAll(spanGroups);
         }
+        if (_hlEnabled) {
+            _highlightingDebounced.run();
+        }
     }
 
     @Override
     public void removeSearchMatch(@Nullable SyntaxHighlighterBase.SpanGroup spanGroup) {
         _matches.remove(spanGroup);
+        if (_hlEnabled) {
+            _highlightingDebounced.run();
+        }
     }
 
     @Override
     public void clearSearchMatches() {
         _matches.clear();
+        if (_hlEnabled) {
+            _highlightingDebounced.run();
+        }
     }
 
     @Override
     public void applyDynamicHighlight() {
+        if (_hlEnabled) {
+            _highlightingDebounced.run();
+        }
     }
 
     @Override
     public void addSearchSelection(int start, int end, @ColorInt int color) {
         _searchSelection = SyntaxHighlighterBase.createBackgroundHighlight(start, end, color);
+        if (_hlEnabled) {
+            _highlightingDebounced.run();
+        }
     }
 
     @Override
     public void clearSearchSelection() {
         _searchSelection = null;
+        if (_hlEnabled) {
+            _highlightingDebounced.run();
+        }
     }
 
     @NonNull
@@ -390,6 +390,7 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
 
     @Override
     public void setOnFocusChangeListener(@Nullable OnFocusChangeListener listener) {
+        _externalFocusChangeListener = listener;
         super.setOnFocusChangeListener(listener);
     }
 
@@ -410,7 +411,7 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
 
     @Override
     public int moveCursorToEndOfLine(int offset) {
-        final int[] lineCol = globalOffsetToLineCol(_selectionEnd);
+        final int[] lineCol = globalOffsetToLineCol(getSelectionEnd());
         final int lineEnd = lineColToGlobalOffset(lineCol[0], _lines.get(lineCol[0]).length());
         final int newPos = clampToLength(lineEnd + offset);
         setSelection(newPos);
@@ -419,17 +420,83 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
 
     @Override
     public int moveCursorToBeginOfLine(int offset) {
-        final int[] lineCol = globalOffsetToLineCol(_selectionEnd);
+        final int[] lineCol = globalOffsetToLineCol(getSelectionEnd());
         final int lineStart = lineColToGlobalOffset(lineCol[0], 0);
         final int newPos = clampToLength(lineStart + offset);
         setSelection(newPos);
         return getSelectionStart();
     }
 
-    /**
-     * Convert global character offset to (lineIndex, columnInLine).
-     * Returns int[]{lineIndex, column}. If offset is past end, clamps to end.
-     */
+    private void parseToLines(@NonNull String content) {
+        _lines.clear();
+        _trailingNewline = false;
+
+        final int len = content.length();
+        int start = 0;
+        for (int i = 0; i < len; i++) {
+            if (content.charAt(i) == '\n') {
+                _lines.add(content.substring(start, i));
+                start = i + 1;
+            }
+        }
+        if (start < len) {
+            _lines.add(content.substring(start));
+        } else {
+            _trailingNewline = len > 0;
+        }
+        if (_lines.isEmpty()) {
+            _lines.add("");
+        }
+    }
+
+    @NonNull
+    private String buildFullTextFromLines() {
+        final StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < _lines.size(); i++) {
+            if (i > 0) {
+                sb.append('\n');
+            }
+            sb.append(_lines.get(i));
+        }
+        if (_trailingNewline && !_lines.isEmpty()) {
+            sb.append('\n');
+        }
+        return sb.toString();
+    }
+
+    private void syncEditorTextFromLines() {
+        _suppressEditorTextCallback = true;
+        _editorText.replace(0, _editorText.length(), buildFullTextFromLines());
+        _selectionStart = clampToLength(_selectionStart);
+        _selectionEnd = clampToLength(_selectionEnd);
+        Selection.setSelection(_editorText, _selectionStart, _selectionEnd);
+        _suppressEditorTextCallback = false;
+    }
+
+    private void syncFromEditorText() {
+        parseToLines(_editorText.toString());
+        _selectionStart = clampToLength(getSelectionStart());
+        _selectionEnd = clampToLength(getSelectionEnd());
+        _adapter.notifyDataSetChanged();
+        applySelectionToVisibleLineEditor();
+    }
+
+    private void onEditorTextMutated() {
+        if (_suppressEditorTextCallback) {
+            return;
+        }
+        syncFromEditorText();
+        _textChangedRecorder.run();
+        notifyTextChanged();
+        if (_hlEnabled) {
+            _highlightingDebounced.run();
+        }
+    }
+
+    private int clampToLength(int value) {
+        return Math.max(0, Math.min(value, _editorText.length()));
+    }
+
     private int[] globalOffsetToLineCol(int offset) {
         if (_lines.isEmpty()) {
             return new int[]{0, 0};
@@ -458,9 +525,6 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
         return new int[]{lastIndex, _lines.get(lastIndex).length()};
     }
 
-    /**
-     * Convert (lineIndex, column) to global character offset.
-     */
     private int lineColToGlobalOffset(int lineIndex, int column) {
         if (_lines.isEmpty()) {
             return 0;
@@ -472,19 +536,28 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
             offset += _lines.get(i).length() + 1;
         }
         final int safeCol = Math.max(0, Math.min(column, _lines.get(safeLine).length()));
-        return Math.max(0, Math.min(offset + safeCol, length()));
+        return Math.max(0, Math.min(offset + safeCol, _editorText.length()));
     }
 
-    private int clampToLength(int value) {
-        return Math.max(0, Math.min(value, length()));
+    private int lineStartOffset(int lineIndex) {
+        int start = 0;
+        for (int i = 0; i < lineIndex; i++) {
+            start += _lines.get(i).length() + 1;
+        }
+        return start;
     }
 
     private void updateSelectionFromLineEditor(int lineIndex, int localStart, int localEnd) {
         _selectionStart = lineColToGlobalOffset(lineIndex, localStart);
         _selectionEnd = lineColToGlobalOffset(lineIndex, localEnd);
+        Selection.setSelection(_editorText, _selectionStart, _selectionEnd);
     }
 
     private void applySelectionToVisibleLineEditor() {
+        if (_lines.isEmpty()) {
+            return;
+        }
+
         final int selStart = clampToLength(_selectionStart);
         final int selEnd = clampToLength(_selectionEnd);
         final int[] startLineCol = globalOffsetToLineCol(selStart);
@@ -521,6 +594,27 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
         return null;
     }
 
+    @NonNull
+    private CharSequence getLineDisplayText(int position) {
+        if (!_hlEnabled || _highlighter == null) {
+            return _lines.get(position);
+        }
+        final int start = lineStartOffset(position);
+        final int end = Math.min(start + _lines.get(position).length(), _editorText.length());
+        if (start <= end) {
+            return _editorText.subSequence(start, end);
+        }
+        return _lines.get(position);
+    }
+
+    private void notifyTextChanged() {
+        for (Runnable listener : _textChangedListeners) {
+            if (listener != null) {
+                listener.run();
+            }
+        }
+    }
+
     private void dispatchBeforeTextChanged(CharSequence s, int start, int count, int after) {
         for (TextWatcher watcher : new ArrayList<>(_textWatcherListeners)) {
             watcher.beforeTextChanged(s, start, count, after);
@@ -536,6 +630,16 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
     private void dispatchAfterTextChanged(Editable s) {
         for (TextWatcher watcher : new ArrayList<>(_textWatcherListeners)) {
             watcher.afterTextChanged(s);
+        }
+    }
+
+    private final class RecyclerEditable extends SpannableStringBuilder {
+        @NonNull
+        @Override
+        public SpannableStringBuilder replace(int start, int end, CharSequence tb, int tbstart, int tbend) {
+            super.replace(start, end, tb, tbstart, tbend);
+            onEditorTextMutated();
+            return this;
         }
     }
 
@@ -591,7 +695,7 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
             }
 
             _edit.setTag(position);
-            _edit.setText(_lines.get(position));
+            _edit.setText(getLineDisplayText(position));
             _edit.setTextSize(TypedValue.COMPLEX_UNIT_SP, _textSizeSp);
             _edit.setTypeface(_typeface);
             _edit.setTextColor(_textColor);
@@ -601,6 +705,9 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
             _edit.setOnFocusChangeListener((v, hasFocus) -> {
                 if (hasFocus) {
                     updateSelectionFromLineEditor(position, _edit.getSelectionStart(), _edit.getSelectionEnd());
+                }
+                if (_externalFocusChangeListener != null) {
+                    _externalFocusChangeListener.onFocusChange(RecyclerTextEditor.this, hasFocus);
                 }
             });
 
@@ -614,7 +721,7 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
                         return;
                     }
                     _globalStart = lineColToGlobalOffset(pos, start);
-                    dispatchBeforeTextChanged(getText(), _globalStart, count, after);
+                    dispatchBeforeTextChanged(_editorText, _globalStart, count, after);
                 }
 
                 @Override
@@ -624,18 +731,23 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
                         return;
                     }
                     _lines.set(pos, s != null ? s.toString() : "");
-                    dispatchOnTextChanged(getText(), _globalStart, before, count);
+                    dispatchOnTextChanged(_editorText, _globalStart, before, count);
                 }
 
                 @Override
                 public void afterTextChanged(Editable s) {
                     final int pos = getBindingAdapterPosition();
-                    if (pos != NO_POSITION) {
-                        _lines.set(pos, s != null ? s.toString() : "");
-                        updateSelectionFromLineEditor(pos, _edit.getSelectionStart(), _edit.getSelectionEnd());
-                        dispatchAfterTextChanged(getText());
-                        _textChangedRecorder.run();
-                        notifyTextChanged();
+                    if (pos == NO_POSITION) {
+                        return;
+                    }
+                    _lines.set(pos, s != null ? s.toString() : "");
+                    updateSelectionFromLineEditor(pos, _edit.getSelectionStart(), _edit.getSelectionEnd());
+                    syncEditorTextFromLines();
+                    dispatchAfterTextChanged(_editorText);
+                    _textChangedRecorder.run();
+                    notifyTextChanged();
+                    if (_hlEnabled) {
+                        _highlightingDebounced.run();
                     }
                 }
             };

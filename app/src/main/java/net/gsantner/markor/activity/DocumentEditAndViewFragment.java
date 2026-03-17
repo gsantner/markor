@@ -201,8 +201,10 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _hlEditor.setBackgroundColor(_appSettings.getEditorBackgroundColor());
         _hlEditor.setTextColor(_appSettings.getEditorForegroundColor());
         _hlEditor.setGravity(_appSettings.isEditorStartEditingInCenter() ? Gravity.CENTER : Gravity.NO_GRAVITY);
-        _hlEditor.setHighlightingEnabled(_appSettings.getDocumentHighlightState(_document.path, _hlEditor.getText()));
-        _hlEditor.setAutoFormatEnabled(_appSettings.getDocumentAutoFormatEnabled(_document.path));
+        if (_activeEditor != null) {
+            _activeEditor.setHighlightingEnabled(_appSettings.getDocumentHighlightState(_document.path, _activeEditor.getText()));
+            _activeEditor.setAutoFormatEnabled(_appSettings.getDocumentAutoFormatEnabled(_document.path));
+        }
         _hlEditor.setSaveInstanceState(false); // We will reload from disk
         _hlEditor.setOverScrollMode(View.OVER_SCROLL_ALWAYS);
 
@@ -313,7 +315,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         }
         _appSettings.addRecentFile(_document.file);
         _appSettings.setDocumentPreviewState(_document.path, _isPreviewVisible);
-        _appSettings.setLastEditPosition(_document.path, _isRecyclerEditorEnabled ? 0 : TextViewUtils.getSelection(_hlEditor)[0]);
+        _appSettings.setLastEditPosition(_document.path, _activeEditor != null ? _activeEditor.getSelectionStart() : 0);
         _appSettings.setLastEditScrollY(_document.path, _isRecyclerEditorEnabled ? _recyclerEditor.computeVerticalScrollOffset() : _verticalScrollView.getScrollY());
         if (_document.path.equals(_appSettings.getTodoFile().getAbsolutePath())) {
             TodoWidgetProvider.updateTodoWidgets();
@@ -586,10 +588,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 return true;
             }
             case R.id.action_search: {
-                if (_isRecyclerEditorEnabled) {
-                    Toast.makeText(activity, R.string.large_file_action_not_supported, Toast.LENGTH_SHORT).show();
-                    return true;
-                }
                 setViewModeVisibility(false);
                 _format.getActions().onSearch();
                 return true;
@@ -1133,7 +1131,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         }
 
         show |= _document.isBinaryFileNoTextLoading();
-        if (!_isRecyclerEditorEnabled) {
+        if (_format != null) {
             _format.getActions().recreateActionButtons(_textActionsBar, show ? ActionButtonBase.ActionItem.DisplayMode.VIEW : ActionButtonBase.ActionItem.DisplayMode.EDIT);
         }
         showHideActionBar();
@@ -1172,14 +1170,14 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     @Override
     protected void onToolbarClicked(View v) {
-        if (!_isRecyclerEditorEnabled && _format != null) {
+        if (_format != null) {
             _format.getActions().runTitleClick();
         }
     }
 
     @Override
     protected boolean onToolbarLongClicked(View v) {
-        if (!_isRecyclerEditorEnabled && isVisible() && isResumed()) {
+        if (isVisible() && isResumed() && _format != null) {
             _format.getActions().runJumpBottomTopAction(_isPreviewVisible ? ActionButtonBase.ActionItem.DisplayMode.VIEW : ActionButtonBase.ActionItem.DisplayMode.EDIT);
             return true;
         }

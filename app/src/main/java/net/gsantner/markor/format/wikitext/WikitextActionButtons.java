@@ -10,7 +10,6 @@ package net.gsantner.markor.format.wikitext;
 import android.content.Context;
 import android.os.Build;
 import android.view.KeyEvent;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
@@ -259,7 +258,7 @@ public class WikitextActionButtons extends ActionButtonBase {
     @Override
     public boolean runTitleClick() {
         final Matcher m = WikitextSyntaxHighlighter.HEADING.matcher("");
-        MarkorDialogFactory.showHeadlineDialog(getActivity(), (EditText) _hlEditor.getView(), _webView, _headlineDialogState, (text, start, end) -> {
+        MarkorDialogFactory.showHeadlineDialog(getActivity(), _hlEditor, _webView, _headlineDialogState, (text, start, end) -> {
             if (m.reset(text.subSequence(start, end)).find()) {
                 return 7 - (m.end(2) - m.start(2));
             }

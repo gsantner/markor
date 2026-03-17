@@ -53,7 +53,7 @@ import net.gsantner.markor.format.todotxt.TodoTxtTask;
 import net.gsantner.markor.frontend.filesearch.FileSearchDialog;
 import net.gsantner.markor.frontend.filesearch.FileSearchEngine;
 import net.gsantner.markor.frontend.filesearch.FileSearchResultSelectorDialog;
-import net.gsantner.markor.frontend.textview.HighlightingEditor;
+import net.gsantner.markor.frontend.textview.MarkorEditor;
 import net.gsantner.markor.frontend.textview.SyntaxHighlighterBase;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
@@ -796,15 +796,28 @@ public class MarkorDialogFactory {
             final ActionButtonBase.HeadlineState state,
             final GsCallback.r3<Integer, CharSequence, Integer, Integer> levelCallback
     ) {
+        showHeadlineDialog(activity, (MarkorEditor) edit, webView, state, levelCallback);
+    }
+
+    public static void showHeadlineDialog(
+            final Activity activity,
+            final MarkorEditor editor,
+            final WebView webView,
+            final ActionButtonBase.HeadlineState state,
+            final GsCallback.r3<Integer, CharSequence, Integer, Integer> levelCallback
+    ) {
         int textChangedNumber = 0;
-        if (edit instanceof HighlightingEditor) {
-            textChangedNumber = ((HighlightingEditor) edit).getTextChangedNumber();
+        if (editor != null) {
+            textChangedNumber = editor.getTextChangedNumber();
         }
 
         if (textChangedNumber != state.lastTextChangedNumber) {
             state.lastTextChangedNumber = textChangedNumber;
             // Get all headings and their levels
-            final CharSequence text = edit.getText();
+            final CharSequence text = editor != null ? editor.getText() : null;
+            if (text == null) {
+                return;
+            }
             state.headings.clear();
             GsTextUtils.forEachline(text, (line, start, end) -> {
                 final int level = levelCallback.callback(text, start, end);
@@ -850,8 +863,13 @@ public class MarkorDialogFactory {
         dopt.positionCallback = result -> {
             final int index = filtered.get(result.get(0));
             final int line = state.headings.get(index).line;
-
-            TextViewUtils.selectLines(edit, line);
+            final CharSequence text = editor != null ? editor.getText() : null;
+            if (editor != null && text != null) {
+                final int[] sel = TextViewUtils.getLineSelection(text, TextViewUtils.getIndexFromLineOffset(text, line, 0));
+                if (sel[0] >= 0 && sel[1] >= 0) {
+                    editor.setSelection(sel[0], sel[1]);
+                }
+            }
 
             final String jumpJs = "document.querySelector('[line=\"" + line + "\"]').scrollIntoView();";
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && webView != null) {

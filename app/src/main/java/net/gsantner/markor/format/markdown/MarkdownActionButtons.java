@@ -220,6 +220,9 @@ public class MarkdownActionButtons extends ActionButtonBase {
                         pos -> {
                             if (_hlEditor.getView() instanceof EditText) {
                                 TextViewUtils.setSelectionAndShow((EditText) _hlEditor.getView(), pos);
+                            } else {
+                                _hlEditor.requestFocus();
+                                _hlEditor.setSelection(pos);
                             }
                         });
                 return true;
@@ -326,7 +329,7 @@ public class MarkdownActionButtons extends ActionButtonBase {
     @Override
     public boolean runTitleClick() {
         final Matcher m = MarkdownReplacePatternGenerator.PREFIX_ATX_HEADING.matcher("");
-        MarkorDialogFactory.showHeadlineDialog(getActivity(), (EditText) _hlEditor.getView(), _webView, _headlineDialogState, (text, start, end) -> {
+        MarkorDialogFactory.showHeadlineDialog(getActivity(), _hlEditor, _webView, _headlineDialogState, (text, start, end) -> {
             if (m.reset(text.subSequence(start, end)).find()) {
                 return m.end(2) - m.start(2) - 1;
             }
