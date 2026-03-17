@@ -144,6 +144,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay">हाइलाइटिंग में देरी।</string>
     <string name="highlighting_enabled_or_not__appspecific">टेक्स्ट को हाईलाइट करना है या नहीं, इसे नियंत्रित करें।</string>
     <string name="control_font_size_in_editor">एडिटर में उपयोग किए जाने वाले फ़ॉन्ट आकार को नियंत्रित करें।</string>
+    <string name="textactions_show_useful_actions_description__appspecific">एक बार दिखाएँ जिसमें उपयोगी बटन हों। ये टेक्स्ट एक्शन टेक्स्ट को संशोधित करते हैं या टेक्स्ट के आधार पर कोई एक्शन चलाते हैं।</string>
     <string name="format">स्वरूप</string>
     <string name="contexts">प्रसंग</string>
     <string name="project">प्रोजेक्ट</string>
@@ -154,9 +155,19 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="break_page_pdf_print">पृष्ठ तोड़ें (पीडीएफ/प्रिंटिंग)</string>
     <string name="underline">रेखांकित</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">क्या हेक्स कलर कोड को रंग के अनुसार रेखांकित करना है?</string>
+    <string name="underline_hex_color_codes">हेक्स कलर कोड को रेखांकित करें।</string>
+    <string name="tasks_with_todays_date">आज के कार्य।</string>
+    <string name="append_contexts_and_projects">संदर्भ और परियोजनाएं जोड़ें।</string>
+    <string name="rtl_rendering">आरटीएल रेंडरिंग।</string>
+    <string name="highlight_line_ending">पंक्ति के अंत को हाइलाइट करें।</string>
+    <string name="highlight_line_ending_if_two_or_more_spaces">दो या दो से अधिक रिक्त स्थानों वाली पंक्तियों के अंत में स्थित रिक्त स्थानों को हाइलाइट करें।</string>
     <string name="use_monospace_for_code">Code के लिए एक Monospace फ़ॉन्ट का उपयोग करें</string>
+    <string name="auto_renumber_ordered_list">क्रमबद्ध सूचियों का स्वतः पुन: क्रमांकन।</string>
+    <string name="auto_renumber_ordered_list_slowdown">इस विकल्प से ऐप के प्रदर्शन पर असर पड़ सकता है।</string>
+    <string name="use_different_fonttype_slow_down">किसी दूसरे फॉन्ट टाइप का इस्तेमाल करें। फॉन्ट टाइप को समय-समय पर बदलने से ऐप के परफॉर्मेंस पर असर पड़ता है।</string>
     <string name="general">सामान्य</string>
     <string name="resources">संसाधने</string>
+    <string name="space_between_lines_in_percent">पंक्तियों के बीच का अंतर प्रतिशत में ।</string>
     <string name="line_spacing">पंक्ति अंतराल</string>
     <string name="key_ctrl_a">सभी का चयन करें (Ctrl + A)</string>
     <string name="file_does_not_exist_and_cant_be_created">फाइल या डायरेक्टरी मौजूद नहीं है और इसे बनाया नहीं जा सकता।</string>
