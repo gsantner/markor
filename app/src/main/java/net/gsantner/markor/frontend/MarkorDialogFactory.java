@@ -242,6 +242,10 @@ public class MarkorDialogFactory {
     }
 
     public static void showSttFilteringDialog(final Activity activity, final EditText text) {
+        showSttFilteringDialog(activity, (MarkorEditor) text);
+    }
+
+    public static void showSttFilteringDialog(final Activity activity, final MarkorEditor text) {
         final DialogOptions dopt = baseConf(activity);
 
         final List<String> options = new ArrayList<>();
@@ -331,6 +335,17 @@ public class MarkorDialogFactory {
     public static void showSttKeySearchDialog(
             final Activity activity,
             final EditText text,
+            final int title,
+            final boolean enableSearch,
+            final boolean enableAnd,
+            final TodoTxtFilter.TYPE queryType
+    ) {
+        showSttKeySearchDialog(activity, (MarkorEditor) text, title, enableSearch, enableAnd, queryType);
+    }
+
+    public static void showSttKeySearchDialog(
+            final Activity activity,
+            final MarkorEditor text,
             final int title,
             final boolean enableSearch,
             final boolean enableAnd,
@@ -439,6 +454,14 @@ public class MarkorDialogFactory {
             final EditText text,
             final GsCallback.b1<TodoTxtTask> filter
     ) {
+        return makeSttLineSelectionDialog(activity, (MarkorEditor) text, filter);
+    }
+
+    public static DialogOptions makeSttLineSelectionDialog(
+            final Activity activity,
+            final MarkorEditor text,
+            final GsCallback.b1<TodoTxtTask> filter
+    ) {
         final AppSettings as = AppSettings.get(activity);
         final DialogOptions dopt = baseConf(activity);
         final List<TodoTxtTask> allTasks = TodoTxtTask.getAllTasks(text.getText());
@@ -468,12 +491,16 @@ public class MarkorDialogFactory {
 
     // Search dialog for todo.txt
     public static void showSttSearchDialog(final Activity activity, final EditText text) {
+        showSttSearchDialog(activity, (MarkorEditor) text);
+    }
+
+    public static void showSttSearchDialog(final Activity activity, final MarkorEditor text) {
         final DialogOptions dopt = makeSttLineSelectionDialog(activity, text, t -> true);
         dopt.titleText = R.string.search_documents;
         dopt.neutralButtonText = R.string.replace;
         dopt.neutralButtonCallback2 = (dialog, searchText) -> {
             dialog.dismiss();
-            SearchAndReplaceTextDialog.showSearchReplaceDialog(activity, text.getText(), searchText, TextViewUtils.getSelection(text));
+            SearchAndReplaceTextDialog.showSearchReplaceDialog(activity, text.getText(), searchText, TextViewUtils.getSelection(text.getText()));
         };
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }

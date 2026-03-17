@@ -82,6 +82,10 @@ public class TodoTxtTask {
         return getTasks(view.getText(), TextViewUtils.getSelection(view));
     }
 
+    public static List<TodoTxtTask> getSelectedTasks(final CharSequence text, final int[] sel) {
+        return getTasks(text, sel);
+    }
+
     public static List<TodoTxtTask> getAllTasks(final CharSequence text) {
         return getTasks(text, new int[]{0, text.length()});
     }
