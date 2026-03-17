@@ -32,6 +32,10 @@ public class TodoTxtSyntaxHighlighter extends TodoTxtBasicSyntaxHighlighter {
     public SyntaxHighlighterBase configure(Paint paint) {
         super.configure(paint);
 
+        if (paint == null) {
+            paint = new Paint();
+        }
+
         _delay = _appSettings.getHighlightingDelayTodoTxt();
         final boolean dark = MarkorContextUtils.instance.isDarkModeEnabled(_appSettings.getContext());
         _paragraphSpan = new ParagraphDividerSpan(paint, dark ? 0x44FFFFFF : 0xFFDDDDDD);

@@ -53,7 +53,7 @@ import net.gsantner.markor.format.todotxt.TodoTxtTask;
 import net.gsantner.markor.frontend.filesearch.FileSearchDialog;
 import net.gsantner.markor.frontend.filesearch.FileSearchEngine;
 import net.gsantner.markor.frontend.filesearch.FileSearchResultSelectorDialog;
-import net.gsantner.markor.frontend.textview.HighlightingEditor;
+import net.gsantner.markor.frontend.textview.MarkorEditor;
 import net.gsantner.markor.frontend.textview.SyntaxHighlighterBase;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
@@ -242,6 +242,10 @@ public class MarkorDialogFactory {
     }
 
     public static void showSttFilteringDialog(final Activity activity, final EditText text) {
+        showSttFilteringDialog(activity, (MarkorEditor) text);
+    }
+
+    public static void showSttFilteringDialog(final Activity activity, final MarkorEditor text) {
         final DialogOptions dopt = baseConf(activity);
 
         final List<String> options = new ArrayList<>();
@@ -315,6 +319,7 @@ public class MarkorDialogFactory {
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
+
     /**
      * Filter todos with specified keys.
      * <p>
@@ -331,6 +336,17 @@ public class MarkorDialogFactory {
     public static void showSttKeySearchDialog(
             final Activity activity,
             final EditText text,
+            final int title,
+            final boolean enableSearch,
+            final boolean enableAnd,
+            final TodoTxtFilter.TYPE queryType
+    ) {
+        showSttKeySearchDialog(activity, (MarkorEditor) text, title, enableSearch, enableAnd, queryType);
+    }
+
+    public static void showSttKeySearchDialog(
+            final Activity activity,
+            final MarkorEditor text,
             final int title,
             final boolean enableSearch,
             final boolean enableAnd,
@@ -399,6 +415,7 @@ public class MarkorDialogFactory {
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
+
     private static void setQueryTitle(final DialogOptions dopt, final String subTitle, final String query) {
         // Remove the actual title
         dopt.titleText = 0;
@@ -439,6 +456,14 @@ public class MarkorDialogFactory {
             final EditText text,
             final GsCallback.b1<TodoTxtTask> filter
     ) {
+        return makeSttLineSelectionDialog(activity, (MarkorEditor) text, filter);
+    }
+
+    public static DialogOptions makeSttLineSelectionDialog(
+            final Activity activity,
+            final MarkorEditor text,
+            final GsCallback.b1<TodoTxtTask> filter
+    ) {
         final AppSettings as = AppSettings.get(activity);
         final DialogOptions dopt = baseConf(activity);
         final List<TodoTxtTask> allTasks = TodoTxtTask.getAllTasks(text.getText());
@@ -466,14 +491,19 @@ public class MarkorDialogFactory {
         return dopt;
     }
 
+
     // Search dialog for todo.txt
     public static void showSttSearchDialog(final Activity activity, final EditText text) {
+        showSttSearchDialog(activity, (MarkorEditor) text);
+    }
+
+    public static void showSttSearchDialog(final Activity activity, final MarkorEditor text) {
         final DialogOptions dopt = makeSttLineSelectionDialog(activity, text, t -> true);
         dopt.titleText = R.string.search_documents;
         dopt.neutralButtonText = R.string.replace;
         dopt.neutralButtonCallback2 = (dialog, searchText) -> {
             dialog.dismiss();
-            SearchAndReplaceTextDialog.showSearchReplaceDialog(activity, text.getText(), searchText, TextViewUtils.getSelection(text));
+            SearchAndReplaceTextDialog.showSearchReplaceDialog(activity, text.getText(), searchText, TextViewUtils.getSelection(text.getText()));
         };
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
@@ -796,15 +826,28 @@ public class MarkorDialogFactory {
             final ActionButtonBase.HeadlineState state,
             final GsCallback.r3<Integer, CharSequence, Integer, Integer> levelCallback
     ) {
+        showHeadlineDialog(activity, (MarkorEditor) edit, webView, state, levelCallback);
+    }
+
+    public static void showHeadlineDialog(
+            final Activity activity,
+            final MarkorEditor editor,
+            final WebView webView,
+            final ActionButtonBase.HeadlineState state,
+            final GsCallback.r3<Integer, CharSequence, Integer, Integer> levelCallback
+    ) {
         int textChangedNumber = 0;
-        if (edit instanceof HighlightingEditor) {
-            textChangedNumber = ((HighlightingEditor) edit).getTextChangedNumber();
+        if (editor != null) {
+            textChangedNumber = editor.getTextChangedNumber();
         }
 
         if (textChangedNumber != state.lastTextChangedNumber) {
             state.lastTextChangedNumber = textChangedNumber;
             // Get all headings and their levels
-            final CharSequence text = edit.getText();
+            final CharSequence text = editor != null ? editor.getText() : null;
+            if (text == null) {
+                return;
+            }
             state.headings.clear();
             GsTextUtils.forEachline(text, (line, start, end) -> {
                 final int level = levelCallback.callback(text, start, end);
@@ -850,8 +893,13 @@ public class MarkorDialogFactory {
         dopt.positionCallback = result -> {
             final int index = filtered.get(result.get(0));
             final int line = state.headings.get(index).line;
-
-            TextViewUtils.selectLines(edit, line);
+            final CharSequence text = editor != null ? editor.getText() : null;
+            if (editor != null && text != null) {
+                final int[] sel = TextViewUtils.getLineSelection(text, TextViewUtils.getIndexFromLineOffset(text, line, 0));
+                if (sel[0] >= 0 && sel[1] >= 0) {
+                    editor.setSelection(sel[0], sel[1]);
+                }
+            }
 
             final String jumpJs = "document.querySelector('[line=\"" + line + "\"]').scrollIntoView();";
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && webView != null) {

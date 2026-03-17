@@ -319,6 +319,57 @@ public final class TextViewUtils {
         }
     }
 
+    public static void selectLines(final MarkorEditor editor, final List<Integer> positions) {
+        if (editor == null || positions == null || positions.isEmpty()) {
+            return;
+        }
+
+        if (!editor.hasFocus()) {
+            editor.requestFocus();
+        }
+
+        final Editable text = editor.getText();
+        if (text == null) {
+            return;
+        }
+
+        if (positions.size() == 1) {
+            final int pos = positions.get(0);
+            final int index = pos >= 0 ? TextViewUtils.getIndexFromLineOffset(text, pos, 0) : text.length();
+            editor.setSelection(index);
+            if (editor.getView() instanceof TextView) {
+                showSelection((TextView) editor.getView());
+            }
+            return;
+        }
+
+        final TreeSet<Integer> pSet = new TreeSet<>(positions);
+        final int selStart;
+        final int selEnd;
+        final int minLine = Collections.min(pSet);
+        final int maxLine = Collections.max(pSet);
+        if (maxLine - minLine == pSet.size() - 1) {
+            selStart = TextViewUtils.getLineStart(text, TextViewUtils.getIndexFromLineOffset(text, minLine, 0));
+            selEnd = TextViewUtils.getIndexFromLineOffset(text, maxLine, 0);
+        } else {
+            final String[] lines = text.toString().split("\n");
+            final List<String> sel = new ArrayList<>();
+            final List<String> unsel = new ArrayList<>();
+            for (int i = 0; i < lines.length; i++) {
+                (pSet.contains(i) ? sel : unsel).add(lines[i]);
+            }
+            sel.addAll(unsel);
+            final String newText = android.text.TextUtils.join("\n", sel);
+            editor.setText(newText);
+            selStart = 0;
+            selEnd = TextViewUtils.getIndexFromLineOffset(editor.getText(), positions.size() - 1, 0);
+        }
+        editor.setSelection(selStart, selEnd);
+        if (editor.getView() instanceof TextView) {
+            showSelection((TextView) editor.getView());
+        }
+    }
+
     public static void showSelection(final TextView text, Rect visible, final int start, final int end, int offsetY) {
         // Get view info
         // ------------------------------------------------------------
@@ -435,7 +486,7 @@ public final class TextViewUtils {
                 .replace("{{title}}", title)
                 .replace("{{weekday}}", weekday)
                 .replace("{{sel}}", selectedText)
-                .replace("{{cursor}}", HighlightingEditor.PLACE_CURSOR_HERE_TOKEN);
+                .replace("{{cursor}}", MarkorEditor.PLACE_CURSOR_HERE_TOKEN);
 
         while (text.contains("{{uuid}}")) {
             text = text.replaceFirst("\\{\\{uuid\\}\\}", UUID.randomUUID().toString());
