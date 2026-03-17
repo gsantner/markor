@@ -142,6 +142,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="remember_last_directory">पिछली डायरेक्टरी को याद रखें।</string>
     <string name="syntax_highlighting">वाक्य - विन्यास पर प्रकाश डालना।</string>
     <string name="highlighting_delay">हाइलाइटिंग में देरी।</string>
+    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">हाइलाइटिंग रिफ्रेश होने में मिलीसेकंड में लगने वाला विलंब। कम मान सेट करने पर हाइलाइटिंग जल्दी शुरू हो जाएगी, लेकिन इससे बैटरी जल्दी खत्म होगी और पुराने डिवाइसों पर ऐप धीमा चल सकता है।</string>
     <string name="highlighting_enabled_or_not__appspecific">टेक्स्ट को हाईलाइट करना है या नहीं, इसे नियंत्रित करें।</string>
     <string name="control_font_size_in_editor">एडिटर में उपयोग किए जाने वाले फ़ॉन्ट आकार को नियंत्रित करें।</string>
     <string name="textactions_show_useful_actions_description__appspecific">एक बार दिखाएँ जिसमें उपयोगी बटन हों। ये टेक्स्ट एक्शन टेक्स्ट को संशोधित करते हैं या टेक्स्ट के आधार पर कोई एक्शन चलाते हैं।</string>
@@ -160,10 +161,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">नया कार्य शुरू करते समय वर्तमान डेटा डालें।</string>
     <string name="tasks_with_todays_date">आज के कार्य।</string>
     <string name="append_contexts_and_projects">संदर्भ और परियोजनाएं जोड़ें।</string>
+    <string name="append_contexts_and_projects_on_end_of_task">उपयुक्त टेक्स्ट एक्शन का उपयोग करते समय, कार्य के अंत में संदर्भ और प्रोजेक्ट जोड़ें।</string>
     <string name="rtl_rendering">आरटीएल रेंडरिंग।</string>
     <string name="highlight_line_ending">पंक्ति के अंत को हाइलाइट करें।</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">दो या दो से अधिक रिक्त स्थानों वाली पंक्तियों के अंत में स्थित रिक्त स्थानों को हाइलाइट करें।</string>
     <string name="use_monospace_for_code">Code के लिए एक Monospace फ़ॉन्ट का उपयोग करें</string>
+    <string name="disable_code_block_highlight">कोड ब्लॉक के लिए हाइलाइटिंग को अक्षम करें।</string>
     <string name="auto_renumber_ordered_list">क्रमबद्ध सूचियों का स्वतः पुन: क्रमांकन।</string>
     <string name="auto_renumber_ordered_list_slowdown">इस विकल्प से ऐप के प्रदर्शन पर असर पड़ सकता है।</string>
     <string name="use_different_fonttype_slow_down">किसी दूसरे फॉन्ट टाइप का इस्तेमाल करें। फॉन्ट टाइप को समय-समय पर बदलने से ऐप के परफॉर्मेंस पर असर पड़ता है।</string>
@@ -192,10 +195,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom">बटन पर प्रारंभ करें।</string>
     <string name="start_on_bottom_when_loading_document">किसी दस्तावेज़ को लोड करने के बाद, कर्सर को उसके अंत में रखें।</string>
     <string name="unordered_list_character">अव्यवस्थित सूची वर्ण।</string>
+    <string name="character_to_start_items_of_unordered_list_with">अव्यवस्थित सूचियों को दर्शाने के लिए किस वर्ण का उपयोग किया जाता है?</string>
+    <string name="unordered_list_char_dash">डैश (-)</string>
+    <string name="unordered_list_char_asterisk">ताराचिह्न (*)</string>
+    <string name="unordered_list_char_plus">प्लस (+)</string>
+    <string name="filemanager_doesnot_supply_required_data__appspecific">Markor केवल स्थानीय, ऑफ़लाइन उपलब्ध दस्तावेज़ों को ही संपादित कर सकता है और उन फ़ाइल प्रबंधकों का समर्थन नहीं करता है जो पूर्ण फ़ाइल पथ प्रदान नहीं करते हैं।</string>
     <string name="file_does_not_exist_and_cant_be_created">फाइल या डायरेक्टरी मौजूद नहीं है और इसे बनाया नहीं जा सकता।</string>
     <string name="permissions">अनुमतियां।</string>
     <string name="permission_paths_revert">डिफ़ॉल्ट पथ पर वापस जाएँ।</string>
     <string name="permission_not_granted">अनुमति नहीं प्राप्त है।</string>
+    <string name="sync_to_local_folder_notice">ध्यान दें: सिंक ऐप्स फ़ाइलों को कस्टम फ़ोल्डरों में रख सकते हैं। उन्हें खोलने के लिए Markor के दस्तावेज़ फ़ोल्डर को तदनुसार बदलें, या किसी अन्य फ़ाइल प्रबंधक का उपयोग करें।</string>
     <string name="vertical_alignment">लंबवत संरेखण</string>
     <string name="horizontal_alignment">क्षैतिज संरेखण</string>
     <string name="default_">डिफ़ाॅल्ट।</string>
@@ -205,6 +214,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="bottom">निचे</string>
     <string name="center">मध्य</string>
     <string name="actionbutton_spacing">एक्शन बटन की रिक्ति।</string>
+    <string name="horizontal_space_between_actionbuttons">एक्शन बटनों के बीच क्षैतिज स्थान</string>
+    <string name="center_text">केंद्र टेक्स्ट</string>
     <string name="clipboard">क्लिपबोर्ड</string>
     <string name="open_source_licenses">खुला स्रोत लाइसेंस</string>
     <string name="rate_this_app">इस ऐप्लिकेशन को रेट करे</string>
