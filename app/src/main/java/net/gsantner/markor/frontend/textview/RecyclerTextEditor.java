@@ -63,6 +63,7 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
     private SyntaxHighlighterBase.SpanGroup _searchSelection;
     private boolean _saveInstanceState = true;
     private boolean _suppressEditorTextCallback;
+    private boolean _suppressSelectionSync;
     private View.OnFocusChangeListener _externalFocusChangeListener;
 
     public RecyclerTextEditor(@NonNull Context context) {
@@ -322,7 +323,7 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
             _highlighter.addAdditional(_searchSelection);
         }
         _highlighter.applyStatic();
-        _adapter.notifyDataSetChanged();
+        refreshVisibleLineEditors(false);
     }
 
     @Override
@@ -594,6 +595,32 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
         return null;
     }
 
+    private void refreshVisibleLineEditors(boolean includeFocused) {
+        final LayoutManager lm = getLayoutManager();
+        if (!(lm instanceof LinearLayoutManager)) {
+            return;
+        }
+
+        final LinearLayoutManager llm = (LinearLayoutManager) lm;
+        final int first = llm.findFirstVisibleItemPosition();
+        final int last = llm.findLastVisibleItemPosition();
+        if (first == NO_POSITION || last == NO_POSITION || first > last) {
+            return;
+        }
+
+        final View focused = findFocus();
+        for (int pos = first; pos <= last; pos++) {
+            final LineViewHolder holder = (LineViewHolder) findViewHolderForAdapterPosition(pos);
+            if (holder == null) {
+                continue;
+            }
+            if (!includeFocused && focused != null && focused == holder._edit) {
+                continue;
+            }
+            holder.rebindDisplayOnly(pos);
+        }
+    }
+
     @NonNull
     private CharSequence getLineDisplayText(int position) {
         if (!_hlEnabled || _highlighter == null) {
@@ -651,6 +678,9 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
                 @Override
                 protected void onSelectionChanged(int selStart, int selEnd) {
                     super.onSelectionChanged(selStart, selEnd);
+                    if (_suppressSelectionSync) {
+                        return;
+                    }
                     final Object tag = getTag();
                     if (tag instanceof Integer) {
                         updateSelectionFromLineEditor((Integer) tag, selStart, selEnd);
@@ -695,7 +725,12 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
             }
 
             _edit.setTag(position);
-            _edit.setText(getLineDisplayText(position));
+            _suppressSelectionSync = true;
+            try {
+                _edit.setText(getLineDisplayText(position));
+            } finally {
+                _suppressSelectionSync = false;
+            }
             _edit.setTextSize(TypedValue.COMPLEX_UNIT_SP, _textSizeSp);
             _edit.setTypeface(_typeface);
             _edit.setTextColor(_textColor);
@@ -756,6 +791,30 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
             final int[] selectionLineCol = globalOffsetToLineCol(_selectionEnd);
             if (selectionLineCol[0] == position && !_edit.hasFocus()) {
                 _edit.setSelection(selectionLineCol[1]);
+            }
+        }
+
+        private void rebindDisplayOnly(int position) {
+            if (_watcher != null) {
+                _edit.removeTextChangedListener(_watcher);
+            }
+            final int selStart = _edit.getSelectionStart();
+            final int selEnd = _edit.getSelectionEnd();
+            _edit.setTag(position);
+            _suppressSelectionSync = true;
+            try {
+                _edit.setText(getLineDisplayText(position));
+            } finally {
+                _suppressSelectionSync = false;
+            }
+            if (_edit.hasFocus()) {
+                final int len = _edit.length();
+                final int start = Math.max(0, Math.min(selStart, len));
+                final int end = Math.max(0, Math.min(selEnd, len));
+                _edit.setSelection(Math.min(start, end), Math.max(start, end));
+            }
+            if (_watcher != null) {
+                _edit.addTextChangedListener(_watcher);
             }
         }
     }
