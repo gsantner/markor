@@ -319,76 +319,6 @@ public class MarkorDialogFactory {
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static void showSttFilteringDialog(final Activity activity, final MarkorEditor text) {
-        final DialogOptions dopt = baseConf(activity);
-
-        final List<String> options = new ArrayList<>();
-        final List<Integer> icons = new ArrayList<>();
-        final List<GsCallback.a0> callbacks = new ArrayList<>();
-
-        options.add(activity.getString(R.string.priority));
-        icons.add(R.drawable.ic_star_black_24dp);
-        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.browse_by_priority, false, false, TodoTxtFilter.TYPE.PRIORITY));
-
-        options.add(activity.getString(R.string.due_date));
-        icons.add(R.drawable.ic_date_range_black_24dp);
-        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.browse_by_due_date, false, false, TodoTxtFilter.TYPE.DUE));
-
-        options.add(activity.getString(R.string.project));
-        icons.add(R.drawable.ic_new_label_black_24dp);
-        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.browse_by_project, true, true, TodoTxtFilter.TYPE.PROJECT));
-
-        options.add(activity.getString(R.string.context));
-        icons.add(R.drawable.gs_email_sign_black_24dp);
-        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.browse_by_context, true, true, TodoTxtFilter.TYPE.CONTEXT));
-
-        options.add(activity.getString(R.string.advanced_filtering));
-        icons.add(R.drawable.ic_extension_black_24dp);
-        callbacks.add(() -> {
-            final DialogOptions dopt2 = makeSttLineSelectionDialog(activity, text, t -> true);
-            dopt2.titleText = R.string.advanced_filtering;
-            dopt2.messageText = Html.fromHtml(activity.getString(R.string.advanced_filtering_help));
-            final String[] queryHolder = new String[1];
-            dopt2.searchFunction = (query, line, index) -> {
-                queryHolder[0] = query;
-                return TodoTxtFilter.isMatchQuery(new TodoTxtTask(line), query);
-            };
-            addSaveQuery(activity, dopt2, () -> queryHolder[0]);
-            GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
-        });
-
-        final List<Pair<String, String>> savedViews = TodoTxtFilter.loadSavedFilters(activity);
-        final List<Integer> indices = GsCollectionUtils.range(savedViews.size());
-        Collections.sort(indices, (a, b) -> savedViews.get(a).first.compareTo(savedViews.get(b).first));
-
-        for (final int i : indices) {
-            final String title = savedViews.get(i).first;
-            final String query = savedViews.get(i).second;
-            options.add(title);
-            icons.add(R.drawable.empty_blank);
-            callbacks.add(() -> {
-                final DialogOptions doptView = makeSttLineSelectionDialog(activity, text, t -> TodoTxtFilter.isMatchQuery(t, query));
-                setQueryTitle(doptView, title, query);
-
-                doptView.neutralButtonText = R.string.delete;
-                doptView.isSoftInputVisible = false;
-                doptView.neutralButtonCallback = viewDialog -> showConfirmDialog(activity, R.string.confirm_delete, title, null, () -> {
-                    viewDialog.dismiss();
-                    TodoTxtFilter.deleteFilterIndex(activity, i);
-                });
-
-                GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, doptView);
-            });
-        }
-
-        dopt.data = options;
-        dopt.iconsForData = icons;
-        dopt.positionCallback = (posn) -> callbacks.get(posn.get(0)).callback();
-        dopt.isSearchEnabled = false;
-        dopt.titleText = R.string.browse_todo;
-
-        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
-    }
 
     /**
      * Filter todos with specified keys.
@@ -485,63 +415,6 @@ public class MarkorDialogFactory {
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static void showSttKeySearchDialog(
-            final Activity activity,
-            final MarkorEditor text,
-            final int title,
-            final boolean enableSearch,
-            final boolean enableAnd,
-            final TodoTxtFilter.TYPE queryType
-    ) {
-        final DialogOptions dopt = baseConf(activity);
-
-        final List<TodoTxtTask> allTasks = TodoTxtTask.getAllTasks(text.getText());
-        final List<TodoTxtFilter.SttFilterKey> keys = TodoTxtFilter.getKeys(activity, allTasks, queryType);
-
-        final List<String> data = new ArrayList<>();
-        final List<String> hlData = new ArrayList<>();
-        for (final TodoTxtFilter.SttFilterKey k : keys) {
-            final String opt = String.format("%s (%d)", k.key, k.count);
-            data.add(opt);
-            if (k.query == null) {
-                hlData.add(opt);
-            }
-        }
-        dopt.data = data;
-        dopt.highlightData = hlData;
-
-        final boolean[] useAnd = {false};
-        if (enableAnd) {
-            dopt.neutralButtonText = R.string.match_any;
-            dopt.neutralButtonCallback = (dialog) -> {
-                Button neutralButton;
-                if (dialog != null && (neutralButton = dialog.getButton(AlertDialog.BUTTON_NEUTRAL)) != null) {
-                    useAnd[0] = !useAnd[0];
-                    neutralButton.setText(useAnd[0] ? R.string.match_all : R.string.match_any);
-                }
-            };
-        }
-
-        dopt.titleText = title;
-        dopt.isSearchEnabled = enableSearch;
-        dopt.searchHintText = R.string.search;
-        dopt.selectionMode = DialogOptions.SelectionMode.MULTIPLE;
-
-        dopt.positionCallback = (keyIndices) -> {
-            final List<String> queryKeys = new ArrayList<>();
-            for (final Integer index : keyIndices) {
-                queryKeys.add(keys.get(index).query);
-            }
-            final String query = TodoTxtFilter.makeQuery(queryKeys, useAnd[0], queryType);
-
-            final DialogOptions doptSel = makeSttLineSelectionDialog(activity, text, t -> TodoTxtFilter.isMatchQuery(t, query));
-            setQueryTitle(doptSel, activity.getString(title), query);
-            addSaveQuery(activity, doptSel, () -> query);
-
-            GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, doptSel);
-        };
-        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
-    }
 
     private static void setQueryTitle(final DialogOptions dopt, final String subTitle, final String query) {
         // Remove the actual title
@@ -618,52 +491,10 @@ public class MarkorDialogFactory {
         return dopt;
     }
 
-    public static DialogOptions makeSttLineSelectionDialog(
-            final Activity activity,
-            final MarkorEditor text,
-            final GsCallback.b1<TodoTxtTask> filter
-    ) {
-        final AppSettings as = AppSettings.get(activity);
-        final DialogOptions dopt = baseConf(activity);
-        final List<TodoTxtTask> allTasks = TodoTxtTask.getAllTasks(text.getText());
-        final List<String> lines = new ArrayList<>();
-        final List<Integer> lineIndices = new ArrayList<>();
-        for (int i = 0; i < allTasks.size(); i++) {
-            if (filter.callback(allTasks.get(i))) {
-                lines.add(allTasks.get(i).getLine());
-                lineIndices.add(i);
-            }
-        }
-        dopt.data = lines;
-        dopt.titleText = R.string.search;
-        dopt.dataFilter = "[^\\s]+";
-        dopt.selectionMode = DialogOptions.SelectionMode.MULTIPLE;
-        dopt.highlighter = as.isHighlightingEnabled() ? getSttHighlighter(as) : null;
-        dopt.positionCallback = (posns) -> {
-            final List<Integer> selIndices = new ArrayList<>();
-            for (final Integer p : posns) {
-                selIndices.add(lineIndices.get(p));
-            }
-            TextViewUtils.selectLines(text, selIndices);
-        };
-
-        return dopt;
-    }
 
     // Search dialog for todo.txt
     public static void showSttSearchDialog(final Activity activity, final EditText text) {
         showSttSearchDialog(activity, (MarkorEditor) text);
-    }
-
-    public static void showSttSearchDialog(final Activity activity, final MarkorEditor text) {
-        final DialogOptions dopt = makeSttLineSelectionDialog(activity, text, t -> true);
-        dopt.titleText = R.string.search_documents;
-        dopt.neutralButtonText = R.string.replace;
-        dopt.neutralButtonCallback2 = (dialog, searchText) -> {
-            dialog.dismiss();
-            SearchAndReplaceTextDialog.showSearchReplaceDialog(activity, text.getText(), searchText, TextViewUtils.getSelection(text.getText()));
-        };
-        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
     public static void showSttSearchDialog(final Activity activity, final MarkorEditor text) {
