@@ -8,6 +8,7 @@
 package net.gsantner.markor.frontend.textview;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -329,7 +330,7 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
         }
         _highlighter
                 .setSpannable(_editorText)
-                .configure()
+                .configure(getEditorPaint())
                 .clearDynamic()
                 .clearStatic(false)
                 .recompute()
@@ -344,8 +345,15 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
     @Override
     public void initHighlighter() {
         if (_highlighter != null) {
-            _highlighter.setSpannable(_editorText).configure();
+            _highlighter.setSpannable(_editorText).configure(getEditorPaint());
         }
+    }
+
+    private Paint getEditorPaint() {
+        final Paint paint = new Paint();
+        paint.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, _textSizeSp, getResources().getDisplayMetrics()));
+        paint.setTypeface(_typeface);
+        return paint;
     }
 
     @Override
