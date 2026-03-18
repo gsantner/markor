@@ -247,6 +247,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="bug_reports_suggest_improvements">Give feedback, report bugs or suggest improvements</string>
     <string name="help_translating_this_app">Translate this app into other languages</string>
     <string name="source_code">Source Code</string>
+    <string name="copy_build_information">Copy build information</string>
     <string name="project_license">Project License</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Contribute code to the project. Everybody is welcome to do so, including newcomers</string>
     <string name="project_team">Project Team</string>
