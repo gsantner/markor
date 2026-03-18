@@ -122,8 +122,9 @@ public class CodeMirrorEditor extends WebView {
     /**
      * Set text but not reset state.
      * This method is suitable for text with file size less than 500 KB.
+     * If you want to set large text, please use {@link net.gsantner.markor.frontend.textview.CodeMirrorEditor#loadText(java.lang.String path)}.
      *
-     * @param text
+     * @param text the text
      */
     public void setText(String text) {
         loadUrl("javascript: editorBridge.setText(\"" + StringEscapeUtils.escapeJava(text) + "\")");
@@ -142,6 +143,7 @@ public class CodeMirrorEditor extends WebView {
     /**
      * Set text and reset state.
      * This method is suitable for text with file size less than 500 KB.
+     * If you want to set large text, please use {@link net.gsantner.markor.frontend.textview.CodeMirrorEditor#loadText(java.lang.String path)}.
      *
      * @param text the text
      */
