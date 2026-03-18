@@ -4,7 +4,8 @@ import { undo, redo, undoDepth } from "@codemirror/commands";
 import { html } from "@codemirror/lang-html";
 import { oneDark } from "@codemirror/theme-one-dark";
 import { isDarkMode } from "./theme.js";
-// import { getLog } from "./test.js";
+// import { getLog } from "./dashboard.js";
+import { readText } from "./callback-interface.js"
 
 class EditorBridge {
   constructor(element) {
@@ -54,13 +55,23 @@ class EditorBridge {
    * Set text and reset state.
    * @param {*} text the text
    */
-  reset(text) {
+  resetText(text) {
     const that = this;
     const newState = EditorState.create({
       doc: text,
       extensions: that.exts
     });
     this.view.setState(newState);
+  }
+
+  /**
+   * Load text and reset state.
+   * This method can load large text with file size less than 2 MB.
+   * 
+   * @param {*} path the text file path
+   */
+  async loadText(path) {
+    this.resetText(readText(path));
   }
 
   insert(text, start, end) {

@@ -1,6 +1,6 @@
 import './css/style.css';
 import EditorBridge from './js/editor-bridge.js';
-import { toggleDashboard } from './js/test.js';
+import { toggleDashboard } from './js/dashboard.js';
 
 document.querySelector('#app').innerHTML = "<div id='editor'></div><div id='dashboard'></div>";
 

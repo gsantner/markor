@@ -32,18 +32,14 @@ The build output directory is `../app/thirdparty/assets/cm-editor`.
 
 [CodeMirror Examples](https://codemirror.net/examples/)
 
-### Basic Editor
-
-[Basic Editor Example](https://codemirror.net/examples/basic/)
-
 ### Language Support
 
 [Language Support](https://codemirror.net/#languages)
 
 ### Huge Document Support
 
-[CodeMirror Huge Doc Demo](https://codemirror.net/examples/million/)
+[CodeMirror Huge Document Demo](https://codemirror.net/examples/million/)
 
-### Who is using CodeMirror
+### Who is using CodeMirror?
 
 [Sponsors](https://codemirror.net/#sponsors)

@@ -17,6 +17,7 @@ import net.gsantner.opoc.util.GsFileUtils;
 
 import org.apache.commons.text.StringEscapeUtils;
 
+import java.io.File;
 import java.io.IOException;
 
 public class CodeMirrorEditor extends WebView {
@@ -48,14 +49,13 @@ public class CodeMirrorEditor extends WebView {
 
     private class CallbackInterface {
         @JavascriptInterface
-        public void callback(String msg) {
-            if (msg == null) {
-                return;
-            }
+        public void focus() {
+            CodeMirrorEditor.this.requestFocusFromTouch();
+        }
 
-            if (msg.equals("$focus")) {
-                CodeMirrorEditor.this.requestFocusFromTouch();
-            }
+        @JavascriptInterface
+        public String readText(String path) {
+            return GsFileUtils.readTextFile(new File(path));
         }
     }
 
@@ -119,17 +119,34 @@ public class CodeMirrorEditor extends WebView {
         }
     }
 
+    /**
+     * Set text but not reset state.
+     * This method is suitable for text with file size less than 500 KB.
+     *
+     * @param text
+     */
     public void setText(String text) {
         loadUrl("javascript: editorBridge.setText(\"" + StringEscapeUtils.escapeJava(text) + "\")");
     }
 
     /**
+     * Load text from text file path and reset state.
+     * This method supports loading large text, it can load text with file size greater than 500 KB.
+     *
+     * @param path the text file path
+     */
+    public void loadText(String path) {
+        loadUrl("javascript: editorBridge.loadText(\"" + StringEscapeUtils.escapeJava(path) + "\")");
+    }
+
+    /**
      * Set text and reset state.
+     * This method is suitable for text with file size less than 500 KB.
      *
      * @param text the text
      */
-    public void reset(String text) {
-        loadUrl("javascript: editorBridge.reset(\"" + StringEscapeUtils.escapeJava(text) + "\")");
+    public void resetText(String text) {
+        loadUrl("javascript: editorBridge.resetText(\"" + StringEscapeUtils.escapeJava(text) + "\")");
     }
 
     public void undo() {
