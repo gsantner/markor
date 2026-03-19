@@ -379,6 +379,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     }
 
     private void showLargeFileOpenToastIfNeeded(final File file) {
+        // Check if file is large and if true show a toast notification for user to wait
         if (file != null && file.isFile()) {
             final long fileBytes = file.length();
             if (fileBytes > LARGE_FILE_TOAST_THRESHOLD_BYTES) {
