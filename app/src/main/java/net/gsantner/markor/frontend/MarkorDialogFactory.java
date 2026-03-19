@@ -1379,7 +1379,7 @@ public class MarkorDialogFactory {
         public int gravity = Gravity.START;
         public int paddingHorizontal = 8;
         public int paddingVertical = 6;
-        public int duration = 3000;
+        public int duration = 1500;
 
         public PopupWindowOption(boolean showAtLocation, int x, int y) {
             this.showAtLocation = showAtLocation;
@@ -1394,7 +1394,9 @@ public class MarkorDialogFactory {
 
         TextView textView = popupView.findViewById(R.id.popupTextView);
         textView.setText(text);
-        textView.setElevation(8f);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            textView.setElevation(8f);
+        }
         textView.setPadding(option.paddingHorizontal, option.paddingVertical, option.paddingHorizontal, option.paddingVertical);
 
         textView.setOnClickListener(v -> {
