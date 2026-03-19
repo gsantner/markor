@@ -339,7 +339,10 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
             _highlighter.addAdditional(_searchSelection);
         }
         _highlighter.applyStatic();
-        refreshVisibleLineEditors(false);
+        // Refresh every visible row, including the focused editor, so newly
+        // computed highlighting is reflected immediately without waiting for
+        // a focus change or full item rebind.
+        refreshVisibleLineEditors(true);
     }
 
     @Override
@@ -787,6 +790,7 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
 
             _watcher = new TextWatcher() {
                 int _globalStart;
+                int _lineLengthBeforeChange;
 
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -794,6 +798,10 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
                     if (pos == NO_POSITION) {
                         return;
                     }
+                    // Capture pre-edit line length here, because onTextChanged()
+                    // mutates _lines[pos] and the post-edit length would make
+                    // injected prefix delta calculations inaccurate.
+                    _lineLengthBeforeChange = s != null ? s.length() : 0;
                     _globalStart = lineColToGlobalOffset(pos, start);
                     dispatchBeforeTextChanged(_editorText, _globalStart, count, after);
                 }
@@ -820,11 +828,26 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
                     final int newlineIdx = text.indexOf('\n');
 
                     if (newlineIdx >= 0) {
+                        // The manual split path is intentionally limited to a
+                        // single newline edit. Multi-line paste/replacement must
+                        // use full resync to preserve one-row-per-line invariants.
+                        if (text.indexOf('\n', newlineIdx + 1) >= 0) {
+                            updateSelectionFromLineEditor(pos, _edit.getSelectionStart(), _edit.getSelectionEnd());
+                            syncFromEditorText();
+                            dispatchAfterTextChanged(_editorText);
+                            _textChangedRecorder.run();
+                            notifyTextChanged();
+                            if (_hlEnabled) {
+                                _highlightingDebounced.run();
+                            }
+                            return;
+                        }
+
                         // Manually split the line to avoid a full-document sync on large files.
                         // This correctly maps the input filter's output to separate RecyclerView items.
                         // Read values BEFORE mutating _edit or _lines
                         final int oldSel = _edit.getSelectionStart();
-                        final int originalLength = _lines.get(pos).length();
+                        final int originalLength = _lineLengthBeforeChange;
 
                         final String firstPart = text.substring(0, newlineIdx);
                         final String secondPart = text.substring(newlineIdx + 1);
@@ -857,7 +880,6 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
                         int calculatedNewSel = Math.max(0, oldSel - newlineIdx - 1);
 
                         // We can detect how many characters were auto-inserted by looking at the length delta.
-                        // The original line was `_lines.get(pos)`.
                         // The user typed `\n` (1 char).
                         // If `text.length() > original_length + 1`, the AutoFormatter added `text.length() - original_length - 1` chars.
                         // Those characters are inserted immediately after the newline.
@@ -866,6 +888,13 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
                             calculatedNewSel += injectedChars;
                         }
                         final int finalNewSel = calculatedNewSel;
+                        // Convert the target cursor position (newly inserted line + local column)
+                        // into the document-wide offset and store it as a collapsed selection.
+                        // This lets selection restoration/cursor handoff work even if the next row
+                        // view holder is not immediately available.
+                        final int newGlobalSel = lineColToGlobalOffset(pos + 1, finalNewSel);
+                        _selectionStart = newGlobalSel;
+                        _selectionEnd = newGlobalSel;
 
                         _edit.addTextChangedListener(this);
 
@@ -875,6 +904,11 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
                                 _edit.clearFocus();
                                 nextHolder._edit.requestFocus();
                                 nextHolder._edit.setSelection(Math.min(finalNewSel, nextHolder._edit.length()));
+                            } else {
+                                // When RecyclerView has not laid out the inserted
+                                // row yet, apply the global selection fallback so
+                                // cursor handoff still lands on the new line.
+                                applySelectionToVisibleLineEditor();
                             }
                         });
 
