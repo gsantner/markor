@@ -96,7 +96,7 @@ ext.getGitHash = providers.exec {
 
 ext.getGitLastCommitMessage = providers.exec {
     commandLine('git', 'log', '--oneline', '-1', '--format=%s')
-}.standardOutput.asText.get().replace('"', "'").trim()
+}.standardOutput.asText.get().trim().replaceAll("\"", "\\\\\"")
 
 @SuppressWarnings(["UnnecessaryQualifiedReference", "SpellCheckingInspection", "GroovyUnusedDeclaration"])
 // Returns the build date in a RFC3339 compatible format. TZ is always converted to UTC
