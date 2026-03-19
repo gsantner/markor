@@ -3,6 +3,7 @@
 - New Updates also visible here: <https://github.com/gsantner/markor/releases>
 
 ### v2.16 series
+- [2.16.0 - 2.16.1](https://github.com/gsantner/markor/compare/v2.16.0...v2.16.1)
 - [2.15.0 - 2.16.0](https://github.com/gsantner/markor/compare/v2.15.0...v2.16.0)
 - [2.15.2 - 2.16.0](https://github.com/gsantner/markor/compare/v2.15.2...v2.16.0)
 
