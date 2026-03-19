@@ -605,7 +605,12 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
 
         final AppCompatEditText edit = holder._edit;
         if (!edit.hasFocus()) {
+            final View currentFocus = findFocus();
+            if (currentFocus != null && currentFocus != edit) {
+                currentFocus.clearFocus();
+            }
             edit.requestFocus();
+            edit.post(edit::requestFocus);
         }
 
         if (startLineCol[0] == endLineCol[0]) {
@@ -810,16 +815,83 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
                     if (pos == NO_POSITION) {
                         return;
                     }
-                    final boolean hasNewline = s != null && s.toString().contains("\n");
-                    _lines.set(pos, s != null ? s.toString() : "");
+
+                    final String text = s != null ? s.toString() : "";
+                    final int newlineIdx = text.indexOf('\n');
+
+                    if (newlineIdx >= 0) {
+                        // Manually split the line to avoid a full-document sync on large files.
+                        // This correctly maps the input filter's output to separate RecyclerView items.
+                        // Read values BEFORE mutating _edit or _lines
+                        final int oldSel = _edit.getSelectionStart();
+                        final int originalLength = _lines.get(pos).length();
+
+                        final String firstPart = text.substring(0, newlineIdx);
+                        final String secondPart = text.substring(newlineIdx + 1);
+
+                        // We must remove the listener while mutating the local text to prevent recursion
+                        _edit.removeTextChangedListener(this);
+                        _edit.setText(firstPart);
+
+                        _lines.set(pos, firstPart);
+
+                        // If it's a multiple-newline paste, we just let the remaining text be the next line
+                        // and it will get processed by subsequent sync or formatting operations.
+                        // The user typed a single newline most of the time.
+                        _lines.add(pos + 1, secondPart);
+
+                        _adapter.notifyItemInserted(pos + 1);
+
+                        // Fix the selection for the new line
+                        // The input filter may have appended auto-formatting prefixes to secondPart.
+                        // Instead of hardcoding regexes, we just calculate the difference in length.
+                        // The user originally typed "\n" (1 char). The difference between the
+                        // original text length and the new text length tells us how many chars
+                        // the AutoFormatter injected!
+                        // Calculate cursor position dynamically without hardcoding formatting logic.
+                        // If the user typed \n, the string they typed was 1 character long, but
+                        // the InputFilter (AutoTextFormatter) might have generated a string like `\n* `.
+                        // The Android InputConnection only moves the cursor by the length of the string typed (1).
+                        // So `oldSel` is roughly `newlineIdx + 1`. We need to move the cursor PAST
+                        // whatever characters the InputFilter auto-inserted!
+                        int calculatedNewSel = Math.max(0, oldSel - newlineIdx - 1);
+
+                        // We can detect how many characters were auto-inserted by looking at the length delta.
+                        // The original line was `_lines.get(pos)`.
+                        // The user typed `\n` (1 char).
+                        // If `text.length() > original_length + 1`, the AutoFormatter added `text.length() - original_length - 1` chars.
+                        // Those characters are inserted immediately after the newline.
+                        final int injectedChars = text.length() - originalLength - 1;
+                        if (injectedChars > 0 && oldSel <= newlineIdx + 1) {
+                            calculatedNewSel += injectedChars;
+                        }
+                        final int finalNewSel = calculatedNewSel;
+
+                        _edit.addTextChangedListener(this);
+
+                        post(() -> {
+                            final LineViewHolder nextHolder = (LineViewHolder) findViewHolderForAdapterPosition(pos + 1);
+                            if (nextHolder != null) {
+                                _edit.clearFocus();
+                                nextHolder._edit.requestFocus();
+                                nextHolder._edit.setSelection(Math.min(finalNewSel, nextHolder._edit.length()));
+                            }
+                        });
+
+                        syncEditorTextFromLines();
+                        dispatchAfterTextChanged(_editorText);
+                        _textChangedRecorder.run();
+                        notifyTextChanged();
+                        if (_hlEnabled) {
+                            _highlightingDebounced.run();
+                        }
+                        return;
+                    }
+
+                    _lines.set(pos, text);
                     updateSelectionFromLineEditor(pos, _edit.getSelectionStart(), _edit.getSelectionEnd());
                     syncEditorTextFromLines();
                     dispatchAfterTextChanged(_editorText);
-
-                    if (hasNewline) {
-                        syncFromEditorText();
-                    }
-
                     _textChangedRecorder.run();
                     notifyTextChanged();
                     if (_hlEnabled) {
