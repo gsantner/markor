@@ -232,14 +232,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             });
         }
 
-        final Runnable ensureMinHeight = () -> _hlEditor.post(() -> {
-            final int height = _verticalScrollView.getHeight();
-            if (height > 0 && height != _hlEditor.getMinHeight()) {
-                _hlEditor.setMinHeight(height);
-            }
-        });
-        _verticalScrollView.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> ensureMinHeight.run());
-        _verticalScrollView.post(ensureMinHeight);
+        // Keep this as a one-shot min-height sync. Do not use a persistent layout listener here,
+        // otherwise large documents trigger repeated relayout work during startup.
+        syncEditorMinHeightOnce(_verticalScrollView);
     }
 
     @Override
@@ -257,6 +252,10 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
         _hlEditor.recomputeHighlighting(); // Run before setting scroll position
         TextViewUtils.setSelectionAndShow(_hlEditor, startPos);
+
+        // One-shot floor for first render after content/highlighting setup.
+        // Do not replace with per-layout updates; they regress big-file open performance.
+        syncEditorMinHeightOnce(_editorHolder);
 
         // Fade in to hide initial jank
         _hlEditor.post(() -> _hlEditor.animate().alpha(1).setDuration(250).start());
@@ -680,6 +679,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 if (viewScroll != null) {
                     setMarginBottom(viewScroll, marginBottom);
                 }
+                syncEditorMinHeightOnce(_verticalScrollView);
             }
         }
     }
@@ -828,6 +828,18 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         }
     }
 
+    private void syncEditorMinHeightOnce(final View parent) {
+        if (parent == null) {
+            return;
+        }
+        parent.post(() -> {
+            final int parentHeight = parent.getHeight();
+            if (parentHeight > 0 && parentHeight != _hlEditor.getMinHeight()) {
+                _hlEditor.setMinHeight(parentHeight);
+            }
+        });
+    }
+
     private void updateMenuToggleStates(final int selectedFormatActionId) {
         MenuItem mi;
         if ((mi = _fragmentMenu.findItem(R.id.action_wrap_words)) != null) {
@@ -895,6 +907,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             }
 
             _hlEditor.requestLayout();
+            syncEditorMinHeightOnce(_editorHolder);
 
             _hlEditor.setHighlightingEnabled(hlEnabled);
             _hlEditor.post(() -> {
@@ -1004,6 +1017,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             webSettings.setJavaScriptEnabled(true);
             webSettings.setDomStorageEnabled(true);
             webSettings.setAllowContentAccess(true);
+            webSettings.setAllowFileAccess(true);
+            webSettings.setAllowFileAccessFromFileURLs(false);
+            webSettings.setAllowUniversalAccessFromFileURLs(false);
             webSettings.setMediaPlaybackRequiresUserGesture(false);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && BuildConfig.IS_TEST_BUILD && BuildConfig.DEBUG) {
