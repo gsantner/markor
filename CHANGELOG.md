@@ -2,8 +2,12 @@
 - See [Discussions](https://github.com/gsantner/markor/discussions), [Issues](https://github.com/gsantner/markor/issues) and [Project news](https://github.com/gsantner/markor/blob/master/NEWS.md) to see what is going on.
 - New Updates also visible here: <https://github.com/gsantner/markor/releases>
 
+### v2.16 series
+- [2.16.0 - 2.16.1](https://github.com/gsantner/markor/compare/v2.16.0...v2.16.1)
+- [2.15.0 - 2.16.0](https://github.com/gsantner/markor/compare/v2.15.0...v2.16.0)
+- [2.15.2 - 2.16.0](https://github.com/gsantner/markor/compare/v2.15.2...v2.16.0)
 
-### v2.14 -> v2.15
+### v2.15 series
 - [2.14.0 - 2.14.1](https://github.com/gsantner/markor/compare/v2.14.0...v2.14.1)
 - [2.14.0 - 2.15.0](https://github.com/gsantner/markor/compare/v2.14.0...v2.15.0)
 - Make .svg editable, closes #2647, by @gsantner

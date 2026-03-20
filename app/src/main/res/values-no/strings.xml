@@ -120,7 +120,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_current_folder_do_copy__appspecific">Filen finnes ikke i denne mappen. Ønsker du å kopiere den til gjeldende mappe? Dette vil overskrive den eksisterende filen med samme navn.</string>
     <string name="files_and_folders">Filer og mapper</string>
     <string name="document_browser">Dokument nettleser</string>
-    <string name="file_browser">Filens nettleser</string>
     <string name="set_due_date">Angi forfallsdato</string>
     <string name="insert_replace_date">Insert date</string>
     <string name="create_note" needed="false">Opprett notat</string>
@@ -136,7 +135,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="main_view">Hoved visning</string>
     <string name="overall_theme_used_in_app">Det generelle temaet som brukes i appen</string>
     <string name="remember_last_directory">Husk siste mappe</string>
-    <string name="syntax_highlighting">Syntaksutheving</string>
     <string name="highlighting_delay">Utheving forsinkelse</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Forsinkelse i millisekunder for framhevelsesindekser. En lavere verdi vil begynne å fremheve belysningen, men det tømmer batteriet og kan gjøre appen tregere på eldre enheter.</string>
     <string name="highlighting_enabled_or_not__appspecific">Kontroller om innskrevet tekst skal framheves eller ikke</string>
@@ -294,8 +292,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">Svart</string>
     <string name="white">Hvit</string>
     <string name="view">Vis</string>
-    <string name="view_mode">Visningsmodus</string>
-    <string name="edit_mode">Rediger modus</string>
     <string name="mount_storage">Monter lagring</string>
     <string name="application_needs_access_to_storage_mount_it">Tillatelse kreves for tilgang til dette lagring. Monter lagringen for å gi tilgang. Bekreft denne dialogboksen for å få en popup. Velg lagringsplass der og trykk på valg.</string>
     <string name="share_into">Del i</string>
@@ -308,8 +304,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Den valgte filen kan være en klartekst fil. Vil du åpne den i editoren eller i en annen app?\n\nVil du ikke prøve å åpne binære filer. Hvis du er usikker, åpne med annen app.</string>
     <string name="list_in_recent_files">Liste over nylige filer</string>
     <string name="reload">Reload</string>
-    <string name="wrap_words">Bryt ord</string>
-    <string name="line_numbers">Linjenumre</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Myk pause hvis tekst ikke passer til skjermens bredde. Elsk aktiver horisontal scrolling.</string>
     <string name="always_open_with_this_app">Åpne alltid med denne appen</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Åpne alltid filer med denne appen når listen inneholder filutvidelsen. Bruk \'None, .html, . ss , .js\' for eksempel hvis du vil redigere nettfiler og de uten filutvidelse.</string>
@@ -385,7 +379,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Format for filbeskrivelse</string>
     <string name="file_description_format_dialog">Formatet for beskrivelsen under hver fil i filnettleser. Følg reglene for Android, SimpleDateFormat med tillegg av FS for å vise filstørrelse. La være blank for å bruke standardformat for din lokalitet.\n\nEksempel input:\nFS yyyy MMM dd ht:mm:ss aa\nUtdataformat:\n30 KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">Laster inn standardverdi</string>
-    <string name="file_settings">Fil innstillinger</string>
     <string name="search_and_replace">Søk / erstatt</string>
     <string name="search_for">Søk etter</string>
     <string name="replace_with">Erstatt med</string>

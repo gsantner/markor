@@ -117,7 +117,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_current_folder_do_copy__appspecific">Wala sa kasalukuyang folder ang file. Gusto mo ba itong kopyahin sa kasalukuyang folder? Susulatan nito ang kahit anong file na may kaparehong pangalan.</string>
     <string name="files_and_folders">Mga File at folder</string>
     <string name="document_browser">Browser ng Dokumento</string>
-    <string name="file_browser">Browser ng File</string>
     <string name="set_due_date">Magtakda ng due date</string>
     <string name="insert_replace_date">Magsingit ng petsa</string>
     <string name="create_note" needed="false">Gumawa ng Tala</string>
@@ -132,7 +131,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="main_view">Pangunahing View</string>
     <string name="overall_theme_used_in_app">Ang pangkalahatang temang gagamitin ng app</string>
     <string name="remember_last_directory">Alalahanin ang huling direktorya</string>
-    <string name="syntax_highlighting">Pagha-highlight ng syntax</string>
     <string name="highlighting_delay">Antala ng pagha-highlight</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Antala sa milisegundo para sa refresh ng pagha-highlight. Magsisimula ang pagha-highlight nang mas maaga kapag mababa ang nakalagay, pero uubusin nito ang iyong baterya at maaring pabagalin ang app sa mga lumang device.</string>
     <string name="highlighting_enabled_or_not__appspecific">Kontrolin kung ang pinasok na teksto ay kailangan bang i-highlight o hindi</string>
@@ -281,8 +279,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">Itim</string>
     <string name="white">Puti</string>
     <string name="view">View</string>
-    <string name="view_mode">Mode sa Pag-view</string>
-    <string name="edit_mode">Mode sa Pag-edit</string>
     <string name="mount_storage">Magpasok ng storage</string>
     <string name="application_needs_access_to_storage_mount_it">Kailangan ng permiso para ma-access ang storage na ito. Ipasok ang storage para makapagbigay ng access. Kumpirmahin ang dialog na ito para makakuha ng popup. Piliin ang storage doon at pindutin ang select.</string>
     <string name="share_into">Ibahagi sa</string>
@@ -294,7 +290,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="amount_of_space_for_tab">Bilang ng mga space character para ipakita ang tabulator</string>
     <string name="list_in_recent_files">Listahan sa mga kamakailang file</string>
     <string name="reload">I-reload</string>
-    <string name="wrap_words">I-wrap ang mga salita</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">I-soft break kung hindi kakasya sa lapad ng screen ang teksto. Kung ayaw, i-enable ang pag-i-scroll na pahiga.</string>
     <string name="always_open_with_this_app">Palaging buksan sa app na ito</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Palaging buksan ang mga file sa app na ito kung ang listahan ay mayroon mga file extension. Gamitin ang \'Wala, .html, .css, .js\' bilang halimbawa kung gusto mong baguhin ang mga web file at yung mga walang file extension.</string>

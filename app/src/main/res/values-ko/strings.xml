@@ -124,7 +124,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_current_folder_do_copy__appspecific">파일이 앱의 노트북 폴더에 위치하고 있지 않습니다. 현재 폴더에 이를 복사할까요? 같은 이름으로 기존에 존재하는 파일을 덮어쓰게 됩니다.</string>
     <string name="files_and_folders">파일과 폴더</string>
     <string name="document_browser">문서 탐색기</string>
-    <string name="file_browser">파일 탐색기</string>
     <string name="set_due_date">마감일 설정</string>
     <string name="insert_replace_date">날짜 삽입</string>
     <string name="create_note" needed="false">노트 만들기</string>
@@ -140,7 +139,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="main_view">기본 화면</string>
     <string name="overall_theme_used_in_app">앱 전체에서 사용할 테마</string>
     <string name="remember_last_directory">마지막 폴더 기억</string>
-    <string name="syntax_highlighting">문법 강조</string>
     <string name="highlighting_delay">강조 지연</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">문법 강조 표시를 지연해서 새로고침할 시간을 밀리초(1000분의 1초) 단위로 입력하세요. 낮은 숫자는 보다 재빠르게 문법을 강조 표시하지만, 배터리를 더 빨리 소모시킬 수 있으며 낮은 성능의 기기에서 앱의 작동이 느려질 수 있습니다.</string>
     <string name="highlighting_enabled_or_not__appspecific">입력한 글을 강조 표시할지를 선택</string>
@@ -306,8 +304,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">검정색</string>
     <string name="white">흰색</string>
     <string name="view">보기</string>
-    <string name="view_mode">보기 모드</string>
-    <string name="edit_mode">편집 모드</string>
     <string name="mount_storage">저장소 장착</string>
     <string name="application_needs_access_to_storage_mount_it">해당 저장소에 접근하려면 권한이 필요합니다. 저장소를 장착해 접근 권한을 부여하세요. \'확인\' 버튼을 누르면 탐색기가 표시됩니다. 탐색기에서 저장소를 선택하고 \'선택\' 버튼을 누르면 됩니다.</string>
     <string name="share_into">공유하기</string>
@@ -320,8 +316,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">해당 파일은 평문 파일일 가능성이 있습니다. Markor 편집기에서 열까요, 아니면 다른 앱에서 열까요?\n\n이진(binary) 파일은 가급적 Markor로 열지 마세요. 확실하지 않다면 다른 앱에서 여는 것이 좋습니다.</string>
     <string name="list_in_recent_files">최근 파일 목록</string>
     <string name="reload">새로고침</string>
-    <string name="wrap_words">자동 줄바꿈</string>
-    <string name="line_numbers">줄 번호</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">텍스트가 화면 너비를 초과할 경우 자동으로 줄을 바꿉니다. 이 기능을 사용하지 않을 경우 가로 스크롤바를 표시합니다.</string>
     <string name="recursive_search_in_location">%s에서 재귀 검색</string>
     <string name="always_open_with_this_app">항상 이 앱으로 열기</string>
@@ -400,7 +394,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">파일 세부정보 형식</string>
     <string name="file_description_format_dialog">파일 탐색기 내 파일의 세부정보 형식을 지정합니다. Android의 SimpleDateFormat 규칙을 따르되 FS 키워드로 파일 크기를 표시할 수 있습니다. 비워두면 로캘의 기본 형식을 사용합니다.\n\n예시 입력:\nFS yyyy MMM dd hh:mm:ss aa\n출력 형식:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">기본값 불러오는 중</string>
-    <string name="file_settings">파일 설정</string>
     <string name="search_and_replace">찾기 / 바꾸기</string>
     <string name="search_for">찾을 문자열</string>
     <string name="replace_with">바꿀 문자열</string>

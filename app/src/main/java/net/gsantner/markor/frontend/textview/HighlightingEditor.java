@@ -72,6 +72,8 @@ public class HighlightingEditor extends AppCompatEditText {
     private boolean _saveInstanceState = true;
     private final ExecutorService executor = new ThreadPoolExecutor(0, 3, 60, TimeUnit.SECONDS, new SynchronousQueue<>());
     private final AtomicBoolean _textUnchangedWhileHighlighting = new AtomicBoolean(true);
+    private int _textChangedNumber;
+    private final Runnable _textChangedRecorder = TextViewUtils.makeDebounced(getHandler(), 1000, () -> _textChangedNumber++);
 
     public HighlightingEditor(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -104,6 +106,7 @@ public class HighlightingEditor extends AppCompatEditText {
                 if (_hlEnabled && _hl != null && _hlDebounced != null) {
                     _hlDebounced.run();
                 }
+                _textChangedRecorder.run();
             }
         });
 
@@ -184,7 +187,7 @@ public class HighlightingEditor extends AppCompatEditText {
                     .clearDynamic()
                     .clearStatic(false)
                     .recompute()
-                    .addAdditional(_selections)
+                    .addAdditional(_matches)
                     .applyStatic()
                     .applyDynamic(hlRegion())
             );
@@ -215,7 +218,7 @@ public class HighlightingEditor extends AppCompatEditText {
                         .clearStatic(false)
                         .clearDynamic()
                         .setComputed()
-                        .addAdditional(_selections)
+                        .addAdditional(_matches)
                         .applyStatic()
                         .applyDynamic(hlRegion())
                 );
@@ -290,25 +293,59 @@ public class HighlightingEditor extends AppCompatEditText {
         return layout == null ? 0 : layout.getLineEnd(layout.getLineForVertical(y));
     }
 
-    // Additional selections for search / replace etc
+    // Additional highlight for search / replace etc
     // ---------------------------------------------------------------------------------------------
 
-    private final List<SyntaxHighlighterBase.SpanGroup> _selections = new ArrayList<>();
+    // for highlight text search matches/occurrences
+    private final List<SyntaxHighlighterBase.SpanGroup> _matches = new ArrayList<>();
 
-    public void addAdditionalSelection(final int start, final int end, final @ColorInt int color) {
-        _selections.add(SyntaxHighlighterBase.createBackgroundHighlight(start, end, color));
-    }
-
-    public void clearAdditionalSelections() {
+    public void setSearchMatches(List<SyntaxHighlighterBase.SpanGroup> spanGroups) {
         if (_hl != null) {
-            _hl.clearAdditional(_selections);
+            _hl.clearAdditional(_matches);
         }
-        _selections.clear();
+        _matches.clear();
+        if (spanGroups != null) {
+            _matches.addAll(spanGroups);
+        }
+        if (_hl != null) {
+            _hl.addAdditional(_matches);
+        }
     }
 
-    public void applyAdditionalSelections() {
+    public void removeSearchMatch(SyntaxHighlighterBase.SpanGroup spanGroup) {
         if (_hl != null) {
-            _hl.addAdditional(_selections).clearDynamic().applyDynamic(hlRegion());
+            _hl.clearDynamic().clearAdditional(spanGroup);
+        }
+        _matches.remove(spanGroup);
+    }
+
+    public void clearSearchMatches() {
+        if (_hl != null) {
+            _hl.clearDynamic().clearAdditional(_matches).applyDynamic(hlRegion());
+        }
+        _matches.clear();
+    }
+
+    public void applyDynamicHighlight() {
+        if (_hl != null) {
+            _hl.clearDynamic().applyDynamic(hlRegion());
+        }
+    }
+
+    // for highlight find-in-selection region
+    private SyntaxHighlighterBase.SpanGroup _searchSelection = null;
+
+    public void addSearchSelection(final int start, final int end, final @ColorInt int color) {
+        _searchSelection = SyntaxHighlighterBase.createBackgroundHighlight(start, end, color);
+        if (_hl != null) {
+            _hl.addAdditional(_searchSelection);
+        }
+    }
+
+    public void clearSearchSelection() {
+        if (_hl != null) {
+            _hl.clearDynamic().clearAdditional(_searchSelection);
+            _searchSelection = null;
         }
     }
 
@@ -353,7 +390,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
     @Override
     public boolean onTextContextMenuItem(int id) {
-        // Copy-paste fix by bad richtext pasting - example text from code at https://plantuml.com/activity-diagram-beta
+        // Copy-paste fix by bad rich-text pasting - example text from code at https://plantuml.com/activity-diagram-beta
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && id == android.R.id.paste) {
             id = android.R.id.pasteAsPlainText;
         }
@@ -547,13 +584,11 @@ public class HighlightingEditor extends AppCompatEditText {
 
             @Override
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.string.option_select_lines:
-                        HighlightingEditor.this.selectLines();
-                        return true;
-                    default:
-                        return false;
+                if (item.getItemId() == R.string.option_select_lines) {
+                    HighlightingEditor.this.selectLines();
+                    return true;
                 }
+                return false;
             }
 
             @Override
@@ -561,5 +596,16 @@ public class HighlightingEditor extends AppCompatEditText {
                 // Cleanup if needed
             }
         });
+    }
+
+    /**
+     * Get a number representing the current text changed state.
+     * This number will increase by 1 every time the text is changed.
+     * This is lighter weight than hash to represent text changed state.
+     *
+     * @return the number representing text last changed state, update time error within 1000ms.
+     */
+    public int getTextChangedNumber() {
+        return _textChangedNumber;
     }
 }
