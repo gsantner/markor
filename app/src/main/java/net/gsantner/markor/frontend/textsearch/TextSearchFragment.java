@@ -117,12 +117,6 @@ public class TextSearchFragment extends Fragment {
             }
         });
 
-        editText.setOnFocusChangeListener((view, hasFocus) -> {
-            if (hasFocus) {
-                textSearchHandler.handleSearchSelection(editText, searchEditText);
-            }
-        });
-
         final Runnable findTask = TextViewUtils.makeDebounced(800, this::find);
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -168,10 +162,6 @@ public class TextSearchFragment extends Fragment {
             }
         });
 
-        searchEditText.setOnFocusChangeListener((view, hasFocus) -> {
-            if (hasFocus && textSearchHandler.isFindInSelection()) find();
-        });
-
         searchEditText.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
         searchEditText.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
@@ -183,16 +173,24 @@ public class TextSearchFragment extends Fragment {
             return false;
         });
 
-        textSearchHandler.setFindInSelection(false);
         fragmentView.findViewById(R.id.findInSelectionImageButton).setOnClickListener(new View.OnClickListener() {
             private boolean checked = false;
 
             @Override
             public void onClick(View view) {
                 checked = toggleViewCheckedState(view, checked);
-                textSearchHandler.setFindInSelection(checked);
-                textSearchHandler.handleSearchSelection(editText, null);
-                find();
+
+                if (checked) {
+                    boolean selected = textSearchHandler.setSearchRange(editText, searchEditText);
+                    if (selected) {
+                        find2();
+                    } else { // Set selection failed
+                        checked = toggleViewCheckedState(view, checked);
+                    }
+                } else {
+                    textSearchHandler.clearSearchRange(editText);
+                    find();
+                }
             }
         });
 
@@ -368,7 +366,7 @@ public class TextSearchFragment extends Fragment {
     private void clear() {
         if (initialized) {
             clearMatches();
-            textSearchHandler.clearSearchSelection(editText, false);
+            textSearchHandler.clearSearchRange(editText);
             editText.removeTextChangedListener(editTextChangedListener);
         }
     }

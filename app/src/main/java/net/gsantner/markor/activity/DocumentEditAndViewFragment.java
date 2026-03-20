@@ -756,8 +756,8 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _hlEditor.setAutoFormatEnabled(_appSettings.getDocumentAutoFormatEnabled(_document.path));
 
         // Set a unique tag for the search fragment to ensure it shows in the correct location
-        // Use the fragment's hashCode as unique identifier for each instance (QuickNote, To-Do, etc.)
-        final String uniqueSearchTag = "TextSearchFragment_" + this.hashCode();
+        // Use the unique id for each instance (QuickNote, To-Do, etc.)
+        final String uniqueSearchTag = "TextSearchFragment_" + this.hashCode() + System.currentTimeMillis();
 
         _format.getActions()
                 .setDocument(_document)

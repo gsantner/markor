@@ -54,10 +54,10 @@
                 android:id="@+id/findInSelectionImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/find_in_selection"
+                android:contentDescription="@string/set_text_search_range"
                 android:minWidth="48dp"
                 android:minHeight="48dp"
-                android:tooltipText="@string/find_in_selection"
+                android:tooltipText="@string/set_text_search_range"
                 app:srcCompat="@drawable/ic_list_selection_24dp" />
 
             <ImageButton
