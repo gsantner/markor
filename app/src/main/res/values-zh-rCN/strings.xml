@@ -140,6 +140,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="main_view">主界面</string>
     <string name="overall_theme_used_in_app">作用于整个应用的主题</string>
     <string name="remember_last_directory">记住上次使用的目录</string>
+    <string name="syntax_highlighting">语法高亮</string>
     <string name="highlighting_delay">语法高亮延时</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">刷新高亮的延迟时间（以毫秒为单位）。 较低的值将更早开始高亮，但它会耗尽您的电池，并可能拖慢旧设备上的应用程序速度。</string>
     <string name="highlighting_enabled_or_not__appspecific">控制是否应突出显示输入的文本</string>
@@ -217,6 +218,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="center_text">居中文字</string>
     <string name="edit_text_in_center_of_screen">在屏幕中央编辑文本</string>
     <string name="clipboard">剪切板</string>
+    <string name="link_copied">链接已复制！</string>
     <string name="select_existing_document">选择已有文档</string>
     <string name="select_create_document">选择或创建文档</string>
     <string name="select_create_folder">选择或创建文件夹</string>
@@ -305,6 +307,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">黑色</string>
     <string name="white">白色</string>
     <string name="view">查看</string>
+    <string name="view_mode">视图模式</string>
+    <string name="edit_mode">编辑模式</string>
     <string name="mount_storage">挂载存储</string>
     <string name="application_needs_access_to_storage_mount_it">访问此存储位置需要权限。挂载存储以提供访问权限。确认此对话框将弹出窗口。在那里选择存储位置，然后点按选择。</string>
     <string name="share_into">分享到</string>
@@ -317,6 +321,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">选中的文件可能是一个纯文本文件。 您要在编辑器中打开，或在其他应用中打开它吗？\n\n请勿尝试打开二进制文件。 如果不确定，请使用其他应用打开。</string>
     <string name="list_in_recent_files">最近文件列表</string>
     <string name="reload">刷新</string>
+    <string name="wrap_words">自动换行</string>
+    <string name="line_numbers">行号</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">如果文字不适合屏幕宽度则软打断。否则启用横向滚动。</string>
     <string name="recursive_search_in_location">在%s中递归搜索</string>
     <string name="always_open_with_this_app">总是使用本应用打开</string>
@@ -369,6 +375,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">添加情境</string>
     <string name="add_project">添加项目</string>
     <string name="archive_completed_tasks">存档已完成的任务</string>
+    <string name="overline">上划线</string>
+    <string name="superscript">上标</string>
+    <string name="subscript">下标</string>
     <string name="create_new_file_or_folder">创建一个新的文件或文件夹</string>
     <string name="choose_format">选择格式</string>
     <string name="clear_selection">清除选项</string>
@@ -382,7 +391,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="load_default_settings">加载默认设置</string>
     <string name="drag">拖动</string>
     <string name="created">已创建</string>
+    <string name="line_based_search">基于行的搜索</string>
     <string name="no_results">无结果</string>
+    <string name="bad_pattern">无效的表达式</string>
+    <string name="new_line">新行</string>
+    <string name="toggle_find_replace">切换查找/替换</string>
+    <string name="match_case">匹配大小写</string>
+    <string name="match_whole_word">全字匹配</string>
+    <string name="use_regular_expression">使用正则表达式</string>
+    <string name="find_in_selection">在选中部分查找</string>
+    <string name="preserve_case">保留大小写</string>
     <string name="file_encryption_password">文件加密密码</string>
     <string name="no_password_set_cannot_encrypt_decrypt">没有设置密码，不能加密或解密。\n请前往设置 -&gt; 常规 -&gt; 密码来设置密码。</string>
     <string name="encrypt_file_content">加密文件内容</string>
