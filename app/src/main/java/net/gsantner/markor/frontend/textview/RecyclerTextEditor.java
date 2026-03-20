@@ -788,6 +788,63 @@ public class RecyclerTextEditor extends RecyclerView implements MarkorEditor {
                 }
             });
 
+            _edit.setOnKeyListener((v, keyCode, event) -> {
+                if (keyCode != KeyEvent.KEYCODE_DEL || event.getAction() != KeyEvent.ACTION_DOWN) {
+                    return false;
+                }
+
+                final int pos = getBindingAdapterPosition();
+                if (pos == NO_POSITION || pos <= 0) {
+                    return false;
+                }
+
+                if (_edit.getSelectionStart() != 0 || _edit.getSelectionEnd() != 0) {
+                    return false;
+                }
+
+                final String previousLine = _lines.get(pos - 1);
+                final String currentLine = _lines.get(pos);
+                final int previousLineLength = previousLine.length();
+                final int deletedNewlineGlobalOffset = lineColToGlobalOffset(pos, 0) - 1;
+
+                dispatchBeforeTextChanged(_editorText, deletedNewlineGlobalOffset, 1, 0);
+
+                withAutoFormatDisabled(() -> {
+                    _lines.set(pos - 1, previousLine + currentLine);
+                    _lines.remove(pos);
+
+                    _adapter.notifyItemChanged(pos - 1);
+                    _adapter.notifyItemRemoved(pos);
+
+                    final int newGlobalSel = lineColToGlobalOffset(pos - 1, previousLineLength);
+                    _selectionStart = newGlobalSel;
+                    _selectionEnd = newGlobalSel;
+
+                    syncEditorTextFromLines();
+                });
+
+                dispatchOnTextChanged(_editorText, deletedNewlineGlobalOffset, 1, 0);
+                dispatchAfterTextChanged(_editorText);
+                _textChangedRecorder.run();
+                notifyTextChanged();
+                if (_hlEnabled) {
+                    _highlightingDebounced.run();
+                }
+
+                post(() -> {
+                    final LineViewHolder previousHolder = (LineViewHolder) findViewHolderForAdapterPosition(pos - 1);
+                    if (previousHolder != null) {
+                        _edit.clearFocus();
+                        previousHolder._edit.requestFocus();
+                        previousHolder._edit.setSelection(Math.min(previousLineLength, previousHolder._edit.length()));
+                    } else {
+                        applySelectionToVisibleLineEditor();
+                    }
+                });
+
+                return true;
+            });
+
             _watcher = new TextWatcher() {
                 int _globalStart;
                 int _lineLengthBeforeChange;
