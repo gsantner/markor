@@ -1380,6 +1380,7 @@ public class MarkorDialogFactory {
         public int paddingHorizontal = 8;
         public int paddingVertical = 6;
         public int duration = 1500;
+        public int width = ViewGroup.LayoutParams.WRAP_CONTENT;
 
         public PopupWindowOption(boolean showAtLocation, int x, int y) {
             this.showAtLocation = showAtLocation;
@@ -1390,7 +1391,7 @@ public class MarkorDialogFactory {
 
     public static void showPopupWindow(View anchorView, PopupWindowOption option, String text, GsCallback.a0 callbackOnClick) {
         View popupView = LayoutInflater.from(anchorView.getContext()).inflate(R.layout.text_popup_window, null);
-        PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, false);
+        PopupWindow popupWindow = new PopupWindow(popupView, option.width, ViewGroup.LayoutParams.WRAP_CONTENT, false);
 
         TextView textView = popupView.findViewById(R.id.popupTextView);
         textView.setText(text);
@@ -1435,7 +1436,11 @@ public class MarkorDialogFactory {
         if (option.showAtLocation) {
             popupWindow.showAtLocation(anchorView, option.gravity, option.x, option.y);
         } else {
-            popupWindow.showAsDropDown(anchorView, option.x, option.y, option.gravity);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                popupWindow.showAsDropDown(anchorView, option.x, option.y, option.gravity);
+            } else {
+                popupWindow.showAtLocation(anchorView, option.gravity, option.x, option.y);
+            }
         }
 
         anchorView.getHandler().postDelayed(popupWindow::dismiss, option.duration);

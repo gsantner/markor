@@ -164,7 +164,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _lineNumbersView.setup(_hlEditor);
         _lineNumbersView.setLineNumbersEnabled(_appSettings.getDocumentLineNumbersEnabled(_document.path));
 
-        // Upon construction, the document format has been determined from extension etc
+        // Upon construction, the document format has been determined from extension etc.
         // Here we replace it with the last saved format.
         applyTextFormat(_appSettings.getDocumentFormat(_document.path, _document.getFormat()));
 
@@ -257,9 +257,10 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         if (_format.getFormatId() == FormatRegistry.FORMAT_TODOTXT) {
             _hlEditor.requestFocus();
         } else {
-            // Ask the user if want to restore to last position in a precise way
+            // Ask the user if you want to restore to last position in a precise way
             MarkorDialogFactory.PopupWindowOption popupOption = new MarkorDialogFactory.PopupWindowOption(true, 20, 0);
-            popupOption.gravity = Gravity.RIGHT | Gravity.CENTER_VERTICAL;
+            popupOption.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
+            popupOption.width = 360;
             popupOption.paddingHorizontal = 40;
             popupOption.paddingVertical = 40;
             MarkorDialogFactory.showPopupWindow(_verticalScrollView, popupOption, getString(R.string.continue_where_you_left), () -> {
