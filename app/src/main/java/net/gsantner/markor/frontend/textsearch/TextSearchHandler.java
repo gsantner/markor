@@ -69,9 +69,9 @@ public class TextSearchHandler {
 
         try {
             if (isMatchCase()) {
-                pattern = Pattern.compile(target);
+                pattern = Pattern.compile(target, Pattern.MULTILINE);
             } else {
-                pattern = Pattern.compile(target, Pattern.CASE_INSENSITIVE);
+                pattern = Pattern.compile(target, Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
             }
         } catch (PatternSyntaxException e) {
             resultChangedListener.onResultChanged(0, RESULT_BAD_PATTERN, e.getMessage());
