@@ -8,8 +8,6 @@ import android.text.Editable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextWatcher;
-import android.text.method.ReplacementTransformationMethod;
-import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -34,9 +32,6 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class TextSearchFragment extends Fragment {
     private int containerViewId;
@@ -127,38 +122,9 @@ public class TextSearchFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
 
-            private boolean paused;
-            private final Pattern pattern = Pattern.compile("\\n");
-
             @Override
             public void afterTextChanged(Editable s) {
-                if (paused) {
-                    return;
-                }
-
                 findTask.run();
-
-                // Highlight invisible character '\n'
-                Matcher matcher = pattern.matcher(s);
-                paused = true;
-                while (matcher.find()) {
-                    SpannableString spannable = new SpannableString("\n");
-                    spannable.setSpan(new BackgroundColorSpan(Match.getMatchColor()), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    searchEditText.getText().replace(matcher.start(), matcher.end(), spannable);
-                }
-                paused = false;
-            }
-        });
-
-        searchEditText.setTransformationMethod(new ReplacementTransformationMethod() {
-            @Override
-            protected char[] getOriginal() {
-                return new char[]{'\n'};
-            }
-
-            @Override
-            protected char[] getReplacement() {
-                return new char[]{'↵'};
             }
         });
 
@@ -250,16 +216,6 @@ public class TextSearchFragment extends Fragment {
         fragmentView.findViewById(R.id.replaceAllImageButton).setOnClickListener(view -> textSearchHandler.replaceAll(editText, replaceEditText.getText().toString()));
         fragmentView.findViewById(R.id.clearSearchTextView).setOnClickListener(view -> searchEditText.setText(""));
         fragmentView.findViewById(R.id.clearReplaceTextView).setOnClickListener(view -> replaceEditText.setText(""));
-        fragmentView.findViewById(R.id.newLineSearchTextView).setOnClickListener(view -> {
-            Editable editable = searchEditText.getText();
-            int start = searchEditText.getSelectionStart();
-            int end = searchEditText.getSelectionEnd();
-            if (start == end) {
-                editable.insert(start, "\n");
-            } else {
-                editable.replace(start, end, "\n");
-            }
-        });
     }
 
     private final static int BUTTON_CHECKED_COLOR = 0xFFFAB0B0;

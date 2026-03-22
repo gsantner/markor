@@ -74,6 +74,7 @@ import net.gsantner.opoc.web.GsWebViewChromeClient;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
 import java.io.File;
+import java.util.Random;
 
 @SuppressWarnings({"UnusedReturnValue"})
 @SuppressLint("NonConstantResourceId")
@@ -758,7 +759,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
         // Set a unique tag for the search fragment to ensure it shows in the correct location
         // Use the unique id for each instance (QuickNote, To-Do, etc.)
-        final String uniqueSearchTag = "TextSearchFragment_" + this.hashCode() + System.currentTimeMillis();
+        final String uniqueSearchTag = "TextSearchFragment_" + System.currentTimeMillis() + new Random().nextInt(100);
 
         _format.getActions()
                 .setDocument(_document)
