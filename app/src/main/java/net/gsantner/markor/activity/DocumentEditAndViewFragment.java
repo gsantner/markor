@@ -74,7 +74,6 @@ import net.gsantner.opoc.web.GsWebViewChromeClient;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
 import java.io.File;
-import java.util.Random;
 
 @SuppressWarnings({"UnusedReturnValue"})
 @SuppressLint("NonConstantResourceId")
@@ -757,14 +756,10 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _hlEditor.setAutoFormatters(_format.getAutoFormatInputFilter(), _format.getAutoFormatTextWatcher());
         _hlEditor.setAutoFormatEnabled(_appSettings.getDocumentAutoFormatEnabled(_document.path));
 
-        // Set a unique tag for the search fragment to ensure it shows in the correct location
-        // Use the unique id for each instance (QuickNote, To-Do, etc.)
-        final String uniqueSearchTag = "TextSearchFragment_" + System.currentTimeMillis() + new Random().nextInt(100);
-
         _format.getActions()
                 .setDocument(_document)
                 .setUiReferences(activity, _hlEditor, _webView)
-                .setSearchFragmentTag(uniqueSearchTag)
+                .setupEditTextSearch(this)
                 .recreateActionButtons(_textActionsBar, _isPreviewVisible ? ActionButtonBase.ActionItem.DisplayMode.VIEW : ActionButtonBase.ActionItem.DisplayMode.EDIT);
         updateMenuToggleStates(_format.getFormatId());
         setActionBarVisibility();
@@ -789,7 +784,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         final View bar = view.findViewById(R.id.document__fragment__edit__text_actions_bar);
         if (bar != null && _verticalScrollView != null) {
             parent.setVisibility(visible ? View.VISIBLE : View.GONE);
-            final int marginBottom = visible ? (int) getResources().getDimension(R.dimen.textactions_bar_height) : 0;
+            final int marginBottom = visible ? (int) getResources().getDimension(R.dimen.text_actions_bar_height) : 0;
             setMarginBottom(_verticalScrollView, marginBottom);
             final View viewScroll = view.findViewById(R.id.document__fragment_view_webview);
             if (viewScroll != null) {
@@ -1175,7 +1170,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             webSettings.setMediaPlaybackRequiresUserGesture(false);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && BuildConfig.IS_TEST_BUILD && BuildConfig.DEBUG) {
-                WebView.setWebContentsDebuggingEnabled(true); // Inspect on computer chromium browser: chrome://inspect/#devices
+                WebView.setWebContentsDebuggingEnabled(true); // Inspect on computer Chromium browser: chrome://inspect/#devices
             }
 
             _webViewClient = new MarkorWebViewClient(_webView, activity);

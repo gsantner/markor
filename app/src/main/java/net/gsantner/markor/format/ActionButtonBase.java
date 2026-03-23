@@ -42,7 +42,7 @@ import net.gsantner.markor.frontend.AttachLinkOrFileDialog;
 import net.gsantner.markor.frontend.DatetimeFormatDialog;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.MarkorDialogFactory.Heading;
-import net.gsantner.markor.frontend.textsearch.TextSearchFragment;
+import net.gsantner.markor.frontend.textsearch.TextSearchViewHolder;
 import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
@@ -105,32 +105,29 @@ public abstract class ActionButtonBase {
         return runCommonLongPressAction(action);
     }
 
-    private TextSearchFragment _textSearchFragment;
-    private String _searchFragmentTag;
+    private TextSearchViewHolder _textSearchViewHolder;
 
-    /**
-     * Set a unique tag for the search fragment to ensure each fragment (e.g., QuickNote, To-Do)
-     * has its own search fragment instance.
-     *
-     * @param tag Unique tag to identify this fragment's search instance
-     */
-    public ActionButtonBase setSearchFragmentTag(final String tag) {
-        _searchFragmentTag = tag;
-        // Reset the search fragment so it gets recreated with the new tag
-        _textSearchFragment = null;
+    public ActionButtonBase setupEditTextSearch(DocumentEditAndViewFragment fragment) {
+        _textSearchViewHolder = new TextSearchViewHolder(fragment, R.id.topViewContainer);
         return this;
     }
 
-    private TextSearchFragment getTextSearchFragment() {
-        if (_textSearchFragment == null) {
-            _textSearchFragment = TextSearchFragment.newInstance(R.id.topViewContainer, (FragmentActivity) _activity, _hlEditor, _searchFragmentTag);
+    private TextSearchViewHolder getTextSearchViewHolder() {
+        if (_textSearchViewHolder == null) {
+            return null;
+        } else {
+            return _textSearchViewHolder;
         }
-        return _textSearchFragment;
     }
 
     // Override to implement custom search action
     public boolean onSearch() {
-        getTextSearchFragment().show();
+        TextSearchViewHolder holder = getTextSearchViewHolder();
+        if (holder == null) {
+            return false;
+        }
+
+        getTextSearchViewHolder().show();
         return true;
     }
 
