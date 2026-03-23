@@ -211,10 +211,6 @@ public class TextSearchHandler {
 
         if (currentIndex > 0 && currentIndex < size) {
             Match currentMatch = matches.get(currentIndex);
-            if (editText.hasFocus() && editText.getSelectionStart() > currentMatch.getEnd()) {
-                TextViewUtils.showSelection(editText, currentMatch.getStart());
-                return;
-            }
 
             // Clear active highlight for current active match
             currentMatch.useMatchColor();
@@ -248,10 +244,6 @@ public class TextSearchHandler {
 
         if (currentIndex >= 0 && currentIndex <= size - 2) {
             Match currentMatch = matches.get(currentIndex);
-            if (editText.hasFocus() && editText.getSelectionStart() <= currentMatch.getStart()) {
-                TextViewUtils.showSelection(editText, currentMatch.getStart());
-                return;
-            }
 
             // Clear active highlight for current active match
             currentMatch.useMatchColor();
