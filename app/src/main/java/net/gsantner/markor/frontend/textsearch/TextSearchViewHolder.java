@@ -59,7 +59,7 @@ public class TextSearchViewHolder {
         final int textSearchViewId = hashCode();
         textSearchView = parent.findViewById(textSearchViewId);
         if (textSearchView == null) {
-            textSearchView = parentFragment.getLayoutInflater().inflate(R.layout.text_search_fragment, null);
+            textSearchView = parentFragment.getLayoutInflater().inflate(R.layout.text_search_layout, null);
             textSearchView.setId(textSearchViewId);
             textSearchView.setVisibility(View.GONE);
             ViewGroup container = parent.findViewById(containerViewId);

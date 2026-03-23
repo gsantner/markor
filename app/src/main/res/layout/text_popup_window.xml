@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="6dp"
         android:layout_weight="1"
-        android:background="@drawable/text_popup_window_background"
+        android:background="@drawable/popup_window_background"
         android:padding="6dp"
         android:text="@string/app_name"
         android:textColor="@color/secondary_text"

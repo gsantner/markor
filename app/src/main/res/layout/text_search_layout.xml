@@ -4,7 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="start"
-    android:background="@drawable/text_search_fragment_background"
+    android:background="@drawable/text_search_layout_background"
     android:minWidth="300dp">
 
     <LinearLayout
