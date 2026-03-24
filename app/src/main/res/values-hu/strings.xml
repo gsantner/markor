@@ -38,6 +38,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Megoszás ide: &#8230;</string>
     <string name="share">Megosztás</string>
     <string name="search">Keresés</string>
+    <string name="previous_match">Előző találat</string>
+    <string name="next_match">Következő találat</string>
     <string name="display_converted_markup">Átalakított markup megjelenítése</string>
     <string name="editor">Szerkesztő</string>
     <string name="folders">Mappák</string>
@@ -59,6 +61,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="last_modified">Utoljára módosítva</string>
     <string name="select_this_folder">Mappa választása</string>
     <string name="select">Kiválaszt</string>
+    <string name="select_all">Összes kijelölése</string>
     <string name="create">Létrehoz</string>
     <string name="select_entries">Bejegyzések kiválasztása</string>
     <string name="one_item_selected">Egy elem kiválasztva</string>
@@ -67,9 +70,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">Státuszsor elrejtése</string>
     <string name="name">Név</string>
     <string name="url_or_path">URL / elérési út</string>
+    <string name="insert_link">Link beillesztése</string>
+    <string name="format_link">Link formázása</string>
     <string name="insert_image">Kép beillesztése</string>
     <string name="contributors">Hozzájárulók</string>
     <string name="save_location">Mentési hely</string>
+    <string name="saved_location_to">Mentve ide: %s</string>
     <string name="select_storage_folder">Mappa kiválasztása</string>
     <string name="licenses">Licenszek</string>
     <string name="changelog">Újdonságok</string>
@@ -117,6 +123,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_current_folder_do_copy__appspecific">A fájl nem a jelenlegi mappában található. Szeretnéd ide másolni? Ha van már ilyen nevű fájl a mappában, felül fog íródni.</string>
     <string name="files_and_folders">Fájlok és mappák</string>
     <string name="document_browser">Dokumentum böngésző</string>
+    <string name="file_browser">Fájlkezelő</string>
     <string name="set_due_date">Határidő beállítása</string>
     <string name="insert_replace_date">Dátum beszúrása</string>
     <string name="create_note" needed="false">Jegyzet létrehozása</string>
