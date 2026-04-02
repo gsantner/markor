@@ -84,6 +84,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">3. személytől származó könyvtárak</string>
     <string name="language_change_restart_description">Az alkalmazás nyelvének megváltoztatása. Indítsd újra az alkalmazást, hogy a módosítások érvénybe lépjenek!</string>
     <string name="language">Nyelv</string>
+    <string name="storage_permission_required">Tárhely engedély szükséges fájlok olvasásához és írásához</string>
     <string name="open_with">Megnyitás ezzel</string>
     <string name="sort_by">Rendezés</string>
     <string name="date">Dátum</string>
@@ -176,6 +177,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_does_move_done_tasks">Az elkészült feladatok áthelyezése adott fájlba ugyanazon mappában</string>
     <string name="sort_tasks_by_selected_order">Feladatok sorba rendezése a kiválasztott opció szerint</string>
     <string name="special_key">Speciális billentyű</string>
+    <string name="asciidoc_special_key">Speciális AsciiDoc tartalom</string>
     <string name="key_page_up">Feljebb (Page Up)</string>
     <string name="key_page_down">Lejjebb (Page Down)</string>
     <string name="key_pos_1">Sor eleje (Home)</string>
@@ -200,6 +202,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor csak helyi offline dokumentumok szerkesztésére képes, és nem támogat fájlkezelőket, amelyek nem adják meg a teljes elérési utat.</string>
     <string name="file_does_not_exist_and_cant_be_created">Fájl vagy mappa nem létezik és nem lehet létrehozni</string>
     <string name="permissions">Jogosultságok</string>
+    <string name="permission_paths_revert">Visszatérés az alapértelmezett elérési úthoz?</string>
     <string name="permission_not_granted">Engedély megtagadva</string>
     <string name="sync_to_local_folder_notice">Megjegyzés: A szinkronizációs appok egyedi mappába tehetik a fájlokat. Nyisd meg őket a Markor mappájának megváltoztatásával, vagy egy fájlkezelőn keresztül.</string>
     <string name="vertical_alignment">Függőleges igazítás</string>
@@ -224,6 +227,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Fordít</string>
     <string name="more_info_and_help">Több információ és segítség</string>
     <string name="report_bugs">Hibajelentés</string>
+    <string name="do_you_have_a_question_or_problem">Kérdésed van vagy problémád merült fel?</string>
     <string name="join_community">Csatlakozzon a közösséghez</string>
     <string name="bug_reports_suggest_improvements">Adj visszajelzést, jelents be hibákat, vagy javasolj fejlesztést</string>
     <string name="help_translating_this_app">Fordítsd le az alkalmazást más nyelvekre</string>
@@ -303,6 +307,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="view_mode">Nézet mód</string>
     <string name="edit_mode">Szerkesztés mód</string>
     <string name="mount_storage">Tárhely csatolása</string>
+    <string name="application_needs_access_to_storage_mount_it">A tárhely elérését engedélyezni kell. Az engedély megadásához csatold a tárhelyet. Hagyd jóvá ezt a párbeszédet, hogy megjelenjen egy popup. Válaszd ki a tárhelyet és nyomj a kiválasztás gombra.</string>
     <string name="share_into">Megoszás ide: </string>
     <string name="favourite">Kedvenc</string>
     <string name="favourites">Kedvencek</string>
@@ -366,6 +371,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Kontextus hozzáadása</string>
     <string name="add_project">Projekt hozzáadása</string>
     <string name="archive_completed_tasks">Befejezett feladatok archiválása</string>
+    <string name="overline">Felső vonal</string>
+    <string name="superscript">Felső index</string>
+    <string name="subscript">Alsó index</string>
     <string name="create_new_file_or_folder">Új fájl vagy mappa létrehozása</string>
     <string name="choose_format">Formátum kiválasztása</string>
     <string name="selected">Kiválasztott</string>
@@ -440,14 +448,22 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="match_any">Bármelyikkel egyező</string>
     <string name="match_all">Mindegyikkel egyező</string>
     <string name="dynamic_notebook_root_links">Jegyzetfüzet gyökér dinamikus keresése</string>
+    <string name="share_into_format">Megosztás - formátum</string>
+    <string name="attachment_folder_name">Csatolmány mappa neve</string>
     <string name="attachment_folder_name_desc">Almappa a jelenlegi mappa alatt, ahová a mellékletek kerülnek mentésre. Üresen hagyva a mellékletek a jelenlegi mappába kerülnek mentésre.</string>
     <string name="auto_format">Automatikus formázás</string>
     <string name="insert_snippet">Szövegrészlet beillesztése</string>
     <string name="snippet_directory">Szövegrészlet / Sablon mappa</string>
     <string name="error_could_not_open_file">Hiba: Fájl nem nyitható meg.</string>
+    <string name="document_error_clip">Hiba történt: Szöveg a vágólapra másolva.</string>
     <string name="wont_save_min_length">A kevesebb, mint %d karaktert tartalmazó fájlok nem kerülnek automatikusan mentésre megelőzve az adatvesztést.</string>
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Haladó szűrés szabályai</a></small>]]></string>
     <string name="filter">Szűrő</string>
+    <string name="text_case">Betűeset</string>
+    <string name="toggle_case">Kis- és nagybetű váltása (Példa→PÉLDA→példa)</string>
+    <string name="switch_case">Váltott betűméret (PéLdA→pÉlDa)</string>
+    <string name="capitalize_words">Minden Szó Első Betűje Nagy (egy jegyzet→Egy Jegyzet)</string>
+    <string name="capitalize_sentences">Mondat elején nagybetű (egy jegyzet→Egy jegyzet)</string>
     <string name="use_tab_to_indent">Sorok behúzása TAB billentyűvel</string>
     <string name="folder_local">Helyi mappa</string>
 </resources>
