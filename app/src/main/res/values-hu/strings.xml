@@ -244,6 +244,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="location">Hely</string>
     <string name="text_lines">Sorok szövege</string>
     <string name="text_characters">Szöveges karakterek</string>
+    <string name="text_words">Szavak száma</string>
     <string name="directory">Mappa</string>
     <string name="recently_viewed_documents">Nemrég megnyitott dokumentumok</string>
     <string name="details">Részletek</string>
@@ -256,6 +257,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Leírás</string>
     <string name="edit_picture">Kép szerkesztése</string>
     <string name="math">Matematika</string>
+    <string name="enter_yaml_front_matter_attributes_to_show">Jelenítsd meg a beírt YAML Front Matter attribútumokat a megtekintett dokumentumok elején. A kulcsokat vesszővel elválasztva írd be. Hagyd üresen, ha nem alkalmazol kulcsokat, vagy használd a \"*\" jelet az összes kulcs alkalmazásához. \n\nHa a dokumentumban bármilyen attribútum meg van határozva (pl. title: \'Hello\') és van a dokumentumodban is {{ post.title }}, akkor az helyettesítve lesz. Így készíthetsz egyedi Front Matter címsort.</string>
     <string name="table_of_contents">Tartalomjegyzék</string>
     <string name="miscellaneous">Egyéb</string>
     <string name="prefer_view">Olvasó mód előnyben részesítése</string>
@@ -322,6 +324,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wrap_words">Sortörés</string>
     <string name="line_numbers">Sorok számozása</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Sorok törése, ha a szöveg szélesebb a képernyőnél. Egyébként vízszintes görgetés bekapcsolása.</string>
+    <string name="recursive_search_in_location">Mélykeresés itt: %s</string>
     <string name="always_open_with_this_app">Mindig ezzel az alkalmazással nyissa meg</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Mindig ezzel az alkalmazással nyissa meg a fájlt, ha a kiterjesztése szerepel a listában. Például ha webfájlokat és kiterjesztés nélkülieket szeretnél szerkeszteni: \'None, .html, .css , .js\'</string>
     <string name="open_file_with">Fájl megnyitása a következővel</string>
@@ -392,6 +395,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_results">Nincs eredmény</string>
     <string name="bad_pattern">Érvénytelen mintázat</string>
     <string name="new_line">Új sor</string>
+    <string name="toggle_find_replace">Keresés/Csere</string>
+    <string name="match_case">Kis- és nagybetű figyelembevétele</string>
+    <string name="match_whole_word">Teljes szó egyezés</string>
+    <string name="use_regular_expression">Regex használata</string>
+    <string name="find_in_selection">Kijelölésben keresés</string>
+    <string name="preserve_case">Betűeset megőrzése</string>
     <string name="file_encryption_password">Fájltitkosító jelszó</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Nincs jelszó, nem lehet titkosítani.\nJelszó megadásához menj a Beállítások -&gt; Általános -&gt; Jelszó pontra.</string>
     <string name="encrypt_file_content">Fájlok titkosítása</string>
@@ -423,6 +432,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="newline_is_new_paragraph">Enter = új bekezdés</string>
     <string name="search_in_content">Keresés a tartalomban</string>
     <string name="max_search_depth">Keresési mélység</string>
+    <string name="ignore_list">Kizárt elemek</string>
+    <string name="do_not_search_specified_files_and_folders">Ne keressen a meghatározott fájlokra és mappákra.\nElválasztáshoz kezdj új sort.\nHasználj idézőjelet pontos dir nevekhez: \"Teszt\".\nVagy használj Regex-et \'^[.].*\'\nPéldák: ^\\..*\n\"teszt\"\n\"Teszt\"\n.*titok.*\n.*BACKUP.*\n.*.ini</string>
     <string name="regex_search">Regex keresés</string>
     <string name="case_sensitive">Kis-nagybetű érzékeny</string>
     <string name="stop_search_after_first_match">Ne keressen tovább az első találat után</string>
