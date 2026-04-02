@@ -297,6 +297,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appdata_private">AppData (privát)</string>
     <string name="appdata_sdcard">AppData (SD kártya)</string>
     <string name="internal_storage">Belső tárhely</string>
+    <string name="open_the_document_from_main_view">A dokumentumot megnyithatod az alsó menüből alap nézetben, a fájlkezelőből, vagy a kezdőképernyőről. Van egy olyan lehetőség is, hogy Markor-ral megosztott szöveget adsz hozzá.</string>
     <string name="notebook_is_the_home_of_your_files">A jegyzetfüzet az a mappa, amit Markor megnyit induláskor. A szövegfájlok helye.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">A QuickNote az ötletek gyors leírására szolgál Markdown formátumban. Alapértelmezetten a &gt;Jegyzetfüzet/QuickNote.md&lt; helyen található, de helye beállításokban testreszabható.</string>
     <string name="todo_is_the_easiest_way_">A ToDo-val kezelheted a feladataidat \"todo.txt\" formátumban. Alapértelmezetten a &gt;Jegyzetfüzet/todo.txt&lt; helyen található, de helye beállításokban testreszabható.</string>
@@ -376,6 +377,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="subscript">Alsó index</string>
     <string name="create_new_file_or_folder">Új fájl vagy mappa létrehozása</string>
     <string name="choose_format">Formátum kiválasztása</string>
+    <string name="clear_selection">Kijelölés megszüntetése</string>
     <string name="selected">Kiválasztott</string>
     <string name="back">Vissza</string>
     <string name="expand_collapse">Kibontás / Összecsukás</string>
@@ -386,7 +388,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="load_default_settings">Alapértelmezett beállítások betöltése</string>
     <string name="drag">Húzás</string>
     <string name="created">Létrehozva</string>
+    <string name="line_based_search">Sor alapú keresés</string>
     <string name="no_results">Nincs eredmény</string>
+    <string name="bad_pattern">Érvénytelen mintázat</string>
     <string name="new_line">Új sor</string>
     <string name="file_encryption_password">Fájltitkosító jelszó</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Nincs jelszó, nem lehet titkosítani.\nJelszó megadásához menj a Beállítások -&gt; Általános -&gt; Jelszó pontra.</string>
@@ -448,6 +452,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="match_any">Bármelyikkel egyező</string>
     <string name="match_all">Mindegyikkel egyező</string>
     <string name="dynamic_notebook_root_links">Jegyzetfüzet gyökér dinamikus keresése</string>
+    <string name="search_dynamically_for_notebook_root">Wiki linkek követéséhez dinamikusan keresse meg a notebook.zim fájlt, hogy beazonosítsa az adott jegyzetfüzet gyökér mappáját. Pipáld be, ha több zim jegyzetfüzetet használasz vagy az alkalmazásban beállított jegyzetfüzet mappa nem egyezik meg a te zim jegyzetfüzeteddel.</string>
+    <string name="share_into_format_prefix_for_text_shared">Formátum/előtag a Markor-ral megosztott szöveghez. Az Android SimpleDateFormat szabályt követi.\n\nA megosztott szöveg elhelyezéséhez használd a {{text}} helykitöltőt. Ha nincs meghatározva, a megosztott szöveg hozzá lesz adva és a formátum előtagként kerül felhasználásra.</string>
     <string name="share_into_format">Megosztás - formátum</string>
     <string name="attachment_folder_name">Csatolmány mappa neve</string>
     <string name="attachment_folder_name_desc">Almappa a jelenlegi mappa alatt, ahová a mellékletek kerülnek mentésre. Üresen hagyva a mellékletek a jelenlegi mappába kerülnek mentésre.</string>
