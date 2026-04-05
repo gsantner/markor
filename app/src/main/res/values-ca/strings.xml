@@ -124,7 +124,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_current_folder_do_copy__appspecific">El fitxer no es troba a la carpeta actual. Voleu copiar-lo a la carpeta actual? Això sobreescriurà qualsevol fitxer amb el mateix nom.</string>
     <string name="files_and_folders">Fitxers i carpetes</string>
     <string name="document_browser">Navegador de documents</string>
-    <string name="file_browser">Gestor de fitxers</string>
+    <string name="file_browser">Explorador de fitxers</string>
     <string name="set_due_date">Fixa la data de venciment</string>
     <string name="insert_replace_date">Insereix una data</string>
     <string name="create_note" needed="false">Crea una nota</string>
@@ -140,7 +140,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="main_view">Vista principal</string>
     <string name="overall_theme_used_in_app">El tema principal utilitza en l\'aplicació</string>
     <string name="remember_last_directory">Recorda el darrer directori</string>
-    <string name="syntax_highlighting">Destacament de la sintaxi</string>
+    <string name="syntax_highlighting">Ressaltat de la sintaxi</string>
     <string name="highlighting_delay">Retard del destacament</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Retard en mil·lisegons per ressaltar l\'actualització. Un valor inferior començarà a ressaltar abans, però esgotarà més aviat la bateria i pot alentir l\'aplicació en dispositius més antics.</string>
     <string name="highlighting_enabled_or_not__appspecific">Controla si el text introduït s\'ha de ressaltar o no</string>
@@ -218,6 +218,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="center_text">Centra el text</string>
     <string name="edit_text_in_center_of_screen">Edita el text al centre de la pantalla</string>
     <string name="clipboard">Porta-retalls</string>
+    <string name="link_copied">S\'ha copiat l\'enllaç!</string>
     <string name="select_existing_document">Seleccioneu el document existent</string>
     <string name="select_create_document">Seleccioneu o creeu un document</string>
     <string name="select_create_folder">Seleccioneu o creeu una carpeta</string>
@@ -306,7 +307,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">Negre</string>
     <string name="white">Blanc</string>
     <string name="view">Vista</string>
-    <string name="view_mode">Mode de vista</string>
+    <string name="view_mode">Mode de visualització</string>
     <string name="edit_mode">Mode d\'edició</string>
     <string name="mount_storage">Munta l\'emmagatzematge</string>
     <string name="application_needs_access_to_storage_mount_it">Cal el permís per accedir a aquest emmagatzematge. Munteu l\'emmagatzematge per donar accés. Confirmeu aquest diàleg per obtenir una finestra emergent. Seleccioneu l\'emmagatzematge allà i premeu selecciona.</string>
@@ -321,7 +322,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="list_in_recent_files">Mostra-ho als fitxers recents</string>
     <string name="reload">Recarrega</string>
     <string name="wrap_words">Ajusta les paraules</string>
-    <string name="line_numbers">Números de línies</string>
+    <string name="line_numbers">Números de les línies</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Salt suau si el text no s\'ajusta a l\'amplada de la pantalla. En cas contrari, activeu el desplaçament horitzontal.</string>
     <string name="recursive_search_in_location">Cerca recursiva a %s</string>
     <string name="always_open_with_this_app">Obre sempre amb aquesta aplicació</string>
@@ -374,6 +375,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Afegeix context</string>
     <string name="add_project">Afegeix un projecte</string>
     <string name="archive_completed_tasks">Arxivar les tasques completades</string>
+    <string name="overline">Sobreratllat</string>
+    <string name="superscript">Superíndex</string>
+    <string name="subscript">Subíndex</string>
     <string name="create_new_file_or_folder">Crea un fitxer o carpeta nova</string>
     <string name="choose_format">Trieu el format</string>
     <string name="clear_selection">Neteja la selecció</string>
@@ -387,6 +391,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="load_default_settings">Carrega la configuració per defecte</string>
     <string name="drag">Arrossega</string>
     <string name="created">Creat</string>
+    <string name="line_based_search">Cerca basada en línies</string>
+    <string name="no_results">Sense resultats</string>
+    <string name="bad_pattern">Patró no vàlid</string>
+    <string name="new_line">Nova línia</string>
+    <string name="toggle_find_replace">Commuta cerca/substitueix</string>
+    <string name="match_case">Coincidència de majúscules</string>
+    <string name="match_whole_word">Coincideix amb la paraula sencera</string>
+    <string name="use_regular_expression">Utilitza expressió regular</string>
+    <string name="find_in_selection">Cerca a la selecció</string>
+    <string name="preserve_case">Preserva el cas</string>
     <string name="file_encryption_password">Contrasenya de xifratge del fitxer</string>
     <string name="no_password_set_cannot_encrypt_decrypt">No s\'ha definit cap contrasenya, no es pot xifrar ni desxifrar.\nAneu a Configuració -&gt; General -&gt; Contrasenya per definir-ne una.</string>
     <string name="encrypt_file_content">Xifra el contingut del fitxer</string>
@@ -402,6 +416,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="loading_default_value">S\'està carregant el valor per defecte</string>
     <string name="file_settings">Configuració dels fitxers</string>
     <string name="search_and_replace">Cercar / Reemplaça</string>
+    <string name="replace">Reemplaça</string>
     <string name="search_for">Cerca per</string>
     <string name="replace_with">Reemplaça per</string>
     <string name="replace_once">Reemplaça (1)</string>

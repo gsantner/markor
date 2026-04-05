@@ -124,7 +124,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_current_folder_do_copy__appspecific">O ficheiro não está localizado nesta pasta. Deseja copiar o ficheiro para a pasta atual? Isto irá sobrescrever qualquer ficheiro existente com o mesmo nome.</string>
     <string name="files_and_folders">Ficheiros e pastas</string>
     <string name="document_browser">Explorador de ficheiros</string>
-    <string name="file_browser">Explorador de ficheirosicheiros</string>
+    <string name="file_browser">Explorador de ficheiros</string>
     <string name="set_due_date">Definir data limite</string>
     <string name="insert_replace_date">Inserir data</string>
     <string name="create_note" needed="false">Criar nota</string>
@@ -218,6 +218,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="center_text">Centrar texto</string>
     <string name="edit_text_in_center_of_screen">Editar texto no centro do ecrã</string>
     <string name="clipboard">Área de transferência</string>
+    <string name="link_copied">Ligação copiada!</string>
     <string name="select_existing_document">Selecionar documento</string>
     <string name="select_create_document">Selecionar ou criar documento</string>
     <string name="select_create_folder">Selecionar ou criar pasta</string>
@@ -306,7 +307,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">Preto</string>
     <string name="white">Branco</string>
     <string name="view">Ver</string>
-    <string name="view_mode">Modo de vista</string>
+    <string name="view_mode">Modo de visualização</string>
     <string name="edit_mode">Modo de edição</string>
     <string name="mount_storage">Montar armazenamento</string>
     <string name="application_needs_access_to_storage_mount_it">Permissão necessária para aceder a este armazenamento. Monte o armazenamento para dar acesso. Confirme esta caixa de diálogo para obter um popup. Selecione o armazenamento prima Selecionar.</string>
@@ -321,7 +322,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="list_in_recent_files">Lista nos ficheiros recentes</string>
     <string name="reload">Recarregar</string>
     <string name="wrap_words">Moldar texto</string>
-    <string name="line_numbers">Números das linhas</string>
+    <string name="line_numbers">Número das linhas</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Ajustar texto caso este não caiba no ecrã. Também ativa a deslocação horizontal.</string>
     <string name="recursive_search_in_location">Pesquisa recursiva em %s</string>
     <string name="always_open_with_this_app">Abrir sempre com esta aplicação</string>
@@ -374,6 +375,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Adicionar contexto</string>
     <string name="add_project">Adicionar projeto</string>
     <string name="archive_completed_tasks">Arquivar tarefas concluídas</string>
+    <string name="overline">Sobrelinha</string>
+    <string name="superscript">Sobrescrito</string>
+    <string name="subscript">Subscrito</string>
     <string name="create_new_file_or_folder">Criar um novo ficheiro ou pasta</string>
     <string name="choose_format">Escolher formato</string>
     <string name="clear_selection">Limpar seleção</string>
@@ -387,6 +391,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="load_default_settings">Carregar predefinições</string>
     <string name="drag">Arrastar</string>
     <string name="created">Criado</string>
+    <string name="line_based_search">Pesquisa baseada em linhas</string>
+    <string name="no_results">Sem resultados</string>
+    <string name="bad_pattern">Padrão inválido</string>
+    <string name="new_line">Nova linha</string>
+    <string name="toggle_find_replace">Alternar Localizar/Substituir</string>
+    <string name="match_case">Corresponder à capitalização</string>
+    <string name="match_whole_word">Corresponder a palavra inteira</string>
+    <string name="use_regular_expression">Usar expressão regular</string>
+    <string name="find_in_selection">Encontrar na seleção</string>
+    <string name="preserve_case">Preservar capitalização</string>
     <string name="file_encryption_password">Senha de criptografia de arquivo</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Palavra-passe não definida, não é possível cifrar e/ou decifrar.\nAceda a Definições - &gt; Geral -&gt; Palavra-passe para a definir.</string>
     <string name="encrypt_file_content">Cifrar conteúdo do ficheiro</string>
@@ -400,8 +414,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Formato da descrição do ficheiro</string>
     <string name="file_description_format_dialog">Formato da descrição em cada ficheiro no explorador de ficheiros. Segue as regras SimpleDateFormat do Android, com a adição de FS para mostrar o tamanho do ficheiro. Deixe em branco para usar o formato padrão da sua configuração regional.\n\nExemplo de entrada:\nFS yyyy MMM dd hh:mm:ss aa\nFormato de saída:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">Carregando valor padrão</string>
-    <string name="file_settings">Configurações do arquivo</string>
+    <string name="file_settings">Definições do ficheiro</string>
     <string name="search_and_replace">Pesquisar/Substituir</string>
+    <string name="replace">Substituir</string>
     <string name="search_for">Pesquisar por</string>
     <string name="replace_with">Substituir por</string>
     <string name="replace_once">Substituir (1)</string>

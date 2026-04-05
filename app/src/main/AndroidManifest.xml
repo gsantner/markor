@@ -11,13 +11,11 @@
 
 <!-- Do NOT run auto format on this file -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:targetApi="jelly_bean">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
@@ -37,10 +35,16 @@
         android:name="android.hardware.camera"
         android:required="false" />
 
+    <uses-feature
+        android:name="android.software.leanback"
+        android:required="false" />
+
     <application
         android:name=".ApplicationObject"
         android:allowBackup="true"
         android:appCategory="productivity"
+        android:banner="@drawable/ic_launcher"
+        android:dataExtractionRules="@xml/full_backup_rules"
         android:fullBackupContent="@xml/full_backup_rules"
         android:icon="@drawable/ic_launcher"
         android:isGame="false"
@@ -66,7 +70,9 @@
             android:windowSoftInputMode="stateUnchanged|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
         </activity>
 
@@ -187,7 +193,6 @@
         <activity
             android:name=".activity.DocumentActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:launchMode="standard"
             android:maxRecents="5"
             android:theme="@style/AppTheme.Unified.StartupFlash"
@@ -1091,10 +1096,10 @@
 
         <activity-alias
             android:name="AliasDocumentProcessText"
-            android:label="@string/app_name"
+            android:enabled="false"
             android:exported="true"
-            android:targetActivity=".activity.DocumentActivity"
-            android:enabled="false">
+            android:label="@string/app_name"
+            android:targetActivity=".activity.DocumentActivity">
 
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />

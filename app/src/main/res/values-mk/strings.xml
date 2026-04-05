@@ -112,7 +112,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_shortcut">Креирај кратенка</string>
     <string name="files_and_folders">Фајлови и директориуми</string>
     <string name="document_browser">Гледач на документи</string>
-    <string name="file_browser">Фајл прегледувач</string>
     <string name="insert_replace_date">Внеси датум</string>
     <string name="create_note" needed="false">Креирај Забелешка</string>
     <string name="special_documents" needed="false">Специјални документи</string>

@@ -33,12 +33,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.TooltipCompat;
+import androidx.fragment.app.FragmentActivity;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.frontend.AttachLinkOrFileDialog;
 import net.gsantner.markor.frontend.DatetimeFormatDialog;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
+import net.gsantner.markor.frontend.MarkorDialogFactory.Heading;
+import net.gsantner.markor.frontend.textsearch.TextSearchFragment;
 import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
@@ -83,7 +86,7 @@ public abstract class ActionButtonBase {
     private static final String ORDER_SUFFIX = "_order";
     private static final String DISABLED_SUFFIX = "_disabled";
 
-    private static final Pattern UNTRIMMED_TEXT = Pattern.compile("(\\s*)(.*?)(\\s*)", Pattern.DOTALL);
+    // private static final Pattern UNTRIMMED_TEXT = Pattern.compile("(\\s*)(.*?)(\\s*)", Pattern.DOTALL);
 
     public ActionButtonBase(@NonNull final Context context, final Document document) {
         _document = document;
@@ -102,9 +105,18 @@ public abstract class ActionButtonBase {
         return runCommonLongPressAction(action);
     }
 
+    private TextSearchFragment _textSearchFragment;
+
+    private TextSearchFragment getTextSearchFragment() {
+        if (_textSearchFragment == null) {
+            _textSearchFragment = TextSearchFragment.newInstance(R.id.topViewContainer, (FragmentActivity) _activity, _hlEditor);
+        }
+        return _textSearchFragment;
+    }
+
     // Override to implement custom search action
     public boolean onSearch() {
-        MarkorDialogFactory.showSearchDialog(_activity, _hlEditor);
+        getTextSearchFragment().show();
         return true;
     }
 
@@ -1032,6 +1044,9 @@ public abstract class ActionButtonBase {
     }
 
     public static class HeadlineState extends GsSearchOrCustomTextDialog.DialogState {
+        public final List<Heading> headings = new ArrayList<>();
+        public final List<Integer> levels = new ArrayList<>();
         public final List<Integer> disabledLevels = new ArrayList<>();
+        public long lastTextChangedNumber = -1;
     }
 }

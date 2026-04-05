@@ -233,14 +233,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             });
         }
 
-        final Runnable ensureMinHeight = () -> _hlEditor.post(() -> {
-            final int height = _verticalScrollView.getHeight();
-            if (height > 0 && height != _hlEditor.getMinHeight()) {
-                _hlEditor.setMinHeight(height);
-            }
-        });
-        _verticalScrollView.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> ensureMinHeight.run());
-        _verticalScrollView.post(ensureMinHeight);
+        // Keep this as a one-shot min-height sync. Do not use a persistent layout listener here,
+        // otherwise large documents trigger repeated relayout work during startup.
+        syncEditorMinHeightOnce(_verticalScrollView);
     }
 
     @Override
@@ -258,6 +253,10 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
         _hlEditor.recomputeHighlighting(); // Run before setting scroll position
         TextViewUtils.setSelectionAndShow(_hlEditor, startPos);
+
+        // One-shot floor for first render after content/highlighting setup.
+        // Do not replace with per-layout updates; they regress big-file open performance.
+        syncEditorMinHeightOnce(_editorHolder);
 
         // Fade in to hide initial jank
         _hlEditor.post(() -> _hlEditor.animate().alpha(1).setDuration(250).start());
@@ -284,7 +283,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _appSettings.addRecentFile(_document.file);
         _appSettings.setDocumentPreviewState(_document.path, _isPreviewVisible);
         _appSettings.setLastEditPosition(_document.path, TextViewUtils.getSelection(_hlEditor)[0]);
-
+        _appSettings.setLastEditScrollY(_document.path, _verticalScrollView.getScrollY());
         if (_document.path.equals(_appSettings.getTodoFile().getAbsolutePath())) {
             TodoWidgetProvider.updateTodoWidgets();
         }
@@ -681,6 +680,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 if (viewScroll != null) {
                     setMarginBottom(viewScroll, marginBottom);
                 }
+                syncEditorMinHeightOnce(_verticalScrollView);
             }
         }
     }
@@ -698,8 +698,8 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
         searchView.setQueryHint(getString(R.string.search));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            private String searchText = "";
             private Runnable searchTask;
+            private String searchText = "";
 
             private boolean search(String text) {
                 if (_webView == null) {
@@ -758,6 +758,12 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             return;
         }
 
+        LinearLayout.LayoutParams containerLayoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        containerLayoutParams.gravity = Gravity.CENTER;
+
         Context searchViewContext = searchView.getContext();
         LinearLayout linearLayout = searchPlate.findViewWithTag("markor_search_nav_controls");
         TextView resultTextView;
@@ -766,22 +772,27 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         if (linearLayout == null) {
             linearLayout = new LinearLayout(searchViewContext);
             linearLayout.setTag("markor_search_nav_controls");
+            linearLayout.setLayoutParams(containerLayoutParams);
 
             // Add search result TextView
             resultTextView = new TextView(searchViewContext);
             resultTextView.setTag("markor_search_nav_result");
-            resultTextView.setGravity(Gravity.CENTER);
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams textViewLayoutParams = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.MATCH_PARENT
             );
-            layoutParams.setMarginEnd(14);
-            resultTextView.setLayoutParams(layoutParams);
+            textViewLayoutParams.setMarginEnd(30);
+            resultTextView.setLayoutParams(textViewLayoutParams);
+            resultTextView.setGravity(Gravity.CENTER);
+            resultTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
             linearLayout.addView(resultTextView);
 
             // Add previous match Button
             previousButton = new ImageButton(searchViewContext);
             previousButton.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24);
+            previousButton.setLayoutParams(new LinearLayout.LayoutParams(containerLayoutParams));
+            previousButton.setPadding(24, 24, 24, 24);
+            TextViewUtils.setSelectableItemBackgroundBorderless(previousButton, searchViewContext);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 previousButton.setTooltipText(getString(R.string.previous_match));
             }
@@ -790,6 +801,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             // Add next match Button
             nextButton = new ImageButton(searchViewContext);
             nextButton.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24);
+            nextButton.setLayoutParams(new LinearLayout.LayoutParams(containerLayoutParams));
+            nextButton.setPadding(24, 24, 24, 24);
+            TextViewUtils.setSelectableItemBackgroundBorderless(nextButton, searchViewContext);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 nextButton.setTooltipText(getString(R.string.next_match));
             }
@@ -839,6 +853,18 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             params.setMargins(params.leftMargin, params.topMargin, params.rightMargin, marginBottom);
             view.setLayoutParams(params);
         }
+    }
+
+    private void syncEditorMinHeightOnce(final View parent) {
+        if (parent == null) {
+            return;
+        }
+        parent.post(() -> {
+            final int parentHeight = parent.getHeight();
+            if (parentHeight > 0 && parentHeight != _hlEditor.getMinHeight()) {
+                _hlEditor.setMinHeight(parentHeight);
+            }
+        });
     }
 
     private void updateMenuToggleStates(final int selectedFormatActionId) {
@@ -908,6 +934,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             }
 
             _hlEditor.requestLayout();
+            syncEditorMinHeightOnce(_editorHolder);
 
             _hlEditor.setHighlightingEnabled(hlEnabled);
             _hlEditor.post(() -> {
@@ -1016,9 +1043,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             webSettings.setGeolocationEnabled(false);
             webSettings.setJavaScriptEnabled(true);
             webSettings.setDomStorageEnabled(true);
-            webSettings.setAllowFileAccess(true);
             webSettings.setAllowContentAccess(true);
-            webSettings.setAllowFileAccessFromFileURLs(true);
+            webSettings.setAllowFileAccess(true);
+            webSettings.setAllowFileAccessFromFileURLs(false);
             webSettings.setAllowUniversalAccessFromFileURLs(false);
             webSettings.setMediaPlaybackRequiresUserGesture(false);
 
@@ -1028,6 +1055,20 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
             _webViewClient = new MarkorWebViewClient(_webView, activity);
             _webView.setWebViewClient(_webViewClient);
+
+            // For copying link address to clipboard in view-mode
+            _webView.setOnLongClickListener(v -> {
+                WebView.HitTestResult hitResult = _webView.getHitTestResult();
+                if (hitResult.getType() == WebView.HitTestResult.SRC_ANCHOR_TYPE) {
+                    String url = hitResult.getExtra();
+                    if (url != null) {
+                        _cu.setClipboard(getContext(), url);
+                        Toast.makeText(activity, R.string.link_copied, Toast.LENGTH_SHORT).show();
+                        return true;
+                    }
+                }
+                return false;
+            });
         }
         if (_format != null) {
             _format.getActions().setUiReferences(activity, _hlEditor, _webView);
