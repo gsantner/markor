@@ -68,6 +68,7 @@ import net.gsantner.opoc.frontend.textview.TextViewUndoRedo;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsCoolExperimentalStuff;
 import net.gsantner.opoc.web.GsWebViewChromeClient;
+import net.gsantner.opoc.wrapper.GsCallback;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
 import java.io.File;
@@ -105,7 +106,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     private DraggableScrollbarScrollView _verticalScrollView;
     private HorizontalScrollView _horizontalScrollView;
     private LineNumbersView _lineNumbersView;
-    private SearchView _menuSearchViewForViewMode;
     private TextView _searchResultTextView;
     private Document _document;
     private FormatRegistry _format;
@@ -694,7 +694,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         if (searchView == null) {
             return;
         }
-        _menuSearchViewForViewMode = searchView;
 
         searchView.setQueryHint(getString(R.string.search));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -758,11 +757,14 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             return;
         }
 
-        LinearLayout.LayoutParams containerLayoutParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        );
-        containerLayoutParams.gravity = Gravity.CENTER;
+        final GsCallback.r0<ViewGroup.LayoutParams> makeLayoutParams = () -> {
+            final LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            params.gravity = Gravity.CENTER;
+            return params;
+        };
 
         Context searchViewContext = searchView.getContext();
         LinearLayout linearLayout = searchPlate.findViewWithTag("markor_search_nav_controls");
@@ -772,7 +774,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         if (linearLayout == null) {
             linearLayout = new LinearLayout(searchViewContext);
             linearLayout.setTag("markor_search_nav_controls");
-            linearLayout.setLayoutParams(containerLayoutParams);
+            linearLayout.setLayoutParams(makeLayoutParams.callback());
 
             // Add search result TextView
             resultTextView = new TextView(searchViewContext);
@@ -790,7 +792,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             // Add previous match Button
             previousButton = new ImageButton(searchViewContext);
             previousButton.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24);
-            previousButton.setLayoutParams(new LinearLayout.LayoutParams(containerLayoutParams));
+            previousButton.setLayoutParams(makeLayoutParams.callback());
             previousButton.setPadding(24, 24, 24, 24);
             TextViewUtils.setSelectableItemBackgroundBorderless(previousButton, searchViewContext);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -801,7 +803,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             // Add next match Button
             nextButton = new ImageButton(searchViewContext);
             nextButton.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24);
-            nextButton.setLayoutParams(new LinearLayout.LayoutParams(containerLayoutParams));
+            nextButton.setLayoutParams(makeLayoutParams.callback());
             nextButton.setPadding(24, 24, 24, 24);
             TextViewUtils.setSelectableItemBackgroundBorderless(nextButton, searchViewContext);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
