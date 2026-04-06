@@ -670,16 +670,10 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         if (activity != null) {
             final View bar = activity.findViewById(R.id.document__fragment__edit__text_actions_bar);
             final View parent = activity.findViewById(R.id.document__fragment__edit__text_actions_bar__scrolling_parent);
-            final View viewScroll = activity.findViewById(R.id.document__fragment_view_webview);
 
             if (bar != null && parent != null && _verticalScrollView != null) {
                 final boolean hide = _textActionsBar.getChildCount() == 0;
                 parent.setVisibility(hide ? View.GONE : View.VISIBLE);
-                final int marginBottom = hide ? 0 : (int) getResources().getDimension(R.dimen.textactions_bar_height);
-                setMarginBottom(_verticalScrollView, marginBottom);
-                if (viewScroll != null) {
-                    setMarginBottom(viewScroll, marginBottom);
-                }
                 syncEditorMinHeightOnce(_verticalScrollView);
             }
         }
@@ -847,14 +841,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 _searchResultTextView.setText(searchResult);
             }
         });
-    }
-
-    private void setMarginBottom(final View view, final int marginBottom) {
-        final ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
-        if (params != null) {
-            params.setMargins(params.leftMargin, params.topMargin, params.rightMargin, marginBottom);
-            view.setLayoutParams(params);
-        }
     }
 
     private void syncEditorMinHeightOnce(final View parent) {
