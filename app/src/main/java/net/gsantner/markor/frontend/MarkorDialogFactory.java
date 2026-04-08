@@ -758,7 +758,7 @@ public class MarkorDialogFactory {
         dopt.dataFilter = "[^\\s]+"; // Line must have one or more non-whitespace to display
         dopt.titleText = R.string.search_documents;
         dopt.searchHintText = R.string.search;
-        dopt.searchText = searchText;
+        dopt.state.searchText = searchText;
         dopt.neutralButtonCallback = null;
         dopt.neutralButtonCallback2 = (dialog, searchText2) -> {
             dialog.dismiss();
