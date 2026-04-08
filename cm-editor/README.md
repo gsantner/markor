@@ -1,6 +1,6 @@
 # CodeMirror Editor Support for Markor
 
-## Development
+## 1. Development
 
 ### Install Node.js Module Dependencies
 
@@ -14,15 +14,23 @@ npm install
 npm run dev
 ```
 
+### Project Structure
+
+`./src`: source code directory;
+
+`./src/js/editor-bridge.js`: the main code file for implementing CodeMirror feature support.
+
 ### Build
 
 ```shell
 npm run build
 ```
 
-The build output directory is `../app/thirdparty/assets/cm-editor`.
+Build output directory: `/app/thirdparty/assets/cm-editor`.
 
-## About CodeMirror
+Based on these build files, Java class `net.gsantner.markor.frontend.textview.CodeMirrorEditor` can create the CodeMirror view for Android.
+
+## 2. About CodeMirror
 
 ### Features
 
