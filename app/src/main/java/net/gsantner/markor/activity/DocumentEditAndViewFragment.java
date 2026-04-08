@@ -242,52 +242,43 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     @Override
     protected void onFragmentFirstTimeVisible() {
-        // Restore to last selection
+        // Restore cursor
         final int lastSelection = _appSettings.getLastEditPosition(_document.path, _hlEditor.length());
         _hlEditor.setSelection(lastSelection);
 
-        // Set scroll position by line number
-        final Bundle args = getArguments();
-        if (args != null && args.containsKey(Document.EXTRA_FILE_LINE_NUMBER)) {
-            final int lineNumber = args.getInt(Document.EXTRA_FILE_LINE_NUMBER);
-            int selection = lineNumber >= 0 ? TextViewUtils.getIndexFromLineOffset(_hlEditor.getText(), lineNumber, 0) : _hlEditor.length();
-            TextViewUtils.setSelectionAndShow(_hlEditor, selection);
+        // Restore scroll position for edit-mode
+        _hlEditor.setReflowCallback(() -> {
+            // Must be called after HighlightingEditor reflow to prevent scroll position being reset
+            int lastEditHeight = _appSettings.getLastEditHeight(_document.path, 0);
+            int lastEditScrollY = _appSettings.getLastEditScrollY(_document.path, 0);
+            if (lastEditScrollY > 0 && lastEditHeight == _verticalScrollView.getHeight()) {
+                // Set scroll position by scroll Y if last scroll Y is valid
+                // This way is precise, not as imprecise as using line number
+                _hlEditor.postDelayed(() -> {
+                    _verticalScrollView.scrollTo(0, lastEditScrollY);
+                    _hlEditor.requestFocus();
+                }, 600);
+            } else {
+                // Set scroll position by line number if last scroll Y is invalid
+                final Bundle args = getArguments();
+                if (args != null && args.containsKey(Document.EXTRA_FILE_LINE_NUMBER)) {
+                    final int lineNumber = args.getInt(Document.EXTRA_FILE_LINE_NUMBER);
+                    int selection = lineNumber >= 0 ? TextViewUtils.getIndexFromLineOffset(_hlEditor.getText(), lineNumber, 0) : _hlEditor.length();
+                    TextViewUtils.setSelectionAndShow(_hlEditor, selection);
+                }
+            }
+        });
+
+        // Restore scroll position for view-mode
+        if (_webView != null) {
+            int lastViewHeight = _appSettings.getLastViewHeight(_document.path, 0);
+            int lastViewScrollY = _appSettings.getLastViewScrollY(_document.path, 0);
+            if (lastViewScrollY > 0 && lastViewHeight == _webView.getHeight()) {
+                _verticalScrollView.post(() -> _webView.scrollTo(0, lastViewScrollY));
+            }
         }
 
-        if (_format.getFormatId() == FormatRegistry.FORMAT_TODOTXT) {
-            _hlEditor.requestFocus();
-        } else {
-            // Ask the user if you want to restore to last position in a precise way
-            MarkorDialogFactory.PopupWindowOption popupOption = new MarkorDialogFactory.PopupWindowOption(true, 20, 0);
-            popupOption.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
-            popupOption.width = 360;
-            popupOption.paddingHorizontal = 40;
-            popupOption.paddingVertical = 40;
-            MarkorDialogFactory.showPopupWindow(_verticalScrollView, popupOption, getString(R.string.continue_where_you_left), () -> {
-                int lastEditHeight = _appSettings.getLastEditHeight(_document.path, 0);
-                int lastEditScrollY = _appSettings.getLastEditScrollY(_document.path, 0);
-                // Ensure last scroll Y is effective
-                if (lastEditHeight == _verticalScrollView.getHeight() && lastEditScrollY > 0) {
-                    _verticalScrollView.post(() -> {
-                        _verticalScrollView.scrollTo(0, lastEditScrollY);
-                        _hlEditor.requestFocus();
-                    });
-                } else { // Show last selection if last scroll Y is not effective
-                    TextViewUtils.setSelectionAndShow(_hlEditor, lastSelection);
-                }
-
-                if (_webView != null) {
-                    int lastViewHeight = _appSettings.getLastViewHeight(_document.path, 0);
-                    int lastViewScrollY = _appSettings.getLastViewScrollY(_document.path, 0);
-                    if (lastViewHeight == _webView.getHeight() && lastViewScrollY > 0) {
-                        // Restore if last scroll Y is effective
-                        _verticalScrollView.post(() -> _webView.scrollTo(0, lastViewScrollY));
-                    }
-                }
-            });
-        }
-
-        _hlEditor.recomputeHighlighting(); // Run before setting scroll position
+        _hlEditor.recomputeHighlighting();
 
         // One-shot floor for first render after content/highlighting setup.
         // Do not replace with per-layout updates; they regress big-file open performance.

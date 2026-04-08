@@ -63,7 +63,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 
     <string name="last_modified_witharg">Last modified: %s</string>
     <string name="last_modified">Last modified</string>
-    <string name="continue_where_you_left">Continue where you left off</string>
     <string name="select_this_folder">Select this folder</string>
     <string name="select">Select</string>
     <string name="select_all">Select all</string>
@@ -198,6 +197,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_pos_end">Line End (End)</string>
     <string name="key_pos_1_document">Document Start (Alt + ↑)</string>
     <string name="key_pos_end_document">Document End (Alt + ↓)</string>
+    <string name="jump_to_cursor">Jump to cursor</string>
     <string name="duplicate_hotkey">Duplicate (Ctrl + D)</string>
     <string name="move_text_one_line_up">Move line up (Ctrl + ↑)</string>
     <string name="move_text_one_line_down">Move line down (Ctrl + ↓)</string>

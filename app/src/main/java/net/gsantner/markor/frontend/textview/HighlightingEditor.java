@@ -147,14 +147,23 @@ public class HighlightingEditor extends AppCompatEditText {
 
     // Batch edit spans (or anything else, really)
     // This triggers a reflow which will bring focus back to the cursor.
-    // Therefore it cannot be used for updating the highlighting as one scrolls
+    // Therefore, it cannot be used for updating the highlighting as one scrolls
     private void batch(final Runnable runnable) {
         try {
             beginBatchEdit();
             runnable.run();
         } finally {
-            endBatchEdit();
+            endBatchEdit(); // This triggers a reflow which will bring focus back to the cursor and reset scroll position
+            if (reflowCallback != null) {
+                reflowCallback.callback();
+            }
         }
+    }
+
+    private GsCallback.a0 reflowCallback;
+
+    public void setReflowCallback(GsCallback.a0 callback) {
+        this.reflowCallback = callback;
     }
 
     private boolean isScrollSignificant() {

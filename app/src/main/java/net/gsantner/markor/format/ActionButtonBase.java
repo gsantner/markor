@@ -661,7 +661,17 @@ public abstract class ActionButtonBase {
         }
     }
 
-    // Delete the text from selectionStart to lineEnd
+    /**
+     * Jump to the position of current cursor.
+     */
+    public void jumpToCursor() {
+        int cursor = _hlEditor.getSelectionStart();
+        TextViewUtils.showSelection(_hlEditor, cursor);
+    }
+
+    /**
+     * Delete the text from selectionStart to lineEnd.
+     */
     public void deleteToLineEnd() {
         int selectionStart = _hlEditor.getSelectionStart();
         if (selectionStart < 0) {
@@ -676,7 +686,9 @@ public abstract class ActionButtonBase {
         }
     }
 
-    // Delete current line
+    /**
+     * Delete current line.
+     */
     public void deleteLine() {
         int selectionStart = _hlEditor.getSelectionStart();
         if (selectionStart < 0) {
@@ -721,7 +733,7 @@ public abstract class ActionButtonBase {
     /**
      * Move current line up/down.
      *
-     * @param up move the line up if true else down
+     * @param up move the line upwards if true else down
      */
     public void moveLine(boolean up) {
         moveLineSelectionBy1(_hlEditor, up);
@@ -924,7 +936,7 @@ public abstract class ActionButtonBase {
                 return true;
             }
             case R.string.abid_common_special_key: {
-                runJumpBottomTopAction(ActionItem.DisplayMode.EDIT);
+                jumpToCursor();
                 return true;
             }
             case R.string.abid_common_time: {
@@ -1115,6 +1127,8 @@ public abstract class ActionButtonBase {
                 ActionButtonBase.moveLineSelectionBy1(_hlEditor, true);
             } else if (callbackPayload.equals(getResString(R.string.move_text_one_line_down))) {
                 ActionButtonBase.moveLineSelectionBy1(_hlEditor, false);
+            } else if (callbackPayload.equals(getResString(R.string.jump_to_cursor))) {
+                jumpToCursor();
             } else if (callbackPayload.equals(getResString(R.string.duplicate_hotkey))) {
                 duplicate(false);
             } else if (callbackPayload.equals(getResString(R.string.select_current_line))) {
