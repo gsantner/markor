@@ -550,7 +550,7 @@ public class GsSearchOrCustomTextDialog {
                 }
             });
 
-            // listView.setOnItemLongClickListener((parent, view, pos, id) -> directActivate.callback(pos, true));
+            listView.setOnItemLongClickListener((parent, view, pos, id) -> directActivate.callback(pos, true));
         }
     }
 
