@@ -68,7 +68,7 @@ public class AdvancedEditTextPreference extends DialogPreference {
         View view = activity.getLayoutInflater().inflate(R.layout.edit_text_preference, null);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        Point size = GsContextUtils.calculateDialogSize(displayMetrics, 0.94f, 1020, 0.52f, 1900);
+        Point size = GsContextUtils.calculateDialogSize(displayMetrics, 0.95f, 1040, 0.52f, 1900);
         view.setMinimumWidth(size.x);
         view.setMinimumHeight(size.y);
 

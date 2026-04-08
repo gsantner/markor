@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
+import net.gsantner.opoc.wrapper.GsCallback;
 
 import org.apache.commons.text.StringEscapeUtils;
 
@@ -32,19 +33,15 @@ public class CodeMirrorEditor extends WebView {
             super.onPageFinished(view, url);
             setVisibility(VISIBLE);
             if (onPreparedListener != null) {
-                onPreparedListener.onPageFinished();
+                onPreparedListener.callback();
             }
         }
     };
 
-    public interface OnPreparedListener {
-        void onPageFinished();
-    }
+    private GsCallback.a0 onPreparedListener;
 
-    private OnPreparedListener onPreparedListener;
-
-    public void setOnPreparedListener(OnPreparedListener onPreparedListener) {
-        this.onPreparedListener = onPreparedListener;
+    public void setOnPreparedListener(GsCallback.a0 listener) {
+        this.onPreparedListener = listener;
     }
 
     private class CallbackInterface {
@@ -121,8 +118,8 @@ public class CodeMirrorEditor extends WebView {
 
     /**
      * Set text but not reset state.
-     * This method is suitable for text with file size less than 500 KB.
-     * If you want to set large text, please use {@link net.gsantner.markor.frontend.textview.CodeMirrorEditor#loadText(java.lang.String path)}.
+     * This method is suitable for loading text with file size less than 500 KB.
+     * Load large text, please use {@link net.gsantner.markor.frontend.textview.CodeMirrorEditor#loadText(java.lang.String path)}.
      *
      * @param text the text
      */
@@ -131,8 +128,8 @@ public class CodeMirrorEditor extends WebView {
     }
 
     /**
-     * Load text from text file path and reset state.
-     * This method supports loading large text, it can load text with file size greater than 500 KB.
+     * Load text from file path and reset state.
+     * This method supports loading large text with file size greater than 1 MB.
      *
      * @param path the text file path
      */
@@ -142,8 +139,8 @@ public class CodeMirrorEditor extends WebView {
 
     /**
      * Set text and reset state.
-     * This method is suitable for text with file size less than 500 KB.
-     * If you want to set large text, please use {@link net.gsantner.markor.frontend.textview.CodeMirrorEditor#loadText(java.lang.String path)}.
+     * This method is suitable for loading text with file size less than 500 KB.
+     * Load large text, please use {@link net.gsantner.markor.frontend.textview.CodeMirrorEditor#loadText(java.lang.String path)}.
      *
      * @param text the text
      */
