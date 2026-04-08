@@ -851,6 +851,7 @@ public class MarkorDialogFactory {
             }
         };
 
+        dopt.longPressEnabled = false;
         dopt.positionCallback = result -> {
             final int index = filtered.get(result.get(0));
             final int line = state.headings.get(index).line;

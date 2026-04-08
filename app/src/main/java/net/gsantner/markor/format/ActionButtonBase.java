@@ -304,7 +304,7 @@ public abstract class ActionButtonBase {
         // Add new ones to order
         order.addAll(added);
 
-        // Removed removed from order and disabled
+        // Removed from order and disabled
         disabled.removeAll(removed);
         order.removeAll(removed);
 

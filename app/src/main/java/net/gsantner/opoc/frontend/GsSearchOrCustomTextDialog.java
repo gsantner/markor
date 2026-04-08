@@ -103,6 +103,8 @@ public class GsSearchOrCustomTextDialog {
         @Nullable
         public GsCallback.a1<Integer> longPressCallback = null;
 
+        public boolean longPressEnabled = true;
+
         public enum SelectionMode {
             SINGLE, MULTIPLE, NONE
         }
@@ -554,7 +556,9 @@ public class GsSearchOrCustomTextDialog {
                 }
             });
 
-            // listView.setOnItemLongClickListener((parent, view, pos, id) -> directActivate.callback(pos, true));
+            if (dopt.longPressEnabled) {
+                listView.setOnItemLongClickListener((parent, view, pos, id) -> directActivate.callback(pos, true));
+            }
         }
     }
 
