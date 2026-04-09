@@ -59,7 +59,7 @@ public class AdvancedEditTextPreference extends DialogPreference {
             defaultValue = "";
         } else {
             // Prettify indentation with 2 spaces
-            defaultValue = defaultValue.replaceAll("\n ", "\n  ");
+            defaultValue = defaultValue.replaceAll("\n ", "\n  ").replaceAll("\t", "  ");
         }
         return defaultValue;
     }

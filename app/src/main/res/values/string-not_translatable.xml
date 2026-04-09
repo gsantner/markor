@@ -74,17 +74,18 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="js_css" translatable="false"><![CDATA[HTML: <head>CSS, JavaScript</head>]]></string>
     <string name="inject_to_head_default" translatable="false"><![CDATA[<style>\n
     html, body {\n
-    /*\n
-    font-family: sans-serif-condensed;\n
-    font-size: 80%;\n
-    */\n
+    \t/*\n
+    \tfont-family: sans-serif-condensed;\n
+    \tfont-size: 80%;\n
+    \t*/\n
     }\n</style>\n\n<script type=\"text/javascript\">\n
     function onPageLoaded() {\n
-    /*\n
-    if (\'{{ post.text_converter_name }}\' == \'MarkdownTextConverter\') {\n
-    window.scrollTo(0, document.body.scrollHeight);\n
-    }\n
-    */\n
+    \t/*\n
+    \talert(\'Page loaded.\');\n
+    \tif (\'{{ post.text_converter_name }}\'.includes(\'format-markdown\')) {\n
+    \t\twindow.scrollTo(0, document.body.scrollHeight);\n
+    \t}\n
+    \t*/\n
     }\n</script>]]></string>
 
 
