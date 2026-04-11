@@ -49,6 +49,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import other.de.stanetz.jpencconverter.PasswordStore;
 
@@ -441,11 +443,25 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         }
     }
 
+    private static final Pattern TODOTXT_STRIP_SUFFIX_PATTERN = Pattern.compile("(?i)(?:^|[-._])todo\\.txt$");
+
     public String getLastTodoDoneName(final String path) {
-        final String def = getLastTodoUsedArchiveFilename();
         if (!fexists(path)) {
-            return def;
+            return getLastTodoUsedArchiveFilename();
         } else {
+            // If possible, derive archive name from todofile name.
+            String def;
+
+            Matcher m = TODOTXT_STRIP_SUFFIX_PATTERN.matcher(fbasename(path));
+            if (m.find()) {
+                def = "." + m.replaceFirst(".todo.archive.txt");
+                if (def.startsWith("..")) {
+                    def = def.substring(1);
+                }
+            } else {
+                def = getLastTodoUsedArchiveFilename();
+            }
+
             return getString(PREF_PREFIX_TODO_DONE_NAME + path, def);
         }
     }
