@@ -21,7 +21,6 @@ import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Parcelable;
-import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.Spannable;
@@ -56,7 +55,7 @@ import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.graphics.ColorUtils;
 import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowCompat;
 import androidx.core.widget.TextViewCompat;
 
 import net.gsantner.markor.R;
@@ -65,8 +64,6 @@ import net.gsantner.opoc.util.GsCollectionUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
-
-import org.w3c.dom.Text;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -391,10 +388,10 @@ public class GsSearchOrCustomTextDialog {
             listAdapter.filter(searchEditText.getText());
             setSelectAllButtonState.callback();
         };
-        final GsCallback.a1<Editable> _changeListener = dopt.data.size() < 1000 ?
-                e -> _filterList.run():
-                e -> TextViewUtils.makeDebounced(searchEditText.getHandler(), 400, _filterList);
-        searchEditText.addTextChangedListener(GsTextWatcherAdapter.after(_changeListener));
+        final Runnable _changeListener = dopt.data == null || dopt.data.size() < 1000 ?
+                _filterList :
+                TextViewUtils.makeDebounced(searchEditText.getHandler(), 400, _filterList);
+        searchEditText.addTextChangedListener(GsTextWatcherAdapter.after(e -> _changeListener.run()));
 
         // Ok button only present under these circumstances
         final boolean isSearchOk = dopt.callback != null && dopt.isSearchEnabled;
@@ -432,41 +429,27 @@ public class GsSearchOrCustomTextDialog {
 
         final Window win = dialog.getWindow();
         if (win != null) {
-            final int dialogWidth = dopt.dialogWidthDp < 0 ? dopt.dialogWidthDp : GsContextUtils.instance.convertDpToPx(activity, dopt.dialogWidthDp);
-            final int dialogHeight = dopt.dialogHeightDp < 0 ? dopt.dialogHeightDp : GsContextUtils.instance.convertDpToPx(activity, dopt.dialogHeightDp);
-            final GsCallback.a0 relayoutDialog = () -> {
-                win.setLayout(dialogWidth, dialogHeight);
-                listAdapter.notifyDataSetChanged();
-                mainLayout.requestLayout();
+            WindowCompat.setDecorFitsSystemWindows(win, true);
+
+            win.setLayout(
+                    dopt.dialogWidthDp < 0 ? dopt.dialogWidthDp : GsContextUtils.instance.convertDpToPx(activity, dopt.dialogWidthDp),
+                    dopt.dialogHeightDp < 0 ? dopt.dialogHeightDp : GsContextUtils.instance.convertDpToPx(activity, dopt.dialogHeightDp)
+            );
+
+            final View decorView = win.getDecorView();
+            ViewCompat.setOnApplyWindowInsetsListener(decorView, (view, insets) -> {
                 listView.requestLayout();
-            };
-            win.setLayout(dialogWidth, dialogHeight);
+                mainLayout.requestLayout();
+                return insets;
+            });
 
             if (dopt.isSearchEnabled) {
                 if (dopt.isSoftInputVisible) {
                     win.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+                    searchEditText.postDelayed(() -> win.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_UNCHANGED), 500);
                     searchEditText.requestFocus();
                 } else {
                     win.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-                }
-
-                final View decorView = win.getDecorView();
-                final int[] lastImeBottom = {-1};
-                ViewCompat.setOnApplyWindowInsetsListener(decorView, (view, insets) -> {
-                    final int imeBottom = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom;
-                    if (imeBottom != lastImeBottom[0]) {
-                        lastImeBottom[0] = imeBottom;
-                        view.post(relayoutDialog::callback);
-                    }
-                    return insets;
-                });
-                ViewCompat.requestApplyInsets(decorView);
-
-                if (dopt.isSoftInputVisible) {
-                    searchEditText.postDelayed(() -> {
-                        relayoutDialog.callback();
-                        win.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_UNCHANGED);
-                    }, 500);
                 }
             }
         }
