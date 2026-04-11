@@ -406,9 +406,9 @@ public final class TextViewUtils {
         int line = layout.getLineForOffset(startSelection);
         int lineHeight = editText.getLineHeight();
         if (layout.getLineTop(line) < visible.top - lineHeight) {
-            showSelection(editText, visible, startSelection, startSelection, -lineHeight);
+            showSelection(editText, visible, startSelection, startSelection, -lineHeight * 3);
         } else if (layout.getLineBottom(line) > visible.bottom - lineHeight) {
-            showSelection(editText, visible, startSelection, startSelection, lineHeight * 4);
+            showSelection(editText, visible, startSelection, startSelection, lineHeight * 2);
         }
     }
 

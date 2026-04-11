@@ -17,7 +17,6 @@ import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleCompar
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Build;
 import android.text.Editable;
@@ -31,6 +30,7 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.Button;
@@ -42,6 +42,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 
 import net.gsantner.markor.R;
@@ -466,12 +467,23 @@ public class MarkorDialogFactory {
         return dopt;
     }
 
+    @Nullable
+    private static Editable getCurrentSearchText(final AlertDialog dialog) {
+        final Window window = dialog.getWindow();
+        if (window == null) {
+            return null;
+        }
+        final View view = window.getDecorView().findViewWithTag("EDIT");
+        return view instanceof EditText ? ((EditText) view).getText() : null;
+    }
+
     // Search dialog for todo.txt
     public static void showSttSearchDialog(final Activity activity, final EditText text) {
         final DialogOptions dopt = makeSttLineSelectionDialog(activity, text, t -> true);
         dopt.titleText = R.string.search_documents;
         dopt.neutralButtonText = R.string.replace;
-        dopt.neutralButtonCallback2 = (dialog, searchText) -> {
+        dopt.neutralButtonCallback = dialog -> {
+            final Editable searchText = getCurrentSearchText(dialog);
             dialog.dismiss();
             SearchAndReplaceTextDialog.showSearchReplaceDialog(activity, text.getText(), searchText, TextViewUtils.getSelection(text));
         };
@@ -760,8 +772,9 @@ public class MarkorDialogFactory {
         dopt.searchHintText = R.string.search;
         dopt.state.searchText = searchText;
         dopt.neutralButtonCallback = null;
-        dopt.neutralButtonCallback2 = (dialog, searchText2) -> {
+        dopt.neutralButtonCallback = dialog -> {
             dialog.dismiss();
+            final Editable searchText2 = getCurrentSearchText(dialog);
             SearchAndReplaceTextDialog.showSearchReplaceDialog(activity, edit, searchText2, TextViewUtils.getSelection(editText));
         };
         dopt.neutralButtonText = R.string.replace;
@@ -1273,6 +1286,6 @@ public class MarkorDialogFactory {
             popupWindow.dismiss();
         });
         popupWindow.showAsDropDown(anchorView, 130, -100);
-        anchorView.getHandler().postDelayed(() -> popupWindow.dismiss(), 3000);
+        anchorView.getHandler().postDelayed(popupWindow::dismiss, 3000);
     }
 }

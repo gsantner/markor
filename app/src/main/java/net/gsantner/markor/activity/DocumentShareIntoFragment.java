@@ -320,7 +320,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                 _appSettings.addRecentFile(dest);
 
                 // Only if not forced link due to attachment
-                if (attachment == null) {
+                if (attachment == null && _linkCheckBox != null && _linkCheckBox.getVisibility() == View.VISIBLE) {
                     _appSettings.setFormatShareAsLink(asLink);
                 }
 

@@ -55,7 +55,8 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.graphics.ColorUtils;
-import androidx.core.view.WindowCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.core.widget.TextViewCompat;
 
 import net.gsantner.markor.R;
@@ -131,7 +132,6 @@ public class GsSearchOrCustomTextDialog {
         public String dataFilter = null; // Regex pattern to filter data
         public GsCallback.a1<Spannable> highlighter = null;
         public GsCallback.a1<AlertDialog> neutralButtonCallback = null;
-        public GsCallback.a2<AlertDialog, Editable> neutralButtonCallback2 = null;
         public GsCallback.a1<DialogInterface> dismissCallback = null;
         public @Nullable InputFilter searchInputFilter = null;
 
@@ -433,28 +433,47 @@ public class GsSearchOrCustomTextDialog {
             return false;
         });
 
+        dialog.show();
+
         final Window win = dialog.getWindow();
         if (win != null) {
-            WindowCompat.setDecorFitsSystemWindows(win, true);
+            final int dialogWidth = dopt.dialogWidthDp < 0 ? dopt.dialogWidthDp : GsContextUtils.instance.convertDpToPx(activity, dopt.dialogWidthDp);
+            final int dialogHeight = dopt.dialogHeightDp < 0 ? dopt.dialogHeightDp : GsContextUtils.instance.convertDpToPx(activity, dopt.dialogHeightDp);
+            final GsCallback.a0 relayoutDialog = () -> {
+                win.setLayout(dialogWidth, dialogHeight);
+                listAdapter.notifyDataSetChanged();
+                mainLayout.requestLayout();
+                listView.requestLayout();
+            };
+            win.setLayout(dialogWidth, dialogHeight);
 
             if (dopt.isSearchEnabled) {
                 if (dopt.isSoftInputVisible) {
                     win.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-                    searchEditText.postDelayed(() -> win.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_UNCHANGED), 500);
                     searchEditText.requestFocus();
                 } else {
                     win.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
                 }
+
+                final View decorView = win.getDecorView();
+                final int[] lastImeBottom = {-1};
+                ViewCompat.setOnApplyWindowInsetsListener(decorView, (view, insets) -> {
+                    final int imeBottom = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom;
+                    if (imeBottom != lastImeBottom[0]) {
+                        lastImeBottom[0] = imeBottom;
+                        view.post(relayoutDialog::callback);
+                    }
+                    return insets;
+                });
+                ViewCompat.requestApplyInsets(decorView);
+
+                if (dopt.isSoftInputVisible) {
+                    searchEditText.postDelayed(() -> {
+                        relayoutDialog.callback();
+                        win.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_UNCHANGED);
+                    }, 500);
+                }
             }
-        }
-
-        dialog.show();
-
-        if (win != null) {
-            win.setLayout(
-                    dopt.dialogWidthDp < 0 ? dopt.dialogWidthDp : GsContextUtils.instance.convertDpToPx(activity, dopt.dialogWidthDp),
-                    dopt.dialogHeightDp < 0 ? dopt.dialogHeightDp : GsContextUtils.instance.convertDpToPx(activity, dopt.dialogHeightDp)
-            );
         }
 
         final Button neutralButton = dialog.getButton(AlertDialog.BUTTON_NEUTRAL);
@@ -464,9 +483,6 @@ public class GsSearchOrCustomTextDialog {
 
             if (dopt.neutralButtonCallback != null) {
                 neutralButton.setOnClickListener((button) -> dopt.neutralButtonCallback.callback(dialog));
-            } else if (dopt.neutralButtonCallback2 != null) {
-                // Open search & replace dialog with search text of current search dialog, no need to input it again
-                neutralButton.setOnClickListener((button) -> dopt.neutralButtonCallback2.callback(dialog, searchEditText.getText()));
             }
         }
 
