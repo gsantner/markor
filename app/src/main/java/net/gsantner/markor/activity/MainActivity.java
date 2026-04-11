@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -58,6 +59,7 @@ import other.writeily.widget.WrMarkorWidgetProvider;
 public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFragment.FilesystemFragmentOptionsListener {
 
     public static boolean IS_DEBUG_ENABLED = false;
+    private static final long LARGE_FILE_TOAST_THRESHOLD_BYTES = 512L * 1024L;
 
     private BottomNavigationView _bottomNav;
     private ViewPager2 _viewPager;
@@ -107,6 +109,12 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         // Keep created fragments alive, but only realize them once the user visits.
         _viewPager.setOffscreenPageLimit(_bottomNav.getMenu().size());
         _bottomNav.setOnItemSelectedListener((item) -> {
+            final int itemId = item.getItemId();
+            if (itemId == R.id.nav_quicknote) {
+                showLargeFileOpenToastIfNeeded(_appSettings.getQuickNoteFile());
+            } else if (itemId == R.id.nav_todo) {
+                showLargeFileOpenToastIfNeeded(_appSettings.getTodoFile());
+            }
             final int pos = tabIdToPos(item.getItemId());
             _sectionsAdapter.ensureRealized(pos);
             _viewPager.setCurrentItem(pos);
@@ -370,6 +378,17 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         }
     }
 
+    private void showLargeFileOpenToastIfNeeded(final File file) {
+        // Check if file is large and if true show a toast notification for user to wait
+        if (file != null && file.isFile()) {
+            final long fileBytes = file.length();
+            if (fileBytes > LARGE_FILE_TOAST_THRESHOLD_BYTES) {
+                final String readableSize = GsFileUtils.getReadableFileSize(fileBytes, true);
+                Toast.makeText(this, getString(R.string.loading_large_file_may_take_a_moment_witharg, readableSize), Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
     @Override
     public void onBackPressed() {
         // Check if fragment handled back press
@@ -487,6 +506,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
                 @Override
                 public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
+                    showLargeFileOpenToastIfNeeded(file);
                     DocumentActivity.launch(MainActivity.this, file, null, lineNumber);
                 }
             });
