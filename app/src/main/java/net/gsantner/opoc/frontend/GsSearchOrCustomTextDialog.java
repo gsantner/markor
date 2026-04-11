@@ -66,6 +66,8 @@ import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
+import org.w3c.dom.Text;
+
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -384,22 +386,15 @@ public class GsSearchOrCustomTextDialog {
             }
         };
 
-        searchEditText.addTextChangedListener(GsTextWatcherAdapter.after(new GsCallback.a1<Editable>() {
-            private Runnable searchTask;
-            private CharSequence searchText = new SpannableString("");
-
-            @Override
-            public void callback(Editable constraint) {
-                if (searchTask == null) {
-                    searchTask = TextViewUtils.makeDebounced(searchEditText.getHandler(), 400, () -> {
-                        listAdapter.filter(searchText);
-                        setSelectAllButtonState.callback();
-                    });
-                }
-                searchText = constraint;
-                searchTask.run();
-            }
-        }));
+        // Filter when the user stops typing if the list is long
+        final Runnable _filterList = () -> {
+            listAdapter.filter(searchEditText.getText());
+            setSelectAllButtonState.callback();
+        };
+        final GsCallback.a1<Editable> _changeListener = dopt.data.size() < 1000 ?
+                e -> _filterList.run():
+                e -> TextViewUtils.makeDebounced(searchEditText.getHandler(), 400, _filterList);
+        searchEditText.addTextChangedListener(GsTextWatcherAdapter.after(_changeListener));
 
         // Ok button only present under these circumstances
         final boolean isSearchOk = dopt.callback != null && dopt.isSearchEnabled;
