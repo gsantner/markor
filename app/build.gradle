@@ -13,14 +13,12 @@ if (enable_plugin_kotlin) {
     apply plugin: 'kotlin-kapt'
 }
 
-rootProject.ext.version_minSdk = 18
+rootProject.ext.version_minSdk = 21
 
 // https://github.com/vsch/flexmark-java/releases
-ext.version_library_flexmark = "0.42.14"
+ext.version_library_flexmark = "0.64.8"
 
 android {
-    buildToolsVersion rootProject.ext.version_buildTools
-    compileSdkVersion rootProject.ext.version_compileSdk
 
     defaultConfig {
         resValue "string", "manifest_package_id", "net.gsantner.markor"
@@ -31,6 +29,7 @@ android {
         multiDexEnabled true
         minSdkVersion rootProject.ext.version_minSdk
         targetSdkVersion rootProject.ext.version_compileSdk
+        compileSdk rootProject.ext.version_compileSdk
         buildConfigField "boolean", "IS_TEST_BUILD", "false"
         buildConfigField "boolean", "IS_GPLAY_BUILD", "false"
         buildConfigField "String[]", "DETECTED_ANDROID_LOCALES", "${findUsedAndroidLocales()}"
@@ -40,7 +39,7 @@ android {
         setProperty("archivesBaseName", applicationId + "-v" + versionCode + "-" + versionName)
     }
 
-    flavorDimensions "default"
+    flavorDimensions = ["default"]
     productFlavors {
         flavorAtest {
             applicationId "net.gsantner.markor_test"
@@ -98,13 +97,13 @@ dependencies {
 
     // Android standard libs
     implementation "androidx.multidex:multidex:2.0.1"
-    implementation 'androidx.appcompat:appcompat:1.4.2'
-    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.2.1'
-    implementation 'androidx.preference:preference:1.2.0'
+    implementation 'androidx.recyclerview:recyclerview:1.3.2'
+    implementation 'androidx.preference:preference-ktx:1.2.1'
     implementation 'androidx.legacy:legacy-preference-v14:1.0.0'
-    implementation 'androidx.browser:browser:1.4.0'
+    implementation 'androidx.browser:browser:1.8.0'
 
     // Markdown convertor (Flexmark)
     implementation "com.vladsch.flexmark:flexmark:${version_library_flexmark}"
@@ -143,7 +142,7 @@ dependencies {
 
     // Tool libraries
     //noinspection AnnotationProcessorOnCompilePath
-    implementation 'commons-io:commons-io:2.7'
+    implementation 'commons-io:commons-io:2.13.0'
     if (enable_plugin_kotlin) {
         implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${version_plugin_kotlin}"
     }
