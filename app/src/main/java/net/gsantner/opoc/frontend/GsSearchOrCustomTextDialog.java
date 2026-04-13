@@ -54,8 +54,10 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.graphics.ColorUtils;
+import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.core.widget.TextViewCompat;
 
 import net.gsantner.markor.R;
@@ -438,8 +440,8 @@ public class GsSearchOrCustomTextDialog {
 
             final View decorView = win.getDecorView();
             ViewCompat.setOnApplyWindowInsetsListener(decorView, (view, insets) -> {
-                listView.requestLayout();
-                mainLayout.requestLayout();
+                decorView.requestLayout();
+                listView.post(listView::requestLayout);
                 return insets;
             });
 
