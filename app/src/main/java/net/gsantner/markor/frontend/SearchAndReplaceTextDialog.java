@@ -75,7 +75,7 @@ public class SearchAndReplaceTextDialog {
 
     private final List<ReplaceGroup> recentReplaces;
 
-    public static void showSearchReplaceDialog(final Activity activity, final Editable edit, Editable searchText, final int[] sel) {
+    public static void showSearchReplaceDialog(final Activity activity, final Editable edit, @Nullable CharSequence searchText, final int[] sel) {
         new SearchAndReplaceTextDialog(activity, edit, searchText, sel);
     }
 
@@ -83,7 +83,7 @@ public class SearchAndReplaceTextDialog {
         showSearchReplaceDialog(activity, edit, null, sel);
     }
 
-    private SearchAndReplaceTextDialog(final Activity activity, final Editable edit, Editable searchText, final int[] sel) {
+    private SearchAndReplaceTextDialog(final Activity activity, final Editable edit, @Nullable CharSequence searchText, final int[] sel) {
         _activity = activity;
         _edit = edit;
 

@@ -35,7 +35,6 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -69,6 +68,7 @@ import net.gsantner.opoc.frontend.textview.TextViewUndoRedo;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsCoolExperimentalStuff;
 import net.gsantner.opoc.web.GsWebViewChromeClient;
+import net.gsantner.opoc.wrapper.GsCallback;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
 import java.io.File;
@@ -106,6 +106,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     private DraggableScrollbarScrollView _verticalScrollView;
     private HorizontalScrollView _horizontalScrollView;
     private LineNumbersView _lineNumbersView;
+    private TextView _searchResultTextView;
     private Document _document;
     private FormatRegistry _format;
     private MarkorContextUtils _cu;
@@ -669,16 +670,10 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         if (activity != null) {
             final View bar = activity.findViewById(R.id.document__fragment__edit__text_actions_bar);
             final View parent = activity.findViewById(R.id.document__fragment__edit__text_actions_bar__scrolling_parent);
-            final View viewScroll = activity.findViewById(R.id.document__fragment_view_webview);
 
             if (bar != null && parent != null && _verticalScrollView != null) {
                 final boolean hide = _textActionsBar.getChildCount() == 0;
                 parent.setVisibility(hide ? View.GONE : View.VISIBLE);
-                final int marginBottom = hide ? 0 : (int) getResources().getDimension(R.dimen.textactions_bar_height);
-                setMarginBottom(_verticalScrollView, marginBottom);
-                if (viewScroll != null) {
-                    setMarginBottom(viewScroll, marginBottom);
-                }
                 syncEditorMinHeightOnce(_verticalScrollView);
             }
         }
@@ -691,10 +686,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
      */
     private void setupSearchView(SearchView searchView) {
         if (searchView == null) {
-            return;
-        }
-        // Only setup SearchView for view-mode, to avoid unnecessary setup for edit-mode
-        if (!_isPreviewVisible || _webView == null) {
             return;
         }
 
@@ -730,22 +721,25 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 return search(text);
             }
         });
-        searchView.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
-            @Override
-            public void onViewAttachedToWindow(@NonNull View v) {
-            }
+        if (searchView.getTag(R.id.action_search_view) == null) {
+            searchView.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
+                @Override
+                public void onViewAttachedToWindow(@NonNull View v) {
+                }
 
-            @Override
-            public void onViewDetachedFromWindow(@NonNull View v) {
-                // Clear search when SearchView is closed abnormally, e.g. switch from QuickNote to To-Do when SearchView is opened
-                if (searchView.getQuery().length() > 0) {
-                    searchView.setQuery("", false); // This will make onQueryTextChange be called back
+                @Override
+                public void onViewDetachedFromWindow(@NonNull View v) {
+                    // Clear search when SearchView is closed abnormally, e.g. switch from QuickNote to To-Do when SearchView is opened
+                    if (searchView.getQuery().length() > 0) {
+                        searchView.setQuery("", false); // This will make onQueryTextChange be called back
+                    }
+                    if (!searchView.isIconified()) {
+                        searchView.setIconified(true);
+                    }
                 }
-                if (!searchView.isIconified()) {
-                    searchView.setIconified(true);
-                }
-            }
-        });
+            });
+            searchView.setTag(R.id.action_search_view, Boolean.TRUE);
+        }
 
         // Because SearchView doesn't provide a public API to add custom buttons
         // We must get the searchPlate (the layout containing the text field and close button) from SearchView
@@ -757,46 +751,68 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             return;
         }
 
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.gravity = Gravity.CENTER;
+        final GsCallback.r0<ViewGroup.LayoutParams> makeLayoutParams = () -> {
+            final LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            params.gravity = Gravity.CENTER;
+            return params;
+        };
 
         Context searchViewContext = searchView.getContext();
-        LinearLayout linearLayout = new LinearLayout(searchViewContext);
-        linearLayout.setLayoutParams(layoutParams);
+        LinearLayout linearLayout = searchPlate.findViewWithTag("markor_search_nav_controls");
+        TextView resultTextView;
+        ImageButton previousButton;
+        ImageButton nextButton;
+        if (linearLayout == null) {
+            linearLayout = new LinearLayout(searchViewContext);
+            linearLayout.setTag("markor_search_nav_controls");
+            linearLayout.setLayoutParams(makeLayoutParams.callback());
 
-        // Add search result TextView
-        TextView resultTextView = new TextView(searchViewContext);
-        LinearLayout.LayoutParams textViewLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
-        textViewLayoutParams.setMarginEnd(30);
-        resultTextView.setLayoutParams(textViewLayoutParams);
-        resultTextView.setGravity(Gravity.CENTER);
-        resultTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-        linearLayout.addView(resultTextView);
+            // Add search result TextView
+            resultTextView = new TextView(searchViewContext);
+            resultTextView.setTag("markor_search_nav_result");
+            LinearLayout.LayoutParams textViewLayoutParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT
+            );
+            textViewLayoutParams.setMarginEnd(30);
+            resultTextView.setLayoutParams(textViewLayoutParams);
+            resultTextView.setGravity(Gravity.CENTER);
+            resultTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+            linearLayout.addView(resultTextView);
 
-        // Add previous match Button
-        ImageView previousButton = new ImageView(searchViewContext);
-        previousButton.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24);
-        previousButton.setLayoutParams(layoutParams);
-        previousButton.setPadding(24, 24, 24, 24);
-        TextViewUtils.setSelectableItemBackgroundBorderless(previousButton, searchViewContext);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            previousButton.setTooltipText(getString(R.string.previous_match));
+            // Add previous match Button
+            previousButton = new ImageButton(searchViewContext);
+            previousButton.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24);
+            previousButton.setLayoutParams(makeLayoutParams.callback());
+            previousButton.setPadding(24, 24, 24, 24);
+            TextViewUtils.setSelectableItemBackgroundBorderless(previousButton, searchViewContext);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                previousButton.setTooltipText(getString(R.string.previous_match));
+            }
+            linearLayout.addView(previousButton);
+
+            // Add next match Button
+            nextButton = new ImageButton(searchViewContext);
+            nextButton.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24);
+            nextButton.setLayoutParams(makeLayoutParams.callback());
+            nextButton.setPadding(24, 24, 24, 24);
+            TextViewUtils.setSelectableItemBackgroundBorderless(nextButton, searchViewContext);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                nextButton.setTooltipText(getString(R.string.next_match));
+            }
+            linearLayout.addView(nextButton);
+
+            // Apply to SearchView
+            searchPlate.addView(linearLayout, 1);
+        } else {
+            resultTextView = linearLayout.findViewWithTag("markor_search_nav_result");
+            previousButton = (ImageButton) linearLayout.getChildAt(1);
+            nextButton = (ImageButton) linearLayout.getChildAt(2);
         }
-        linearLayout.addView(previousButton);
-
-        // Add next match Button
-        ImageButton nextButton = new ImageButton(searchViewContext);
-        nextButton.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24);
-        nextButton.setLayoutParams(layoutParams);
-        nextButton.setPadding(24, 24, 24, 24);
-        TextViewUtils.setSelectableItemBackgroundBorderless(nextButton, searchViewContext);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            nextButton.setTooltipText(getString(R.string.next_match));
-        }
-        linearLayout.addView(nextButton);
-
-        // Apply to SearchView
-        searchPlate.addView(linearLayout, 1);
+        _searchResultTextView = resultTextView;
 
         // Set listeners
         previousButton.setOnClickListener(v -> {
@@ -809,23 +825,22 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 _webView.findNext(true);
             }
         });
+        bindWebViewSearchListener();
+    }
+
+    private void bindWebViewSearchListener() {
+        if (_webView == null || _searchResultTextView == null) {
+            return;
+        }
         _webView.setFindListener((activeMatchOrdinal, numberOfMatches, isDoneCounting) -> {
             if (isDoneCounting) {
                 String searchResult = "";
                 if (numberOfMatches > 0) {
                     searchResult = (activeMatchOrdinal + 1) + "/" + numberOfMatches;
                 }
-                resultTextView.setText(searchResult);
+                _searchResultTextView.setText(searchResult);
             }
         });
-    }
-
-    private void setMarginBottom(final View view, final int marginBottom) {
-        final ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
-        if (params != null) {
-            params.setMargins(params.leftMargin, params.topMargin, params.rightMargin, marginBottom);
-            view.setLayoutParams(params);
-        }
     }
 
     private void syncEditorMinHeightOnce(final View parent) {
@@ -1043,6 +1058,10 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 return false;
             });
         }
+        if (_format != null) {
+            _format.getActions().setUiReferences(activity, _hlEditor, _webView);
+        }
+        bindWebViewSearchListener();
     }
 
     @SuppressLint({"AddJavascriptInterface", "SetJavaScriptEnabled"})
@@ -1103,7 +1122,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     @Override
-    public void onDestroy() {
+    public void onDestroyView() {
         if (_webView != null) {
             try {
                 _webView.loadUrl("about:blank");
@@ -1111,7 +1130,13 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             } catch (Exception ignored) {
             }
         }
-        super.onDestroy();
+        _webView = null;
+        _webViewClient = null;
+        _searchResultTextView = null;
+        if (_format != null) {
+            _format.getActions().setUiReferences(getActivity(), _hlEditor, null);
+        }
+        super.onDestroyView();
     }
 
     public Document getDocument() {

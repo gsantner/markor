@@ -21,7 +21,6 @@ import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Parcelable;
-import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.Spannable;
@@ -55,7 +54,10 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.graphics.ColorUtils;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.core.widget.TextViewCompat;
 
 import net.gsantner.markor.R;
@@ -131,7 +133,6 @@ public class GsSearchOrCustomTextDialog {
         public String dataFilter = null; // Regex pattern to filter data
         public GsCallback.a1<Spannable> highlighter = null;
         public GsCallback.a1<AlertDialog> neutralButtonCallback = null;
-        public GsCallback.a2<AlertDialog, Editable> neutralButtonCallback2 = null;
         public GsCallback.a1<DialogInterface> dismissCallback = null;
         public @Nullable InputFilter searchInputFilter = null;
 
@@ -153,8 +154,6 @@ public class GsSearchOrCustomTextDialog {
         public int clearInputIcon = android.R.drawable.ic_menu_close_clear_cancel;
         @StyleRes
         public int dialogStyle = 0;
-
-        public String searchText;
 
         /**
          * Initial state of the dialog. Will be updated when the dialog is dismissed.
@@ -386,22 +385,15 @@ public class GsSearchOrCustomTextDialog {
             }
         };
 
-        searchEditText.addTextChangedListener(GsTextWatcherAdapter.after(new GsCallback.a1<Editable>() {
-            private Runnable searchTask;
-            private CharSequence searchText = new SpannableString("");
-
-            @Override
-            public void callback(Editable constraint) {
-                if (searchTask == null) {
-                    searchTask = TextViewUtils.makeDebounced(searchEditText.getHandler(), 400, () -> {
-                        listAdapter.filter(searchText);
-                        setSelectAllButtonState.callback();
-                    });
-                }
-                searchText = constraint;
-                searchTask.run();
-            }
-        }));
+        // Filter when the user stops typing if the list is long
+        final Runnable _filterList = () -> {
+            listAdapter.filter(searchEditText.getText());
+            setSelectAllButtonState.callback();
+        };
+        final Runnable _changeListener = dopt.data == null || dopt.data.size() < 1000 ?
+                _filterList :
+                TextViewUtils.makeDebounced(searchEditText.getHandler(), 400, _filterList);
+        searchEditText.addTextChangedListener(GsTextWatcherAdapter.after(e -> _changeListener.run()));
 
         // Ok button only present under these circumstances
         final boolean isSearchOk = dopt.callback != null && dopt.isSearchEnabled;
@@ -435,9 +427,23 @@ public class GsSearchOrCustomTextDialog {
             return false;
         });
 
+        dialog.show();
+
         final Window win = dialog.getWindow();
         if (win != null) {
             WindowCompat.setDecorFitsSystemWindows(win, true);
+
+            win.setLayout(
+                    dopt.dialogWidthDp < 0 ? dopt.dialogWidthDp : GsContextUtils.instance.convertDpToPx(activity, dopt.dialogWidthDp),
+                    dopt.dialogHeightDp < 0 ? dopt.dialogHeightDp : GsContextUtils.instance.convertDpToPx(activity, dopt.dialogHeightDp)
+            );
+
+            final View decorView = win.getDecorView();
+            ViewCompat.setOnApplyWindowInsetsListener(decorView, (view, insets) -> {
+                decorView.requestLayout();
+                listView.post(listView::requestLayout);
+                return insets;
+            });
 
             if (dopt.isSearchEnabled) {
                 if (dopt.isSoftInputVisible) {
@@ -450,15 +456,6 @@ public class GsSearchOrCustomTextDialog {
             }
         }
 
-        dialog.show();
-
-        if (win != null) {
-            win.setLayout(
-                    dopt.dialogWidthDp < 0 ? dopt.dialogWidthDp : GsContextUtils.instance.convertDpToPx(activity, dopt.dialogWidthDp),
-                    dopt.dialogHeightDp < 0 ? dopt.dialogHeightDp : GsContextUtils.instance.convertDpToPx(activity, dopt.dialogHeightDp)
-            );
-        }
-
         final Button neutralButton = dialog.getButton(AlertDialog.BUTTON_NEUTRAL);
         if (neutralButton != null && dopt.neutralButtonText != 0) {
             neutralButton.setVisibility(Button.VISIBLE);
@@ -466,9 +463,6 @@ public class GsSearchOrCustomTextDialog {
 
             if (dopt.neutralButtonCallback != null) {
                 neutralButton.setOnClickListener((button) -> dopt.neutralButtonCallback.callback(dialog));
-            } else if (dopt.neutralButtonCallback2 != null) {
-                // Open search & replace dialog with search text of current search dialog, no need to input it again
-                neutralButton.setOnClickListener((button) -> dopt.neutralButtonCallback2.callback(dialog, searchEditText.getText()));
             }
         }
 
@@ -550,7 +544,7 @@ public class GsSearchOrCustomTextDialog {
                 }
             });
 
-            // listView.setOnItemLongClickListener((parent, view, pos, id) -> directActivate.callback(pos, true));
+            listView.setOnItemLongClickListener((parent, view, pos, id) -> directActivate.callback(pos, true));
         }
     }
 
@@ -637,7 +631,6 @@ public class GsSearchOrCustomTextDialog {
         searchEditText.setTextColor(dopt.textColor);
         searchEditText.setHintTextColor(ColorUtils.setAlphaComponent(dopt.textColor, 0x99));
         searchEditText.setHint(dopt.searchHintText);
-        searchEditText.setText(dopt.searchText);
         searchEditText.setInputType(dopt.searchInputType == 0 ? searchEditText.getInputType() : dopt.searchInputType);
         searchEditText.setTag("EDIT"); // So we can easily find the search edit text
 
@@ -649,7 +642,7 @@ public class GsSearchOrCustomTextDialog {
         final ImageView clearButton = new ImageView(context);
         clearButton.setImageResource(dopt.clearInputIcon);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            RippleDrawable rippleDrawable = new RippleDrawable(AppCompatResources.getColorStateList(context, R.color.accent), null, null);
+            final RippleDrawable rippleDrawable = new RippleDrawable(AppCompatResources.getColorStateList(context, R.color.accent), null, null);
             rippleDrawable.setRadius(60);
             clearButton.setBackground(rippleDrawable);
         }

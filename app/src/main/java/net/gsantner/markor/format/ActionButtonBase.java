@@ -116,7 +116,12 @@ public abstract class ActionButtonBase {
 
     // Override to implement custom search action
     public boolean onSearch() {
-        getTextSearchFragment().show();
+        TextSearchFragment textSearchFragment = getTextSearchFragment();
+        if (textSearchFragment.isShowing()) {
+            textSearchFragment.hide();
+        } else {
+            textSearchFragment.show();
+        }
         return true;
     }
 
@@ -762,7 +767,7 @@ public abstract class ActionButtonBase {
                 return true;
             }
             case R.string.abid_common_web_jump_to_table_of_contents: {
-                if (_appSettings.isMarkdownTableOfContentsEnabled()) {
+                if (_appSettings.isMarkdownTableOfContentsEnabled() && _webView != null) {
                     _webView.loadUrl("javascript:document.getElementsByClassName('toc')[0].scrollIntoView();");
                 } else {
                     runTitleClick();

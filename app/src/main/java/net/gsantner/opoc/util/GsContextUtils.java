@@ -2721,6 +2721,21 @@ public class GsContextUtils {
                     final Window window = context.getWindow();
                     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
                     window.setNavigationBarColor(color);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        final View decorView = window.getDecorView();
+                        final boolean useDarkNavIcons = !shouldColorOnTopBeLight(color);
+                        final WindowInsetsControllerCompat controller = new WindowInsetsControllerCompat(window, decorView);
+                        controller.setAppearanceLightNavigationBars(useDarkNavIcons);
+
+                        // Keep the legacy flag in sync for OEMs that still depend on decor view UI flags.
+                        int systemUiVisibility = decorView.getSystemUiVisibility();
+                        if (useDarkNavIcons) {
+                            systemUiVisibility |= View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
+                        } else {
+                            systemUiVisibility &= ~View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
+                        }
+                        decorView.setSystemUiVisibility(systemUiVisibility);
+                    }
                 }
             } catch (Exception ignored) {
             }

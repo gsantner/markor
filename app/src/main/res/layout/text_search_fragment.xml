@@ -30,17 +30,6 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageButton
-                android:id="@+id/closeImageButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="0dp"
-                android:contentDescription="@string/close"
-                android:minWidth="48dp"
-                android:minHeight="48dp"
-                android:tooltipText="@string/close"
-                app:srcCompat="@drawable/baseline_close_24" />
-
-            <ImageButton
                 android:id="@+id/filterImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

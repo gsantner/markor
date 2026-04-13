@@ -239,7 +239,6 @@ public class TextSearchFragment extends Fragment {
             }
         });
 
-        fragmentView.findViewById(R.id.closeImageButton).setOnClickListener(view -> hide());
         fragmentView.findViewById(R.id.filterImageButton).setOnClickListener(view -> MarkorDialogFactory.showSearchDialog(activity, editText, searchEditText.getText().toString()));
         fragmentView.findViewById(R.id.toggleImageButton).setOnClickListener(view -> toggleFindReplaceLayout(fragmentView));
         fragmentView.findViewById(R.id.previousImageButton).setOnClickListener(view -> textSearchHandler.previous(editText));
@@ -358,6 +357,10 @@ public class TextSearchFragment extends Fragment {
         }
         find2();
         editText.addTextChangedListener(editTextChangedListener);
+    }
+
+    public boolean isShowing() {
+        return isAdded() && !isHidden();
     }
 
     private void clear() {
