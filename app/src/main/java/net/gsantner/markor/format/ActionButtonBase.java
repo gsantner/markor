@@ -107,28 +107,23 @@ public abstract class ActionButtonBase {
 
     private TextSearchViewHolder _textSearchViewHolder;
 
-    public ActionButtonBase setupEditTextSearch(DocumentEditAndViewFragment fragment) {
+    public ActionButtonBase initTextSearch(DocumentEditAndViewFragment fragment) {
         _textSearchViewHolder = new TextSearchViewHolder(fragment, R.id.topViewContainer);
         return this;
     }
 
-    private TextSearchViewHolder getTextSearchViewHolder() {
-        if (_textSearchViewHolder == null) {
-            return null;
-        } else {
-            return _textSearchViewHolder;
-        }
-    }
-
-    // Override to implement custom search action
+    // Overriding this method can implement custom search action
     public boolean onSearch() {
-        TextSearchViewHolder holder = getTextSearchViewHolder();
-        if (holder == null) {
-            return false;
+        if (_textSearchViewHolder != null) {
+            if (_textSearchViewHolder.isShow()) {
+                _textSearchViewHolder.close();
+            } else {
+                _textSearchViewHolder.show();
+            }
+            return true;
         }
 
-        getTextSearchViewHolder().show();
-        return true;
+        return false;
     }
 
     // Override to implement custom title action

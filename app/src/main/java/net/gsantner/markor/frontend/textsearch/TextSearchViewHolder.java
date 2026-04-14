@@ -190,7 +190,6 @@ public class TextSearchViewHolder {
             }
         });
 
-        textSearchView.findViewById(R.id.closeImageButton).setOnClickListener(view -> close());
         textSearchView.findViewById(R.id.filterImageButton).setOnClickListener(view -> MarkorDialogFactory.showSearchDialog(parentFragment.getActivity(), editText, searchEditText.getText().toString()));
         textSearchView.findViewById(R.id.toggleImageButton).setOnClickListener(view -> toggleFindReplaceLayout());
         textSearchView.findViewById(R.id.previousImageButton).setOnClickListener(view -> textSearchHandler.previous(editText));
@@ -302,6 +301,10 @@ public class TextSearchViewHolder {
             find2();
             editText.addTextChangedListener(editTextChangedListener);
         }
+    }
+
+    public boolean isShow() {
+        return textSearchView != null && textSearchView.getVisibility() == View.VISIBLE;
     }
 
     public void clearMatches() {
