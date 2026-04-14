@@ -17,9 +17,11 @@ import androidx.annotation.StringRes;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentActivity;
+import net.gsantner.markor.activity.DocumentEditAndViewFragment;
 import net.gsantner.markor.format.ActionButtonBase;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.textview.AutoTextFormatter;
+import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.format.GsTextUtils;
@@ -86,6 +88,7 @@ public class MarkdownActionButtons extends ActionButtonBase {
         );
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onActionClick(final @StringRes int action) {
         switch (action) {
@@ -161,10 +164,10 @@ public class MarkdownActionButtons extends ActionButtonBase {
      * Not super intelligent about how patterns can be combined.
      * Current regexes just look for the literal delimiters.
      *
-     * @param pattern - Pattern to match if delimiter is present
-     * @param delim   - Delimiter to surround text with
+     * @param pattern   - the pattern to match if delimiter is present
+     * @param delimiter - the delimiter to surround text with
      */
-    private void runLineSurroundAction(final Pattern pattern, final String delim) {
+    private void runLineSurroundAction(final Pattern pattern, final String delimiter) {
         final int[] sel = TextViewUtils.getSelection(_hlEditor);
         if (sel[0] < 0) {
             return;
@@ -173,18 +176,31 @@ public class MarkdownActionButtons extends ActionButtonBase {
         final String lineBefore = sel[0] == sel[1] ? TextViewUtils.getSelectedLines(_hlEditor, sel[0]) : null;
         runRegexReplaceAction(
                 new ReplacePattern(pattern, "$1$2$4$6"),
-                new ReplacePattern(LINE_NONE, "$1$2" + delim + "$3" + delim + "$4")
+                new ReplacePattern(LINE_NONE, "$1$2" + delimiter + "$3" + delimiter + "$4")
         );
 
-        // This logic sets the cursor to the inside of the delimiters if the delimiters were empty
+        // Set the cursor to the inside of the delimiters if the delimiters were empty
+        int delimiterLength = delimiter.length();
         if (lineBefore != null) {
             final String lineAfter = TextViewUtils.getSelectedLines(_hlEditor, sel[0]);
-            final String pair = delim + delim;
+            final String pair = delimiter + delimiter;
             if (lineAfter.length() - lineBefore.length() == pair.length() && lineAfter.trim().endsWith(pair)) {
                 final Editable text = _hlEditor.getText();
                 final int end = TextViewUtils.getLineEnd(text, sel[0]);
-                final int ns = TextViewUtils.getLastNonWhitespace(text, end) - delim.length();
+                final int ns = TextViewUtils.getLastNonWhitespace(text, end) - delimiterLength;
                 _hlEditor.setSelection(ns);
+            }
+            if (lineAfter.length() > lineBefore.length()) {
+                _hlEditor.setSelection(_hlEditor.getSelectionStart() - delimiterLength);
+            } else {
+                _hlEditor.setSelection(_hlEditor.getSelectionStart() + delimiterLength);
+            }
+        } else { // Offset selection if text is selected
+            int newSelectionStart = _hlEditor.getSelectionStart();
+            if (sel[0] < newSelectionStart) {
+                _hlEditor.setSelection(sel[0] + delimiterLength, sel[1] + delimiterLength);
+            } else {
+                _hlEditor.setSelection(sel[0] - delimiterLength, sel[1] - delimiterLength);
             }
         }
     }
@@ -333,5 +349,73 @@ public class MarkdownActionButtons extends ActionButtonBase {
     @Override
     protected void renumberOrderedList() {
         AutoTextFormatter.renumberOrderedList(_hlEditor.getText(), MarkdownReplacePatternGenerator.formatPatterns);
+    }
+
+    private void underline() {
+        runSurroundAction("<u>", "</u>", false);
+    }
+
+    private void mark() {
+        runSurroundAction("<mark>", "</mark>", false);
+    }
+
+    private void mathBlock() {
+        int selectionStart = _hlEditor.getSelectionStart();
+        _hlEditor.insertOrReplaceTextOnCursor("$$\n\n$$\n");
+        _hlEditor.setSelection(selectionStart + 3);
+    }
+
+    @Override
+    public boolean onKeyPress(Object source, int keyCode, KeyEvent event, DocumentEditAndViewFragment fragment) {
+        if (source instanceof HighlightingEditor) {
+            if (event.isCtrlPressed()) {
+                if (event.isShiftPressed()) {
+                    if (keyCode == KeyEvent.KEYCODE_I) {
+                        onActionClick(R.string.abid_common_insert_image);
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_K) {
+                        onActionLongClick(R.string.abid_markdown_code_inline);
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_L) {
+                        onActionClick(R.string.abid_common_insert_link);
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_M) {
+                        mathBlock();
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_GRAVE) {
+                        onActionClick(R.string.abid_markdown_strikeout);
+                        return true;
+                    }
+                } else {
+                    if (keyCode == KeyEvent.KEYCODE_1) {
+                        onActionClick(R.string.abid_markdown_h1);
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_2) {
+                        onActionClick(R.string.abid_markdown_h2);
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_3) {
+                        onActionClick(R.string.abid_markdown_h3);
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_B) {
+                        onActionClick(R.string.abid_markdown_bold);
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_I) {
+                        onActionClick(R.string.abid_markdown_italic);
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_M) {
+                        mark();
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_T) {
+                        onActionClick(R.string.abid_markdown_table_insert_columns);
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_U) {
+                        underline();
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return super.onKeyPress(source, keyCode, event, fragment);
     }
 }

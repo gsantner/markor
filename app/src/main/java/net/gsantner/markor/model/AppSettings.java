@@ -422,6 +422,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
 
     private static final String PREF_PREFIX_EDIT_POS_CHAR = "PREF_PREFIX_EDIT_POS_CHAR";
     private static final String PREF_PREFIX_EDIT_SCROLL_Y = "PREF_PREFIX_EDIT_SCROLL_Y";
+    private static final String PREF_PREFIX_EDIT_HEIGHT = "PREF_PREFIX_EDIT_HEIGHT";
     private static final String PREF_PREFIX_WRAP_STATE = "PREF_PREFIX_WRAP_STATE";
     private static final String PREF_PREFIX_HIGHLIGHT_STATE = "PREF_PREFIX_HIGHLIGHT_STATE";
     private static final String PREF_PREFIX_PREVIEW_STATE = "PREF_PREFIX_PREVIEW_STATE";
@@ -429,8 +430,8 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     private static final String PREF_PREFIX_FONT_SIZE = "PREF_PREFIX_FONT_SIZE";
     private static final String PREF_PREFIX_FILE_FORMAT = "PREF_PREFIX_FILE_FORMAT";
     private static final String PREF_PREFIX_AUTO_FORMAT = "PREF_PREFIX_AUTO_FORMAT";
-    private static final String PREF_PREFIX_VIEW_SCROLL_X = "PREF_PREFIX_VIEW_SCROLL_X";
     private static final String PREF_PREFIX_VIEW_SCROLL_Y = "PREF_PREFIX_VIEW_SCROLL_Y";
+    private static final String PREF_PREFIX_VIEW_HEIGHT = "PREF_PREFIX_VIEW_HEIGHT";
     private static final String PREF_PREFIX_TODO_DONE_NAME = "PREF_PREFIX_TODO_DONE_NAME";
     private static final String PREF_PREFIX_LINE_NUM_STATE = "PREF_PREFIX_LINE_NUM_STATE";
     private static final String PREF_PREFIX_VIEW_FONT_SIZE = "PREF_PREFIX_VIEW_FONT_SIZE";
@@ -462,6 +463,20 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         }
     }
 
+    public void setLastEditHeight(final String path, final int height) {
+        if (fexists(path)) {
+            setInt(PREF_PREFIX_EDIT_HEIGHT + path, height);
+        }
+    }
+
+    public int getLastEditHeight(final String path, final int def) {
+        if (!fexists(path)) {
+            return def;
+        } else {
+            return getInt(PREF_PREFIX_EDIT_HEIGHT + path, def);
+        }
+    }
+
     public int getLastEditPosition(final String path, final int def) {
         if (!fexists(path)) {
             return def;
@@ -470,21 +485,39 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         }
     }
 
-    public int getLastEditScrollY(final String path, final int defaultValue) {
+    public int getLastEditScrollY(final String path, final int def) {
         if (!fexists(path)) {
-            return defaultValue;
+            return def;
         } else {
-            return getInt(PREF_PREFIX_EDIT_SCROLL_Y + path, defaultValue);
+            return getInt(PREF_PREFIX_EDIT_SCROLL_Y + path, def);
         }
     }
 
-    public void setLastViewPosition(File file, int scrollX, int scrollY) {
-        if (file == null || !file.exists()) {
-            return;
+    public void setLastViewScrollY(final String path, final int scrollY) {
+        if (fexists(path)) {
+            setInt(PREF_PREFIX_VIEW_SCROLL_Y + path, scrollY);
         }
-        if (!file.equals(getTodoFile()) && !file.equals(getQuickNoteFile())) {
-            setInt(PREF_PREFIX_VIEW_SCROLL_X + GsFileUtils.getPath(file), scrollX, _prefCache);
-            setInt(PREF_PREFIX_VIEW_SCROLL_Y + GsFileUtils.getPath(file), scrollY, _prefCache);
+    }
+
+    public int getLastViewScrollY(final String path, final int def) {
+        if (!fexists(path)) {
+            return def;
+        } else {
+            return getInt(PREF_PREFIX_VIEW_SCROLL_Y + path, def);
+        }
+    }
+
+    public void setLastViewHeight(final String path, final int height) {
+        if (fexists(path)) {
+            setInt(PREF_PREFIX_VIEW_HEIGHT + path, height);
+        }
+    }
+
+    public int getLastViewHeight(final String path, final int def) {
+        if (!fexists(path)) {
+            return def;
+        } else {
+            return getInt(PREF_PREFIX_VIEW_HEIGHT + path, def);
         }
     }
 
@@ -605,20 +638,6 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     public boolean getDocumentHighlightState(final String path, final CharSequence chars) {
         final boolean lengthOk = chars != null && chars.length() < (_isDeviceGoodHardware ? 100000 : 35000);
         return getBool(PREF_PREFIX_HIGHLIGHT_STATE + path, lengthOk && isHighlightingEnabled());
-    }
-
-    public int getLastViewPositionX(File file) {
-        if (file == null || !file.exists()) {
-            return -1;
-        }
-        return getInt(PREF_PREFIX_VIEW_SCROLL_X + GsFileUtils.getPath(file), -3, _prefCache);
-    }
-
-    public int getLastViewPositionY(File file) {
-        if (file == null || !file.exists()) {
-            return -1;
-        }
-        return getInt(PREF_PREFIX_VIEW_SCROLL_Y + GsFileUtils.getPath(file), -3, _prefCache);
     }
 
     private List<String> getPopularDocumentsSorted() {

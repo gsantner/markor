@@ -44,7 +44,7 @@ public class GsSimpleMarkdownParser {
     public final static SmpFilter FILTER_ANDROID_TEXTVIEW = new SmpFilter() {
         @Override
         public String filter(String text) {
-            // TextView supports a limited set of html tags, most notably
+            // TextView supports a limited set of HTML tags, most notably
             // a href, b, big, font size&color, i, li, small, u
 
             // Don't start new line if 2 empty lines and heading
@@ -62,8 +62,8 @@ public class GsSimpleMarkdownParser {
                     .replaceAll("!\\[(.*?)\\]\\((.*?)\\)", "<a href=\\'$2\\'>$1</a>") // img
                     .replaceAll("\\[(.*?)\\]\\((.*?)\\)", "<a href=\\'$2\\'>$1</a>") // a href (DEP: img)
                     .replaceAll("<http(s?):\\/\\/(.*)>", "<a href='http$1://$2'>$1://$2</a>") // a href (DEP: img)
-                    .replaceAll("(?m)^([-*] )(.*)$", "<font color='#000001'>&#8226;</font> $2<br/>") // unordered list + end line
-                    .replaceAll("(?m)^  (-|\\*) ([^<]*)$", "&nbsp;&nbsp;<font color='#000001'>&#8226;</font> $2<br/>") // unordered list2 + end line
+                    .replaceAll("(?m)^([-*] )(.*)$", "<font color='#000000'>&#8226;</font> $2<br/>") // unordered list + end line
+                    .replaceAll("(?m)^  (-|\\*) ([^<]*)$", "&nbsp;&nbsp;<font color='#000000'>&#8226;</font> $2<br/>") // unordered list2 + end line
                     .replaceAll("`([^<]*)`", "<font face='monospace'>$1</font>") // code
                     .replace("\\*", "●") // temporary replace escaped star symbol
                     .replaceAll("(?m)\\*\\*(.*)\\*\\*", "<b>$1</b>") // bold (DEP: temp star)

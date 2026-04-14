@@ -3,8 +3,8 @@ package net.gsantner.markor.frontend.textsearch;
 import androidx.appcompat.app.AppCompatDelegate;
 
 public class Selection {
-    public static final int COLOR = 0x605050FF;
-    public static final int COLOR_DARK = 0x609090FF;
+    public static final int COLOR = 0x335050FF;
+    public static final int COLOR_DARK = 0x409090FF;
 
     private int start; // Start index
     private int end; // End index

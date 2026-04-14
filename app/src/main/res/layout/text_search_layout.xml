@@ -4,12 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="start"
-    android:layout_marginStart="5dp"
-    android:layout_marginTop="4dp"
-    android:layout_marginEnd="5dp"
-    android:layout_marginBottom="4dp"
-    android:background="@drawable/text_search_fragment_background"
-    android:elevation="5dp"
+    android:background="@drawable/text_search_layout_background"
     android:minWidth="300dp">
 
     <LinearLayout
@@ -30,17 +25,6 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageButton
-                android:id="@+id/closeImageButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="0dp"
-                android:contentDescription="@string/close"
-                android:minWidth="48dp"
-                android:minHeight="48dp"
-                android:tooltipText="@string/close"
-                app:srcCompat="@drawable/baseline_close_24" />
-
-            <ImageButton
                 android:id="@+id/filterImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -54,10 +38,10 @@
                 android:id="@+id/findInSelectionImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/find_in_selection"
+                android:contentDescription="@string/mark_text_search_range"
                 android:minWidth="48dp"
                 android:minHeight="48dp"
-                android:tooltipText="@string/find_in_selection"
+                android:tooltipText="@string/mark_text_search_range"
                 app:srcCompat="@drawable/ic_list_selection_24dp" />
 
             <ImageButton
@@ -132,25 +116,12 @@
                         android:importantForAutofill="no"
                         android:inputType="text"
                         android:minHeight="48dp"
-                        android:nextFocusRight="@id/searchEditText"
-                        android:nextFocusDown="@id/searchEditText"
                         android:textSize="16sp" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
-
-                        <ImageView
-                            android:id="@+id/newLineSearchTextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:background="?attr/selectableItemBackground"
-                            android:contentDescription="@string/new_line"
-                            android:padding="1dp"
-                            android:src="@drawable/ic_new_line_24dp"
-                            android:tooltipText="@string/new_line" />
 
                         <ImageView
                             android:id="@+id/clearSearchTextView"

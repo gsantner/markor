@@ -8,8 +8,9 @@ import net.gsantner.markor.frontend.textview.SyntaxHighlighterBase;
 public class Match {
     public static final @ColorInt int MATCH_COLOR = 0x80FFCC00;
     public static final @ColorInt int ACTIVE_MATCH_COLOR = 0x80FF0000;
-    public static final @ColorInt int MATCH_COLOR_DARK = 0x80FFBB00;
-    public static final @ColorInt int ACTIVE_MATCH_COLOR_DARK = 0x80FF0000;
+
+    public static final @ColorInt int MATCH_COLOR_DARK = 0x80FFD700;
+    public static final @ColorInt int ACTIVE_MATCH_COLOR_DARK = 0x80FF4500;
 
     public SyntaxHighlighterBase.SpanGroup spanGroup;
     private final SyntaxHighlighterBase.HighlightSpan span;
