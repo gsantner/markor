@@ -9,6 +9,7 @@ package net.gsantner.markor.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -458,6 +459,37 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                 }
 
                 @Override
+                public void onFsViewerDoUiUpdate(final GsFileBrowserListAdapter adapter) {
+                    final boolean validTargetFolder = adapter.isCurrentFolderWriteable() && !adapter.isCurrentFolderVirtual();
+                    if (_dopt != null && _dopt.dialogInterface instanceof Dialog) {
+                        final Dialog dialog = (Dialog) _dopt.dialogInterface;
+                        final View createButton = dialog.findViewById(R.id.ui__filesystem_dialog__button_ok);
+                        final View saveButton = dialog.findViewById(R.id.ui__filesystem_dialog__button_neutral);
+                        final View newDirButton = dialog.findViewById(R.id.ui__filesystem_dialog__new_dir);
+
+                        if (createButton != null) {
+                            createButton.setEnabled(validTargetFolder);
+                            createButton.setAlpha(validTargetFolder ? 1f : 0.5f);
+                        }
+                        if (saveButton != null) {
+                            saveButton.setEnabled(validTargetFolder);
+                            saveButton.setAlpha(validTargetFolder ? 1f : 0.5f);
+                        }
+                        if (newDirButton != null) {
+                            newDirButton.setEnabled(validTargetFolder);
+                            newDirButton.setAlpha(validTargetFolder ? 1f : 0.5f);
+                        }
+                    }
+                }
+
+                @Override
+                public void onFsViewerFolderLoad(final File newFolder) {
+                    if (_dopt != null && _dopt.setSubtitle != null) {
+                        _dopt.setSubtitle.callback(newFolder == null ? "" : newFolder.getPath());
+                    }
+                }
+
+                @Override
                 public void onFsViewerCancel(final String request) {
                     // Will cause the dialog to dismiss after this callback
                     _dopt.dismissAfterCallback = true;
@@ -465,7 +497,9 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
 
                 @Override
                 public void onFsViewerNeutralButtonPressed(final File currentFolder) {
-                    attachOrCopyAndClose(currentFolder, true);
+                    if (currentFolder != null && currentFolder.canWrite() && !GsFileBrowserListAdapter.isVirtualFolder(currentFolder)) {
+                        attachOrCopyAndClose(currentFolder, true);
+                    }
                 }
             }, getParentFragmentManager(), getActivity(), MarkorFileBrowserFactory.IsMimeText);
         }
