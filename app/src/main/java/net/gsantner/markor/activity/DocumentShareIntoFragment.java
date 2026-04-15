@@ -428,6 +428,24 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             return TextUtils.join("", parts);
         }
 
+        private String getInvalidTargetReason(final boolean isVirtualFolder, final boolean isWriteableFolder) {
+            if (isVirtualFolder) {
+                return "Cannot save here: folder is virtual";
+            }
+            if (!isWriteableFolder) {
+                return "Cannot save here: folder is not writable";
+            }
+            return null;
+        }
+
+        private void updateDestinationSubtitle(final @Nullable GsFileBrowserOptions.Options dopt, final @Nullable File folder, final boolean isVirtualFolder, final boolean isWriteableFolder) {
+            if (dopt == null || dopt.setSubtitle == null) {
+                return;
+            }
+            final String reason = getInvalidTargetReason(isVirtualFolder, isWriteableFolder);
+            dopt.setSubtitle.callback(reason != null ? reason : (folder == null ? "" : folder.getPath()));
+        }
+
         private void selectOrCreateDestination(final @Nullable File startFolder) {
             MarkorFileBrowserFactory.showFileDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
                 GsFileBrowserOptions.Options _dopt = null;
@@ -460,7 +478,9 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
 
                 @Override
                 public void onFsViewerDoUiUpdate(final GsFileBrowserListAdapter adapter) {
-                    final boolean validTargetFolder = adapter.isCurrentFolderWriteable() && !adapter.isCurrentFolderVirtual();
+                    final boolean isVirtualFolder = adapter.isCurrentFolderVirtual();
+                    final boolean isWriteableFolder = adapter.isCurrentFolderWriteable();
+                    final boolean validTargetFolder = isWriteableFolder && !isVirtualFolder;
                     if (_dopt != null && _dopt.dialogInterface instanceof Dialog) {
                         final Dialog dialog = (Dialog) _dopt.dialogInterface;
                         final View createButton = dialog.findViewById(R.id.ui__filesystem_dialog__button_ok);
@@ -473,19 +493,21 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                         }
                         if (saveButton != null) {
                             saveButton.setEnabled(validTargetFolder);
+                            saveButton.setTooltipText(validTargetFolder ? null : getInvalidTargetReason(isVirtualFolder, isWriteableFolder));
                         }
                         if (newDirButton != null) {
                             newDirButton.setEnabled(validTargetFolder);
                             newDirButton.setVisibility(validTargetFolder ? View.VISIBLE : View.GONE);
                         }
                     }
+                    updateDestinationSubtitle(_dopt, adapter.getCurrentFolder(), isVirtualFolder, isWriteableFolder);
                 }
 
                 @Override
                 public void onFsViewerFolderLoad(final File newFolder) {
-                    if (_dopt != null && _dopt.setSubtitle != null) {
-                        _dopt.setSubtitle.callback(newFolder == null ? "" : newFolder.getPath());
-                    }
+                    final boolean isVirtualFolder = GsFileBrowserListAdapter.isVirtualFolder(newFolder);
+                    final boolean isWriteableFolder = newFolder != null && newFolder.canWrite();
+                    updateDestinationSubtitle(_dopt, newFolder, isVirtualFolder, isWriteableFolder);
                 }
 
                 @Override
