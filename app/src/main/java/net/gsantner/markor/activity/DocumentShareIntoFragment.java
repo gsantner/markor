@@ -437,16 +437,6 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             return folder != null && !GsFileBrowserListAdapter.isVirtualFolder(folder) && isWriteableTargetFolder(dopt, folder);
         }
 
-        private String getInvalidTargetReason(final boolean isVirtualFolder, final boolean isWriteableFolder) {
-            if (isVirtualFolder) {
-                return "Cannot save here: folder is virtual";
-            }
-            if (!isWriteableFolder) {
-                return "Cannot save here: folder is not writable";
-            }
-            return null;
-        }
-
         private void selectOrCreateDestination(final @Nullable File startFolder) {
             MarkorFileBrowserFactory.showFileDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
                 GsFileBrowserOptions.Options _dopt = null;
@@ -496,7 +486,6 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                         if (saveButton != null) {
                             saveButton.setEnabled(true);
                             saveButton.setAlpha(validTargetFolder ? 1f : 0.5f);
-                            saveButton.setTooltipText(validTargetFolder ? null : getInvalidTargetReason(isVirtualFolder, isWriteableFolder));
                         }
                         if (newDirButton != null) {
                             newDirButton.setEnabled(validTargetFolder);
