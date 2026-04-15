@@ -469,15 +469,14 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
 
                         if (createButton != null) {
                             createButton.setEnabled(validTargetFolder);
-                            createButton.setAlpha(validTargetFolder ? 1f : 0.5f);
+                            createButton.setVisibility(validTargetFolder ? View.VISIBLE : View.GONE);
                         }
                         if (saveButton != null) {
                             saveButton.setEnabled(validTargetFolder);
-                            saveButton.setAlpha(validTargetFolder ? 1f : 0.5f);
                         }
                         if (newDirButton != null) {
                             newDirButton.setEnabled(validTargetFolder);
-                            newDirButton.setAlpha(validTargetFolder ? 1f : 0.5f);
+                            newDirButton.setVisibility(validTargetFolder ? View.VISIBLE : View.GONE);
                         }
                     }
                 }
