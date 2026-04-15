@@ -447,14 +447,6 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             return null;
         }
 
-        private void updateDestinationSubtitle(final @Nullable GsFileBrowserOptions.Options dopt, final @Nullable File folder, final boolean isVirtualFolder, final boolean isWriteableFolder) {
-            if (dopt == null || dopt.setSubtitle == null) {
-                return;
-            }
-            final String reason = getInvalidTargetReason(isVirtualFolder, isWriteableFolder);
-            dopt.setSubtitle.callback(reason != null ? reason : (folder == null ? "" : folder.getPath()));
-        }
-
         private void selectOrCreateDestination(final @Nullable File startFolder) {
             MarkorFileBrowserFactory.showFileDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
                 GsFileBrowserOptions.Options _dopt = null;
@@ -511,14 +503,6 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                             newDirButton.setVisibility(validTargetFolder ? View.VISIBLE : View.GONE);
                         }
                     }
-                    updateDestinationSubtitle(_dopt, currentFolder, isVirtualFolder, isWriteableFolder);
-                }
-
-                @Override
-                public void onFsViewerFolderLoad(final File newFolder) {
-                    final boolean isVirtualFolder = GsFileBrowserListAdapter.isVirtualFolder(newFolder);
-                    final boolean isWriteableFolder = isWriteableTargetFolder(_dopt, newFolder);
-                    updateDestinationSubtitle(_dopt, newFolder, isVirtualFolder, isWriteableFolder);
                 }
 
                 @Override
