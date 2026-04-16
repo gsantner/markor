@@ -99,6 +99,8 @@ app/src/main/res/raw/readme.*
 app/src/main/res/raw/contributors.*
 app/flavor*
 
+cm-editor/node_modules/
+
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
 !gradle-wrapper.jar
 
