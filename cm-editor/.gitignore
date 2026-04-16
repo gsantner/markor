@@ -2,7 +2,7 @@
 *.log
 npm-debug.log*
 
-# Editor
+# Editors
 .vscode/*
 !.vscode/extensions.json
 .idea
