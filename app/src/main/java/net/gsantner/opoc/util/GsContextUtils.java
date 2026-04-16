@@ -46,6 +46,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.AdaptiveIconDrawable;
 import android.graphics.drawable.BitmapDrawable;
@@ -124,6 +125,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.documentfile.provider.DocumentFile;
+import androidx.fragment.app.FragmentActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.preference.PreferenceManager;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
@@ -618,7 +620,6 @@ public class GsContextUtils {
         return (Math.max(0, Math.min(255, a)) << 24) | (Math.max(0, Math.min(255, r)) << 16) | (Math.max(0, Math.min(255, g)) << 8) | Math.max(0, Math.min(255, b));
     }
 
-
     /**
      * Convert a html string to an android {@link Spanned} object
      */
@@ -644,6 +645,46 @@ public class GsContextUtils {
      */
     public int convertDpToPx(final Context context, final float dp) {
         return (int) (dp * context.getResources().getDisplayMetrics().density);
+    }
+
+    public static DisplayMetrics getDisplayMetrics(final FragmentActivity activity) {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        return displayMetrics;
+    }
+
+    public static int calculateWidth(DisplayMetrics displayMetrics, float ratio, int maxWidth) {
+        int width = (int) (displayMetrics.widthPixels * ratio);
+        return width > maxWidth ? maxWidth : width;
+    }
+
+    public static int calculateHeight(DisplayMetrics displayMetrics, float ratio, int maxHeight) {
+        int height = (int) (displayMetrics.heightPixels * ratio);
+        return height > maxHeight ? maxHeight : height;
+    }
+
+    /**
+     * Calculate size for dialogs.
+     * It can automatically adapt to landscape and portrait screens.
+     *
+     * @param displayMetrics  the display metrics
+     * @param horizontalRatio the horizontal ratio
+     * @param horizontalMax   the max horizontal size
+     * @param verticalRatio   the vertical ratio
+     * @param verticalMax     the max vertical size
+     * @return the dialog size
+     */
+    public static Point calculateDialogSize(DisplayMetrics displayMetrics,
+                                            float horizontalRatio, int horizontalMax,
+                                            float verticalRatio, int verticalMax) {
+        int horizontalSize = GsContextUtils.calculateWidth(displayMetrics, horizontalRatio, horizontalMax);
+        int verticalSize = GsContextUtils.calculateHeight(displayMetrics, verticalRatio, verticalMax);
+
+        if (horizontalSize < verticalSize) { // Portrait
+            return new Point(horizontalSize, verticalSize);
+        } else { // Landscape
+            return new Point(verticalSize, horizontalSize);
+        }
     }
 
     /**

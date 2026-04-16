@@ -173,7 +173,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         _virtualMapping.put(VIRTUAL_STORAGE_FAVOURITE, VIRTUAL_STORAGE_FAVOURITE);
 
         _virtualMapping.putAll(_dopt.storageMaps);
-
     }
 
     @NonNull
@@ -189,6 +188,10 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
     public boolean isFileWriteable(File file, boolean isGoUp) {
         return file != null && (canWrite(file) || isGoUp || _virtualMapping.containsKey(file));
+    }
+
+    public int getPosition(File file) {
+        return file == null ? -1 : _adapterDataFiltered.indexOf(file);
     }
 
     @Override
@@ -411,7 +414,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
         switch (view.getId()) {
             case R.id.opoc_filesystem_item__root: {
-                // A own item was clicked
+                // An own item was clicked
                 if (data.file != null) {
                     if (areItemsSelected()) {
                         // There are 1 or more items selected yet
@@ -474,6 +477,10 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             }
         }
         _dopt.listener.onFsViewerDoUiUpdate(this);
+    }
+
+    public int getCurrentSelectionSize() {
+        return _currentSelection.size();
     }
 
     public boolean areItemsSelected() {
@@ -686,7 +693,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
     // This function is not called on the main thread
     private synchronized void _loadFolder(final boolean folderChanged, final @Nullable File toShow) {
-
         final List<File> newData = new ArrayList<>();
 
         // Make sure /storage/emulated/0 is browsable, even though filesystem says it's not accessible
@@ -722,10 +728,10 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
         // Don't sort recent or virtual root items - use the default order
         if (isCurrentFolderSortable()) {
-            GsFileUtils.sortFiles(newData, _dopt.sortOrder);
+            GsFileUtils.sortFiles(newData, _dopt.sortOrder, _dopt.favouriteFiles);
         }
 
-        // Testing if modtimes have changed (modtimes generally only increase)
+        // Testing if mod-time have changed (mod-time generally only increase)
         final long modSum = GsCollectionUtils.accumulate(newData, (f, s) -> s + f.lastModified(), 0L);
         final boolean modSumChanged = modSum != _prevModSum;
 

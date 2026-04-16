@@ -603,7 +603,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             }
             case R.id.action_info: {
                 if (saveDocument(false)) { // In order to have the correct info displayed
-                    FileInfoDialog.show(_document.file, getParentFragmentManager());
+                    FileInfoDialog.show(_document.file, getParentFragmentManager(), null);
                 }
                 return true;
             }

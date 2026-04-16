@@ -27,6 +27,7 @@ import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.CharArrayWriter;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -38,6 +39,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
@@ -70,6 +72,8 @@ import java.util.zip.CRC32;
 
 @SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "SpellCheckingInspection"})
 public class GsFileUtils {
+    public static final String DEFAULT_CHARSET = "UTF-8";
+
     @SuppressLint("ConstantLocale")
     public final static Locale INITIAL_LOCALE = Locale.getDefault();
     public final static SimpleDateFormat DATEFORMAT_IMG = new SimpleDateFormat("yyyyMMdd-HHmmss", INITIAL_LOCALE); //20190511-230845
@@ -152,6 +156,57 @@ public class GsFileUtils {
         }
 
         return "";
+    }
+
+    /**
+     * Byte input stream -> Character array.
+     *
+     * @param inputStream Byte input stream
+     * @param charset     Character code
+     * @return Character array
+     */
+    public static char[] readChars(InputStream inputStream, String charset) {
+        char[] chars = null;
+        try {
+            InputStreamReader inputStreamReader;
+            if (charset == null) {
+                inputStreamReader = new InputStreamReader(inputStream);
+            } else {
+                inputStreamReader = new InputStreamReader(inputStream, charset);
+            }
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            char[] buffer = new char[BUFFER_SIZE];
+            int length;
+            CharArrayWriter charArrayWriter = new CharArrayWriter();
+            while ((length = bufferedReader.read(buffer)) != -1) {
+                charArrayWriter.write(buffer, 0, length);
+            }
+            charArrayWriter.flush();
+            bufferedReader.close();
+            inputStreamReader.close();
+            inputStream.close();
+
+            chars = charArrayWriter.toCharArray();
+            charArrayWriter.close();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return chars;
+    }
+
+    /**
+     * Byte input stream -> Character array.
+     *
+     * @return Character array
+     */
+    public static char[] readChars(InputStream inputStream) {
+        return readChars(inputStream, DEFAULT_CHARSET);
+    }
+
+    public static String readText(InputStream inputStream) {
+        return String.valueOf(readChars(inputStream));
     }
 
     public static String readCloseTextStream(final InputStream stream) {
@@ -575,7 +630,7 @@ public class GsFileUtils {
             while ((line = br.readLine()) != null) {
                 numLines.getAndIncrement();
                 numCharacters.getAndSet(numCharacters.get() + line.length());
-                if (!line.equals("")) {
+                if (!line.isEmpty()) {
                     numWords.getAndSet(numWords.get() + line.split("\\s+").length);
                 }
             }
@@ -595,7 +650,7 @@ public class GsFileUtils {
     }
 
     /**
-     * Format filesize to human readable format
+     * Format filesize to human-readable format
      * Get size in bytes e.g. from {@link File} using {@code File#length()}
      */
     public static String getReadableFileSize(long size, boolean abbreviation) {
@@ -604,7 +659,7 @@ public class GsFileUtils {
         }
         String[] units = abbreviation ? new String[]{"B", "kB", "MB", "GB", "TB"} : new String[]{"Bytes", "Kilobytes", "Megabytes", "Gigabytes", "Terabytes"};
         int unit = (int) (Math.log10(size) / Math.log10(1024));
-        return new DecimalFormat("#,##0.#", DecimalFormatSymbols.getInstance(Locale.ENGLISH)).format(size / Math.pow(1024, unit)) + " " + units[unit];
+        return new DecimalFormat("#,##0.##", DecimalFormatSymbols.getInstance(Locale.ENGLISH)).format(size / Math.pow(1024, unit)) + " " + units[unit];
     }
 
     public static int[] getTimeDiffHMS(long now, long past) {
@@ -706,7 +761,7 @@ public class GsFileUtils {
         return alg.getValue();
     }
 
-    // Return true if the target file exists, false if there is an issue with the file or it's parent directories
+    // Return true if the target file exists, false if there is an issue with the file, or it's parent directories
     public static boolean fileExists(final File checkFile, boolean... caseInsensitive) {
         boolean isAndroid = System.getProperty("java.specification.vendor").contains("Android");
         boolean sensitive = !isAndroid && (caseInsensitive == null || caseInsensitive.length == 0 || !caseInsensitive[0]);
@@ -782,7 +837,7 @@ public class GsFileUtils {
     public static final String SORT_BY_NAME = "NAME", SORT_BY_FILESIZE = "FILESIZE", SORT_BY_MTIME = "MTIME", SORT_BY_MIMETYPE = "MIMETYPE";
 
     /**
-     * Get a key which can be use to sort File objects
+     * Get a key which can be used to sort File objects
      * This is highly performant as each file is processed exactly once.
      * Inspired by python's sort
      *
@@ -814,12 +869,14 @@ public class GsFileUtils {
         public boolean reverse = false;
         public boolean showDotFiles = false;
         public boolean folderFirst = true;
+        public boolean favoriteFirst = false;
         public boolean isFolderLocal = false;
 
         private final static String SORT_BY_KEY = "SORT_BY";
         private final static String REVERSE_KEY = "REVERSE";
         private final static String SHOW_DOT_FILES_KEY = "SHOW_DOT_FILES";
         private final static String FOLDER_FIRST_KEY = "FOLDER_FIRST";
+        private final static String FAVORITE_FIRST_KEY = "FAVORITE_FIRST";
 
         @NonNull
         @Override
@@ -829,6 +886,7 @@ public class GsFileUtils {
             map.put(REVERSE_KEY, String.valueOf(reverse));
             map.put(SHOW_DOT_FILES_KEY, String.valueOf(showDotFiles));
             map.put(FOLDER_FIRST_KEY, String.valueOf(folderFirst));
+            map.put(FAVORITE_FIRST_KEY, String.valueOf(favoriteFirst));
             return GsTextUtils.mapToJsonString(map);
         }
 
@@ -839,11 +897,12 @@ public class GsFileUtils {
             fso.reverse = Boolean.parseBoolean(GsCollectionUtils.getOrDefault(map, REVERSE_KEY, "false"));
             fso.showDotFiles = Boolean.parseBoolean(GsCollectionUtils.getOrDefault(map, SHOW_DOT_FILES_KEY, "false"));
             fso.folderFirst = Boolean.parseBoolean(GsCollectionUtils.getOrDefault(map, FOLDER_FIRST_KEY, "true"));
+            fso.favoriteFirst = Boolean.parseBoolean(GsCollectionUtils.getOrDefault(map, FAVORITE_FIRST_KEY, "false"));
             return fso;
         }
     }
 
-    public static void sortFiles(final Collection<File> filesToSort, final SortOrder order) {
+    public static void sortFiles(final Collection<File> filesToSort, final SortOrder order, Collection<File> favouriteFiles) {
         if (filesToSort != null && !filesToSort.isEmpty()) {
             try {
                 final boolean copy = !(filesToSort instanceof List);
@@ -855,6 +914,18 @@ public class GsFileUtils {
                 }
                 if (order.folderFirst) {
                     GsCollectionUtils.keySort(sortable, (f) -> !f.isDirectory());
+                }
+                if (order.favoriteFirst && favouriteFiles != null) {
+                    List<File> pinnedFiles = new ArrayList<>(); // Files should be pinned to top
+                    for (File file : sortable) {
+                        if (favouriteFiles.contains(file)) {
+                            pinnedFiles.add(file);
+                        }
+                    }
+                    if (pinnedFiles.size() > 0) {
+                        sortable.removeAll(pinnedFiles);
+                        sortable.addAll(0, pinnedFiles);
+                    }
                 }
 
                 if (copy) {

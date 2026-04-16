@@ -401,13 +401,13 @@
             android:title="@string/swipe_to_change_mode" />
 
         <PreferenceCategory android:title="@string/inject">
-            <androidx.preference.EditTextPreference
+            <net.gsantner.markor.frontend.AdvancedEditTextPreference
                 android:defaultValue="@string/inject_to_head_default"
                 android:icon="@drawable/ic_add_white_24dp"
                 android:key="@string/pref_key__inject_to_head"
                 android:summary="@string/js_css"
                 android:title="@string/inject_to_head" />
-            <androidx.preference.EditTextPreference
+            <net.gsantner.markor.frontend.AdvancedEditTextPreference
                 android:defaultValue="@string/empty_string"
                 android:icon="@drawable/ic_add_white_24dp"
                 android:key="@string/pref_key__inject_to_body"
@@ -416,10 +416,11 @@
 
         <PreferenceCategory android:title="@string/text">
             <com.rarepebble.colorpicker.ColorPreference
-                android:defaultValue="@color/default_link_color"
+                android:defaultValue="@color/default_link_text_color"
+                android:dialogMessage="@color/default_link_text_color"
                 android:icon="@drawable/ic_format_underlined_black_24dp"
                 android:key="@string/pref_key__view_mode_link_color"
-                android:title="@string/link_color" />
+                android:title="@string/link_text_color" />
             <CheckBoxPreference
                 android:defaultValue="false"
                 android:icon="@drawable/ic_format_textdirection_r_to_l_black_24dp"
@@ -431,7 +432,7 @@
                 android:icon="@drawable/ic_format_size_black_24dp"
                 android:key="@string/pref_key__view_font_size"
                 android:max="36"
-                android:summary="-1 => Editor"
+                android:summary="@string/font_size_follow_editor"
                 android:title="@string/font_size"
                 app:min="-1"
                 app:showSeekBarValue="true" />

@@ -22,7 +22,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="browse_filesystem">Browse filesystem</string>
     <string name="title">Title</string>
     <string name="empty_directory">Empty directory</string>
-    <string name="enter_name_of_folder">Enter the name of your folder</string>
     <string name="create_folder">Create Folder</string>
     <string name="create_new_document">Create new document</string>
     <string name="move">Move</string>
@@ -58,10 +57,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file">File</string>
     <string name="image">Image</string>
     <string name="font_size">Font Size</string>
+    <string name="font_size_follow_editor">-1: Follow the font size of editor</string>
     <string name="render_rtl_language">Render for right-to-left languages</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Error: Cannot create notebook directory</string>
 
-    <string name="last_modified_witharg">Last modified: %s</string>
+    <string name="last_modified_with_arg">Last modified: %s</string>
     <string name="last_modified">Last modified</string>
     <string name="select_this_folder">Select this folder</string>
     <string name="select">Select</string>
@@ -104,6 +104,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="exit">Exit</string>
     <string name="undo">Undo</string>
     <string name="redo">Redo</string>
+    <string name="reset">Reset</string>
     <string name="more">More</string>
     <string name="notebook">Notebook</string>
     <string name="help">Help</string>
@@ -229,6 +230,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="center_text">Center text</string>
     <string name="edit_text_in_center_of_screen">Edit text in the center of the screen</string>
     <string name="clipboard">Clipboard</string>
+    <string name="copied">Copied!</string>
     <string name="link_copied">Link copied!</string>
     <string name="select_existing_document">Select existing document</string>
     <string name="select_create_document">Select or create document</string>
@@ -245,6 +247,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="bug_reports_suggest_improvements">Give feedback, report bugs or suggest improvements</string>
     <string name="help_translating_this_app">Translate this app into other languages</string>
     <string name="source_code">Source Code</string>
+    <string name="copy_build_information">Copy build information</string>
     <string name="project_license">Project License</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Contribute code to the project. Everybody is welcome to do so, including newcomers</string>
     <string name="project_team">Project Team</string>
@@ -310,6 +313,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="swipe_to_change_mode">Swipe to change mode</string>
     <string name="swipe_to_change_to_edit_or_view_mode">Swipe to change to edit or view mode (opposite of the current mode)</string>
     <string name="folder_first">Folder first</string>
+    <string name="favorite_first">Favorite first</string>
     <string name="go_to">Go to</string>
     <string name="appdata_public">AppData (public)</string>
     <string name="appdata_private">AppData (private)</string>
@@ -387,7 +391,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="inline_code">Inline code</string>
     <string name="horizontal_line">Horizontal line</string>
     <string name="toggle_done">Toggle done</string>
-    <string name="link_color">Link color</string>
+    <string name="link_text_color">Link text color</string>
     <string name="add_context">Add context</string>
     <string name="add_project">Add project</string>
     <string name="archive_completed_tasks">Archive completed tasks</string>

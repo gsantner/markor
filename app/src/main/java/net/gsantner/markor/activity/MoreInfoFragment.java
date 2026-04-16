@@ -14,6 +14,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.widget.Toast;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceGroup;
@@ -54,7 +55,7 @@ public class MoreInfoFragment extends GsPreferenceFragmentBase<AppSettings> {
     }
 
     @Override
-    @SuppressWarnings({"ConstantConditions", "ConstantIfStatement", "StatementWithEmptyBody"})
+    @SuppressWarnings({"ConstantConditions", "ConstantIfStatement"})
     public Boolean onPreferenceClicked(Preference preference, String key, int keyResId) {
         Activity activity = getActivity();
         if (isAdded() && preference.hasKey()) {
@@ -64,7 +65,7 @@ public class MoreInfoFragment extends GsPreferenceFragmentBase<AppSettings> {
                     return true;
                 }
                 case R.string.pref_key__more_info__settings: {
-                    _cu.animateToActivity(activity, SettingsActivity.class, false, 124);
+                    _cu.animateToActivity(activity, SettingsActivity.class, false, MainActivity.REQUEST_CODE_SETTINGS);
                     return true;
                 }
                 case R.string.pref_key__more_info__rate_app: {
@@ -119,12 +120,12 @@ public class MoreInfoFragment extends GsPreferenceFragmentBase<AppSettings> {
                 }
                 case R.string.pref_key__more_info__copy_build_information: {
                     _cu.setClipboard(getContext(), preference.getSummary());
+                    Toast.makeText(activity, R.string.copied, Toast.LENGTH_SHORT).show();
                     GsSimpleMarkdownParser smp = new GsSimpleMarkdownParser();
                     try {
                         String html = smp.parse(getResources().openRawResource(R.raw.changelog), "", GsSimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW).getHtml();
                         _cu.showDialogWithHtmlTextView(getActivity(), R.string.changelog, html);
-                    } catch (Exception ex) {
-
+                    } catch (Exception ignored) {
                     }
                     return true;
                 }

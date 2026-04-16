@@ -12,7 +12,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -20,6 +19,8 @@ import android.widget.Toast;
 
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.Preference;
@@ -29,6 +30,7 @@ import androidx.preference.PreferenceScreen;
 import com.rarepebble.colorpicker.ColorPreference;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.frontend.AdvancedEditTextPreference;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.model.AppSettings;
@@ -51,13 +53,16 @@ public class SettingsActivity extends MarkorBaseActivity {
 
     @SuppressWarnings("WeakerAccess")
     public static class RESULT {
-        public static final int NOCHANGE = -1;
+        public static final int NO_CHANGE = -1;
         public static final int CHANGED = 1;
         public static final int RESTART_REQ = 2;
     }
 
-    public static int activityRetVal = RESULT.NOCHANGE;
-    private static int iconColor = Color.WHITE;
+    public static int activityRetVal = RESULT.NO_CHANGE;
+
+    // To fix cannot go back previous screen when theme is changed
+    private boolean themeChanged = false;
+    public static final String INTENT_NAME_THEME_CHANGED = "theme_changed";
 
     protected Toolbar toolbar;
 
@@ -72,10 +77,9 @@ public class SettingsActivity extends MarkorBaseActivity {
 
         // Custom code
         GsFontPreferenceCompat.additionalyCheckedFolder = new File(_appSettings.getNotebookDirectory(), ".app/fonts");
-        iconColor = _cu.rcolor(this, R.color.primary_text);
         toolbar.setTitle(R.string.settings);
         setSupportActionBar(findViewById(R.id.toolbar));
-        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_white_24dp));
+        toolbar.setNavigationIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_arrow_back_white_24dp, getTheme()));
         toolbar.setNavigationOnClickListener(view -> SettingsActivity.this.onBackPressed());
         showFragment(SettingsFragmentMaster.TAG, false);
     }
@@ -119,7 +123,6 @@ public class SettingsActivity extends MarkorBaseActivity {
         }
 
         @Override
-        @SuppressWarnings("rawtypes")
         protected void onPreferenceScreenChanged(PreferenceFragmentCompat preferenceFragmentCompat, PreferenceScreen preferenceScreen) {
             super.onPreferenceScreenChanged(preferenceFragmentCompat, preferenceScreen);
             final CharSequence title = preferenceScreen.getTitle();
@@ -137,11 +140,29 @@ public class SettingsActivity extends MarkorBaseActivity {
             prefFrag.goBack();
             return;
         }
-        super.onBackPressed();
+
+        if (themeChanged) {
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra(INTENT_NAME_THEME_CHANGED, true);
+            setResult(RESULT.CHANGED, resultIntent);
+            finish();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     public static class SettingsFragmentMaster extends MarkorSettingsFragment {
         public static final String TAG = "SettingsFragmentMaster";
+
+        @Override
+        public void onDisplayPreferenceDialog(Preference preference) {
+            FragmentActivity activity = getActivity();
+            if (preference instanceof AdvancedEditTextPreference && activity != null) {
+                ((AdvancedEditTextPreference) preference).createDialog(activity).show();
+            } else {
+                super.onDisplayPreferenceDialog(preference);
+            }
+        }
 
         @Override
         public int getPreferenceResourceForInflation() {
@@ -174,7 +195,7 @@ public class SettingsActivity extends MarkorBaseActivity {
             updateSummary(R.string.pref_key__snippet_directory_path, _appSettings.getSnippetsDirectory().getAbsolutePath());
 
             final String fileDescFormat = _appSettings.getString(R.string.pref_key__file_description_format, "");
-            if (fileDescFormat.equals("")) {
+            if (fileDescFormat.isEmpty()) {
                 updateSummary(R.string.pref_key__file_description_format, getString(R.string.default_));
             } else {
                 updateSummary(R.string.pref_key__file_description_format, fileDescFormat);
@@ -216,9 +237,8 @@ public class SettingsActivity extends MarkorBaseActivity {
                 _appSettings.setRecreateMainRequired(true);
             } else if (eq(key, R.string.pref_key__app_theme)) {
                 _appSettings.applyAppTheme();
-                _appSettings.setRecreateMainRequired(true);
-                if (getActivity() != null) {
-                    getActivity().recreate();
+                if (getActivity() instanceof SettingsActivity) {
+                    ((SettingsActivity) getActivity()).themeChanged = true;
                 }
             } else if (eq(key, R.string.pref_key__theming_hide_system_statusbar)) {
                 activityRetVal = RESULT.RESTART_REQ;
@@ -246,7 +266,7 @@ public class SettingsActivity extends MarkorBaseActivity {
         }
 
         @Override
-        @SuppressWarnings({"ConstantConditions", "ConstantIfStatement", "StatementWithEmptyBody"})
+        @SuppressWarnings({"ConstantConditions", "ConstantIfStatement"})
         public Boolean onPreferenceClicked(Preference preference, String key, int keyResId) {
             final FragmentManager fragManager = getActivity().getSupportFragmentManager();
             switch (keyResId) {
@@ -376,11 +396,11 @@ public class SettingsActivity extends MarkorBaseActivity {
                     break;
                 }
                 case R.string.pref_key__backup_settings: {
-                    BackupUtils.showBackupWriteToDialog(getContext(), getFragmentManager());
+                    BackupUtils.showBackupWriteToDialog(getContext(), getParentFragmentManager());
                     break;
                 }
                 case R.string.pref_key__restore_settings: {
-                    BackupUtils.showBackupSelectFromDialog(getContext(), getFragmentManager());
+                    BackupUtils.showBackupSelectFromDialog(getContext(), getParentFragmentManager());
                     break;
                 }
             }

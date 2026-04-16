@@ -1,0 +1,12 @@
+# Logs
+*.log
+npm-debug.log*
+
+# Editors
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+
+# Others
+*.local
