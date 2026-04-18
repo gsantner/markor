@@ -216,6 +216,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="center_text">Metni ortala</string>
     <string name="edit_text_in_center_of_screen">Metni ekranın ortasında düzenleyin</string>
     <string name="clipboard">Pano</string>
+    <string name="link_copied">Link kopyalandı!</string>
     <string name="select_existing_document">Mevcut belegeyi seç</string>
     <string name="select_create_document">Dosya seç ya da oluştur</string>
     <string name="select_create_folder">Klasör seçin veya oluşturun</string>
@@ -304,6 +305,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">Siyah</string>
     <string name="white">Beyaz</string>
     <string name="view">Görünüm</string>
+    <string name="view_mode"></string>
+    <string name="edit_mode">Düzenleme</string>
     <string name="mount_storage">Depolama bağla</string>
     <string name="application_needs_access_to_storage_mount_it">Bu depolamaya erişmek için izin gerekli. Erişimi sağlamak için depolamayı bağlayın. Bir açılır pencere almak için bu iletişim kutusunu onaylayın. Oradaki depolamayı seçin ve seç tuşuna basın.</string>
     <string name="share_into">İçine paylaş</string>
@@ -382,6 +385,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="drag">Sürükle</string>
     <string name="created">Oluşturuldu</string>
     <string name="no_results">Sonuç yok</string>
+    <string name="use_regular_expression">Düzenli ifade kullan</string>
     <string name="file_encryption_password">Dosya şifreleme parolası</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Parola ayarlanmadı, şifrelenemiyor veya şifre çözülemiyor.\nParola ayarlamak için Ayarlar -&gt; Genel -&gt; Parola menüsüne gidin.</string>
     <string name="encrypt_file_content">Dosya içeriğini şifrele</string>
