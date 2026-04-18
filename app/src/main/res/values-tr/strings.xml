@@ -381,6 +381,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="load_default_settings">Varsayılan ayarları yükle</string>
     <string name="drag">Sürükle</string>
     <string name="created">Oluşturuldu</string>
+    <string name="no_results">Sonuç yok</string>
     <string name="file_encryption_password">Dosya şifreleme parolası</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Parola ayarlanmadı, şifrelenemiyor veya şifre çözülemiyor.\nParola ayarlamak için Ayarlar -&gt; Genel -&gt; Parola menüsüne gidin.</string>
     <string name="encrypt_file_content">Dosya içeriğini şifrele</string>
