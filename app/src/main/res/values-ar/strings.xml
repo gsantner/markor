@@ -297,6 +297,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">دفتر الملاحظات هو المجلد الذي تحمله العلامات في متصفح الملفات عند بدء التطبيق. إنه المجلد الرئيسي للملفات الخاصة بك.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote هو أسرع خيار لكتابة الملاحظات. إنه ملف بتنسيق Markdown مع الموقع الافتراضي &gt;ملاحظات/QuickNote. (د)&lt;، يمكنك تعيين ملف مخصص في الإعدادات.</string>
     <string name="todo_is_the_easiest_way_">إدارة المهام الخاصة بك مع ToDo. وهو ملف في تنسيق todo.txt مع الموقع الافتراضي &gt;الملاحظات/todo. xt&lt;، يمكنك تعيين ملف مخصص في الإعدادات.</string>
+    <string name="navigationbar_color">لون شريط التنقل</string>
     <string name="black">أسود</string>
     <string name="white">أبيض</string>
     <string name="view">عرض</string>

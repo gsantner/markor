@@ -275,6 +275,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">Ang Notebook ay ang folder na nilo-load ng Markor sa file brower sa kada magbubukas ang app. Ito ang home folder ng iyong mga file.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">Ang Quicknote ay ang pinakamabilis na opsyon para magsulat ng mga tala. Ito ay isang file sa format na Markdown na default na nakalagay sa &gt;Notebook/QuickNote.md&lt;, maari kang magtakda ng custom na filepath sa mga pagsasaayos.</string>
     <string name="todo_is_the_easiest_way_">Pamahalaan ang iyong mga gawain sa ToDo. Ito ay isang file sa format na todo.txt na default na nakalagay sa &gt;Notebook/todo.txt&lt;, maari kang magtakda ng custom ng filepath sa mga pagsasaayos.</string>
+    <string name="navigationbar_color">Kulay ng navigation bar</string>
     <string name="black">Itim</string>
     <string name="white">Puti</string>
     <string name="view">View</string>

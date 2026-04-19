@@ -300,6 +300,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">Notizbuch ist der Ordner, den Markor beim Starten der App im Dateibrowser lädt. Es ist der Home-Ordner Ihrer Dateien.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote ist die schnellste Option, um Notizen zu erstellen. Es ist eine Datei im Markdown-Format mit dem Standardpfad &gt;Notizbuch/QuickNote.md&lt;, du kannst den Pfad in den Einstellungen anpassen.</string>
     <string name="todo_is_the_easiest_way_">Manage deine Aufgaben mit ToDo. Es ist eine Datei im todo.txt-Format mit dem Standardpfad &gt;Notizbuch/todo.txt&lt;, du kannst den Pfad in den Einstellungen anpassen.</string>
+    <string name="navigationbar_color">Farbe der Navigationsleiste</string>
     <string name="black">Schwarz</string>
     <string name="white">Weiß</string>
     <string name="view">Betrachten</string>

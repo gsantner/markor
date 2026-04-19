@@ -298,6 +298,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">Блокнот — это папка, которую Markor открывает в обозревателе файлов при запуске. Это папка по умолчанию для ваших файлов.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote помогает быстро делать заметки. Это файл в формате Markdown, путь по умолчанию: &gt;Notebook/QuickNote.md&lt;. Вы можете изменить путь в настройках.</string>
     <string name="todo_is_the_easiest_way_">Управляйте задачами с помощью ToDo. Это файл в формате todo.txt, путь по умолчанию: &gt;Notebook/todo.txt&lt;. Вы можете изменить путь в настройках.</string>
+    <string name="navigationbar_color">Цвет панели навигации</string>
     <string name="black">Чёрный</string>
     <string name="white">Белый</string>
     <string name="view">Просмотр</string>

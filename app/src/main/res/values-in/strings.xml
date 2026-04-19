@@ -284,6 +284,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">Notebook adalah folder yang dimuat Markor di browser file saat aplikasi dimulai. Ini adalah folder beranda dari file Anda.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote adalah opsi tercepat untuk menuliskan catatan. Ini adalah file dalam format Markdown dengan lokasi default &gt;Notebook/QuickNote.md&lt;, Anda bisa mengatur jalur file kustom di pengaturan.</string>
     <string name="todo_is_the_easiest_way_">Kelola tugas Anda dengan ToDo. Ini adalah file dalam format todo.txt dengan lokasi default &gt;Notebook/todo.txt&lt;, Anda dapat mengatur jalur file kustom di pengaturan.</string>
+    <string name="navigationbar_color">Warna bilah navigasi</string>
     <string name="black">Hitam</string>
     <string name="white">Putih</string>
     <string name="view">Lihat</string>

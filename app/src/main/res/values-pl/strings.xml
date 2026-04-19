@@ -281,6 +281,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">Notatki to katalog, który Markor ładuje w przeglądarce plików po uruchomieniu aplikacji. To domyślny folder dla Twoich plików.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote to najszybsza możliwość robienia notatek. Jest to plik w formacie Markdown z domyślną lokalizacją &gt;Notatki/QuickNote.md&lt;. Możesz wybrać własną lokalizację w ustawieniach.</string>
     <string name="todo_is_the_easiest_way_">Zarządzaj zadaniami za pomocą ToDo. Jest to plik w formacie todo.txt z domyślną lokalizacją &gt;Notebook/todo. xt&lt;, możesz ustawić własną ścieżkę plików w ustawieniach.</string>
+    <string name="navigationbar_color">Kolor paska nawigacji</string>
     <string name="black">Czarny</string>
     <string name="white">Biały</string>
     <string name="view">Wyświetl</string>

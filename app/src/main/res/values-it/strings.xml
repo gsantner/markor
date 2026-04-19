@@ -300,6 +300,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">Notebook è la cartella che Markor carica nel browser dei file quando l\'app è lanciata. È la cartella home per i tuoi file.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote è l\'opzione più veloce per scrivere note. È un file in formato Markdown nella posizione predefinita &gt;Notebook/QuickNote.md&lt;, è possibile impostare un percorso file personalizzato nelle impostazioni.</string>
     <string name="todo_is_the_easiest_way_">Gestisci le tue attività con ToDo. È un file in formato todo.txt nella posizione predefinita &gt;Notebook/todo.txt&lt;, è possibile impostare un file personalizzato nelle impostazioni.</string>
+    <string name="navigationbar_color">Colore barra di navigazione</string>
     <string name="black">Nero</string>
     <string name="white">Bianco</string>
     <string name="view">Vedi</string>

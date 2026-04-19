@@ -278,6 +278,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">Notebook er den mappe, som Markor indlæser i filbrowseren, når app\'en startes. Det er hjemmemappen for dine filer.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote er den hurtigste mulighed for at skrive ned noter. Det er en fil i Markdown format med standard placering &gt;Notebook / QuickNote. d&lt;, kan du indstille en brugerdefineret filsti i indstillingerne.</string>
     <string name="todo_is_the_easiest_way_">Administrer dine opgaver med ToDo. Det er en fil i todo.txt format med standard placering &gt;Notebook / todo. xt&lt;, du kan indstille en brugerdefineret filsti i indstillingerne.</string>
+    <string name="navigationbar_color">Navigation bar farve</string>
     <string name="black">Sort</string>
     <string name="white">Hvid</string>
     <string name="view">Vis</string>

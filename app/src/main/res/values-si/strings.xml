@@ -275,6 +275,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">Notebook යනු යෙදුම ආරම්භ කරන විට Markor ගොනු බ්‍රවුසරයේ පූරණය කරන ෆෝල්ඩරයයි. එය ඔබගේ ගොනු වල මුල් ෆෝල්ඩරය වේ.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote යනු සටහන් ලිවීමට ඇති වේගවත්ම විකල්පයයි. එය පෙරනිමි ස්ථානය &gt;Notebook/QuickNote.md&lt;සමඟ Markdown ආකෘතියේ ගොනුවක් වේ, ඔබට සැකසීම් තුළ අභිරුචි ගොනු මාර්ගයක් සැකසිය හැක.</string>
     <string name="todo_is_the_easiest_way_">ToDo සමඟින් ඔබගේ කාර්යයන් කළමනාකරණය කරන්න. එය todo.txt ආකෘතියේ ඇති ගොනුවකි, පෙරනිමි ස්ථානය &gt;Notebook/todo.txt&lt;, ඔබට සැකසීම් තුළ අභිරුචි ගොනු මාර්ගයක් සැකසිය හැක.</string>
+    <string name="navigationbar_color">සංචාලන තීරුවේ වර්ණය</string>
     <string name="black">කළු</string>
     <string name="white">සුදු</string>
     <string name="view">දැක්ම</string>

@@ -297,6 +297,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">「筆記本」是 Markor 啟動時在檔案管理器中的載入的資料夾，也是您檔案的主資料夾。</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">「QuickNote」是快速紀錄筆記的最佳選擇，以 Markdown 格式存放在預設位置 &gt;Notebook/QuickNote.md&lt;，您可以在設定裡自訂檔案路徑。</string>
     <string name="todo_is_the_easiest_way_">「ToDo」可以用來管理您的工作任務，以 todo.txt 格式存放在預設位置 &gt;Notebook/todo.txt&lt;，您可以在設定裡自訂檔案路徑。</string>
+    <string name="navigationbar_color">導覽列顏色</string>
     <string name="black">黑色</string>
     <string name="white">白色</string>
     <string name="view">檢視</string>

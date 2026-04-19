@@ -289,6 +289,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="folder_first">फ़ोल्डर पहले</string>
     <string name="go_to">इस पर चलें</string>
     <string name="internal_storage">आंतरिक स्टोरेज</string>
+    <string name="navigationbar_color">नेविगेशन पट्टी रंग</string>
     <string name="black">काला</string>
     <string name="white">सफ़ेद</string>
     <string name="view">दृश्य</string>
