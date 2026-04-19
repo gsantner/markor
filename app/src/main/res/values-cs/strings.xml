@@ -286,7 +286,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">Notebook je složka, kterou Markor načítá v prohlížeči souborů, když je aplikace spuštěna. Je to domácí složka vašich souborů.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote je nejrychlejší možnost pro psaní poznámek. Je to soubor ve formátu Markdown s výchozí pozicí &gt;Notebook/QuickNote.md&lt;, můžete nastavit vlastní cestu k souboru v nastaveních.</string>
     <string name="todo_is_the_easiest_way_">Spravujte své úkoly pomocí ToDo. Je to soubor ve formátu todo.txt s výchozím umístění v &gt;Notebook/todo. xt&lt;, můžete nastavit vlastní cestu k souborům v nastavení.</string>
-    <string name="navigationbar_color">Barva navigačního panelu</string>
     <string name="black">Černá</string>
     <string name="white">Bílá</string>
     <string name="view">Zobrazení</string>

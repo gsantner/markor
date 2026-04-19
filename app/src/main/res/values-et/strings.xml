@@ -290,7 +290,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">Märkmik/Notebook on kaust, mille Markor rakenduse käivitamisel failihaldurisse laadib. See on teie failide kodukaust.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote on kiireim võimalus märkmete kirjutamiseks. See on Markdown-vormingus fail, mille vaikeasukoht &gt;Notebook/QuickNote.md&lt;, seadistustes saate kohandada failitee.</string>
     <string name="todo_is_the_easiest_way_">Halda oma ülesandeid TodDo abil. See on faili todo.txt vormingus vaikimisi asukohas &gt;Notebook/todo.txt&lt;, mille failiteed saad seadetes muuta.</string>
-    <string name="navigationbar_color">Liikumisriba värv</string>
     <string name="black">Must</string>
     <string name="white">Valge</string>
     <string name="view">Vaade</string>

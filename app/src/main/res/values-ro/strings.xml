@@ -298,7 +298,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">Caietul este dosarul pe care Markor îl încarcă în browserul de fișiere la pornirea aplicației. Este dosarul principal al fișierelor tale.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote este cea mai rapidă opțiune pentru a scrie notițe. Este un fișier în format Markdown cu locația implicită &gt;Notebook/QuickNote.md&lt;, puteți seta o cale personalizată în setări.</string>
     <string name="todo_is_the_easiest_way_">Gestionați sarcinile cu ToDo. Este un fișier în format todo.txt cu locația implicită &gt;Notebook/todo. xt&lt;, puteţi seta o cale personalizată în setări.</string>
-    <string name="navigationbar_color">Culoare bară de navigare</string>
     <string name="black">Negru</string>
     <string name="white">Alb</string>
     <string name="view">Vizualizare</string>

@@ -286,7 +286,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">Σημειωματάριο είναι ο φάκελος που το Markor φορτώνει στο πρόγραμμα περιήγησης αρχείων όταν ξεκινά η εφαρμογή. Είναι ο αρχικός φάκελος των αρχείων σας.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">Το QuickNote είναι η ταχύτερη επιλογή για εγγραφή σημειώσεων. Είναι ένα αρχείο σε μορφή Markdown με την προεπιλεγμένη τοποθεσία &gt;Notebook/QuickNote. d&lt;, μπορείτε να ορίσετε ένα προσαρμοσμένο αρχείο στις ρυθμίσεις.</string>
     <string name="todo_is_the_easiest_way_">Διαχειριστείτε τις εργασίες σας με ToDo. Είναι ένα αρχείο σε μορφή todo.txt με την προεπιλεγμένη τοποθεσία &gt;Notebook/todo. xt&lt;, μπορείτε να ορίσετε μία διαδρομή στις ρυθμίσεις.</string>
-    <string name="navigationbar_color">Χρώμα μπάρας πλοήγησης</string>
     <string name="black">Μαύρο</string>
     <string name="white">Λευκό</string>
     <string name="view">Προβολή</string>

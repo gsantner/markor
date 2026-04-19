@@ -11,7 +11,9 @@ package net.gsantner.markor.activity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.content.res.ColorStateList;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -20,6 +22,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
@@ -32,6 +35,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationBarView;
 
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
@@ -66,6 +70,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     private DocumentEditAndViewFragment _quicknote, _todo;
     private MoreFragment _more;
     private FloatingActionButton _fab;
+    private int _bottomNavDefaultHeight = 0;
 
     private MarkorContextUtils _cu;
     private File _quickSwitchPrevFolder = null;
@@ -99,6 +104,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         });
 
         setSupportActionBar(findViewById(R.id.toolbar));
+        applyMainAppearancePreferences();
         optShowRate();
 
         // Setup viewpager
@@ -147,7 +153,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
     @Override
     public Integer getNewNavigationBarColor() {
-        return ContextCompat.getColor(this, R.color.primary);
+        return _appSettings.getTopBottomBarColor();
     }
 
     @Override
@@ -270,7 +276,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         getMenuInflater().inflate(R.menu.main__menu, menu);
         menu.findItem(R.id.action_settings).setVisible(_appSettings.isShowSettingsOptionInMainToolbar());
 
-        _cu.tintMenuItems(menu, true, _cu.rcolor(this, R.color.dark__primary_text));
+        _cu.tintMenuItems(menu, true, getTopBottomBarForegroundColor());
         _cu.setSubMenuIconsVisibility(menu, true);
         return true;
     }
@@ -293,6 +299,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         }
 
         _cu.setKeepScreenOn(this, _appSettings.isKeepScreenOn());
+        applyMainAppearancePreferences();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && _appSettings.isMultiWindowEnabled()) {
             setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.app_name)));
         }
@@ -316,6 +323,72 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     @Override
     public void onPostResume() {
         super.onPostResume();
+    }
+
+    private void applyMainAppearancePreferences() {
+        applyConfiguredToolbarColors();
+
+        if (_bottomNav == null || _viewPager == null || _fab == null) {
+            return;
+        }
+
+        final boolean showTabTitles = _appSettings.isMainBottomBarTabTitlesShown();
+        final int barColor = _appSettings.getTopBottomBarColor();
+        final int itemColor = _appSettings.getTopBottomBarForegroundColor();
+        final int selectedColor = ContextCompat.getColor(this, R.color.accent);
+        final int bottomNavDefaultHeight = getDefaultBottomNavHeight();
+        final int bottomNavHeight = showTabTitles ? bottomNavDefaultHeight : _cu.convertDpToPx(this, 48);
+
+        _bottomNav.setBackgroundColor(barColor);
+        _bottomNav.setItemBackground(new ColorDrawable(barColor));
+        _bottomNav.setItemIconTintList(makeBottomNavColorStateList(selectedColor, itemColor));
+        _bottomNav.setItemTextColor(makeBottomNavColorStateList(selectedColor, itemColor));
+        _bottomNav.setLabelVisibilityMode(showTabTitles
+                ? NavigationBarView.LABEL_VISIBILITY_LABELED
+                : NavigationBarView.LABEL_VISIBILITY_UNLABELED);
+
+        setViewHeight(_bottomNav, bottomNavHeight);
+        setViewBottomMargin(_viewPager, bottomNavHeight);
+        setViewBottomMargin(_fab, bottomNavHeight + _cu.convertDpToPx(this, 16));
+    }
+
+    private int getDefaultBottomNavHeight() {
+        if (_bottomNavDefaultHeight <= 0 && _bottomNav != null && _bottomNav.getLayoutParams() != null) {
+            _bottomNavDefaultHeight = _bottomNav.getLayoutParams().height;
+        }
+        return _bottomNavDefaultHeight > 0 ? _bottomNavDefaultHeight : _cu.convertDpToPx(this, 56);
+    }
+
+    private ColorStateList makeBottomNavColorStateList(final int selectedColor, final int itemColor) {
+        return new ColorStateList(
+                new int[][]{
+                        new int[]{android.R.attr.state_checked},
+                        new int[]{}
+                },
+                new int[]{
+                        selectedColor,
+                        itemColor
+                }
+        );
+    }
+
+    private void setViewHeight(final View view, final int height) {
+        final ViewGroup.LayoutParams params = view.getLayoutParams();
+        if (params != null && params.height != height) {
+            params.height = height;
+            view.setLayoutParams(params);
+        }
+    }
+
+    private void setViewBottomMargin(final View view, final int marginBottom) {
+        final ViewGroup.LayoutParams params = view.getLayoutParams();
+        if (params instanceof ViewGroup.MarginLayoutParams) {
+            final ViewGroup.MarginLayoutParams marginParams = (ViewGroup.MarginLayoutParams) params;
+            if (marginParams.bottomMargin != marginBottom) {
+                marginParams.bottomMargin = marginBottom;
+                view.setLayoutParams(marginParams);
+            }
+        }
     }
 
     // Cycle between recent, favourite, and current

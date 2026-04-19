@@ -303,7 +303,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">El quadern és la carpeta que Markor carrega al navegador de fitxers quan s\'inicia l\'aplicació. És la carpeta inicial dels vostres fitxers.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote és l’opció més ràpida per escriure notes. És un fitxer en format Markdown amb la ubicació per defecte &gt;Quadern/QuickNote.md&lt;, podeu establir una ruta de fitxers personalitzada a la configuració.</string>
     <string name="todo_is_the_easiest_way_">Gestioneu les vostres tasques amb ToDo. És un fitxer en format todo.txt amb la ubicació per defecte &gt;Quadern/todo.txt&lt;, podeu establir una ruta de fitxers personalitzada a la configuració.</string>
-    <string name="navigationbar_color">Color de la barra de navegació</string>
     <string name="black">Negre</string>
     <string name="white">Blanc</string>
     <string name="view">Vista</string>

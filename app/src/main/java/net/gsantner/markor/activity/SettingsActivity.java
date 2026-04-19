@@ -191,7 +191,6 @@ public class SettingsActivity extends MarkorBaseActivity {
                     R.string.pref_key__swipe_to_change_mode,
                     R.string.pref_key__todotxt__hl_delay,
                     R.string.pref_key__markdown__hl_delay_v2,
-                    R.string.pref_key__theming_hide_system_statusbar,
                     R.string.pref_key__tab_width_v2,
                     R.string.pref_key__editor_line_spacing,
             };
@@ -222,6 +221,13 @@ public class SettingsActivity extends MarkorBaseActivity {
                 }
             } else if (eq(key, R.string.pref_key__theming_hide_system_statusbar)) {
                 activityRetVal = RESULT.RESTART_REQ;
+                _appSettings.setRecreateMainRequired(true);
+            } else if (eq(key, R.string.pref_key__ui_flat_top_bottom_bars)) {
+                final Activity activity = getActivity();
+                if (activity instanceof MarkorBaseActivity) {
+                    ((MarkorBaseActivity) activity).applyConfiguredToolbarColors();
+                }
+            } else if (eq(key, R.string.pref_key__file_browser_show_dividers)) {
                 _appSettings.setRecreateMainRequired(true);
             } else if (eq(key, R.string.pref_key__is_launcher_for_special_files_enabled)) {
                 boolean extraLaunchersEnabled = prefs.getBoolean(key, false);

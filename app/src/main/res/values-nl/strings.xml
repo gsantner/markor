@@ -298,7 +298,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">Notebook is de map die Markor in de bestandsbrowser laadt wanneer de app is gestart. Het is de home map van uw bestanden.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote is de snelste optie om notities op te schrijven. Het is een bestand in Markdown formaat met standaard locatie &gt;Notebook/QuickNote.md&lt;, u kunt een aangepast bestandspad instellen in de instellingen.</string>
     <string name="todo_is_the_easiest_way_">Beheer uw taken met ToDo. Het is een bestand in todo.txt formaat met standaard locatie &gt;Notebook/todo.txt&lt;, u kunt een aangepast bestandspad instellen in de instellingen.</string>
-    <string name="navigationbar_color">Kleur navigatiebalk</string>
     <string name="black">Zwart</string>
     <string name="white">Wit</string>
     <string name="view">Bekijk</string>

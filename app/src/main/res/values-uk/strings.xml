@@ -296,7 +296,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">Notebook – директорія, яку Markor завантажує у переглядач файлів при запуску програми. Це домашня тека ваших файлів.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote – найшвидший спосіб записувати нотатки. Це файл у форматі Markdown з типовим розташуванням &gt;Notebook/QuickNote.md&lt;, яке ви можете змінити у налаштуваннях.</string>
     <string name="todo_is_the_easiest_way_">Керуйте своїми завданнями з ToDo. Це файл у форматі todo.txt, за умовчанням розташований у &gt;Notebook/todo.txt&lt;, ви можете встановити власний шлях у налаштуваннях.</string>
-    <string name="navigationbar_color">Колір панелі навігації</string>
     <string name="black">Чорний</string>
     <string name="white">Білий</string>
     <string name="view">Перегляд</string>

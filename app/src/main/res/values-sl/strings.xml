@@ -300,7 +300,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">Beležka je mapa, ki jo Markor ob svojem zagonu naloži v brskalnik datotek. To je domača mapa vaših datotek.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">Hitra beležka je najhitrejša možnost zapisovanja zapiskov. To je datoteka v obliki Markdown s privzetim mestom &gt;Notebook/QuickNote.md&lt;, lahko pa tudi nastavite svoje mesto v nastavitvah.</string>
     <string name="todo_is_the_easiest_way_">Upravljajte s svojimi opravili z Opravili. To je datoteka v obliki todo.txt s privzetim mestom &gt;Notebook/todo.txt&lt;, lahko pa tudi nastavite svoje mesto v nastavitvah.</string>
-    <string name="navigationbar_color">Barva krmilne vrstice</string>
     <string name="black">Črna</string>
     <string name="white">Bela</string>
     <string name="view">Pogled</string>

@@ -298,7 +298,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">\"Notas\" est sa cartella chi Markor carrigat in s\'esploradore de documentos cando s\'aplicatzione benit alluta. Est sa cartella de sos documentos tuos.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote est s\'optzione prus lestra pro iscrìere notas. Est unu documentu in formadu Markdown, chi s\'agatat in &gt;Notebook/QuickNote.md&lt;. Podes impostare un\'àndala personalizada pro su documentu in sas impostatziones.</string>
     <string name="todo_is_the_easiest_way_">Amministra sas fainas tuas cun ToDo. Est unu documentu in formadu todo.txt chi s\'agatat in &gt;Notebook/todo.txt&lt;. Podes impostare un\'àndala personalizada pro su documentu in sas impostatziones.</string>
-    <string name="navigationbar_color">Colore de sa barra de navigatzione</string>
     <string name="black">Nieddu</string>
     <string name="white">Biancu</string>
     <string name="view">Abbàida</string>

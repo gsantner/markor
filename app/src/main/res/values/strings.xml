@@ -148,6 +148,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_wide">App-wide</string>
     <string name="main_view">Main View</string>
     <string name="overall_theme_used_in_app">The overall theme used in the app</string>
+    <string name="flat_top_bottom_bars">Flat top and bottom bars</string>
+    <string name="flat_top_bottom_bars_description">Use the app background color for top and bottom bars</string>
+    <string name="show_tab_titles">Show tab titles</string>
+    <string name="show_tab_titles_description">Show text labels in the main bottom bar</string>
+    <string name="file_browser_divider_lines">File browser divider lines</string>
+    <string name="file_browser_divider_lines_description">Show divider lines between file browser entries</string>
     <string name="remember_last_directory">Remember last directory</string>
     <string name="syntax_highlighting">Syntax Highlighting</string>
     <string name="highlighting_delay">Highlighting delay</string>
@@ -319,7 +325,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">Notebook is the folder that Markor loads in the file browser when the app is started. It is the home folder of your files.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote is the fastest option to write down notes. It is a file in Markdown format with default location &gt;Notebook/QuickNote.md&lt;, you can set a custom filepath in the settings.</string>
     <string name="todo_is_the_easiest_way_">Manage your tasks with ToDo. It is a file in todo.txt format with default location &gt;Notebook/todo.txt&lt;, you can set a custom filepath in the settings.</string>
-    <string name="navigationbar_color">Navigation bar color</string>
     <string name="black">Black</string>
     <string name="white">White</string>
     <string name="view">View</string>

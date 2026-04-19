@@ -273,7 +273,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">A jegyzetfüzet az a mappa, amit Markor megnyit induláskor. A szövegfájlok helye.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">A QuickNote az ötletek gyors leírására szolgál Markdown formátumban. Alapértelmezetten a &gt;Jegyzetfüzet/QuickNote.md&lt; helyen található, de helye beállításokban testreszabható.</string>
     <string name="todo_is_the_easiest_way_">A ToDo-val kezelheted a feladataidat \"todo.txt\" formátumban. Alapértelmezetten a &gt;Jegyzetfüzet/todo.txt&lt; helyen található, de helye beállításokban testreszabható.</string>
-    <string name="navigationbar_color">Navigációs sáv színe</string>
     <string name="black">Fekete</string>
     <string name="white">Fehér</string>
     <string name="view">Megtekintés</string>

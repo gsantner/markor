@@ -287,8 +287,8 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
 
             final MenuItem sortItem = _fragmentMenu.findItem(R.id.action_sort);
             if (sortItem != null) {
-                final @ColorInt int colorWhite = _cu.rcolor(getContext(), R.color.dark__primary_text);
-                _cu.tintDrawable(sortItem.getIcon(), _dopt.sortOrder.isFolderLocal ? GsFileBrowserListAdapter.FAVOURITE_COLOR : colorWhite);
+                final @ColorInt int itemColor = _appSettings.getTopBottomBarForegroundColor();
+                _cu.tintDrawable(sortItem.getIcon(), _dopt.sortOrder.isFolderLocal ? GsFileBrowserListAdapter.FAVOURITE_COLOR : itemColor);
             }
         }
 
@@ -357,7 +357,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.filesystem__menu, menu);
-        _cu.tintMenuItems(menu, true, _cu.rcolor(getContext(), R.color.dark__primary_text));
+        _cu.tintMenuItems(menu, true, _appSettings.getTopBottomBarForegroundColor());
         _cu.setSubMenuIconsVisibility(menu, true);
 
         List<Pair<File, String>> sdcardFolders = _cu.getAppDataPublicDirs(getContext(), false, true, true);
@@ -638,6 +638,10 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
 
     public static void addDivider(final Activity activity, final RecyclerView recyclerView) {
         if (recyclerView == null || activity == null) {
+            return;
+        }
+
+        if (!AppSettings.get(activity).isFileBrowserDividerEnabled()) {
             return;
         }
 

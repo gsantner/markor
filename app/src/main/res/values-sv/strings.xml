@@ -296,7 +296,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">Anteckningsboken är katalogen Markor hämtar filhanteraren när programmet startas. Det är dina filers hemkatalaog.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">SnabbAnteckning är det snabbaste sättet att göra anteckningar. Det är en fil i Markdown-format som ligger i &gt;Notebook/QuickNote.md&lt;, du kan ändra vart filen sparas i inställningarna.</string>
     <string name="todo_is_the_easiest_way_">Hantera dina uppgifter med ToDo. Det är en fil i todo.txt format med standardplats &gt;Notebook/todo.txt&lt; Du kan ställa in en anpassad sökväg i inställningarna.</string>
-    <string name="navigationbar_color">Färg på navigeringsfältet</string>
     <string name="black">Svart</string>
     <string name="white">Vit</string>
     <string name="view">Visa</string>
