@@ -70,7 +70,6 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     private DocumentEditAndViewFragment _quicknote, _todo;
     private MoreFragment _more;
     private FloatingActionButton _fab;
-    private int _bottomNavDefaultHeight = 0;
 
     private MarkorContextUtils _cu;
     private File _quickSwitchPrevFolder = null;
@@ -336,8 +335,6 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         final int barColor = _appSettings.getTopBottomBarColor();
         final int itemColor = _appSettings.getTopBottomBarForegroundColor();
         final int selectedColor = ContextCompat.getColor(this, R.color.accent);
-        final int bottomNavDefaultHeight = getDefaultBottomNavHeight();
-        final int bottomNavHeight = showTabTitles ? bottomNavDefaultHeight : _cu.convertDpToPx(this, 48);
 
         _bottomNav.setBackgroundColor(barColor);
         _bottomNav.setItemBackground(new ColorDrawable(barColor));
@@ -346,17 +343,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         _bottomNav.setLabelVisibilityMode(showTabTitles
                 ? NavigationBarView.LABEL_VISIBILITY_LABELED
                 : NavigationBarView.LABEL_VISIBILITY_UNLABELED);
-
-        setViewHeight(_bottomNav, bottomNavHeight);
-        setViewBottomMargin(_viewPager, bottomNavHeight);
-        setViewBottomMargin(_fab, bottomNavHeight + _cu.convertDpToPx(this, 16));
-    }
-
-    private int getDefaultBottomNavHeight() {
-        if (_bottomNavDefaultHeight <= 0 && _bottomNav != null && _bottomNav.getLayoutParams() != null) {
-            _bottomNavDefaultHeight = _bottomNav.getLayoutParams().height;
-        }
-        return _bottomNavDefaultHeight > 0 ? _bottomNavDefaultHeight : _cu.convertDpToPx(this, 56);
+        applyBottomNavHeight(showTabTitles);
     }
 
     private ColorStateList makeBottomNavColorStateList(final int selectedColor, final int itemColor) {
@@ -372,22 +359,18 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         );
     }
 
-    private void setViewHeight(final View view, final int height) {
-        final ViewGroup.LayoutParams params = view.getLayoutParams();
-        if (params != null && params.height != height) {
-            params.height = height;
-            view.setLayoutParams(params);
+    private void applyBottomNavHeight(final boolean showTabTitles) {
+        final ViewGroup.LayoutParams params = _bottomNav.getLayoutParams();
+        if (params == null) {
+            return;
         }
-    }
 
-    private void setViewBottomMargin(final View view, final int marginBottom) {
-        final ViewGroup.LayoutParams params = view.getLayoutParams();
-        if (params instanceof ViewGroup.MarginLayoutParams) {
-            final ViewGroup.MarginLayoutParams marginParams = (ViewGroup.MarginLayoutParams) params;
-            if (marginParams.bottomMargin != marginBottom) {
-                marginParams.bottomMargin = marginBottom;
-                view.setLayoutParams(marginParams);
-            }
+        final int height = getResources().getDimensionPixelSize(showTabTitles
+                ? R.dimen.main_bottom_bar_height
+                : R.dimen.main_bottom_bar_height_no_titles);
+        if (params.height != height) {
+            params.height = height;
+            _bottomNav.setLayoutParams(params);
         }
     }
 
