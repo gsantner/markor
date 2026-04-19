@@ -737,13 +737,6 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return isFlatTopBottomBarColorEnabled() ? getUiBackgroundColor() : rcolor(R.color.primary);
     }
 
-    public @ColorInt int getTopBottomBarForegroundColor() {
-        if (!isFlatTopBottomBarColorEnabled()) {
-            return rcolor(R.color.dark__primary_text);
-        }
-        return _cu.shouldColorOnTopBeLight(getTopBottomBarColor()) ? rcolor(R.color.dark__primary_text) : rcolor(R.color.primary_text);
-    }
-
     public void setEditorBasicColor(boolean forDarkMode, @ColorRes int fgColor, @ColorRes int bgColor) {
         int resIdFg = forDarkMode ? R.string.pref_key__basic_color_scheme__fg_dark : R.string.pref_key__basic_color_scheme__fg_light;
         int resIdBg = forDarkMode ? R.string.pref_key__basic_color_scheme__bg_dark : R.string.pref_key__basic_color_scheme__bg_light;

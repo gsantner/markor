@@ -225,7 +225,7 @@ public class SettingsActivity extends MarkorBaseActivity {
             } else if (eq(key, R.string.pref_key__ui_flat_top_bottom_bars)) {
                 final Activity activity = getActivity();
                 if (activity instanceof MarkorBaseActivity) {
-                    ((MarkorBaseActivity) activity).applyConfiguredToolbarColors();
+                    ((MarkorBaseActivity) activity).applyConfiguredBarBackgroundColors();
                 }
             } else if (eq(key, R.string.pref_key__file_browser_show_dividers)) {
                 _appSettings.setRecreateMainRequired(true);

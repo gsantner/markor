@@ -87,7 +87,6 @@ public class MarkorFileBrowserFactory {
 
         opts.descriptionFormat = appSettings.getString(R.string.pref_key__file_description_format, "");
         opts.primaryColor = appSettings.isFlatTopBottomBarColorEnabled() ? R.color.background : R.color.primary;
-        opts.titleTextColor = R.color.primary_text;
 
         final File downloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
         opts.addVirtualFile("Download", downloads, R.drawable.baseline_download_24);

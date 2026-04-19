@@ -69,6 +69,8 @@
         android:layout_height="@dimen/main_bottom_bar_height"
         android:background="@color/primary"
         app:itemBackground="@color/primary"
+        app:itemIconTint="@drawable/bottomnav_color_selector"
+        app:itemTextColor="@drawable/bottomnav_color_selector"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

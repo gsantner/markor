@@ -11,7 +11,6 @@ package net.gsantner.markor.activity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
-import android.content.res.ColorStateList;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -152,7 +151,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
     @Override
     public Integer getNewNavigationBarColor() {
-        return _appSettings.getTopBottomBarColor();
+        return ContextCompat.getColor(this, R.color.primary);
     }
 
     @Override
@@ -275,7 +274,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         getMenuInflater().inflate(R.menu.main__menu, menu);
         menu.findItem(R.id.action_settings).setVisible(_appSettings.isShowSettingsOptionInMainToolbar());
 
-        _cu.tintMenuItems(menu, true, getTopBottomBarForegroundColor());
+        _cu.tintMenuItems(menu, true, _cu.rcolor(this, R.color.dark__primary_text));
         _cu.setSubMenuIconsVisibility(menu, true);
         return true;
     }
@@ -325,7 +324,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     }
 
     private void applyMainAppearancePreferences() {
-        applyConfiguredToolbarColors();
+        applyConfiguredBarBackgroundColors();
 
         if (_bottomNav == null || _viewPager == null || _fab == null) {
             return;
@@ -333,30 +332,13 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
         final boolean showTabTitles = _appSettings.isMainBottomBarTabTitlesShown();
         final int barColor = _appSettings.getTopBottomBarColor();
-        final int itemColor = _appSettings.getTopBottomBarForegroundColor();
-        final int selectedColor = ContextCompat.getColor(this, R.color.accent);
 
         _bottomNav.setBackgroundColor(barColor);
         _bottomNav.setItemBackground(new ColorDrawable(barColor));
-        _bottomNav.setItemIconTintList(makeBottomNavColorStateList(selectedColor, itemColor));
-        _bottomNav.setItemTextColor(makeBottomNavColorStateList(selectedColor, itemColor));
         _bottomNav.setLabelVisibilityMode(showTabTitles
                 ? NavigationBarView.LABEL_VISIBILITY_LABELED
                 : NavigationBarView.LABEL_VISIBILITY_UNLABELED);
         applyBottomNavHeight(showTabTitles);
-    }
-
-    private ColorStateList makeBottomNavColorStateList(final int selectedColor, final int itemColor) {
-        return new ColorStateList(
-                new int[][]{
-                        new int[]{android.R.attr.state_checked},
-                        new int[]{}
-                },
-                new int[]{
-                        selectedColor,
-                        itemColor
-                }
-        );
     }
 
     private void applyBottomNavHeight(final boolean showTabTitles) {

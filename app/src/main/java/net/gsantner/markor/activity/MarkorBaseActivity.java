@@ -1,7 +1,6 @@
 package net.gsantner.markor.activity;
 
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -10,7 +9,6 @@ import android.view.WindowManager;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.AppSettings;
@@ -38,7 +36,7 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
     @Override
     protected void onResume() {
         super.onResume();
-        applyConfiguredToolbarColors();
+        applyConfiguredBarBackgroundColors();
     }
 
     protected boolean onReceiveKeyPress(GsFragmentBase fragment, int keyCode, KeyEvent event) {
@@ -58,30 +56,15 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
         return _appSettings.getAppThemeName().contains("black") ? Color.BLACK : null;
     }
 
-    public int getTopBottomBarForegroundColor() {
-        return _appSettings.getTopBottomBarForegroundColor();
-    }
-
-    public void applyConfiguredToolbarColors() {
+    public void applyConfiguredBarBackgroundColors() {
         final Toolbar toolbar = findViewById(R.id.toolbar);
         if (toolbar == null) {
             return;
         }
 
         final int backgroundColor = _appSettings.getTopBottomBarColor();
-        final int foregroundColor = _appSettings.getTopBottomBarForegroundColor();
         toolbar.setBackgroundColor(backgroundColor);
-        toolbar.setTitleTextColor(foregroundColor);
-        toolbar.setSubtitleTextColor(foregroundColor);
-        tintToolbarDrawable(toolbar.getNavigationIcon(), foregroundColor);
-        tintToolbarDrawable(toolbar.getOverflowIcon(), foregroundColor);
         _cu.setStatusbarColor(this, backgroundColor);
-    }
-
-    private void tintToolbarDrawable(final Drawable drawable, final int color) {
-        if (drawable != null) {
-            DrawableCompat.setTint(drawable.mutate(), color);
-        }
     }
 
     @Override
