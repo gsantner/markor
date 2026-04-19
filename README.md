@@ -262,7 +262,7 @@ Todo.txt is a simple text format for todo. Each line of text is a task. The idea
 ![todotxt](doc/assets/todotxt-format.png#gh-light-mode-only)
 
 #### How to mark a task done?
-Done tasks are marked by a `x ` in begining of the line and can optionally be moved to a done/archive file.
+Done tasks are marked by a `x ` in beginning of the line and can optionally be moved to a done/archive file.
 
 #### What is a context (@)?
   With contexts you can mark a situation or place. You may use it to categorize your todos. Context is part of todo.txt format, add `@` in front of a word to create one.  
