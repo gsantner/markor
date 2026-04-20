@@ -714,6 +714,29 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return getString(R.string.pref_key__app_theme, _context.getString(R.string.app_theme_system));
     }
 
+    public boolean isFlatTopBottomBarColorEnabled() {
+        return getBool(R.string.pref_key__ui_flat_top_bottom_bars, false);
+    }
+
+    public boolean isMainBottomBarTabTitlesShown() {
+        return getBool(R.string.pref_key__main_bottom_bar_show_tab_titles, true);
+    }
+
+    public boolean isFileBrowserDividerEnabled() {
+        return getBool(R.string.pref_key__file_browser_show_dividers, true);
+    }
+
+    public @ColorInt int getUiBackgroundColor() {
+        if (getAppThemeName().contains("black")) {
+            return Color.BLACK;
+        }
+        return rcolor(R.color.background);
+    }
+
+    public @ColorInt int getConfiguredBarBackgroundColor() {
+        return isFlatTopBottomBarColorEnabled() ? getUiBackgroundColor() : rcolor(R.color.primary);
+    }
+
     public void setEditorBasicColor(boolean forDarkMode, @ColorRes int fgColor, @ColorRes int bgColor) {
         int resIdFg = forDarkMode ? R.string.pref_key__basic_color_scheme__fg_dark : R.string.pref_key__basic_color_scheme__fg_light;
         int resIdBg = forDarkMode ? R.string.pref_key__basic_color_scheme__bg_dark : R.string.pref_key__basic_color_scheme__bg_light;
@@ -800,10 +823,6 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
 
     public boolean isFileBrowserSortFolderFirst() {
         return getBool(R.string.pref_key__filesystem_folder_first, true);
-    }
-
-    public String getNavigationBarColor() {
-        return getString(R.string.pref_key__navigationbar_color, "#000000");
     }
 
     public String getAppStartupFolderMenuId() {

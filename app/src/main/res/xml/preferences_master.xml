@@ -116,22 +116,29 @@
 
     </PreferenceScreen>
 
-    <!-- Document browser screen -->
+    <!-- Appearance screen -->
     <PreferenceScreen
-        android:icon="@drawable/ic_border_outer_black_24dp"
-        android:summary="@string/miscellaneous"
-        android:title="@string/other">
+        android:icon="@drawable/ic_palette_black_24dp"
+        android:summary="@string/theme"
+        android:title="@string/appearance">
 
-        <PreferenceCategory android:title="@string/general">
+        <PreferenceCategory android:title="@string/app_wide">
             <ListPreference
-                android:defaultValue="#000000"
-                android:dialogTitle="@string/navigationbar_color"
-                android:entries="@array/pref_arrdisp__navigationbar_color"
-                android:entryValues="@array/pref_arrkeys__navigationbar_color"
+                android:defaultValue="@string/app_theme_system"
+                android:dialogTitle="@string/theme"
+                android:entries="@array/pref_arrdisp__app_themes"
+                android:entryValues="@array/pref_arrkeys__app_themes"
                 android:icon="@drawable/ic_invert_colors_black_24dp"
-                android:key="@string/pref_key__navigationbar_color"
+                android:key="@string/pref_key__app_theme"
                 android:summary="%1$s"
-                android:title="@string/navigationbar_color" />
+                android:title="@string/theme" />
+
+            <CheckBoxPreference
+                android:defaultValue="false"
+                android:icon="@drawable/ic_border_outer_black_24dp"
+                android:key="@string/pref_key__ui_flat_top_bottom_bars"
+                android:summary="@string/flat_top_bottom_bars_description"
+                android:title="@string/flat_top_bottom_bars" />
 
             <CheckBoxPreference
                 android:defaultValue="false"
@@ -139,7 +146,34 @@
                 android:key="@string/pref_key__theming_hide_system_statusbar"
                 android:summary="@string/hide_statusbar_at_this_view"
                 android:title="@string/hide_statusbar" />
+        </PreferenceCategory>
 
+        <PreferenceCategory android:title="@string/main_view">
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:icon="@drawable/ic_view_module_black_24dp"
+                android:key="@string/pref_key__main_bottom_bar_show_tab_titles"
+                android:summary="@string/show_tab_titles_description"
+                android:title="@string/show_tab_titles" />
+        </PreferenceCategory>
+
+        <PreferenceCategory android:title="@string/file_browser">
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:icon="@drawable/ic_border_outer_black_24dp"
+                android:key="@string/pref_key__file_browser_show_dividers"
+                android:summary="@string/file_browser_divider_lines_description"
+                android:title="@string/file_browser_divider_lines" />
+        </PreferenceCategory>
+    </PreferenceScreen>
+
+    <!-- Document browser screen -->
+    <PreferenceScreen
+        android:icon="@drawable/ic_border_outer_black_24dp"
+        android:summary="@string/miscellaneous"
+        android:title="@string/other">
+
+        <PreferenceCategory android:title="@string/general">
             <CheckBoxPreference
                 android:defaultValue="false"
                 android:icon="@drawable/ic_screen_lock_portrait_black_24dp"
@@ -639,16 +673,6 @@
 
     <!-- Most important settings -->
     <PreferenceCategory android:title="@string/essential">
-        <ListPreference
-            android:defaultValue="@string/app_theme_system"
-            android:dialogTitle="@string/theme"
-            android:entries="@array/pref_arrdisp__app_themes"
-            android:entryValues="@array/pref_arrkeys__app_themes"
-            android:icon="@drawable/ic_invert_colors_black_24dp"
-            android:key="@string/pref_key__app_theme"
-            android:summary="%1$s"
-            android:title="@string/theme" />
-
         <net.gsantner.opoc.frontend.settings.GsLanguagePreferenceCompat
             android:icon="@drawable/ic_language_black_24dp"
             android:key="@string/pref_key__language"

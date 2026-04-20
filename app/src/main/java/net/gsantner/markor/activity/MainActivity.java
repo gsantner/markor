@@ -12,6 +12,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -23,7 +24,6 @@ import android.view.View;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,6 +32,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationBarView;
 
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
@@ -99,6 +100,8 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         });
 
         setSupportActionBar(findViewById(R.id.toolbar));
+        applyActivityBarBackgroundColors();
+        applyMainBottomTabBarAppearance();
         optShowRate();
 
         // Setup viewpager
@@ -147,7 +150,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
     @Override
     public Integer getNewNavigationBarColor() {
-        return ContextCompat.getColor(this, R.color.primary);
+        return _appSettings.getConfiguredBarBackgroundColor();
     }
 
     @Override
@@ -293,6 +296,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         }
 
         _cu.setKeepScreenOn(this, _appSettings.isKeepScreenOn());
+        applyMainBottomTabBarAppearance();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && _appSettings.isMultiWindowEnabled()) {
             setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.app_name)));
         }
@@ -316,6 +320,31 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     @Override
     public void onPostResume() {
         super.onPostResume();
+    }
+
+    private void applyMainBottomTabBarAppearance() {
+        if (_bottomNav == null) {
+            return;
+        }
+
+        final boolean showTabTitles = _appSettings.isMainBottomBarTabTitlesShown();
+        final int barColor = _appSettings.getConfiguredBarBackgroundColor();
+
+        _bottomNav.setBackgroundColor(barColor);
+        _bottomNav.setItemBackground(new ColorDrawable(barColor));
+        _bottomNav.setLabelVisibilityMode(showTabTitles
+                ? NavigationBarView.LABEL_VISIBILITY_LABELED
+                : NavigationBarView.LABEL_VISIBILITY_UNLABELED);
+        applyMainBottomTabBarMinHeight(showTabTitles);
+    }
+
+    private void applyMainBottomTabBarMinHeight(final boolean showTabTitles) {
+        final int minHeight = getResources().getDimensionPixelSize(showTabTitles
+                ? R.dimen.main_bottom_bar_min_height_labeled
+                : R.dimen.main_bottom_bar_min_height_unlabeled);
+        if (_bottomNav.getMinimumHeight() != minHeight) {
+            _bottomNav.setMinimumHeight(minHeight);
+        }
     }
 
     // Cycle between recent, favourite, and current
