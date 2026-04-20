@@ -12,7 +12,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -57,7 +56,6 @@ public class SettingsActivity extends MarkorBaseActivity {
     }
 
     public static int activityRetVal = RESULT.NOCHANGE;
-    private static int iconColor = Color.WHITE;
 
     protected Toolbar toolbar;
 
@@ -72,7 +70,6 @@ public class SettingsActivity extends MarkorBaseActivity {
 
         // Custom code
         GsFontPreferenceCompat.additionalyCheckedFolder = new File(_appSettings.getNotebookDirectory(), ".app/fonts");
-        iconColor = _cu.rcolor(this, R.color.primary_text);
         toolbar.setTitle(R.string.settings);
         setSupportActionBar(findViewById(R.id.toolbar));
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_white_24dp));
