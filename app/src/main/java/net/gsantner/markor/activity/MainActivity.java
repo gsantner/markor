@@ -24,7 +24,6 @@ import android.view.View;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -151,7 +150,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
     @Override
     public Integer getNewNavigationBarColor() {
-        return ContextCompat.getColor(this, R.color.primary);
+        return _appSettings.getConfiguredBarBackgroundColor();
     }
 
     @Override
