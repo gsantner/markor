@@ -66,11 +66,12 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation_bar"
         android:layout_width="0dp"
-        android:layout_height="@dimen/main_bottom_bar_height"
+        android:layout_height="wrap_content"
         android:background="@color/primary"
         app:itemBackground="@color/primary"
         app:itemIconTint="@drawable/bottomnav_color_selector"
         app:itemTextColor="@drawable/bottomnav_color_selector"
+        app:itemIconSize="@dimen/main_bottom_bar_icon_size"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

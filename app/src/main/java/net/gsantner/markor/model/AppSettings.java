@@ -733,7 +733,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return rcolor(R.color.background);
     }
 
-    public @ColorInt int getTopBottomBarColor() {
+    public @ColorInt int getConfiguredBarBackgroundColor() {
         return isFlatTopBottomBarColorEnabled() ? getUiBackgroundColor() : rcolor(R.color.primary);
     }
 

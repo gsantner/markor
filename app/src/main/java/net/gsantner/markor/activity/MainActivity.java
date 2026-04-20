@@ -21,7 +21,6 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
@@ -102,7 +101,8 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         });
 
         setSupportActionBar(findViewById(R.id.toolbar));
-        applyMainAppearancePreferences();
+        applyActivityBarBackgroundColors();
+        applyMainBottomTabBarAppearance();
         optShowRate();
 
         // Setup viewpager
@@ -297,7 +297,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         }
 
         _cu.setKeepScreenOn(this, _appSettings.isKeepScreenOn());
-        applyMainAppearancePreferences();
+        applyMainBottomTabBarAppearance();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && _appSettings.isMultiWindowEnabled()) {
             setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.app_name)));
         }
@@ -323,36 +323,28 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         super.onPostResume();
     }
 
-    private void applyMainAppearancePreferences() {
-        applyConfiguredBarBackgroundColors();
-
-        if (_bottomNav == null || _viewPager == null || _fab == null) {
+    private void applyMainBottomTabBarAppearance() {
+        if (_bottomNav == null) {
             return;
         }
 
         final boolean showTabTitles = _appSettings.isMainBottomBarTabTitlesShown();
-        final int barColor = _appSettings.getTopBottomBarColor();
+        final int barColor = _appSettings.getConfiguredBarBackgroundColor();
 
         _bottomNav.setBackgroundColor(barColor);
         _bottomNav.setItemBackground(new ColorDrawable(barColor));
         _bottomNav.setLabelVisibilityMode(showTabTitles
                 ? NavigationBarView.LABEL_VISIBILITY_LABELED
                 : NavigationBarView.LABEL_VISIBILITY_UNLABELED);
-        applyBottomNavHeight(showTabTitles);
+        applyMainBottomTabBarMinHeight(showTabTitles);
     }
 
-    private void applyBottomNavHeight(final boolean showTabTitles) {
-        final ViewGroup.LayoutParams params = _bottomNav.getLayoutParams();
-        if (params == null) {
-            return;
-        }
-
-        final int height = getResources().getDimensionPixelSize(showTabTitles
-                ? R.dimen.main_bottom_bar_height
-                : R.dimen.main_bottom_bar_height_no_titles);
-        if (params.height != height) {
-            params.height = height;
-            _bottomNav.setLayoutParams(params);
+    private void applyMainBottomTabBarMinHeight(final boolean showTabTitles) {
+        final int minHeight = getResources().getDimensionPixelSize(showTabTitles
+                ? R.dimen.main_bottom_bar_min_height_labeled
+                : R.dimen.main_bottom_bar_min_height_unlabeled);
+        if (_bottomNav.getMinimumHeight() != minHeight) {
+            _bottomNav.setMinimumHeight(minHeight);
         }
     }
 

@@ -5,7 +5,8 @@
     <dimen name="editor_bottom_margin">32dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
     <dimen name="textactions_bar_height">46dp</dimen>
-    <dimen name="main_bottom_bar_height">56dp</dimen>
-    <dimen name="main_bottom_bar_height_no_titles">48dp</dimen>
+    <dimen name="main_bottom_bar_icon_size">24dp</dimen>
+    <dimen name="main_bottom_bar_min_height_labeled">56dp</dimen>
+    <dimen name="main_bottom_bar_min_height_unlabeled">42dp</dimen>
     <dimen name="dialog_corner_radius">16dp</dimen>
 </resources>

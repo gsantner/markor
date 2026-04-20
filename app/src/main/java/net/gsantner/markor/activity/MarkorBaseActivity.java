@@ -36,7 +36,7 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
     @Override
     protected void onResume() {
         super.onResume();
-        applyConfiguredBarBackgroundColors();
+        applyActivityBarBackgroundColors();
     }
 
     protected boolean onReceiveKeyPress(GsFragmentBase fragment, int keyCode, KeyEvent event) {
@@ -56,14 +56,14 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
         return _appSettings.getAppThemeName().contains("black") ? Color.BLACK : null;
     }
 
-    public void applyConfiguredBarBackgroundColors() {
+    public void applyActivityBarBackgroundColors() {
+        final int backgroundColor = _appSettings.getConfiguredBarBackgroundColor();
+
         final Toolbar toolbar = findViewById(R.id.toolbar);
-        if (toolbar == null) {
-            return;
+        if (toolbar != null) {
+            toolbar.setBackgroundColor(backgroundColor);
         }
 
-        final int backgroundColor = _appSettings.getTopBottomBarColor();
-        toolbar.setBackgroundColor(backgroundColor);
         _cu.setStatusbarColor(this, backgroundColor);
     }
 
