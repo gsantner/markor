@@ -118,7 +118,7 @@ Did you know you can share content and URLs into Markor? One of the core feature
 ![Share Into](doc/assets/2022-07-16-share-into.webp)
 
 * Beside QuickNote & ToDo you might recall another special file at Markor - LinkBox. One of the main features of Share Into is to share links (from i.e. your web browser) into Markor, to **create bookmarks & link lists**.  
-* Text/Title of links and the URL are extracted and automatically formated in Markdown syntax, resulting in fancy clickable links when you view your Markdown documents later. Note that **you can share any text into Markor, it is not limited to links**.
+* Text/Title of links and the URL are extracted and automatically formatted in Markdown syntax, resulting in fancy clickable links when you view your Markdown documents later. Note that **you can share any text into Markor, it is not limited to links**.
 * Often shared text is not the way you want it. You can **edit text prior appending it to your file**. As shown in the screenshot above there is a editor with syntax highlighting. So if you have to add a few words, rewrite & restructure some text prior pasting - go ahead, no problem.
 * You can also re-share the text without adding it to any file (i.e. share into Markor, add a few words, share the final text to 5 messenger contacts)
 * Sometimes apps only have the option to share a web-accessible link, but none to open it yourself in the browser. In case a URL is in the shared text, Markor also shows the option to open the link in a browser.
@@ -166,7 +166,7 @@ Most dialogs got a few minor improvements. The most important change is that the
 
 - [Search: Keep in-files search dialog open, closes #1663, by @harshad1 (PR #1689)](https://github.com/gsantner/markor/pull/1689/files)
 - [Dialogs: Don't show OK button at dialogs that require specific selection, by @gsantner closes #1699, closes #1700](https://github.com/gsantner/markor/commit/b4ae32bf0e8ab890ded57718a9598da7a7d52870)
-- [Rename dialog: Check file existance case insensitive (Android filesystem usually is insensitive), by @gsantner, closes #1695](https://github.com/gsantner/markor/issues/1695)
+- [Rename dialog: Check file existence case insensitive (Android filesystem usually is insensitive), by @gsantner, closes #1695](https://github.com/gsantner/markor/issues/1695)
 - [Improve Dialog OK button constraints #1699, by @harshad1 (PR #1720)](https://github.com/gsantner/markor/pull/1720/files)
 - [SearchDialog: Improve condition calculation for simple dialogs, by @harshad1 (PR #1751)](https://github.com/gsantner/markor/pull/1751/files)
 - [todo.txt filter search: Disable highlighting at completed tasks, by @harshad1 (PR #1754)](https://github.com/gsantner/markor/pull/1754/files)
@@ -174,7 +174,7 @@ Most dialogs got a few minor improvements. The most important change is that the
 
 ## Changes to file browser & file management
 - [Sync clients: Remove irritating file paths from unsupported dialog, by @gsantner, closes #1705](https://github.com/gsantner/markor/issues/1699)
-- [dotFiles: Hide "*_files" and "*.assets" from browser->save page to html, by @tifish (PR #1704)](https://github.com/gsantner/markor/pull/1704/files)
+- [dotFiles: Hide \"*_files\" and \"*.assets\" from browser->save page to html, by @tifish (PR #1704)](https://github.com/gsantner/markor/pull/1704/files)
 - [More deterministic save / resume - Switching on every tab move, by @harshad1 (PR #1736)](https://github.com/gsantner/markor/pull/1736/files)
 - [Improve file handling (hash calc) & FileInfo detection, by @harshad1 (PR #1719)](https://github.com/gsantner/markor/pull/1719/files)
 - [File management: Support UTF-8 with BOM, by @tifish (PR #1693)](https://github.com/gsantner/markor/pull/1693/files)
@@ -188,16 +188,6 @@ Markor got lot's of under the hood improvements in all areas - editor, filebrows
 - [Editor: Restore behaviour - don't overwrite newer files unless content modified, by @harshad1 (PR #1758)](https://github.com/gsantner/markor/pull/1758/files)
 - [Editor: Disable richtext pasting which can lead to dropped characters, by @gsantner, closes #1614](https://github.com/gsantner/markor/issues/1614)
 - [Launcher shortcuts: Open ToDo & QuickNote at bottom, by @harshad1 (PR #1748)](https://github.com/gsantner/markor/pull/1748/files)
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -340,7 +330,7 @@ Checkout the [mermaidjs live-editor](https://mermaid-js.github.io/mermaid-live-e
 * [ShareInto: Only trim line breaks when appending, by @gsantner, closes #1526](https://github.com/gsantner/markor/commit/30ca7997)
 * [Combined storage permission check, restart mainactivity & reload all files after grant, by @gsantner (premerge #1359 #1521)](https://github.com/gsantner/markor/commit/dc9453c0)
 * [Add view mode debugging hint. by @gsantner](https://github.com/gsantner/markor/commit/5b2e12f7)
-* [Update gradle-wrapper, export activites, by @gsantner (premerge #1359 #1521)](https://github.com/gsantner/markor/commit/4b228db2)
+* [Update gradle-wrapper, export activities, by @gsantner (premerge #1359 #1521)](https://github.com/gsantner/markor/commit/4b228db2)
 * ---------
 * [Markor update v2.8.4](https://github.com/gsantner/markor/commit/f03ac72a)
 * [Rename markor baseactivity and use everywhere, move OpenEditor activity to subdir, by @gsantner](https://github.com/gsantner/markor/commit/9a8673af)
@@ -362,18 +352,18 @@ Checkout the [mermaidjs live-editor](https://mermaid-js.github.io/mermaid-live-e
 * [Move bundled fonts to thirdparty directory, drop 3 fonts to reduce apk size](https://github.com/gsantner/markor/commit/7dc3b05c)
 * [CI/CD: Makefile: Configurable flavor](https://github.com/gsantner/markor/commit/2492adc6)
 * [CI/CD: Makefile: Add app run job](https://github.com/gsantner/markor/commit/38e8c04a)
-* ---------
+* ---------\
 * [Markor v2.8.3](https://github.com/gsantner/markor/commit/adce9627)
 * [Add spellchecking capabilities for strings.xml to Makefile & CI/CD, by @gsantner](https://github.com/gsantner/markor/commit/ac08c4f7)
 * [filemanager: Always load latest fav/recent/popular files when browsing to it](https://github.com/gsantner/markor/commit/d02b9a0d)
 * [ShareInto:: reset modTime after writing, so it's correctly reloaded at time of opening at editor, by @gsantner](https://github.com/gsantner/markor/commit/3d9540e7)
-* [filebrowser::rename file::fix/workaround for Android's filesystem case-insensitive filenaming, by @gsantner, closes #1481](https://github.com/gsantner/markor/commit/7541863d)
+* [filebrowser::rename file::fix/workaround for Android's filesystem case-insensitive file naming, by @gsantner, closes #1481](https://github.com/gsantner/markor/commit/7541863d)
 * [Debug builds (aaTest): Properly show version of Markor at 'More' page](https://github.com/gsantner/markor/commit/285d0367)
-* ---------
+* ---------\
 * [Markor v2.8.2](https://github.com/gsantner/markor/commit/95d45315)
 * [Improve file open/close speed, fix file read/write issues, closes #1470, by @harshad1 @gsantner (PR #1473)](https://github.com/gsantner/markor/commit/07c584e0)
 * [Zim: follow links to other wiki pages, closes #1223, by @fredericjacob (PR #1437)](https://github.com/gsantner/markor/commit/520dee63)
-* ---------
+* ---------\
 * [Release update v2.8.1, by @gsantner](https://github.com/gsantner/markor/commit/a2c4d1f4)
 * [Workaround for buggy keyboard at file/folder creation, fixes #1461 (PR #1466 by @gsantner)](https://github.com/gsantner/markor/commit/39220039)
 * [Remove unused class AppCast](https://github.com/gsantner/markor/commit/b0d95b6a)
@@ -386,21 +376,12 @@ Checkout the [mermaidjs live-editor](https://mermaid-js.github.io/mermaid-live-e
 * [Update crowdin config](https://github.com/gsantner/markor/commit/129f07e0)
 * [Translation update (PR #1429)](https://github.com/gsantner/markor/commit/62f21259)
 * [filebrowser: Improve performance a lot (speed of file list appearing)](https://github.com/gsantner/markor/commit/83a4e2f7)
-* [filebrowser:sort: use compareToIgnoreCase for name comparision](https://github.com/gsantner/markor/commit/aa5b5439)
+* [filebrowser:sort: use compareToIgnoreCase for name comparison](https://github.com/gsantner/markor/commit/aa5b5439)
 * [Browse todo.txt file by various filters (PR #1408 by @harshad1)](https://github.com/gsantner/markor/commit/7e680df2)
 * [todotxt: Save priority on done by pri:X kv (PR #1420 by @harshad1)](https://github.com/gsantner/markor/commit/a4719b7a)
 * [Allow to install APK files from filebrowser on click, by @gsantner (PR #1417)](https://github.com/gsantner/markor/commit/3d5fc9c2)
 * [Automatically find FileProvider, by @gsantner](https://github.com/gsantner/markor/commit/f101beda)
 * [ShareUtils:: mark fileProviderAuthority static](https://github.com/gsantner/markor/commit/fc9269b6)
-
-
-
-
-
-
-
-
-
 
 
 
@@ -432,15 +413,6 @@ Afterwards all selected entries will be highlighted in the editor, and you may a
 - Add multi-selection to todo.txt dialogs, by @harshad1 @gsantner
 - In-content search support for encrypted files, #1388 by @opensource21
 - Remove alternative todo.txt naming (tags/categories), by @gsantner
-
-
-
-
-
-
-
-
-
 
 
 
@@ -491,7 +463,7 @@ When you copy/move multiple files, you get the option to apply the decision (ski
 - Backup and restore settings, Format selection with radio buttons, #1244 by @harshad1 @gsantner
 - Per-file font size, #1332 by @harshad1
 - Markdown: Support superscript^2^ syntax, #1268 by @gsantner
-- View mode: Image/PDF export whole page, add seperate screenshot option, by @gsantner
+- View mode: Image/PDF export whole page, add separate screenshot option, by @gsantner
 - todo.txt: Fix trailing space resulting in contexts/projects/due-dates to be entered twice, #1282 by @harshad1
 - Markdown: Enable GitLab extension, display video links as html5-video, #1280 by @gsantner
 - Markdown: Enable typographic transformation, #1277 by @gsantner
@@ -509,15 +481,6 @@ When you copy/move multiple files, you get the option to apply the decision (ski
 - Markdown: Don't match extra spaces at ordered-list regex, #1367 by @harshad1
 - File Manager: Fix MB being displayed as GB at description (SI 1000 unit), #1352 by @gsantner
 - File Manager: Duplicate file / allow copy into same folder, #1345 by @harshad1- Filemanager formatter: fix MB being displayed as GB (SI 1000 unit), #1352 by @gsantner
-
-
-
-
-
-
-
-
-
 
 
 
@@ -571,7 +534,7 @@ and was moved to the _File settings_ submenu at the top menu. The current select
 - Editor: Improve writing to sdcard, #1192 by @gsantner
 - Zim: Support file generation on older Android versions, #1194 by @gsantner
 - Zim: Editor: Support Table of contents (top menu), #1186 by @fredericjacob
-- Markdown: Math/KaTex: Improve \\ line breaks usage, #1196 by @radanovicnik
+- Markdown: Math/KaTex: Improve \\\\ line breaks usage, #1196 by @radanovicnik
 - ShareInto: Add space after formatted link - messengers then show correct link preview, by @gsantner
 - Markdown: Add break page example to Markdown reference, by @gsantner
 - Editor: Prevent Android accessibility & autofill to produce errors, #1204 by @harshad1
@@ -583,22 +546,13 @@ and was moved to the _File settings_ submenu at the top menu. The current select
 - All formats: Date/Time dialog don't add entry twice to history, #1229 by @harshad1
 - Editor/Viewer: Increase scrollbar width, #1241 by @harshad1
 - File browser: File move start from current folder, #1234 by @harshad1
-- Editor/Viwer: Add file info option (document top menu), #1233 by @harshad1
+- Editor/Viewer: Add file info option (document top menu), #1233 by @harshad1
 - Viewer: Privacy: Opt-out of Android WebView's internal metrics, #1181 by @gsantner
 - Markdown: Support Notable's special home brewed syntax for attachments, #1252 by @gsantner
 - Dependencies: Add source code of colorpicker and build subproject, by @gsantner
 - Optimize image assets, by @gsantner
 - DevOps: Improvements to GitHub Actions CI/CD configuration, by @gsantner
 - Improve encryption wording & usage, #1171 #1179 by @opensource21
-
-
-
-
-
-
-
-
-
 
 
 
@@ -731,7 +685,7 @@ Shout out to [Harshad Srinivasan](https://github.com/harshad1), [Frederic Jacob]
 
 ### More Changes
 - Add Zim Wiki format and template #1098
-- Add search & replace (simple\|regex, replace once\|all) #1112
+- Add search & replace (simple\\|regex, replace once\\|all) #1112
 - Add settings for current file to toolbar #1129
 - Fix file sometimes not opens from launcher shortcut #1139
 - Use GitHub Actions for CI/CD #1151
@@ -740,15 +694,6 @@ Shout out to [Harshad Srinivasan](https://github.com/harshad1), [Frederic Jacob]
 - Allow to select folder when create new file via share into Markor #1138
 - Improve license dialog readability #1119
 - General improvements, fixes and translations
-
-
-
-
-
-
-
-
-
 
 
 
@@ -765,7 +710,7 @@ _30. October 2020_
 
 
 ## View-Mode syntax highlighting for more languages
-Syntax highlighing has been added for many additional (programming) languages in the Markdown view-mode (code block like \`\`\`kotlin):
+Syntax highlighing has been added for many additional (programming) languages in the Markdown view-mode (code block like \\`\\`\\`kotlin):
 
 Elixir, Haskell, Kotlin, Perl, R, Ruby, Scala, Swift
 
@@ -773,14 +718,14 @@ Elixir, Haskell, Kotlin, Perl, R, Ruby, Scala, Swift
 ## New todo.txt implementation
 todo.txt syntax highlighting is now faster than ever before. 
 Also all todo.txt specific text actions have been improved for better compatibility.  
-Vaious new features, actions and options also come with the update, checkout the full changelog.
+Various new features, actions and options also come with the update, checkout the full changelog.
 
 ### More changes
 - Markdown: Correctly insert or remove list item on press enter at empty list item
 - Remove title from todo.txt date dialog, better usable on small devices
 - Fix search sometimes not working when chaging from view to edit mode
 - Rework Indent & Move lines Actions
-- Add settings option to control todo.txt completition date auto insert
+- Add settings option to control todo.txt completion date auto insert
 - All new todo.txt support in Markor
 - Add many languages to view-mode code highlighting
 - Add xlf format (plaintext)
@@ -799,15 +744,6 @@ Vaious new features, actions and options also come with the update, checkout the
 - todo.txt: Syntax highlighting in edit-mode search dialog
 - Save last used folder to settings, use info for titlebar
 - New File Dialog: Remember type selection
-
-
-
-
-
-
-
-
-
 
 
 
@@ -834,7 +770,7 @@ You get a quick overview what the document contains, and it's the fastest way to
 ### Editor: Custom action button order
 Frequently requested: To be able to order the action buttons for text editing in a order that fits own workflow.  
 You can now order all actions as you wish and separately per format (Markdown, todo.txt, Plaintext).  
-To change the order open the settings, select the format to customize and in the "Action Order" menu you are able to freely move options.
+To change the order open the settings, select the format to customize and in the \"Action Order\" menu you are able to freely move options.
 
 ![custom action order](doc/assets/2020-07-25-customize-action-button-order.webp)
 
@@ -857,7 +793,7 @@ This time especially due [Harshad Srinivasan](https://github.com/harshad1)s prec
 - Add Accordion (Click to expand) example and add action button
 - Tooltips for action buttons
 - For index.html files, show foldername at favourites/recents
-- todo.txt: Set completition date also when there is no creation date
+- todo.txt: Set completion date also when there is no creation date
 - Markdown: Configurable unordered list character
 - Custom order of action buttons
 - Markdown: Add alternative more performant heading highlighting
@@ -867,20 +803,11 @@ This time especially due [Harshad Srinivasan](https://github.com/harshad1)s prec
 - todo.txt: Preselect last used archive file by default for archiving
 - Markdown: Long press code to insert code block
 - todo.txt: Improved task sort functionalities
-- Add action button to expand selection of cursror to whole line
+- Add action button to expand selection of cursor to whole line
 - Markdown: Add Table of contents / Outline for Edit mode (Press toolbar)
 - Vertical Scrollbar now draggable at view & edit mode
 - todo.txt: Date&Time selection dialogs
 - Markdown: Auto update ordered list numbers
-
-
-
-
-
-
-
-
-
 
 
 
@@ -932,7 +859,7 @@ class: beamer
 3. End last slide with hyphens too
 4. Slide backgrounds can be configured using CSS, for all and individual slides
 5. Print / PDF export in landscape mode
-6. Create title only slides (like first slide) by starting the slide (line after ---) with "# title"
+6. Create title only slides (like first slide) by starting the slide (line after ---) with \"# title\"
 
 
 -----------------
@@ -1005,15 +932,6 @@ Use the new editor table button to add tables!
 
 
 
-
-
-
-
-
-
-
-
-
 ------------------------------------------------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------------------------------------------------------
@@ -1053,15 +971,6 @@ _04. September 2019_
 
 
 
-
-
-
-
-
-
-
-
-
 ------------------------------------------------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------------------------------------------------------
@@ -1083,22 +992,22 @@ Now there is always a search button available in all type of pages, even better 
 
 ### Improved image, PDF sharing and printing
 The color scheme is now automatically switched to light with white background, when sharing or exporting a document as PDF or image.
-As PDF export and printing uses the same Android feature, the improvement is also available for priting.
+As PDF export and printing uses the same Android feature, the improvement is also available for printing.
 
 With this change, Markor will always automatically generate clean white documents for you (without theme specific background color), perfect for printing.
 
 
 ### Improved file handling
-Markor will ask now if a file should be opened inside editor, if it's one of the extended list of expected file typs.
+Markor will ask now if a file should be opened inside editor, if it's one of the extended list of expected file types.
 You will now get a dialog to choose between Markor or external app. This list of file types includes but is not limited
-to data exchange (like csv, json, xml, yaml) anddevelopment (c++, java, python, ruby, golang, bash) files types.
+to data exchange (like csv, json, xml, yaml) and development (c++, java, python, ruby, golang, bash) files types.
 
-There is also a new settings option in the general section, which allows to specify a comma seperated list of
+There is also a new settings option in the general section, which allows to specify a comma separated list of
 file extensions that always should be opened with Markor.
 If you want to open files with .mytype extension, as well files without extension: `None, .mytype`.
 
 ### More changes
-- Always view files starting with "index."
+- Always view files starting with \"index.\"
 - Setting to configure wrap mode (=line breaking)
 - Menu option for reload file (editor/viewer)
 - Menu option for hiding files & folders starting with a dot
@@ -1107,15 +1016,6 @@ If you want to open files with .mytype extension, as well files without extensio
 - Keep file browser sort order
 - Improve inline code highlighting
 - Add new line when archiving tasks
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1135,7 +1035,7 @@ _03. July 2019_
 ![showcase](doc/assets/2019-05-06-markor-v1-8-showcase-1.webp)
 
 * The old file browser was removed and replaced by a new compact solution. It is based on the file browser known from import dialog.
-* The previous "Notebook" tab in the main screen is now called "Files". Notebook is now just your document "home" folder. 
+* The previous \"Notebook\" tab in the main screen is now called \"Files\". Notebook is now just your document \"home\" folder. 
 * You can now freely navigate the filesystem and all files are shown (previously: only folders and text documents).
 
 
@@ -1153,7 +1053,7 @@ _03. July 2019_
 
 * Markor now uses the Android Storage Access Framework to access SD cards.
 * To mount a SD card (so files can be edited by Markor), navigate to the SD card folder.
-* (first screenshot) Press the `+` button and a descrptive dialog appears.
+* (first screenshot) Press the `+` button and a descriptive dialog appears.
 * (second screenshot) Follow the steps shown in the dialog to give Markor access to your SD card.
 * (third screenshot) Files on the SD card are not striked out anymore, which means Markor has write access to the file/folder.
 
@@ -1171,7 +1071,7 @@ Do you want multiple Notebooks? Favourite multiple folders and set the start fol
 - Show app intro at first start
 - All new file navigation
 - Add favourite files
-- Add quick navigiation options (to notebook, sdcard, AppData and more)
+- Add quick navigation options (to notebook, sdcard, AppData and more)
 - Add option to set Navigation-Bar color
 - Combine edit & view mode to one fragment, show view as overlay
 - Add horizontal scrolling for code blocks in view mode
@@ -1185,17 +1085,8 @@ Do you want multiple Notebooks? Favourite multiple folders and set the start fol
 #### Update statistics
 * Two first-time-contributors and zero previous contributors improved the source code of the Markor project in this update. [Learn how you can improve the project by code](https://github.com/gsantner/markor#contributions)
 * In this update totally 72 commits were made, 130 changed files, 5.001 additions and 2.249 deletions.
-* There were totally 7 minor releases in prepartion of this update.
+* There were totally 7 minor releases in preparation of this update.
 * 36 new strings were added for translation. 67 contributors are now translating the Markor project. [Help by translating Markor into your language](https://crowdin.com/project/markor).  
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1304,7 +1195,7 @@ Markor comes now bundled with some additional common fonts (free & open license 
 ![showcase](doc/assets/2019-03-11-markor-v1-7-showcase-4.webp)
 
 
-<table style="table-layout: fixed;">
+<table style=\"table-layout: fixed;\">
 <tr><td>Document browser --> App start tab</td><td>Select which tab should be selected when starting Markor.</td></tr>
 <tr><td>Editor -> Document Editor Font</td><td>Select which font should be used at edit/representation mode</td></tr>
 <tr><td>Representation -> Swipe to change mode</td><td>Whether or not the mode should be changed to the opposite (edit/representation) when swiping to left or right.</td></tr>
@@ -1330,15 +1221,6 @@ Markor comes now bundled with some additional common fonts (free & open license 
 
 
 
-
-
-
-
-
-
-
-
-
 ------------------------------------------------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------------------------------------------------------
@@ -1355,7 +1237,7 @@ _30. December 2018_
 ![Showcase 4](doc/assets/2018-12-30-markor-16-datetime-dialog.webp)  
 
 Insert date and/or time using the new action! You can freely pick date and time and choose in which format the information should be added.
-The current time is used when you press the "OK" button by default. (Note that you also can just insert the format, without date!)
+The current time is used when you press the \"OK\" button by default. (Note that you also can just insert the format, without date!)
 
 * `Date only` selects your country specific default format for Date
 * `Time only` selects your country specific default format for Time
@@ -1379,15 +1261,6 @@ The current time is used when you press the "OK" button by default. (Note that y
 **Fixed:**  
 - New file dialog: Jekyll option on older devices  
 - Title not updated when swiping  
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1417,7 +1290,7 @@ New general settings options arrived! You can find them under the following sett
 
 * **Markdown GFM tasks**: Use the new task textaction to convert the current line to a task! If the line is already a task you toggle between done and todo.
 * **Insert image**: Add pictures to your document. Easy access to pictures from _gallery_ and _camera_! You can also browse your drive! Optionally _edit the picture_ with an installed graphics app.
-* **Color picker**: Add _color_ to your texts! Choose between setting the _forground or background_ color. You can also add only the hex color code. The newly added _color picker_ is also used in [new theming functionalities](#new-theming-options-color-scheme-auto-theme)
+* **Color picker**: Add _color_ to your texts! Choose between setting the _foreground or background_ color. You can also add only the hex color code. The newly added _color picker_ is also used in [new theming functionalities](#new-theming-options-color-scheme-auto-theme)
 * **Sort tasks**: Try the new sort button for your todo list! Easy sort your todo alphabetically by selected order. 
 
 
@@ -1428,7 +1301,7 @@ New general settings options arrived! You can find them under the following sett
 * **Create new file**
   * Create new files now from the Notebook
   * Choose between filename presets. Want to write a Jekyll blog post? Markor has you covered.
-  * Full customizeable filename and file extension.
+  * Full customizable filename and file extension.
   * Moved 'New folder' from the toolbar-dropdown aswell. Enter the foldername in the first (left) text line and press 'Folder' to create it. The right text line (extension) is not used in this case.
   * More features to be added...!
   * Notice: Removed file move / rename within text editor. Use the new dialog for new files, otherwise the rename option. Long press one document in the Notebook to get the Rename option in the toolbar!
@@ -1441,7 +1314,7 @@ New general settings options arrived! You can find them under the following sett
 
 ![showcase](doc/assets/2018-12-09-v1-5-showcase-3.webp)
 
-* **Editor -> Basic color scheme**: Select between predefined colors or use your own. Change the default textcolor and the background color at the editor. You can always return to the defaults by selecting the _Markor_ preset.
+* **Editor -> Basic color scheme**: Select between predefined colors or use your own. Change the default text color and the background color at the editor. You can always return to the defaults by selecting the _Markor_ preset.
 * **App theme**: Use the new _Auto_ option to automatically switch between themes based on the time of day. Always crisp at work and easy on eyes after work. New app installations use Auto as default.
 
 **New features:**  
@@ -1457,7 +1330,7 @@ New general settings options arrived! You can find them under the following sett
   - Start document at the recent cursor position (jump to bottom on new documents and at special files)  
   - Enable link highlighting in plaintext format (especially easier to distinguish title and links in linkbox)  
 - Document browser  
-  - Completly new 'New file' dialog  
+  - Completely new 'New file' dialog  
 - Text Actions  
   - Sort todo.txt files  
   - Tasks support in Markdown  
@@ -1479,7 +1352,7 @@ New general settings options arrived! You can find them under the following sett
   - More space for document title  
   - Harden automatic file naming and moving  
 - Representation  
-  - Set inital background color before loading document  
+  - Set initial background color before loading document  
   - Math/KaTex: Show inline when single dollar is used
   - Enable block rendering for KaTex (math)  
   - Performance improvement for TOC & Math - only use when text contains headers/math  
@@ -1493,15 +1366,6 @@ New general settings options arrived! You can find them under the following sett
 **Fixed:**  
 - Filesystem  
   - Discard selection when leaving filesystem view  
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1534,7 +1398,6 @@ _18. September 2018_
   - Markdown: More features enabled, notably GFM like table parsing and underlined h1
 - Settings
   - More spacing between categories
-
 **Fixed:**  
 - Editor
   - File saving
@@ -1555,15 +1418,6 @@ Overall setting category headers have more spacing now and some options were reo
 * **Format -> Markdown -> Table of contents** - Shows a table of contents at preview
 * **App-wide -> Save location** - Notebook directory and all special files are available here for selection
 * **App-wide -> Launcher (Special documents)** - Enable additional launchers for LinkBox/ToDoQuickNote. A restart of the launcher or device may be required for this feature to take affect.
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1599,19 +1453,10 @@ _09. September 2018_
  
 **Fixed:**  
 - Editor 
-  - Change default lineheight back to 100% 
+  - Change default line height back to 100% 
   - Not connects multiple lines anymore 
 - Filesystem view 
   - More checks for storage access and the yellow info box 
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1637,11 +1482,11 @@ _09. September 2018_
 - Widget
   - Added shortcuts to ToDo, QuickNote and LinkBox
 - SD Card handling and permission errors
-  - Show warning when opening a file on not writeable path
-  - Add shortcuts to writeable SD card folders
-  - Mark unwriteable files red in selection dialog
+  - Show warning when opening a file on not writable path
+  - Add shortcuts to writable SD card folders
+  - Mark unwritable files red in selection dialog
 - ShareInto
-  - Better seperator placment
+  - Better separator placement
 
 **Fixed:**
 - Widget
@@ -1659,15 +1504,6 @@ The following will very likely be included in the next release - may also be in 
 * More functions for recent-files, Addition of popular-files
 * (Markdown) Improved code block highlighting
 * (Markdown) Improved unordered list highlighting
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1695,7 +1531,7 @@ _18. May 2018_
 **New features:**  
 - Recently viewed documents
   - Start editing of recent documents, button in the toolbar of main view
-  - Allow sharing into recend documents
+  - Allow sharing into recent documents
   - Queue containing the 10 last viewed files
 - Keep scroll position when reloading document list (Notebook)
 - Document/File Info: Dialog showing information about selected file
@@ -1715,4 +1551,4 @@ _18. May 2018_
 **Fixed:**  
 - Crash when Markor put to background and huge file is loaded
   - Document contents are not stored into resume cache anymore if they are too big
-  - Make no major differences for huge files, just undo/redo history is cleared when switchting away
+  - Make no major differences for huge files, just undo/redo history is cleared when switching away
