@@ -26,12 +26,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.accessibility.AccessibilityEvent;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.core.content.ContextCompat;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.MainActivity;
@@ -74,6 +76,7 @@ public class HighlightingEditor extends AppCompatEditText {
     private final AtomicBoolean _textUnchangedWhileHighlighting = new AtomicBoolean(true);
     private int _textChangedNumber;
     private final Runnable _textChangedRecorder = TextViewUtils.makeDebounced(getHandler(), 1000, () -> _textChangedNumber++);
+    private StaticCursorDrawer _staticCursorDrawer;
 
     public HighlightingEditor(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -135,6 +138,10 @@ public class HighlightingEditor extends AppCompatEditText {
     protected void onDraw(Canvas canvas) {
         try {
             super.onDraw(canvas);
+
+            if (_staticCursorDrawer != null && hasFocus()) {
+                _staticCursorDrawer.draw(canvas);
+            }
         } catch (Exception e) {
             // Hinder drawing from crashing the app
             Log.e(getClass().getName(), "HighlightingEdtior onDraw->super.onDraw crash" + e);
@@ -147,7 +154,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
     // Batch edit spans (or anything else, really)
     // This triggers a reflow which will bring focus back to the cursor.
-    // Therefore it cannot be used for updating the highlighting as one scrolls
+    // Therefore, it cannot be used for updating the highlighting as one scrolls
     private void batch(final Runnable runnable) {
         try {
             beginBatchEdit();
@@ -412,7 +419,7 @@ public class HighlightingEditor extends AppCompatEditText {
         }
     }
 
-    // Hleditor will report that it is not autofillable under certain circumstances
+    // HighlightingEditor will report that it is not auto-fillable under certain circumstances
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public int getAutofillType() {
@@ -451,6 +458,10 @@ public class HighlightingEditor extends AppCompatEditText {
         super.onSelectionChanged(selStart, selEnd);
         if (MainActivity.IS_DEBUG_ENABLED) {
             AppSettings.appendDebugLog("Selection changed: " + selStart + "->" + selEnd);
+        }
+
+        if (_staticCursorDrawer != null && selStart == selEnd && isCursorVisible()) {
+            setCursorVisible(false);
         }
     }
 
@@ -607,5 +618,52 @@ public class HighlightingEditor extends AppCompatEditText {
      */
     public int getTextChangedNumber() {
         return _textChangedNumber;
+    }
+
+    /**
+     * Static cursor drawer for EditText.
+     */
+    static class StaticCursorDrawer {
+
+        private final Paint paint = new Paint();
+        private final EditText editText;
+
+        public StaticCursorDrawer(final @NonNull EditText editText, final @ColorInt int cursorColor) {
+            this.editText = editText;
+            editText.setCursorVisible(false);
+
+            paint.setStrokeWidth(6);
+            paint.setColor(cursorColor);
+        }
+
+        /**
+         * Draw static cursor.
+         *
+         * @param canvas The canvas of EditText.
+         */
+        public void draw(final Canvas canvas) {
+            final Layout layout = editText.getLayout();
+            if (layout == null) {
+                return;
+            }
+
+            // Draw static cursor
+            final int selectionStart = editText.getSelectionStart();
+            final int line = layout.getLineForOffset(selectionStart);
+            final float x = layout.getPrimaryHorizontal(selectionStart) + editText.getPaddingStart();
+            final int y = layout.getLineBaseline(line);
+
+            canvas.drawLine(x, y, x, y + editText.getLineHeight(), paint);
+        }
+    }
+
+    public void setStaticCursorEnabled(boolean staticCursorEnabled) {
+        if (staticCursorEnabled) {
+            if (_staticCursorDrawer == null) {
+                _staticCursorDrawer = new StaticCursorDrawer(this, ContextCompat.getColor(getContext(), R.color.accent));
+            }
+        } else {
+            _staticCursorDrawer = null;
+        }
     }
 }
