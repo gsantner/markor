@@ -630,9 +630,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
         public StaticCursorDrawer(final @NonNull EditText editText, final @ColorInt int cursorColor) {
             this.editText = editText;
-            editText.setCursorVisible(false);
-
-            paint.setStrokeWidth(6);
+            paint.setStrokeWidth(5);
             paint.setColor(cursorColor);
         }
 
@@ -650,7 +648,7 @@ public class HighlightingEditor extends AppCompatEditText {
             // Draw static cursor
             final int selectionStart = editText.getSelectionStart();
             final int line = layout.getLineForOffset(selectionStart);
-            final float x = layout.getPrimaryHorizontal(selectionStart) + editText.getPaddingStart();
+            final float x = layout.getPrimaryHorizontal(selectionStart) + editText.getPaddingStart() + 1;
             final int y = layout.getLineBaseline(line);
 
             canvas.drawLine(x, y, x, y + editText.getLineHeight(), paint);
@@ -661,6 +659,7 @@ public class HighlightingEditor extends AppCompatEditText {
         if (staticCursorEnabled) {
             if (_staticCursorDrawer == null) {
                 _staticCursorDrawer = new StaticCursorDrawer(this, ContextCompat.getColor(getContext(), R.color.accent));
+                setCursorVisible(false);
             }
         } else {
             _staticCursorDrawer = null;
