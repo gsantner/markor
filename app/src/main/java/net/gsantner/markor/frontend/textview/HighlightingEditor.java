@@ -18,7 +18,9 @@ import android.text.InputFilter;
 import android.text.Layout;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.ActionMode;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -387,6 +389,14 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     @Override
+    public void setTextSize(int unit, float size) {
+        super.setTextSize(unit, size);
+        if (_staticCursorDrawer != null) {
+            _staticCursorDrawer.notifyTextSizeChanged();
+        }
+    }
+
+    @Override
     public void setText(final CharSequence text, final BufferType type) {
         super.setText(text, type);
         initHighlighter();
@@ -460,8 +470,8 @@ public class HighlightingEditor extends AppCompatEditText {
             AppSettings.appendDebugLog("Selection changed: " + selStart + "->" + selEnd);
         }
 
-        if (_staticCursorDrawer != null && selStart == selEnd && isCursorVisible()) {
-            setCursorVisible(false);
+        if (_staticCursorDrawer != null) {
+            _staticCursorDrawer.notifySelectionChanged(selStart, selEnd);
         }
     }
 
@@ -620,6 +630,9 @@ public class HighlightingEditor extends AppCompatEditText {
         return _textChangedNumber;
     }
 
+    // Static cursor (redraw cursor)
+    // ---------------------------------------------------------------------------------------------
+
     /**
      * Static cursor drawer for EditText.
      */
@@ -628,10 +641,16 @@ public class HighlightingEditor extends AppCompatEditText {
         private final Paint paint = new Paint();
         private final EditText editText;
 
+        private float lineHeight;
+        private float offsetY;
+        private final float offsetYBase;
+        private boolean paused;
+
         public StaticCursorDrawer(final @NonNull EditText editText, final @ColorInt int cursorColor) {
             this.editText = editText;
-            paint.setStrokeWidth(5);
             paint.setColor(cursorColor);
+            offsetYBase = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16, editText.getResources().getDisplayMetrics());
+            notifyTextSizeChanged(); // Initialize textSize, lineHeight, offsetY and stroke width
         }
 
         /**
@@ -640,6 +659,10 @@ public class HighlightingEditor extends AppCompatEditText {
          * @param canvas The canvas of EditText.
          */
         public void draw(final Canvas canvas) {
+            if (paused) {
+                return;
+            }
+
             final Layout layout = editText.getLayout();
             if (layout == null) {
                 return;
@@ -649,9 +672,49 @@ public class HighlightingEditor extends AppCompatEditText {
             final int selectionStart = editText.getSelectionStart();
             final int line = layout.getLineForOffset(selectionStart);
             final float x = layout.getPrimaryHorizontal(selectionStart) + editText.getPaddingStart() + 1;
-            final int y = layout.getLineBaseline(line);
+            final float y = layout.getLineBaseline(line) + offsetY;
 
-            canvas.drawLine(x, y, x, y + editText.getLineHeight(), paint);
+            canvas.drawLine(x, y, x, y + lineHeight, paint);
+        }
+
+        /**
+         * Call on the text size of EditText has changed when the static cursor is enabled.
+         */
+        public void notifyTextSizeChanged() {
+            float textSize = editText.getTextSize();
+            lineHeight = editText.getLineHeight();
+            offsetY = offsetYBase - textSize;
+
+            // Set cursor width
+            final DisplayMetrics displayMetrics = editText.getResources().getDisplayMetrics();
+            if (textSize < TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10, displayMetrics)) {
+                paint.setStrokeWidth(2);
+            } else if (textSize < TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 15, displayMetrics)) {
+                paint.setStrokeWidth(4);
+            } else if (textSize < TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 25, displayMetrics)) {
+                paint.setStrokeWidth(5);
+            } else {
+                paint.setStrokeWidth(6);
+            }
+        }
+
+        /**
+         * Call on the selection of EditText changed when the static cursor is enabled.
+         *
+         * @param selStart The new selection start location.
+         * @param selEnd   The new selection end location.
+         */
+        public void notifySelectionChanged(int selStart, int selEnd) {
+            if (selStart == selEnd) {
+                if (editText.isCursorVisible()) {
+                    editText.setCursorVisible(false);
+                }
+                if (paused) {
+                    paused = false;
+                }
+            } else if (!paused) {
+                paused = true;
+            }
         }
     }
 
