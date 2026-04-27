@@ -18,7 +18,9 @@ import android.text.InputFilter;
 import android.text.Layout;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.ActionMode;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -26,12 +28,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.accessibility.AccessibilityEvent;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.core.content.ContextCompat;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.MainActivity;
@@ -74,6 +78,7 @@ public class HighlightingEditor extends AppCompatEditText {
     private final AtomicBoolean _textUnchangedWhileHighlighting = new AtomicBoolean(true);
     private int _textChangedNumber;
     private final Runnable _textChangedRecorder = TextViewUtils.makeDebounced(getHandler(), 1000, () -> _textChangedNumber++);
+    private StaticCursorDrawer _staticCursorDrawer;
 
     public HighlightingEditor(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -122,32 +127,12 @@ public class HighlightingEditor extends AppCompatEditText {
         setupCustomOptions();
     }
 
-    @Override
-    public boolean onPreDraw() {
-        try {
-            return super.onPreDraw();
-        } catch (OutOfMemoryError ignored) {
-            return false; // return false to cancel current drawing pass/round
-        }
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        try {
-            super.onDraw(canvas);
-        } catch (Exception e) {
-            // Hinder drawing from crashing the app
-            Log.e(getClass().getName(), "HighlightingEdtior onDraw->super.onDraw crash" + e);
-            Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
-        }
-    }
-
     // Highlighting
     // ---------------------------------------------------------------------------------------------
 
     // Batch edit spans (or anything else, really)
     // This triggers a reflow which will bring focus back to the cursor.
-    // Therefore it cannot be used for updating the highlighting as one scrolls
+    // Therefore, it cannot be used for updating the highlighting as one scrolls
     private void batch(final Runnable runnable) {
         try {
             beginBatchEdit();
@@ -356,6 +341,30 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     @Override
+    public boolean onPreDraw() {
+        try {
+            return super.onPreDraw();
+        } catch (OutOfMemoryError ignored) {
+            return false; // return false to cancel current drawing pass/round
+        }
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        try {
+            super.onDraw(canvas);
+
+            if (_staticCursorDrawer != null && hasFocus()) {
+                _staticCursorDrawer.draw(canvas);
+            }
+        } catch (Exception e) {
+            // Hinder drawing from crashing the app
+            Log.e(getClass().getName(), "HighlightingEditor onDraw->super.onDraw crash" + e);
+            Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
     public Parcelable onSaveInstanceState() {
         // Call is always required
         final Parcelable state = super.onSaveInstanceState();
@@ -376,6 +385,14 @@ public class HighlightingEditor extends AppCompatEditText {
         initHighlighter();
         if (_hlDebounced != null) {
             _hlDebounced.run();
+        }
+    }
+
+    @Override
+    public void setTextSize(int unit, float size) {
+        super.setTextSize(unit, size);
+        if (_staticCursorDrawer != null) {
+            _staticCursorDrawer.notifyTextSizeChanged();
         }
     }
 
@@ -412,7 +429,7 @@ public class HighlightingEditor extends AppCompatEditText {
         }
     }
 
-    // Hleditor will report that it is not autofillable under certain circumstances
+    // HighlightingEditor will report that it is not auto-fillable under certain circumstances
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public int getAutofillType() {
@@ -452,13 +469,11 @@ public class HighlightingEditor extends AppCompatEditText {
         if (MainActivity.IS_DEBUG_ENABLED) {
             AppSettings.appendDebugLog("Selection changed: " + selStart + "->" + selEnd);
         }
-    }
 
-    @Override
-    protected void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        if (_staticCursorDrawer != null) {
+            _staticCursorDrawer.notifySelectionChanged(selStart, selEnd);
+        }
     }
-
 
     // Auto-format
     // ---------------------------------------------------------------------------------------------
@@ -607,5 +622,110 @@ public class HighlightingEditor extends AppCompatEditText {
      */
     public int getTextChangedNumber() {
         return _textChangedNumber;
+    }
+
+    // Static cursor (redraw cursor)
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Static cursor drawer for EditText.
+     */
+    static class StaticCursorDrawer {
+
+        private final Paint paint = new Paint();
+        private final EditText editText;
+
+        private float lineHeight;
+        private float offsetY;
+        private final float offsetYBase;
+        private boolean paused;
+
+        public StaticCursorDrawer(final @NonNull EditText editText, final @ColorInt int cursorColor) {
+            this.editText = editText;
+            paint.setColor(cursorColor);
+            offsetYBase = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16, editText.getResources().getDisplayMetrics());
+            notifyTextSizeChanged(); // Initialize textSize, lineHeight, offsetY and the cursor width
+        }
+
+        /**
+         * Draw static cursor.
+         *
+         * @param canvas The canvas of the EditText.
+         */
+        public void draw(final Canvas canvas) {
+            if (paused) {
+                return;
+            }
+
+            final Layout layout = editText.getLayout();
+            if (layout == null) {
+                return;
+            }
+
+            // Draw static cursor
+            final int selectionStart = editText.getSelectionStart();
+            final int line = layout.getLineForOffset(selectionStart);
+            final float x = layout.getPrimaryHorizontal(selectionStart) + editText.getPaddingStart() + 1;
+            final float y = layout.getLineBaseline(line) + offsetY;
+
+            canvas.drawLine(x, y, x, y + lineHeight, paint);
+        }
+
+        /**
+         * Call on the text size of the EditText has changed when the static cursor is enabled.
+         */
+        public void notifyTextSizeChanged() {
+            float textSize = editText.getTextSize();
+            lineHeight = editText.getLineHeight();
+            offsetY = offsetYBase - textSize;
+
+            // Set the stroke width (cursor width)
+            final DisplayMetrics displayMetrics = editText.getResources().getDisplayMetrics();
+            if (textSize < TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10, displayMetrics)) {
+                paint.setStrokeWidth(2);
+            } else if (textSize < TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 15, displayMetrics)) {
+                paint.setStrokeWidth(4);
+            } else if (textSize < TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 25, displayMetrics)) {
+                paint.setStrokeWidth(5);
+            } else {
+                paint.setStrokeWidth(6);
+            }
+        }
+
+        /**
+         * Call on the selection of the EditText changed when the static cursor is enabled.
+         *
+         * @param selStart The new selection start location.
+         * @param selEnd   The new selection end location.
+         */
+        public void notifySelectionChanged(int selStart, int selEnd) {
+            if (selStart == selEnd) {
+                if (editText.isCursorVisible()) {
+                    editText.setCursorVisible(false);
+                }
+                if (paused) {
+                    paused = false;
+                }
+            } else if (!paused) {
+                paused = true; // Pause drawing the cursor when selecting text
+            }
+        }
+    }
+
+    public void setStaticCursorEnabled(boolean staticCursorEnabled) {
+        if (staticCursorEnabled) {
+            if (_staticCursorDrawer == null) {
+                _staticCursorDrawer = new StaticCursorDrawer(this, ContextCompat.getColor(getContext(), R.color.accent));
+                setCursorVisible(false);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    setTextCursorDrawable(R.drawable.cursor_transparent); // Ensure that the default cursor is invisible
+                }
+            }
+        } else if (_staticCursorDrawer != null) {
+            _staticCursorDrawer = null;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                setTextCursorDrawable(R.drawable.cursor_accent);
+            }
+        }
     }
 }
