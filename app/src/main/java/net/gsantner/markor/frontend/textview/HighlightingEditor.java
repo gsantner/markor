@@ -127,30 +127,6 @@ public class HighlightingEditor extends AppCompatEditText {
         setupCustomOptions();
     }
 
-    @Override
-    public boolean onPreDraw() {
-        try {
-            return super.onPreDraw();
-        } catch (OutOfMemoryError ignored) {
-            return false; // return false to cancel current drawing pass/round
-        }
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        try {
-            super.onDraw(canvas);
-
-            if (_staticCursorDrawer != null && hasFocus()) {
-                _staticCursorDrawer.draw(canvas);
-            }
-        } catch (Exception e) {
-            // Hinder drawing from crashing the app
-            Log.e(getClass().getName(), "HighlightingEdtior onDraw->super.onDraw crash" + e);
-            Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
-        }
-    }
-
     // Highlighting
     // ---------------------------------------------------------------------------------------------
 
@@ -365,6 +341,30 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     @Override
+    public boolean onPreDraw() {
+        try {
+            return super.onPreDraw();
+        } catch (OutOfMemoryError ignored) {
+            return false; // return false to cancel current drawing pass/round
+        }
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        try {
+            super.onDraw(canvas);
+
+            if (_staticCursorDrawer != null && hasFocus()) {
+                _staticCursorDrawer.draw(canvas);
+            }
+        } catch (Exception e) {
+            // Hinder drawing from crashing the app
+            Log.e(getClass().getName(), "HighlightingEditor onDraw->super.onDraw crash" + e);
+            Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
     public Parcelable onSaveInstanceState() {
         // Call is always required
         final Parcelable state = super.onSaveInstanceState();
@@ -474,12 +474,6 @@ public class HighlightingEditor extends AppCompatEditText {
             _staticCursorDrawer.notifySelectionChanged(selStart, selEnd);
         }
     }
-
-    @Override
-    protected void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-    }
-
 
     // Auto-format
     // ---------------------------------------------------------------------------------------------
@@ -650,13 +644,13 @@ public class HighlightingEditor extends AppCompatEditText {
             this.editText = editText;
             paint.setColor(cursorColor);
             offsetYBase = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16, editText.getResources().getDisplayMetrics());
-            notifyTextSizeChanged(); // Initialize textSize, lineHeight, offsetY and stroke width
+            notifyTextSizeChanged(); // Initialize textSize, lineHeight, offsetY and the cursor width
         }
 
         /**
          * Draw static cursor.
          *
-         * @param canvas The canvas of EditText.
+         * @param canvas The canvas of the EditText.
          */
         public void draw(final Canvas canvas) {
             if (paused) {
@@ -678,14 +672,14 @@ public class HighlightingEditor extends AppCompatEditText {
         }
 
         /**
-         * Call on the text size of EditText has changed when the static cursor is enabled.
+         * Call on the text size of the EditText has changed when the static cursor is enabled.
          */
         public void notifyTextSizeChanged() {
             float textSize = editText.getTextSize();
             lineHeight = editText.getLineHeight();
             offsetY = offsetYBase - textSize;
 
-            // Set cursor width
+            // Set the stroke width (cursor width)
             final DisplayMetrics displayMetrics = editText.getResources().getDisplayMetrics();
             if (textSize < TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10, displayMetrics)) {
                 paint.setStrokeWidth(2);
@@ -699,7 +693,7 @@ public class HighlightingEditor extends AppCompatEditText {
         }
 
         /**
-         * Call on the selection of EditText changed when the static cursor is enabled.
+         * Call on the selection of the EditText changed when the static cursor is enabled.
          *
          * @param selStart The new selection start location.
          * @param selEnd   The new selection end location.
@@ -713,7 +707,7 @@ public class HighlightingEditor extends AppCompatEditText {
                     paused = false;
                 }
             } else if (!paused) {
-                paused = true;
+                paused = true; // Pause drawing the cursor when selecting text
             }
         }
     }
@@ -723,9 +717,15 @@ public class HighlightingEditor extends AppCompatEditText {
             if (_staticCursorDrawer == null) {
                 _staticCursorDrawer = new StaticCursorDrawer(this, ContextCompat.getColor(getContext(), R.color.accent));
                 setCursorVisible(false);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    setTextCursorDrawable(R.drawable.cursor_transparent); // Ensure that the default cursor is invisible
+                }
             }
-        } else {
+        } else if (_staticCursorDrawer != null) {
             _staticCursorDrawer = null;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                setTextCursorDrawable(R.drawable.cursor_accent);
+            }
         }
     }
 }
