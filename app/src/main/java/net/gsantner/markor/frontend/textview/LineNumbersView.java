@@ -18,6 +18,7 @@ public class LineNumbersView extends View {
     private EditText editText;
     private LineNumbersDrawer lineNumbersDrawer;
     private boolean lineNumbersEnabled;
+    private static final int INIT_WIDTH = 1;
 
     public LineNumbersView(Context context) {
         super(context);
@@ -34,7 +35,7 @@ public class LineNumbersView extends View {
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        setWidth(0); // Initial width
+        setWidth(INIT_WIDTH);
     }
 
     @Override
@@ -58,7 +59,7 @@ public class LineNumbersView extends View {
      */
     public void refresh() {
         invalidate();
-        if (getWidth() == 0) {
+        if (getWidth() == INIT_WIDTH) {
             lineNumbersDrawer.getEditText().postInvalidate();
         }
     }
@@ -274,7 +275,7 @@ public class LineNumbersView extends View {
         public void prepare() {
             setLineTracking(true);
             setRefreshOnScrollChanged(true);
-            lineNumbersView.setWidth(0);
+            lineNumbersView.setWidth(INIT_WIDTH);
             lineNumbersView.setVisibility(VISIBLE);
             editText.setPadding(EDITOR_PADDING_LEFT, editText.getPaddingTop(), editText.getPaddingRight(), editText.getPaddingBottom());
         }
