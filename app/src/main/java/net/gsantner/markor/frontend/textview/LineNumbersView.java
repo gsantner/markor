@@ -89,7 +89,7 @@ public class LineNumbersView extends View {
             if (lineNumbersDrawer == null) {
                 return;
             }
-            lineNumbersDrawer.cleanup();
+            lineNumbersDrawer.reset();
         }
         refresh();
     }
@@ -107,7 +107,8 @@ public class LineNumbersView extends View {
         private static final int NUMBER_PADDING_LEFT = 18;
         private static final int NUMBER_PADDING_RIGHT = 14;
         private static final int EDITOR_PADDING_LEFT = 8;
-        private final int ORIGINAL_PADDING_LEFT;
+        private final int originalPaddingLeft;
+        private final int originalPaddingTop;
 
         private final Rect visibleRect = new Rect();
         private final Rect lineNumbersRect = new Rect();
@@ -119,8 +120,9 @@ public class LineNumbersView extends View {
         private int lastMaxNumber;
         private int lastLayoutLineCount;
         private float lastTextSize;
-
         private final int[] startLine = {0, 1}; // {line index, actual line number}
+
+        private CharSequence text;
 
         private final TextWatcher lineTrackingWatcher = new TextWatcher() {
             @Override
@@ -136,6 +138,7 @@ public class LineNumbersView extends View {
             @Override
             public void afterTextChanged(Editable editable) {
                 if (isLayoutLineCountChanged() || isMaxNumberChanged()) {
+                    notifyTextChanged(editable);
                     lineNumbersView.refresh();
                 }
             }
@@ -157,7 +160,9 @@ public class LineNumbersView extends View {
         public LineNumbersDrawer(final @NonNull EditText editText, final @NonNull LineNumbersView lineNumbersView) {
             this.editText = editText;
             this.lineNumbersView = lineNumbersView;
-            ORIGINAL_PADDING_LEFT = editText.getPaddingLeft();
+            text = editText.getText();
+            originalPaddingLeft = editText.getPaddingLeft();
+            originalPaddingTop = editText.getPaddingTop();
             paint.setColor(0xFF999999);
             paint.setTextAlign(Paint.Align.RIGHT);
         }
@@ -280,6 +285,10 @@ public class LineNumbersView extends View {
             editText.setPadding(EDITOR_PADDING_LEFT, editText.getPaddingTop(), editText.getPaddingRight(), editText.getPaddingBottom());
         }
 
+        private void notifyTextChanged(CharSequence text) {
+            this.text = text == null ? "" : text;
+        }
+
         /**
          * Draw line numbers.
          *
@@ -290,9 +299,8 @@ public class LineNumbersView extends View {
                 return;
             }
 
-            final CharSequence text = editText.getText();
             final Layout layout = editText.getLayout();
-            if (text == null || layout == null) {
+            if (layout == null) {
                 return;
             }
 
@@ -320,7 +328,6 @@ public class LineNumbersView extends View {
             int number = startLine[1];
             int y = layout.getLineBaseline(i);
             final int count = layout.getLineCount();
-            final int offsetY = editText.getPaddingTop();
 
             if (y > lineNumbersRect.top) {
                 if (invalid) {
@@ -328,7 +335,7 @@ public class LineNumbersView extends View {
                     startLine[0] = i;
                     startLine[1] = number;
                 }
-                canvas.drawText(String.valueOf(number), numberX, layout.getLineBaseline(i) + offsetY, paint);
+                canvas.drawText(String.valueOf(number), numberX, layout.getLineBaseline(i) + originalPaddingTop, paint);
             }
             i++;
             number++;
@@ -342,7 +349,7 @@ public class LineNumbersView extends View {
                             startLine[0] = i;
                             startLine[1] = number;
                         }
-                        canvas.drawText(String.valueOf(number), numberX, y + offsetY, paint);
+                        canvas.drawText(String.valueOf(number), numberX, y + originalPaddingTop, paint);
                         if (y > lineNumbersRect.bottom) {
                             break;
                         }
@@ -355,12 +362,12 @@ public class LineNumbersView extends View {
         /**
          * Reset some states related line numbers.
          */
-        public void cleanup() {
+        public void reset() {
             setLineTracking(false);
             setRefreshOnScrollChanged(false);
             maxNumberDigits = 0;
             lineNumbersView.setVisibility(GONE);
-            editText.setPadding(ORIGINAL_PADDING_LEFT, editText.getPaddingTop(), editText.getPaddingRight(), editText.getPaddingBottom());
+            editText.setPadding(originalPaddingLeft, editText.getPaddingTop(), editText.getPaddingRight(), editText.getPaddingBottom());
         }
     }
 }
