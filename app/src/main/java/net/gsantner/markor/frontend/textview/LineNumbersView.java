@@ -92,7 +92,7 @@ public class LineNumbersView extends View {
             }
             lineNumbersDrawer.reset();
         }
-        refresh();
+        postDelayed(this::refresh, 300);
     }
 
     public boolean isLineNumbersEnabled() {
