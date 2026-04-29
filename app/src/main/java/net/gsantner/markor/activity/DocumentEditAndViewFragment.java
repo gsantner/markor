@@ -590,6 +590,12 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             case R.id.action_enable_highlighting: {
                 final boolean newState = !_hlEditor.getHighlightingEnabled();
                 _hlEditor.setHighlightingEnabled(newState);
+                if (_lineNumbersView.isLineNumbersEnabled()) {
+                    // The line height may be changed, so need to refresh line numbers
+                    final int delay = newState ? 1000 : 200;
+                    _hlEditor.postDelayed(() -> _lineNumbersView.refresh(), delay);
+                    _hlEditor.postDelayed(() -> _lineNumbersView.refresh(), delay + 1000);
+                }
                 _appSettings.setDocumentHighlightState(_document.path, newState);
                 updateMenuToggleStates(0);
                 return true;
