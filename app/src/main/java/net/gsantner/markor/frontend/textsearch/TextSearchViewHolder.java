@@ -122,27 +122,6 @@ public class TextSearchViewHolder {
             return false;
         });
 
-        textSearchView.findViewById(R.id.findInSelectionImageButton).setOnClickListener(new View.OnClickListener() {
-            private boolean checked = false;
-
-            @Override
-            public void onClick(View view) {
-                checked = toggleViewCheckedState(view, checked);
-
-                if (checked) {
-                    boolean selected = textSearchHandler.setSearchRange(editText, searchEditText);
-                    if (selected) {
-                        find2();
-                    } else { // Set selection failed
-                        checked = toggleViewCheckedState(view, checked);
-                    }
-                } else {
-                    textSearchHandler.clearSearchRange(editText);
-                    find();
-                }
-            }
-        });
-
         textSearchHandler.setMatchCase(false);
         textSearchView.findViewById(R.id.matchCaseImageButton).setOnClickListener(new View.OnClickListener() {
             private boolean checked = false;
@@ -319,7 +298,6 @@ public class TextSearchViewHolder {
     private void clear() {
         if (initialized) {
             clearMatches();
-            textSearchHandler.clearSearchRange(editText);
             editText.removeTextChangedListener(editTextChangedListener);
         }
     }

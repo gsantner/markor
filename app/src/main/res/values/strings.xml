@@ -428,7 +428,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="match_case">Match Case</string>
     <string name="match_whole_word">Match Whole Word</string>
     <string name="use_regular_expression">Use Regular Expression</string>
-    <string name="mark_text_search_range">Mark selected area as search range</string>
     <string name="preserve_case">Preserve Case</string>
 
     <string name="file_encryption_password">File encryption password</string>
