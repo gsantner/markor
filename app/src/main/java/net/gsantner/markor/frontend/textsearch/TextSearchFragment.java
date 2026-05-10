@@ -121,7 +121,6 @@ public class TextSearchFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         if (initialized) {
-            saveCurrentHistory();
             clearMatches();
         }
     }
@@ -271,15 +270,21 @@ public class TextSearchFragment extends Fragment {
 
         fragmentView.findViewById(R.id.filterImageButton).setOnClickListener(view -> MarkorDialogFactory.showSearchDialog(activity, editText, searchEditText.getText().toString()));
         fragmentView.findViewById(R.id.toggleImageButton).setOnClickListener(view -> toggleFindReplaceLayout(fragmentView));
-        fragmentView.findViewById(R.id.previousImageButton).setOnClickListener(view -> textSearchHandler.previous(editText));
-        fragmentView.findViewById(R.id.nextImageButton).setOnClickListener(view -> textSearchHandler.next(editText));
-        fragmentView.findViewById(R.id.replaceImageButton).setOnClickListener(view -> {
+        fragmentView.findViewById(R.id.previousImageButton).setOnClickListener(view -> {
             saveCurrentHistory();
+            textSearchHandler.previous(editText);
+        });
+        fragmentView.findViewById(R.id.nextImageButton).setOnClickListener(view -> {
+            saveCurrentHistory();
+            textSearchHandler.next(editText);
+        });
+        fragmentView.findViewById(R.id.replaceImageButton).setOnClickListener(view -> {
             textSearchHandler.replace(editText, replaceEditText.getText().toString());
+            saveCurrentHistory();
         });
         fragmentView.findViewById(R.id.replaceAllImageButton).setOnClickListener(view -> {
-            saveCurrentHistory();
             textSearchHandler.replaceAll(editText, replaceEditText.getText().toString());
+            saveCurrentHistory();
         });
         fragmentView.findViewById(R.id.clearSearchImageButton).setOnClickListener(view -> searchEditText.setText(""));
         fragmentView.findViewById(R.id.clearReplaceImageButton).setOnClickListener(view -> replaceEditText.setText(""));
@@ -438,6 +443,7 @@ public class TextSearchFragment extends Fragment {
     }
 
     public void close() {
+        saveCurrentHistory();
         clear();
         FragmentManager fragmentManager = getTextSearchFragmentManager();
         if (fragmentManager != null) {
@@ -482,7 +488,7 @@ public class TextSearchFragment extends Fragment {
         final Set<String> known = new HashSet<>();
         entries.add(entry);
         known.add(entry.key(includeReplace));
-        for (SearchHistoryEntry oldEntry : loadHistory(key)) {
+        for (SearchHistoryEntry oldEntry : loadHistory(key, includeReplace)) {
             if (entries.size() >= MAX_RECENT_ITEMS) {
                 break;
             }
@@ -499,14 +505,17 @@ public class TextSearchFragment extends Fragment {
         getPreferences().edit().putString(key, array.toString()).apply();
     }
 
-    private List<SearchHistoryEntry> loadHistory(String key) {
+    private List<SearchHistoryEntry> loadHistory(String key, boolean includeReplace) {
         final ArrayList<SearchHistoryEntry> entries = new ArrayList<>();
+        final HashSet<String> known = new HashSet<>();
         try {
             final JSONArray array = new JSONArray(getPreferences().getString(key, "[]"));
             for (int i = 0; i < array.length() && entries.size() < MAX_RECENT_ITEMS; i++) {
                 SearchHistoryEntry entry = SearchHistoryEntry.fromJson(array.getJSONObject(i));
-                if (!entry.search.isEmpty()) {
+                final String entryKey = entry.key(includeReplace);
+                if (!entry.search.isEmpty() && !known.contains(entryKey)) {
                     entries.add(entry);
+                    known.add(entryKey);
                 }
             }
         } catch (JSONException ignored) {
@@ -515,15 +524,20 @@ public class TextSearchFragment extends Fragment {
     }
 
     private void showHistoryPopup(View anchor) {
-        saveCurrentHistory();
         final boolean replaceHistory = replaceVisible;
-        final List<SearchHistoryEntry> entries = loadHistory(replaceHistory ? RECENT_SEARCH_REPLACE_STRING : RECENT_SEARCH_STRING);
+        final List<SearchHistoryEntry> entries = loadHistory(replaceHistory ? RECENT_SEARCH_REPLACE_STRING : RECENT_SEARCH_STRING, replaceHistory);
         final ListPopupWindow popupWindow = new ListPopupWindow(activity);
         popupWindow.setAdapter(new SearchHistoryAdapter(replaceHistory, entries));
         popupWindow.setAnchorView(anchor);
         popupWindow.setWidth(GsContextUtils.instance.convertDpToPx(activity, 300));
+        if (entries.isEmpty()) {
+            popupWindow.setHeight(GsContextUtils.instance.convertDpToPx(activity, 48));
+        }
         popupWindow.setModal(true);
         popupWindow.setOnItemClickListener((parent, view, position, id) -> {
+            if (entries.isEmpty()) {
+                return;
+            }
             applyHistoryEntry(entries.get(position), replaceHistory);
             popupWindow.dismiss();
         });
@@ -558,10 +572,20 @@ public class TextSearchFragment extends Fragment {
             iconSize = GsContextUtils.instance.convertDpToPx(activity, 24);
         }
 
+        @Override
+        public int getCount() {
+            return super.getCount() == 0 ? 1 : super.getCount();
+        }
+
+        @Override
+        public boolean isEnabled(int position) {
+            return super.getCount() > 0;
+        }
+
         @NonNull
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            final SearchHistoryEntry entry = getItem(position);
+            final SearchHistoryEntry entry = super.getCount() == 0 ? null : getItem(position);
             final LinearLayout row = new LinearLayout(activity);
             row.setGravity(Gravity.CENTER_VERTICAL);
             row.setOrientation(LinearLayout.HORIZONTAL);
@@ -661,7 +685,7 @@ public class TextSearchFragment extends Fragment {
         }
 
         String key(boolean includeReplace) {
-            return search + "\n" + (includeReplace ? replace : "") + "\n" + matchCase + matchWholeWord + useRegex + findInSelection + preserveCase;
+            return includeReplace ? search + "\n" + replace : search;
         }
 
         String getLabel(boolean includeReplace) {
