@@ -116,12 +116,7 @@ public abstract class ActionButtonBase {
 
     // Override to implement custom search action
     public boolean onSearch() {
-        TextSearchFragment textSearchFragment = getTextSearchFragment();
-        if (textSearchFragment.isShowing()) {
-            textSearchFragment.hide();
-        } else {
-            textSearchFragment.show();
-        }
+        getTextSearchFragment().show();
         return true;
     }
 
