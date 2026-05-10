@@ -9,4 +9,13 @@ to the public domain.
 You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
-<resources xmlns:tools="http://schemas.android.com/tools"></resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="settings">Postavke</string>
+    <string name="light">Svjetlo</string>
+    <string name="dark">Tamno</string>
+    <string name="delete">Izbrisati</string>
+    <string name="appearance">Izgled</string>
+    <string name="rename">Preimenuj</string>
+    <string name="confirm_delete">Potvrdi brisanje</string>
+    <string name="do_you_really_want_to_delete_this_witharg">Želite li zaista ovo izbrisati %s?</string>
+</resources>
