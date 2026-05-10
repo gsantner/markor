@@ -317,7 +317,12 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         // Edit / Preview switch
         menu.findItem(R.id.action_edit).setVisible(isText && _isPreviewVisible);
         menu.findItem(R.id.action_preview).setVisible(isText && !_isPreviewVisible);
-        menu.findItem(R.id.action_search).setVisible(isText && !_isPreviewVisible);
+        final MenuItem searchMenuItem = menu.findItem(R.id.action_search);
+        searchMenuItem.setVisible(isText && !_isPreviewVisible);
+        if (_format != null && _format.getActions().isSearchActive()) {
+            searchMenuItem.setTitle(R.string.close);
+            _cu.tintDrawable(searchMenuItem.getIcon(), _cu.rcolor(getContext(), R.color.accent));
+        }
         menu.findItem(R.id.action_search_view).setVisible(isText && _isPreviewVisible);
         menu.findItem(R.id.submenu_format_selection).setVisible(isText && !_isPreviewVisible);
         menu.findItem(R.id.submenu_share).setVisible(isText);
@@ -658,7 +663,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _hlEditor.setAutoFormatEnabled(_appSettings.getDocumentAutoFormatEnabled(_document.path));
         _format.getActions()
                 .setDocument(_document)
-                .setUiReferences(activity, _hlEditor, _webView)
+                .setUiReferences(activity, getChildFragmentManager(), _hlEditor, _webView)
                 .recreateActionButtons(_textActionsBar, _isPreviewVisible ? ActionButtonBase.ActionItem.DisplayMode.VIEW : ActionButtonBase.ActionItem.DisplayMode.EDIT);
         updateMenuToggleStates(_format.getFormatId());
         showHideActionBar();

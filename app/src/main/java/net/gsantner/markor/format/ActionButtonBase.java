@@ -34,6 +34,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentActivity;
@@ -70,6 +71,7 @@ import java.util.regex.Pattern;
 @SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
 public abstract class ActionButtonBase {
     private Activity _activity;
+    private FragmentManager _textSearchFragmentManager;
     private MarkorContextUtils _cu;
     private final int _buttonHorizontalMargin;
     private String _lastSnip;
@@ -109,15 +111,34 @@ public abstract class ActionButtonBase {
 
     private TextSearchFragment getTextSearchFragment() {
         if (_textSearchFragment == null) {
-            _textSearchFragment = TextSearchFragment.newInstance(R.id.topViewContainer, (FragmentActivity) _activity, _hlEditor);
+            _textSearchFragment = TextSearchFragment.newInstance(R.id.topViewContainer, (FragmentActivity) _activity, getTextSearchFragmentManager(), _hlEditor);
         }
         return _textSearchFragment;
     }
 
+    private FragmentManager getTextSearchFragmentManager() {
+        return _textSearchFragmentManager != null ? _textSearchFragmentManager : ((FragmentActivity) _activity).getSupportFragmentManager();
+    }
+
     // Override to implement custom search action
     public boolean onSearch() {
-        getTextSearchFragment().show();
+        return toggleTextSearchUi();
+    }
+
+    public boolean toggleTextSearchUi() {
+        TextSearchFragment textSearchFragment = getTextSearchFragment();
+        if (textSearchFragment.isShowing()) {
+            textSearchFragment.hide();
+        } else {
+            textSearchFragment.show();
+        }
+        getTextSearchFragmentManager().executePendingTransactions();
+        _activity.invalidateOptionsMenu();
         return true;
+    }
+
+    public boolean isSearchActive() {
+        return _textSearchFragment != null && _textSearchFragment.isShowing();
     }
 
     // Override to implement custom title action
@@ -590,7 +611,12 @@ public abstract class ActionButtonBase {
     }
 
     public ActionButtonBase setUiReferences(@Nullable final Activity activity, @Nullable final HighlightingEditor hlEditor, @Nullable final WebView webview) {
+        return setUiReferences(activity, _textSearchFragmentManager, hlEditor, webview);
+    }
+
+    public ActionButtonBase setUiReferences(@Nullable final Activity activity, @Nullable final FragmentManager textSearchFragmentManager, @Nullable final HighlightingEditor hlEditor, @Nullable final WebView webview) {
         _activity = activity;
+        _textSearchFragmentManager = textSearchFragmentManager;
         _hlEditor = hlEditor;
         _webView = webview;
         _cu = new MarkorContextUtils(_activity);
