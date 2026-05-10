@@ -59,7 +59,7 @@ import java.util.regex.Pattern;
 public class TextSearchFragment extends Fragment {
     private static final String RECENT_SEARCH_STRING = "text_search_fragment__recent_search_history";
     private static final String RECENT_SEARCH_REPLACE_STRING = "text_search_fragment__recent_search_replace_history";
-    private static final int MAX_RECENT_ITEMS = 5;
+    private static final int MAX_RECENT_ITEMS = 10;
 
     private int containerViewId;
     private FragmentActivity activity;
@@ -518,10 +518,6 @@ public class TextSearchFragment extends Fragment {
         saveCurrentHistory();
         final boolean replaceHistory = replaceVisible;
         final List<SearchHistoryEntry> entries = loadHistory(replaceHistory ? RECENT_SEARCH_REPLACE_STRING : RECENT_SEARCH_STRING);
-        if (entries.isEmpty()) {
-            Toast.makeText(activity, R.string.no_results, Toast.LENGTH_SHORT).show();
-            return;
-        }
         final ListPopupWindow popupWindow = new ListPopupWindow(activity);
         popupWindow.setAdapter(new SearchHistoryAdapter(replaceHistory, entries));
         popupWindow.setAnchorView(anchor);
