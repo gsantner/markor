@@ -15,11 +15,7 @@ import android.webkit.WebView;
 import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.MarkorContextUtils;
-import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.web.GsWebViewClient;
-
-import java.io.File;
-import java.net.URLDecoder;
 
 public class MarkorWebViewClient extends GsWebViewClient {
     protected final Activity _activity;
@@ -41,22 +37,7 @@ public class MarkorWebViewClient extends GsWebViewClient {
             if (url.startsWith("file:///android_asset/")) {
                 return false;
             } else if (url.startsWith("file://")) {
-                final Uri uri = Uri.parse(url);
-                final String path = URLDecoder.decode(url.replace("file://", "").replace("+", "%2B"));
-                final String line = uri.getQueryParameter("line");
-                final Integer lineNumber = line != null ? GsTextUtils.tryParseInt(line, -1) : null;
-                final String preview = uri.getQueryParameter("preview");
-                final Boolean doPreview = preview != null ? Boolean.parseBoolean(preview) : null;
-                File file = new File(path);
-                final String filePath = file.getAbsolutePath().replaceFirst("[#?].*$", "");
-                for (String str : new String[]{file.getAbsolutePath(), filePath, filePath + ".md", filePath + ".txt"}) {
-                    File f = new File(str);
-                    if (f.exists()) {
-                        file = f;
-                        break;
-                    }
-                }
-                DocumentActivity.launch(_activity, file, doPreview, lineNumber);
+                DocumentActivity.launch(_activity, Uri.parse(url));
             } else {
                 MarkorContextUtils su = new MarkorContextUtils(_activity);
                 AppSettings settings = AppSettings.get(_activity);
