@@ -74,11 +74,7 @@ public class DocumentActivity extends MarkorBaseActivity {
 
         final String line = uri.getQueryParameter("line");
         final Integer lineNumber = line != null ? GsTextUtils.tryParseInt(line, -1) : null;
-        Boolean doPreview = null;
-        final String preview = uri.getQueryParameter("preview");
-        if (preview != null) {
-            doPreview = Boolean.parseBoolean(preview);
-        }
+        final Boolean doPreview = GsTextUtils.tryParseBool(uri.getQueryParameter("view"));
         launch(activity, file, doPreview, lineNumber);
     }
 
@@ -230,10 +226,7 @@ public class DocumentActivity extends MarkorBaseActivity {
             if (intent.hasExtra(Document.EXTRA_DO_PREVIEW)) {
                 startInPreview = intent.getBooleanExtra(Document.EXTRA_DO_PREVIEW, false);
             } else if (uri != null) {
-                final String preview = uri.getQueryParameter("preview");
-                if (preview != null) {
-                    startInPreview = Boolean.parseBoolean(preview);
-                }
+                startInPreview = GsTextUtils.tryParseBool(uri.getQueryParameter("view"));
             }
             if (startInPreview == null && file.getName().startsWith("index.")) {
                 startInPreview = true;
