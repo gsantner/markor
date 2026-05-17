@@ -1057,6 +1057,10 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             return;
         }
 
+        if (show && _format != null) {
+            _format.getActions().hideTextSearchUi();
+        }
+
         show |= _document.isBinaryFileNoTextLoading();
         _format.getActions().recreateActionButtons(_textActionsBar, show ? ActionButtonBase.ActionItem.DisplayMode.VIEW : ActionButtonBase.ActionItem.DisplayMode.EDIT);
         showHideActionBar();

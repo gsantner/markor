@@ -141,6 +141,15 @@ public abstract class ActionButtonBase {
         return _textSearchFragment != null && _textSearchFragment.isShowing();
     }
 
+    public boolean hideTextSearchUi() {
+        if (isSearchActive()) {
+            getTextSearchFragment().hide();
+            getTextSearchFragmentManager().executePendingTransactions();
+            _activity.invalidateOptionsMenu();
+        }
+        return true;
+    }
+
     // Override to implement custom title action
     public boolean runTitleClick() {
         return false;
