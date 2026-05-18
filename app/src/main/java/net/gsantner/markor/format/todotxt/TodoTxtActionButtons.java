@@ -13,9 +13,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
 
@@ -492,17 +497,62 @@ public class TodoTxtActionButtons extends ActionButtonBase {
         public DatePickerDialog onCreateDialog(final Bundle savedInstanceState) {
             super.onCreateDialog(savedInstanceState);
 
-            final DatePickerDialog dialog = new DatePickerDialog(getContext(), _listener, _year, _month, _day);
+            final Context context = requireContext();
+            final int backgroundColor = ContextCompat.getColor(context, R.color.background);
+            final int primaryTextColor = ContextCompat.getColor(context, R.color.primary_text);
+            final DatePickerDialog dialog = new DatePickerDialog(
+                    context,
+                    R.style.Theme_AppCompat_DayNight_Dialog_Rounded,
+                    _listener,
+                    _year,
+                    _month,
+                    _day
+            );
+            styleDatePicker(dialog, backgroundColor, primaryTextColor);
 
             if (_message != null && !_message.isEmpty()) {
-                dialog.setMessage(_message);
+                dialog.setTitle(_message);
             }
 
             if (_extraListener != null && _extraLabel != null && !_extraLabel.isEmpty()) {
                 dialog.setButton(DialogInterface.BUTTON_NEUTRAL, _extraLabel, _extraListener);
             }
 
+            dialog.setOnShowListener(dialogInterface -> {
+                styleDatePicker(dialog, backgroundColor, primaryTextColor);
+                final Window win = dialog.getWindow();
+                if (win != null) {
+                    win.setBackgroundDrawableResource(R.drawable.rounded_corner_background);
+                    win.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+                }
+            });
+
             return dialog;
+        }
+
+        private static void styleDatePicker(final DatePickerDialog dialog, final int backgroundColor, final int primaryTextColor) {
+            dialog.getDatePicker().setBackgroundColor(backgroundColor);
+
+            setPlatformDatePickerViewColor(dialog, "date_picker_header", backgroundColor, primaryTextColor);
+            setPlatformDatePickerViewColor(dialog, "date_picker_header_year", backgroundColor, primaryTextColor);
+            setPlatformDatePickerViewColor(dialog, "date_picker_header_date", backgroundColor, primaryTextColor);
+            setPlatformDatePickerViewColor(dialog, "date_picker_header_day", backgroundColor, primaryTextColor);
+        }
+
+        private static void setPlatformDatePickerViewColor(
+                final DatePickerDialog dialog,
+                final String name,
+                final int backgroundColor,
+                final int primaryTextColor
+        ) {
+            final int id = dialog.getContext().getResources().getIdentifier(name, "id", "android");
+            final View view = id != 0 ? dialog.findViewById(id) : null;
+            if (view != null) {
+                view.setBackgroundColor(backgroundColor);
+                if (view instanceof TextView) {
+                    ((TextView) view).setTextColor(primaryTextColor);
+                }
+            }
         }
 
         @Override
