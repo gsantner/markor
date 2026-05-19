@@ -41,6 +41,9 @@ import java.io.File;
 import other.so.AndroidBug5497Workaround;
 
 public class DocumentActivity extends MarkorBaseActivity {
+    private static final String DEEP_LINK_SCHEME = "markor";
+    private static final String DEEP_LINK_HOST_OPEN = "open";
+    private static final String DEEP_LINK_PARAM_PATH = "path";
 
     private Toolbar _toolbar;
     private FragmentManager _fragManager;
@@ -181,9 +184,10 @@ public class DocumentActivity extends MarkorBaseActivity {
         handleLaunchingIntent(intent);
     }
 
-    private void handleLaunchingIntent(final Intent intent) {
-        if (intent == null) return;
+    private void handleLaunchingIntent(final Intent rawIntent) {
+        if (rawIntent == null) return;
 
+        final Intent intent = resolveDeepLinkIntent(rawIntent);
         final String intentAction = intent.getAction();
 
         // Pull the file from the intent
@@ -258,6 +262,33 @@ public class DocumentActivity extends MarkorBaseActivity {
                 showFragment(DocumentEditAndViewFragment.newInstance(doc, startLine, startInPreview));
             }
         }
+    }
+
+    private Intent resolveDeepLinkIntent(final Intent intent) {
+        final Uri uri = intent.getData();
+        if (!Intent.ACTION_VIEW.equals(intent.getAction()) || !isOpenDeepLink(uri)) {
+            return intent;
+        }
+
+        final String path = uri.getQueryParameter(DEEP_LINK_PARAM_PATH);
+        if (GsTextUtils.isNullOrEmpty(path)) {
+            return intent;
+        }
+
+        File file = new File(path);
+        if (!file.isAbsolute()) {
+            file = new File(_appSettings.getNotebookDirectory(), path);
+        }
+
+        final Intent resolvedIntent = new Intent(intent);
+        resolvedIntent.putExtra(Document.EXTRA_FILE, file.getAbsoluteFile());
+        return resolvedIntent;
+    }
+
+    private boolean isOpenDeepLink(final Uri uri) {
+        return uri != null
+                && DEEP_LINK_SCHEME.equalsIgnoreCase(uri.getScheme())
+                && DEEP_LINK_HOST_OPEN.equalsIgnoreCase(uri.getHost());
     }
 
     private boolean isDocumentAlreadyOpen(final Document doc) {
