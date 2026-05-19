@@ -297,7 +297,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
             setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.app_name)));
         }
 
-        // Intro dialog and show changelog etc
+        // Introduction dialog and show changelog etc.
         final boolean firstStart = IntroActivity.optStart(this);
         try {
             if (!firstStart && _appSettings.isAppCurrentVersionFirstStart(true)) {
@@ -306,6 +306,9 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
                 html += smp.parse(getString(R.string.copyright_license_text_official).replace("\n", "  \n"), "").getHtml();
                 html += "<br/><br/><br/><big><big>" + getString(R.string.changelog) + "</big></big><br/>" + smp.parse(getResources().openRawResource(R.raw.changelog), "", GsSimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW);
                 html += "<br/><br/><br/><big><big>" + getString(R.string.licenses) + "</big></big><br/>" + smp.parse(getResources().openRawResource(R.raw.licenses_3rd_party), "").getHtml();
+                if (GsContextUtils.instance.isDarkModeEnabled(this)) {
+                    html = html.replace("font color='#000000'", "font color='#D3D3D3'");
+                }
                 _cu.showDialogWithHtmlTextView(this, 0, html);
             }
         } catch (IOException e) {
