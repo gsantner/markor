@@ -849,7 +849,7 @@ public class GsFileUtils {
                 final boolean copy = !(filesToSort instanceof List);
                 final List<File> sortable = copy ? new ArrayList<>(filesToSort) : (List<File>) filesToSort;
 
-                GsCollectionUtils.keySort(sortable, (f) -> makeSortKey(order.sortByType, f));
+                GsCollectionUtils.keySort(sortable, (f) -> makeSortKey(order.sortByType, f), new AlphanumComparator());
                 if (order.reverse) {
                     Collections.reverse(sortable);
                 }
