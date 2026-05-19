@@ -199,7 +199,7 @@ public class MarkdownTextConverter extends TextConverterBase {
                 + CSS_INLINE_CODE
                 + CSS_GITLAB_VIDEO_CAPTION
                 + CSS_LIST_TASK_NO_BULLET
-                + CSS_LINK_SOFT_WRAP;
+                + CSS_LINK_SOFT_WRAP
                 + CSS_PARAGRAPH_SOFT_WRAP;
 
         // Presentations
