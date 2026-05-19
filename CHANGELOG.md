@@ -374,7 +374,7 @@
 - Show app intro at first start  
 - All new file navigation  
 - Add favourite files  
-- Add quick navigiation options (to notebook, sdcard, AppData and more)  
+- Add quick navigation options (to notebook, sdcard, AppData and more)  
 - Add option to set Navigation-Bar color  
 - Combine edit & view mode to one fragment, show view as overlay  
 - Add horizontal scrolling for code blocks in view mode  
@@ -431,7 +431,7 @@
 - Editor  
   - Open multiple Windows  
 - Document browser  
-  - Completly new 'New file' dialog  
+  - Completely new 'New file' dialog  
 - Text Actions  
   - Sort todo.txt files  
   - Tasks support in Markdown  
@@ -443,7 +443,7 @@
 - Editor  
   - Added greenscale basic editor colors  
 - Representation  
-  - Set inital background color before loading document  
+  - Set initial background color before loading document  
   - Math/KaTex: Show inline when single dollar is used
 
 ### v1.4
@@ -588,7 +588,7 @@
   - Show "open in browser" option if text contains link
   - Prepend separator to all existing documents
 - Settings / Preview
-  - User customizeable CSS/JS injection option (for preview)
+  - User customizable CSS/JS injection option (for preview)
   - Configureable in settings
   - Contains some (uncommented) modification lines for important elements
   - like font size, font type, script to load when page loaded etc.
@@ -613,7 +613,7 @@
 **New features:**  
 - Recently viewed documents
   - Start editing of recent documents, button in the toolbar of main view
-  - Allow sharing into recend documents
+  - Allow sharing into recent documents
   - Queue containing the 10 last viewed files
 - Keep scroll position when reloading document list (Notebook)
 - Document/File Info: Dialog showing information about selected file
@@ -633,7 +633,7 @@
 **Fixed:**  
 - Crash when Markor put to background and huge file is loaded
   - Document contents are not stored into resume cache anymore if they are too big
-  - Make no major differences for huge files, just undo/redo history is cleared when switchting away
+  - Make no major differences for huge files, just undo/redo history is cleared when switching away
 
 ### v0.3.7
 - Option to disable spellchecking-underline

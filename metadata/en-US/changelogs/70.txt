@@ -1,7 +1,7 @@
 * Show app intro at first start
 * All new file navigation
 * Add favourite files
-* Add quick navigiation options (to notebook, sdcard, AppData and more)
+* Add quick navigation options (to notebook, sdcard, AppData and more)
 * Add option to set Navigation-Bar color
 * Combine edit & view mode to one fragment, show view as overlay
 * Add horizontal scrolling for code blocks in view mode
