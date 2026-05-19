@@ -777,11 +777,12 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         }
     }
 
-    private boolean canWrite(File file) {
-        if (file != null) {
-            return file.canWrite() || (_dopt.mountedStorageFolder != null && file.getAbsolutePath().startsWith(_dopt.mountedStorageFolder.getAbsolutePath()));
-        }
-        return false;
+    public boolean canWrite(final File file) {
+        return canWrite(file, _dopt.mountedStorageFolder);
+    }
+
+    public static boolean canWrite(final File file, final File mountedStorageFolder) {
+        return file != null && (file.canWrite() || file.equals(mountedStorageFolder) || GsFileUtils.isChild(mountedStorageFolder, file));
     }
 
     public boolean accept(File file) {
