@@ -118,7 +118,7 @@ Did you know you can share content and URLs into Markor? One of the core feature
 ![Share Into](doc/assets/2022-07-16-share-into.webp)
 
 * Beside QuickNote & ToDo you might recall another special file at Markor - LinkBox. One of the main features of Share Into is to share links (from i.e. your web browser) into Markor, to **create bookmarks & link lists**.  
-* Text/Title of links and the URL are extracted and automatically formated in Markdown syntax, resulting in fancy clickable links when you view your Markdown documents later. Note that **you can share any text into Markor, it is not limited to links**.
+* Text/Title of links and the URL are extracted and automatically formatted in Markdown syntax, resulting in fancy clickable links when you view your Markdown documents later. Note that **you can share any text into Markor, it is not limited to links**.
 * Often shared text is not the way you want it. You can **edit text prior appending it to your file**. As shown in the screenshot above there is a editor with syntax highlighting. So if you have to add a few words, rewrite & restructure some text prior pasting - go ahead, no problem.
 * You can also re-share the text without adding it to any file (i.e. share into Markor, add a few words, share the final text to 5 messenger contacts)
 * Sometimes apps only have the option to share a web-accessible link, but none to open it yourself in the browser. In case a URL is in the shared text, Markor also shows the option to open the link in a browser.
@@ -166,7 +166,7 @@ Most dialogs got a few minor improvements. The most important change is that the
 
 - [Search: Keep in-files search dialog open, closes #1663, by @harshad1 (PR #1689)](https://github.com/gsantner/markor/pull/1689/files)
 - [Dialogs: Don't show OK button at dialogs that require specific selection, by @gsantner closes #1699, closes #1700](https://github.com/gsantner/markor/commit/b4ae32bf0e8ab890ded57718a9598da7a7d52870)
-- [Rename dialog: Check file existance case insensitive (Android filesystem usually is insensitive), by @gsantner, closes #1695](https://github.com/gsantner/markor/issues/1695)
+- [Rename dialog: Check file existence case insensitive (Android filesystem usually is insensitive), by @gsantner, closes #1695](https://github.com/gsantner/markor/issues/1695)
 - [Improve Dialog OK button constraints #1699, by @harshad1 (PR #1720)](https://github.com/gsantner/markor/pull/1720/files)
 - [SearchDialog: Improve condition calculation for simple dialogs, by @harshad1 (PR #1751)](https://github.com/gsantner/markor/pull/1751/files)
 - [todo.txt filter search: Disable highlighting at completed tasks, by @harshad1 (PR #1754)](https://github.com/gsantner/markor/pull/1754/files)
@@ -367,7 +367,7 @@ Checkout the [mermaidjs live-editor](https://mermaid-js.github.io/mermaid-live-e
 * [Add spellchecking capabilities for strings.xml to Makefile & CI/CD, by @gsantner](https://github.com/gsantner/markor/commit/ac08c4f7)
 * [filemanager: Always load latest fav/recent/popular files when browsing to it](https://github.com/gsantner/markor/commit/d02b9a0d)
 * [ShareInto:: reset modTime after writing, so it's correctly reloaded at time of opening at editor, by @gsantner](https://github.com/gsantner/markor/commit/3d9540e7)
-* [filebrowser::rename file::fix/workaround for Android's filesystem case-insensitive filenaming, by @gsantner, closes #1481](https://github.com/gsantner/markor/commit/7541863d)
+* [filebrowser::rename file::fix/workaround for Android's filesystem case-insensitive file naming, by @gsantner, closes #1481](https://github.com/gsantner/markor/commit/7541863d)
 * [Debug builds (aaTest): Properly show version of Markor at 'More' page](https://github.com/gsantner/markor/commit/285d0367)
 * ---------
 * [Markor v2.8.2](https://github.com/gsantner/markor/commit/95d45315)
@@ -386,7 +386,7 @@ Checkout the [mermaidjs live-editor](https://mermaid-js.github.io/mermaid-live-e
 * [Update crowdin config](https://github.com/gsantner/markor/commit/129f07e0)
 * [Translation update (PR #1429)](https://github.com/gsantner/markor/commit/62f21259)
 * [filebrowser: Improve performance a lot (speed of file list appearing)](https://github.com/gsantner/markor/commit/83a4e2f7)
-* [filebrowser:sort: use compareToIgnoreCase for name comparision](https://github.com/gsantner/markor/commit/aa5b5439)
+* [filebrowser:sort: use compareToIgnoreCase for name comparison](https://github.com/gsantner/markor/commit/aa5b5439)
 * [Browse todo.txt file by various filters (PR #1408 by @harshad1)](https://github.com/gsantner/markor/commit/7e680df2)
 * [todotxt: Save priority on done by pri:X kv (PR #1420 by @harshad1)](https://github.com/gsantner/markor/commit/a4719b7a)
 * [Allow to install APK files from filebrowser on click, by @gsantner (PR #1417)](https://github.com/gsantner/markor/commit/3d5fc9c2)
@@ -491,7 +491,7 @@ When you copy/move multiple files, you get the option to apply the decision (ski
 - Backup and restore settings, Format selection with radio buttons, #1244 by @harshad1 @gsantner
 - Per-file font size, #1332 by @harshad1
 - Markdown: Support superscript^2^ syntax, #1268 by @gsantner
-- View mode: Image/PDF export whole page, add seperate screenshot option, by @gsantner
+- View mode: Image/PDF export whole page, add separate screenshot option, by @gsantner
 - todo.txt: Fix trailing space resulting in contexts/projects/due-dates to be entered twice, #1282 by @harshad1
 - Markdown: Enable GitLab extension, display video links as html5-video, #1280 by @gsantner
 - Markdown: Enable typographic transformation, #1277 by @gsantner
@@ -583,7 +583,7 @@ and was moved to the _File settings_ submenu at the top menu. The current select
 - All formats: Date/Time dialog don't add entry twice to history, #1229 by @harshad1
 - Editor/Viewer: Increase scrollbar width, #1241 by @harshad1
 - File browser: File move start from current folder, #1234 by @harshad1
-- Editor/Viwer: Add file info option (document top menu), #1233 by @harshad1
+- Editor/Viewer: Add file info option (document top menu), #1233 by @harshad1
 - Viewer: Privacy: Opt-out of Android WebView's internal metrics, #1181 by @gsantner
 - Markdown: Support Notable's special home brewed syntax for attachments, #1252 by @gsantner
 - Dependencies: Add source code of colorpicker and build subproject, by @gsantner
@@ -773,14 +773,14 @@ Elixir, Haskell, Kotlin, Perl, R, Ruby, Scala, Swift
 ## New todo.txt implementation
 todo.txt syntax highlighting is now faster than ever before. 
 Also all todo.txt specific text actions have been improved for better compatibility.  
-Vaious new features, actions and options also come with the update, checkout the full changelog.
+Various new features, actions and options also come with the update, checkout the full changelog.
 
 ### More changes
 - Markdown: Correctly insert or remove list item on press enter at empty list item
 - Remove title from todo.txt date dialog, better usable on small devices
 - Fix search sometimes not working when chaging from view to edit mode
 - Rework Indent & Move lines Actions
-- Add settings option to control todo.txt completition date auto insert
+- Add settings option to control todo.txt completion date auto insert
 - All new todo.txt support in Markor
 - Add many languages to view-mode code highlighting
 - Add xlf format (plaintext)
@@ -857,7 +857,7 @@ This time especially due [Harshad Srinivasan](https://github.com/harshad1)s prec
 - Add Accordion (Click to expand) example and add action button
 - Tooltips for action buttons
 - For index.html files, show foldername at favourites/recents
-- todo.txt: Set completition date also when there is no creation date
+- todo.txt: Set completion date also when there is no creation date
 - Markdown: Configurable unordered list character
 - Custom order of action buttons
 - Markdown: Add alternative more performant heading highlighting
@@ -867,7 +867,7 @@ This time especially due [Harshad Srinivasan](https://github.com/harshad1)s prec
 - todo.txt: Preselect last used archive file by default for archiving
 - Markdown: Long press code to insert code block
 - todo.txt: Improved task sort functionalities
-- Add action button to expand selection of cursror to whole line
+- Add action button to expand selection of cursor to whole line
 - Markdown: Add Table of contents / Outline for Edit mode (Press toolbar)
 - Vertical Scrollbar now draggable at view & edit mode
 - todo.txt: Date&Time selection dialogs
@@ -1093,7 +1093,7 @@ Markor will ask now if a file should be opened inside editor, if it's one of the
 You will now get a dialog to choose between Markor or external app. This list of file types includes but is not limited
 to data exchange (like csv, json, xml, yaml) anddevelopment (c++, java, python, ruby, golang, bash) files types.
 
-There is also a new settings option in the general section, which allows to specify a comma seperated list of
+There is also a new settings option in the general section, which allows to specify a comma separated list of
 file extensions that always should be opened with Markor.
 If you want to open files with .mytype extension, as well files without extension: `None, .mytype`.
 
@@ -1637,11 +1637,11 @@ _09. September 2018_
 - Widget
   - Added shortcuts to ToDo, QuickNote and LinkBox
 - SD Card handling and permission errors
-  - Show warning when opening a file on not writeable path
-  - Add shortcuts to writeable SD card folders
-  - Mark unwriteable files red in selection dialog
+  - Show warning when opening a file on not writable path
+  - Add shortcuts to writable SD card folders
+  - Mark unwritable files red in selection dialog
 - ShareInto
-  - Better seperator placment
+  - Better separator placement
 
 **Fixed:**
 - Widget

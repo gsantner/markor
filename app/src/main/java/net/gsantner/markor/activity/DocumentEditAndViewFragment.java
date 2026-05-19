@@ -1088,7 +1088,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             return false;
         }
 
-        // Document is written iff writeable && content has changed
+        // Document is written iff writable && content has changed
         final CharSequence text = _hlEditor.getText();
         if (!_document.isContentSame(text)) {
             final int minLength = GsContextUtils.TEXT_FILE_OVERWRITE_MIN_TEXT_LENGTH;

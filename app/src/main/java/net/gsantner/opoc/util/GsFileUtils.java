@@ -880,10 +880,10 @@ public class GsFileUtils {
 
     /**
      * Check if a file can be created.
-     * Checks if closest ancestor is writeable.
+     * Checks if closest ancestor is writable.
      */
     public static boolean canCreate(File file) {
-        // A file is creatable if the first existing ancestor is writeable
+        // A file is creatable if the first existing ancestor is writable
         while (file != null && !file.exists()) {
             file = file.getParentFile();
         }

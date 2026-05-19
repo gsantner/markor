@@ -138,7 +138,7 @@
 - [Editor: Increase performance on editables, more chunked operations, by @harshad1 (PR #1694)](https://github.com/gsantner/markor/pull/1694/files)
 - [Dialogs: Don't show OK button at dialogs that require specific selection, by @gsantner closes #1699, closes #1700](https://github.com/gsantner/markor/commit/b4ae32bf0e8ab890ded57718a9598da7a7d52870)
 - [Sync clients: Remove irritating file paths from unsupported dialog, by @gsantner, closes #1705](https://github.com/gsantner/markor/issues/1699)
-- [Check file existance case insensitive (Android filesystem usually is insensitive), by @gsantner, closes #1695](https://github.com/gsantner/markor/issues/1695)
+- [Check file existence case insensitive (Android filesystem usually is insensitive), by @gsantner, closes #1695](https://github.com/gsantner/markor/issues/1695)
 - [Improve Dialog OK button constraints #1699, by @harshad1 (PR #1720)](https://github.com/gsantner/markor/pull/1720/files)
 - [dotFiles: Hide "*_files" and "*.assets" from browser->save page to html, by @tifish (PR #1704)](https://github.com/gsantner/markor/pull/1704/files)
 - [More deterministic save / resume - Switching on every tab move, by @harshad1 (PR #1736)](https://github.com/gsantner/markor/pull/1736/files)
@@ -187,7 +187,7 @@
 - Backup and restore settings, Format selection with radio buttons, #1244 by @harshad1 @gsantner
 - Per-file font size, #1332 by @harshad1
 - Markdown: Support superscript^2^ syntax, #1268 by @gsantner
-- View mode: Image/PDF export whole page, add seperate screenshot option, by @gsantner
+- View mode: Image/PDF export whole page, add separate screenshot option, by @gsantner
 - todo.txt: Fix trailing space resulting in contexts/projects/due-dates to be entered twice, #1282 by @harshad1
 - Markdown: Enable GitLab extension, display video links as html5-video, #1280 by @gsantner
 - Markdown: Enable typographic transformation, #1277 by @gsantner
@@ -228,7 +228,7 @@
 - All formats: Date/Time dialog don't add entry twice to history, #1229 by @harshad1
 - Editor/Viewer: Increase scrollbar width, #1241 by @harshad1
 - File browser: File move start from current folder, #1234 by @harshad1
-- Editor/Viwer: Add file info option (document top menu), #1233 by @harshad1
+- Editor/Viewer: Add file info option (document top menu), #1233 by @harshad1
 - Viewer: Privacy: Opt-out of Android WebView's internal metrics, #1181 by @gsantner
 - Markdown: Support Notable's special home brewed syntax for attachments, #1252 by @gsantner
 - Dependencies: Add source code of colorpicker and build subproject, by @gsantner
@@ -254,7 +254,7 @@
 - Remove title from todo.txt date dialog, better usable on small devices
 - Fix search sometimes not working when chaging from view to edit mode
 - Rework Indent & Move lines Actions
-- Add settings option to control todo.txt completition date auto insert
+- Add settings option to control todo.txt completion date auto insert
 - All new todo.txt support in Markor
 - Add many languages to view-mode code highlighting
 - Add xlf format (plaintext)
@@ -289,7 +289,7 @@
 - Add Accordion (Click to expand) example and add action button
 - Tooltips for action buttons
 - For index.html files, show foldername at favourites/recents
-- todo.txt: Set completition date also when there is no creation date
+- todo.txt: Set completion date also when there is no creation date
 - Markdown: Configurable unordered list character
 - Custom order of action buttons
 - Markdown: Add alternative more performant heading highlighting
@@ -299,7 +299,7 @@
 - todo.txt: Preselect last used archive file by default for archiving
 - Markdown: Long press code to insert code block
 - todo.txt: Improved task sort functionalities
-- Add action button to expand selection of cursror to whole line
+- Add action button to expand selection of cursor to whole line
 - Markdown: Add Table of contents / Outline for Edit mode (Press toolbar)
 - Vertical Scrollbar now draggable at view & edit mode
 - todo.txt: Date&Time selection dialogs
@@ -566,9 +566,9 @@
 - Widget
   - Added shortcuts to ToDo, QuickNote and LinkBox
 - SD Card handling and permission errors
-  - Show warning when opening a file on not writeable path
-  - Add shortcuts to writeable SD card folders
-  - Mark unwriteable files red in selection dialog
+  - Show warning when opening a file on not writable path
+  - Add shortcuts to writable SD card folders
+  - Mark unwritable files red in selection dialog
 - ShareInto
   - Better separator placement
 

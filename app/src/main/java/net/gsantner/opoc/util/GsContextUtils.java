@@ -2136,7 +2136,7 @@ public class GsContextUtils {
     public boolean isUnderStorageAccessFolder(final Context context, final File file, boolean isDir) {
         if (file != null) {
             isDir = isDir || (file.exists() && file.isDirectory());
-            // When file writeable as is, it's the fastest way to learn SAF isn't required
+            // When file writable as is, it's the fastest way to learn SAF isn't required
             if (canWriteFile(context, file, isDir, false)) {
                 return false;
             }
