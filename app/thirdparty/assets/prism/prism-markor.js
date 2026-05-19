@@ -1,10 +1,10 @@
-function usePrism(arg1, arg2) {
+function usePrism(isWrapWordsEnabled, isLineNumbersEnabled) {
     const codeElements = document.querySelectorAll("pre > code");
     if (codeElements.length == 0) {
         return;
     }
-    const wrapWords = arg1 === "true";
-    const lineNumbers = arg2 === "true";
+    const wrapWords = isWrapWordsEnabled === "true";
+    const lineNumbers = isLineNumbersEnabled === "true";
     const codeFontWidth = getFontWidth(codeElements[0]);
 
     codeElements.forEach((codeElement) => {
