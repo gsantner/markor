@@ -68,4 +68,5 @@
 
     <color name="link">#FF1EA3FD</color>;
     <color name="transparent">#00FFFFFF</color>
+    <color name="light_border">@color/lighter_grey</color>
 </resources>

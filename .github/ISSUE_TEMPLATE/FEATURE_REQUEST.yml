@@ -14,7 +14,7 @@ body:
       options:
         - label: This is a **enhancement/feature request**. Not a [bug or question](https://github.com/gsantner/markor/issues/new/choose).
           required: true
-        - label: The topic is **not** already reported at [Issues](https://github.com/gsantner/markor/issues?q=#js-issues-search). _(I've searched it)_.
+        - label: The topic is **not** already reported at [Issues](https://github.com/gsantner/markor/issues?q=#js-issues-search). _(I've searched it and checked most recent issues)_.
           required: true
         - label: Markor **is** up to date. See [Releases](https://github.com/gsantner/markor/tags) for the latest version. Updates are available from [F-Droid](https://f-droid.org/en/packages/net.gsantner.markor/) and GitHub. 
           required: true
@@ -40,7 +40,7 @@ body:
       description: What is your Android version? What device? (In case of custom ROM, what ROM?)
       value: |
         Android version: 
-        Device: 
+        Device (phone model): 
         App Version: 
     validations:
       required: true

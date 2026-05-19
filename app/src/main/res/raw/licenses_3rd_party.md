@@ -5,8 +5,8 @@
 * writeily and writeily-pro
 ~° Copyright (c) 2014 Jeff Martin  
 ~° Copyright (c) 2015 Pedro Lafuente   
-~° Markor was initally forked from writeily-pro
-~° but most parts were completly rewritten.
+~° Markor was initially forked from writeily-pro
+~° but most parts were completely rewritten.
 ~° Parts that were not modified / rewitten
 ~° from scratch are placed in the
 ~° thirdparty directory and MIT licensed.

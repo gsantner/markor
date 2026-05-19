@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -35,6 +36,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
+import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.frontend.NewFileDialog;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.model.Document;
@@ -108,6 +110,12 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         // Keep created fragments alive, but only realize them once the user visits.
         _viewPager.setOffscreenPageLimit(_bottomNav.getMenu().size());
         _bottomNav.setOnItemSelectedListener((item) -> {
+            final int itemId = item.getItemId();
+            if (itemId == R.id.nav_quicknote) {
+                showLargeFileOpenToastIfNeeded(_appSettings.getQuickNoteFile());
+            } else if (itemId == R.id.nav_todo) {
+                showLargeFileOpenToastIfNeeded(_appSettings.getTodoFile());
+            }
             final int pos = tabIdToPos(item.getItemId());
             _sectionsAdapter.ensureRealized(pos);
             _viewPager.setCurrentItem(pos);
@@ -298,7 +306,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
             setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.app_name)));
         }
 
-        // Intro dialog and show changelog etc
+        // Introduction dialog and show changelog etc.
         final boolean firstStart = IntroActivity.optStart(this);
         try {
             if (!firstStart && _appSettings.isAppCurrentVersionFirstStart(true)) {
@@ -307,6 +315,9 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
                 html += smp.parse(getString(R.string.copyright_license_text_official).replace("\n", "  \n"), "").getHtml();
                 html += "<br/><br/><br/><big><big>" + getString(R.string.changelog) + "</big></big><br/>" + smp.parse(getResources().openRawResource(R.raw.changelog), "", GsSimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW);
                 html += "<br/><br/><br/><big><big>" + getString(R.string.licenses) + "</big></big><br/>" + smp.parse(getResources().openRawResource(R.raw.licenses_3rd_party), "").getHtml();
+                if (GsContextUtils.instance.isDarkModeEnabled(this)) {
+                    html = html.replace("font color='#000000'", "font color='#D3D3D3'");
+                }
                 _cu.showDialogWithHtmlTextView(this, 0, html);
             }
         } catch (IOException e) {
@@ -368,6 +379,19 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         }
         if (_notebook != null && _notebook.getAdapter() != null) {
             _notebook.getAdapter().showFile(file);
+        }
+    }
+
+    private void showLargeFileOpenToastIfNeeded(final File file) {
+        final long LARGE_FILE_TOAST_THRESHOLD_BYTES = 128L * 1024L;
+
+        // Check if file is large and if true show a toast notification for user to wait
+        if (file != null && file.isFile() && !FormatRegistry.CONVERTER_EMBEDBINARY.isFileOutOfThisFormat(file)) {
+            final long fileBytes = file.length();
+            if (fileBytes > LARGE_FILE_TOAST_THRESHOLD_BYTES) {
+                final String readableSize = GsFileUtils.getReadableFileSize(fileBytes, true);
+                Toast.makeText(this, getString(R.string.loading_large_file_may_take_a_moment_witharg, readableSize), Toast.LENGTH_LONG).show();
+            }
         }
     }
 
@@ -492,6 +516,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
                 @Override
                 public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
+                    showLargeFileOpenToastIfNeeded(file);
                     DocumentActivity.launch(MainActivity.this, file, null, lineNumber);
                 }
             });
