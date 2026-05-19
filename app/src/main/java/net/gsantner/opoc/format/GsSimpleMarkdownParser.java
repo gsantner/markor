@@ -231,8 +231,8 @@ public class GsSimpleMarkdownParser {
         return this;
     }
 
-    public GsSimpleMarkdownParser replaceBulletCharacter(String replacment) {
-        _html = _html.replace("&#8226;", replacment);
+    public GsSimpleMarkdownParser replaceBulletCharacter(String replacement) {
+        _html = _html.replace("&#8226;", replacement);
         return this;
     }
 
