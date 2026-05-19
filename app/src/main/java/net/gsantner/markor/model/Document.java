@@ -278,7 +278,7 @@ public class Document implements Serializable {
             return true;
         }
 
-        if (!isManualSave && TextUtils.getTrimmedLength(content) < GsContextUtils.TEXTFILE_OVERWRITE_MIN_TEXT_LENGTH) {
+        if (!isManualSave && TextUtils.getTrimmedLength(content) < GsContextUtils.TEXT_FILE_OVERWRITE_MIN_TEXT_LENGTH) {
             return false;
         }
 
