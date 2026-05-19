@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -114,6 +115,12 @@ public class ActionButtonSettingsActivity extends MarkorBaseActivity {
         saveNewOrder();
     }
 
+    private void onActionDataExtracted(@NonNull final ActionButtonBase textActions) {
+        final Switch showActionBarSwitch = findViewById(R.id.showActionBarSwitch);
+        showActionBarSwitch.setChecked(textActions.loadActionBarVisible());
+        showActionBarSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> textActions.saveActionBarVisible(isChecked));
+    }
+
     @SuppressWarnings("ConstantConditions")
     private void extractActionData() {
         final int documentType = getIntent().getExtras().getInt(EXTRA_FORMAT_KEY);
@@ -140,6 +147,8 @@ public class ActionButtonSettingsActivity extends MarkorBaseActivity {
         for (final String key : _keys) {
             _actions.add(actionMap.get(key));
         }
+
+        onActionDataExtracted(_textActions);
     }
 
     private static class Holder extends RecyclerView.ViewHolder {
