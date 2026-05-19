@@ -849,7 +849,7 @@ public class GsFileUtils {
                 final boolean copy = !(filesToSort instanceof List);
                 final List<File> sortable = copy ? new ArrayList<>(filesToSort) : (List<File>) filesToSort;
 
-                GsCollectionUtils.keySort(sortable, (f) -> makeSortKey(order.sortByType, f));
+                GsCollectionUtils.keySort(sortable, (f) -> makeSortKey(order.sortByType, f), new AlphanumComparator());
                 if (order.reverse) {
                     Collections.reverse(sortable);
                 }
@@ -880,10 +880,10 @@ public class GsFileUtils {
 
     /**
      * Check if a file can be created.
-     * Checks if closest ancestor is writeable.
+     * Checks if closest ancestor is writable.
      */
     public static boolean canCreate(File file) {
-        // A file is creatable if the first existing ancestor is writeable
+        // A file is creatable if the first existing ancestor is writable
         while (file != null && !file.exists()) {
             file = file.getParentFile();
         }
