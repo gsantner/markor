@@ -9,4 +9,38 @@ to the public domain.
 You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
-<resources xmlns:tools="http://schemas.android.com/tools"></resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="settings">Postavke</string>
+    <string name="light">Svjetlo</string>
+    <string name="dark">Tamno</string>
+    <string name="delete">Izbrisati</string>
+    <string name="appearance">Izgled</string>
+    <string name="rename">Preimenuj</string>
+    <string name="confirm_delete">Potvrdi brisanje</string>
+    <string name="do_you_really_want_to_delete_this_witharg">Želite li zaista ovo izbrisati %s?</string>
+    <string name="confirm_overwrite">Potvrdi prepisivanje</string>
+    <string name="file_already_exists_overwerite">Datoteka već postoji, prebrisati?</string>
+    <string name="title">Naziv</string>
+    <string name="empty_directory">Prazna mapa</string>
+    <string name="enter_name_of_folder">Unesi naziv mape</string>
+    <string name="create_folder">Napravi mapu</string>
+    <string name="create_new_document">Napravi novi dokument</string>
+    <string name="move">Premjesti</string>
+    <string name="info">Informacije</string>
+    <string name="file_folder_already_exists_please_use_a_different_name">Mapa/datoteka već postoji! Molim koristite drugi naziv</string>
+    <string name="import_from_device">Uvoz s uređaja</string>
+    <string name="import_">Uvoz</string>
+    <string name="append_to_witharg">Nakon %s</string>
+    <string name="select_folder">Označi mapu</string>
+    <string name="edit">Izmjeni</string>
+    <string name="search_documents">Pronađi dokumente</string>
+    <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Podijeli s&#8230;</string>
+    <string name="share">Podijeli</string>
+    <string name="search">Pretraživanje</string>
+    <string name="folders">Mape</string>
+    <string name="files">Datoteke</string>
+    <string name="document">Dokument</string>
+    <string name="documents">Dokumenti</string>
+    <string name="html_as_plaintext">HTML (kao tekst)</string>
+    <string name="about">O</string>
+</resources>

@@ -17,8 +17,8 @@ import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.RippleDrawable;
 import android.os.Build;
 import android.os.Parcelable;
 import android.text.Editable;
@@ -103,6 +103,8 @@ public class GsSearchOrCustomTextDialog {
         @Nullable
         public GsCallback.a1<Integer> longPressCallback = null;
 
+        public boolean longPressEnabled = true;
+
         public enum SelectionMode {
             SINGLE, MULTIPLE, NONE
         }
@@ -159,7 +161,7 @@ public class GsSearchOrCustomTextDialog {
         /**
          * Initial state of the dialog. Will be updated when the dialog is dismissed.
          */
-        public final DialogState state = new DialogState();
+        public DialogState state = new DialogState();
 
         /**
          * Reference to the dialog. Will be updated when the dialog is created.
@@ -168,15 +170,14 @@ public class GsSearchOrCustomTextDialog {
     }
 
     public static class DialogState {
-        public int listPosition = -1;
+        private Parcelable listState;
+        public int listPosition;
         public String searchText = "";
 
-        private Parcelable listState = null;
-
         public void copyFrom(final DialogState other) {
+            listState = other.listState;
             listPosition = other.listPosition;
             searchText = other.searchText;
-            listState = other.listState;
         }
     }
 
@@ -346,18 +347,19 @@ public class GsSearchOrCustomTextDialog {
         listView.setDivider(new ColorDrawable(Color.TRANSPARENT));
         listView.setDividerHeight(GsContextUtils.instance.convertDpToPx(activity, 8));
 
-        if (dopt.state.listState != null) {
+        if (dopt.state.listState == null) {
+            if (dopt.state.listPosition > 0) {
+                listView.setSelection(dopt.state.listPosition);
+            }
+        } else {
             listView.onRestoreInstanceState(dopt.state.listState);
         }
 
-        if (dopt.state.listPosition >= 0) {
-            listView.setSelection(dopt.state.listPosition);
-        }
-
+        // Call back on dialog dismiss
         final GsCallback.a0 updateState = () -> {
             dopt.state.searchText = searchEditText.getText().toString();
-            dopt.state.listPosition = listView.getFirstVisiblePosition();
             dopt.state.listState = listView.onSaveInstanceState();
+            dopt.state.listPosition = listView.getFirstVisiblePosition();
         };
 
         listView.setVisibility(dopt.data != null && !dopt.data.isEmpty() ? View.VISIBLE : View.GONE);
@@ -489,6 +491,10 @@ public class GsSearchOrCustomTextDialog {
             }
         };
 
+        if (okButton != null && !dopt.isSearchEnabled) {
+            okButton.requestFocus();
+        }
+
         // Set ok button text initially
         setOkButtonState.callback();
 
@@ -550,7 +556,9 @@ public class GsSearchOrCustomTextDialog {
                 }
             });
 
-            // listView.setOnItemLongClickListener((parent, view, pos, id) -> directActivate.callback(pos, true));
+            if (dopt.longPressEnabled) {
+                listView.setOnItemLongClickListener((parent, view, pos, id) -> directActivate.callback(pos, true));
+            }
         }
     }
 
