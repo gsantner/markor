@@ -23,7 +23,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Matcher;
@@ -34,6 +36,17 @@ import java.util.regex.Pattern;
  */
 @SuppressWarnings("WeakerAccess")
 public class WikitextTextConverter extends TextConverterBase {
+    // Zim Source View plugin: {{{code: lang="..." ...\n...\n}}}
+    private static final Pattern CODE_BLOCK_SOURCE_VIEW = Pattern.compile(
+            "(?ms)^\\{\\{\\{code:([^\\r\\n]*)(?:\\r\\n?|\\n)(.*?)^\\}\\}\\}[ \\t]*$");
+    // Zim standard multiline preformatted: '''\n...\n'''
+    private static final Pattern CODE_BLOCK_TRIPLE_QUOTE = Pattern.compile(
+            "(?ms)^'''[ \\t]*(?:\\r\\n?|\\n)(.*?)^'''[ \\t]*$");
+    private static final Pattern CODE_BLOCK_LANG_ATTRIBUTE = Pattern.compile(
+            "lang=\"?([^\"\\s]+)\"?", Pattern.CASE_INSENSITIVE);
+    private static final String CODE_BLOCK_PLACEHOLDER_PREFIX = "\uE000WTCB";
+    private static final String CODE_BLOCK_PLACEHOLDER_SUFFIX = "\uE000";
+
     /**
      * First, convert Wikitext to regular Markor markdown. Then, calls the regular converter.
      *
@@ -47,6 +60,12 @@ public class WikitextTextConverter extends TextConverterBase {
     @Override
     public String convertMarkup(String markup, Context context, boolean lightMode, boolean lineNum, File file) {
         String contentWithoutHeader = markup.replaceFirst(WikitextSyntaxHighlighter.ZIMHEADER.toString(), "");
+
+        // Extract multiline code blocks before the per-line transformation so their content
+        // is not mangled by inline rules like IMAGE ({{X}} -> image embed).
+        List<String> savedCodeBlocks = new ArrayList<>();
+        contentWithoutHeader = preprocessCodeBlocks(contentWithoutHeader, savedCodeBlocks);
+
         StringBuilder markdownContent = new StringBuilder();
 
         for (String line : contentWithoutHeader.split("\\r\\n|\\r|\\n")) {
@@ -56,7 +75,52 @@ public class WikitextTextConverter extends TextConverterBase {
             markdownContent.append(String.format("%n"));
         }
 
-        return FormatRegistry.CONVERTER_MARKDOWN.convertMarkup(markdownContent.toString(), context, lightMode, lineNum, file);
+        String markdown = markdownContent.toString();
+        for (int i = 0; i < savedCodeBlocks.size(); i++) {
+            markdown = markdown.replace(codeBlockPlaceholder(i), savedCodeBlocks.get(i));
+        }
+
+        return FormatRegistry.CONVERTER_MARKDOWN.convertMarkup(markdown, context, lightMode, lineNum, file);
+    }
+
+    static String preprocessCodeBlocks(String input, List<String> savedBlocks) {
+        StringBuffer out = new StringBuffer();
+        Matcher m = CODE_BLOCK_SOURCE_VIEW.matcher(input);
+        while (m.find()) {
+            String lang = extractCodeBlockLang(m.group(1));
+            String content = m.group(2);
+            String fenced = "\n```" + lang + "\n" + content + "```\n";
+            int idx = savedBlocks.size();
+            savedBlocks.add(fenced);
+            m.appendReplacement(out, Matcher.quoteReplacement(codeBlockPlaceholder(idx)));
+        }
+        m.appendTail(out);
+
+        String intermediate = out.toString();
+        out = new StringBuffer();
+        m = CODE_BLOCK_TRIPLE_QUOTE.matcher(intermediate);
+        while (m.find()) {
+            String content = m.group(1);
+            String fenced = "\n```\n" + content + "```\n";
+            int idx = savedBlocks.size();
+            savedBlocks.add(fenced);
+            m.appendReplacement(out, Matcher.quoteReplacement(codeBlockPlaceholder(idx)));
+        }
+        m.appendTail(out);
+
+        return out.toString();
+    }
+
+    private static String extractCodeBlockLang(String header) {
+        Matcher m = CODE_BLOCK_LANG_ATTRIBUTE.matcher(header);
+        if (m.find()) {
+            return m.group(1);
+        }
+        return "";
+    }
+
+    static String codeBlockPlaceholder(int idx) {
+        return CODE_BLOCK_PLACEHOLDER_PREFIX + idx + CODE_BLOCK_PLACEHOLDER_SUFFIX;
     }
 
     private String getMarkdownEquivalentLine(final Context context, final File file, String wikitextLine, final boolean isExportInLightMode) {
