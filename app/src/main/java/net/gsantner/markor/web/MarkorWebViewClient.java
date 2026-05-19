@@ -9,13 +9,15 @@ package net.gsantner.markor.web;
 
 import android.app.Activity;
 import android.content.Context;
-import android.net.Uri;
 import android.webkit.WebView;
 
 import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.web.GsWebViewClient;
+
+import java.io.File;
+import java.net.URLDecoder;
 
 public class MarkorWebViewClient extends GsWebViewClient {
     protected final Activity _activity;
@@ -37,7 +39,16 @@ public class MarkorWebViewClient extends GsWebViewClient {
             if (url.startsWith("file:///android_asset/")) {
                 return false;
             } else if (url.startsWith("file://")) {
-                DocumentActivity.launch(_activity, Uri.parse(url));
+                MarkorContextUtils su = new MarkorContextUtils(view.getContext());
+                File file = new File(URLDecoder.decode(url.replace("file://", "").replace("+", "%2B")));
+                for (String str : new String[]{file.getAbsolutePath(), file.getAbsolutePath().replaceFirst("[#].*$", ""), file.getAbsolutePath() + ".md", file.getAbsolutePath() + ".txt"}) {
+                    File f = new File(str);
+                    if (f.exists()) {
+                        file = f;
+                        break;
+                    }
+                }
+                DocumentActivity.launch(_activity, file, null, null);
             } else {
                 MarkorContextUtils su = new MarkorContextUtils(_activity);
                 AppSettings settings = AppSettings.get(_activity);

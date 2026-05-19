@@ -233,25 +233,6 @@ public class GsTextUtils {
         }
     }
 
-    public static Boolean tryParseBool(final String value) {
-        if (value == null) {
-            return null;
-        }
-
-        final String normalized = value.trim();
-        if ("true".equalsIgnoreCase(normalized) || "yes".equalsIgnoreCase(normalized) || "y".equalsIgnoreCase(normalized)) {
-            return true;
-        } else if ("false".equalsIgnoreCase(normalized) || "no".equalsIgnoreCase(normalized) || "n".equalsIgnoreCase(normalized)) {
-            return false;
-        }
-
-        try {
-            return Integer.parseInt(normalized) != 0;
-        } catch (NumberFormatException ignored) {
-            return null;
-        }
-    }
-
     public static <T> ArrayList<T> toArrayList(T... array) {
         ArrayList<T> list = new ArrayList<>();
         Collections.addAll(list, array);

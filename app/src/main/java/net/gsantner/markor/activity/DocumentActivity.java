@@ -46,35 +46,9 @@ public class DocumentActivity extends MarkorBaseActivity {
     private FragmentManager _fragManager;
 
     public static void launch(final Activity activity, final Intent intent) {
-        final File file = MarkorContextUtils.getIntentFile(intent, activity);
-        final Integer lineNumber = intent != null && intent.hasExtra(Document.EXTRA_FILE_LINE_NUMBER) ? intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, -1) : null;
-        final Boolean doPreview = intent != null && intent.hasExtra(Document.EXTRA_DO_PREVIEW) ? intent.getBooleanExtra(Document.EXTRA_DO_PREVIEW, false) : null;
-        launch(activity, file, doPreview, lineNumber);
-    }
-
-    public static void launch(final Activity activity, final Uri uri) {
-        if (uri == null || !"file".equals(uri.getScheme())) {
-            return;
-        }
-
-        final Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        File file = MarkorContextUtils.getIntentFile(intent, activity);
-        if (file == null) {
-            return;
-        }
-
-        final String filePath = file.getAbsolutePath();
-        for (String str : new String[]{filePath, filePath + ".md", filePath + ".txt"}) {
-            final File f = new File(str);
-            if (f.exists()) {
-                file = f;
-                break;
-            }
-        }
-
-        final String line = uri.getQueryParameter("line");
-        final Integer lineNumber = line != null ? GsTextUtils.tryParseInt(line, -1) : null;
-        final Boolean doPreview = GsTextUtils.tryParseBool(uri.getQueryParameter("view"));
+        final File file = MarkorContextUtils.getIntentFile(intent);
+        final Integer lineNumber = intent.hasExtra(Document.EXTRA_FILE_LINE_NUMBER) ? intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, -1) : null;
+        final Boolean doPreview = intent.hasExtra(Document.EXTRA_DO_PREVIEW) ? intent.getBooleanExtra(Document.EXTRA_DO_PREVIEW, false) : null;
         launch(activity, file, doPreview, lineNumber);
     }
 
@@ -185,6 +159,7 @@ public class DocumentActivity extends MarkorBaseActivity {
         if (intent == null) return;
 
         final String intentAction = intent.getAction();
+        final Uri intentData = intent.getData();
 
         // Pull the file from the intent
         // -----------------------------------------------------------------------
@@ -208,14 +183,13 @@ public class DocumentActivity extends MarkorBaseActivity {
         if (file == null || !_cu.canWriteFile(this, file, false, true)) {
             showNotSupportedMessage();
         } else {
+            Integer startLine = null;
             // Open in editor/viewer
             final Document doc = new Document(file);
-            final Uri uri = intent.getData();
-            Integer startLine = null;
             if (intent.hasExtra(Document.EXTRA_FILE_LINE_NUMBER)) {
                 startLine = intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, -1);
-            } else if (uri != null) {
-                final String line = uri.getQueryParameter("line");
+            } else if (intentData != null) {
+                final String line = intentData.getQueryParameter("line");
                 if (line != null) {
                     startLine = GsTextUtils.tryParseInt(line, -1);
                 }
@@ -223,12 +197,9 @@ public class DocumentActivity extends MarkorBaseActivity {
 
             // Start in a specific mode if required. Otherwise let the fragment decide
             Boolean startInPreview = null;
-            if (intent.hasExtra(Document.EXTRA_DO_PREVIEW)) {
-                startInPreview = intent.getBooleanExtra(Document.EXTRA_DO_PREVIEW, false);
-            } else if (uri != null) {
-                startInPreview = GsTextUtils.tryParseBool(uri.getQueryParameter("view"));
-            }
-            if (startInPreview == null && file.getName().startsWith("index.")) {
+            if (intent.getBooleanExtra(Document.EXTRA_DO_PREVIEW, false) ||
+                    file.getName().startsWith("index.")
+            ) {
                 startInPreview = true;
             }
 
