@@ -36,6 +36,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
+import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.frontend.NewFileDialog;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.model.Document;
@@ -59,7 +60,6 @@ import other.writeily.widget.WrMarkorWidgetProvider;
 public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFragment.FilesystemFragmentOptionsListener {
 
     public static boolean IS_DEBUG_ENABLED = false;
-    private static final long LARGE_FILE_TOAST_THRESHOLD_BYTES = 512L * 1024L;
 
     private BottomNavigationView _bottomNav;
     private ViewPager2 _viewPager;
@@ -382,8 +382,10 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     }
 
     private void showLargeFileOpenToastIfNeeded(final File file) {
+        final long LARGE_FILE_TOAST_THRESHOLD_BYTES = 128L * 1024L;
+
         // Check if file is large and if true show a toast notification for user to wait
-        if (file != null && file.isFile()) {
+        if (file != null && file.isFile() && !FormatRegistry.CONVERTER_EMBEDBINARY.isFileOutOfThisFormat(file)) {
             final long fileBytes = file.length();
             if (fileBytes > LARGE_FILE_TOAST_THRESHOLD_BYTES) {
                 final String readableSize = GsFileUtils.getReadableFileSize(fileBytes, true);
