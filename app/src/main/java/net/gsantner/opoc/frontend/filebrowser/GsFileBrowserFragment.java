@@ -22,9 +22,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.FileObserver;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Pair;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -98,19 +95,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     private MarkorContextUtils _cu;
     private Toolbar _toolbar;
     private boolean _reloadRequiredOnResume = true;
-    private FileObserver _folderObserver;
-    private final Handler _folderReloadHandler = new Handler(Looper.getMainLooper());
-    private static final int FOLDER_OBSERVER_MASK =
-            FileObserver.CREATE | FileObserver.DELETE | FileObserver.MOVED_FROM
-                    | FileObserver.MOVED_TO | FileObserver.MODIFY;
-    private final Runnable _folderReloadRunnable = new Runnable() {
-        @Override public void run() {
-            final File folder = getCurrentFolder();
-            if (isVisible() && folder != null && _filesystemViewerAdapter != null) {
-                _filesystemViewerAdapter.reloadCurrentFolder();
-            }
-        }
-    };
 
     //########################
     //## Methods
@@ -353,34 +337,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             reloadCurrentFolder();
         }
         _reloadRequiredOnResume = true;
-        startFolderObserver(folder);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        stopFolderObserver();
-    }
-
-    private void startFolderObserver(final File folder) {
-        stopFolderObserver();
-        if (folder == null || !folder.isDirectory()) return;
-        _folderObserver = new FileObserver(folder.getAbsolutePath(), FOLDER_OBSERVER_MASK) {
-            @Override public void onEvent(int event, @Nullable String path) {
-                if (path == null) return;
-                _folderReloadHandler.removeCallbacks(_folderReloadRunnable);
-                _folderReloadHandler.postDelayed(_folderReloadRunnable, 300);
-            }
-        };
-        _folderObserver.startWatching();
-    }
-
-    private void stopFolderObserver() {
-        _folderReloadHandler.removeCallbacks(_folderReloadRunnable);
-        if (_folderObserver != null) {
-            _folderObserver.stopWatching();
-            _folderObserver = null;
-        }
     }
 
     @Override
