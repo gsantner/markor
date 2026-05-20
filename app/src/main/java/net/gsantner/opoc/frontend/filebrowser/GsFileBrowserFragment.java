@@ -23,6 +23,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Pair;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -72,7 +73,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     //########################
     //## Static
     //########################
-    public static final String FRAGMENT_TAG = "FilesystemViewerFragment";
+    // public static final String FRAGMENT_TAG = "FilesystemViewerFragment";
 
     public static GsFileBrowserFragment newInstance() {
         return new GsFileBrowserFragment();
@@ -154,21 +155,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         }
         _dopt.listener = this;
         checkOptions();
-    }
-
-    public void onClicked(View view) {
-        switch (view.getId()) {
-            case R.id.ui__filesystem_dialog__button_ok:
-            case R.id.ui__filesystem_dialog__home: {
-                _filesystemViewerAdapter.onClick(view);
-                break;
-            }
-            case R.id.ui__filesystem_dialog__button_cancel: {
-                onFsViewerCancel(_dopt.requestId);
-                break;
-            }
-
-        }
     }
 
     @Override
@@ -482,6 +468,74 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         }
 
         return false;
+    }
+
+    private boolean onFileBrowserKeyDown(int keyCode, KeyEvent event) {
+        if (_recyclerList == null) {
+            return false;
+        }
+
+        GsFileBrowserListAdapter adapter = (GsFileBrowserListAdapter) _recyclerList.getAdapter();
+        if (adapter == null) {
+            return false;
+        }
+        int itemCount = adapter.getItemCount();
+        if (itemCount == 0) {
+            return false;
+        }
+
+        if (event.isCtrlPressed()) {
+            if (keyCode == KeyEvent.KEYCODE_A) { // Select all files
+                onOptionsItemSelected(getFragmentMenu().findItem(R.id.action_check_all));
+                return true;
+            }
+        } else if (keyCode == KeyEvent.KEYCODE_MOVE_HOME) { // Scroll to start
+            _recyclerList.scrollToPosition(0);
+            return true;
+        } else if (keyCode == KeyEvent.KEYCODE_MOVE_END) { // Scroll to end
+            _recyclerList.scrollToPosition(itemCount - 1);
+            return true;
+        } else if (keyCode == KeyEvent.KEYCODE_PAGE_UP) { // Previous page
+            page(true);
+            return true;
+        } else if (keyCode == KeyEvent.KEYCODE_PAGE_DOWN) { // Next page
+            page(false);
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean onReceiveKeyPress(int keyCode, KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_DOWN && onFileBrowserKeyDown(keyCode, event)) {
+            return true;
+        }
+
+        return super.onReceiveKeyPress(keyCode, event);
+    }
+
+    private void page(boolean isUp) {
+        LinearLayoutManager layoutManager = (LinearLayoutManager) _recyclerList.getLayoutManager();
+        if (layoutManager == null) {
+            return;
+        }
+
+        if (isUp) { // Page up
+            int firstVisiblePosition = layoutManager.findFirstVisibleItemPosition();
+            int lastVisiblePosition = layoutManager.findLastVisibleItemPosition();
+            int pageSize = lastVisiblePosition - firstVisiblePosition;
+            int index = firstVisiblePosition - pageSize;
+            if (index < 0) {
+                index = 0;
+            }
+            layoutManager.scrollToPositionWithOffset(index, 0);
+            GsContextUtils.blinkView2(layoutManager.findViewByPosition(firstVisiblePosition));
+        } else { // Page down
+            int lastVisiblePosition = layoutManager.findLastVisibleItemPosition();
+            layoutManager.scrollToPositionWithOffset(lastVisiblePosition, 0);
+            GsContextUtils.blinkView2(layoutManager.findViewByPosition(lastVisiblePosition));
+        }
     }
 
     private void searchCallback(final File load, final Integer lineNumber, final boolean longPress) {

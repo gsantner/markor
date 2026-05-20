@@ -12,7 +12,7 @@
 📋 Share-Into: Share any text to Markor to save to a note, to clipboard, to reshare or to open a contained link in browser
 💡 Notebook is the root folder of documents and can be changed to any location on filesystem. QuickNote and ToDo are textfiles
 
-🎨 Highly customizeable, dark theme available
+🎨 Highly customizable, dark theme available
 💾 Auto-Save with options for undo/redo
 👌 No ads or unnecessary permissions
 🌎 Language selection -- use other language than on the system
