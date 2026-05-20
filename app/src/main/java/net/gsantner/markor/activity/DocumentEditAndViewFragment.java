@@ -46,6 +46,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.FragmentActivity;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
@@ -1179,14 +1181,19 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 ((DraggableScrollbarWebView) _webView).setOnDispatchKeyListener(this::onWebViewKeyDown);
             }
 
-            // For copying link address to clipboard in view-mode
+            // For showing and copying link address in view-mode
             _webView.setOnLongClickListener(v -> {
                 WebView.HitTestResult hitResult = _webView.getHitTestResult();
                 if (hitResult.getType() == WebView.HitTestResult.SRC_ANCHOR_TYPE) {
-                    String url = hitResult.getExtra();
+                    final String url = hitResult.getExtra();
                     if (url != null) {
-                        _cu.setClipboard(getContext(), url);
-                        Toast.makeText(activity, R.string.link_copied, Toast.LENGTH_SHORT).show();
+                        Snackbar snackbar = Snackbar.make(_webView, url, Snackbar.LENGTH_LONG).setAction(getString(R.string.copy), view -> {
+                            Context context = getContext();
+                            _cu.setClipboard(context, url);
+                            Toast.makeText(context, getString(R.string.link_copied), Toast.LENGTH_SHORT).show();
+                        });
+                        snackbar.setAnchorView(_textActionsBar);
+                        snackbar.show();
                         return true;
                     }
                 }
