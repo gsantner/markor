@@ -46,6 +46,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.FragmentActivity;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
@@ -161,7 +163,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             return;
         }
 
-        _lineNumbersView.setup(_hlEditor);
+        _lineNumbersView.setEditText(_hlEditor);
         _lineNumbersView.setLineNumbersEnabled(_appSettings.getDocumentLineNumbersEnabled(_document.path));
 
         // Upon construction, the document format has been determined from extension etc.
@@ -193,6 +195,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _hlEditor.setAutoFormatEnabled(_appSettings.getDocumentAutoFormatEnabled(_document.path));
         _hlEditor.setSaveInstanceState(false); // We will reload from disk
         _hlEditor.setOverScrollMode(View.OVER_SCROLL_ALWAYS);
+        _hlEditor.setStaticCursorEnabled(_appSettings.isStaticCursorEnabled());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // Do not need to send contents to accessibility
             _hlEditor.setImportantForAccessibility(View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
@@ -1179,14 +1182,19 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 ((DraggableScrollbarWebView) _webView).setOnDispatchKeyListener(this::onWebViewKeyDown);
             }
 
-            // For copying link address to clipboard in view-mode
+            // For showing and copying link address in view-mode
             _webView.setOnLongClickListener(v -> {
                 WebView.HitTestResult hitResult = _webView.getHitTestResult();
                 if (hitResult.getType() == WebView.HitTestResult.SRC_ANCHOR_TYPE) {
-                    String url = hitResult.getExtra();
+                    final String url = hitResult.getExtra();
                     if (url != null) {
-                        _cu.setClipboard(getContext(), url);
-                        Toast.makeText(activity, R.string.link_copied, Toast.LENGTH_SHORT).show();
+                        Snackbar snackbar = Snackbar.make(_webView, url, Snackbar.LENGTH_LONG).setAction(getString(R.string.copy), view -> {
+                            Context context = getContext();
+                            _cu.setClipboard(context, url);
+                            Toast.makeText(context, getString(R.string.link_copied), Toast.LENGTH_SHORT).show();
+                        });
+                        snackbar.setAnchorView(_textActionsBar);
+                        snackbar.show();
                         return true;
                     }
                 }
