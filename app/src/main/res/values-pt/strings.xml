@@ -493,5 +493,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="capitalize_words">Palavras com maiúsculas (a note→A Note)</string>
     <string name="capitalize_sentences">Palavras com maiúsculas (a note→A Note)</string>
     <string name="use_tab_to_indent">Recuar linhas com a tecla TAB</string>
+    <string name="static_cursor">Cursor estático</string>
+    <string name="disable_cursor_blinking">Desativar intermitência do cursor</string>
     <string name="folder_local">Pasta local</string>
 </resources>
