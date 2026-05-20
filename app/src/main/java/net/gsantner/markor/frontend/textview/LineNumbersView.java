@@ -65,7 +65,7 @@ public class LineNumbersView extends View {
         }
     }
 
-    public void setup(final @NonNull EditText editText) {
+    public void setEditText(final @NonNull EditText editText) {
         if (lineNumbersEnabled) {
             setLineNumbersEnabled(false);
         }
