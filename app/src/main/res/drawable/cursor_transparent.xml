@@ -11,6 +11,6 @@
     #########################################################*/
 -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <size android:width="2dp" />
-    <solid android:color="@color/accent" />
+    <size android:width="1px" />
+    <solid android:color="@color/transparent" />
 </shape>
