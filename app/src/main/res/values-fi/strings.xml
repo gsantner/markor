@@ -117,7 +117,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_current_folder_do_copy__appspecific">Tiedostoa ei löydy nykyisestä kansiosta. Haluatko kopioida sen nykyiseen kansioon? Tämä korvaa kaikki olemassa olevat tiedostot samalla nimellä.</string>
     <string name="files_and_folders">Tiedostot ja kansiot</string>
     <string name="document_browser">Asiakirjaselain</string>
-    <string name="file_browser">Tiedostoselain</string>
     <string name="set_due_date">Aseta eräpäivä</string>
     <string name="insert_replace_date">Insert date</string>
     <string name="create_note" needed="false">Luo muistiinpano</string>
@@ -133,7 +132,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="main_view">Päänäkymä</string>
     <string name="overall_theme_used_in_app">Sovelluksessa käytetty yleinen teema</string>
     <string name="remember_last_directory">Muista viimeinen hakemisto</string>
-    <string name="syntax_highlighting">Syntaksin korostaminen</string>
     <string name="highlighting_delay">Korostusviive</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Viive millisekunneissa korostuksen päivitykseen. Pienempi arvo aloittaa korostuksen aiemmin, mutta se tyhjentää akun ja saattaa hidastaa sovellusta vanhemmilla laitteilla.</string>
     <string name="highlighting_enabled_or_not__appspecific">Hallitse, onko syötetty teksti korostettava vai ei</string>
@@ -284,8 +282,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">Musta</string>
     <string name="white">Valkoinen</string>
     <string name="view">Näytä</string>
-    <string name="view_mode">Näytä tila</string>
-    <string name="edit_mode">Muokkaa tilaa</string>
     <string name="mount_storage">Yhdistä tallennustila</string>
     <string name="application_needs_access_to_storage_mount_it">Lupa tarvitaan tämän tallennustilan käyttämiseen. Ota tallennustila käyttöön ottaaksesi. Vahvista tämä ikkuna saadaksesi ponnahdusikkunan. Valitse tallennustila sinne ja paina valintaa.</string>
     <string name="share_into">Jaa sisään</string>
@@ -298,7 +294,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Valittu tiedosto voi olla plaintext-tiedosto. Haluatko avata sen editorissa tai toisessa sovelluksessa?\n\nÄlä yritä avata binääritiedostoja. Jos et ole varma, avaa toisella sovelluksella.</string>
     <string name="list_in_recent_files">Lista viimeaikaisista tiedostoista</string>
     <string name="reload">Reload</string>
-    <string name="wrap_words">Rivitä sanat</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Pehmeä tauko, jos teksti ei sovi näytön leveyteen.</string>
     <string name="always_open_with_this_app">Avaa aina tällä sovelluksella</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Avaa aina tiedostoja tällä sovelluksella, kun lista sisältää tiedostopäätteen. Käytä \'Ei mitään, .html, . ss , .js esimerkiksi jos haluat muokata web-tiedostoja ja niitä ilman tiedostopäätettä.</string>
@@ -373,7 +368,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Tiedoston kuvauksen muoto</string>
     <string name="file_description_format_dialog">Muotoile kuvauksen alla jokaisen tiedoston tiedostoselain. Follows Android SimpleDateFormat säännöt, lisäämällä FS näytetään tiedoston koko. Jätä tyhjäksi käyttääksesi paikallista oletusmuotoa. @ title: group\n\nEsimerkkisyöte:\nFS yyyy MMM dd hh:mm:ss aa\nOutput format:\n30KB 2020 Mar 20 11:24:52</string>
     <string name="loading_default_value">Ladataan oletusarvoa</string>
-    <string name="file_settings">Tiedoston asetukset</string>
     <string name="search_and_replace">Haku / Korvaa</string>
     <string name="search_for">Etsi sivustolta</string>
     <string name="replace_with">Korvaa sovelluksella</string>

@@ -138,7 +138,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="main_view">Huvudvy</string>
     <string name="overall_theme_used_in_app">Appens övergripande tema</string>
     <string name="remember_last_directory">Kom ihåg senaste katalogen</string>
-    <string name="syntax_highlighting">Syntaxfärgning</string>
+    <string name="syntax_highlighting">Syntaxmarkering</string>
     <string name="highlighting_delay">Fördröjning för syntaxfärgning</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Fördröjning i millisekunder innan syntaxfärgningen uppdateras. Ett lägre värde startar syntaxfärgningen tidigare, men drar mer batteri och minskar prestandan.</string>
     <string name="highlighting_enabled_or_not__appspecific">Kontrollera om inmatad text ska markeras eller inte</string>
@@ -301,7 +301,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="white">Vit</string>
     <string name="view">Visa</string>
     <string name="view_mode">Visningsläge</string>
-    <string name="edit_mode">Redigera</string>
+    <string name="edit_mode">Redigeringsläge</string>
     <string name="mount_storage">Anslut extern lagring</string>
     <string name="application_needs_access_to_storage_mount_it">Tillstånd krävs för att tillgå denna lagringsplats. Koppla enheten för att bevilja åtkomst. Godkänn för att öppna notifikationsfönster. Markera lagagringsenheten där och tryck på välj.</string>
     <string name="share_into">Dela till</string>
@@ -314,7 +314,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Den valda filen kan vara en klartext-fil. Vill du öppna den i redigeraren, eller i en annan app?\n\nFörsök inte att öppna binärfiler. Öppna med en annan app om du är osäker.</string>
     <string name="list_in_recent_files">Visa senaste filerna</string>
     <string name="reload">Ladda om</string>
-    <string name="wrap_words">Bryt långa rader</string>
     <string name="line_numbers">Radnummer</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Mjuk brytning om texten inte får plats på skärmen. Aktiverar annars horisontell rullning.</string>
     <string name="recursive_search_in_location">Sök rekursivt i %s</string>
@@ -380,6 +379,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="load_default_settings">Ladda standardinställningar</string>
     <string name="drag">Dra</string>
     <string name="created">Skapad</string>
+    <string name="no_results">Inga resultat</string>
+    <string name="new_line">Ny rad</string>
+    <string name="toggle_find_replace">Slå på hitta/byt ut</string>
+    <string name="match_case">Matcha gemener/VERSALER</string>
+    <string name="match_whole_word">Matcha hela ord</string>
     <string name="file_encryption_password">Lösenord för filkryptering</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Kan inte kryptera eller dekryptera eftersom lösenord saknas.\nGå till Inställningar -&gt; Allmänt -&gt; Lösenord för att ange ett lösenord.</string>
     <string name="encrypt_file_content">Kryptera filens innehåll</string>

@@ -93,7 +93,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_x_witharg">Aldoni %s</string>
     <string name="files_and_folders">Dosieroj kaj dosierujoj</string>
     <string name="document_browser">Dokumenta foliumilo</string>
-    <string name="file_browser">Dosiera foliumilo</string>
     <string name="set_due_date">Agordi limdaton</string>
     <string name="create_note" needed="false">Krei Noton</string>
     <string name="app_settings" needed="false">Aplikaĵaj Agordoj</string>
@@ -176,8 +175,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">Nigra</string>
     <string name="white">Blanka</string>
     <string name="view">Vido</string>
-    <string name="view_mode">Vida reĝimo</string>
-    <string name="edit_mode">Redakta reĝimo</string>
     <string name="favourite">Plej ŝatata</string>
     <string name="favourites">Plej ŝatataj</string>
     <string name="please_wait">Bonvolu atendi</string>
@@ -218,7 +215,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="drag">Haŭli</string>
     <string name="created">Kreita</string>
     <string name="code_block">Kodbloko</string>
-    <string name="file_settings">Dosieraj agordoj</string>
     <string name="search_and_replace">Serĉi / Anstataŭi</string>
     <string name="search_for">Serĉi por</string>
     <string name="replace_with">Anstataŭi per</string>

@@ -8,13 +8,16 @@
 package net.gsantner.markor.format.asciidoc;
 
 import android.content.Context;
+import android.view.KeyEvent;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.activity.DocumentEditAndViewFragment;
 import net.gsantner.markor.format.ActionButtonBase;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
+import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.model.Document;
 
 import java.util.Arrays;
@@ -51,9 +54,9 @@ public class AsciidocActionButtons extends ActionButtonBase {
                 new ActionItem(R.string.abid_asciidoc_underline, R.drawable.ic_format_underlined_black_24dp, R.string.underline),
                 new ActionItem(R.string.abid_asciidoc_highlight, R.drawable.ic_highlight_black_24dp, R.string.highlighted),
                 new ActionItem(R.string.abid_asciidoc_linethrough, R.drawable.ic_format_strikethrough_black_24dp, R.string.strikeout),
-                new ActionItem(R.string.abid_asciidoc_overline, R.drawable.ic_baseline_format_overline_24, R.string.inline_code),
-                new ActionItem(R.string.abid_asciidoc_superscript, R.drawable.ic_baseline_superscript_24, R.string.inline_code),
-                new ActionItem(R.string.abid_asciidoc_subscript, R.drawable.ic_baseline_subscript_24, R.string.inline_code),
+                new ActionItem(R.string.abid_asciidoc_overline, R.drawable.ic_baseline_format_overline_24, R.string.overline),
+                new ActionItem(R.string.abid_asciidoc_superscript, R.drawable.ic_baseline_superscript_24, R.string.superscript),
+                new ActionItem(R.string.abid_asciidoc_subscript, R.drawable.ic_baseline_subscript_24, R.string.subscript),
                 new ActionItem(R.string.abid_asciidoc_break_thematic, R.drawable.ic_more_horiz_black_24dp, R.string.horizontal_line),
                 new ActionItem(R.string.abid_asciidoc_block_quote, R.drawable.ic_format_quote_black_24dp, R.string.quote),
                 new ActionItem(R.string.abid_common_insert_image, R.drawable.ic_image_black_24dp, R.string.insert_image),
@@ -401,9 +404,17 @@ public class AsciidocActionButtons extends ActionButtonBase {
         return R.string.pref_key__asciidoc__action_keys;
     }
 
-    // @Override
-    // protected void renumberOrderedList() {
-    //     AutoTextFormatter.renumberOrderedList(_hlEditor.getText(),
-    //     AsciidocReplacePatternGenerator.formatPatterns);
-    // }
+    @Override
+    public boolean onKeyPress(Object source, int keyCode, KeyEvent event, DocumentEditAndViewFragment fragment) {
+        if (source instanceof HighlightingEditor) {
+            if (event.isCtrlPressed()) {
+                if (keyCode == KeyEvent.KEYCODE_I) {
+                    onActionClick(R.string.abid_asciidoc_italic);
+                    return true;
+                }
+            }
+        }
+
+        return super.onKeyPress(source, keyCode, event, fragment);
+    }
 }

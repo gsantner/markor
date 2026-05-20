@@ -122,7 +122,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_current_folder_do_copy__appspecific">Il file non è situato nella cartella corrente. Vuoi copiarlo nella cartella corrente? Questo sovrascriverà qualsiasi file esistente con lo stesso nome.</string>
     <string name="files_and_folders">File e cartelle</string>
     <string name="document_browser">Navigatore dei documenti</string>
-    <string name="file_browser">Esploratore dei file</string>
     <string name="set_due_date">Imposta data di scadenza</string>
     <string name="insert_replace_date">Insert date</string>
     <string name="create_note" needed="false">Crea nota</string>
@@ -138,7 +137,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="main_view">Visualizzazione principale</string>
     <string name="overall_theme_used_in_app">Tema complessivo usato nell\'applicazione</string>
     <string name="remember_last_directory">Ricorda l\'ultima cartella</string>
-    <string name="syntax_highlighting">Evidenziazione della sintassi</string>
     <string name="highlighting_delay">Ritardo dell\'evidenziazione</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Ritardo in millisecondi per l\'aggiornamento dell\'evidenziazione. Un valore basso evidenzierà prima, ma consumerà più batteria e potrà diminuire le prestazioni nei dispositivi più vecchi.</string>
     <string name="highlighting_enabled_or_not__appspecific">Controlla quando il testo deve essere evidenziato o meno</string>
@@ -306,8 +304,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">Nero</string>
     <string name="white">Bianco</string>
     <string name="view">Vedi</string>
-    <string name="view_mode">Modalità visualizzazione</string>
-    <string name="edit_mode">Modalità modifica</string>
     <string name="mount_storage">Monta spazio di archiviazione</string>
     <string name="application_needs_access_to_storage_mount_it">È richiesto un permesso per accedere a questo spazio di archiviazione. Monta lo spazio per dare l\'accesso, quindi dai conferma per far comparire una finestra popup. A questo punto seleziona lo spazio di archiviazione e premi \"Seleziona\".</string>
     <string name="share_into">Condividi con</string>
@@ -320,8 +316,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Il file selezionato può essere un file di testo normale. Vuoi aprirlo nell\'editor o in un\'altra app?\n\nNon provare ad aprire file binari. Se non sei sicuro, apri con un\'altra app.</string>
     <string name="list_in_recent_files">Lista nei file recenti</string>
     <string name="reload">Ricarica</string>
-    <string name="wrap_words">Parole a capo</string>
-    <string name="line_numbers">Numeri di riga</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Manda a capo il testo se supera la dimensione della riga; altrimenti abilita lo scorrimento orizzontale.</string>
     <string name="recursive_search_in_location">Ricerca ricorsiva in %s</string>
     <string name="always_open_with_this_app">Apri sempre con quest\'app</string>
@@ -400,7 +394,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Formato descrizione file</string>
     <string name="file_description_format_dialog">Formato per la descrizione sotto ogni file nel file browser. Segue le regole SimpleDateFormat di Android, con l\'aggiunta di FS per mostrare le dimensioni del file. Lasciare vuoto per usare il formato predefinito per il tuo locale.\n\nEsempio di input:\nFS yyyy MMM dd hh:mm:ss aa\nFormato di output:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">Caricamento valore predefinito</string>
-    <string name="file_settings">Impostazioni file</string>
     <string name="search_and_replace">Cerca / Sostituisci</string>
     <string name="search_for">Cerca per</string>
     <string name="replace_with">Sostituisci con</string>

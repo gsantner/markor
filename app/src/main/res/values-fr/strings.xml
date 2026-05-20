@@ -121,7 +121,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_current_folder_do_copy__appspecific">Le fichier n\'est pas situé dans le dossier actuel. Voulez-vous le copier dans le dossier actuel ? Cela remplacera tout fichier existant avec le même nom.</string>
     <string name="files_and_folders">Fichiers et dossiers</string>
     <string name="document_browser">Explorateur de documents</string>
-    <string name="file_browser">Explorateur de fichiers</string>
     <string name="set_due_date">Définir la date d\'échéance</string>
     <string name="insert_replace_date">Insérer la date</string>
     <string name="create_note" needed="false">Nouvelle note</string>
@@ -137,7 +136,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="main_view">Vue principale</string>
     <string name="overall_theme_used_in_app">Le thème principal utilisé par l\'application</string>
     <string name="remember_last_directory">Se souvenir du dossier courant</string>
-    <string name="syntax_highlighting">Coloration syntaxique</string>
     <string name="highlighting_delay">Délai de rafraîchissement</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Délai de rafraîchissement de la coloration syntaxique en ms. Une faible valeur affiche la coloration plus tôt, mais réduit les performances de l\'application et consomme plus de batterie.</string>
     <string name="highlighting_enabled_or_not__appspecific">Détermine si le texte entré doit être coloré syntaxiquement ou pas</string>
@@ -301,8 +299,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">Noir</string>
     <string name="white">Blanc</string>
     <string name="view">Vue</string>
-    <string name="view_mode">Mode visualisation</string>
-    <string name="edit_mode">Mode édition</string>
     <string name="mount_storage">Monter le stockage</string>
     <string name="application_needs_access_to_storage_mount_it">Une autorisation est nécessaire pour accéder au stockage. Monter le stockage pour donner l\'accès. Confirmez cette fenêtre pour continuer. Sélectionnez ensuite le stockage et appuyez sur sélectionner.</string>
     <string name="share_into">Partager dans</string>
@@ -315,8 +311,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Le fichier sélectionné peut être un fichier en texte clair. Voulez-vous l\'ouvrir dans l\'éditeur ou dans une autre application ?\n\nN\'essayez pas d\'ouvrir des fichiers binaires. Si vous n\'êtes pas sûr, ouvrez avec une autre application.</string>
     <string name="list_in_recent_files">Lister dans les fichiers récents</string>
     <string name="reload">Rafraîchir</string>
-    <string name="wrap_words">Retour à la ligne</string>
-    <string name="line_numbers">Numéro de la ligne</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Afficher la suite du texte à la ligne suivante s\'il dépasse la largeur de l\'écran, plutôt que d\'utiliser le défilement horizontal.</string>
     <string name="recursive_search_in_location">Recherche récursive dans %s</string>
     <string name="always_open_with_this_app">Toujours ouvrir avec cette application</string>
@@ -395,7 +389,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Format de la description du fichier</string>
     <string name="file_description_format_dialog">Format pour la description sous chaque fichier dans le navigateur de fichiers. Suit les règles SimpleDateFormat d\'Android, avec l\'ajout de FS pour afficher la taille du fichier. Laissez vide pour utiliser le format par défaut pour votre locale.\n\nExemple d\'entrée :\nFS yyyy MMM dd hhh:mm:ss aa\nFormat de sortie :\n30KB 2020 20 11:24:52 PM</string>
     <string name="loading_default_value">Chargement de la valeur par défaut</string>
-    <string name="file_settings">Paramètres du fichier</string>
     <string name="search_and_replace">Rechercher / Remplacer</string>
     <string name="search_for">Recherche pour</string>
     <string name="replace_with">Remplacer par</string>

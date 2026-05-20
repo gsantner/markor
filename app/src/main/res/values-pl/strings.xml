@@ -119,7 +119,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_current_folder_do_copy__appspecific">Plik nie jest zlokalizowany w bieżącym folderze. Czy chcesz skopiować go do bieżącego folderu? Spowoduje to nadpisanie istniejącego pliku o tej samej nazwie.</string>
     <string name="files_and_folders">Pliki i foldery</string>
     <string name="document_browser">Przeglądarka dokumentów</string>
-    <string name="file_browser">Menedżer plików</string>
     <string name="set_due_date">Ustaw termin</string>
     <string name="insert_replace_date">Wstaw datę</string>
     <string name="create_note" needed="false">Utwórz notatkę</string>
@@ -135,7 +134,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="main_view">Główny Widok</string>
     <string name="overall_theme_used_in_app">Ogólny motyw używany w aplikacji</string>
     <string name="remember_last_directory">Zapamiętaj ostatnią lokalizację katalogu</string>
-    <string name="syntax_highlighting">Podświetlanie składni</string>
     <string name="highlighting_delay">Opóźnienie podświetlania</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Opóźnienie odświeżania podświetlenia w milisekundach. Niższa wartość będzie podświetlać wcześniej, ale to będzie rozładowywać baterię i aplikacja może działać wolniej na starszych urzączeniach.</string>
     <string name="highlighting_enabled_or_not__appspecific">Określ, czy wprowadzony tekst ma być podświetlony, czy nie</string>
@@ -287,8 +285,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">Czarny</string>
     <string name="white">Biały</string>
     <string name="view">Wyświetl</string>
-    <string name="view_mode">Tryb wyświetlania</string>
-    <string name="edit_mode">Tryb edycji</string>
     <string name="mount_storage">Zamontuj pamięć</string>
     <string name="application_needs_access_to_storage_mount_it">Wymagane jest uprawnienie dostępu do tej pamięci. Zamontuj pamięć, aby uzyskać dostęp. Potwierdź to okno dialogowe, aby uzyskać wyskakujące okienko. Wybierz pamięć i naciśnij wybrane.</string>
     <string name="share_into">Udostępnij do</string>
@@ -301,7 +297,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Wybrany plik może być zwykłym plikiem tekstowym. Chcesz go edytować, czy użyć innej aplikacji?\n\nNie próbuj otwierać plików binarnych. Jeśli nie jesteś pewien, użyj innej aplikacji.</string>
     <string name="list_in_recent_files">Lista w ostatnich plikach</string>
     <string name="reload">Przeładuj</string>
-    <string name="wrap_words">Zawijanie słów</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Miękka przerwa, jeśli tekst nie pasuje do szerokości ekranu. W przeciwnym razie włącz przewijanie poziome.</string>
     <string name="always_open_with_this_app">Zawsze otwieraj za pomocą tej aplikacji</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Zawsze otwieraj pliki o wybranych rozszerzeniach w tej aplikacji. Przykładowo, użyj \'None, .html, .css , .js\', jeśli chcesz edytować pliki internetowe i te bez rozszerzenia pliku.</string>
@@ -376,7 +371,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Format opisu pliku</string>
     <string name="file_description_format_dialog">Format opisu w każdej przeglądarce plików. Postępuje zgodnie z regułami SimpleDateFormat Androida, z dodatkiem FS do pokazywania rozmiaru pliku. Pozostaw puste, aby użyć domyślnego formatu dla swojego języka.\n\nPrzykładowe wejście:\nFS yyyy MMM dd hh:mm:ss aa\nFormat wyjściowy:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">Wczytywanie domyślnych wartości</string>
-    <string name="file_settings">Ustawienia pliku</string>
     <string name="search_and_replace">Szukaj / Zamień</string>
     <string name="search_for">Szukaj</string>
     <string name="replace_with">Zamień na</string>

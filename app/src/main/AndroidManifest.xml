@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 /*#######################################################
  *
  *   Maintained 2017-2025 by Gregor Santner <gsantner AT mailbox DOT org>
@@ -36,10 +35,15 @@
         android:name="android.hardware.camera"
         android:required="false" />
 
+    <uses-feature
+        android:name="android.software.leanback"
+        android:required="false" />
+
     <application
         android:name=".ApplicationObject"
         android:allowBackup="true"
         android:appCategory="productivity"
+        android:banner="@drawable/ic_launcher"
         android:dataExtractionRules="@xml/full_backup_rules"
         android:fullBackupContent="@xml/full_backup_rules"
         android:icon="@drawable/ic_launcher"
@@ -66,14 +70,24 @@
             android:windowSoftInputMode="stateUnchanged|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity
             android:name=".activity.SettingsActivity"
+            android:exported="true"
             android:label="@string/settings"
-            android:parentActivityName=".activity.MainActivity" />
+            android:parentActivityName=".activity.MainActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.APPLICATION_PREFERENCES" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </activity>
 
         <activity
             android:name=".activity.StoragePermissionActivity"

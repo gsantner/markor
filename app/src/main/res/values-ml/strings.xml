@@ -110,7 +110,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_save_path_do_import_notice__appspecific">തിരഞ്ഞെടുത്ത ഫയൽ അപ്പ്ലിക്കേഷന്റെ നോട്ടുബുക്ക് ഫോൾഡറിൽ ഇല്ല. അത് ഇപ്പോഴത്തെ ഫോൾഡറിലേക്കു പകർത്തണോ? ശ്രദ്ധിക്കുക, ഇപ്രകാരം ചെയ്യുന്നത് നിലവിൽ അതെ പേരിൽ ഉള്ള ഫയലിനെ ഓവർറൈറ്റ് ചെയ്യും.</string>
     <string name="files_and_folders">ഫയൽസും ഫോൾഡേഴ്‌സും</string>
     <string name="document_browser">ഡോക്യുമെന്റ് തിരച്ചിൽസംവിധാനം</string>
-    <string name="file_browser">ഫയൽ തിരച്ചിൽസംവിധാനം</string>
     <string name="back_to_previous_folder" needed="false">മുൻപത്തെ ഫോൾഡറിലേക്കു പോവുക</string>
     <string name="main_view">പ്രധാന കാഴ്ച</string>
     <string name="other">മറ്റുള്ളവ</string>

@@ -56,3 +56,4 @@ Where:
 * **[Markus Paintner](https://github.com/goli4thus)**<br/>~° Added duplicate lines action
 * **[Sebastian Safari](https://ssebs.com/)**<br/>~° Add text styling to the todo widget when using Markdown
 * **[Janez Pavel Žebovec](https://janezpavelzebovec.net/)**<br/>~° Slovenian translation
+* **[Stephen Karl Larroque](https://github.com/lrq3000/)**<br/>~° Bugfixes

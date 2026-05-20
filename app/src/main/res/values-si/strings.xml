@@ -116,7 +116,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_current_folder_do_copy__appspecific">ගොනුව වත්මන් ෆෝල්ඩරයේ පිහිටා නොමැත. ඔබට එය වත්මන් ෆෝල්ඩරයට පිටපත් කිරීමට අවශ්‍යද? මෙය එකම නමින් පවතින ඕනෑම ගොනුවක් උඩින් ලියයි.</string>
     <string name="files_and_folders">ගොනු සහ බහාලුම්</string>
     <string name="document_browser">ලේඛන බ්රවුසරය</string>
-    <string name="file_browser">ගොනු බ්රවුසරය</string>
     <string name="set_due_date">නියමිත දිනය සකසන්න</string>
     <string name="insert_replace_date">දිනය ඇතුල් කරන්න</string>
     <string name="create_note" needed="false">සටහනක් සාදන්න</string>
@@ -132,7 +131,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="main_view">ප්රධාන දර්ශනය</string>
     <string name="overall_theme_used_in_app">යෙදුමේ භාවිතා කරන සමස්ත තේමාව</string>
     <string name="remember_last_directory">අවසාන නාමාවලිය මතක තබා ගන්න</string>
-    <string name="syntax_highlighting">වාක්‍ය ඛණ්ඩ ඉස්මතු කිරීම</string>
     <string name="highlighting_delay">ප්‍රමාදය ඉස්මතු කිරීම</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">නැවුම් බව ඉස්මතු කිරීම සඳහා මිලි තත්පර ප්‍රමාද කරන්න. අඩු අගයක් කලින් උද්දීපනය කිරීම ආරම්භ කරනු ඇත, නමුත් එය ඔබගේ බැටරිය ඉවත් කරන අතර පැරණි උපාංගවල යෙදුම මන්දගාමී විය හැක.</string>
     <string name="highlighting_enabled_or_not__appspecific">ඇතුළත් කළ පෙළ උද්දීපනය කළ යුතුද නැද්ද යන්න පාලනය කරන්න</string>
@@ -281,8 +279,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">කළු</string>
     <string name="white">සුදු</string>
     <string name="view">දැක්ම</string>
-    <string name="view_mode">දර්ශන මාදිලිය</string>
-    <string name="edit_mode">සංස්කරණ මාදිලිය</string>
     <string name="mount_storage">ගබඩාව සවි කිරීම</string>
     <string name="application_needs_access_to_storage_mount_it">මෙම ගබඩාවට ප්‍රවේශ වීමට අවසරය අවශ්‍ය වේ. ප්‍රවේශය ලබා දීමට ගබඩාව සවි කරන්න. උත්පතන ලබා ගැනීමට මෙම සංවාදය තහවුරු කරන්න. එහි ඇති ගබඩාව තෝරා තෝරන්න ඔබන්න.</string>
     <string name="share_into">වෙත බෙදාගන්න</string>
@@ -295,7 +291,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">තෝරාගත් ගොනුව සාමාන්‍ය පෙළ ගොනුවක් විය හැක. ඔබට එය සංස්කාරකයේ හෝ වෙනත් යෙදුමකින් විවෘත කිරීමට අවශ්‍යද?\n\nද්විමය ගොනු විවෘත කිරීමට උත්සාහ නොකරන්න. ඔබට විශ්වාස නැත්නම්, වෙනත් යෙදුමකින් විවෘත කරන්න.</string>
     <string name="list_in_recent_files">මෑත ගොනු වල ලැයිස්තුගත කරන්න</string>
     <string name="reload">නැවත පූරණය</string>
-    <string name="wrap_words">වචන ඔතා</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">පෙළ තිරයේ පළලට නොගැලපේ නම් මෘදු බිඳීම. එසේත් නැතිනම් තිරස් අනුචලනය සබල කරන්න.</string>
     <string name="always_open_with_this_app">මෙම යෙදුම සමඟ සැමවිටම විවෘත කරන්න</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">ලැයිස්තුවේ ගොනු දිගුව ඇති විට සෑම විටම මෙම යෙදුම සමඟ ගොනු විවෘත කරන්න. ඔබට වෙබ් ගොනු සහ ගොනු දිගුවක් නොමැති ඒවා සංස්කරණය කිරීමට අවශ්‍ය නම් උදාහරණයක් ලෙස \'None, .html, .css , .js\' භාවිතා කරන්න.</string>
@@ -369,7 +364,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">ගොනු විස්තර ආකෘතිය</string>
     <string name="file_description_format_dialog">ගොනු බ්‍රවුසරයේ එක් එක් ගොනුව යටතේ ඇති විස්තරය සඳහා හැඩතල ගැන්වීම. ගොනු ප්‍රමාණය පෙන්වීම සඳහා FS එකතු කිරීමත් සමඟ Android හි SimpleDateFormat රීති අනුගමනය කරයි. ඔබගේ පෙදෙසිය සඳහා පෙරනිමි ආකෘතිය භාවිතා කිරීමට හිස්ව තබන්න.\n\nඋදාහරණ ආදානය:\nFS yyyy MMM dd hh:mm:ss aa\nප්‍රතිදාන ආකෘතිය:\n30KB 2020 මාර්තු 20 11:24:52 ප.ව.</string>
     <string name="loading_default_value">පෙරනිමි අගය පූරණය වේ</string>
-    <string name="file_settings">ගොනු සැකසුම්</string>
     <string name="search_and_replace">සොයන්න / ප්‍රතිස්ථාපනය කරන්න</string>
     <string name="search_for">ඒ සඳහා සොයන්න</string>
     <string name="replace_with">සමඟ ප්රතිස්ථාපනය කරන්න</string>

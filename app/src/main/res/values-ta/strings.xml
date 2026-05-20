@@ -116,7 +116,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_current_folder_do_copy__appspecific">ஆவணம் தற்போதய கோப்புறையில் இல்லை. அதை தற்போதைய கோப்புறைக்கு நகலெடுக்க விரும்புகிறீர்களா? து செயல் அந்த கோப்புறையில் ஏற்கனவே அதே பெயரில் வேறு ஏதெனும் ஆவணம் இருந்தால் அதன் மீது மேலெழுதப்படும்.</string>
     <string name="files_and_folders">கோப்பு மற்றும் கோப்புறைகள்</string>
     <string name="document_browser">ஆவணங்களின் உலாவி</string>
-    <string name="file_browser">கோப்பு உலாவி</string>
     <string name="set_due_date">முடிவு தேதி</string>
     <string name="insert_replace_date">தேதியை சொருகு</string>
     <string name="create_note" needed="false">குறிப்பை உருவாக்கு</string>
@@ -131,7 +130,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="main_view">செயலியின் முகப்பு பார்வை</string>
     <string name="overall_theme_used_in_app">செயலி முழுமைக்கும் பயன்படுத்தப்பட்ட நிற அழகாக்கம்</string>
     <string name="remember_last_directory">கடைசியாக பயன்படுத்திய கோப்புறையை நினைவில் கொள்</string>
-    <string name="syntax_highlighting">தொடரியல் தனிப்படுத்தல்</string>
     <string name="highlighting_delay">தனிப்படுத்தலுக்கான இடைவெளி</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">முன்னிலைப்படுத்தலின் புதுப்பித்தலுக்கான தாமதம் மில்லி விநாடிகளில் உள்ளது. இதை குறைந்த மதிப்பாக வைப்பதன் மூலம் முன்னதாக முன்னிலைப்படுத்த தொடங்கும், ஆனால் இது உங்கள் சாதனத்தின் மின்கலத்தை வேகமாக காலியாக்கும் மற்றும் பழைய சாதனங்களில் செயலியை மெதுவாக்கும்.</string>
     <string name="highlighting_enabled_or_not__appspecific">உள்ளீடு செய்ய பட்ட உறை தனிப்படுத்த வேண்டுமா இல்லையா என்பதை கட்டுப்படுத்துக</string>
@@ -278,8 +276,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">கருப்பு</string>
     <string name="white">வெள்ளை</string>
     <string name="view">பார்வை</string>
-    <string name="view_mode">காட்டும் முறை</string>
-    <string name="edit_mode">திருத்தும் பயன்முறை</string>
     <string name="mount_storage">சேமிப்பகத்தை ஏற்று</string>
     <string name="application_needs_access_to_storage_mount_it">இந்த சேமிப்பகத்தை அணுக அனுமதி தேவைப்படுகிறது. இந்த அனுமதியை தர சேமிப்பகத்தை ஏற்றவும். இதனை இந்த திரையில் உறுதிப்படுத்தி ஒரு மேலெழும்பும் திரையை பெறுக. அங்கே சேமிப்பகத்தை தேர்ந்தெடுத்து தேர்வு செய் என்பதை அழுத்தவும்.</string>
     <string name="share_into">இதில் பகிரவும்</string>
@@ -292,7 +288,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">தேர்ந்துதெடுக்கப்பட்ட ஆவணமானது ஒரு சாதரண எழுத்துக்கள் கொண்ட ஆவணமாக இருக்கலாம். இதை நீங்கள் தொகுப்பானில் திறக்க விரும்புகிறீர்களா, அல்லது வேறொரு செயலியிலா?\n\nஇருநிலை ஆவணங்களை திறக்காதீர்கள். உங்களால் உறுதி படுத்த முடியவில்லை என்றால், வேறு ஒரு செயலியில் திறக்கவும்.</string>
     <string name="list_in_recent_files">சமீபத்திய கோப்புகளில் பட்டியல்</string>
     <string name="reload">திரும்ப ஏற்று</string>
-    <string name="wrap_words">சொற்களை மடக்கு</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">உரை திரை அகலத்திற்குள் பொருந்தவில்லை எனில் ஒரு மென்மையான இடைவெளியை பயன்படுத்தவும் அல்லது கிடைமட்ட சுருளும் முறையை செயல்படுத்து.</string>
     <string name="always_open_with_this_app">எப்போதும் இந்த செயலியை கொண்டு திறக்கவும்</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">இந்த பட்டியலில் உள்ள கோப்பு வகை நீட்சிகள் கொண்ட ஆவணங்களை இந்த செயலியை கொண்டே திறக்கவும். உதாரணமாக நீங்கள் வலை ஆவணங்களையும் மற்றும் எந்த நீட்சிகள் அற்ற ஆவணங்களையும் திருத்த விரும்பினால் \'None, .html, .css , .js\' ஆகியவற்றை பயன்படுத்துங்கள்.</string>

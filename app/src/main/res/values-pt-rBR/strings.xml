@@ -122,7 +122,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_current_folder_do_copy__appspecific">O arquivo não está localizado na pasta atual. Você deseja copiá-lo para a pasta atual? Isso irá sobrescrever qualquer arquivo existente com o mesmo nome.</string>
     <string name="files_and_folders">Arquivos e pastas</string>
     <string name="document_browser">Navegador de documentos</string>
-    <string name="file_browser">Gerenciador de arquivos</string>
     <string name="set_due_date">Definir data de vencimento</string>
     <string name="insert_replace_date">Insira data</string>
     <string name="create_note" needed="false">Criar nota</string>
@@ -138,7 +137,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="main_view">Tela principal</string>
     <string name="overall_theme_used_in_app">Tema geral usando no aplicativo</string>
     <string name="remember_last_directory">Lembrar da última pasta</string>
-    <string name="syntax_highlighting">Destaque de sintaxe</string>
     <string name="highlighting_delay">Realçar delongas</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Atraso em milissegundos para atualizar os destaques. Um valor baixo destaca mais rapidamente mas também utiliza mais bateria e poderá atrasar a aplicação em dispositivos mais antigos.</string>
     <string name="highlighting_enabled_or_not__appspecific">Controlar se o texto inserido será realçado ou não</string>
@@ -295,8 +293,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">Preto</string>
     <string name="white">Branco</string>
     <string name="view">Ver</string>
-    <string name="view_mode">Modo de visualização</string>
-    <string name="edit_mode">Modo de edição</string>
     <string name="mount_storage">Acessar armazenamento</string>
     <string name="application_needs_access_to_storage_mount_it">É necessário permissão para acessar este armazenamento. Monte o armazenamento para permitir o acesso a ele, confirme o diálogo exibido e selecione o armazenamento, clicando em \"selecione\".</string>
     <string name="share_into">Compartilhar para</string>
@@ -309,7 +305,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">O arquivo selecionado pode ser um arquivo de texto puro. Você quer abri-lo no editor, ou em outro aplicativo?\n\nNão tente abrir arquivos binários. Se não tem certeza, abra com outro aplicativo.</string>
     <string name="list_in_recent_files">Lista de arquivos recentes</string>
     <string name="reload">Atualizar</string>
-    <string name="wrap_words">Ajuste de palavras</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Ajustar texto caso este não caiba no tela. Também ativa a deslocação horizontal.</string>
     <string name="always_open_with_this_app">Sempre abrir com este aplicativo</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Utilizar sempre esse aplicativo se a extensão do arquivo estiver nesta lista. Utilize, por exemplo, \'None, .html, .css , .js\' se quiser editar arquivos web ou arquivos que não tenham extensão.</string>
@@ -384,7 +379,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Formato da descrição do arquivo</string>
     <string name="file_description_format_dialog">Formato da descrição em cada arquivo no navegador de arquivos. Segue as regras SimpleDateFormat do Android, com a adição de FS para mostrar o tamanho do arquivo. Deixe em branco para usar o formato padrão para a sua localidade.\n\nExemplo de entrada:\nFS yyyy MMM dd hh:mm:ss aa\nFormato de saída:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">Carregando valor padrão</string>
-    <string name="file_settings">Configurações do arquivo</string>
     <string name="search_and_replace">Buscar / Substituir</string>
     <string name="search_for">Pesquisar por</string>
     <string name="replace_with">Substituir por</string>

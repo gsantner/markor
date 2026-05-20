@@ -117,7 +117,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_current_folder_do_copy__appspecific">Filen er ikke placeret i den aktuelle mappe. Vil du kopiere den til den aktuelle mappe? Dette vil overskrive en eksisterende fil med samme navn.</string>
     <string name="files_and_folders">Filer og mapper</string>
     <string name="document_browser">Gennemse dokumenter</string>
-    <string name="file_browser">Filbrowser</string>
     <string name="set_due_date">Angiv forfaldsdato</string>
     <string name="insert_replace_date">Insert date</string>
     <string name="create_note" needed="false">Opret note</string>
@@ -133,7 +132,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="main_view">Hovedskærm</string>
     <string name="overall_theme_used_in_app">Det generelle tema brugt i programmet</string>
     <string name="remember_last_directory">Husk sidste mappe</string>
-    <string name="syntax_highlighting">Fremhævelse af syntakst</string>
     <string name="highlighting_delay">Udskyd fremhævelse</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Antal millisekunder der ventes før fremhævelsen er genopfrisket. En lavere værdi vil starte fremhævelsen tidligere, men vil sluge mere batteri og presse maskineriet.</string>
     <string name="highlighting_enabled_or_not__appspecific">Kontrollér om angivne tekst skal være fremhævet eller ej</string>
@@ -284,8 +282,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">Sort</string>
     <string name="white">Hvid</string>
     <string name="view">Vis</string>
-    <string name="view_mode">Vis tilstand</string>
-    <string name="edit_mode">Rediger tilstand</string>
     <string name="mount_storage">Isæt lagerplads</string>
     <string name="application_needs_access_to_storage_mount_it">Tilladelse kræves for at få adgang til dette lager. Montér lageret for at give adgang. Bekræft denne dialog for at få en popup. Vælg lageret der og tryk på markeret.</string>
     <string name="share_into">Del ind i</string>
@@ -298,7 +294,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Den valgte fil kan være en klartekstfil. Vil du åbne den i editoren, eller i en anden app?\n\nForsøg ikke at åbne binære filer. Hvis du ikke er sikker, så åben med en anden app.</string>
     <string name="list_in_recent_files">Liste i seneste filer</string>
     <string name="reload">Genindlæs</string>
-    <string name="wrap_words">Ombryd ord</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Blød pause, hvis teksten ikke passer til skærmbredden. Else aktivere vandret rulning.</string>
     <string name="always_open_with_this_app">Åbn altid med denne app</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Åbn altid filer med denne app, når listen indeholder filtypen. Brug \'Ingen, .html, . Ss, .js\' for eksempel, hvis du ønsker at redigere web-filer og dem uden filtypenavn.</string>
@@ -373,7 +368,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Fil beskrivelse format</string>
     <string name="file_description_format_dialog">Format for beskrivelsen under hver fil i filbrowseren. Følger Androids SimpleDateFormat regler, med tilføjelsen af FS for at vise filstørrelse. Lad stå tomt for at bruge standardformatet for din landestandard.\n\nEksempel input:\nFS yyyy MMM dd hhh:mm:ss aa\nOutput format:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">Indlæser standardværdi</string>
-    <string name="file_settings">Fil indstillinger</string>
     <string name="search_and_replace">Søg / Erstat</string>
     <string name="search_for">Søg efter</string>
     <string name="replace_with">Erstat med</string>

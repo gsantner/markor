@@ -118,7 +118,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_current_folder_do_copy__appspecific">現在のフォルダーにファイルがありません。 現在のフォルダーにコピーしますか？ これにより、同じ名前の既存のファイルが上書きされます。</string>
     <string name="files_and_folders">ファイルとフォルダー</string>
     <string name="document_browser">ドキュメントブラウザー</string>
-    <string name="file_browser">ファイルブラウザー</string>
     <string name="set_due_date">期日を設定</string>
     <string name="insert_replace_date">日付を挿入</string>
     <string name="create_note" needed="false">ノートを作成</string>
@@ -134,7 +133,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="main_view">メインビュー</string>
     <string name="overall_theme_used_in_app">アプリで使用される全体のテーマ</string>
     <string name="remember_last_directory">最後のディレクトリーを記憶</string>
-    <string name="syntax_highlighting">書式ハイライト表示</string>
     <string name="highlighting_delay">ハイライト表示の遅延</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">ハイライト表示を更新するまでの時間(ミリ秒)。値を小さくすると早く強調表示が開始されますが、バッテリーを消費し、古いデバイスではアプリが遅くなることがあります。</string>
     <string name="highlighting_enabled_or_not__appspecific">入力したテキストをハイライト表示するかどうかを設定します</string>
@@ -285,8 +283,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">黒</string>
     <string name="white">白</string>
     <string name="view">表示</string>
-    <string name="view_mode">表示モード</string>
-    <string name="edit_mode">編集モード</string>
     <string name="mount_storage">ストレージをマウント</string>
     <string name="application_needs_access_to_storage_mount_it">このストレージにアクセスするアクセス許可が必要です。アクセス許可を与えてストレージをマウントします。このダイアログを確認したらポップアップが表示されます。そこでストレージを選択して、選択を押してください。</string>
     <string name="share_into">情報の共有</string>
@@ -299,7 +295,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">選択したファイルはプレインテキストのようです。エディター、それとも他のアプリで開きますか?\n\nバイナリーファイルは開かないでください。不確かな場合は他のアプリで開いてください。</string>
     <string name="list_in_recent_files">最近使用したファイルのリスト</string>
     <string name="reload">再読み込み</string>
-    <string name="wrap_words">単語の折り返し</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">テキストが画面幅に合わない場合に折り返します。 それ以外は、水平スクロールを有効にします。</string>
     <string name="always_open_with_this_app">いつもこのアプリで開く</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">リストにファイル拡張子が含まれている場合は、常にこのアプリでファイルを開きます。 たとえば、Webファイルやファイル拡張子のないファイルを編集したい場合は、 \'なし, .html, .css , .js\' を使用してください。</string>
@@ -374,7 +369,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">ファイル説明の形式</string>
     <string name="file_description_format_dialog">ファイルブラウザの各ファイルの下の説明のためのフォーマット。ファイルサイズを表示するためのFSの追加で、AndroidのSimpleDateFormatルールに従います。 ロケールにデフォルトの形式を使用するには、空白のままにしてください。\n\n入力例:\nFS yyyyMMM dd hhh:mm:ss aa\n出力形式:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">既定値を読み込み中</string>
-    <string name="file_settings">ファイル設定</string>
     <string name="search_and_replace">検索/置換</string>
     <string name="search_for">検索テキスト</string>
     <string name="replace_with">置換テキスト</string>
