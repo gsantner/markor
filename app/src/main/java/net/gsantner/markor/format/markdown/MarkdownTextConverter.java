@@ -79,13 +79,13 @@ public class MarkdownTextConverter extends TextConverterBase {
     //## Injected CSS / JS / HTML
     //########################
     public static final String CSS_BODY = CSS_S + "body{margin:0;padding:0.5vh 3.5vw}" + CSS_E;
-    public static final String CSS_HEADER_UNDERLINE = CSS_S + " .header_no_underline { text-decoration: none; color: " + TOKEN_BW_INVERSE_OF_THEME + "; } h1 < a.header_no_underline { border-bottom: 2px solid #eaecef; } " + CSS_E;
-    public static final String CSS_H1_H2_UNDERLINE = CSS_S + " h1,h2 { border-bottom: 2px solid " + TOKEN_BW_INVERSE_OF_THEME_HEADER_UNDERLINE + "; } " + CSS_E;
+    public static final String CSS_HEADER_UNDERLINE = CSS_S + ".header_no_underline { text-decoration: none; color: " + TOKEN_BW_INVERSE_OF_THEME + "; } h1 < a.header_no_underline { border-bottom: 2px solid #eaecef; } " + CSS_E;
+    public static final String CSS_H1_H2_UNDERLINE = CSS_S + "h1, h2 { border-bottom: 2px solid " + TOKEN_BW_INVERSE_OF_THEME_HEADER_UNDERLINE + "; } " + CSS_E;
     public static final String CSS_BLOCKQUOTE_VERTICAL_LINE = CSS_S + "blockquote{padding:0px 14px;border-" + TOKEN_TEXT_DIRECTION + ":3.5px solid #dddddd;margin:4px 0}" + CSS_E;
-    public static final String CSS_INLINE_CODE = CSS_S + "p > code { background-color: #D2D2D880; padding: 1.5px 3px; border-radius: 4px; }" + CSS_E;
+    public static final String CSS_INLINE_CODE = CSS_S + ":not(pre) > code { background-color: #D2D2D880; padding: 1.25px 2.8px; border-radius: 4px; overflow-wrap: break-word; }" + CSS_E;
     public static final String CSS_LIST_TASK_NO_BULLET = CSS_S + ".task-list-item { list-style-type:none; text-indent: -1.4em; } li.task-list-item > pre, li.task-list-item > ul > li { text-indent: 0pt; }" + CSS_E;
     public static final String CSS_GITLAB_VIDEO_CAPTION = CSS_S + ".video-container > p { margin: 0; }" + CSS_E;
-    public static final String CSS_LINK_SOFT_WRAP_AUTO_BREAK_LINES = CSS_S + "p > a { word-break:break-all; }" + CSS_E;
+    public static final String CSS_LINK_SOFT_WRAP = CSS_S + "p > a { word-break:break-all; }" + CSS_E;
     public static final String CSS_PARAGRAPH_SOFT_WRAP = CSS_S + "p { white-space: pre-wrap; overflow-wrap: break-word; }" + CSS_E;
 
     public static final String CSS_TOC_STYLE = CSS_S + ".markor-table-of-contents { border: 1px solid " + TOKEN_BW_INVERSE_OF_THEME + "; border-radius: 2px; } .markor-table-of-contents > h1 { padding-left: 14px; margin-bottom: -8px; border-bottom: 1px solid " + TOKEN_BW_INVERSE_OF_THEME + "; } .markor-table-of-contents-list li { margin-left: -12px; } .markor-table-of-contents-list a { text-decoration: none; }" + CSS_E;
@@ -195,8 +195,15 @@ public class MarkdownTextConverter extends TextConverterBase {
                 .set(AnchorLinkExtension.ANCHORLINKS_ANCHOR_CLASS, "header_no_underline");
 
         head += CSS_BODY;
-        // Prepare head and javascript calls
-        head += CSS_HEADER_UNDERLINE + CSS_H1_H2_UNDERLINE + CSS_BLOCKQUOTE_VERTICAL_LINE + CSS_INLINE_CODE + CSS_GITLAB_VIDEO_CAPTION + CSS_LIST_TASK_NO_BULLET + CSS_LINK_SOFT_WRAP_AUTO_BREAK_LINES + CSS_PARAGRAPH_SOFT_WRAP;
+        // Prepare head and JavaScript calls
+        head += CSS_HEADER_UNDERLINE
+                + CSS_H1_H2_UNDERLINE
+                + CSS_BLOCKQUOTE_VERTICAL_LINE
+                + CSS_INLINE_CODE
+                + CSS_GITLAB_VIDEO_CAPTION
+                + CSS_LIST_TASK_NO_BULLET
+                + CSS_LINK_SOFT_WRAP
+                + CSS_PARAGRAPH_SOFT_WRAP;
 
         // Presentations
         final boolean enablePresentationBeamer = markup.contains("\nclass:beamer") || markup.contains("\nclass: beamer");
