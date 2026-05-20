@@ -91,12 +91,6 @@
 
         <PreferenceCategory android:title="@string/features">
             <CheckBoxPreference
-                android:defaultValue="true"
-                android:icon="@drawable/ic_highlight_black_24dp"
-                android:key="@string/pref_key__is_highlighting_activated"
-                android:summary="@string/highlighting_enabled_or_not__appspecific"
-                android:title="@string/syntax_highlighting" />
-            <CheckBoxPreference
                 android:defaultValue="false"
                 android:icon="@drawable/ic_widgets_black_24dp"
                 android:key="@string/pref_key__is_launcher_for_special_files_enabled"
@@ -297,6 +291,12 @@
 
         <PreferenceCategory android:title="@string/syntax_highlighting">
             <CheckBoxPreference
+                android:defaultValue="true"
+                android:icon="@drawable/ic_highlight_black_24dp"
+                android:key="@string/pref_key__is_highlighting_activated"
+                android:summary="@string/highlighting_enabled_or_not__appspecific"
+                android:title="@string/syntax_highlighting" />
+            <CheckBoxPreference
                 android:defaultValue="false"
                 android:icon="@drawable/ic_format_color_fill_black_24dp"
                 android:key="@string/pref_key__is_highlighting_for_hexcolor_activated"
@@ -358,6 +358,12 @@
                 android:key="@string/pref_key__editor_start_editing_in_center"
                 android:summary="@string/edit_text_in_center_of_screen"
                 android:title="@string/center_text" />
+            <CheckBoxPreference
+                android:defaultValue="false"
+                android:icon="@drawable/ic_input_cursor_black_24dp"
+                android:key="@string/pref_key__editor_static_cursor"
+                android:summary="@string/disable_cursor_blinking"
+                android:title="@string/static_cursor" />
             <CheckBoxPreference
                 android:defaultValue="false"
                 android:icon="@drawable/ic_vertical_align_bottom_black_24dp"
