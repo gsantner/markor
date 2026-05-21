@@ -255,7 +255,7 @@ public class DocumentActivity extends MarkorBaseActivity {
             final String line = uri.getQueryParameter("line");
             if (line != null) {
                 final int lineNumber = GsTextUtils.tryParseInt(line, -1);
-                if (lineNumber >= 0) {
+                if (lineNumber >= -1) {
                     intent.putExtra(Document.EXTRA_FILE_LINE_NUMBER, lineNumber);
                 }
             }
