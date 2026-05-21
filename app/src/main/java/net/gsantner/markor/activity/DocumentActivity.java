@@ -43,6 +43,8 @@ import other.so.AndroidBug5497Workaround;
 public class DocumentActivity extends MarkorBaseActivity {
     private static final String DEEP_LINK_SCHEME = "markor";
     private static final String DEEP_LINK_HOST_OPEN = "open";
+    private static final String WEB_LINK_HOST = "markor.github.io";
+    private static final String WEB_LINK_PATH_OPEN = "/open";
     private static final String DEEP_LINK_PARAM_PATH = "path";
 
     private Toolbar _toolbar;
@@ -286,9 +288,19 @@ public class DocumentActivity extends MarkorBaseActivity {
     }
 
     private boolean isOpenDeepLink(final Uri uri) {
-        return uri != null
-                && DEEP_LINK_SCHEME.equalsIgnoreCase(uri.getScheme())
-                && DEEP_LINK_HOST_OPEN.equalsIgnoreCase(uri.getHost());
+        if (uri == null) {
+            return false;
+        }
+
+        final String scheme = uri.getScheme();
+        final String host = uri.getHost();
+        if (DEEP_LINK_SCHEME.equalsIgnoreCase(scheme)) {
+            return DEEP_LINK_HOST_OPEN.equalsIgnoreCase(host);
+        }
+
+        return "http".equalsIgnoreCase(scheme)
+                && WEB_LINK_HOST.equalsIgnoreCase(host)
+                && WEB_LINK_PATH_OPEN.equals(uri.getPath());
     }
 
     private boolean isDocumentAlreadyOpen(final Document doc) {
