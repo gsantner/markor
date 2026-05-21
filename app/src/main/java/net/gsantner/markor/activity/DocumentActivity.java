@@ -41,45 +41,27 @@ import java.io.File;
 import other.so.AndroidBug5497Workaround;
 
 public class DocumentActivity extends MarkorBaseActivity {
-    private static final String DEEP_LINK_SCHEME = "markor";
-    private static final String DEEP_LINK_HOST_OPEN = "open";
-    private static final String WEB_LINK_HOST = "markor.github.io";
-    private static final String WEB_LINK_PATH_OPEN = "/open";
-    private static final String DEEP_LINK_PARAM_PATH = "path";
-
     private Toolbar _toolbar;
     private FragmentManager _fragManager;
 
-    public static void launch(final Activity activity, final Intent intent) {
-        final File file = MarkorContextUtils.getIntentFile(intent, activity);
-        final Integer lineNumber = intent != null && intent.hasExtra(Document.EXTRA_FILE_LINE_NUMBER) ? intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, -1) : null;
-        final Boolean doPreview = intent != null && intent.hasExtra(Document.EXTRA_DO_PREVIEW) ? intent.getBooleanExtra(Document.EXTRA_DO_PREVIEW, false) : null;
+    public static void launch(final Activity activity, final Intent rawIntent) {
+        if (activity == null || rawIntent == null) {
+            return;
+        }
+
+        final Intent intent = DocumentActivity.normalizeIntent(rawIntent, activity);
+        final File file = (File) intent.getSerializableExtra(Document.EXTRA_FILE);
+        final Integer lineNumber = intent.hasExtra(Document.EXTRA_FILE_LINE_NUMBER) ? intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, -1) : null;
+        final Boolean doPreview = intent.hasExtra(Document.EXTRA_DO_PREVIEW) ? intent.getBooleanExtra(Document.EXTRA_DO_PREVIEW, false) : null;
         launch(activity, file, doPreview, lineNumber);
     }
 
     public static void launch(final Activity activity, final Uri uri) {
-        if (uri == null || !"file".equals(uri.getScheme())) {
+        if (activity == null || uri == null || !"file".equals(uri.getScheme())) {
             return;
         }
 
-        final Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        File file = MarkorContextUtils.getIntentFile(intent, activity);
-        if (file == null) {
-            return;
-        }
-
-        final String filePath = file.getAbsolutePath();
-        for (String str : new String[]{filePath, filePath + ".md", filePath + ".txt"}) {
-            final File f = new File(str);
-            if (f.exists()) {
-                file = f;
-                break;
-            }
-        }
-
-        final Integer lineNumber = parseLineQueryParameter(uri);
-        final Boolean doPreview = GsTextUtils.tryParseBool(uri.getQueryParameter("view"));
-        launch(activity, file, doPreview, lineNumber);
+        launch(activity, new Intent(Intent.ACTION_VIEW, uri));
     }
 
     public static void launch(
@@ -188,16 +170,14 @@ public class DocumentActivity extends MarkorBaseActivity {
     private void handleLaunchingIntent(final Intent rawIntent) {
         if (rawIntent == null) return;
 
-        final Intent intent = resolveDeepLinkIntent(rawIntent);
+        final Intent intent = normalizeIntent(rawIntent, this);
         final String intentAction = intent.getAction();
 
         // Pull the file from the intent
         // -----------------------------------------------------------------------
-        final File file = MarkorContextUtils.getIntentFile(intent, this);
+        final File file = (File) intent.getSerializableExtra(Document.EXTRA_FILE);
 
-        final boolean intentIsView = Intent.ACTION_VIEW.equals(intentAction);
         final boolean intentIsSend = Intent.ACTION_SEND.equals(intentAction) || Intent.ACTION_SEND_MULTIPLE.equals(intentAction);
-        final boolean intentIsEdit = Intent.ACTION_EDIT.equals(intentAction);
 
         if (intentIsSend) {
             showShareInto(intent);
@@ -215,23 +195,21 @@ public class DocumentActivity extends MarkorBaseActivity {
         } else {
             // Open in editor/viewer
             final Document doc = new Document(file);
-            final Uri uri = intent.getData();
-            Integer startLine = null;
+            final Integer startLine;
             if (intent.hasExtra(Document.EXTRA_FILE_LINE_NUMBER)) {
                 startLine = intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, -1);
-            } else if (uri != null) {
-                startLine = parseLineQueryParameter(uri);
+            } else {
+                startLine = null;
             }
 
             // Start in a specific mode if required. Otherwise let the fragment decide
-            Boolean startInPreview = null;
+            final Boolean startInPreview;
             if (intent.hasExtra(Document.EXTRA_DO_PREVIEW)) {
                 startInPreview = intent.getBooleanExtra(Document.EXTRA_DO_PREVIEW, false);
-            } else if (uri != null) {
-                startInPreview = GsTextUtils.tryParseBool(uri.getQueryParameter("view"));
-            }
-            if (startInPreview == null && file.getName().startsWith("index.")) {
+            } else if (file.getName().startsWith("index.")) {
                 startInPreview = true;
+            } else {
+                startInPreview = null;
             }
 
             // Three cases
@@ -262,60 +240,38 @@ public class DocumentActivity extends MarkorBaseActivity {
         }
     }
 
-    private Intent resolveDeepLinkIntent(final Intent intent) {
+    private static Intent normalizeIntent(final Intent rawIntent, final Activity activity) {
+        final Intent intent = new Intent(rawIntent);
         final Uri uri = intent.getData();
-        if (!Intent.ACTION_VIEW.equals(intent.getAction()) || !isOpenDeepLink(uri)) {
-            return intent;
+
+        if (!intent.hasExtra(Document.EXTRA_FILE)) {
+            final File file = MarkorContextUtils.getIntentFile(intent, activity);
+            if (file != null) {
+                intent.putExtra(Document.EXTRA_FILE, file.getAbsoluteFile());
+            }
         }
 
-        final String path = uri.getQueryParameter(DEEP_LINK_PARAM_PATH);
-        if (GsTextUtils.isNullOrEmpty(path)) {
-            return intent;
+        if (!intent.hasExtra(Document.EXTRA_FILE_LINE_NUMBER) && uri != null) {
+            final String line = uri.getQueryParameter("line");
+            if (line != null) {
+                final int lineNumber = GsTextUtils.tryParseInt(line, -1);
+                if (lineNumber >= 0) {
+                    intent.putExtra(Document.EXTRA_FILE_LINE_NUMBER, lineNumber);
+                }
+            }
         }
 
-        File file = new File(path);
-        if (!file.isAbsolute()) {
-            file = new File(_appSettings.getNotebookDirectory(), path);
+        if (!intent.hasExtra(Document.EXTRA_DO_PREVIEW) && uri != null) {
+            final String view = uri.getQueryParameter("view");
+            if (view != null) {
+                final Boolean doPreview = GsTextUtils.tryParseBool(view);
+                if (doPreview != null) {
+                    intent.putExtra(Document.EXTRA_DO_PREVIEW, doPreview);
+                }
+            }
         }
 
-        final Intent resolvedIntent = new Intent(intent);
-        resolvedIntent.putExtra(Document.EXTRA_FILE, file.getAbsoluteFile());
-        return resolvedIntent;
-    }
-
-    private boolean isOpenDeepLink(final Uri uri) {
-        if (uri == null) {
-            return false;
-        }
-
-        final String scheme = uri.getScheme();
-        final String host = uri.getHost();
-        if (DEEP_LINK_SCHEME.equalsIgnoreCase(scheme)) {
-            return DEEP_LINK_HOST_OPEN.equalsIgnoreCase(host);
-        }
-
-        return "http".equalsIgnoreCase(scheme)
-                && WEB_LINK_HOST.equalsIgnoreCase(host)
-                && WEB_LINK_PATH_OPEN.equals(uri.getPath());
-    }
-
-    private static Integer parseLineQueryParameter(final Uri uri) {
-        final String line = uri != null ? uri.getQueryParameter("line") : null;
-        if (line == null) {
-            return null;
-        }
-
-        final int lineNumber = GsTextUtils.tryParseInt(line, -1);
-        return lineNumber > 0 ? lineNumber - 1 : -1;
-    }
-
-    private boolean isDocumentAlreadyOpen(final Document doc) {
-        final GsFragmentBase<?, ?> frag = getCurrentVisibleFragment();
-        if (frag instanceof DocumentEditAndViewFragment) {
-            final DocumentEditAndViewFragment editFrag = (DocumentEditAndViewFragment) frag;
-            return editFrag.getDocument().path.equals(doc.path);
-        }
-        return false;
+        return intent;
     }
 
     private void showNotSupportedMessage() {

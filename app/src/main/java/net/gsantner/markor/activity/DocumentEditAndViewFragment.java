@@ -245,9 +245,12 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     @Override
     protected void onFragmentFirstTimeVisible() {
-        // Restore cursor
-        final int lastSelection = _appSettings.getLastEditPosition(_document.path, _hlEditor.length());
-        _hlEditor.setSelection(lastSelection);
+        final Bundle args = getArguments();
+        int startPos = _appSettings.getLastEditPosition(_document.path, _hlEditor.length());
+        if (args != null && args.containsKey(Document.EXTRA_FILE_LINE_NUMBER)) {
+            final int lno = args.getInt(Document.EXTRA_FILE_LINE_NUMBER);
+            startPos = lno >= 0 ? TextViewUtils.getIndexFromLineOffset(_hlEditor.getText(), lno, 0) : _hlEditor.length();
+        }
 
         // Restore scroll position for edit-mode
         _hlEditor.setReflowCallback(() -> {
@@ -281,7 +284,8 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             }
         }
 
-        _hlEditor.recomputeHighlighting();
+        _hlEditor.recomputeHighlighting(); // Run before setting scroll position
+        TextViewUtils.setSelectionAndShow(_hlEditor, startPos);
 
         // One-shot floor for first render after content/highlighting setup.
         // Do not replace with per-layout updates; they regress big-file open performance.
