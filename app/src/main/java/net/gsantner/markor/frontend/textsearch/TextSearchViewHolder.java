@@ -5,18 +5,14 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.text.method.ReplacementTransformationMethod;
-import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -33,12 +29,9 @@ import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.activity.DocumentEditAndViewFragment;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
@@ -53,31 +46,22 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-public class TextSearchFragment extends Fragment {
+public class TextSearchViewHolder {
     private static final String RECENT_SEARCH_STRING = "text_search_fragment__recent_search_history";
     private static final String RECENT_SEARCH_REPLACE_STRING = "text_search_fragment__recent_search_replace_history";
     private static final int MAX_RECENT_ITEMS = 10;
 
-    private int containerViewId;
-    private FragmentActivity activity;
-    private FragmentManager fragmentManager;
     private HighlightingEditor editText;
-
     private EditText searchEditText;
     private EditText replaceEditText;
     private TextView resultTextView;
-
     private ImageButton findInSelectionImageButton;
     private ImageButton matchCaseImageButton;
     private ImageButton matchWholeWordImageButton;
     private ImageButton useRegexImageButton;
     private ImageButton preserveCaseImageButton;
     private ImageButton toggleImageButton;
-
-    private TextSearchHandler textSearchHandler;
 
     private boolean initialized;
     private boolean findInSelection;
@@ -88,75 +72,58 @@ public class TextSearchFragment extends Fragment {
     private boolean replaceVisible;
     private int activeColor;
     private int inactiveColor;
+    private View textSearchView;
+    private TextSearchHandler textSearchHandler;
 
-    public static TextSearchFragment newInstance(@IdRes int containerViewId, FragmentActivity activity, HighlightingEditor editText) {
-        return newInstance(containerViewId, activity, activity.getSupportFragmentManager(), editText);
+    private final int containerViewId;
+    private final DocumentEditAndViewFragment parentFragment;
+
+    public TextSearchViewHolder(DocumentEditAndViewFragment parentFragment, @IdRes int containerViewId) {
+        this.containerViewId = containerViewId;
+        this.parentFragment = parentFragment;
     }
 
-    public static TextSearchFragment newInstance(@IdRes int containerViewId, FragmentActivity activity, FragmentManager fragmentManager, HighlightingEditor editText) {
-        Fragment fragment = fragmentManager.findFragmentByTag(String.valueOf(containerViewId));
-        if (fragment instanceof TextSearchFragment) {
-            TextSearchFragment existingFragment = (TextSearchFragment) fragment;
-            existingFragment.containerViewId = containerViewId;
-            existingFragment.activity = activity;
-            existingFragment.fragmentManager = fragmentManager;
-            existingFragment.editText = editText;
-            if (existingFragment.textSearchHandler == null) {
-                existingFragment.textSearchHandler = new TextSearchHandler();
-            }
-            return existingFragment;
+    private void inflate(DocumentEditAndViewFragment parentFragment, @IdRes int containerViewId) {
+        if (parentFragment == null) {
+            return;
         }
-
-        TextSearchFragment newFragment = new TextSearchFragment();
-        newFragment.containerViewId = containerViewId;
-        newFragment.activity = activity;
-        newFragment.fragmentManager = fragmentManager;
-        newFragment.editText = editText;
-        newFragment.textSearchHandler = new TextSearchHandler();
-
-        return newFragment;
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (initialized) {
-            clearMatches();
-        }
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return getLayoutInflater().inflate(R.layout.text_search_fragment, container, false);
-    }
-
-    @Override
-    @SuppressLint("SetTextI18n")
-    public void onViewCreated(@NonNull View fragmentView, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(fragmentView, savedInstanceState);
-
-        initialized = !(activity == null || editText == null || textSearchHandler == null);
-
-        if (!initialized) {
-            close();
+        View parent = parentFragment.getView();
+        if (parent == null) {
             return;
         }
 
-        fragmentView.bringToFront();
-        requestEditTextFocus(fragmentView);
+        final int textSearchViewId = hashCode();
+        textSearchView = parent.findViewById(textSearchViewId);
+        if (textSearchView == null) {
+            textSearchView = parentFragment.getLayoutInflater().inflate(R.layout.text_search_layout, null);
+            textSearchView.setId(textSearchViewId);
+            textSearchView.setVisibility(View.GONE);
+            ViewGroup container = parent.findViewById(containerViewId);
+            container.addView(textSearchView);
+            setup(parentFragment);
+        }
+    }
 
-        searchEditText = fragmentView.findViewById(R.id.searchEditText);
-        replaceEditText = fragmentView.findViewById(R.id.replaceEditText);
-        resultTextView = fragmentView.findViewById(R.id.resultTextView);
-        findInSelectionImageButton = fragmentView.findViewById(R.id.findInSelectionImageButton);
-        matchCaseImageButton = fragmentView.findViewById(R.id.matchCaseImageButton);
-        matchWholeWordImageButton = fragmentView.findViewById(R.id.matchWholeWordImageButton);
-        useRegexImageButton = fragmentView.findViewById(R.id.useRegexImageButton);
-        preserveCaseImageButton = fragmentView.findViewById(R.id.preserveCaseImageButton);
-        toggleImageButton = fragmentView.findViewById(R.id.toggleImageButton);
-        activeColor = ContextCompat.getColor(activity, R.color.accent);
-        inactiveColor = ContextCompat.getColor(activity, R.color.primary_text);
+    @SuppressLint("SetTextI18n")
+    private void setup(DocumentEditAndViewFragment parentFragment) {
+        editText = parentFragment.getEditor();
+        if (editText == null) {
+            return;
+        }
+
+        textSearchHandler = new TextSearchHandler();
+        activeColor = ContextCompat.getColor(parentFragment.requireContext(), R.color.accent);
+        inactiveColor = ContextCompat.getColor(parentFragment.requireContext(), R.color.primary_text);
+
+        searchEditText = textSearchView.findViewById(R.id.searchEditText);
+        replaceEditText = textSearchView.findViewById(R.id.replaceEditText);
+        resultTextView = textSearchView.findViewById(R.id.resultTextView);
+        findInSelectionImageButton = textSearchView.findViewById(R.id.findInSelectionImageButton);
+        matchCaseImageButton = textSearchView.findViewById(R.id.matchCaseImageButton);
+        matchWholeWordImageButton = textSearchView.findViewById(R.id.matchWholeWordImageButton);
+        useRegexImageButton = textSearchView.findViewById(R.id.useRegexImageButton);
+        preserveCaseImageButton = textSearchView.findViewById(R.id.preserveCaseImageButton);
+        toggleImageButton = textSearchView.findViewById(R.id.toggleImageButton);
 
         textSearchHandler.setResultChangedListener((current, count, msg) -> {
             if (count > 0) {
@@ -164,16 +131,10 @@ public class TextSearchFragment extends Fragment {
             } else if (count == 0) {
                 resultTextView.setText(R.string.no_results);
             } else if (count == TextSearchHandler.RESULT_BAD_PATTERN) {
-                SpannableString spannable = new SpannableString(getString(R.string.bad_pattern));
+                SpannableString spannable = new SpannableString(parentFragment.getString(R.string.bad_pattern));
                 spannable.setSpan(new ForegroundColorSpan(Color.RED), 0, spannable.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 resultTextView.setText(spannable);
-                Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
-            }
-        });
-
-        editText.setOnFocusChangeListener((view, hasFocus) -> {
-            if (hasFocus) {
-                textSearchHandler.handleSearchSelection(editText, searchEditText);
+                Toast.makeText(parentFragment.getContext(), msg, Toast.LENGTH_LONG).show();
             }
         });
 
@@ -187,52 +148,18 @@ public class TextSearchFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
 
-            private boolean paused;
-            private Pattern pattern = Pattern.compile("\\n");
-
             @Override
             public void afterTextChanged(Editable s) {
-                if (paused) {
-                    return;
-                }
-
                 findTask.run();
-
-                // Highlight invisible character '\n'
-                Matcher matcher = pattern.matcher(s);
-                paused = true;
-                while (matcher.find()) {
-                    SpannableString spannable = new SpannableString("\n");
-                    spannable.setSpan(new BackgroundColorSpan(Match.getMatchColor()), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    searchEditText.getText().replace(matcher.start(), matcher.end(), spannable);
-                }
-                paused = false;
             }
-        });
-
-        searchEditText.setTransformationMethod(new ReplacementTransformationMethod() {
-            @Override
-            protected char[] getOriginal() {
-                return new char[]{'\n'};
-            }
-
-            @Override
-            protected char[] getReplacement() {
-                return new char[]{'↵'};
-            }
-        });
-
-        searchEditText.setOnFocusChangeListener((view, hasFocus) -> {
-            if (hasFocus && textSearchHandler.isFindInSelection()) find();
         });
 
         searchEditText.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
         searchEditText.setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                if (event == null || event.getAction() == KeyEvent.ACTION_DOWN) {
-                    textSearchHandler.next(editText);
-                    return true;
-                }
+            if (actionId == EditorInfo.IME_ACTION_SEARCH && (event == null || event.getAction() == KeyEvent.ACTION_DOWN)) {
+                saveCurrentHistory();
+                textSearchHandler.next(editText);
+                return true;
             }
             return false;
         });
@@ -263,42 +190,39 @@ public class TextSearchFragment extends Fragment {
         });
 
         setPreserveCase(preserveCase);
-        preserveCaseImageButton.setOnClickListener(view -> {
-            setPreserveCase(!preserveCase);
-        });
-        setReplaceLayoutVisibility(fragmentView, replaceVisible);
+        preserveCaseImageButton.setOnClickListener(view -> setPreserveCase(!preserveCase));
+        setReplaceLayoutVisibility(replaceVisible);
 
-        fragmentView.findViewById(R.id.filterImageButton).setOnClickListener(view -> MarkorDialogFactory.showSearchDialog(activity, editText, searchEditText.getText().toString()));
-        fragmentView.findViewById(R.id.toggleImageButton).setOnClickListener(view -> toggleFindReplaceLayout(fragmentView));
-        fragmentView.findViewById(R.id.previousImageButton).setOnClickListener(view -> {
+        textSearchView.findViewById(R.id.filterImageButton).setOnClickListener(view -> MarkorDialogFactory.showSearchDialog(parentFragment.getActivity(), editText, searchEditText.getText().toString()));
+        toggleImageButton.setOnClickListener(view -> toggleFindReplaceLayout());
+        textSearchView.findViewById(R.id.previousImageButton).setOnClickListener(view -> {
             saveCurrentHistory();
             textSearchHandler.previous(editText);
         });
-        fragmentView.findViewById(R.id.nextImageButton).setOnClickListener(view -> {
+        textSearchView.findViewById(R.id.nextImageButton).setOnClickListener(view -> {
             saveCurrentHistory();
             textSearchHandler.next(editText);
         });
-        fragmentView.findViewById(R.id.replaceImageButton).setOnClickListener(view -> {
+        textSearchView.findViewById(R.id.replaceImageButton).setOnClickListener(view -> {
             textSearchHandler.replace(editText, replaceEditText.getText().toString());
             saveCurrentHistory();
         });
-        fragmentView.findViewById(R.id.replaceAllImageButton).setOnClickListener(view -> {
+        textSearchView.findViewById(R.id.replaceAllImageButton).setOnClickListener(view -> {
             textSearchHandler.replaceAll(editText, replaceEditText.getText().toString());
             saveCurrentHistory();
         });
-        fragmentView.findViewById(R.id.clearSearchImageButton).setOnClickListener(view -> searchEditText.setText(""));
-        fragmentView.findViewById(R.id.clearReplaceImageButton).setOnClickListener(view -> replaceEditText.setText(""));
-        fragmentView.findViewById(R.id.historyImageButton).setOnClickListener(view -> showHistoryPopup(view));
-        fragmentView.findViewById(R.id.newLineSearchTextView).setOnClickListener(view -> {
-            TextViewUtils.replaceSelection(searchEditText.getText(), "\n");
-        });
+        textSearchView.findViewById(R.id.clearSearchImageButton).setOnClickListener(view -> searchEditText.setText(""));
+        textSearchView.findViewById(R.id.clearReplaceImageButton).setOnClickListener(view -> replaceEditText.setText(""));
+        textSearchView.findViewById(R.id.historyImageButton).setOnClickListener(this::showHistoryPopup);
+        textSearchView.findViewById(R.id.newLineSearchTextView).setOnClickListener(view -> TextViewUtils.replaceSelection(searchEditText.getText(), "\n"));
+
+        initialized = true;
     }
 
     private void setIconActive(ImageView view, boolean active) {
-        if (view == null) {
-            return;
+        if (view != null) {
+            view.setColorFilter(active ? activeColor : inactiveColor, PorterDuff.Mode.SRC_IN);
         }
-        view.setColorFilter(active ? activeColor : inactiveColor, PorterDuff.Mode.SRC_IN);
     }
 
     private void setFindInSelection(boolean checked) {
@@ -331,58 +255,44 @@ public class TextSearchFragment extends Fragment {
         setIconActive(preserveCaseImageButton, checked);
     }
 
-    private void setReplaceLayoutVisibility(View parent, boolean visible) {
-        if (parent == null) {
+    private void setReplaceLayoutVisibility(boolean visible) {
+        if (!initialized && textSearchView == null) {
+            replaceVisible = visible;
             return;
         }
-        View replaceLinearLayout = parent.findViewById(R.id.replaceLinearLayout);
+        View replaceLinearLayout = textSearchView.findViewById(R.id.replaceLinearLayout);
         if (replaceLinearLayout == null) {
             return;
         }
         replaceVisible = visible;
-        if (visible) {
-            replaceLinearLayout.setVisibility(View.VISIBLE);
-        } else {
-            replaceLinearLayout.setVisibility(View.GONE);
-        }
+        replaceLinearLayout.setVisibility(visible ? View.VISIBLE : View.GONE);
         setIconActive(toggleImageButton, visible);
     }
 
-    private void toggleFindReplaceLayout(View parent) {
-        View view = parent.findViewById(R.id.replaceLinearLayout);
-        if (view == null) {
+    private void toggleFindReplaceLayout() {
+        if (!initialized) {
             return;
         }
-        setReplaceLayoutVisibility(parent, view.getVisibility() != View.VISIBLE);
-    }
-
-    private static void requestEditTextFocus(View parent) {
-        if (parent == null) {
-            return;
-        }
-
-        View view = parent.findViewById(R.id.searchEditText);
-        if (view instanceof EditText) {
-            view.requestFocus();
-            ((EditText) view).selectAll();
+        View view = textSearchView.findViewById(R.id.replaceLinearLayout);
+        if (view != null) {
+            setReplaceLayoutVisibility(view.getVisibility() != View.VISIBLE);
         }
     }
 
     public void find() {
-        textSearchHandler.find(editText, searchEditText.getText().toString(), TextSearchHandler.ACTIVE_INDEX_NEARBY);
+        if (initialized) {
+            textSearchHandler.find(editText, searchEditText.getText().toString(), TextSearchHandler.ACTIVE_INDEX_NEARBY);
+        }
     }
 
     public void find2() {
-        if (searchEditText == null) return;
-        String searchText = searchEditText.getText().toString();
-        if (searchText.isEmpty()) {
+        if (!initialized) {
             return;
         }
-        textSearchHandler.find(editText, searchText, TextSearchHandler.ACTIVE_INDEX_KEEP);
-    }
-
-    public void clearMatches() {
-        textSearchHandler.find(editText, "", 0);
+        String searchText = searchEditText.getText().toString();
+        if (!searchText.isEmpty()) {
+            textSearchHandler.find(editText, searchText, TextSearchHandler.ACTIVE_INDEX_KEEP);
+        }
     }
 
     private final Runnable findTask2 = TextViewUtils.makeDebounced(800, this::find2);
@@ -401,28 +311,35 @@ public class TextSearchFragment extends Fragment {
         }
     };
 
-    public void show() {
-        FragmentManager fragmentManager = getTextSearchFragmentManager();
-        if (fragmentManager == null) {
-            return;
+    private void requestEditTextFocus() {
+        if (initialized) {
+            textSearchHandler.handleSearchSelection(editText, searchEditText);
+            searchEditText.requestFocus();
+            searchEditText.selectAll();
         }
-        String tag = String.valueOf(this.containerViewId);
-        if (fragmentManager.findFragmentByTag(tag) == null) {
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.replace(this.containerViewId, this, tag);
-            transaction.commit();
-        } else if (!this.isVisible()) {
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.show(this);
-            transaction.commit();
-            requestEditTextFocus(this.getView());
-        }
-        find2();
-        editText.addTextChangedListener(editTextChangedListener);
     }
 
-    public boolean isShowing() {
-        return isAdded() && !isHidden();
+    public void show() {
+        if (!initialized) {
+            inflate(parentFragment, containerViewId);
+        }
+        if (initialized && textSearchView.getVisibility() != View.VISIBLE) {
+            textSearchView.setVisibility(View.VISIBLE);
+            requestEditTextFocus();
+            find2();
+            editText.addTextChangedListener(editTextChangedListener);
+            parentFragment.requireActivity().invalidateOptionsMenu();
+        }
+    }
+
+    public boolean isShow() {
+        return textSearchView != null && textSearchView.getVisibility() == View.VISIBLE;
+    }
+
+    public void clearMatches() {
+        if (initialized) {
+            textSearchHandler.find(editText, "", 0);
+        }
     }
 
     private void clear() {
@@ -433,35 +350,17 @@ public class TextSearchFragment extends Fragment {
         }
     }
 
-    public void hide() {
-        saveCurrentHistory();
-        clear();
-        FragmentManager fragmentManager = getTextSearchFragmentManager();
-        if (fragmentManager != null) {
-            fragmentManager.beginTransaction().hide(this).commit();
-        }
-    }
-
     public void close() {
-        saveCurrentHistory();
-        clear();
-        FragmentManager fragmentManager = getTextSearchFragmentManager();
-        if (fragmentManager != null) {
-            fragmentManager.beginTransaction().remove(this).commit();
+        if (initialized) {
+            saveCurrentHistory();
+            textSearchView.setVisibility(View.GONE);
+            clear();
+            parentFragment.requireActivity().invalidateOptionsMenu();
         }
-    }
-
-    @Nullable
-    public FragmentManager getTextSearchFragmentManager() {
-        if (fragmentManager != null) {
-            return fragmentManager;
-        }
-        FragmentActivity fragmentActivity = activity != null ? activity : getActivity();
-        return fragmentActivity != null ? fragmentActivity.getSupportFragmentManager() : null;
     }
 
     private SharedPreferences getPreferences() {
-        return activity.getSharedPreferences(GsSharedPreferencesPropertyBackend.SHARED_PREF_APP, Context.MODE_PRIVATE);
+        return parentFragment.requireActivity().getSharedPreferences(GsSharedPreferencesPropertyBackend.SHARED_PREF_APP, Context.MODE_PRIVATE);
     }
 
     private void saveCurrentHistory() {
@@ -526,20 +425,19 @@ public class TextSearchFragment extends Fragment {
     private void showHistoryPopup(View anchor) {
         final boolean replaceHistory = replaceVisible;
         final List<SearchHistoryEntry> entries = loadHistory(replaceHistory ? RECENT_SEARCH_REPLACE_STRING : RECENT_SEARCH_STRING, replaceHistory);
-        final ListPopupWindow popupWindow = new ListPopupWindow(activity);
+        final ListPopupWindow popupWindow = new ListPopupWindow(parentFragment.requireContext());
         popupWindow.setAdapter(new SearchHistoryAdapter(replaceHistory, entries));
         popupWindow.setAnchorView(anchor);
-        popupWindow.setWidth(GsContextUtils.instance.convertDpToPx(activity, 300));
+        popupWindow.setWidth(GsContextUtils.instance.convertDpToPx(parentFragment.requireContext(), 300));
         if (entries.isEmpty()) {
-            popupWindow.setHeight(GsContextUtils.instance.convertDpToPx(activity, 48));
+            popupWindow.setHeight(GsContextUtils.instance.convertDpToPx(parentFragment.requireContext(), 48));
         }
         popupWindow.setModal(true);
         popupWindow.setOnItemClickListener((parent, view, position, id) -> {
-            if (entries.isEmpty()) {
-                return;
+            if (!entries.isEmpty()) {
+                applyHistoryEntry(entries.get(position), replaceHistory);
+                popupWindow.dismiss();
             }
-            applyHistoryEntry(entries.get(position), replaceHistory);
-            popupWindow.dismiss();
         });
         popupWindow.show();
     }
@@ -548,7 +446,7 @@ public class TextSearchFragment extends Fragment {
         searchEditText.setText(entry.search);
         if (replaceHistory) {
             replaceEditText.setText(entry.replace);
-            setReplaceLayoutVisibility(getView(), true);
+            setReplaceLayoutVisibility(true);
         }
         setFindInSelection(entry.findInSelection);
         setMatchCase(entry.matchCase);
@@ -565,11 +463,11 @@ public class TextSearchFragment extends Fragment {
         private final int iconSize;
 
         SearchHistoryAdapter(boolean includeReplace, List<SearchHistoryEntry> entries) {
-            super(activity, android.R.layout.simple_list_item_1, entries);
+            super(parentFragment.requireContext(), android.R.layout.simple_list_item_1, entries);
             this.includeReplace = includeReplace;
-            padding4 = GsContextUtils.instance.convertDpToPx(activity, 4);
-            padding8 = GsContextUtils.instance.convertDpToPx(activity, 8);
-            iconSize = GsContextUtils.instance.convertDpToPx(activity, 24);
+            padding4 = GsContextUtils.instance.convertDpToPx(parentFragment.requireContext(), 4);
+            padding8 = GsContextUtils.instance.convertDpToPx(parentFragment.requireContext(), 8);
+            iconSize = GsContextUtils.instance.convertDpToPx(parentFragment.requireContext(), 24);
         }
 
         @Override
@@ -586,7 +484,7 @@ public class TextSearchFragment extends Fragment {
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             final SearchHistoryEntry entry = super.getCount() == 0 ? null : getItem(position);
-            final LinearLayout row = new LinearLayout(activity);
+            final LinearLayout row = new LinearLayout(parentFragment.requireContext());
             row.setGravity(Gravity.CENTER_VERTICAL);
             row.setOrientation(LinearLayout.HORIZONTAL);
             row.setPadding(padding8, padding4, padding8, padding4);
@@ -609,7 +507,7 @@ public class TextSearchFragment extends Fragment {
             if (!visible) {
                 return;
             }
-            final ImageView icon = new ImageView(activity);
+            final ImageView icon = new ImageView(parentFragment.requireContext());
             icon.setImageResource(drawableRes);
             icon.setColorFilter(inactiveColor, PorterDuff.Mode.SRC_IN);
             icon.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
@@ -619,7 +517,7 @@ public class TextSearchFragment extends Fragment {
         }
 
         private TextView makeHistoryTextView(String text) {
-            final TextView textView = new TextView(activity);
+            final TextView textView = new TextView(parentFragment.requireContext());
             textView.setSingleLine(true);
             textView.setEllipsize(TextUtils.TruncateAt.END);
             textView.setText(text);
@@ -631,19 +529,19 @@ public class TextSearchFragment extends Fragment {
             final ArrayList<String> parts = new ArrayList<>();
             parts.add(entry.getLabel(includeReplace));
             if (entry.findInSelection) {
-                parts.add(getString(R.string.find_in_selection));
+                parts.add(parentFragment.getString(R.string.find_in_selection));
             }
             if (entry.matchCase) {
-                parts.add(getString(R.string.match_case));
+                parts.add(parentFragment.getString(R.string.match_case));
             }
             if (entry.matchWholeWord) {
-                parts.add(getString(R.string.match_whole_word));
+                parts.add(parentFragment.getString(R.string.match_whole_word));
             }
             if (entry.useRegex) {
-                parts.add(getString(R.string.use_regular_expression));
+                parts.add(parentFragment.getString(R.string.use_regular_expression));
             }
             if (includeReplace && entry.preserveCase) {
-                parts.add(getString(R.string.preserve_case));
+                parts.add(parentFragment.getString(R.string.preserve_case));
             }
             return TextUtils.join(", ", parts);
         }
@@ -666,15 +564,7 @@ public class TextSearchFragment extends Fragment {
         private static final String FIND_IN_SELECTION_KEY = "find_in_selection";
         private static final String PRESERVE_CASE_KEY = "preserve_case";
 
-        SearchHistoryEntry(
-                String search,
-                String replace,
-                boolean matchCase,
-                boolean matchWholeWord,
-                boolean useRegex,
-                boolean findInSelection,
-                boolean preserveCase
-        ) {
+        SearchHistoryEntry(String search, String replace, boolean matchCase, boolean matchWholeWord, boolean useRegex, boolean findInSelection, boolean preserveCase) {
             this.search = search == null ? "" : search;
             this.replace = replace == null ? "" : replace;
             this.matchCase = matchCase;
@@ -689,7 +579,7 @@ public class TextSearchFragment extends Fragment {
         }
 
         String getLabel(boolean includeReplace) {
-            return includeReplace ? search + " ⇒ " + replace : search;
+            return includeReplace ? search + " => " + replace : search;
         }
 
         JSONObject toJson() {

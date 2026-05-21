@@ -6,8 +6,8 @@ public class Selection {
     public static final int COLOR = 0x605050FF;
     public static final int COLOR_DARK = 0x609090FF;
 
-    private int start; // Start index
-    private int end; // End index
+    private int start;
+    private int end;
 
     public int getColor() {
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
@@ -30,12 +30,8 @@ public class Selection {
         return end;
     }
 
-    public int getLength() {
-        return this.end - this.start;
-    }
-
     public boolean isSelected() {
-        return this.start != this.end;
+        return start != end;
     }
 
     public void setStart(int start) {

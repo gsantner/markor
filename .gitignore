@@ -104,3 +104,5 @@ app/flavor*
 
 /.favorites.json
 /.vscode
+
+cm-editor/node_modules/
