@@ -250,31 +250,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         final int lastSelection = _appSettings.getLastEditPosition(_document.path, _hlEditor.length());
         _hlEditor.setSelection(lastSelection);
 
-        // Restore scroll position for edit-mode
-        _hlEditor.setReflowCallback(() -> {
-            // Must be called after HighlightingEditor reflow to prevent scroll position being reset
-            int lastEditHeight = _appSettings.getLastEditHeight(_document.path, 0);
-            int lastEditScrollY = _appSettings.getLastEditScrollY(_document.path, 0);
-            if (lastEditScrollY > 0 && lastEditHeight == _verticalScrollView.getHeight()) {
-                // Set scroll position by scroll Y if last scroll Y is valid
-                // This way is precise, not as imprecise as using line number
-                _hlEditor.postDelayed(() -> {
-                    _verticalScrollView.scrollTo(0, lastEditScrollY);
-                    _hlEditor.requestFocus();
-                }, 600);
-            } else {
-                // Set scroll position by line number if last scroll Y is invalid
-                final Bundle args = getArguments();
-                if (args != null && args.containsKey(Document.EXTRA_FILE_LINE_NUMBER)) {
-                    final int lineNumber = args.getInt(Document.EXTRA_FILE_LINE_NUMBER);
-                    int selection = lineNumber >= 0 ? TextViewUtils.getIndexFromLineOffset(_hlEditor.getText(), lineNumber, 0) : _hlEditor.length();
-                    TextViewUtils.setSelectionAndShow(_hlEditor, selection);
-                } else {
-                    _hlEditor.requestFocus();
-                }
-            }
-        });
-
         // Restore scroll position for view-mode
         if (_webView != null) {
             int lastViewHeight = _appSettings.getLastViewHeight(_document.path, 0);
