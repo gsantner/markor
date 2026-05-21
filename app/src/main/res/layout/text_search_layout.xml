@@ -113,6 +113,8 @@
                     <FrameLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
                         android:layout_weight="1">
 
                         <EditText
@@ -128,8 +130,6 @@
                             android:nextFocusRight="@id/searchEditText"
                             android:nextFocusDown="@id/searchEditText"
                             android:paddingEnd="40dp"
-                            android:paddingStart="8dp"
-                            android:paddingLeft="8dp"
                             android:paddingRight="40dp"
                             android:textSize="16sp" />
 
@@ -205,6 +205,8 @@
                     <FrameLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
                         android:layout_weight="1">
 
                         <EditText
@@ -219,8 +221,6 @@
                             android:maxLines="5"
                             android:minHeight="48dp"
                             android:paddingEnd="40dp"
-                            android:paddingStart="8dp"
-                            android:paddingLeft="8dp"
                             android:paddingRight="40dp"
                             android:textSize="16sp" />
 
