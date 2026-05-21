@@ -108,7 +108,7 @@ public abstract class ActionButtonBase {
     private TextSearchViewHolder _textSearchViewHolder;
 
     public ActionButtonBase initTextSearch(DocumentEditAndViewFragment fragment) {
-        _textSearchViewHolder = new TextSearchViewHolder(fragment, R.id.topViewContainer);
+        _textSearchViewHolder = new TextSearchViewHolder(fragment, R.id.top_view_container);
         return this;
     }
 
@@ -260,7 +260,7 @@ public abstract class ActionButtonBase {
         settings.edit().putBoolean(formatKey, visible).apply();
     }
 
-    public boolean loadActionBarVisible() {
+    public boolean isActionBarVisible() {
         final SharedPreferences settings = getContext().getSharedPreferences(ACTION_ORDER_PREF_NAME, Context.MODE_PRIVATE);
         final String formatKey = getResString(getFormatActionsKey()) + VISIBLE_SUFFIX;
         return settings.getBoolean(formatKey, true);
@@ -312,7 +312,7 @@ public abstract class ActionButtonBase {
 
     @SuppressWarnings("ConstantConditions")
     public void recreateActionButtons(final ViewGroup barLayout, final ActionItem.DisplayMode displayMode) {
-        if (!loadActionBarVisible()) {
+        if (!isActionBarVisible()) {
             return;
         }
 
