@@ -5,6 +5,9 @@
     android:layout_height="wrap_content"
     android:layout_gravity="start"
     android:background="@drawable/text_search_layout_background"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:elevation="4dp"
     android:minWidth="300dp">
 
     <LinearLayout
@@ -116,7 +119,7 @@
                             android:id="@+id/searchEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@android:color/transparent"
+                            android:background="@drawable/text_search_edit_text_background"
                             android:ems="16"
                             android:hint="@string/search"
                             android:importantForAutofill="no"
@@ -125,6 +128,8 @@
                             android:nextFocusRight="@id/searchEditText"
                             android:nextFocusDown="@id/searchEditText"
                             android:paddingEnd="40dp"
+                            android:paddingStart="8dp"
+                            android:paddingLeft="8dp"
                             android:paddingRight="40dp"
                             android:textSize="16sp" />
 
@@ -206,7 +211,7 @@
                             android:id="@+id/replaceEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@android:color/transparent"
+                            android:background="@drawable/text_search_edit_text_background"
                             android:ems="16"
                             android:hint="@string/replace"
                             android:importantForAutofill="no"
@@ -214,6 +219,8 @@
                             android:maxLines="5"
                             android:minHeight="48dp"
                             android:paddingEnd="40dp"
+                            android:paddingStart="8dp"
+                            android:paddingLeft="8dp"
                             android:paddingRight="40dp"
                             android:textSize="16sp" />
 
