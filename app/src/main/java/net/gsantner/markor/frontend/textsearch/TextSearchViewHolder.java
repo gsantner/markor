@@ -48,8 +48,8 @@ import java.util.List;
 import java.util.Set;
 
 public class TextSearchViewHolder {
-    private static final String RECENT_SEARCH_STRING = "text_search_fragment__recent_search_history";
-    private static final String RECENT_SEARCH_REPLACE_STRING = "text_search_fragment__recent_search_replace_history";
+    private static final String RECENT_SEARCH_STRING = "text_search_view_holder__recent_search_history";
+    private static final String RECENT_SEARCH_REPLACE_STRING = "text_search_view_holder__recent_search_replace_history";
     private static final int MAX_RECENT_ITEMS = 10;
 
     private HighlightingEditor editText;

@@ -3,6 +3,8 @@ package net.gsantner.markor.frontend.textsearch;
 import android.text.Editable;
 import android.widget.EditText;
 
+import androidx.appcompat.app.AppCompatDelegate;
+
 import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.frontend.textview.SyntaxHighlighterBase;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
@@ -22,6 +24,8 @@ public class TextSearchHandler {
     private boolean useRegex = false;
     private boolean findInSelection = false;
     private boolean preserveCase = false;
+    private int selectionStart;
+    private int selectionEnd;
 
     private SearchResultChangedListener resultChangedListener;
 
@@ -83,10 +87,10 @@ public class TextSearchHandler {
 
         matcher = null;
         if (isFindInSelection()) {
-            if (selection.isSelected()) {
-                CharSequence subCharSequence = editable.subSequence(selection.getStart(), selection.getEnd());
+            if (isSearchSelectionActive()) {
+                CharSequence subCharSequence = editable.subSequence(selectionStart, selectionEnd);
                 matcher = pattern.matcher(subCharSequence);
-                loadMatches(matcher, selection.getStart());
+                loadMatches(matcher, selectionStart);
             }
         } else {
             matcher = pattern.matcher(editable);
@@ -376,31 +380,25 @@ public class TextSearchHandler {
             return;
         }
 
-        // Replace all
+        final TextViewUtils.ChunkedEditable text = TextViewUtils.ChunkedEditable.wrap(editable);
         if (isPreserveCase()) {
-            final StringBuilder result = new StringBuilder(editable);
-            final int tail = matches.size() - 1;
-            int i = tail;
-            for (; i >= 0; i--) {
+            for (int i = matches.size() - 1; i >= 0; i--) {
                 Match match = matches.get(i);
                 final int start = match.getStart();
                 final int end = match.getEnd();
                 String originalText = editable.subSequence(start, end).toString();
-                result.replace(start, end, applyPreserveCase(originalText, replacement));
-            }
-
-            if (i < tail) {
-                editable.replace(0, editable.length(), result);
+                text.replace(start, end, applyPreserveCase(originalText, replacement));
             }
         } else {
             if (matcher != null) {
-                if (isFindInSelection() && selection.isSelected()) {
-                    editable.replace(selection.getStart(), selection.getEnd(), matcher.replaceAll(replacement));
+                if (isFindInSelection() && isSearchSelectionActive()) {
+                    text.replace(selectionStart, selectionEnd, matcher.replaceAll(getRegexReplacement(replacement)));
                 } else {
-                    editable.replace(0, editable.length(), matcher.replaceAll(replacement));
+                    text.replace(0, editable.length(), matcher.replaceAll(getRegexReplacement(replacement)));
                 }
             }
         }
+        text.applyChanges();
 
         // Clear
         matches.clear();
@@ -410,11 +408,13 @@ public class TextSearchHandler {
         currentIndex = 0;
     }
 
-    private final Selection selection = new Selection();
+    private String getRegexReplacement(String replacement) {
+        return isUseRegex() ? replacement : Matcher.quoteReplacement(replacement);
+    }
 
     private void markSelection(EditText editText, int start, int end, boolean setSelection) {
-        selection.setStart(start);
-        selection.setEnd(end);
+        selectionStart = start;
+        selectionEnd = end;
 
         if (editText.hasFocus() && setSelection) {
             editText.setSelection(end);
@@ -422,9 +422,10 @@ public class TextSearchHandler {
     }
 
     public void clearSearchSelection(HighlightingEditor editText, boolean force) {
-        if (editText != null && (force || selection.isSelected())) {
+        if (editText != null && (force || isSearchSelectionActive())) {
             editText.clearSearchSelection();
-            selection.reset();
+            selectionStart = 0;
+            selectionEnd = 0;
         }
     }
 
@@ -434,15 +435,16 @@ public class TextSearchHandler {
         }
         clearSearchSelection(editText, false);
 
-        selection.setStart(editText.getSelectionStart());
-        selection.setEnd(editText.getSelectionEnd());
-
         Editable editable = editText.getText();
-        if (selection.isSelected() && editable != null) {
+        final int[] selection = TextViewUtils.getSelection(editable);
+        selectionStart = selection[0];
+        selectionEnd = selection[1];
+
+        if (isSearchSelectionActive() && editable != null) {
             if (isFindInSelection()) {
-                editText.addSearchSelection(selection.getStart(), selection.getEnd(), selection.getColor());
+                editText.addSearchSelection(selectionStart, selectionEnd, getSearchSelectionColor());
             } else if (searchEditText != null) {
-                String target = editable.subSequence(selection.getStart(), selection.getEnd()).toString();
+                String target = editable.subSequence(selectionStart, selectionEnd).toString();
                 if (!target.isEmpty()) {
                     searchEditText.setText(target);
                 }
@@ -494,5 +496,13 @@ public class TextSearchHandler {
 
     public void setResultChangedListener(SearchResultChangedListener resultChangedListener) {
         this.resultChangedListener = resultChangedListener;
+    }
+
+    private boolean isSearchSelectionActive() {
+        return selectionStart != selectionEnd;
+    }
+
+    private int getSearchSelectionColor() {
+        return AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES ? 0x609090FF : 0x605050FF;
     }
 }
