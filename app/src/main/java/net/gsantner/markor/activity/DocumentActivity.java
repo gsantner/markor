@@ -77,8 +77,7 @@ public class DocumentActivity extends MarkorBaseActivity {
             }
         }
 
-        final String line = uri.getQueryParameter("line");
-        final Integer lineNumber = line != null ? GsTextUtils.tryParseInt(line, -1) : null;
+        final Integer lineNumber = parseLineQueryParameter(uri);
         final Boolean doPreview = GsTextUtils.tryParseBool(uri.getQueryParameter("view"));
         launch(activity, file, doPreview, lineNumber);
     }
@@ -221,10 +220,7 @@ public class DocumentActivity extends MarkorBaseActivity {
             if (intent.hasExtra(Document.EXTRA_FILE_LINE_NUMBER)) {
                 startLine = intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, -1);
             } else if (uri != null) {
-                final String line = uri.getQueryParameter("line");
-                if (line != null) {
-                    startLine = GsTextUtils.tryParseInt(line, -1);
-                }
+                startLine = parseLineQueryParameter(uri);
             }
 
             // Start in a specific mode if required. Otherwise let the fragment decide
@@ -301,6 +297,16 @@ public class DocumentActivity extends MarkorBaseActivity {
         return "http".equalsIgnoreCase(scheme)
                 && WEB_LINK_HOST.equalsIgnoreCase(host)
                 && WEB_LINK_PATH_OPEN.equals(uri.getPath());
+    }
+
+    private static Integer parseLineQueryParameter(final Uri uri) {
+        final String line = uri != null ? uri.getQueryParameter("line") : null;
+        if (line == null) {
+            return null;
+        }
+
+        final int lineNumber = GsTextUtils.tryParseInt(line, -1);
+        return lineNumber > 0 ? lineNumber - 1 : -1;
     }
 
     private boolean isDocumentAlreadyOpen(final Document doc) {

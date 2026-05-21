@@ -254,7 +254,12 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             // Must be called after HighlightingEditor reflow to prevent scroll position being reset
             int lastEditHeight = _appSettings.getLastEditHeight(_document.path, 0);
             int lastEditScrollY = _appSettings.getLastEditScrollY(_document.path, 0);
-            if (lastEditScrollY > 0 && lastEditHeight == _verticalScrollView.getHeight()) {
+            final Bundle args = getArguments();
+            if (args != null && args.containsKey(Document.EXTRA_FILE_LINE_NUMBER)) {
+                final int lineNumber = args.getInt(Document.EXTRA_FILE_LINE_NUMBER);
+                int selection = lineNumber >= 0 ? TextViewUtils.getIndexFromLineOffset(_hlEditor.getText(), lineNumber, 0) : _hlEditor.length();
+                TextViewUtils.setSelectionAndShow(_hlEditor, selection);
+            } else if (lastEditScrollY > 0 && lastEditHeight == _verticalScrollView.getHeight()) {
                 // Set scroll position by scroll Y if last scroll Y is valid
                 // This way is precise, not as imprecise as using line number
                 _hlEditor.postDelayed(() -> {
@@ -263,14 +268,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 }, 600);
             } else {
                 // Set scroll position by line number if last scroll Y is invalid
-                final Bundle args = getArguments();
-                if (args != null && args.containsKey(Document.EXTRA_FILE_LINE_NUMBER)) {
-                    final int lineNumber = args.getInt(Document.EXTRA_FILE_LINE_NUMBER);
-                    int selection = lineNumber >= 0 ? TextViewUtils.getIndexFromLineOffset(_hlEditor.getText(), lineNumber, 0) : _hlEditor.length();
-                    TextViewUtils.setSelectionAndShow(_hlEditor, selection);
-                } else {
-                    _hlEditor.requestFocus();
-                }
+                _hlEditor.requestFocus();
             }
         });
 
