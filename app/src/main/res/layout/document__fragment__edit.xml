@@ -19,14 +19,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="12dp"
+        android:layout_marginBottom="@dimen/text_actions_bar_height"
         android:orientation="vertical">
 
-        <!-- for text search fragment -->
+        <!-- for text search view -->
         <FrameLayout
             android:id="@+id/topViewContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="2.5dp" />
 
         <net.gsantner.markor.frontend.DraggableScrollbarScrollView
             android:id="@+id/document__fragment__edit__content_editor__scrolling_parent"
@@ -74,7 +75,7 @@
     <net.gsantner.opoc.frontend.GsHorizontalScrollView
         android:id="@+id/document__fragment__edit__text_actions_bar__scrolling_parent"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/textactions_bar_height"
+        android:layout_height="@dimen/text_actions_bar_height"
         android:layout_gravity="bottom"
         android:background="@color/background"
         android:elevation="4dp"
@@ -94,7 +95,7 @@
         android:id="@+id/document__fragment_webview_stub"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/textactions_bar_height"
+        android:layout_marginBottom="@dimen/text_actions_bar_height"
         android:layout="@layout/document__fragment_view" />
 
     <FrameLayout
