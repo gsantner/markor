@@ -38,6 +38,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Sdílet do&#8230;</string>
     <string name="share">Sdílet</string>
     <string name="search">Hledat</string>
+    <string name="previous_match">Předchozí shoda</string>
+    <string name="next_match">Další shoda</string>
     <string name="display_converted_markup">Zobrazit převedené značky</string>
     <string name="editor">Editor</string>
     <string name="folders">Složky</string>
@@ -68,6 +70,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">Schovat statusbar</string>
     <string name="name">Název</string>
     <string name="url_or_path">URL / Cesta</string>
+    <string name="insert_link">Vložit odkaz</string>
+    <string name="format_link">Formátovat odkaz</string>
     <string name="insert_image">Vložit obrázek</string>
     <string name="contributors">Spolupracovníci</string>
     <string name="save_location">Umístění pro ukládání</string>
@@ -113,6 +117,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_task">Přidat úkol</string>
     <string name="add_x_witharg">Přidat %s</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">Dokument, který má být nahrán a uložen jako \"%s\"</string>
+    <string name="save_or_not">Přejete si uložit provedené změny?</string>
+    <string name="reload_or_not">Zahodit změny a znovu načíst?</string>
     <string name="refresh">Obnovit</string>
     <string name="create_shortcut">Vytvořit zástupce</string>
     <string name="tried_to_create_shortcut_for_this_notice">Pokusili jsme se vytvořit zástupce na ploše. Poznámka: některé launchery to nemusí podporovat.</string>
@@ -120,6 +126,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_current_folder_do_copy__appspecific">Soubor není umístěn v aktuální složce. Chcete jej zkopírovat do aktuální složky? Tímto bude přepsán jakýkoliv existující soubor se stejným názvem.</string>
     <string name="files_and_folders">Soubory a složky</string>
     <string name="document_browser">prohlížeč dokumentů</string>
+    <string name="file_browser">Správce souborů</string>
     <string name="set_due_date">Nastavit termín dokončení</string>
     <string name="insert_replace_date">Vložit datum</string>
     <string name="create_note" needed="false">Vytvořit poznámku</string>
@@ -135,6 +142,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="main_view">Hlavní pohled</string>
     <string name="overall_theme_used_in_app">Celkové téma použité v aplikaci</string>
     <string name="remember_last_directory">Pamatuj si poslední složku</string>
+    <string name="syntax_highlighting">Zvýraznění syntaxe</string>
     <string name="highlighting_delay">Zpoždění zvýraznění</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Prodleva v milisekundách pro aktualizaci zvýraznění. Nižší hodnota začne zvýrazňovat dříve, ale bude vybíjet baterii a může zpomalit aplikaci na starších zařízeních.</string>
     <string name="highlighting_enabled_or_not__appspecific">Kontrolovat, zda zadaný text by měl být zvýrazněn, nebo ne</string>
@@ -172,7 +180,23 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="sort_tasks_by_selected_order">Řadit úkoly podle zvoleného pořadí</string>
     <string name="special_key">Speciální klíč</string>
     <string name="asciidoc_special_key">Speciální AsciiDoc Obsah</string>
+    <string name="key_page_up">O stránku nahoru (PgUp)</string>
+    <string name="key_page_down">O stránku dolů (PgDn)</string>
+    <string name="key_pos_1">Začátek řádku (Home)</string>
+    <string name="key_pos_end">Konec řádku (End)</string>
+    <string name="key_pos_1_document">Začátek dokumentu (Alt + ↑)</string>
+    <string name="key_pos_end_document">Konec dokumentu (Alt + ↓)</string>
+    <string name="jump_to_cursor">Přejít na kurzor</string>
+    <string name="duplicate_hotkey">Duplikovat (Ctrl + D)</string>
+    <string name="move_text_one_line_up">O řádek nahoru (Ctrl + ↑)</string>
+    <string name="move_text_one_line_down">O řádek dolů (Ctrl + ↓)</string>
+    <string name="go_to_line_hotkey">Přejít na řádek (Ctrl + G)</string>
+    <string name="start_new_line_below">Nový řádek (Shift + Enter)</string>
+    <string name="select_current_line">Vybrat aktuální řádek (Ctrl + L)</string>
+    <string name="select_lines_hotkey">Vybrat řádky (Ctrl + Alt + L)</string>
     <string name="key_ctrl_a">Vyberte všechny (Ctrl+A)</string>
+    <string name="key_tab">Tabulátor (Tab)</string>
+    <string name="zero_width_space">Mezera s nulovou šířkou (&amp;#8203;)</string>
     <string name="start_on_bottom">Začněme u dna</string>
     <string name="start_on_bottom_when_loading_document">Po načtení dokumentu umístit kurzor na konec souboru</string>
     <string name="unordered_list_character">Znak nečíslovaného seznamu</string>
