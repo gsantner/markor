@@ -12,6 +12,7 @@ package net.gsantner.opoc.frontend.filebrowser;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.FileObserver;
 import android.os.Parcelable;
 import android.text.Spannable;
 import android.text.Spanned;
@@ -37,6 +38,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.opoc.util.GsCollectionUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
@@ -99,6 +101,11 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     private final Stack<File> _backStack = new Stack<>();
     private final int _userId = getUserId();
     private long _prevModSum = 0;
+    private static final int FOLDER_OBSERVER_MASK =
+            FileObserver.CREATE | FileObserver.DELETE | FileObserver.MOVED_FROM
+                    | FileObserver.MOVED_TO | FileObserver.MODIFY;
+    private FileObserver _folderObserver;
+    private final Runnable _folderReloadDebounced = TextViewUtils.makeDebounced(300, this::reloadCurrentFolder);
 
     //########################
     //## Methods
@@ -278,6 +285,37 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         _recyclerView = view;
         _layoutManager = (LinearLayoutManager) view.getLayoutManager();
         reloadCurrentFolder();
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(@NonNull final RecyclerView view) {
+        stopFolderObserver();
+        super.onDetachedFromRecyclerView(view);
+    }
+
+    private void rebindFolderObserver() {
+        stopFolderObserver();
+        final File folder = _currentFolder;
+        if (folder == null || !folder.isDirectory() || !folder.canRead()) {
+            return;
+        }
+        _folderObserver = new FileObserver(folder.getAbsolutePath(), FOLDER_OBSERVER_MASK) {
+            @Override
+            public void onEvent(int event, @Nullable String path) {
+                if (path == null) {
+                    return;
+                }
+                _folderReloadDebounced.run();
+            }
+        };
+        _folderObserver.startWatching();
+    }
+
+    private void stopFolderObserver() {
+        if (_folderObserver != null) {
+            _folderObserver.stopWatching();
+            _folderObserver = null;
+        }
     }
 
     public String formatFileDescription(final File file, String format) {
@@ -664,6 +702,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
         if (folderChanged) {
             _currentSelection.clear();
+            rebindFolderObserver();
         }
 
         _dopt.listener.onFsViewerFolderLoad(_currentFolder);
