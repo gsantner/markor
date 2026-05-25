@@ -79,6 +79,9 @@ public class HighlightingEditor extends AppCompatEditText {
     private int _textChangedNumber;
     private final Runnable _textChangedRecorder = TextViewUtils.makeDebounced(getHandler(), 1000, () -> _textChangedNumber++);
     private StaticCursorDrawer _staticCursorDrawer;
+    private GsCallback.r0<int[]> _getScrollCallback;
+    private GsCallback.a2<Integer, Integer> _applyScrollCallback;
+    private int[] _savedScrollPosition;
 
     public HighlightingEditor(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -138,17 +141,27 @@ public class HighlightingEditor extends AppCompatEditText {
             beginBatchEdit();
             runnable.run();
         } finally {
-            endBatchEdit(); // This triggers a reflow which will bring focus back to the cursor and reset scroll position
-            if (reflowCallback != null) {
-                reflowCallback.callback();
-            }
+            endBatchEdit(); // This can trigger reflow which will bring focus back to the cursor and reset scroll position
         }
     }
 
-    private GsCallback.a0 reflowCallback;
+    public void setScrollCallbacks(final GsCallback.r0<int[]> get, final GsCallback.a2<Integer, Integer> apply) {
+        _getScrollCallback = get;
+        _applyScrollCallback = apply;
+    }
 
-    public void setReflowCallback(GsCallback.a0 callback) {
-        this.reflowCallback = callback;
+    private void saveScrollPositionForLayout() {
+        if (_savedScrollPosition == null && _getScrollCallback != null) {
+            _savedScrollPosition = _getScrollCallback.callback();
+        }
+    }
+
+    private void applySavedScrollPosition() {
+        final int[] position = _savedScrollPosition;
+        _savedScrollPosition = null;
+        if (position != null && position.length >= 2 && _applyScrollCallback != null) {
+            _applyScrollCallback.callback(position[0], position[1]);
+        }
     }
 
     private boolean isScrollSignificant() {
@@ -177,6 +190,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
     public void recomputeHighlighting() {
         if (_hlEnabled && runHighlight(true)) {
+            this.saveScrollPositionForLayout();
             batch(() -> _hl
                     .clearDynamic()
                     .clearStatic(false)
@@ -185,6 +199,7 @@ public class HighlightingEditor extends AppCompatEditText {
                     .applyStatic()
                     .applyDynamic(hlRegion())
             );
+            this.applySavedScrollPosition();
         }
     }
 
