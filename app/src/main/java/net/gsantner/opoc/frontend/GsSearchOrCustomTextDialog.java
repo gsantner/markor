@@ -54,10 +54,8 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.graphics.ColorUtils;
-import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.core.widget.TextViewCompat;
 
 import net.gsantner.markor.R;

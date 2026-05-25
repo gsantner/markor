@@ -19,7 +19,7 @@ public class AlphanumComparator implements Comparator<String> {
      * Find the end of a chunk starting at the given index. A chunk is either a sequence of digits
      * or a sequence of non-digits.
      *
-     * @param s The string to scan
+     * @param s     The string to scan
      * @param index The index to start scanning from
      * @return The index of the first character not belonging to the chunk
      */
@@ -37,9 +37,9 @@ public class AlphanumComparator implements Comparator<String> {
      * Count the number of leading zeros in a numeric chunk, leaving at least one significant digit.
      * For example, "001" has 2 leading zeros, and '0' is the single remaining.
      *
-     * @param s The string containing the chunk
+     * @param s     The string containing the chunk
      * @param start The start index of the numeric chunk
-     * @param end The end index of the numeric chunk
+     * @param end   The end index of the numeric chunk
      * @return The number of leading zeros that can be ignored for numeric comparison
      */
     private static int countLeadingZeros(String s, int start, int end) {
@@ -56,12 +56,12 @@ public class AlphanumComparator implements Comparator<String> {
      * Compares two regions of strings for order, optionally ignoring case. Mimics String.compareTo
      * and String.compareToIgnoreCase without allocations.
      *
-     * @param s1 First string
-     * @param start1 Start index in s1
-     * @param end1 End index in s1
-     * @param s2 Second string
-     * @param start2 Start index in s2
-     * @param end2 End index in s2
+     * @param s1         First string
+     * @param start1     Start index in s1
+     * @param end1       End index in s1
+     * @param s2         Second string
+     * @param start2     Start index in s2
+     * @param end2       End index in s2
      * @param ignoreCase Whether to perform case-insensitive comparison
      * @return Negative if s1 region < s2 region, positive if >, zero if equal
      */
