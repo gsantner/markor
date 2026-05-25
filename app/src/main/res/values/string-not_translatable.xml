@@ -379,6 +379,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__view_font_size" translatable="false">pref_key__view_font_size</string>
     <string name="pref_key__view_mode_link_color" translatable="false">pref_key__view_mode_link_color</string>
     <string name="pref_key__open_links_with_chrome_custom_tabs" translatable="false">pref_key__open_links_with_chrome_custom_tabs</string>
+    <string name="pref_key__request_external_storage" translatable="false">pref_key__request_external_storage</string>
     <string name="features" translatable="false">Features</string>
     <string name="chrome_custom_tabs" translatable="false">Chrome Custom Tabs</string>
     <string name="asciidoc" translatable="false">AsciiDoc</string>

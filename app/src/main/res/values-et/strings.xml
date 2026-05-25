@@ -174,15 +174,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="sort_tasks_by_selected_order">Järjesta ülesanded valitud järjekorda</string>
     <string name="special_key">Eriklahvid</string>
     <string name="asciidoc_special_key">Eriline AsciiDoc sisu</string>
-    <string name="key_page_up">Eelmine lehekülg(Page Up)</string>
-    <string name="key_page_down">Järgmine lehekülg (Page Down)</string>
-    <string name="key_pos_1">Rea algus(Pos Home)</string>
-    <string name="key_pos_end">Rea lõpp(Pos End)</string>
-    <string name="key_pos_1_document">Kirjutise algus</string>
-    <string name="key_pos_end_document">Kirjutise lõpp</string>
     <string name="key_ctrl_a">Vali kõik (Ctrl+A)</string>
-    <string name="key_tab">Tabeldaja</string>
-    <string name="zero_width_space">Ruumi raiskamata</string>
     <string name="start_on_bottom">Alusta lõpus</string>
     <string name="start_on_bottom_when_loading_document">Kirjutist laadides jääb osuti selle lõppu</string>
     <string name="unordered_list_character">Korrastamata nimekirja tähis</string>
