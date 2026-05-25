@@ -382,9 +382,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_results">Нет результатов</string>
     <string name="bad_pattern">Неверный шаблон</string>
     <string name="toggle_find_replace">Переключить режим поиска/замены</string>
+    <string name="new_line">Новая строка</string>
     <string name="match_case">Учитывать регистр</string>
     <string name="match_whole_word">Учитывать всё слово</string>
     <string name="use_regular_expression">Используйте регулярное выражение</string>
+    <string name="find_in_selection">Найти выбранное</string>
     <string name="preserve_case">Сохранить дело</string>
     <string name="file_encryption_password">Пароль шифрования файла</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Пароль не установлен, не могу зашифровать или расшифровать.\nПерейдите в Настройки -&gt; Общие -&gt; Пароль для установки пароля.</string>
