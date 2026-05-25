@@ -10,9 +10,6 @@
 package net.gsantner.opoc.frontend.filebrowser;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Parcelable;
@@ -270,11 +267,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         holder.itemRoot.setTag(new TagContainer(displayFile, position));
         holder.itemRoot.setOnClickListener(this);
         holder.itemRoot.setOnLongClickListener(this);
-
-        final Drawable drawable = holder.itemView.getBackground();
-        if (drawable != null && ((ColorDrawable) drawable).getColor() == Color.LTGRAY) {
-            holder.itemView.setBackgroundColor(Color.TRANSPARENT); // Clear highlight
-        }
     }
 
     @Override
@@ -631,7 +623,8 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                     _recyclerView.postDelayed(() -> {
                         final RecyclerView.ViewHolder holder = _recyclerView.findViewHolderForLayoutPosition(pos);
                         if (holder != null) {
-                            GsContextUtils.blinkView(holder.itemView);
+                            GsContextUtils.blinkView2(holder.itemView);
+                            holder.itemView.requestFocus();
                         }
                     }, 400));
             return true;
@@ -777,11 +770,12 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         }
     }
 
-    private boolean canWrite(File file) {
-        if (file != null) {
-            return file.canWrite() || (_dopt.mountedStorageFolder != null && file.getAbsolutePath().startsWith(_dopt.mountedStorageFolder.getAbsolutePath()));
-        }
-        return false;
+    public boolean canWrite(final File file) {
+        return canWrite(file, _dopt.mountedStorageFolder);
+    }
+
+    public static boolean canWrite(final File file, final File mountedStorageFolder) {
+        return file != null && (file.canWrite() || file.equals(mountedStorageFolder) || GsFileUtils.isChild(mountedStorageFolder, file));
     }
 
     public boolean accept(File file) {

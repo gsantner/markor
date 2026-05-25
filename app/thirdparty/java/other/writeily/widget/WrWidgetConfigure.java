@@ -16,7 +16,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.FragmentManager;
 
-import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.MarkorBaseActivity;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;

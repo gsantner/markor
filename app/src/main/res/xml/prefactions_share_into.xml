@@ -51,6 +51,4 @@
         android:key="@string/pref_key__share_into__calendar_event"
         android:title="@string/calendar" />
 
-
-
 </PreferenceScreen> <!-- Screen -->

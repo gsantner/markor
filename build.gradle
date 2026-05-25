@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat
 
 buildscript {
     ext {
-        version_gradle_tools = '8.13.1'
+        version_gradle_tools = '8.13.2'
         version_plugin_kotlin = "1.3.72"
         enable_plugin_kotlin = false
 
@@ -96,7 +96,7 @@ ext.getGitHash = providers.exec {
 
 ext.getGitLastCommitMessage = providers.exec {
     commandLine('git', 'log', '--oneline', '-1', '--format=%s')
-}.standardOutput.asText.get().trim()
+}.standardOutput.asText.get().trim().replaceAll("\"", "\\\\\"")
 
 @SuppressWarnings(["UnnecessaryQualifiedReference", "SpellCheckingInspection", "GroovyUnusedDeclaration"])
 // Returns the build date in a RFC3339 compatible format. TZ is always converted to UTC

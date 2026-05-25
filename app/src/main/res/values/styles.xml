@@ -22,9 +22,11 @@
         <item name="windowActionBar">false</item>
         <item name="android:actionButtonStyle">@style/LessSpaceActionButtonStyle</item>
         <item name="preferenceTheme">@style/AppTheme.PreferenceTheme</item>
-        <item name="colorPrimaryDark">@color/primary_dark</item>
-        <item name="android:actionModeBackground">@color/primary_dark</item>
-        <item name="actionModeBackground">@color/primary_dark</item>
+        <item name="dialogTheme">@style/Theme.AppCompat.DayNight.Dialog.Rounded</item>
+        <item name="alertDialogTheme">@style/Theme.AppCompat.DayNight.Dialog.Rounded</item>
+        <item name="colorPrimaryDark">@color/dark__background</item>
+        <item name="android:actionModeBackground">@color/dark__background</item>
+        <item name="actionModeBackground">@color/dark__background</item>
         <item name="colorPrimary">@color/primary</item>
         <item name="colorAccent">@color/accent</item>
         <item name="android:windowBackground">@color/background</item>
@@ -43,7 +45,7 @@
         <item name="android:dialogCornerRadius" tools:targetApi="p">@dimen/dialog_corner_radius</item>
 
         <!-- android-35 Disable window size overlap -->
-        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement" tools:targetApi="35">true</item>
     </style>
 
     <style name="AppTheme.PreferenceTheme" parent="PreferenceThemeOverlay.v14.Material">
@@ -55,12 +57,13 @@
     </style>
 
     <style name="LightTextToolbarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-        <item name="android:actionModeBackground">@color/primary_dark</item>
-        <item name="actionModeBackground">@color/primary_dark</item>
+        <item name="android:actionModeBackground">@color/primary</item>
+        <item name="actionModeBackground">@color/primary</item>
 
-        <item name="android:textColorPrimary">@android:color/white</item>
-        <item name="actionMenuTextColor">@android:color/white</item>
-        <item name="android:textColorSecondary">@android:color/white</item>
+        <item name="android:textColorPrimary">@color/dark__primary_text</item>
+        <item name="android:actionMenuTextColor">@color/dark__primary_text</item>
+        <item name="actionMenuTextColor">@color/dark__primary_text</item>
+        <item name="android:textColorSecondary">@color/dark__secondary_text</item>
     </style>
 
     <style name="AppTheme.Light.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -77,6 +80,9 @@
     <style name="Theme.AppCompat.DayNight.Dialog.Rounded" parent="Theme.AppCompat.DayNight.Dialog">
         <item name="dialogCornerRadius">@dimen/dialog_corner_radius</item>
         <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowBackground">@drawable/rounded_corner_background</item>
+        <item name="android:textColorPrimary">@color/primary_text</item>
+        <item name="android:textColorSecondary">@color/secondary_text</item>
         <item name="colorAccent">@color/accent</item>
     </style>
 </resources>

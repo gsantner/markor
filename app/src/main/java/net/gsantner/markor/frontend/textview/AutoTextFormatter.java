@@ -41,6 +41,9 @@ public class AutoTextFormatter implements InputFilter {
     }
 
     private CharSequence autoIndent(final CharSequence source, final CharSequence dest, final int dstart, final int dend) {
+        if (dest.length() == 0) {
+            return null;
+        }
 
         final OrderedListLine oLine = new OrderedListLine(dest, dstart, _patterns);
         final UnOrderedOrCheckListLine uLine = new UnOrderedOrCheckListLine(dest, dstart, _patterns);

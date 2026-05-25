@@ -103,7 +103,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/widget_header"
-        android:background="@color/background_2">
+        android:background="@color/background">
 
         <TextView
             android:id="@+id/widget_empty_hint"

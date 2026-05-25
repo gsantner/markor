@@ -84,7 +84,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help">Axuda</string>
     <string name="main_view">Vista principal</string>
     <string name="remember_last_directory">Lembrar o último cartafol</string>
-    <string name="syntax_highlighting">Realzado de sintaxe</string>
     <string name="highlighting_delay">Aprazamento do realzado de sintaxe</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Tempo en milisegundos para o refresco do resaltado de sintaxe. Un valor mais baixo fará que o resaltado empeze antes, pero consumirá a batería e pode ralentizar a aplicación en dispositivos vellos.</string>
     <string name="highlighting_enabled_or_not__appspecific">Controla se o texto introducido debe resaltarse ou non</string>

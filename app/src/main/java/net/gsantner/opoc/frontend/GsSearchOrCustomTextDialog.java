@@ -17,6 +17,8 @@ import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.RippleDrawable;
 import android.os.Build;
 import android.os.Parcelable;
 import android.text.InputFilter;
@@ -48,11 +50,16 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.TooltipCompat;
+import androidx.core.graphics.ColorUtils;
+import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.widget.TextViewCompat;
 
+import net.gsantner.markor.R;
+import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.opoc.util.GsCollectionUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
@@ -95,6 +102,8 @@ public class GsSearchOrCustomTextDialog {
          */
         @Nullable
         public GsCallback.a1<Integer> longPressCallback = null;
+
+        public boolean longPressEnabled = true;
 
         public enum SelectionMode {
             SINGLE, MULTIPLE, NONE
@@ -149,7 +158,7 @@ public class GsSearchOrCustomTextDialog {
         /**
          * Initial state of the dialog. Will be updated when the dialog is dismissed.
          */
-        public final DialogState state = new DialogState();
+        public DialogState state = new DialogState();
 
         /**
          * Reference to the dialog. Will be updated when the dialog is created.
@@ -158,15 +167,14 @@ public class GsSearchOrCustomTextDialog {
     }
 
     public static class DialogState {
-        public int listPosition = -1;
+        private Parcelable listState;
+        public int listPosition;
         public String searchText = "";
 
-        private Parcelable listState = null;
-
         public void copyFrom(final DialogState other) {
+            listState = other.listState;
             listPosition = other.listPosition;
             searchText = other.searchText;
-            listState = other.listState;
         }
     }
 
@@ -236,7 +244,7 @@ public class GsSearchOrCustomTextDialog {
                 textView.setCompoundDrawablesWithIntrinsicBounds(_dopt.iconsForData.get(index), 0, 0, 0);
                 textView.setCompoundDrawablePadding(32);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    TextViewCompat.setCompoundDrawableTintList(textView, ColorStateList.valueOf(_dopt.isDarkDialog ? Color.WHITE : Color.BLACK));
+                    TextViewCompat.setCompoundDrawableTintList(textView, ColorStateList.valueOf(_dopt.textColor));
                 }
             } else {
                 textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
@@ -261,7 +269,7 @@ public class GsSearchOrCustomTextDialog {
         }
 
         public void filter(final CharSequence searchText) {
-            _lastConstraint = searchText.toString().trim();
+            _lastConstraint = searchText.toString();
 
             if (_dopt.data != null) {
                 _filteredItems.clear();
@@ -333,19 +341,22 @@ public class GsSearchOrCustomTextDialog {
         final ListView listView = new ListView(activity);
         listView.setId(LIST_VIEW_ID);
         listView.setAdapter(listAdapter);
+        listView.setDivider(new ColorDrawable(Color.TRANSPARENT));
+        listView.setDividerHeight(GsContextUtils.instance.convertDpToPx(activity, 8));
 
-        if (dopt.state.listState != null) {
+        if (dopt.state.listState == null) {
+            if (dopt.state.listPosition > 0) {
+                listView.setSelection(dopt.state.listPosition);
+            }
+        } else {
             listView.onRestoreInstanceState(dopt.state.listState);
         }
 
-        if (dopt.state.listPosition >= 0) {
-            listView.setSelection(dopt.state.listPosition);
-        }
-
+        // Call back on dialog dismiss
         final GsCallback.a0 updateState = () -> {
             dopt.state.searchText = searchEditText.getText().toString();
-            dopt.state.listPosition = listView.getFirstVisiblePosition();
             dopt.state.listState = listView.onSaveInstanceState();
+            dopt.state.listPosition = listView.getFirstVisiblePosition();
         };
 
         listView.setVisibility(dopt.data != null && !dopt.data.isEmpty() ? View.VISIBLE : View.GONE);
@@ -374,10 +385,15 @@ public class GsSearchOrCustomTextDialog {
             }
         };
 
-        searchEditText.addTextChangedListener(GsTextWatcherAdapter.after((constraint) -> {
-            listAdapter.filter(constraint);
+        // Filter when the user stops typing if the list is long
+        final Runnable _filterList = () -> {
+            listAdapter.filter(searchEditText.getText());
             setSelectAllButtonState.callback();
-        }));
+        };
+        final Runnable _changeListener = dopt.data == null || dopt.data.size() < 1000 ?
+                _filterList :
+                TextViewUtils.makeDebounced(searchEditText.getHandler(), 400, _filterList);
+        searchEditText.addTextChangedListener(GsTextWatcherAdapter.after(e -> _changeListener.run()));
 
         // Ok button only present under these circumstances
         final boolean isSearchOk = dopt.callback != null && dopt.isSearchEnabled;
@@ -411,9 +427,23 @@ public class GsSearchOrCustomTextDialog {
             return false;
         });
 
+        dialog.show();
+
         final Window win = dialog.getWindow();
         if (win != null) {
             WindowCompat.setDecorFitsSystemWindows(win, true);
+
+            win.setLayout(
+                    dopt.dialogWidthDp < 0 ? dopt.dialogWidthDp : GsContextUtils.instance.convertDpToPx(activity, dopt.dialogWidthDp),
+                    dopt.dialogHeightDp < 0 ? dopt.dialogHeightDp : GsContextUtils.instance.convertDpToPx(activity, dopt.dialogHeightDp)
+            );
+
+            final View decorView = win.getDecorView();
+            ViewCompat.setOnApplyWindowInsetsListener(decorView, (view, insets) -> {
+                decorView.requestLayout();
+                listView.post(listView::requestLayout);
+                return insets;
+            });
 
             if (dopt.isSearchEnabled) {
                 if (dopt.isSoftInputVisible) {
@@ -426,20 +456,14 @@ public class GsSearchOrCustomTextDialog {
             }
         }
 
-        dialog.show();
-
-        if (win != null) {
-            win.setLayout(
-                    dopt.dialogWidthDp < 0 ? dopt.dialogWidthDp : GsContextUtils.instance.convertDpToPx(activity, dopt.dialogWidthDp),
-                    dopt.dialogHeightDp < 0 ? dopt.dialogHeightDp : GsContextUtils.instance.convertDpToPx(activity, dopt.dialogHeightDp)
-            );
-        }
-
         final Button neutralButton = dialog.getButton(AlertDialog.BUTTON_NEUTRAL);
-        if (neutralButton != null && dopt.neutralButtonText != 0 && dopt.neutralButtonCallback != null) {
+        if (neutralButton != null && dopt.neutralButtonText != 0) {
             neutralButton.setVisibility(Button.VISIBLE);
             neutralButton.setText(dopt.neutralButtonText);
-            neutralButton.setOnClickListener((button) -> dopt.neutralButtonCallback.callback(dialog));
+
+            if (dopt.neutralButtonCallback != null) {
+                neutralButton.setOnClickListener((button) -> dopt.neutralButtonCallback.callback(dialog));
+            }
         }
 
         if (dopt.state.searchText != null) {
@@ -458,6 +482,10 @@ public class GsSearchOrCustomTextDialog {
                 }
             }
         };
+
+        if (okButton != null && !dopt.isSearchEnabled) {
+            okButton.requestFocus();
+        }
 
         // Set ok button text initially
         setOkButtonState.callback();
@@ -520,7 +548,9 @@ public class GsSearchOrCustomTextDialog {
                 }
             });
 
-            listView.setOnItemLongClickListener((parent, view, pos, id) -> directActivate.callback(pos, true));
+            if (dopt.longPressEnabled) {
+                listView.setOnItemLongClickListener((parent, view, pos, id) -> directActivate.callback(pos, true));
+            }
         }
     }
 
@@ -605,7 +635,7 @@ public class GsSearchOrCustomTextDialog {
         searchEditText.setText(dopt.state.searchText);
         searchEditText.setSingleLine(true);
         searchEditText.setTextColor(dopt.textColor);
-        searchEditText.setHintTextColor((dopt.textColor & 0x00FFFFFF) | 0x99000000);
+        searchEditText.setHintTextColor(ColorUtils.setAlphaComponent(dopt.textColor, 0x99));
         searchEditText.setHint(dopt.searchHintText);
         searchEditText.setInputType(dopt.searchInputType == 0 ? searchEditText.getInputType() : dopt.searchInputType);
         searchEditText.setTag("EDIT"); // So we can easily find the search edit text
@@ -614,11 +644,16 @@ public class GsSearchOrCustomTextDialog {
         editLp.gravity = Gravity.START | Gravity.BOTTOM;
         searchLayout.addView(searchEditText, editLp);
 
-        // 'Button to clear the search box'
+        // Button to clear the search box
         final ImageView clearButton = new ImageView(context);
         clearButton.setImageResource(dopt.clearInputIcon);
-        TooltipCompat.setTooltipText(clearButton, context.getString(android.R.string.cancel));
-        clearButton.setColorFilter(dopt.isDarkDialog ? Color.WHITE : Color.parseColor("#ff505050"));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            final RippleDrawable rippleDrawable = new RippleDrawable(AppCompatResources.getColorStateList(context, R.color.accent), null, null);
+            rippleDrawable.setRadius(60);
+            clearButton.setBackground(rippleDrawable);
+        }
+        TooltipCompat.setTooltipText(clearButton, context.getString(R.string.clear));
+        clearButton.setColorFilter(dopt.textColor);
         clearButton.setOnClickListener((v) -> searchEditText.setText(""));
         clearButton.setPadding(margin, 0, margin, 0);
 

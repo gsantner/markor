@@ -9,10 +9,10 @@ package net.gsantner.markor.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -26,6 +26,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
@@ -33,6 +34,7 @@ import androidx.core.widget.CompoundButtonCompat;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceGroup;
+import androidx.recyclerview.widget.RecyclerView;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.FormatRegistry;
@@ -138,8 +140,9 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             checkBox = new CheckBox(activity);
             checkBox.setText(R.string.format_link);
             checkBox.setTag(CHECKBOX_TAG);
-            CompoundButtonCompat.setButtonTintList(checkBox, ColorStateList.valueOf(Color.WHITE));
-            checkBox.setTextColor(Color.WHITE);
+            final @ColorInt int color = _cu.rcolor(activity, R.color.dark__primary_text);
+            CompoundButtonCompat.setButtonTintList(checkBox, ColorStateList.valueOf(color));
+            checkBox.setTextColor(color);
             checkBox.setLayoutDirection(CheckBox.LAYOUT_DIRECTION_RTL);
 
             final Toolbar.LayoutParams layoutParams = new Toolbar.LayoutParams(
@@ -189,7 +192,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
 
         @Override
         public boolean isDividerVisible() {
-            return true;
+            return false;
         }
 
         public ShareIntoImportOptionsFragment setAttachment(File file) {
@@ -245,6 +248,24 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             final Preference mrd = findPreference(R.string.pref_key__share_into__most_recent_document);
             mrd.setVisible(mostRecentFile != null);
             mrd.setTitle(mostRecentFile != null ? mostRecentFile.getName() : "");
+
+            shadeOptions();
+        }
+
+        private void shadeOptions() {
+            final RecyclerView list = getListView();
+            final Context context = getContext();
+            if (_editor == null || list == null || context == null) {
+                return;
+            }
+
+            final @ColorInt int color = _cu.rcolor(getContext(), R.color.background);
+            for (int i = 0; i < list.getChildCount(); i++) {
+                final View view = list.getChildAt(i);
+                if (view != null) {
+                    view.setBackgroundColor(color);
+                }
+            }
         }
 
         private boolean shareAsLink() {
@@ -300,7 +321,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                 _appSettings.addRecentFile(dest);
 
                 // Only if not forced link due to attachment
-                if (attachment == null) {
+                if (attachment == null && _linkCheckBox != null && _linkCheckBox.getVisibility() == View.VISIBLE) {
                     _appSettings.setFormatShareAsLink(asLink);
                 }
 
@@ -427,6 +448,11 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             return TextUtils.join("", parts);
         }
 
+        private boolean isValidTargetFolder(final @Nullable GsFileBrowserOptions.Options dopt, final @Nullable File folder) {
+            return folder != null && !GsFileBrowserListAdapter.isVirtualFolder(folder)
+                    && GsFileBrowserListAdapter.canWrite(folder, dopt != null ? dopt.mountedStorageFolder : null);
+        }
+
         private void selectOrCreateDestination(final @Nullable File startFolder) {
             MarkorFileBrowserFactory.showFileDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
                 GsFileBrowserOptions.Options _dopt = null;
@@ -458,6 +484,33 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                 }
 
                 @Override
+                public void onFsViewerDoUiUpdate(final GsFileBrowserListAdapter adapter) {
+                    final File currentFolder = adapter.getCurrentFolder();
+                    final boolean isVirtualFolder = GsFileBrowserListAdapter.isVirtualFolder(currentFolder);
+                    final boolean isWriteableFolder = GsFileBrowserListAdapter.canWrite(currentFolder, _dopt != null ? _dopt.mountedStorageFolder : null);
+                    final boolean validTargetFolder = !isVirtualFolder && isWriteableFolder;
+                    if (_dopt != null && _dopt.dialogInterface instanceof Dialog) {
+                        final Dialog dialog = (Dialog) _dopt.dialogInterface;
+                        final View createButton = dialog.findViewById(R.id.ui__filesystem_dialog__button_ok);
+                        final View saveButton = dialog.findViewById(R.id.ui__filesystem_dialog__button_neutral);
+                        final View newDirButton = dialog.findViewById(R.id.ui__filesystem_dialog__new_dir);
+
+                        if (createButton != null) {
+                            createButton.setEnabled(validTargetFolder);
+                            createButton.setVisibility(validTargetFolder ? View.VISIBLE : View.GONE);
+                        }
+                        if (saveButton != null) {
+                            saveButton.setEnabled(true);
+                            saveButton.setAlpha(validTargetFolder ? 1f : 0.5f);
+                        }
+                        if (newDirButton != null) {
+                            newDirButton.setEnabled(validTargetFolder);
+                            newDirButton.setVisibility(validTargetFolder ? View.VISIBLE : View.GONE);
+                        }
+                    }
+                }
+
+                @Override
                 public void onFsViewerCancel(final String request) {
                     // Will cause the dialog to dismiss after this callback
                     _dopt.dismissAfterCallback = true;
@@ -465,7 +518,11 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
 
                 @Override
                 public void onFsViewerNeutralButtonPressed(final File currentFolder) {
-                    attachOrCopyAndClose(currentFolder, true);
+                    if (isValidTargetFolder(_dopt, currentFolder)) {
+                        attachOrCopyAndClose(currentFolder, true);
+                    } else {
+                        Toast.makeText(getActivity(), "❌", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }, getParentFragmentManager(), getActivity(), MarkorFileBrowserFactory.IsMimeText);
         }

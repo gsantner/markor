@@ -117,7 +117,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_current_folder_do_copy__appspecific">Tệp được chọn không nằm trong thư mục này. Bạn có muốn sao chép? Hành động này sẽ ghi đè dữ liệu lên các tệp trùng tên.</string>
     <string name="files_and_folders">Tệp và cặp</string>
     <string name="document_browser">Trình duyệt tài liệu</string>
-    <string name="file_browser">Trình duyệt tệp tin</string>
     <string name="set_due_date">Đặt thời hạn</string>
     <string name="insert_replace_date">Nhập thời gian</string>
     <string name="create_note" needed="false">Tạo ghi chú</string>
@@ -131,7 +130,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="number_of_files_witharg" needed="false">Số lượng tệp: %d</string>
     <string name="main_view">Mục hiển thị chính</string>
     <string name="remember_last_directory">Nhớ đường dẫn sau cùng</string>
-    <string name="syntax_highlighting">Đánh dấu cú pháp</string>
     <string name="highlighting_delay">Đánh dấu độ trễ</string>
     <string name="highlighting_enabled_or_not__appspecific">Tùy chọn đánh dấu văn bản</string>
     <string name="control_font_size_in_editor">Chọn kích cỡ phông chữ bằng bộ tùy chỉnh</string>

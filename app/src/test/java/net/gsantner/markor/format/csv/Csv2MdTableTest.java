@@ -52,7 +52,7 @@ public class Csv2MdTableTest {
                 "|:---|:---|:---|\n" +
                 "|1|2|3|";
 
-        // use "," instead of ";" as seperator
+        // use "," instead of ";" as separator
         // use -'- instead of -"- as quote char
         String csv = "'col1',col2,col3\n" +
                 "1,'2',3\n";
