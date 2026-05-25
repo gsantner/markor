@@ -239,9 +239,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             });
         }
 
-        // Keep this as a one-shot min-height sync. Do not use a persistent layout listener here,
-        // otherwise large documents trigger repeated relayout work during startup.
-        syncEditorMinHeightOnce(_verticalScrollView);
     }
 
     @Override
@@ -282,10 +279,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 }
             });
         }
-
-        // One-shot floor for first render after content/highlighting setup.
-        // Do not replace with per-layout updates; they regress big-file open performance.
-        syncEditorMinHeightOnce(_editorHolder);
 
         // Fade in to hide initial jank
         _hlEditor.post(() -> _hlEditor.animate().alpha(1).setDuration(250).start());
@@ -798,7 +791,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         if (bar != null && _verticalScrollView != null) {
             final boolean visible = _format.getActions().loadActionBarVisible() && _textActionsBar.getChildCount() > 0;
             parent.setVisibility(visible ? View.VISIBLE : View.GONE);
-            syncEditorMinHeightOnce(_verticalScrollView);
         }
     }
 
@@ -993,18 +985,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         }
     }
 
-    private void syncEditorMinHeightOnce(final View parent) {
-        if (parent == null) {
-            return;
-        }
-        parent.post(() -> {
-            final int parentHeight = parent.getHeight();
-            if (parentHeight > 0 && parentHeight != _hlEditor.getMinHeight()) {
-                _hlEditor.setMinHeight(parentHeight);
-            }
-        });
-    }
-
     private void updateMenuToggleStates(final int selectedFormatActionId) {
         MenuItem mi;
         if ((mi = _fragmentMenu.findItem(R.id.action_wrap_words)) != null) {
@@ -1040,7 +1020,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     private ViewGroup.LayoutParams makeScrollViewChildParams() {
-        return new ScrollView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        return new ScrollView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 
     private void setWrapState(final boolean wrap) {
@@ -1072,7 +1052,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             }
 
             _hlEditor.requestLayout();
-            syncEditorMinHeightOnce(_editorHolder);
 
             _hlEditor.setHighlightingEnabled(hlEnabled);
             _hlEditor.post(() -> {
