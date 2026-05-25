@@ -246,9 +246,17 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     @Override
     protected void onFragmentFirstTimeVisible() {
-        // Restore cursor
-        final int lastSelection = _appSettings.getLastEditPosition(_document.path, _hlEditor.length());
-        _hlEditor.setSelection(lastSelection);
+        final Bundle args = getArguments();
+        final boolean hasLineNumber = args != null && args.containsKey(Document.EXTRA_FILE_LINE_NUMBER);
+        int startPos = _appSettings.getLastEditPosition(_document.path, _hlEditor.length());
+        if (hasLineNumber) {
+            final int lineNumber = args.getInt(Document.EXTRA_FILE_LINE_NUMBER);
+            startPos = lineNumber >= 0
+                    ? TextViewUtils.getIndexFromLineOffset(_hlEditor.getText(), lineNumber, 0)
+                    : _hlEditor.length();
+        } else {
+            _hlEditor.setSelection(startPos);
+        }
 
         // Restore scroll position for view-mode
         if (_webView != null) {
@@ -260,6 +268,20 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         }
 
         _hlEditor.recomputeHighlighting();
+        if (hasLineNumber) {
+            TextViewUtils.setSelectionAndShow(_hlEditor, startPos);
+        } else {
+            final int lastEditHeight = _appSettings.getLastEditHeight(_document.path, 0);
+            final int lastEditScrollY = _appSettings.getLastEditScrollY(_document.path, 0);
+            final int fallbackPos = startPos;
+            _verticalScrollView.post(() -> {
+                if (lastEditHeight > 0 && lastEditHeight == _verticalScrollView.getHeight()) {
+                    _verticalScrollView.scrollTo(0, lastEditScrollY);
+                } else {
+                    TextViewUtils.setSelectionAndShow(_hlEditor, fallbackPos);
+                }
+            });
+        }
 
         // One-shot floor for first render after content/highlighting setup.
         // Do not replace with per-layout updates; they regress big-file open performance.
@@ -267,6 +289,24 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
         // Fade in to hide initial jank
         _hlEditor.post(() -> _hlEditor.animate().alpha(1).setDuration(250).start());
+        setupHighlightingScrollRestore();
+    }
+
+    private void setupHighlightingScrollRestore() {
+        _hlEditor.setScrollCallbacks(
+                () -> new int[]{
+                        _horizontalScrollView != null ? _horizontalScrollView.getScrollX() : 0,
+                        _verticalScrollView != null ? _verticalScrollView.getScrollY() : 0
+                },
+                (x, y) -> {
+                    if (_horizontalScrollView != null) {
+                        _horizontalScrollView.scrollTo(x, 0);
+                    }
+                    if (_verticalScrollView != null) {
+                        _verticalScrollView.scrollTo(0, y);
+                    }
+                }
+        );
     }
 
     @Override
@@ -1263,6 +1303,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _webView = null;
         _webViewClient = null;
         _searchResultTextView = null;
+        if (_hlEditor != null) {
+            _hlEditor.setScrollCallbacks(null, null);
+        }
         if (_format != null) {
             _format.getActions().setUiReferences(getActivity(), _hlEditor, null);
         }

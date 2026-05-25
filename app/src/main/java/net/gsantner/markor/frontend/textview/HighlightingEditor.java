@@ -79,6 +79,9 @@ public class HighlightingEditor extends AppCompatEditText {
     private int _textChangedNumber;
     private final Runnable _textChangedRecorder = TextViewUtils.makeDebounced(getHandler(), 1000, () -> _textChangedNumber++);
     private StaticCursorDrawer _staticCursorDrawer;
+    private GsCallback.r0<int[]> _getScrollCallback;
+    private GsCallback.a2<Integer, Integer> _applyScrollCallback;
+    private int[] _savedScrollPosition;
 
     public HighlightingEditor(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -139,6 +142,25 @@ public class HighlightingEditor extends AppCompatEditText {
             runnable.run();
         } finally {
             endBatchEdit(); // This triggers a reflow which will bring focus back to the cursor and reset scroll position
+        }
+    }
+
+    public void setScrollCallbacks(final GsCallback.r0<int[]> get, final GsCallback.a2<Integer, Integer> apply) {
+        _getScrollCallback = get;
+        _applyScrollCallback = apply;
+    }
+
+    private void saveScrollPositionForLayout() {
+        if (_savedScrollPosition == null && _getScrollCallback != null) {
+            _savedScrollPosition = _getScrollCallback.callback();
+        }
+    }
+
+    private void applySavedScrollPosition() {
+        final int[] position = _savedScrollPosition;
+        _savedScrollPosition = null;
+        if (position != null && position.length >= 2 && _applyScrollCallback != null) {
+            _applyScrollCallback.callback(position[0], position[1]);
         }
     }
 
@@ -361,6 +383,22 @@ public class HighlightingEditor extends AppCompatEditText {
             // Hinder drawing from crashing the app
             Log.e(getClass().getName(), "HighlightingEditor onDraw->super.onDraw crash" + e);
             Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        saveScrollPositionForLayout();
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        if (_savedScrollPosition == null || _applyScrollCallback == null) {
+            _savedScrollPosition = null;
+        } else {
+            post(this::applySavedScrollPosition);
         }
     }
 
