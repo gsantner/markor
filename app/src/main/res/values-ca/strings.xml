@@ -408,9 +408,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_results">Sense resultats</string>
     <string name="bad_pattern">Patró no vàlid</string>
     <string name="toggle_find_replace">Commuta cerca/substitueix</string>
+    <string name="new_line">Nova línia</string>
     <string name="match_case">Coincidència de majúscules</string>
     <string name="match_whole_word">Coincideix amb la paraula sencera</string>
     <string name="use_regular_expression">Utilitza expressió regular</string>
+    <string name="find_in_selection">Cerca a la selecció</string>
     <string name="preserve_case">Preserva el cas</string>
     <string name="file_encryption_password">Contrasenya de xifratge del fitxer</string>
     <string name="no_password_set_cannot_encrypt_decrypt">No s\'ha definit cap contrasenya, no es pot xifrar ni desxifrar.\nAneu a Configuració -&gt; General -&gt; Contrasenya per definir-ne una.</string>

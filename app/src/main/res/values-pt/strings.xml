@@ -408,9 +408,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_results">Sem resultados</string>
     <string name="bad_pattern">Padrão inválido</string>
     <string name="toggle_find_replace">Alternar Localizar/Substituir</string>
+    <string name="new_line">Nova linha</string>
     <string name="match_case">Corresponder à capitalização</string>
     <string name="match_whole_word">Corresponder a palavra inteira</string>
     <string name="use_regular_expression">Usar expressão regular</string>
+    <string name="find_in_selection">Encontrar na seleção</string>
     <string name="preserve_case">Preservar capitalização</string>
     <string name="file_encryption_password">Senha de criptografia de arquivo</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Palavra-passe não definida, não é possível cifrar e/ou decifrar.\nAceda a Definições - &gt; Geral -&gt; Palavra-passe para a definir.</string>
