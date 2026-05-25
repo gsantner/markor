@@ -114,13 +114,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="main_view">പ്രധാന കാഴ്ച</string>
     <string name="other">മറ്റുള്ളവ</string>
     <string name="general">പൊതു</string>
-    <string name="key_page_down">പേജ് താഴേക്ക് (Page Down)</string>
-    <string name="key_pos_1">വരിയുടെ തുടക്കം (Pos Home)</string>
-    <string name="key_pos_end">വരിയുടെ അവസാനം (Pos End)</string>
-    <string name="key_pos_1_document">ഡോക്യുമെന്റ് തുടക്കം</string>
-    <string name="key_pos_end_document">ഡോക്യുമെന്റ് അവസാനം</string>
     <string name="key_ctrl_a">എല്ലാം തിരഞ്ഞെടുക്കുക (Ctrl+A)</string>
-    <string name="key_tab">പട്ടിക തയ്യാറാക്കൽ</string>
     <string name="start_on_bottom">താഴെനിന്ന് തുടങ്ങുക</string>
     <string name="start_on_bottom_when_loading_document">ഡോക്യുമെന്റ് ലോഡ് ചെയ്യുമ്പോൾ കഴ്സർ അവസാനം നിർത്തുക</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor-ന് ലോക്കൽ അഥവാ ഓഫ്‌ലൈൻ ഡോക്യൂമെന്റസ് മാത്രമേ പരിഷ്കരിക്കാൻ കഴിയൂ, മാത്രമല്ല മുഴുവൻ ഫയൽ പാത്ത് നൽകാത്ത ഫയൽ മാനേജർസ് പിന്തുണക്കില്ല.</string>
