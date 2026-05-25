@@ -898,7 +898,11 @@ public abstract class ActionButtonBase {
                 return true;
             }
             case R.string.abid_common_web_jump_to_table_of_contents: {
-                runTitleClick();
+                if (_appSettings.isMarkdownTableOfContentsEnabled() && _webView != null) {
+                    _webView.loadUrl("javascript:document.getElementsByClassName('toc')[0].scrollIntoView();");
+                } else {
+                    runTitleClick();
+                }
                 return true;
             }
             case R.string.abid_common_view_file_in_other_app: {
