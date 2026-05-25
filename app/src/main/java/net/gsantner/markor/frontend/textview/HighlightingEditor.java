@@ -141,7 +141,7 @@ public class HighlightingEditor extends AppCompatEditText {
             beginBatchEdit();
             runnable.run();
         } finally {
-            endBatchEdit(); // This triggers a reflow which will bring focus back to the cursor and reset scroll position
+            endBatchEdit(); // This can trigger reflow which will bring focus back to the cursor and reset scroll position
         }
     }
 
@@ -190,6 +190,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
     public void recomputeHighlighting() {
         if (_hlEnabled && runHighlight(true)) {
+            this.saveScrollPositionForLayout();
             batch(() -> _hl
                     .clearDynamic()
                     .clearStatic(false)
@@ -198,6 +199,7 @@ public class HighlightingEditor extends AppCompatEditText {
                     .applyStatic()
                     .applyDynamic(hlRegion())
             );
+            this.applySavedScrollPosition();
         }
     }
 
@@ -383,22 +385,6 @@ public class HighlightingEditor extends AppCompatEditText {
             // Hinder drawing from crashing the app
             Log.e(getClass().getName(), "HighlightingEditor onDraw->super.onDraw crash" + e);
             Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        saveScrollPositionForLayout();
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-    }
-
-    @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        super.onLayout(changed, left, top, right, bottom);
-        if (_savedScrollPosition == null || _applyScrollCallback == null) {
-            _savedScrollPosition = null;
-        } else {
-            post(this::applySavedScrollPosition);
         }
     }
 
