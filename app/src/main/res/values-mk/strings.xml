@@ -137,12 +137,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="resources">Ресурси</string>
     <string name="line_spacing">Простор помеѓу линии</string>
     <string name="special_key">Специјално копче</string>
-    <string name="key_page_up">Страна Нагоре (Page Up)</string>
-    <string name="key_page_down">Страна Надоле (Page Down)</string>
-    <string name="key_pos_1">Почеток на линија (Home)</string>
-    <string name="key_pos_end">Крај на линија (End)</string>
-    <string name="key_pos_1_document">Почеток на документ</string>
-    <string name="key_pos_end_document">Крај на документ</string>
     <string name="key_ctrl_a">Селектирај се (Ctrl+A)</string>
     <string name="start_on_bottom">Почни на дното</string>
     <string name="unordered_list_char_dash">Црта (-)</string>
