@@ -114,6 +114,10 @@ public abstract class ActionButtonBase {
 
     // Overriding this method can implement custom search action
     public boolean onSearch() {
+        return toggleTextSearchUi();
+    }
+
+    public boolean toggleTextSearchUi() {
         if (_textSearchViewHolder != null) {
             if (_textSearchViewHolder.isShow()) {
                 _textSearchViewHolder.close();
@@ -124,6 +128,20 @@ public abstract class ActionButtonBase {
         }
 
         return false;
+    }
+
+    public boolean isSearchActive() {
+        return _textSearchViewHolder != null && _textSearchViewHolder.isShow();
+    }
+
+    public boolean hideTextSearchUi() {
+        if (isSearchActive()) {
+            _textSearchViewHolder.close();
+            if (_activity != null) {
+                _activity.invalidateOptionsMenu();
+            }
+        }
+        return true;
     }
 
     // Override to implement custom title action
