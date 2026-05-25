@@ -152,6 +152,10 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _lineNumbersView = view.findViewById(R.id.document__fragment__edit__line_numbers_view);
         _cu = new MarkorContextUtils(activity);
         _editTextUndoRedoHelper = new TextViewUndoRedo();
+        _editorHolder.setOnClickListener(v -> {
+            _hlEditor.requestFocus();
+            _cu.showSoftKeyboard(activity, true, _hlEditor);
+        });
 
         // Using `if (_document != null)` everywhere is dangerous
         // It may cause reads or writes to _silently fail_
@@ -189,7 +193,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _hlEditor.setLineSpacing(0, _appSettings.getEditorLineSpacing());
         _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getDocumentFontSize(_document.path));
         _hlEditor.setTypeface(GsFontPreferenceCompat.typeface(getContext(), _appSettings.getFontFamily(), Typeface.NORMAL));
-        _hlEditor.setBackgroundColor(_appSettings.getEditorBackgroundColor());
+        final int editorBackgroundColor = _appSettings.getEditorBackgroundColor();
+        _hlEditor.setBackgroundColor(editorBackgroundColor);
+        _editorHolder.setBackgroundColor(editorBackgroundColor);
         _hlEditor.setTextColor(_appSettings.getEditorForegroundColor());
         _hlEditor.setGravity(_appSettings.isEditorStartEditingInCenter() ? Gravity.CENTER : Gravity.NO_GRAVITY);
         _hlEditor.setHighlightingEnabled(_appSettings.getDocumentHighlightState(_document.path, _hlEditor.getText()));
