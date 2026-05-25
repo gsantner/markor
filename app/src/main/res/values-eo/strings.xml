@@ -112,7 +112,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="use_monospace_for_code">Uzu egalinterspacan litertipon por kodo</string>
     <string name="general">Ĝeneralaj</string>
     <string name="key_ctrl_a">Elekti ĉiujn (Ctrl+A)</string>
-    <string name="key_tab">Tabo</string>
     <string name="start_on_bottom">Komenci malsupren</string>
     <string name="unordered_list_char_dash">Streketo (-)</string>
     <string name="unordered_list_char_asterisk">Steleto (*)</string>
