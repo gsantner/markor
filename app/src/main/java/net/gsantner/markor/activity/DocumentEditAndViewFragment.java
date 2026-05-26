@@ -1007,6 +1007,14 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         }
     }
 
+    private void setMarginBottom(final View view, final int marginBottom) {
+        final ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+        if (params != null) {
+            params.setMargins(params.leftMargin, params.topMargin, params.rightMargin, marginBottom);
+            view.setLayoutParams(params);
+        }
+    }
+
     private void updateMenuToggleStates(final int selectedFormatActionId) {
         MenuItem mi;
         if ((mi = _fragmentMenu.findItem(R.id.action_wrap_words)) != null) {
