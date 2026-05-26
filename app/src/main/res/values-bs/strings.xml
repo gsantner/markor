@@ -167,15 +167,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_does_move_done_tasks">Premjesti obavljene zadatke u zadatu datoteku u istom direktoriju</string>
     <string name="sort_tasks_by_selected_order">Sortiraj zadatke po odabranom redoslijedu</string>
     <string name="special_key">Specijalni ključ</string>
-    <string name="key_page_up">Prethodna stranica (Page Up)</string>
-    <string name="key_page_down">Sljedeća stranica (Page Down)</string>
-    <string name="key_pos_1">Početak reda (Pos Home)</string>
-    <string name="key_pos_end">Kraj reda (Pos End)</string>
-    <string name="key_pos_1_document">Početak dokumenta</string>
-    <string name="key_pos_end_document">Kraj dokumenta</string>
     <string name="key_ctrl_a">Označi sve (Ctrl+A)</string>
-    <string name="key_tab">Tabulator</string>
-    <string name="zero_width_space">Bjelina nulte širine</string>
     <string name="start_on_bottom">Počni na dnu</string>
     <string name="start_on_bottom_when_loading_document">Nakon otvaranja dokumenta, kursor pozicioniraj na kraj</string>
     <string name="unordered_list_character">Znak za nenumerisana nabrajanja</string>

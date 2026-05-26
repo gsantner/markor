@@ -129,7 +129,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="general">گشتی</string>
     <string name="resources">سەرچاوەکان</string>
     <string name="line_spacing">مەودای نێوان</string>
-    <string name="zero_width_space">نیو بزوێن</string>
     <string name="unordered_list_char_dash">داش (-)</string>
     <string name="unordered_list_char_asterisk">ئەستێرە (*)</string>
     <string name="unordered_list_char_plus">زیادکردن (+)</string>

@@ -168,15 +168,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_does_move_done_tasks">Flyt færdige opgaver til denne fil i samme mappe</string>
     <string name="sort_tasks_by_selected_order">Sorter opgaver efter valgt ordre</string>
     <string name="special_key">Specialtast</string>
-    <string name="key_page_up">Side op (Page Up)</string>
-    <string name="key_page_down">Side ned (Page Down)</string>
-    <string name="key_pos_1">Liniestart (Pos Home)</string>
-    <string name="key_pos_end">Linieendelse (Pos End)</string>
-    <string name="key_pos_1_document">Dokumentstart</string>
-    <string name="key_pos_end_document">Dokumentendelse</string>
     <string name="key_ctrl_a">Vælg alle (Ctrl+A)</string>
-    <string name="key_tab">Tabulator</string>
-    <string name="zero_width_space">Zero-bredde plads</string>
     <string name="start_on_bottom">Start på bunden</string>
     <string name="start_on_bottom_when_loading_document">Når dokumentet er hentet, positionér cursoren ved enden</string>
     <string name="unordered_list_character">Uordnet listetegn</string>
