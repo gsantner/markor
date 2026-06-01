@@ -39,14 +39,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:fillViewport="true">
+                android:fillViewport="true"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:id="@+id/document__fragment__edit__editor_holder"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:baselineAligned="false"
                     android:background="@color/background"
+                    android:baselineAligned="false"
                     android:clickable="true"
                     android:orientation="horizontal">
 
@@ -78,6 +79,11 @@
                         android:textCursorDrawable="@drawable/cursor_accent" />
                 </LinearLayout>
             </net.gsantner.markor.frontend.DraggableScrollbarScrollView>
+
+            <net.gsantner.markor.frontend.textview.CodeMirrorEditor
+                android:id="@+id/document__fragment__edit__editor"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
             <ViewStub
                 android:id="@+id/document__fragment_webview_stub"

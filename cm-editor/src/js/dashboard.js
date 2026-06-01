@@ -1,5 +1,5 @@
 /**
- * Dashboard is used for development, not production.
+ * Dashboard is used for development/test, not production.
  */
 class Dashboard {
     #viewList;
@@ -96,9 +96,13 @@ function setupDashboard() {
     const dashboard = new Dashboard();
 
     dashboard.addButton('setText', () => editorBridge.setText('// Hello'));
-    dashboard.addButton('getText', () => console.log(editorBridge.getText()));
+    dashboard.addButton('getText', () => getLog().append(editorBridge.getText()));
     dashboard.addButton('undo', () => editorBridge.undo());
     dashboard.addButton('redo', () => editorBridge.redo());
+    dashboard.addButton('setLineNumbers', () => editorBridge.setLineNumbers(true));
+    dashboard.addButton('setCodeLanguage', () => editorBridge.setCodeLanguage("markdown"));
+    dashboard.addButton('setFontSize', () => editorBridge.setFontSize("32px"));
+    dashboard.addButton('setLineWrapping', () => editorBridge.setLineWrapping(true));
 
     logElement = dashboard.addView('textarea', 'log');
     logElement.readOnly = true;

@@ -20,18 +20,29 @@ import org.apache.commons.text.StringEscapeUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CodeMirrorEditor extends WebView {
 
     private static final String BASE_DIR_URL = "file:///android_asset/cm-editor/";
     private static final String BASE_HTML_PATH = "cm-editor/index.html";
     private boolean initialized;
+    private boolean pageFinished;
+    private final List<Runnable> pageFinishedTasks = new ArrayList<>();
 
     private final WebViewClient webViewClient = new WebViewClient() {
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
             setVisibility(VISIBLE);
+            pageFinished = true;
+            if (!pageFinishedTasks.isEmpty()) {
+                for (Runnable task : pageFinishedTasks) {
+                    task.run();
+                }
+                pageFinishedTasks.clear();
+            }
             if (onPreparedListener != null) {
                 onPreparedListener.callback();
             }
@@ -39,9 +50,14 @@ public class CodeMirrorEditor extends WebView {
     };
 
     private GsCallback.a0 onPreparedListener;
+    private OnTextChangedListener onTextChangedListener;
 
     public void setOnPreparedListener(GsCallback.a0 listener) {
         this.onPreparedListener = listener;
+    }
+
+    public void setOnTextChangedListener(OnTextChangedListener listener) {
+        this.onTextChangedListener = listener;
     }
 
     private class CallbackInterface {
@@ -53,6 +69,14 @@ public class CodeMirrorEditor extends WebView {
         @JavascriptInterface
         public String readText(String path) {
             return GsFileUtils.readTextFile(new File(path));
+        }
+
+        @JavascriptInterface
+        public void onTextChanged(String newText, int undoDepth, int redoDepth) {
+            if (onTextChangedListener != null) {
+                // Log.i("AAA", undoDepth + ":" + redoDepth);
+                onTextChangedListener.onTextChanged(newText, undoDepth, redoDepth);
+            }
         }
     }
 
@@ -108,6 +132,34 @@ public class CodeMirrorEditor extends WebView {
         void onTextRead(String value);
     }
 
+    public interface OnTextChangedListener {
+        void onTextChanged(String newText, int undoDepth, int redoDepth);
+    }
+
+    private void execute(final String script) {
+        final String url = "javascript:" + script;
+        if (pageFinished) {
+            loadUrl(url);
+        } else {
+            pageFinishedTasks.add(() -> loadUrl(url));
+        }
+    }
+
+    private void execute(final String script, OnTextReadListener listener) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            final String url = "javascript:" + script;
+            if (pageFinished) {
+                evaluateJavascript(url, value ->
+                        listener.onTextRead(StringEscapeUtils.unescapeJava(value.substring(1, value.length() - 1)))
+                );
+            } else {
+                pageFinishedTasks.add(() -> evaluateJavascript(url, value ->
+                        listener.onTextRead(StringEscapeUtils.unescapeJava(value))
+                ));
+            }
+        }
+    }
+
     public void getText(OnTextReadListener listener) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             evaluateJavascript("javascript: editorBridge.getText()", value ->
@@ -124,7 +176,7 @@ public class CodeMirrorEditor extends WebView {
      * @param text the text
      */
     public void setText(String text) {
-        loadUrl("javascript: editorBridge.setText(\"" + StringEscapeUtils.escapeJava(text) + "\")");
+        execute("editorBridge.setText(\"" + StringEscapeUtils.escapeJava(text) + "\")");
     }
 
     /**
@@ -134,7 +186,11 @@ public class CodeMirrorEditor extends WebView {
      * @param path the text file path
      */
     public void loadText(String path) {
-        loadUrl("javascript: editorBridge.loadText(\"" + StringEscapeUtils.escapeJava(path) + "\")");
+        execute("editorBridge.loadText(\"" + StringEscapeUtils.escapeJava(path) + "\")");
+    }
+
+    public void requestMeasure() {
+        execute("editorBridge.requestMeasure()");
     }
 
     /**
@@ -145,7 +201,7 @@ public class CodeMirrorEditor extends WebView {
      * @param text the text
      */
     public void resetText(String text) {
-        loadUrl("javascript: editorBridge.resetText(\"" + StringEscapeUtils.escapeJava(text) + "\")");
+        execute("editorBridge.resetText(\"" + StringEscapeUtils.escapeJava(text) + "\")");
     }
 
     public void undo() {
@@ -154,5 +210,33 @@ public class CodeMirrorEditor extends WebView {
 
     public void redo() {
         loadUrl("javascript: editorBridge.redo()");
+    }
+
+    public void setLineNumbers(boolean enabled) {
+        execute("editorBridge.setLineNumbers(" + enabled + ")");
+    }
+
+    public void setLineWrapping(boolean enabled) {
+        execute("editorBridge.setLineWrapping(" + enabled + ")");
+    }
+
+    public void insert(String text) {
+        loadUrl("javascript: editorBridge.insertAtCursor(\"" + StringEscapeUtils.escapeJava(text) + "\")");
+    }
+
+    public void moveCursor(int distance) {
+        loadUrl("javascript: editorBridge.moveCursor(" + distance + ")");
+    }
+
+    public void setCodeLanguage(String language) {
+        execute("editorBridge.setCodeLanguage(\"" + language + "\")");
+    }
+
+    public void setFontSize(String fontSize) {
+        execute("editorBridge.setFontSize(\"" + fontSize + "\")");
+    }
+
+    public void getUndoDepth(OnTextReadListener listener) {
+        execute("editorBridge.getUndoDepth()", listener);
     }
 }

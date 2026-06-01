@@ -22,3 +22,11 @@ export function readText(path) {
         return "Error";
     }
 }
+
+export function onTextChanged(newText, undoDepth, redoDepth) {
+    console.log(undoDepth + ":" + redoDepth);
+    const callback = getCallbackInterface();
+    if (callback) {
+        return callbackInterface.onTextChanged(newText, undoDepth, redoDepth);
+    }
+}

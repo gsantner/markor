@@ -2,9 +2,12 @@ import './css/style.css';
 import EditorBridge from './js/editor-bridge.js';
 import { toggleDashboard } from './js/dashboard.js';
 
-document.querySelector('#app').innerHTML = "<div id='editor'></div><div id='dashboard'></div>";
+window.onload = function () {
+    document.querySelector('#app').innerHTML = "<div id='editor'></div><div id='dashboard'></div>";
 
-// Just expose editor bridge
-window.editorBridge = new EditorBridge(document.querySelector('#editor'));
+    // Only expose editor bridge
+    window.editorBridge = new EditorBridge(document.querySelector('#editor'));
 
-toggleDashboard(false);
+    // You can set it "true" then run "npm run dev" for development/test on a browser
+    toggleDashboard(false);
+};

@@ -57,6 +57,7 @@ import net.gsantner.markor.frontend.DraggableScrollbarScrollView;
 import net.gsantner.markor.frontend.FileInfoDialog;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
+import net.gsantner.markor.frontend.textview.CodeMirrorEditor;
 import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.frontend.textview.LineNumbersView;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
@@ -101,6 +102,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     private HighlightingEditor _hlEditor;
+    private CodeMirrorEditor _editor;
     private WebView _webView;
     private ViewStub _webViewStub;
     private MarkorWebViewClient _webViewClient;
@@ -145,6 +147,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         final Activity activity = getActivity();
 
         _hlEditor = view.findViewById(R.id.document__fragment__edit__highlighting_editor);
+        _editor = view.findViewById(R.id.document__fragment__edit__editor);
         _editorHolder = view.findViewById(R.id.document__fragment__edit__editor_holder);
         _textActionsBar = view.findViewById(R.id.document__fragment__edit__text_actions_bar);
         _webViewStub = view.findViewById(R.id.document__fragment_webview_stub);
@@ -170,6 +173,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
         _lineNumbersView.setEditText(_hlEditor);
         _lineNumbersView.setLineNumbersEnabled(_appSettings.getDocumentLineNumbersEnabled(_document.path));
+        _editor.setLineNumbers(_appSettings.getDocumentLineNumbersEnabled(_document.path));
 
         // Upon construction, the document format has been determined from extension etc.
         // Here we replace it with the last saved format.
@@ -191,14 +195,16 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         // Configure the editor
         // ---------------------------------------------------------
         _hlEditor.setLineSpacing(0, _appSettings.getEditorLineSpacing());
-        _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getDocumentFontSize(_document.path));
+        _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getDocumentFontSize(_document.path)); // old
+        _editor.setFontSize(_appSettings.getDocumentFontSize(_document.path) + "px"); // new
         _hlEditor.setTypeface(GsFontPreferenceCompat.typeface(getContext(), _appSettings.getFontFamily(), Typeface.NORMAL));
         final int editorBackgroundColor = _appSettings.getEditorBackgroundColor();
         _hlEditor.setBackgroundColor(editorBackgroundColor);
         _editorHolder.setBackgroundColor(editorBackgroundColor);
         _hlEditor.setTextColor(_appSettings.getEditorForegroundColor());
         _hlEditor.setGravity(_appSettings.isEditorStartEditingInCenter() ? Gravity.CENTER : Gravity.NO_GRAVITY);
-        _hlEditor.setHighlightingEnabled(_appSettings.getDocumentHighlightState(_document.path, _hlEditor.getText()));
+        _hlEditor.setHighlightingEnabled(_appSettings.getDocumentHighlightState(_document.path, _hlEditor.getText())); // old
+        _editor.setCodeLanguage(_appSettings.getDocumentHighlightState(_document.path, "") ? "markdown" : ""); // new
         _hlEditor.setAutoFormatEnabled(_appSettings.getDocumentAutoFormatEnabled(_document.path));
         _hlEditor.setSaveInstanceState(false); // We will reload from disk
         _hlEditor.setOverScrollMode(View.OVER_SCROLL_ALWAYS);
@@ -209,16 +215,25 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         }
 
         // Various settings
-        setWrapState(isDisplayedAtMainActivity() || _appSettings.getDocumentWrapState(_document.path));
+        setWrapState(isDisplayedAtMainActivity() || _appSettings.getDocumentWrapState(_document.path)); // old
+        _editor.setLineWrapping(isDisplayedAtMainActivity() || _appSettings.getDocumentWrapState(_document.path)); // new
         updateMenuToggleStates(0);
 
         // ---------------------------------------------------------
         _document.resetChangeTracking(); // Force next reload in onResume
 
         final Runnable debounced = TextViewUtils.makeDebounced(500, () -> {
-            checkTextChangeState();
-            updateUndoRedoIconStates();
+            // checkTextChangeState();
+            // updateUndoRedoIconStates();
         });
+        _editor.setOnTextChangedListener(new CodeMirrorEditor.OnTextChangedListener() {
+            @Override
+            public void onTextChanged(String newText, int undoDepth, int redoDepth) {
+                checkTextChangeState(newText);
+                updateUndoRedoIconStates(undoDepth, redoDepth);
+            }
+        });
+
         _hlEditor.addTextChangedListener(GsTextWatcherAdapter.after(s -> debounced.run()));
         _hlEditor.setOnDispatchKeyListener(this::onEditorKeyDown);
 
@@ -388,8 +403,8 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
         // Set various initial states
         updateMenuToggleStates(_document.getFormat());
-        checkTextChangeState();
-        updateUndoRedoIconStates();
+        // checkTextChangeState(_document.);
+        updateUndoRedoIconStates(0, 0); // old
     }
 
     public void showMoreOptionsMenu() {
@@ -447,16 +462,55 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         return false;
     }
 
-    private void updateUndoRedoIconStates() {
-        Drawable d;
-        final boolean canUndo = _editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanUndo();
-        if (_undoMenuItem != null && _undoMenuItem.isEnabled() != canUndo && (d = _undoMenuItem.setEnabled(canUndo).getIcon()) != null) {
-            d.mutate().setAlpha(canUndo ? 255 : 40);
+    private void updateUndoRedoIconStates(int undoDepth, int redoDepth) {
+        // final boolean canUndo = _editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanUndo();
+        // final boolean canUndo = _editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanUndo();
+        Drawable icon;
+        final boolean canUndo = undoDepth > 0;
+        Log.i("AAA", "undoDepth:" + undoDepth);
+        if (_undoMenuItem != null) {
+            post(new Runnable() {
+                @Override
+                public void run() {
+                    _undoMenuItem.setEnabled(true);
+                }
+            });
         }
+        /**
+         if (_undoMenuItem != null) {
+         if (undoDepth > 0) {
+         if (!_undoMenuItem.isEnabled()) {
+         _undoMenuItem.setEnabled(true);
+         }
+         } else {
+         if (_undoMenuItem.isEnabled()) {
+         _undoMenuItem.setEnabled(false);
+         }
+         }
+
+         icon = _undoMenuItem.getIcon();
+         if (icon != null) {
+         if (undoDepth == 1) {
+         icon.mutate().setAlpha(255);
+         } else if (undoDepth == 0) {
+         icon.mutate().setAlpha(40);
+         }
+         }
+         } */
+
+        // Log.i("AAA", "1:" + (_undoMenuItem != null));
+        // Log.i("AAA", "2:" + (_undoMenuItem.isEnabled() != canUndo));
+        // Log.i("AAA", "3:" + ((icon = _undoMenuItem.setEnabled(canUndo).getIcon()) != null));
+
+        /*
+        if (_undoMenuItem != null && _undoMenuItem.isEnabled() != canUndo && (icon = _undoMenuItem.setEnabled(canUndo).getIcon()) != null) {
+            Log.i("AAA", "canUndo: " + canUndo);
+            icon.mutate().setAlpha(canUndo ? 255 : 40);
+        }*/
 
         final boolean canRedo = _editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanRedo();
-        if (_redoMenuItem != null && _redoMenuItem.isEnabled() != canRedo && (d = _redoMenuItem.setEnabled(canRedo).getIcon()) != null) {
-            d.mutate().setAlpha(canRedo ? 255 : 40);
+        if (_redoMenuItem != null && _redoMenuItem.isEnabled() != canRedo && (icon = _redoMenuItem.setEnabled(canRedo).getIcon()) != null) {
+            icon.mutate().setAlpha(canRedo ? 255 : 40);
         }
     }
 
@@ -468,18 +522,20 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
         // Only trigger the load process if constructing or file updated or force reload
         if (_document.hasFileChangedSinceLastLoad()) {
-
             final String content = _document.loadContent(getContext());
             if (content == null) {
                 errorClipText();
                 return false;
             }
 
-            if (!_document.isContentSame(_hlEditor.getText())) {
-                _hlEditor.withAutoFormatDisabled(() -> _hlEditor.setTextKeepState(content));
-            }
+            _editor.getText(value -> {
+                if (!_document.isContentSame(value)) {
+                    // _hlEditor.withAutoFormatDisabled(() -> _hlEditor.setTextKeepState(content));
+                    _hlEditor.withAutoFormatDisabled(() -> _editor.loadText(_document.path));
+                }
+            });
 
-            checkTextChangeState();
+            // checkTextChangeState();
 
             if (_isPreviewVisible) {
                 updateViewModeText();
@@ -491,16 +547,18 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     public void undo() {
+        _editor.undo();
         if (_editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanUndo()) {
-            _hlEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::undo);
-            updateUndoRedoIconStates();
+            _editor.undo(); // new
+            // _hlEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::undo); // old
+            // updateUndoRedoIconStates(); // old
         }
     }
 
     public void redo() {
         if (_editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanRedo()) {
             _hlEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::redo);
-            updateUndoRedoIconStates();
+            // updateUndoRedoIconStates(); // old
         }
     }
 
@@ -682,6 +740,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 final boolean newState = !isWrapped();
                 _appSettings.setDocumentWrapState(_document.path, newState);
                 setWrapState(newState);
+                _editor.setLineWrapping(newState);
                 if (_isPreviewVisible && _webView != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                     _webView.evaluateJavascript("setWrapWords('" + newState + "');", null);
                 }
@@ -692,6 +751,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 final boolean newState = !_lineNumbersView.isLineNumbersEnabled();
                 _appSettings.setDocumentLineNumbersEnabled(_document.path, newState);
                 _lineNumbersView.setLineNumbersEnabled(newState);
+                _editor.setLineNumbers(newState);
                 if (_isPreviewVisible && _webView != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                     _webView.evaluateJavascript("setLineNumbers('" + newState + "');", null);
                 }
@@ -700,7 +760,8 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             }
             case R.id.action_enable_highlighting: {
                 final boolean newState = !_hlEditor.getHighlightingEnabled();
-                _hlEditor.setHighlightingEnabled(newState);
+                _hlEditor.setHighlightingEnabled(newState); // old
+                _editor.setCodeLanguage(newState ? "markdown" : ""); // new
                 if (_lineNumbersView.isLineNumbersEnabled()) {
                     // The line height may be changed, so need to refresh line numbers
                     final int delay = newState ? 1000 : 200;
@@ -736,7 +797,8 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                         }
                         _appSettings.setDocumentViewFontSize(_document.path, newSize);
                     } else {
-                        _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, (float) newSize);
+                        _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, (float) newSize); // old
+                        _editor.setFontSize(newSize + "px"); // new
                         _appSettings.setDocumentFontSize(_document.path, newSize);
                     }
                 });
@@ -753,8 +815,8 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         }
     }
 
-    public void checkTextChangeState() {
-        final boolean isTextChanged = !_document.isContentSame(_hlEditor.getText());
+    private void checkTextChangeState(String newText) {
+        final boolean isTextChanged = !_document.isContentSame(newText);
         Drawable d;
 
         if (_saveMenuItem != null && _saveMenuItem.isEnabled() != isTextChanged && (d = _saveMenuItem.setEnabled(isTextChanged).getIcon()) != null) {
@@ -774,7 +836,8 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         }
         _format = FormatRegistry.getFormat(textFormatId, activity, _document);
         _document.setFormat(_format.getFormatId());
-        _hlEditor.setHighlighter(_format.getHighlighter());
+        _hlEditor.setHighlighter(_format.getHighlighter()); // old
+        _editor.setCodeLanguage(_format.getFormatId() == R.string.action_format_markdown ? "markdown" : ""); // new
         _hlEditor.setAutoFormatters(_format.getAutoFormatInputFilter(), _format.getAutoFormatTextWatcher());
         _hlEditor.setAutoFormatEnabled(_appSettings.getDocumentAutoFormatEnabled(_document.path));
 
@@ -1143,7 +1206,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 return true;
             }
             if (_document.saveContent(getActivity(), text, _cu, forceSaveEmpty)) {
-                checkTextChangeState();
+                // checkTextChangeState();
                 return true;
             } else {
                 errorClipText();
