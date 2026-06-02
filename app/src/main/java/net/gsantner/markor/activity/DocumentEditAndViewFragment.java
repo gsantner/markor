@@ -174,6 +174,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _lineNumbersView.setEditText(_hlEditor);
         _lineNumbersView.setLineNumbersEnabled(_appSettings.getDocumentLineNumbersEnabled(_document.path));
         _editor.setLineNumbers(_appSettings.getDocumentLineNumbersEnabled(_document.path));
+        // _editor.postDelayed(() -> _editor.setLineNumbers(_appSettings.getDocumentLineNumbersEnabled(_document.path)), 500);
 
         // Upon construction, the document format has been determined from extension etc.
         // Here we replace it with the last saved format.
@@ -226,12 +227,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             // checkTextChangeState();
             // updateUndoRedoIconStates();
         });
-        _editor.setOnTextChangedListener(new CodeMirrorEditor.OnTextChangedListener() {
-            @Override
-            public void onTextChanged(String newText, int undoDepth, int redoDepth) {
-                checkTextChangeState(newText);
-                updateUndoRedoIconStates(undoDepth, redoDepth);
-            }
+        _editor.setOnTextChangedListener((newText, undoDepth, redoDepth) -> {
+            checkTextChangeState(newText);
+            updateUndoRedoIconStates(undoDepth, redoDepth);
         });
 
         _hlEditor.addTextChangedListener(GsTextWatcherAdapter.after(s -> debounced.run()));
@@ -463,55 +461,26 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     private void updateUndoRedoIconStates(int undoDepth, int redoDepth) {
-        // final boolean canUndo = _editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanUndo();
-        // final boolean canUndo = _editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanUndo();
-        Drawable icon;
-        final boolean canUndo = undoDepth > 0;
-        Log.i("AAA", "undoDepth:" + undoDepth);
-        if (_undoMenuItem != null) {
-            post(new Runnable() {
-                @Override
-                public void run() {
-                    _undoMenuItem.setEnabled(true);
-                }
-            });
-        }
         /**
-         if (_undoMenuItem != null) {
-         if (undoDepth > 0) {
-         if (!_undoMenuItem.isEnabled()) {
-         _undoMenuItem.setEnabled(true);
-         }
-         } else {
-         if (_undoMenuItem.isEnabled()) {
-         _undoMenuItem.setEnabled(false);
-         }
-         }
+         Log.i("AAA", "undoDepth: " + undoDepth);
+         Log.i("AAA", "_undoMenuItem == null: " + (_undoMenuItem == null));
+         Log.i("AAA", "_undoMenuItem.isEnabled(): " + (_undoMenuItem.isEnabled()));
+         */
 
-         icon = _undoMenuItem.getIcon();
-         if (icon != null) {
-         if (undoDepth == 1) {
-         icon.mutate().setAlpha(255);
-         } else if (undoDepth == 0) {
-         icon.mutate().setAlpha(40);
-         }
-         }
-         } */
+        post(() -> {
+            Drawable icon;
+            // final boolean canUndo = _editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanUndo(); // old
+            final boolean canUndo = undoDepth > 1;
+            if (_undoMenuItem != null && _undoMenuItem.isEnabled() != canUndo && (icon = _undoMenuItem.setEnabled(canUndo).getIcon()) != null) {
+                icon.mutate().setAlpha(canUndo ? 255 : 40);
+            }
 
-        // Log.i("AAA", "1:" + (_undoMenuItem != null));
-        // Log.i("AAA", "2:" + (_undoMenuItem.isEnabled() != canUndo));
-        // Log.i("AAA", "3:" + ((icon = _undoMenuItem.setEnabled(canUndo).getIcon()) != null));
-
-        /*
-        if (_undoMenuItem != null && _undoMenuItem.isEnabled() != canUndo && (icon = _undoMenuItem.setEnabled(canUndo).getIcon()) != null) {
-            Log.i("AAA", "canUndo: " + canUndo);
-            icon.mutate().setAlpha(canUndo ? 255 : 40);
-        }*/
-
-        final boolean canRedo = _editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanRedo();
-        if (_redoMenuItem != null && _redoMenuItem.isEnabled() != canRedo && (icon = _redoMenuItem.setEnabled(canRedo).getIcon()) != null) {
-            icon.mutate().setAlpha(canRedo ? 255 : 40);
-        }
+            // final boolean canRedo = _editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanRedo(); // old
+            final boolean canRedo = redoDepth > 0;
+            if (_redoMenuItem != null && _redoMenuItem.isEnabled() != canRedo && (icon = _redoMenuItem.setEnabled(canRedo).getIcon()) != null) {
+                icon.mutate().setAlpha(canRedo ? 255 : 40);
+            }
+        });
     }
 
     public boolean loadDocument() {
@@ -530,8 +499,8 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
             _editor.getText(value -> {
                 if (!_document.isContentSame(value)) {
-                    // _hlEditor.withAutoFormatDisabled(() -> _hlEditor.setTextKeepState(content));
-                    _hlEditor.withAutoFormatDisabled(() -> _editor.loadText(_document.path));
+                    // _hlEditor.withAutoFormatDisabled(() -> _hlEditor.setTextKeepState(content)); // old
+                    _editor.loadText(_document.path);
                 }
             });
 
@@ -549,15 +518,15 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     public void undo() {
         _editor.undo();
         if (_editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanUndo()) {
-            _editor.undo(); // new
             // _hlEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::undo); // old
             // updateUndoRedoIconStates(); // old
         }
     }
 
     public void redo() {
+        _editor.redo();
         if (_editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanRedo()) {
-            _hlEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::redo);
+            // _hlEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::redo);
             // updateUndoRedoIconStates(); // old
         }
     }
@@ -816,12 +785,13 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     private void checkTextChangeState(String newText) {
-        final boolean isTextChanged = !_document.isContentSame(newText);
-        Drawable d;
-
-        if (_saveMenuItem != null && _saveMenuItem.isEnabled() != isTextChanged && (d = _saveMenuItem.setEnabled(isTextChanged).getIcon()) != null) {
-            d.mutate().setAlpha(isTextChanged ? 255 : 40);
-        }
+        post(() -> {
+            final boolean isTextChanged = !_document.isContentSame(newText);
+            Drawable d;
+            if (_saveMenuItem != null && _saveMenuItem.isEnabled() != isTextChanged && (d = _saveMenuItem.setEnabled(isTextChanged).getIcon()) != null) {
+                d.mutate().setAlpha(isTextChanged ? 255 : 40);
+            }
+        });
     }
 
     public boolean isUnsaved() {

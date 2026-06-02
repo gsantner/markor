@@ -6,6 +6,7 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.webkit.JavascriptInterface;
+import android.webkit.ValueCallback;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -14,7 +15,6 @@ import androidx.annotation.Nullable;
 
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
-import net.gsantner.opoc.wrapper.GsCallback;
 
 import org.apache.commons.text.StringEscapeUtils;
 
@@ -29,6 +29,9 @@ public class CodeMirrorEditor extends WebView {
     private static final String BASE_HTML_PATH = "cm-editor/index.html";
     private boolean initialized;
     private boolean pageFinished;
+
+    private Runnable onPreparedListener;
+    private OnTextChangedListener onTextChangedListener;
     private final List<Runnable> pageFinishedTasks = new ArrayList<>();
 
     private final WebViewClient webViewClient = new WebViewClient() {
@@ -36,29 +39,19 @@ public class CodeMirrorEditor extends WebView {
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
             setVisibility(VISIBLE);
+            requestFocus(View.FOCUS_DOWN);
             pageFinished = true;
+            if (onPreparedListener != null) {
+                onPreparedListener.run();
+            }
             if (!pageFinishedTasks.isEmpty()) {
                 for (Runnable task : pageFinishedTasks) {
                     task.run();
                 }
                 pageFinishedTasks.clear();
             }
-            if (onPreparedListener != null) {
-                onPreparedListener.callback();
-            }
         }
     };
-
-    private GsCallback.a0 onPreparedListener;
-    private OnTextChangedListener onTextChangedListener;
-
-    public void setOnPreparedListener(GsCallback.a0 listener) {
-        this.onPreparedListener = listener;
-    }
-
-    public void setOnTextChangedListener(OnTextChangedListener listener) {
-        this.onTextChangedListener = listener;
-    }
 
     private class CallbackInterface {
         @JavascriptInterface
@@ -74,9 +67,51 @@ public class CodeMirrorEditor extends WebView {
         @JavascriptInterface
         public void onTextChanged(String newText, int undoDepth, int redoDepth) {
             if (onTextChangedListener != null) {
-                // Log.i("AAA", undoDepth + ":" + redoDepth);
                 onTextChangedListener.onTextChanged(newText, undoDepth, redoDepth);
             }
+        }
+    }
+
+    // Listeners
+
+    public interface OnTextReadListener {
+        void onTextRead(String value);
+    }
+
+    public interface OnTextChangedListener {
+        void onTextChanged(String newText, int undoDepth, int redoDepth);
+    }
+
+    public void setOnPreparedListener(Runnable listener) {
+        this.onPreparedListener = listener;
+    }
+
+    public void setOnTextChangedListener(OnTextChangedListener listener) {
+        this.onTextChangedListener = listener;
+    }
+
+    @SuppressLint("SetJavaScriptEnabled")
+    private void init() {
+        if (!initialized) {
+            setFocusable(true);
+            setFocusableInTouchMode(true);
+            setVisibility(INVISIBLE);
+
+            setWebViewClient(webViewClient);
+            addJavascriptInterface(new CallbackInterface(), "callbackInterface");
+            getSettings().setJavaScriptEnabled(true);
+            getSettings().setAllowFileAccessFromFileURLs(true);
+
+            try {
+                String index = GsFileUtils.readText(getContext().getAssets().open(BASE_HTML_PATH));
+                if (GsContextUtils.instance.isDarkModeEnabled(getContext())) {
+                    index = index.replace("content=\"light\"", "content=\"dark\"");
+                }
+                loadDataWithBaseURL(BASE_DIR_URL, index, "text/html", "utf-8", null);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            initialized = true;
         }
     }
 
@@ -95,47 +130,6 @@ public class CodeMirrorEditor extends WebView {
         init();
     }
 
-    private void init() {
-        if (!initialized) {
-            setFocusable(true);
-            setFocusableInTouchMode(true);
-            requestFocus(View.FOCUS_DOWN);
-            load();
-            initialized = true;
-        }
-    }
-
-    @SuppressLint("SetJavaScriptEnabled")
-    private void load() {
-        setVisibility(INVISIBLE);
-        setWebViewClient(webViewClient);
-        addJavascriptInterface(new CallbackInterface(), "callbackInterface");
-        getSettings().setJavaScriptEnabled(true);
-        getSettings().setAllowFileAccessFromFileURLs(true);
-
-        try {
-            String index = GsFileUtils.readText(getContext().getAssets().open(BASE_HTML_PATH));
-            if (GsContextUtils.instance.isDarkModeEnabled(getContext())) {
-                index = index.replace("content=\"light\"", "content=\"dark\"");
-            }
-            loadDataWithBaseURL(BASE_DIR_URL, index, "text/html", "utf-8", null);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void focus() {
-        loadUrl("javascript: editorBridge.focus()");
-    }
-
-    public interface OnTextReadListener {
-        void onTextRead(String value);
-    }
-
-    public interface OnTextChangedListener {
-        void onTextChanged(String newText, int undoDepth, int redoDepth);
-    }
-
     private void execute(final String script) {
         final String url = "javascript:" + script;
         if (pageFinished) {
@@ -148,24 +142,21 @@ public class CodeMirrorEditor extends WebView {
     private void execute(final String script, OnTextReadListener listener) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             final String url = "javascript:" + script;
+            ValueCallback<String> resultCallback = value -> listener.onTextRead(StringEscapeUtils.unescapeJava(value.substring(1, value.length() - 1)));
             if (pageFinished) {
-                evaluateJavascript(url, value ->
-                        listener.onTextRead(StringEscapeUtils.unescapeJava(value.substring(1, value.length() - 1)))
-                );
+                evaluateJavascript(url, resultCallback);
             } else {
-                pageFinishedTasks.add(() -> evaluateJavascript(url, value ->
-                        listener.onTextRead(StringEscapeUtils.unescapeJava(value))
-                ));
+                pageFinishedTasks.add(() -> evaluateJavascript(url, resultCallback));
             }
         }
     }
 
-    public void getText(OnTextReadListener listener) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            evaluateJavascript("javascript: editorBridge.getText()", value ->
-                    listener.onTextRead(StringEscapeUtils.unescapeJava(value.substring(1, value.length() - 1)))
-            );
-        }
+    public void focus() {
+        execute("editorBridge.focus()");
+    }
+
+    public void requestMeasure() {
+        execute("editorBridge.requestMeasure()");
     }
 
     /**
@@ -180,6 +171,17 @@ public class CodeMirrorEditor extends WebView {
     }
 
     /**
+     * Set text and reset state.
+     * This method is suitable for loading text with file size less than 500 KB.
+     * Load large text, please use {@link net.gsantner.markor.frontend.textview.CodeMirrorEditor#loadText(java.lang.String path)}.
+     *
+     * @param text the text
+     */
+    public void reset(String text) {
+        execute("editorBridge.reset(\"" + StringEscapeUtils.escapeJava(text) + "\")");
+    }
+
+    /**
      * Load text from file path and reset state.
      * This method supports loading large text with file size greater than 1 MB.
      *
@@ -189,19 +191,17 @@ public class CodeMirrorEditor extends WebView {
         execute("editorBridge.loadText(\"" + StringEscapeUtils.escapeJava(path) + "\")");
     }
 
-    public void requestMeasure() {
-        execute("editorBridge.requestMeasure()");
-    }
-
-    /**
-     * Set text and reset state.
-     * This method is suitable for loading text with file size less than 500 KB.
-     * Load large text, please use {@link net.gsantner.markor.frontend.textview.CodeMirrorEditor#loadText(java.lang.String path)}.
-     *
-     * @param text the text
-     */
-    public void resetText(String text) {
-        execute("editorBridge.resetText(\"" + StringEscapeUtils.escapeJava(text) + "\")");
+    public void getText(OnTextReadListener listener) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            execute("editorBridge.getText()", value -> {
+                        if (value.length() > 2) {
+                            listener.onTextRead(StringEscapeUtils.unescapeJava(value.substring(1, value.length() - 1)));
+                        } else {
+                            listener.onTextRead("");
+                        }
+                    }
+            );
+        }
     }
 
     public void undo() {
@@ -212,12 +212,8 @@ public class CodeMirrorEditor extends WebView {
         loadUrl("javascript: editorBridge.redo()");
     }
 
-    public void setLineNumbers(boolean enabled) {
-        execute("editorBridge.setLineNumbers(" + enabled + ")");
-    }
-
-    public void setLineWrapping(boolean enabled) {
-        execute("editorBridge.setLineWrapping(" + enabled + ")");
+    public void getUndoDepth(OnTextReadListener listener) {
+        execute("editorBridge.getUndoDepth()", listener);
     }
 
     public void insert(String text) {
@@ -228,15 +224,19 @@ public class CodeMirrorEditor extends WebView {
         loadUrl("javascript: editorBridge.moveCursor(" + distance + ")");
     }
 
-    public void setCodeLanguage(String language) {
-        execute("editorBridge.setCodeLanguage(\"" + language + "\")");
+    public void setLineWrapping(boolean enabled) {
+        execute("editorBridge.setLineWrapping(" + enabled + ")");
+    }
+
+    public void setLineNumbers(boolean enabled) {
+        execute("editorBridge.setLineNumbers(" + enabled + ")");
     }
 
     public void setFontSize(String fontSize) {
-        execute("editorBridge.setFontSize(\"" + fontSize + "\")");
+        execute("editorBridge.setFontSize('" + fontSize + "')");
     }
 
-    public void getUndoDepth(OnTextReadListener listener) {
-        execute("editorBridge.getUndoDepth()", listener);
+    public void setCodeLanguage(String language) {
+        execute("editorBridge.setCodeLanguage('" + language + "')");
     }
 }
