@@ -41,6 +41,7 @@ public class CodeMirrorEditor extends WebView {
             setVisibility(VISIBLE);
             requestFocus(View.FOCUS_DOWN);
             pageFinished = true;
+
             if (onPreparedListener != null) {
                 onPreparedListener.run();
             }
@@ -142,7 +143,13 @@ public class CodeMirrorEditor extends WebView {
     private void execute(final String script, OnTextReadListener listener) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             final String url = "javascript:" + script;
-            ValueCallback<String> resultCallback = value -> listener.onTextRead(StringEscapeUtils.unescapeJava(value.substring(1, value.length() - 1)));
+            ValueCallback<String> resultCallback = value -> {
+                if (value.startsWith("\"")) {
+                    listener.onTextRead(StringEscapeUtils.unescapeJava(value.substring(1, value.length() - 1)));
+                } else {
+                    listener.onTextRead(value);
+                }
+            };
             if (pageFinished) {
                 evaluateJavascript(url, resultCallback);
             } else {
@@ -194,10 +201,10 @@ public class CodeMirrorEditor extends WebView {
     public void getText(OnTextReadListener listener) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             execute("editorBridge.getText()", value -> {
-                        if (value.length() > 2) {
+                        if (value.startsWith("\"")) {
                             listener.onTextRead(StringEscapeUtils.unescapeJava(value.substring(1, value.length() - 1)));
                         } else {
-                            listener.onTextRead("");
+                            listener.onTextRead(value);
                         }
                     }
             );

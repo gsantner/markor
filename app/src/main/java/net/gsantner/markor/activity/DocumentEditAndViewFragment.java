@@ -335,7 +335,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     @Override
     public void onPause() {
-        saveDocument(false);
+        saveDocument(false, null);
         if (_webView != null) {
             _webView.onPause();
             _appSettings.setLastViewScrollY(_document.path, _webView.getScrollY());
@@ -461,11 +461,8 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     private void updateUndoRedoIconStates(int undoDepth, int redoDepth) {
-        /**
-         Log.i("AAA", "undoDepth: " + undoDepth);
-         Log.i("AAA", "_undoMenuItem == null: " + (_undoMenuItem == null));
-         Log.i("AAA", "_undoMenuItem.isEnabled(): " + (_undoMenuItem.isEnabled()));
-         */
+        Log.i("AAA", "undoDepth: " + undoDepth);
+        // Log.i("AAA", "_undoMenuItem.isEnabled(): " + (_undoMenuItem.isEnabled()));
 
         post(() -> {
             Drawable icon;
@@ -516,7 +513,11 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     public void undo() {
-        _editor.undo();
+        _editor.getUndoDepth(value -> {
+            if (Integer.parseInt(value) > 1) {
+                _editor.undo();
+            }
+        });
         if (_editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanUndo()) {
             // _hlEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::undo); // old
             // updateUndoRedoIconStates(); // old
@@ -582,7 +583,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 return true;
             }
             case R.id.action_save: {
-                saveDocument(true);
+                saveDocument(true, null);
                 return true;
             }
             case R.id.action_reload: {
@@ -606,58 +607,67 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 return true;
             }
             case R.id.action_share_text: {
-                if (saveDocument(false)) {
-                    _cu.shareText(getActivity(), getTextString(), GsContextUtils.MIME_TEXT_PLAIN);
-                }
+                saveDocument(false, result -> {
+                    if (result) {
+                        _cu.shareText(getActivity(), getTextString(), GsContextUtils.MIME_TEXT_PLAIN);
+                    }
+                });
                 return true;
             }
             case R.id.action_share_file: {
-                if (saveDocument(false)) {
-                    _cu.shareStream(getActivity(), _document.file, GsContextUtils.MIME_TEXT_PLAIN);
-                }
+                saveDocument(false, result -> {
+                    if (result) {
+                        _cu.shareStream(getActivity(), _document.file, GsContextUtils.MIME_TEXT_PLAIN);
+                    }
+                });
                 return true;
             }
             case R.id.action_share_html:
             case R.id.action_share_html_source: {
-                if (saveDocument(false)) {
-                    TextConverterBase converter = FormatRegistry.getFormat(_document.getFormat(), activity, _document).getConverter();
-                    _cu.shareText(getActivity(),
-                            converter.convertMarkup(getTextString(), getActivity(), false, _lineNumbersView.isLineNumbersEnabled(), _document.file),
-                            "text/" + (item.getItemId() == R.id.action_share_html ? "html" : "plain")
-                    );
-                }
+                saveDocument(false, result -> {
+                    if (result) {
+                        TextConverterBase converter = FormatRegistry.getFormat(_document.getFormat(), activity, _document).getConverter();
+                        _cu.shareText(getActivity(),
+                                converter.convertMarkup(getTextString(), getActivity(), false, _lineNumbersView.isLineNumbersEnabled(), _document.file),
+                                "text/" + (item.getItemId() == R.id.action_share_html ? "html" : "plain")
+                        );
+                    }
+                });
                 return true;
             }
             case R.id.action_share_calendar_event: {
-                if (saveDocument(false)) {
-                    if (!_cu.createCalendarAppointment(getActivity(), _document.title, getTextString(), null)) {
-                        Toast.makeText(activity, R.string.no_calendar_app_is_installed, Toast.LENGTH_SHORT).show();
+                saveDocument(false, result -> {
+                    if (result) {
+                        if (!_cu.createCalendarAppointment(getActivity(), _document.title, getTextString(), null)) {
+                            Toast.makeText(activity, R.string.no_calendar_app_is_installed, Toast.LENGTH_SHORT).show();
+                        }
                     }
-                }
+                });
                 return true;
             }
             case R.id.action_share_screenshot:
             case R.id.action_share_image:
             case R.id.action_share_pdf: {
                 _appSettings.getSetWebViewFulldrawing(true);
-                if (saveDocument(false)) {
-                    _nextConvertToPrintMode = true;
-                    setViewModeVisibility(true);
-                    Toast.makeText(activity, R.string.please_wait, Toast.LENGTH_LONG).show();
-                    if (_webView != null) {
-                        _webView.postDelayed(() -> {
-                            if (itemId == R.id.action_share_pdf) {
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                                    _cu.printOrCreatePdfFromWebview(_webView, _document, getTextString().contains("beamer\n"));
+                saveDocument(false, result -> {
+                    if (result) {
+                        _nextConvertToPrintMode = true;
+                        setViewModeVisibility(true);
+                        Toast.makeText(activity, R.string.please_wait, Toast.LENGTH_LONG).show();
+                        if (_webView != null) {
+                            _webView.postDelayed(() -> {
+                                if (itemId == R.id.action_share_pdf) {
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                                        _cu.printOrCreatePdfFromWebview(_webView, _document, getTextString().contains("beamer\n"));
+                                    }
+                                } else {
+                                    Bitmap bmp = _cu.getBitmapFromWebView(_webView, itemId == R.id.action_share_image);
+                                    _cu.shareImage(getContext(), bmp, null);
                                 }
-                            } else {
-                                Bitmap bmp = _cu.getBitmapFromWebView(_webView, itemId == R.id.action_share_image);
-                                _cu.shareImage(getContext(), bmp, null);
-                            }
-                        }, 7000);
+                            }, 7000);
+                        }
                     }
-                }
-
+                });
                 return true;
             }
             case R.string.action_format_wikitext:
@@ -749,9 +759,12 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 return true;
             }
             case R.id.action_info: {
-                if (saveDocument(false)) { // In order to have the correct info displayed
-                    FileInfoDialog.show(_document.file, getParentFragmentManager(), null);
-                }
+                // In order to have the correct info displayed
+                saveDocument(false, result -> {
+                    if (result) {
+                        FileInfoDialog.show(_document.file, getParentFragmentManager(), null);
+                    }
+                });
                 return true;
             }
             case R.id.action_set_font_size: {
@@ -1159,32 +1172,48 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     // Save the file
-    public boolean saveDocument(final boolean forceSaveEmpty) {
+    public void saveDocument(final boolean forceSaveEmpty, GsCallback.a1<Boolean> resultListener) {
         final Activity activity = getActivity();
         if (activity == null || isSdStatusBad() || isStateBad()) {
             errorClipText();
-            return false;
+            if (resultListener != null) {
+                resultListener.callback(false);
+            }
+            return;
         }
 
-        // Document is written iff writable && content has changed
-        final CharSequence text = _hlEditor.getText();
-        if (!_document.isContentSame(text)) {
-            final int minLength = GsContextUtils.TEXT_FILE_OVERWRITE_MIN_TEXT_LENGTH;
-            if (!forceSaveEmpty && text != null && text.length() < minLength) {
-                final String message = activity.getString(R.string.wont_save_min_length, minLength);
-                Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
-                return true;
-            }
-            if (_document.saveContent(getActivity(), text, _cu, forceSaveEmpty)) {
-                // checkTextChangeState();
-                return true;
+        // final CharSequence text = _hlEditor.getText(); // old
+
+        _editor.getText(text -> {
+            boolean saveResult;
+
+            // Document is written iff writable && content has changed
+            if (!_document.isContentSame(text)) {
+                final int minLength = GsContextUtils.TEXT_FILE_OVERWRITE_MIN_TEXT_LENGTH;
+                if (!forceSaveEmpty && text != null && text.length() < minLength) {
+                    final String message = activity.getString(R.string.wont_save_min_length, minLength);
+                    Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+                    if (resultListener != null) {
+                        resultListener.callback(true);
+                    }
+                    return;
+                }
+
+                if (_document.saveContent(getActivity(), text, _cu, forceSaveEmpty)) {
+                    checkTextChangeState(text);
+                    saveResult = true;
+                } else {
+                    errorClipText();
+                    saveResult = false; // Failure only if saveContent somehow fails
+                }
             } else {
-                errorClipText();
-                return false; // Failure only if saveContent somehow fails
+                saveResult = true; // Report success if text not changed
             }
-        } else {
-            return true; // Report success if text not changed
-        }
+
+            if (resultListener != null) {
+                resultListener.callback(saveResult);
+            }
+        });
     }
 
     private boolean isDisplayedAtMainActivity() {

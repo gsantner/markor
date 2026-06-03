@@ -1272,7 +1272,7 @@ public abstract class ActionButtonBase {
                     selectCurrentLine(_hlEditor.getText());
                     return true;
                 } else if (keyCode == KeyEvent.KEYCODE_S) {
-                    fragment.saveDocument(true);
+                    fragment.saveDocument(true, null);
                     return true;
                 } else if (keyCode == KeyEvent.KEYCODE_W) {
                     TextViewUtils.selectWord(_hlEditor);

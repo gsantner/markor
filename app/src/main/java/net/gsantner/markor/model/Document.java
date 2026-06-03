@@ -324,7 +324,7 @@ public class Document implements Serializable {
                 });
                 success = true;
             } else {
-                // Try write 2x
+                // Try to write 2x
                 success = GsFileUtils.writeFile(file, contentAsBytes, _fileInfo);
                 if (!success || fileBytes() < contentAsBytes.length) {
                     success = GsFileUtils.writeFile(file, contentAsBytes, _fileInfo);
