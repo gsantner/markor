@@ -1183,36 +1183,42 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
         // final CharSequence text = _hlEditor.getText(); // old
 
-        _editor.getText(text -> {
-            boolean saveResult;
-
-            // Document is written iff writable && content has changed
-            if (!_document.isContentSame(text)) {
-                final int minLength = GsContextUtils.TEXT_FILE_OVERWRITE_MIN_TEXT_LENGTH;
-                if (!forceSaveEmpty && text != null && text.length() < minLength) {
-                    final String message = activity.getString(R.string.wont_save_min_length, minLength);
-                    Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
-                    if (resultListener != null) {
-                        resultListener.callback(true);
+        if (_saveMenuItem.isEnabled()) {
+            // Time-consuming operations: get -> diff -> save
+            _editor.getText(text -> {
+                boolean saveResult;
+                // Document is written iff writable && content has changed
+                if (!_document.isContentSame(text)) {
+                    final int minLength = GsContextUtils.TEXT_FILE_OVERWRITE_MIN_TEXT_LENGTH;
+                    if (!forceSaveEmpty && text != null && text.length() < minLength) {
+                        final String message = activity.getString(R.string.wont_save_min_length, minLength);
+                        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+                        if (resultListener != null) {
+                            resultListener.callback(true);
+                        }
+                        return;
                     }
-                    return;
-                }
 
-                if (_document.saveContent(getActivity(), text, _cu, forceSaveEmpty)) {
-                    checkTextChangeState(text);
-                    saveResult = true;
+                    if (_document.saveContent(getActivity(), text, _cu, forceSaveEmpty)) {
+                        checkTextChangeState(text);
+                        saveResult = true;
+                    } else {
+                        errorClipText();
+                        saveResult = false; // Failure only if saveContent somehow fails
+                    }
                 } else {
-                    errorClipText();
-                    saveResult = false; // Failure only if saveContent somehow fails
+                    saveResult = true; // Report success if text not changed
                 }
-            } else {
-                saveResult = true; // Report success if text not changed
-            }
 
+                if (resultListener != null) {
+                    resultListener.callback(saveResult);
+                }
+            });
+        } else { // Text not changed or has been saved
             if (resultListener != null) {
-                resultListener.callback(saveResult);
+                resultListener.callback(true);
             }
-        });
+        }
     }
 
     private boolean isDisplayedAtMainActivity() {
