@@ -230,6 +230,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _editor.setOnTextChangedListener((newText, undoDepth, redoDepth) -> {
             checkTextChangeState(newText);
             updateUndoRedoIconStates(undoDepth, redoDepth);
+            if (_isPreviewVisible) {
+                post(() -> updateViewModeText(newText));
+            }
         });
 
         _hlEditor.addTextChangedListener(GsTextWatcherAdapter.after(s -> debounced.run()));
@@ -501,11 +504,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 }
             });
 
-            // checkTextChangeState();
-
-            if (_isPreviewVisible) {
-                updateViewModeText();
-            }
+            // checkTextChangeState(); // old
 
             return true;
         }
@@ -1220,13 +1219,13 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         return getActivity() instanceof MainActivity;
     }
 
-    public void updateViewModeText() {
+    public void updateViewModeText(String newText) {
         if (_webView == null) {
             return;
         }
         // Don't let text to view mode crash app
         try {
-            _format.getConverter().convertMarkupShowInWebView(_document, getTextString(), getActivity(), _webView, _nextConvertToPrintMode, _lineNumbersView.isLineNumbersEnabled());
+            _format.getConverter().convertMarkupShowInWebView(_document, newText, getActivity(), _webView, _nextConvertToPrintMode, _lineNumbersView.isLineNumbersEnabled());
         } catch (OutOfMemoryError e) {
             _format.getConverter().convertMarkupShowInWebView(_document, "updateViewModeText getTextString(): OutOfMemory  " + e, getActivity(), _webView, _nextConvertToPrintMode, _lineNumbersView.isLineNumbersEnabled());
         }
@@ -1320,11 +1319,13 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _format.getActions().recreateActionButtons(_textActionsBar, show ? ActionButtonBase.ActionItem.DisplayMode.VIEW : ActionButtonBase.ActionItem.DisplayMode.EDIT);
         if (show) {
             setupWebViewIfNeeded(activity);
-            updateViewModeText();
-            _cu.showSoftKeyboard(activity, false, _hlEditor);
-            _hlEditor.clearFocus();
-            _hlEditor.postDelayed(() -> _cu.showSoftKeyboard(activity, false, _hlEditor), 300);
-            GsContextUtils.fadeInOut(_webView, _verticalScrollView, animate);
+            _editor.getText(text -> {
+                updateViewModeText(text);
+                _cu.showSoftKeyboard(activity, false, _hlEditor);
+                _hlEditor.clearFocus();
+                _hlEditor.postDelayed(() -> _cu.showSoftKeyboard(activity, false, _hlEditor), 300);
+                GsContextUtils.fadeInOut(_webView, _verticalScrollView, animate);
+            });
         } else {
             if (_webView != null) {
                 _webViewClient.setRestoreScrollY(_webView.getScrollY());
