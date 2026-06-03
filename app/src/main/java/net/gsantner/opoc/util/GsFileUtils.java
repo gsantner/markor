@@ -228,6 +228,11 @@ public class GsFileUtils {
                     lines.add(line);
                 }
             }
+
+            if (concatToOneString) {
+                sb.deleteCharAt(sb.length() - 1); // Remove additional '\n'
+            }
+
             line = sb.toString();
         } catch (IOException e) {
             e.printStackTrace();

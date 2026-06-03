@@ -103,7 +103,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     private long _prevModSum = 0;
     private static final int FOLDER_OBSERVER_MASK =
             FileObserver.CREATE | FileObserver.DELETE | FileObserver.MOVED_FROM
-                    | FileObserver.MOVED_TO | FileObserver.MODIFY;
+                    | FileObserver.MOVED_TO;
     private FileObserver _folderObserver;
     private final Runnable _folderReloadDebounced = TextViewUtils.makeDebounced(300, this::reloadCurrentFolder);
 
@@ -677,7 +677,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         return false;
     }
 
-    private static final ExecutorService executorService = new ThreadPoolExecutor(0, 3, 60, TimeUnit.SECONDS, new SynchronousQueue<>());
+    private static final ExecutorService executorService = new ThreadPoolExecutor(0, 2, 120, TimeUnit.SECONDS, new SynchronousQueue<>());
 
     private void loadFolder(final File folder, final File show) {
         if (folder == null || _recyclerView == null) {

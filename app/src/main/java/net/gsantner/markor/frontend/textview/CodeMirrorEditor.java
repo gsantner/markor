@@ -62,7 +62,7 @@ public class CodeMirrorEditor extends WebView {
 
         @JavascriptInterface
         public String readText(String path) {
-            return GsFileUtils.readTextFile(new File(path));
+            return GsFileUtils.readTextFileFast(new File(path)).first;
         }
 
         @JavascriptInterface
@@ -209,6 +209,10 @@ public class CodeMirrorEditor extends WebView {
                     }
             );
         }
+    }
+
+    public void length(OnTextReadListener listener) {
+        execute("editorBridge.length()", value -> listener.onTextRead(value));
     }
 
     public void undo() {

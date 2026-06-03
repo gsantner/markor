@@ -494,8 +494,8 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 return false;
             }
 
-            _editor.getText(value -> {
-                if (!_document.isContentSame(value)) {
+            _editor.getText(text -> {
+                if (!_document.isContentSame(text)) {
                     // _hlEditor.withAutoFormatDisabled(() -> _hlEditor.setTextKeepState(content)); // old
                     _editor.loadText(_document.path);
                 }
