@@ -33,6 +33,7 @@
     <color name="light__secondary_text">#99000000</color>
     <color name="light__file">#757575</color>
     <color name="light__folder">#757575</color>
+    <color name="attachment_dialog_action_button_background">#CACACA</color>
 
     <color name="dark__background">@color/dark_grey</color>
     <color name="dark__primary_text">#DDFFFFFF</color>

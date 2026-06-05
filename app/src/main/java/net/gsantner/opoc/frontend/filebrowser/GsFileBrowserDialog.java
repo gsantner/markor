@@ -174,7 +174,7 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
 
         root.setBackgroundColor(rcolor(_dopt.backgroundColor));
 
-        GsFileBrowserFragment.addDivider(activity, _recyclerList);
+        GsFileBrowserFragment.addDivider(activity, _recyclerList, _dopt.showDividers);
 
         _recyclerList.setItemViewCacheSize(20);
 

@@ -131,6 +131,8 @@ public class GsFileBrowserOptions {
         @ColorRes
         public int folderColor = 0;
 
+        public boolean showDividers = true;
+
         public final Map<File, File> storageMaps = new LinkedHashMap<>();
         public final Map<File, Integer> iconMaps = new HashMap<>();
         public Collection<File> favouriteFiles, recentFiles, popularFiles = null;
