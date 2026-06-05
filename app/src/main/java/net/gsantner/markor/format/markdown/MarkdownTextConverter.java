@@ -175,6 +175,11 @@ public class MarkdownTextConverter extends TextConverterBase {
         // GitLab extension
         options.set(GitLabExtension.RENDER_BLOCK_MATH, false);
 
+        // Checkboxes by default disabled/readonly, unusable thus for "holiday pack list" with temporary checking
+        final String checkedCheckbox = "<input type=checkbox class=task-list-item-checkbox checked=checked style='accent-color: #F04B4B;' />";
+        options.set(TaskListExtension.ITEM_NOT_DONE_MARKER, checkedCheckbox.replace("checked=checked", ""))
+                .set(TaskListExtension.ITEM_DONE_MARKER, checkedCheckbox);
+
         // GFM table parsing
         options.set(TablesExtension.WITH_CAPTION, false)
                 .set(TablesExtension.COLUMN_SPANS, true)
