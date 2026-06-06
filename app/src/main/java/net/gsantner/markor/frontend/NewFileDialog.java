@@ -66,10 +66,10 @@ public class NewFileDialog extends DialogFragment {
     private static final List<Integer> NEW_FILE_FORMATS = Arrays.asList(
             FormatRegistry.FORMAT_MARKDOWN,
             FormatRegistry.FORMAT_PLAIN,
-            FormatRegistry.FORMAT_TODOTXT,
+            FormatRegistry.FORMAT_TODO_TXT,
             FormatRegistry.FORMAT_WIKITEXT,
             FormatRegistry.FORMAT_ASCIIDOC,
-            FormatRegistry.FORMAT_ORGMODE,
+            FormatRegistry.FORMAT_ORG_MODE,
             FormatRegistry.FORMAT_CSV
     );
 

@@ -54,6 +54,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_existing_files_in_view_mode">Open existing files in view mode</string>
     <string name="about">About</string>
     <string name="plaintext">Plain Text</string>
+    <string name="code">Code</string>
     <string name="file">File</string>
     <string name="image">Image</string>
     <string name="font_size">Font Size</string>

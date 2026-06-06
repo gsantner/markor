@@ -7,6 +7,8 @@ import { css } from "@codemirror/lang-css";
 import { javascript, javascriptLanguage, scopeCompletionSource } from "@codemirror/lang-javascript";
 import { html } from "@codemirror/lang-html";
 import { markdown } from "@codemirror/lang-markdown";
+import { java } from "@codemirror/lang-java";
+import { python } from "@codemirror/lang-python";
 import { oneDark } from "@codemirror/theme-one-dark";
 import { readText, onTextChanged } from "./callback-interface.js"
 
@@ -70,7 +72,7 @@ class EditorBridge {
   config() {
     this.setLineWrapping(this.lineWrappingEnabled);
     this.setLineNumbers(this.lineNumbersEnabled);
-    this.setCodeLanguage(this.codeLanguage);
+    this.setLanguage(this.codeLanguage);
   }
 
   shouldDarkMode() {
@@ -109,10 +111,10 @@ class EditorBridge {
   }
 
   /**
-   * Set code language.
-   * @param {*} lang the code language name
+   * Set language.
+   * @param {*} lang the language name.
    */
-  setCodeLanguage(lang) {
+  setLanguage(lang) {
     const currentLanguage = this.getLanguage();
     if (currentLanguage === lang) {
       return;
@@ -131,6 +133,10 @@ class EditorBridge {
       this.reconfigureLanguage(html);
     } else if (lang === "markdown") {
       this.reconfigureLanguage(markdown);
+    } else if (lang === "java") {
+      this.reconfigureLanguage(java);
+    } else if (lang === "python") {
+      this.reconfigureLanguage(python);
     } else {
       this.reconfigureLanguage(null);
     }
@@ -140,7 +146,7 @@ class EditorBridge {
 
   /**
    * Get current code language name.
-   * @return the name of current code language
+   * @return the name of current code language.
    */
   getLanguage() {
     // const lang = this.editorView.state.facet(language);
@@ -153,7 +159,7 @@ class EditorBridge {
 
   /**
    * Reconfigure code language.
-   * @param {*} language the LanguageSupport object
+   * @param {*} language the LanguageSupport object.
    */
   reconfigureLanguage(language) {
     if (language) {
@@ -196,7 +202,7 @@ class EditorBridge {
 
   /**
    * Set text and reset state.
-   * @param {*} text the text
+   * @param {*} text the text.
    */
   reset(text) {
     const newState = EditorState.create({
@@ -209,9 +215,9 @@ class EditorBridge {
 
   /**
    * Load text and reset state.
-   * This method can load large text with file size less than 2 MB.
+   * This method can load large text.
    * 
-   * @param {*} path the text file path
+   * @param {*} path the text file path.
    */
   async loadText(path) {
     this.setText(readText(path));

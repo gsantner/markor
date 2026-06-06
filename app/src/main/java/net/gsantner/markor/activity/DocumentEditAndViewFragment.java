@@ -205,7 +205,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _hlEditor.setTextColor(_appSettings.getEditorForegroundColor());
         _hlEditor.setGravity(_appSettings.isEditorStartEditingInCenter() ? Gravity.CENTER : Gravity.NO_GRAVITY);
         _hlEditor.setHighlightingEnabled(_appSettings.getDocumentHighlightState(_document.path, _hlEditor.getText())); // old
-        _editor.setCodeLanguage(_appSettings.getDocumentHighlightState(_document.path, "") ? "markdown" : ""); // new
+        _editor.setLanguage(_appSettings.getDocumentHighlightState(_document.path, "") ? _document.getLanguage() : ""); // new
         _hlEditor.setAutoFormatEnabled(_appSettings.getDocumentAutoFormatEnabled(_document.path));
         _hlEditor.setSaveInstanceState(false); // We will reload from disk
         _hlEditor.setOverScrollMode(View.OVER_SCROLL_ALWAYS);
@@ -692,6 +692,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             case R.string.action_format_todotxt:
             case R.string.action_format_csv:
             case R.string.action_format_plaintext:
+            case R.string.action_format_code:
             case R.string.action_format_asciidoc:
             case R.string.action_format_orgmode:
             case R.string.action_format_markdown: {
@@ -757,7 +758,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             case R.id.action_enable_highlighting: {
                 final boolean newState = !_hlEditor.getHighlightingEnabled();
                 _hlEditor.setHighlightingEnabled(newState); // old
-                _editor.setCodeLanguage(newState ? "markdown" : ""); // new
+                _editor.setLanguage(newState ? _document.getLanguage() : ""); // new
                 if (_lineNumbersView.isLineNumbersEnabled()) {
                     // The line height may be changed, so need to refresh line numbers
                     final int delay = newState ? 1000 : 200;
@@ -836,8 +837,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         }
         _format = FormatRegistry.getFormat(textFormatId, activity, _document);
         _document.setFormat(_format.getFormatId());
+        _document.setLanguage(_format.getFormatId());
+        _editor.setLanguage(_document.getLanguage()); // new
         _hlEditor.setHighlighter(_format.getHighlighter()); // old
-        _editor.setCodeLanguage(_format.getFormatId() == R.string.action_format_markdown ? "markdown" : ""); // new
         _hlEditor.setAutoFormatters(_format.getAutoFormatInputFilter(), _format.getAutoFormatTextWatcher());
         _hlEditor.setAutoFormatEnabled(_appSettings.getDocumentAutoFormatEnabled(_document.path));
 
@@ -1079,25 +1081,25 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     private void updateMenuToggleStates(final int selectedFormatActionId) {
-        MenuItem mi;
-        if ((mi = _fragmentMenu.findItem(R.id.action_wrap_words)) != null) {
-            mi.setChecked(isWrapped());
+        MenuItem menuItem;
+        if ((menuItem = _fragmentMenu.findItem(R.id.action_wrap_words)) != null) {
+            menuItem.setChecked(isWrapped());
         }
-        if ((mi = _fragmentMenu.findItem(R.id.action_enable_highlighting)) != null) {
-            mi.setChecked(_hlEditor.getHighlightingEnabled());
+        if ((menuItem = _fragmentMenu.findItem(R.id.action_enable_highlighting)) != null) {
+            menuItem.setChecked(_hlEditor.getHighlightingEnabled());
         }
-        if ((mi = _fragmentMenu.findItem(R.id.action_line_numbers)) != null) {
-            mi.setChecked(_lineNumbersView.isLineNumbersEnabled());
+        if ((menuItem = _fragmentMenu.findItem(R.id.action_line_numbers)) != null) {
+            menuItem.setChecked(_lineNumbersView.isLineNumbersEnabled());
         }
-        if ((mi = _fragmentMenu.findItem(R.id.action_enable_auto_format)) != null) {
-            mi.setChecked(_hlEditor.getAutoFormatEnabled());
+        if ((menuItem = _fragmentMenu.findItem(R.id.action_enable_auto_format)) != null) {
+            menuItem.setChecked(_hlEditor.getAutoFormatEnabled());
         }
 
-        final SubMenu su;
-        if (selectedFormatActionId != 0 && (mi = _fragmentMenu.findItem(R.id.submenu_format_selection)) != null && (su = mi.getSubMenu()) != null) {
-            for (int i = 0; i < su.size(); i++) {
-                if ((mi = su.getItem(i)).getItemId() == selectedFormatActionId) {
-                    mi.setChecked(true);
+        final SubMenu subMenu;
+        if (selectedFormatActionId != 0 && (menuItem = _fragmentMenu.findItem(R.id.submenu_format_selection)) != null && (subMenu = menuItem.getSubMenu()) != null) {
+            for (int i = 0; i < subMenu.size(); i++) {
+                if ((menuItem = subMenu.getItem(i)).getItemId() == selectedFormatActionId) {
+                    menuItem.setChecked(true);
                     break;
                 }
             }

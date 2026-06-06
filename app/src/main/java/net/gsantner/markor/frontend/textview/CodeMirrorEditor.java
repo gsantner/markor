@@ -242,7 +242,7 @@ public class CodeMirrorEditor extends WebView {
         execute("editorBridge.setFontSize('" + fontSize + "')");
     }
 
-    public void setCodeLanguage(String language) {
-        execute("editorBridge.setCodeLanguage('" + language + "')");
+    public void setLanguage(String language) {
+        execute("editorBridge.setLanguage('" + language + "')");
     }
 }
