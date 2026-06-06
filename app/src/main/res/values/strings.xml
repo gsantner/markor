@@ -519,6 +519,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="capitalize_sentences">Capitalize Sentences (a note→A note)</string>
     <string name="use_tab_to_indent">Indent lines with TAB key</string>
     <string name="static_cursor">Static cursor</string>
-    <string name="disable_cursor_blinking">Disable cursor blinking</string>
+    <string name="non_blinking_cursor">Non-blinking cursor</string>
     <string name="folder_local">Folder local</string>
 </resources>

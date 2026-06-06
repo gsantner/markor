@@ -369,7 +369,7 @@
                 android:defaultValue="false"
                 android:icon="@drawable/ic_input_cursor_black_24dp"
                 android:key="@string/pref_key__editor_static_cursor"
-                android:summary="@string/disable_cursor_blinking"
+                android:summary="@string/non_blinking_cursor"
                 android:title="@string/static_cursor" />
             <CheckBoxPreference
                 android:defaultValue="false"
