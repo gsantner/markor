@@ -1,19 +1,19 @@
 /**
- * Dashboard is used for development/test, not production.
+ * Dashboard is for development/test, not production.
  */
 class Dashboard {
     #viewList;
 
     constructor() {
-        this.#viewList = document.createElement('ol');
-        this.#viewList.style.listStyleType = 'none';
+        this.#viewList = document.createElement("ol");
+        this.#viewList.style.listStyleType = "none";
         this.#viewList.style.padding = 0;
         this.#viewList.style.margin = 0;
         this.#getDashboard().appendChild(this.#viewList);
     }
 
     #getDashboard() {
-        return document.getElementById('dashboard');
+        return document.getElementById("dashboard");
     }
 
     addView(name, id, text) {
@@ -25,7 +25,7 @@ class Dashboard {
             element.innerText = text;
         }
 
-        let li = document.createElement('li');
+        let li = document.createElement("li");
         li.appendChild(element);
         this.#viewList.appendChild(li);
 
@@ -33,23 +33,23 @@ class Dashboard {
     }
 
     addButton(text, onclick) {
-        this.addView('button', null, text).onclick = onclick;
+        this.addView("button", null, text).onclick = onclick;
     }
 
     isHide() {
-        return this.#getDashboard().style.display === 'none';
+        return this.#getDashboard().style.display === "none";
     }
 
     show() {
         let dashboard = this.#getDashboard();
         if (dashboard.children.length > 0) {
-            dashboard.style.display = 'block';
+            dashboard.style.display = "block";
         }
     }
 
     hide() {
         let dashboard = this.#getDashboard();
-        dashboard.style.display = 'none';
+        dashboard.style.display = "none";
     }
 }
 
@@ -74,6 +74,7 @@ export function getLog() {
     if (dashboard == null) {
         dashboard = setupDashboard();
     }
+
     return {
         set: (text) => {
             if (dashboard.isHide()) {
@@ -85,7 +86,7 @@ export function getLog() {
         },
         append: (text) => {
             if (logElement) {
-                logElement.value += text + '\n';
+                logElement.value += text + "\n";
             }
         }
     };
@@ -95,22 +96,22 @@ export function getLog() {
 function setupDashboard() {
     const dashboard = new Dashboard();
 
-    dashboard.addButton('setText', () => editorBridge.setText('// Hello'));
-    dashboard.addButton('getText', () => getLog().append(editorBridge.getText()));
-    dashboard.addButton('undo', () => editorBridge.undo());
-    dashboard.addButton('redo', () => editorBridge.redo());
-    dashboard.addButton('setLineNumbers', () => editorBridge.setLineNumbers(true));
-    dashboard.addButton('setCodeLanguage', () => editorBridge.setCodeLanguage("markdown"));
-    dashboard.addButton('setFontSize', () => editorBridge.setFontSize("32px"));
-    dashboard.addButton('setLineWrapping', () => editorBridge.setLineWrapping(false));
-    dashboard.addButton('reset', () => editorBridge.reset("Hello"));
+    dashboard.addButton("setText", () => editorBridge.setText("// Hello"));
+    dashboard.addButton("getText", () => getLog().append(editorBridge.getText()));
+    dashboard.addButton("undo", () => editorBridge.undo());
+    dashboard.addButton("redo", () => editorBridge.redo());
+    dashboard.addButton("setLineWrapping", () => editorBridge.setLineWrapping(false));
+    dashboard.addButton("setLineNumbers", () => editorBridge.setLineNumbers(true));
+    dashboard.addButton("setFontSize", () => editorBridge.setFontSize("32px"));
+    dashboard.addButton("setCodeLanguage", () => editorBridge.setCodeLanguage("markdown"));
+    dashboard.addButton("reset", () => editorBridge.reset("Hello"));
 
-    logElement = dashboard.addView('textarea', 'log');
+    logElement = dashboard.addView("textarea", "log");
     logElement.readOnly = true;
-    logElement.style.width = '100px';
-    logElement.style.height = '100px';
-    logElement.style.marginTop = '12px';
-    dashboard.addButton('clear', () => getLog().set(''));
+    logElement.style.width = "100px";
+    logElement.style.height = "100px";
+    logElement.style.marginTop = "12px";
+    dashboard.addButton("clear", () => getLog().set(""));
 
     return dashboard;
 }

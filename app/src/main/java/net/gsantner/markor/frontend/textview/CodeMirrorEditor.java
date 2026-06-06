@@ -75,8 +75,8 @@ public class CodeMirrorEditor extends WebView {
 
     // Listeners
 
-    public interface OnTextReadListener {
-        void onTextRead(String value);
+    public interface OnValueListener {
+        void onValue(String value);
     }
 
     public interface OnTextChangedListener {
@@ -140,16 +140,18 @@ public class CodeMirrorEditor extends WebView {
         }
     }
 
-    private void execute(final String script, OnTextReadListener listener) {
+    private void execute(final String script, OnValueListener listener) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             final String url = "javascript:" + script;
+
             ValueCallback<String> resultCallback = value -> {
                 if (value.startsWith("\"")) {
-                    listener.onTextRead(StringEscapeUtils.unescapeJava(value.substring(1, value.length() - 1)));
+                    listener.onValue(StringEscapeUtils.unescapeJava(value.substring(1, value.length() - 1)));
                 } else {
-                    listener.onTextRead(value);
+                    listener.onValue(value);
                 }
             };
+
             if (pageFinished) {
                 evaluateJavascript(url, resultCallback);
             } else {
@@ -198,21 +200,14 @@ public class CodeMirrorEditor extends WebView {
         execute("editorBridge.loadText(\"" + StringEscapeUtils.escapeJava(path) + "\")");
     }
 
-    public void getText(OnTextReadListener listener) {
+    public void getText(OnValueListener listener) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            execute("editorBridge.getText()", value -> {
-                        if (value.startsWith("\"")) {
-                            listener.onTextRead(StringEscapeUtils.unescapeJava(value.substring(1, value.length() - 1)));
-                        } else {
-                            listener.onTextRead(value);
-                        }
-                    }
-            );
+            execute("editorBridge.getText()", value -> listener.onValue(value));
         }
     }
 
-    public void length(OnTextReadListener listener) {
-        execute("editorBridge.length()", value -> listener.onTextRead(value));
+    public void length(OnValueListener listener) {
+        execute("editorBridge.length()", value -> listener.onValue(value));
     }
 
     public void undo() {
@@ -223,7 +218,7 @@ public class CodeMirrorEditor extends WebView {
         loadUrl("javascript: editorBridge.redo()");
     }
 
-    public void getUndoDepth(OnTextReadListener listener) {
+    public void getUndoDepth(OnValueListener listener) {
         execute("editorBridge.getUndoDepth()", listener);
     }
 

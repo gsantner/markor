@@ -375,10 +375,11 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         menu.findItem(R.id.action_redo).setVisible(isText && _appSettings.isEditorHistoryEnabled());
         menu.findItem(R.id.action_send_debug_log).setVisible(MainActivity.IS_DEBUG_ENABLED && !isDisplayedAtMainActivity() && !_isPreviewVisible);
 
-        // Undo / Redo / Save (keep visible, but deactivated and tinted grey if not executable)
+        // Undo, Redo, Save. Keep visible, but deactivated and tinted grey if not executable
         _undoMenuItem = menu.findItem(R.id.action_undo).setVisible(isText && !_isPreviewVisible);
         _redoMenuItem = menu.findItem(R.id.action_redo).setVisible(isText && !_isPreviewVisible);
         _saveMenuItem = menu.findItem(R.id.action_save).setVisible(isText && !_isPreviewVisible);
+        deactivateMenuItem(_saveMenuItem); // Save button is deactivated by default
 
         // Edit / Preview switch
         menu.findItem(R.id.action_edit).setVisible(isText && _isPreviewVisible);
@@ -412,6 +413,23 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         FragmentActivity fragmentActivity = getActivity();
         if (fragmentActivity != null) {
             fragmentActivity.openOptionsMenu();
+        }
+    }
+
+    public void deactivateMenuItem(MenuItem menuItem) {
+        if (menuItem == null) {
+            return;
+        }
+
+        if (menuItem.isEnabled()) {
+            menuItem.setEnabled(false);
+        }
+
+        Drawable icon = menuItem.getIcon();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (icon != null && icon.getAlpha() > 128) {
+                icon.mutate().setAlpha(40);
+            }
         }
     }
 

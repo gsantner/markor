@@ -74,7 +74,7 @@ class EditorBridge {
   }
 
   shouldDarkMode() {
-    let content = document.querySelector('meta[name="theme"]').getAttribute('content');
+    let content = document.querySelector("meta[name='theme']").getAttribute("content");
     return content === "dark";
   }
 
