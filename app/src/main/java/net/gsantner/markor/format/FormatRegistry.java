@@ -259,7 +259,7 @@ public class FormatRegistry {
         }
     }
 
-    public static final List<String> CODE_FILE_EXTENSIONS = Arrays.asList(".js", ".java", ".py");
+    public static final List<String> CODE_FILE_EXTENSIONS = Arrays.asList(".html", ".js", ".css", ".java", ".py", ".diff");
 
     public static boolean isCodeFormat(String extension) {
         return CODE_FILE_EXTENSIONS.contains(extension);

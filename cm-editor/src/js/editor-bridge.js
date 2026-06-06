@@ -2,13 +2,14 @@ import { EditorView, minimalSetup } from "codemirror";
 import { EditorState, Compartment } from "@codemirror/state";
 import { undo, redo, undoDepth, redoDepth } from "@codemirror/commands";
 import { lineNumbers, highlightActiveLine, highlightActiveLineGutter } from "@codemirror/view";
-import { language, bracketMatching } from "@codemirror/language";
+import { language, StreamLanguage, bracketMatching } from "@codemirror/language";
 import { css } from "@codemirror/lang-css";
 import { javascript, javascriptLanguage, scopeCompletionSource } from "@codemirror/lang-javascript";
 import { html } from "@codemirror/lang-html";
 import { markdown } from "@codemirror/lang-markdown";
 import { java } from "@codemirror/lang-java";
 import { python } from "@codemirror/lang-python";
+import { diff } from "@codemirror/legacy-modes/mode/diff"
 import { oneDark } from "@codemirror/theme-one-dark";
 import { readText, onTextChanged } from "./callback-interface.js"
 
@@ -137,6 +138,8 @@ class EditorBridge {
       this.reconfigureLanguage(java);
     } else if (lang === "python") {
       this.reconfigureLanguage(python);
+    } else if (lang === "diff") {
+      this.reconfigureLanguage(diff);
     } else {
       this.reconfigureLanguage(null);
     }
@@ -163,8 +166,15 @@ class EditorBridge {
    */
   reconfigureLanguage(language) {
     if (language) {
+      let extension;
+      if (language instanceof Function) {
+        extension = language();
+      } else {
+        extension = StreamLanguage.define(diff);
+      }
+
       this.editorView.dispatch({
-        effects: this.languageCompartment.reconfigure(language())
+        effects: this.languageCompartment.reconfigure(extension)
       });
     } else {
       this.editorView.dispatch({

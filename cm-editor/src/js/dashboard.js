@@ -103,7 +103,7 @@ function setupDashboard() {
     dashboard.addButton("setLineWrapping", () => editorBridge.setLineWrapping(false));
     dashboard.addButton("setLineNumbers", () => editorBridge.setLineNumbers(true));
     dashboard.addButton("setFontSize", () => editorBridge.setFontSize("32px"));
-    dashboard.addButton("setCodeLanguage", () => editorBridge.setCodeLanguage("markdown"));
+    dashboard.addButton("setLanguage", () => editorBridge.setLanguage("diff"));
     dashboard.addButton("reset", () => editorBridge.reset("Hello"));
 
     logElement = dashboard.addView("textarea", "log");
