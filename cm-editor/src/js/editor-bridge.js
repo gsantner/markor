@@ -3,15 +3,19 @@ import { EditorState, Compartment } from "@codemirror/state";
 import { undo, redo, undoDepth, redoDepth } from "@codemirror/commands";
 import { lineNumbers, highlightActiveLine, highlightActiveLineGutter } from "@codemirror/view";
 import { language, StreamLanguage, bracketMatching } from "@codemirror/language";
+import { html } from "@codemirror/lang-html";
 import { css } from "@codemirror/lang-css";
 import { javascript, javascriptLanguage, scopeCompletionSource } from "@codemirror/lang-javascript";
-import { html } from "@codemirror/lang-html";
 import { markdown } from "@codemirror/lang-markdown";
+import { cpp } from "@codemirror/lang-cpp";
 import { java } from "@codemirror/lang-java";
 import { python } from "@codemirror/lang-python";
-import { diff } from "@codemirror/legacy-modes/mode/diff"
+import { php } from "@codemirror/lang-php";
+import { clike } from "@codemirror/legacy-modes/mode/clike";
+import { diff } from "@codemirror/legacy-modes/mode/diff";
+import { shell } from "@codemirror/legacy-modes/mode/shell";
 import { oneDark } from "@codemirror/theme-one-dark";
-import { readText, onTextChanged } from "./callback-interface.js"
+import { readText, onTextChanged } from "./callback-interface.js";
 
 class EditorBridge {
   constructor(element) {
@@ -125,21 +129,29 @@ class EditorBridge {
       this.clearInjectedCompletion();
     }
 
-    if (lang === "css") {
+    if (lang === "html") {
+      this.reconfigureLanguage(html);
+    } else if (lang === "css") {
       this.reconfigureLanguage(css);
     } else if (lang === "javascript") {
       this.reconfigureLanguage(javascript);
       this.injectJavaScriptCompletion();
-    } else if (lang === "html") {
-      this.reconfigureLanguage(html);
     } else if (lang === "markdown") {
       this.reconfigureLanguage(markdown);
+    } else if (lang === "c" || lang === "cpp") {
+      this.reconfigureLanguage(cpp);
     } else if (lang === "java") {
       this.reconfigureLanguage(java);
     } else if (lang === "python") {
       this.reconfigureLanguage(python);
     } else if (lang === "diff") {
       this.reconfigureLanguage(diff);
+    } else if (lang === "kotlin") {
+      this.reconfigureLanguage(clike);
+    } else if (lang === "php") {
+      this.reconfigureLanguage(php);
+    } else if (lang === "shell") {
+      this.reconfigureLanguage(shell);
     } else {
       this.reconfigureLanguage(null);
     }
@@ -170,7 +182,7 @@ class EditorBridge {
       if (language instanceof Function) {
         extension = language();
       } else {
-        extension = StreamLanguage.define(diff);
+        extension = StreamLanguage.define(language);
       }
 
       this.editorView.dispatch({

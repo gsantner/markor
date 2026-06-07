@@ -204,11 +204,11 @@ public class NewFileDialog extends DialogFragment {
             if (lastExt[0] != null) {
                 extEdit.setText(lastExt[0]);
                 lastExt[0] = null;
-            } else if (fmt.defaultExtensionWithDot != null) {
+            } else if (fmt.extension != null) {
                 if (encryptCheckbox.isChecked()) {
-                    extEdit.setText(fmt.defaultExtensionWithDot + JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION);
+                    extEdit.setText(fmt.extension + JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION);
                 } else {
-                    extEdit.setText(fmt.defaultExtensionWithDot);
+                    extEdit.setText(fmt.extension);
                 }
             }
 

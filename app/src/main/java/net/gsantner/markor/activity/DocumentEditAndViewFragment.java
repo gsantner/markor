@@ -379,7 +379,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _undoMenuItem = menu.findItem(R.id.action_undo).setVisible(isText && !_isPreviewVisible);
         _redoMenuItem = menu.findItem(R.id.action_redo).setVisible(isText && !_isPreviewVisible);
         _saveMenuItem = menu.findItem(R.id.action_save).setVisible(isText && !_isPreviewVisible);
-        deactivateMenuItem(_saveMenuItem); // Save button is deactivated by default
+        deactivateMenuItem(_saveMenuItem); // Deactivated by default
+        deactivateMenuItem(_undoMenuItem);
+        deactivateMenuItem(_redoMenuItem);
 
         // Edit / Preview switch
         menu.findItem(R.id.action_edit).setVisible(isText && _isPreviewVisible);
@@ -482,9 +484,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     private void updateUndoRedoIconStates(int undoDepth, int redoDepth) {
-        Log.i("AAA", "undoDepth: " + undoDepth);
-        // Log.i("AAA", "_undoMenuItem.isEnabled(): " + (_undoMenuItem.isEnabled()));
-
+        // Log.i("AAA", "undoDepth: " + undoDepth);
         post(() -> {
             Drawable icon;
             // final boolean canUndo = _editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanUndo(); // old

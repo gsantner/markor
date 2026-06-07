@@ -12,9 +12,11 @@
     "vite": "^7.3.1"
   },
   "dependencies": {
+    "@codemirror/lang-cpp": "^6.0.3",
     "@codemirror/lang-html": "^6.4.11",
     "@codemirror/lang-java": "^6.0.2",
     "@codemirror/lang-markdown": "^6.5.0",
+    "@codemirror/lang-php": "^6.0.2",
     "@codemirror/lang-python": "^6.2.1",
     "@codemirror/legacy-modes": "^6.5.3",
     "@codemirror/matchbrackets": "^0.19.4",

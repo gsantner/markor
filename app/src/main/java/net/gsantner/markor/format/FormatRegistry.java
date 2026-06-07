@@ -82,31 +82,46 @@ public class FormatRegistry {
     private static final List<String> EXTERNAL_FILE_EXTENSIONS = Collections.singletonList(".pdf");
 
     public static class Format {
-        public final @StringRes int format, name;
-        public final String defaultExtensionWithDot;
+        public final @StringRes int format; // Format ID
+        public final @StringRes int name;
+        public final String extension; // File extension with dot
+        public final String language;
         public final TextConverterBase converter;
 
-        public Format(@StringRes final int a_format, @StringRes final int a_name, final String a_defaultFileExtension, final TextConverterBase a_converter) {
-            format = a_format;
-            name = a_name;
-            defaultExtensionWithDot = a_defaultFileExtension;
-            converter = a_converter;
+        public Format(@StringRes final int format, @StringRes final int name, final String extension, final String language, final TextConverterBase converter) {
+            this.format = format;
+            this.name = name;
+            this.language = language;
+            this.extension = extension;
+            this.converter = converter;
         }
     }
 
     // Order here is used to **determine** format by its file extension and/or content heading
     public static final List<Format> FORMATS = Arrays.asList(
-            new Format(FormatRegistry.FORMAT_MARKDOWN, R.string.markdown, ".md", CONVERTER_MARKDOWN),
-            new Format(FormatRegistry.FORMAT_TODO_TXT, R.string.todo_txt, ".todo.txt", CONVERTER_TODO_TXT),
-            new Format(FormatRegistry.FORMAT_CSV, R.string.csv, ".csv", CONVERTER_CSV),
-            new Format(FormatRegistry.FORMAT_WIKITEXT, R.string.wikitext, ".txt", CONVERTER_WIKITEXT),
-            new Format(FormatRegistry.FORMAT_KEY_VALUE, R.string.key_value, ".json", CONVERTER_KEY_VALUE),
-            new Format(FormatRegistry.FORMAT_ASCIIDOC, R.string.asciidoc, ".adoc", CONVERTER_ASCIIDOC),
-            new Format(FormatRegistry.FORMAT_ORG_MODE, R.string.orgmode, ".org", CONVERTER_ORG_MODE),
-            new Format(FormatRegistry.FORMAT_EMBED_BINARY, R.string.embed_binary, ".jpg", CONVERTER_EMBED_BINARY),
-            new Format(FormatRegistry.FORMAT_PLAIN, R.string.plaintext, ".txt", CONVERTER_PLAINTEXT),
-            new Format(FormatRegistry.FORMAT_CODE, R.string.code, ".txt", CONVERTER_PLAINTEXT),
-            new Format(FormatRegistry.FORMAT_UNKNOWN, R.string.none, "", null)
+            new Format(FormatRegistry.FORMAT_MARKDOWN, R.string.markdown, ".md", "markdown", CONVERTER_MARKDOWN),
+            new Format(FormatRegistry.FORMAT_TODO_TXT, R.string.todo_txt, ".todo.txt", "todo", CONVERTER_TODO_TXT),
+            new Format(FormatRegistry.FORMAT_ASCIIDOC, R.string.asciidoc, ".adoc", "ascii_doc", CONVERTER_ASCIIDOC),
+            new Format(FormatRegistry.FORMAT_ORG_MODE, R.string.orgmode, ".org", "org_mode", CONVERTER_ORG_MODE),
+            new Format(FormatRegistry.FORMAT_WIKITEXT, R.string.wikitext, ".txt", "wiki", CONVERTER_WIKITEXT),
+            new Format(FormatRegistry.FORMAT_KEY_VALUE, R.string.key_value, ".json", "json", CONVERTER_KEY_VALUE),
+            new Format(FormatRegistry.FORMAT_CSV, R.string.csv, ".csv", "csv", CONVERTER_CSV),
+            new Format(FormatRegistry.FORMAT_CODE, R.string.code, ".html", "html", CONVERTER_PLAINTEXT),
+            new Format(FormatRegistry.FORMAT_CODE, R.string.code, ".css", "css", CONVERTER_PLAINTEXT),
+            new Format(FormatRegistry.FORMAT_CODE, R.string.code, ".js", "javascript", CONVERTER_PLAINTEXT),
+            new Format(FormatRegistry.FORMAT_CODE, R.string.code, ".c", "c", CONVERTER_PLAINTEXT),
+            new Format(FormatRegistry.FORMAT_CODE, R.string.code, ".cpp", "cpp", CONVERTER_PLAINTEXT),
+            new Format(FormatRegistry.FORMAT_CODE, R.string.code, ".java", "java", CONVERTER_PLAINTEXT),
+            new Format(FormatRegistry.FORMAT_CODE, R.string.code, ".py", "python", CONVERTER_PLAINTEXT),
+            new Format(FormatRegistry.FORMAT_CODE, R.string.code, ".diff", "diff", CONVERTER_PLAINTEXT),
+            new Format(FormatRegistry.FORMAT_CODE, R.string.code, ".kt", "kotlin", CONVERTER_PLAINTEXT),
+            new Format(FormatRegistry.FORMAT_CODE, R.string.code, ".lua", "lua", CONVERTER_PLAINTEXT),
+            new Format(FormatRegistry.FORMAT_CODE, R.string.code, ".php", "php", CONVERTER_PLAINTEXT),
+            new Format(FormatRegistry.FORMAT_CODE, R.string.code, ".sh", "shell", CONVERTER_PLAINTEXT),
+            new Format(FormatRegistry.FORMAT_CODE, R.string.code, ".xml", "xml", CONVERTER_PLAINTEXT),
+            new Format(FormatRegistry.FORMAT_PLAIN, R.string.plaintext, ".txt", "", CONVERTER_PLAINTEXT),
+            new Format(FormatRegistry.FORMAT_EMBED_BINARY, R.string.embed_binary, ".jpg", "", CONVERTER_EMBED_BINARY),
+            new Format(FormatRegistry.FORMAT_UNKNOWN, R.string.none, "", "", null)
     );
 
     public static boolean isFileSupported(final File file, final boolean... textOnly) {
@@ -227,42 +242,25 @@ public class FormatRegistry {
      * @return the name of the syntax highlighting language.
      */
     public static String getDefaultLanguage(int formatId, final String extension) {
-        if (formatId == FORMAT_CODE) {
-            switch (extension) {
-                case ".md":
-                    return "markdown";
-                case ".js":
-                    return "javascript";
-                case ".java":
-                    return "java";
-                case ".py":
-                    return "python";
-                case ".diff":
-                    return "diff";
-                default:
-                    return "";
-            }
-        } else {
-            switch (formatId) {
-                case FORMAT_MARKDOWN:
-                    return "markdown";
-                case FORMAT_ORG_MODE:
-                    return "org_mode";
-                case FORMAT_WIKITEXT:
-                    return "wiki_text";
-                case FORMAT_TODO_TXT:
-                    return "todo";
-                case FORMAT_PLAIN:
-                default:
-                    return "";
+        for (Format format : FORMATS) {
+            if (format.format == formatId) {
+                if (formatId == FORMAT_CODE) {
+                    if (format.extension.equals(extension)) {
+                        return format.language;
+                    }
+                } else {
+                    return format.language;
+                }
             }
         }
+        return "";
     }
 
-    public static final List<String> CODE_FILE_EXTENSIONS = Arrays.asList(".html", ".js", ".css", ".java", ".py", ".diff");
-
     public static boolean isCodeFormat(String extension) {
-        return CODE_FILE_EXTENSIONS.contains(extension);
+        for (Format format : FORMATS) {
+            return format.extension.equals(extension);
+        }
+        return false;
     }
 
     private ActionButtonBase _textActions;
