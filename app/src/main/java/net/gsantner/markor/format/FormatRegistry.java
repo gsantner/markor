@@ -256,13 +256,6 @@ public class FormatRegistry {
         return "";
     }
 
-    public static boolean isCodeFormat(String extension) {
-        for (Format format : FORMATS) {
-            return format.extension.equals(extension);
-        }
-        return false;
-    }
-
     private ActionButtonBase _textActions;
     private SyntaxHighlighterBase _highlighter;
     private TextConverterBase _converter;

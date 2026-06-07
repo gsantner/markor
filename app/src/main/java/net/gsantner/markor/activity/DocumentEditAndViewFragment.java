@@ -228,8 +228,8 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             // updateUndoRedoIconStates();
         });
         _editor.setOnTextChangedListener((newText, undoDepth, redoDepth) -> {
-            checkTextChangeState(newText);
             updateUndoRedoIconStates(undoDepth, redoDepth);
+            checkTextChangeState(newText);
             if (_isPreviewVisible) {
                 post(() -> updateViewModeText(newText));
             }
@@ -1203,8 +1203,8 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
         // final CharSequence text = _hlEditor.getText(); // old
 
-        if (_saveMenuItem.isEnabled()) {
-            // Time-consuming operations: get -> diff -> save
+        if (isUnsaved()) {
+            // Time-consuming operations: get -> crc -> save
             _editor.getText(text -> {
                 boolean saveResult;
                 // Document is written iff writable && content has changed

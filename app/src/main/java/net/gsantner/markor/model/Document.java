@@ -77,14 +77,15 @@ public class Document implements Serializable {
         extension = GsFileUtils.getFilenameExtension(file);
 
         // Set initial format
-        if (FormatRegistry.isCodeFormat(extension)) {
-            setFormat(FormatRegistry.FORMAT_CODE);
-        } else {
-            for (final FormatRegistry.Format format : FormatRegistry.FORMATS) {
-                if (format.converter == null || format.converter.isFileOutOfThisFormat(file)) {
+        for (final FormatRegistry.Format format : FormatRegistry.FORMATS) {
+            if (format.format == FormatRegistry.FORMAT_CODE) {
+                if (format.extension.equals(extension)) {
                     setFormat(format.format);
                     break;
                 }
+            } else if (format.converter == null || format.converter.isFileOutOfThisFormat(file)) {
+                setFormat(format.format);
+                break;
             }
         }
 
