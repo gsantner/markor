@@ -55,62 +55,80 @@ import java.util.Collections;
 import java.util.List;
 
 public class FormatRegistry {
+    // Format ID
     public static final int FORMAT_UNKNOWN = 0;
     public static final int FORMAT_WIKITEXT = R.string.action_format_wikitext;
     public static final int FORMAT_MARKDOWN = R.string.action_format_markdown;
     public static final int FORMAT_CSV = R.string.action_format_csv;
     public static final int FORMAT_PLAIN = R.string.action_format_plaintext;
+    public static final int FORMAT_CODE = R.string.action_format_code; // For HTML, CSS, JavaScript, C++, Java, Python, ...
     public static final int FORMAT_ASCIIDOC = R.string.action_format_asciidoc;
-    public static final int FORMAT_TODOTXT = R.string.action_format_todotxt;
-    public static final int FORMAT_KEYVALUE = R.string.action_format_keyvalue;
-    public static final int FORMAT_EMBEDBINARY = R.string.action_format_embedbinary;
-    public static final int FORMAT_ORGMODE = R.string.action_format_orgmode;
+    public static final int FORMAT_TODO_TXT = R.string.action_format_todotxt;
+    public static final int FORMAT_KEY_VALUE = R.string.action_format_keyvalue;
+    public static final int FORMAT_EMBED_BINARY = R.string.action_format_embedbinary;
+    public static final int FORMAT_ORG_MODE = R.string.action_format_orgmode;
 
     public final static MarkdownTextConverter CONVERTER_MARKDOWN = new MarkdownTextConverter();
     public final static WikitextTextConverter CONVERTER_WIKITEXT = new WikitextTextConverter();
-    public final static TodoTxtTextConverter CONVERTER_TODOTXT = new TodoTxtTextConverter();
-    public final static KeyValueTextConverter CONVERTER_KEYVALUE = new KeyValueTextConverter();
+    public final static TodoTxtTextConverter CONVERTER_TODO_TXT = new TodoTxtTextConverter();
+    public final static KeyValueTextConverter CONVERTER_KEY_VALUE = new KeyValueTextConverter();
     public final static CsvTextConverter CONVERTER_CSV = new CsvTextConverter();
     public final static PlaintextTextConverter CONVERTER_PLAINTEXT = new PlaintextTextConverter();
     public final static AsciidocTextConverter CONVERTER_ASCIIDOC = new AsciidocTextConverter();
-    public final static EmbedBinaryTextConverter CONVERTER_EMBEDBINARY = new EmbedBinaryTextConverter();
-    public final static OrgmodeTextConverter CONVERTER_ORGMODE = new OrgmodeTextConverter();
+    public final static EmbedBinaryTextConverter CONVERTER_EMBED_BINARY = new EmbedBinaryTextConverter();
+    public final static OrgmodeTextConverter CONVERTER_ORG_MODE = new OrgmodeTextConverter();
 
     // File extensions that are known not to be supported by Markor
     private static final List<String> EXTERNAL_FILE_EXTENSIONS = Collections.singletonList(".pdf");
 
     public static class Format {
-        public final @StringRes int format, name;
-        public final String defaultExtensionWithDot;
+        public final @StringRes int format; // Format ID
+        public final @StringRes int name;
+        public final String extension; // File extension with dot
+        public final String language;
         public final TextConverterBase converter;
 
-        public Format(@StringRes final int a_format, @StringRes final int a_name, final String a_defaultFileExtension, final TextConverterBase a_converter) {
-            format = a_format;
-            name = a_name;
-            defaultExtensionWithDot = a_defaultFileExtension;
-            converter = a_converter;
+        public Format(@StringRes final int format, @StringRes final int name, final String extension, final String language, final TextConverterBase converter) {
+            this.format = format;
+            this.name = name;
+            this.language = language;
+            this.extension = extension;
+            this.converter = converter;
         }
     }
 
-    // Order here is used to **determine** format by it's file extension and/or content heading
+    // Order here is used to **determine** format by its file extension and/or content heading
     public static final List<Format> FORMATS = Arrays.asList(
-            new Format(FormatRegistry.FORMAT_MARKDOWN, R.string.markdown, ".md", CONVERTER_MARKDOWN),
-            new Format(FormatRegistry.FORMAT_TODOTXT, R.string.todo_txt, ".todo.txt", CONVERTER_TODOTXT),
-            new Format(FormatRegistry.FORMAT_CSV, R.string.csv, ".csv", CONVERTER_CSV),
-            new Format(FormatRegistry.FORMAT_WIKITEXT, R.string.wikitext, ".txt", CONVERTER_WIKITEXT),
-            new Format(FormatRegistry.FORMAT_KEYVALUE, R.string.key_value, ".json", CONVERTER_KEYVALUE),
-            new Format(FormatRegistry.FORMAT_ASCIIDOC, R.string.asciidoc, ".adoc", CONVERTER_ASCIIDOC),
-            new Format(FormatRegistry.FORMAT_ORGMODE, R.string.orgmode, ".org", CONVERTER_ORGMODE),
-            new Format(FormatRegistry.FORMAT_EMBEDBINARY, R.string.embed_binary, ".jpg", CONVERTER_EMBEDBINARY),
-            new Format(FormatRegistry.FORMAT_PLAIN, R.string.plaintext, ".txt", CONVERTER_PLAINTEXT),
-            new Format(FormatRegistry.FORMAT_UNKNOWN, R.string.none, "", null)
+            new Format(FormatRegistry.FORMAT_MARKDOWN, R.string.markdown, ".md", "markdown", CONVERTER_MARKDOWN),
+            new Format(FormatRegistry.FORMAT_TODO_TXT, R.string.todo_txt, ".todo.txt", "todo", CONVERTER_TODO_TXT),
+            new Format(FormatRegistry.FORMAT_ASCIIDOC, R.string.asciidoc, ".adoc", "ascii_doc", CONVERTER_ASCIIDOC),
+            new Format(FormatRegistry.FORMAT_ORG_MODE, R.string.orgmode, ".org", "org_mode", CONVERTER_ORG_MODE),
+            new Format(FormatRegistry.FORMAT_WIKITEXT, R.string.wikitext, ".txt", "wiki", CONVERTER_WIKITEXT),
+            new Format(FormatRegistry.FORMAT_KEY_VALUE, R.string.key_value, ".json", "json", CONVERTER_KEY_VALUE),
+            new Format(FormatRegistry.FORMAT_CSV, R.string.csv, ".csv", "csv", CONVERTER_CSV),
+            new Format(FormatRegistry.FORMAT_CODE, R.string.code, ".html", "html", CONVERTER_PLAINTEXT),
+            new Format(FormatRegistry.FORMAT_CODE, R.string.code, ".css", "css", CONVERTER_PLAINTEXT),
+            new Format(FormatRegistry.FORMAT_CODE, R.string.code, ".js", "javascript", CONVERTER_PLAINTEXT),
+            new Format(FormatRegistry.FORMAT_CODE, R.string.code, ".c", "c", CONVERTER_PLAINTEXT),
+            new Format(FormatRegistry.FORMAT_CODE, R.string.code, ".cpp", "cpp", CONVERTER_PLAINTEXT),
+            new Format(FormatRegistry.FORMAT_CODE, R.string.code, ".java", "java", CONVERTER_PLAINTEXT),
+            new Format(FormatRegistry.FORMAT_CODE, R.string.code, ".py", "python", CONVERTER_PLAINTEXT),
+            new Format(FormatRegistry.FORMAT_CODE, R.string.code, ".diff", "diff", CONVERTER_PLAINTEXT),
+            new Format(FormatRegistry.FORMAT_CODE, R.string.code, ".kt", "kotlin", CONVERTER_PLAINTEXT),
+            new Format(FormatRegistry.FORMAT_CODE, R.string.code, ".lua", "lua", CONVERTER_PLAINTEXT),
+            new Format(FormatRegistry.FORMAT_CODE, R.string.code, ".php", "php", CONVERTER_PLAINTEXT),
+            new Format(FormatRegistry.FORMAT_CODE, R.string.code, ".sh", "shell", CONVERTER_PLAINTEXT),
+            new Format(FormatRegistry.FORMAT_CODE, R.string.code, ".xml", "xml", CONVERTER_PLAINTEXT),
+            new Format(FormatRegistry.FORMAT_PLAIN, R.string.plaintext, ".txt", "", CONVERTER_PLAINTEXT),
+            new Format(FormatRegistry.FORMAT_EMBED_BINARY, R.string.embed_binary, ".jpg", "", CONVERTER_EMBED_BINARY),
+            new Format(FormatRegistry.FORMAT_UNKNOWN, R.string.none, "", "", null)
     );
 
     public static boolean isFileSupported(final File file, final boolean... textOnly) {
-        final boolean textonly = textOnly != null && textOnly.length > 0 && textOnly[0];
+        final boolean isTextOnly = textOnly != null && textOnly.length > 0 && textOnly[0];
         if (file != null) {
             for (final Format format : FORMATS) {
-                if (textonly && format.converter instanceof EmbedBinaryTextConverter) {
+                if (isTextOnly && format.converter instanceof EmbedBinaryTextConverter) {
                     continue;
                 }
                 if (format.converter != null && format.converter.isFileOutOfThisFormat(file)) {
@@ -149,6 +167,15 @@ public class FormatRegistry {
                 format._autoFormatTextWatcher = new ListHandler(MarkdownReplacePatternGenerator.formatPatterns);
                 break;
             }
+            case FORMAT_CODE: {
+                format._converter = CONVERTER_PLAINTEXT;
+                format._highlighter = null; // No need for CodeMirror editor
+                // We should implement some code action buttons (e.g. {}, [], ...) for PlaintextActionButtons in the future
+                format._textActions = new PlaintextActionButtons(context, document);
+                format._autoFormatInputFilter = new AutoTextFormatter(MarkdownReplacePatternGenerator.formatPatterns);
+                format._autoFormatTextWatcher = new ListHandler(MarkdownReplacePatternGenerator.formatPatterns);
+                break;
+            }
             case FORMAT_ASCIIDOC: {
                 format._converter = CONVERTER_ASCIIDOC;
                 format._highlighter = new AsciidocSyntaxHighlighter(appSettings);
@@ -157,15 +184,15 @@ public class FormatRegistry {
                 format._autoFormatTextWatcher = new ListHandler(MarkdownReplacePatternGenerator.formatPatterns);
                 break;
             }
-            case FORMAT_TODOTXT: {
-                format._converter = CONVERTER_TODOTXT;
+            case FORMAT_TODO_TXT: {
+                format._converter = CONVERTER_TODO_TXT;
                 format._highlighter = new TodoTxtSyntaxHighlighter(appSettings);
                 format._textActions = new TodoTxtActionButtons(context, document);
                 format._autoFormatInputFilter = new TodoTxtAutoTextFormatter();
                 break;
             }
-            case FORMAT_KEYVALUE: {
-                format._converter = CONVERTER_KEYVALUE;
+            case FORMAT_KEY_VALUE: {
+                format._converter = CONVERTER_KEY_VALUE;
                 format._highlighter = new KeyValueSyntaxHighlighter(appSettings);
                 format._textActions = new PlaintextActionButtons(context, document);
                 break;
@@ -178,22 +205,22 @@ public class FormatRegistry {
                 format._autoFormatTextWatcher = new ListHandler(WikitextReplacePatternGenerator.formatPatterns);
                 break;
             }
-            case FORMAT_EMBEDBINARY: {
-                format._converter = CONVERTER_EMBEDBINARY;
+            case FORMAT_EMBED_BINARY: {
+                format._converter = CONVERTER_EMBED_BINARY;
                 format._highlighter = new PlaintextSyntaxHighlighter(appSettings);
                 format._textActions = new PlaintextActionButtons(context, document);
                 break;
             }
-            case FORMAT_ORGMODE: {
-                format._converter = CONVERTER_ORGMODE;
+            case FORMAT_ORG_MODE: {
+                format._converter = CONVERTER_ORG_MODE;
                 format._highlighter = new OrgmodeSyntaxHighlighter(appSettings);
                 format._textActions = new OrgmodeActionButtons(context, document);
                 format._autoFormatInputFilter = new AutoTextFormatter(OrgmodeReplacePatternGenerator.formatPatterns);
                 format._autoFormatTextWatcher = new ListHandler(OrgmodeReplacePatternGenerator.formatPatterns);
                 break;
             }
-            default:
-            case FORMAT_MARKDOWN: {
+            case FORMAT_MARKDOWN:
+            default: {
                 formatId = FORMAT_MARKDOWN;
                 format._converter = CONVERTER_MARKDOWN;
                 format._highlighter = new MarkdownSyntaxHighlighter(appSettings);
@@ -205,6 +232,28 @@ public class FormatRegistry {
         }
         format._formatId = formatId;
         return format;
+    }
+
+    /**
+     * Get default syntax highlighting language by format id and extension.
+     *
+     * @param formatId  the format id.
+     * @param extension the file extension (with dot).
+     * @return the name of the syntax highlighting language.
+     */
+    public static String getDefaultLanguage(int formatId, final String extension) {
+        for (Format format : FORMATS) {
+            if (format.format == formatId) {
+                if (formatId == FORMAT_CODE) {
+                    if (format.extension.equals(extension)) {
+                        return format.language;
+                    }
+                } else {
+                    return format.language;
+                }
+            }
+        }
+        return "";
     }
 
     private ActionButtonBase _textActions;

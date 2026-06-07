@@ -41,12 +41,12 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/ui__fileinfodialog__name"
+            android:id="@+id/ui__file_info_dialog__name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:ellipsize="middle"
-            android:lines="1"
+            android:singleLine="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             tools:text="cool document.md" />
 
@@ -62,7 +62,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/ui__fileinfodialog__location"
+            android:id="@+id/ui__file_info_dialog__location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -70,13 +70,13 @@
             tools:text="/sdcard/Documents/somewhere" />
 
         <LinearLayout
-            android:id="@+id/ui__fileinfodialog__fileinfo"
+            android:id="@+id/ui__file_info_dialog__file_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/ui__fileinfodialog__last_modified_caption"
+                android:id="@+id/ui__file_info_dialog__last_modified_caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -85,10 +85,10 @@
                 android:lines="1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 android:textStyle="bold"
-                tools:text="@string/last_modified_witharg" />
+                tools:text="@string/last_modified_with_arg" />
 
             <TextView
-                android:id="@+id/ui__fileinfodialog__last_modified"
+                android:id="@+id/ui__file_info_dialog__last_modified"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -107,7 +107,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/ui__fileinfodialog__size_description"
+                android:id="@+id/ui__file_info_dialog__size_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -126,7 +126,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/ui__fileinfodialog__mimetype_description"
+                android:id="@+id/ui__file_info_dialog__mimetype_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -135,13 +135,13 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/ui__fileinfodialog__textinfo"
+            android:id="@+id/ui__file_info_dialog__text_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/ui__fileinfodialog__textinfo_caption"
+                android:id="@+id/ui__file_info_dialog__text_info_caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -153,7 +153,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/ui__fileinfodialog__textinfo_description"
+                android:id="@+id/ui__file_info_dialog__text_info_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -172,7 +172,7 @@
                 android:textStyle="normal" />
 
             <TextView
-                android:id="@+id/ui__fileinfodialog__sha_256"
+                android:id="@+id/ui__file_info_dialog__sha_256"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -182,7 +182,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/ui__fileinfodialog__filesettings"
+            android:id="@+id/ui__file_info_dialog__file_settings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -191,28 +191,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/settings"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
             <CheckBox
-                android:id="@+id/ui__fileinfodialog__recents"
+                android:id="@+id/ui__file_info_dialog__recents"
                 android:layout_width="wrap_content"
-                android:layout_height="48dp"
+                android:layout_height="32dp"
                 android:layout_gravity="center_vertical"
                 android:text="@string/list_in_recent_files" />
 
             <CheckBox
-                android:id="@+id/ui__fileinfodialog__favorite"
+                android:id="@+id/ui__file_info_dialog__favorite"
                 android:layout_width="wrap_content"
-                android:layout_height="48dp"
+                android:layout_height="32dp"
                 android:text="@string/favourite" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/tagging"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 android:visibility="gone" />

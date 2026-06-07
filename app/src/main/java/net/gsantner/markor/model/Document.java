@@ -43,7 +43,7 @@ import java.util.Locale;
 
 import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
 
-@SuppressWarnings({"WeakerAccess", "UnusedReturnValue", "unused", "UnnecessaryLocalVariable"})
+@SuppressWarnings({"WeakerAccess", "UnusedReturnValue", "unused"})
 public class Document implements Serializable {
     private static final int MAX_TITLE_EXTRACTION_LENGTH = 25;
 
@@ -62,9 +62,9 @@ public class Document implements Serializable {
     private long _modTime = -1; // The file's mod time when it was last touched by this document
     private long _touchTime = -1; // The last time this document touched the file
     private GsFileUtils.FileInfo _fileInfo;
-    private @StringRes
-    int _format = FormatRegistry.FORMAT_UNKNOWN;
     private transient SharedPreferences _modTimePref;
+    private @StringRes int _format = FormatRegistry.FORMAT_UNKNOWN;
+    public String language;
 
     // Used to check if string changed
     private long _lastHash = 0;
@@ -78,11 +78,18 @@ public class Document implements Serializable {
 
         // Set initial format
         for (final FormatRegistry.Format format : FormatRegistry.FORMATS) {
-            if (format.converter == null || format.converter.isFileOutOfThisFormat(file)) {
+            if (format.format == FormatRegistry.FORMAT_CODE) {
+                if (format.extension.equals(extension)) {
+                    setFormat(format.format);
+                    break;
+                }
+            } else if (format.converter == null || format.converter.isFileOutOfThisFormat(file)) {
                 setFormat(format.format);
                 break;
             }
         }
+
+        setLanguage(_format);
     }
 
     private void initModTimePref() {
@@ -138,14 +145,14 @@ public class Document implements Serializable {
     public boolean equals(Object obj) {
         if (obj instanceof Document) {
             Document other = ((Document) obj);
-            return equalsc(file, other.file)
-                    && equalsc(title, other.title)
+            return equals(file, other.file)
+                    && equals(title, other.title)
                     && (getFormat() == other.getFormat());
         }
         return super.equals(obj);
     }
 
-    private static boolean equalsc(Object o1, Object o2) {
+    private static boolean equals(Object o1, Object o2) {
         return (o1 == null && o2 == null) || o1 != null && o1.equals(o2);
     }
 
@@ -162,12 +169,24 @@ public class Document implements Serializable {
         _format = format;
     }
 
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public void setLanguage(int formatId) {
+        language = FormatRegistry.getDefaultLanguage(formatId, extension);
+    }
+
     public static boolean isEncrypted(File file) {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && file.getName().endsWith(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION);
     }
 
     public boolean isBinaryFileNoTextLoading() {
-        return file != null && FormatRegistry.CONVERTER_EMBEDBINARY.isFileOutOfThisFormat(file);
+        return file != null && FormatRegistry.CONVERTER_EMBED_BINARY.isFileOutOfThisFormat(file);
     }
 
     public boolean isEncrypted() {
@@ -220,7 +239,7 @@ public class Document implements Serializable {
 
         if (MainActivity.IS_DEBUG_ENABLED) {
             AppSettings.appendDebugLog(
-                    "\n\n\n--------------\nLoaded document, filepattern "
+                    "\n\n\n--------------\nLoaded document, file pattern "
                             + title.replaceAll(".*\\.", "-")
                             + ", chars: " + content.length() + " bytes:" + content.getBytes().length
                             + "(" + GsFileUtils.getReadableFileSize(content.getBytes().length, true) +
@@ -324,7 +343,7 @@ public class Document implements Serializable {
                 });
                 success = true;
             } else {
-                // Try write 2x
+                // Try to write 2x
                 success = GsFileUtils.writeFile(file, contentAsBytes, _fileInfo);
                 if (!success || fileBytes() < contentAsBytes.length) {
                     success = GsFileUtils.writeFile(file, contentAsBytes, _fileInfo);
