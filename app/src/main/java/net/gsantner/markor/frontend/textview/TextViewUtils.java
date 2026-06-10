@@ -415,19 +415,31 @@ public final class TextViewUtils {
      * @param startSelection Start selection
      */
     public static void showSelection(final EditText editText, final int startSelection) {
+        showSelection(editText, startSelection, startSelection);
+    }
+
+    public static void showSelection(final EditText editText, final int startSelection, final int endSelection) {
         Layout layout = editText.getLayout();
         if (layout == null) {
             return;
         }
 
+        final int start = Math.min(startSelection, endSelection);
+        final int end = Math.max(startSelection, endSelection);
+
+        if (start != end) {
+            showSelection((TextView) editText, start, end);
+            return;
+        }
+
         Rect visible = new Rect();
         editText.getLocalVisibleRect(visible);
-        int line = layout.getLineForOffset(startSelection);
+        int line = layout.getLineForOffset(start);
         int lineHeight = editText.getLineHeight();
         if (layout.getLineTop(line) < visible.top - lineHeight) {
-            showSelection(editText, visible, startSelection, startSelection, -lineHeight * 3);
+            showSelection(editText, visible, start, start, -lineHeight * 3);
         } else if (layout.getLineBottom(line) > visible.bottom - lineHeight) {
-            showSelection(editText, visible, startSelection, startSelection, lineHeight * 2);
+            showSelection(editText, visible, start, start, lineHeight * 2);
         }
     }
 
