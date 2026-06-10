@@ -57,7 +57,7 @@ public class DocumentActivity extends MarkorBaseActivity {
     }
 
     public static void launch(final Activity activity, final Uri uri) {
-        if (activity == null || uri == null || !"file".equals(uri.getScheme())) {
+        if (activity == null || uri == null) {
             return;
         }
 
@@ -252,12 +252,9 @@ public class DocumentActivity extends MarkorBaseActivity {
         }
 
         if (!intent.hasExtra(Document.EXTRA_FILE_LINE_NUMBER) && uri != null) {
-            final String line = uri.getQueryParameter("line");
-            if (line != null) {
-                final int lineNumber = GsTextUtils.tryParseInt(line, -1);
-                if (lineNumber >= -1) {
-                    intent.putExtra(Document.EXTRA_FILE_LINE_NUMBER, lineNumber);
-                }
+            final Integer lineNumber = parseNormalizedLine(uri);
+            if (lineNumber != null) {
+                intent.putExtra(Document.EXTRA_FILE_LINE_NUMBER, lineNumber);
             }
         }
 
@@ -272,6 +269,16 @@ public class DocumentActivity extends MarkorBaseActivity {
         }
 
         return intent;
+    }
+
+    private static Integer parseNormalizedLine(final Uri uri) {
+        final String line = uri != null ? uri.getQueryParameter("line") : null;
+        if (line == null) {
+            return null;
+        }
+
+        final int lineNumber = GsTextUtils.tryParseInt(line, -1);
+        return lineNumber >= -1 ? lineNumber : null;
     }
 
     private void showNotSupportedMessage() {

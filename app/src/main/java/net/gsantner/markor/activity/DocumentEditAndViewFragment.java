@@ -250,7 +250,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     @Override
     protected void onFragmentFirstTimeVisible() {
         final Bundle args = getArguments();
-
         final boolean hasLineNumber = args != null && args.containsKey(Document.EXTRA_FILE_LINE_NUMBER);
         int startPos = _appSettings.getLastEditPosition(_document.path, _hlEditor.length());
         if (hasLineNumber) {
