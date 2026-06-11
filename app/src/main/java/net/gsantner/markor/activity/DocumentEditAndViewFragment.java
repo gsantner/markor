@@ -251,40 +251,38 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     protected void onFragmentFirstTimeVisible() {
         final Bundle args = getArguments();
         final boolean hasLineNumber = args != null && args.containsKey(Document.EXTRA_FILE_LINE_NUMBER);
-        int startPos = _appSettings.getLastEditPosition(_document.path, _hlEditor.length());
-        if (hasLineNumber) {
+        final int targetSelection;
+        if (args != null && args.containsKey(Document.EXTRA_FILE_LINE_NUMBER)) {
             final int lineNumber = args.getInt(Document.EXTRA_FILE_LINE_NUMBER);
-            startPos = lineNumber >= 0
+            targetSelection = lineNumber >= 0
                     ? TextViewUtils.getIndexFromLineOffset(_hlEditor.getText(), lineNumber, 0)
                     : _hlEditor.length();
         } else {
-            _hlEditor.setSelection(startPos);
+            targetSelection = _appSettings.getLastEditPosition(_document.path, _hlEditor.length());
         }
 
-        // Restore scroll position for view-mode
         if (_webView != null) {
-            int lastViewHeight = _appSettings.getLastViewHeight(_document.path, 0);
-            int lastViewScrollY = _appSettings.getLastViewScrollY(_document.path, 0);
+            final int lastViewHeight = _appSettings.getLastViewHeight(_document.path, 0);
+            final int lastViewScrollY = _appSettings.getLastViewScrollY(_document.path, 0);
             if (lastViewScrollY > 0 && lastViewHeight == _webView.getHeight()) {
                 _verticalScrollView.post(() -> _webView.scrollTo(0, lastViewScrollY));
             }
         }
 
         _hlEditor.recomputeHighlighting();
-        if (hasLineNumber) {
-            TextViewUtils.setSelectionAndShow(_hlEditor, startPos);
-        } else {
-            final int lastEditHeight = _appSettings.getLastEditHeight(_document.path, 0);
-            final int lastEditScrollY = _appSettings.getLastEditScrollY(_document.path, 0);
-            final int fallbackPos = startPos;
-            _verticalScrollView.post(() -> {
+        // Defer initial placement until after the highlight-triggered reflow work has run.
+        _hlEditor.post(() -> {
+            if (!hasLineNumber) {
+                final int lastEditHeight = _appSettings.getLastEditHeight(_document.path, 0);
                 if (lastEditHeight > 0 && lastEditHeight == _verticalScrollView.getHeight()) {
+                    final int lastEditScrollY = _appSettings.getLastEditScrollY(_document.path, 0);
+                    _hlEditor.setSelection(targetSelection);
                     _verticalScrollView.scrollTo(0, lastEditScrollY);
-                } else {
-                    TextViewUtils.setSelectionAndShow(_hlEditor, fallbackPos);
+                    return;
                 }
-            });
-        }
+            }
+            _hlEditor.post(() -> TextViewUtils.setSelectionAndShow(_hlEditor, targetSelection));
+        });
 
         // Fade in to hide initial jank
         _hlEditor.post(() -> _hlEditor.animate().alpha(1).setDuration(250).start());

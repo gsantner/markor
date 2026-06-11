@@ -338,9 +338,7 @@ public final class TextViewUtils {
         }
     }
 
-    public static void showSelection(final TextView text, Rect visible, final int start, final int end, int offsetY) {
-        // Get view info
-        // ------------------------------------------------------------
+    public static void showSelection(final TextView text, Rect visible, final int start, final int end) {
         final Layout layout = text.getLayout();
         if (layout == null) {
             return;
@@ -353,26 +351,21 @@ public final class TextViewUtils {
         }
         final int lineStart = TextViewUtils.getLineStart(text.getText(), _start);
 
-        // Region in Y
-        // ------------------------------------------------------------
         final int startLine = layout.getLineForOffset(lineStart);
         final int startLineTop = layout.getLineTop(startLine);
-
         final int endLine = layout.getLineForOffset(_end);
         final int endLineBottom = layout.getLineBottom(endLine);
-        final int endLineTop = layout.getLineTop(endLine);
-        final int lineHeight = endLineBottom - endLineTop;
+        final int lineHeight = text.getLineHeight();
+        final int viewportHeight = Math.max(visible.height(), lineHeight);
+        final int contextLines = 2;
+        final int desiredTop = Math.max(startLineTop - contextLines * lineHeight, 0);
 
         final Rect region = new Rect();
-        region.top = Math.max(startLineTop, endLineBottom - visible.height() + lineHeight) + offsetY;
-        region.bottom = endLineBottom + offsetY;
+        region.top = desiredTop;
+        region.bottom = Math.max(desiredTop + viewportHeight, endLineBottom + lineHeight);
 
-        // Region in X - as handling RTL, text alignment, and centred text etc is
-        // a huge pain (see TextView.bringPointIntoView), we use a very simple solution.
-        // ------------------------------------------------------------
         final int startLeft = (int) layout.getPrimaryHorizontal(_start);
         final int halfWidth = visible.width() / 2;
-        // Push the start to the middle of the screen
         region.left = Math.max(startLeft - halfWidth, 0);
         region.right = Math.min(startLeft + halfWidth, text.getWidth());
 
@@ -382,7 +375,7 @@ public final class TextViewUtils {
     public static void showSelection(final TextView text, final int start, final int end) {
         Rect visible = new Rect();
         text.getLocalVisibleRect(visible);
-        showSelection(text, visible, start, end, visible.height() - text.getLineHeight());
+        showSelection(text, visible, start, end);
     }
 
     public static void showSelection(final TextView text) {
@@ -402,44 +395,8 @@ public final class TextViewUtils {
                 edit.requestFocus();
             }
 
-            edit.setSelection(start, end);
             showSelection(edit, start, end);
-        }
-    }
-
-    /**
-     * Scroll EditText view to the region that contains the start selection and don‘t insert this selection.
-     * If start selection is already in current visible region, it will not scroll EditText view.
-     *
-     * @param editText       EditText view
-     * @param startSelection Start selection
-     */
-    public static void showSelection(final EditText editText, final int startSelection) {
-        showSelection(editText, startSelection, startSelection);
-    }
-
-    public static void showSelection(final EditText editText, final int startSelection, final int endSelection) {
-        Layout layout = editText.getLayout();
-        if (layout == null) {
-            return;
-        }
-
-        final int start = Math.min(startSelection, endSelection);
-        final int end = Math.max(startSelection, endSelection);
-
-        if (start != end) {
-            showSelection((TextView) editText, start, end);
-            return;
-        }
-
-        Rect visible = new Rect();
-        editText.getLocalVisibleRect(visible);
-        int line = layout.getLineForOffset(start);
-        int lineHeight = editText.getLineHeight();
-        if (layout.getLineTop(line) < visible.top - lineHeight) {
-            showSelection(editText, visible, start, start, -lineHeight * 3);
-        } else if (layout.getLineBottom(line) > visible.bottom - lineHeight) {
-            showSelection(editText, visible, start, start, lineHeight * 2);
+            edit.post(() -> edit.setSelection(start, end));
         }
     }
 
