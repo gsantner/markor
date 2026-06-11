@@ -378,6 +378,10 @@ public final class TextViewUtils {
         showSelection(text, visible, start, end);
     }
 
+    public static void showSelection(final TextView text, final int selection) {
+        showSelection(text, selection, selection);
+    }
+
     public static void showSelection(final TextView text) {
         showSelection(text, text.getSelectionStart(), text.getSelectionEnd());
     }
