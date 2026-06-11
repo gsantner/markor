@@ -252,7 +252,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         final Bundle args = getArguments();
         final boolean hasLineNumber = args != null && args.containsKey(Document.EXTRA_FILE_LINE_NUMBER);
         final int targetSelection;
-        if (args != null && args.containsKey(Document.EXTRA_FILE_LINE_NUMBER)) {
+        if (hasLineNumber) {
             final int lineNumber = args.getInt(Document.EXTRA_FILE_LINE_NUMBER);
             targetSelection = lineNumber >= 0
                     ? TextViewUtils.getIndexFromLineOffset(_hlEditor.getText(), lineNumber, 0)

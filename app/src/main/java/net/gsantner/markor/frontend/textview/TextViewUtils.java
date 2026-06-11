@@ -338,25 +338,25 @@ public final class TextViewUtils {
         }
     }
 
-    public static void showSelection(final TextView text, Rect visible, final int start, final int end) {
+    public static void showSelection(final TextView text, Rect visibleRect, final int start, final int end) {
         final Layout layout = text.getLayout();
         if (layout == null) {
             return;
         }
 
-        final int _start = Math.min(start, end);
-        final int _end = Math.max(start, end);
-        if (_start < 0 || _end > text.length()) {
+        final int startOffset = Math.min(start, end);
+        final int endOffset = Math.max(start, end);
+        if (startOffset < 0 || endOffset > text.length()) {
             return;
         }
-        final int lineStart = TextViewUtils.getLineStart(text.getText(), _start);
+        final int lineStart = TextViewUtils.getLineStart(text.getText(), startOffset);
 
         final int startLine = layout.getLineForOffset(lineStart);
         final int startLineTop = layout.getLineTop(startLine);
-        final int endLine = layout.getLineForOffset(_end);
+        final int endLine = layout.getLineForOffset(endOffset);
         final int endLineBottom = layout.getLineBottom(endLine);
         final int lineHeight = text.getLineHeight();
-        final int viewportHeight = Math.max(visible.height(), lineHeight);
+        final int viewportHeight = Math.max(visibleRect.height(), lineHeight);
         final int contextLines = 2;
         final int desiredTop = Math.max(startLineTop - contextLines * lineHeight, 0);
 
@@ -364,8 +364,8 @@ public final class TextViewUtils {
         region.top = desiredTop;
         region.bottom = Math.max(desiredTop + viewportHeight, endLineBottom + lineHeight);
 
-        final int startLeft = (int) layout.getPrimaryHorizontal(_start);
-        final int halfWidth = visible.width() / 2;
+        final int startLeft = (int) layout.getPrimaryHorizontal(startOffset);
+        final int halfWidth = visibleRect.width() / 2;
         region.left = Math.max(startLeft - halfWidth, 0);
         region.right = Math.min(startLeft + halfWidth, text.getWidth());
 
@@ -396,6 +396,7 @@ public final class TextViewUtils {
             }
 
             showSelection(edit, start, end);
+            // Let the reveal request settle before selection handling triggers caret visibility work.
             edit.post(() -> edit.setSelection(start, end));
         }
     }
