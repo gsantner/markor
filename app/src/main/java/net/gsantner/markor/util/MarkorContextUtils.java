@@ -27,6 +27,7 @@ import net.gsantner.markor.activity.openeditor.OpenEditorQuickNoteActivity;
 import net.gsantner.markor.activity.openeditor.OpenEditorTodoActivity;
 import net.gsantner.markor.activity.openeditor.OpenFromShortcutOrWidgetActivity;
 import net.gsantner.markor.activity.openeditor.OpenShareIntoActivity;
+import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 import net.gsantner.opoc.util.GsContextUtils;
@@ -35,6 +36,9 @@ import net.gsantner.opoc.util.GsFileUtils;
 import java.io.File;
 
 public class MarkorContextUtils extends GsContextUtils {
+    private static final String DEEP_LINK_SCHEME = "markor";
+    private static final String DEEP_LINK_HOST_OPEN = "open";
+    private static final String DEEP_LINK_PARAM_PATH = "path";
 
     public MarkorContextUtils(@Nullable final Context context) {
         if (context != null) {
@@ -101,17 +105,31 @@ public class MarkorContextUtils extends GsContextUtils {
         // By extra path
         File file = (File) intent.getSerializableExtra(Document.EXTRA_FILE);
 
+        // By Markor URI/deep link path
+        final Uri uri = intent.getData();
+        if (file == null && uri != null) {
+            final String scheme = uri.getScheme();
+            final String host = uri.getHost();
+            final boolean markorOpen = DEEP_LINK_SCHEME.equalsIgnoreCase(scheme) && DEEP_LINK_HOST_OPEN.equalsIgnoreCase(host);
+            if (markorOpen) {
+                final String path = uri.getQueryParameter(DEEP_LINK_PARAM_PATH);
+                if (!TextUtils.isEmpty(path)) {
+                    file = new File(path);
+                    if (!file.isAbsolute() && context != null) {
+                        file = new File(AppSettings.get(context).getNotebookDirectory(), path);
+                    }
+                }
+            }
+        }
+
         // By stream etc
         if (file == null && context != null) {
             file = GsContextUtils.extractFileFromIntent(intent, context);
         }
 
         // By url in data
-        if (file == null) {
-            try {
-                file = new File(intent.getData().getPath());
-            } catch (NullPointerException ignored) {
-            }
+        if (file == null && uri != null && uri.getPath() != null) {
+            file = new File(uri.getPath());
         }
 
         return file;
