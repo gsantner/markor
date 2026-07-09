@@ -622,4 +622,8 @@ public class GsSharedPreferencesPropertyBackend implements GsPropertyBackend<Str
     public static boolean fexists(final String fp) {
         return ne(fp) && (new File(fp)).exists();
     }
+
+    public static String fbasename(final String fp) {
+        return new File(fp).getName();
+    }
 }
