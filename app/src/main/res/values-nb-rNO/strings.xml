@@ -38,6 +38,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Del til&#8230;</string>
     <string name="share">Del</string>
     <string name="search">Søk</string>
+    <string name="previous_match">Forrige treff</string>
+    <string name="next_match">Neste treff</string>
     <string name="display_converted_markup">Vis konvertert markup</string>
     <string name="editor">Skriveprogram</string>
     <string name="folders">Mapper</string>
@@ -115,6 +117,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_task">Legg til gjøremål</string>
     <string name="add_x_witharg">Legg til %s</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">Dokumentet vil bli lastet og lagret som \"%s\"</string>
+    <string name="save_or_not">Vil du lagre endringene?</string>
+    <string name="reload_or_not">Vil du forkaste endringene og starte på nytt?</string>
     <string name="refresh">Gjenoppfrisk</string>
     <string name="create_shortcut">Lag snarvei</string>
     <string name="tried_to_create_shortcut_for_this_notice">Prøvde å legge til snarvei på hjemmeskjermen din for redigering av dette dokumentet. Merk at noen oppstartere ikke støtter dette.</string>
@@ -122,6 +126,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_current_folder_do_copy__appspecific">Filen bevares ikke i den gjeldene mappen. Vil du kopiere den til den gjeldene mappen? Dette kan overskrive en eksisterende fil hvis den har samme navn.</string>
     <string name="files_and_folders">Filer og mapper</string>
     <string name="document_browser">Dokumentutforsker</string>
+    <string name="file_browser">Filutforsker</string>
     <string name="set_due_date">Angi forfallsdato</string>
     <string name="insert_replace_date">Sett inn dato</string>
     <string name="create_note" needed="false">Opprett notat</string>
@@ -137,6 +142,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="main_view">Hovedvisning</string>
     <string name="overall_theme_used_in_app">Hverdagsdrakt brukt i programmet</string>
     <string name="remember_last_directory">Husk siste mapper</string>
+    <string name="syntax_highlighting">Syntaxmarkering</string>
     <string name="highlighting_delay">Framhevingsforsinkelse</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Forsinkelse i millisekunder for framhevelsesforsinkelse. Lavere verdi starter framheving tidligere, men tømmer batteriet fortere, og kan senke ytelsen på eldre enheter.</string>
     <string name="highlighting_enabled_or_not__appspecific">Kontroller hvorvidt innskrevet tekst skal framheves eller ei</string>
@@ -174,7 +180,20 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="sort_tasks_by_selected_order">Sorter gjøremålene etter valgt rekkefølge</string>
     <string name="special_key">Spesialtast</string>
     <string name="asciidoc_special_key">Spesielt AsciiDoc-innhold</string>
+    <string name="key_pos_1">Først på linjen (Home)</string>
+    <string name="key_pos_end">Sist på linjen (End)</string>
+    <string name="key_pos_1_document">Først i dokumentet (Alt + ↑)</string>
+    <string name="key_pos_end_document">Sist i dokumentet (Alt + ↓)</string>
+    <string name="jump_to_cursor">Gå til markør</string>
+    <string name="duplicate_hotkey">Dupliser (Ctrl + D)</string>
+    <string name="move_text_one_line_up">Gå opp en linje (Ctrl + ↑)</string>
+    <string name="move_text_one_line_down">Gå ned en linje (Ctrl + ↓)</string>
+    <string name="go_to_line_hotkey">Gå til linje (Ctrl + G)</string>
+    <string name="start_new_line_below">Start ny linje (Shift + Enter)</string>
+    <string name="select_current_line">Velg linje (Ctrl + L)</string>
+    <string name="select_lines_hotkey">Velg flere linjer (Ctrl + Alt + L)</string>
     <string name="key_ctrl_a">Velg alt (Ctrl+A)</string>
+    <string name="key_tab">Tabulator (Tab)</string>
     <string name="em_space">Em-mellomrom (&amp;emsp;)</string>
     <string name="start_on_bottom">Start på bunnen</string>
     <string name="start_on_bottom_when_loading_document">Etter at et dokument lastes, posisjoner pekeren ved dets slutt</string>
@@ -202,8 +221,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="center_text">Sentrer tekst</string>
     <string name="edit_text_in_center_of_screen">Rediger tekst i midten av skjermen</string>
     <string name="clipboard">Utklippstavle</string>
+    <string name="link_copied">Lenke ble kopiert!</string>
     <string name="select_existing_document">Velg eksisterende dokument</string>
     <string name="select_create_document">Velg eller opprett dokument</string>
+    <string name="select_create_folder">Velg eller opprett mappe</string>
     <string name="open_source_licenses">Friprog-lisenser</string>
     <string name="rate_this_app">Vurder dette programmet</string>
     <string name="translate">Oversett</string>
@@ -277,6 +298,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="swipe_to_change_to_edit_or_view_mode">Sveip for å endre for å redigere eller vise modus (motsatt av gjeldende modus)</string>
     <string name="folder_first">Mappen først</string>
     <string name="go_to">Gå til</string>
+    <string name="go_to_line">Angi og gå til linje</string>
+    <string name="select_lines">Velg linjer</string>
+    <string name="current_line">Nåværende linje</string>
+    <string name="line_number">Linjenummer</string>
     <string name="appdata_public">AppData (public)</string>
     <string name="appdata_private">Appdata (privat)</string>
     <string name="appdata_sdcard">Appdata (SD kort)</string>
@@ -289,18 +314,22 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">Svart</string>
     <string name="white">Hvit</string>
     <string name="view">Vis</string>
+    <string name="view_mode">Visningsmodus</string>
+    <string name="edit_mode">Redigeringsmodus</string>
     <string name="mount_storage">Monter lagring</string>
     <string name="application_needs_access_to_storage_mount_it">Tillatelse kreves for tilgang til dette lagring. Monter lagringen for å gi tilgang. Bekreft denne dialogboksen for å få en popup. Velg lagringsplass der og trykk på valg.</string>
     <string name="share_into">Del i</string>
     <string name="favourite">Favoritt</string>
     <string name="favourites">Favoritter</string>
     <string name="please_wait">Et øyeblikk</string>
+    <string name="loading_large_file_may_take_a_moment_witharg">Åpner en stor fil (%s), sleng bena på bordet.</string>
     <string name="app_start_folder">Startmappe for app</string>
     <string name="tab_width">Tab-bredde</string>
     <string name="amount_of_space_for_tab">Antall mellomrom som skal vises i en fane</string>
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Den valgte filen kan være en ren tekst-fil. Vil du åpne den i redigereren eller i en annen app?\n\n Ikke prøv å åpne binære filer. Hvis du er usikker, åpne med annen app.</string>
     <string name="list_in_recent_files">Liste over nylige filer</string>
     <string name="reload">Last inn på nytt</string>
+    <string name="line_numbers">Linjenummerering</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Bryt tekst hvis teksten ikke passer inn i skjermbredde. Hvis satt til av, benyttes loddrett skrolling.</string>
     <string name="recursive_search_in_location">Rekursivt søk i %s</string>
     <string name="always_open_with_this_app">Åpne alltid med denne appen</string>
@@ -315,6 +344,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="current">Nåværende</string>
     <string name="record_audio">Ta opp lyd</string>
     <string name="attach">Vedlegg</string>
+    <string name="attachment">Vedlegg</string>
     <string name="copy_file">Kopier fil</string>
     <string name="page">Side</string>
     <string name="experimental_features">Eksperimentelle funksjoner</string>
@@ -352,6 +382,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Legg til kontekst</string>
     <string name="add_project">Legg til prosjekt</string>
     <string name="archive_completed_tasks">Arkiver fullførte oppgaver</string>
+    <string name="overline">Linje over</string>
+    <string name="superscript">Opphøyet tekst</string>
+    <string name="subscript">Nedsenket tekst</string>
     <string name="create_new_file_or_folder">Opprett ny fil eller mappe</string>
     <string name="choose_format">Velg format</string>
     <string name="clear_selection">Tøm utvalg</string>
@@ -365,6 +398,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="load_default_settings">Last inn standardinnstillinger</string>
     <string name="drag">Dra</string>
     <string name="created">Opprettet</string>
+    <string name="no_results">Ingen resultat</string>
+    <string name="bad_pattern">Ugyldig mønster</string>
+    <string name="toggle_find_replace">Velg finn/erstatt</string>
+    <string name="new_line">Ny linje</string>
+    <string name="match_case">Finn lik bokstav</string>
+    <string name="match_whole_word">Finn likt ord</string>
+    <string name="use_regular_expression">Bruk RegEx</string>
     <string name="file_encryption_password">Passord for filkryptering</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Ingen passord satt, kan ikke kryptere eller dekryptere.\nGå til Innstillinger -&gt; Generelt -&gt; Passord for å angi et passord.</string>
     <string name="encrypt_file_content">Krypter filinnhold</string>
@@ -378,6 +418,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Format for filbeskrivelse</string>
     <string name="file_description_format_dialog">Formatet for beskrivelsen under hver fil i filnettleser. Følg reglene for Android, SimpleDateFormat med tillegg av FS for å vise filstørrelse. La være blank for å bruke standardformat for din lokalitet.\n\nEksempel input:\nFS yyyy MMM dd ht:mm:ss aa\nUtdataformat:\n30 KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">Laster inn standardverdi</string>
+    <string name="file_settings">Filinnstillinger</string>
     <string name="search_and_replace">Søk / erstatt</string>
     <string name="search_for">Søk etter</string>
     <string name="replace_with">Erstatt med</string>
