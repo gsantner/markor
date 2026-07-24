@@ -39,17 +39,4 @@
         <item translatable="false">4</item>
     </string-array>
 
-    <!-- Navigation bar color -->
-    <string name="pref_key__navigationbar_color" translatable="false">pref_key__navigationbar_color</string>
-    <string-array name="pref_arrdisp__navigationbar_color" translatable="false">
-        <item translatable="false">System</item>
-        <item translatable="false">@string/black</item>
-        <item translatable="false">@string/white</item>
-    </string-array>
-    <string-array name="pref_arrkeys__navigationbar_color" translatable="false">
-        <!--suppress CheckTagEmptyBody -->
-        <item translatable="false"></item>
-        <item translatable="false">#000000</item>
-        <item translatable="false">#ffffff</item>
-    </string-array>
 </resources>

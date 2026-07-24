@@ -146,6 +146,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__font_family" translatable="false">pref_key__font_family</string>
     <string name="pref_key__editor_font_size" translatable="false">pref_key__editor_font_size</string>
     <string name="pref_key__app_theme" translatable="false">pref_key__app_theme</string>
+    <string name="pref_key__ui_flat_top_bottom_bars" translatable="false">pref_key__ui_flat_top_bottom_bars</string>
+    <string name="pref_key__main_bottom_bar_show_tab_titles" translatable="false">pref_key__main_bottom_bar_show_tab_titles</string>
+    <string name="pref_key__file_browser_show_dividers" translatable="false">pref_key__file_browser_show_dividers</string>
     <string name="pref_key__theming_hide_system_statusbar" translatable="false">pref_key__theming_hide_system_statusbar</string>
     <string name="pref_key__language" translatable="false">pref_key__language</string>
     <string name="pref_key__is_main_recreate_required" translatable="false">pref_key__is_main_recreate_required</string>
