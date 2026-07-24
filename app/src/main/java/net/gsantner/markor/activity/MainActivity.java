@@ -59,6 +59,7 @@ import other.writeily.widget.WrMarkorWidgetProvider;
 
 public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFragment.FilesystemFragmentOptionsListener {
 
+    public static final int REQUEST_CODE_SETTINGS = 124;
     public static boolean IS_DEBUG_ENABLED = false;
 
     private BottomNavigationView _bottomNav;
@@ -267,7 +268,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         super.onOptionsItemSelected(item);
         if (item.getItemId() == R.id.action_settings) {
-            _cu.animateToActivity(this, SettingsActivity.class, false, null);
+            _cu.animateToActivity(this, SettingsActivity.class, false, REQUEST_CODE_SETTINGS);
             return true;
         }
         return false;
@@ -385,7 +386,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         final long LARGE_FILE_TOAST_THRESHOLD_BYTES = 128L * 1024L;
 
         // Check if file is large and if true show a toast notification for user to wait
-        if (file != null && file.isFile() && !FormatRegistry.CONVERTER_EMBEDBINARY.isFileOutOfThisFormat(file)) {
+        if (file != null && file.isFile() && !FormatRegistry.CONVERTER_EMBED_BINARY.isFileOutOfThisFormat(file)) {
             final long fileBytes = file.length();
             if (fileBytes > LARGE_FILE_TOAST_THRESHOLD_BYTES) {
                 final String readableSize = GsFileUtils.getReadableFileSize(fileBytes, true);
@@ -396,6 +397,10 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
     @Override
     public void onBackPressed() {
+        if (getNotebook().clearSelection()) {
+            return;
+        }
+
         // Check if fragment handled back press
         final GsFragmentBase<?, ?> frag = getPosFragment(getCurrentPos());
         if (frag == null || !frag.onBackPressed()) {
@@ -612,6 +617,14 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         _cu.extractResultFromActivityResult(this, requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE_SETTINGS) {
+            if (resultCode == SettingsActivity.RESULT.CHANGED) {
+                if (data != null && data.hasExtra(SettingsActivity.INTENT_NAME_THEME_CHANGED)) {
+                    recreate();
+                }
+            }
+        }
     }
 
     @Override

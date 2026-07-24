@@ -66,10 +66,10 @@ public class NewFileDialog extends DialogFragment {
     private static final List<Integer> NEW_FILE_FORMATS = Arrays.asList(
             FormatRegistry.FORMAT_MARKDOWN,
             FormatRegistry.FORMAT_PLAIN,
-            FormatRegistry.FORMAT_TODOTXT,
+            FormatRegistry.FORMAT_TODO_TXT,
             FormatRegistry.FORMAT_WIKITEXT,
             FormatRegistry.FORMAT_ASCIIDOC,
-            FormatRegistry.FORMAT_ORGMODE,
+            FormatRegistry.FORMAT_ORG_MODE,
             FormatRegistry.FORMAT_CSV
     );
 
@@ -204,11 +204,11 @@ public class NewFileDialog extends DialogFragment {
             if (lastExt[0] != null) {
                 extEdit.setText(lastExt[0]);
                 lastExt[0] = null;
-            } else if (fmt.defaultExtensionWithDot != null) {
+            } else if (fmt.extension != null) {
                 if (encryptCheckbox.isChecked()) {
-                    extEdit.setText(fmt.defaultExtensionWithDot + JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION);
+                    extEdit.setText(fmt.extension + JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION);
                 } else {
-                    extEdit.setText(fmt.defaultExtensionWithDot);
+                    extEdit.setText(fmt.extension);
                 }
             }
 
