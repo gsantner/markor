@@ -21,6 +21,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.ActionButtonBase;
+import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.Document;
@@ -242,7 +243,7 @@ public class TodoTxtActionButtons extends ActionButtonBase {
                 doneContents.append(TodoTxtTask.tasksToString(move)).append("\n");
 
                 // Write to done file
-                if (new Document(doneFile).saveContent(getActivity(), doneContents.toString())) {
+                if (new Document(doneFile, FormatRegistry.FORMAT_TODOTXT).saveContent(getActivity(), doneContents.toString())) {
                     final String tasksString = TodoTxtTask.tasksToString(keep);
                     _hlEditor.setText(tasksString);
                     TextViewUtils.setSelectionFromOffsets(_hlEditor, offsets);
