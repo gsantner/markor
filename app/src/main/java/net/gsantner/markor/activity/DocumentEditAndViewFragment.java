@@ -718,6 +718,15 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 updateMenuToggleStates(0);
                 return true;
             }
+            case R.id.action_enable_rtl: {
+                final boolean newState = !_appSettings.getDocumentRtlEnabled(_document.path);
+                _appSettings.setDocumentRtlEnabled(_document.path, newState);
+                if (_isPreviewVisible) {
+                    updateViewModeText();
+                }
+                updateMenuToggleStates(0);
+                return true;
+            }
             case R.id.action_info: {
                 if (saveDocument(false)) { // In order to have the correct info displayed
                     FileInfoDialog.show(_document.file, getParentFragmentManager());
@@ -1009,6 +1018,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         }
         if ((mi = _fragmentMenu.findItem(R.id.action_enable_auto_format)) != null) {
             mi.setChecked(_hlEditor.getAutoFormatEnabled());
+        }
+        if ((mi = _fragmentMenu.findItem(R.id.action_enable_rtl)) != null) {
+            mi.setChecked(_appSettings.getDocumentRtlEnabled(_document.path));
         }
 
         final SubMenu su;
