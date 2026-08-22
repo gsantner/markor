@@ -14,8 +14,6 @@ public class Match {
 
     public SyntaxHighlighterBase.SpanGroup spanGroup;
     private final SyntaxHighlighterBase.HighlightSpan span;
-    private int sourceStart;
-    private int sourceEnd;
 
     public Match() {
         spanGroup = SyntaxHighlighterBase.createBackgroundHighlight(0, 0, 0);
@@ -64,19 +62,6 @@ public class Match {
 
     public void setEnd(int end) {
         spanGroup.end = end;
-    }
-
-    public int getSourceStart() {
-        return sourceStart;
-    }
-
-    public int getSourceEnd() {
-        return sourceEnd;
-    }
-
-    public void setSourceRange(final int start, final int end) {
-        sourceStart = start;
-        sourceEnd = end;
     }
 
     public void shiftStart(int offset) {
