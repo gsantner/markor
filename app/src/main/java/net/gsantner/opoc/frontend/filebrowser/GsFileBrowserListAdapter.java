@@ -568,46 +568,37 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     }
 
     private @Nullable File getCurrentParent() {
-        if (VIRTUAL_STORAGE_ROOT.equals(_currentFolder)) {
+        if (_currentFolder == null || _currentFolder.getParentFile() == null
+                || VIRTUAL_STORAGE_ROOT.equals(_currentFolder)) {
             return null;
         }
-        return findBrowsableParent(_currentFolder, _dopt.mountedStorageFolder,
-                findVirtualParentFallback(_currentFolder, _virtualMapping));
+
+        final File ancestor = writableAncestor(_currentFolder);
+        if (ancestor != null) {
+            return ancestor;
+        }
+
+        return GsFileUtils.isChild(VIRTUAL_STORAGE_ROOT, _currentFolder)
+                || isInVirtualMappingTree(_currentFolder) ? VIRTUAL_STORAGE_ROOT : null;
     }
 
-    static @Nullable File findVirtualParentFallback(final File currentFolder,
-                                                    final Map<File, File> virtualMapping) {
-        if (currentFolder != null) {
-            for (final Map.Entry<File, File> mapping : virtualMapping.entrySet()) {
-                final File mappedFolder = mapping.getValue();
-                if (currentFolder.equals(mappedFolder) || GsFileUtils.isChild(mappedFolder, currentFolder)) {
-                    return mapping.getKey().getParentFile();
-                }
-            }
+    private @Nullable File writableAncestor(final File file) {
+        File ancestor = file.getParentFile();
+        while (ancestor != null && !canWrite(ancestor)) {
+            ancestor = ancestor.getParentFile();
         }
-        return null;
+        return ancestor;
     }
 
-    static @Nullable File findBrowsableParent(final File currentFolder,
-                                              final File mountedStorageFolder,
-                                              final File fallbackFolder) {
-        if (currentFolder == null) {
-            return null;
-        }
-
-        File parent = currentFolder.getParentFile();
-        if (parent == null) {
-            return null;
-        }
-        while (parent != null) {
-            if (VIRTUAL_STORAGE_ROOT.equals(parent)
-                    || canWrite(parent, mountedStorageFolder)) {
-                return parent;
+    private boolean isInVirtualMappingTree(final File file) {
+        for (final File mapped : _virtualMapping.values()) {
+            if (file.equals(mapped)
+                    || GsFileUtils.isChild(file, mapped)
+                    || GsFileUtils.isChild(mapped, file)) {
+                return true;
             }
-            parent = parent.getParentFile();
         }
-
-        return fallbackFolder != null && !fallbackFolder.equals(currentFolder) ? fallbackFolder : null;
+        return false;
     }
 
     @Override
