@@ -29,7 +29,6 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
-import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.File;
 import java.util.Locale;
@@ -38,7 +37,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class FileInfoDialog extends DialogFragment {
     public static final String EXTRA_FILEPATH = "EXTRA_FILEPATH";
     public static final String FRAGMENT_TAG = "fileInfoDialog";
-    private GsCallback.a1<Boolean> _favouriteChangedCallback;
+    public static final String RESULT_FAVOURITE_CHANGED = "FileInfoDialog.RESULT_FAVOURITE_CHANGED";
 
     public static FileInfoDialog newInstance(File sourceFile) {
         FileInfoDialog dialog = new FileInfoDialog();
@@ -49,13 +48,7 @@ public class FileInfoDialog extends DialogFragment {
     }
 
     public static FileInfoDialog show(File sourceFile, FragmentManager fragmentManager) {
-        return show(sourceFile, fragmentManager, null);
-    }
-
-    public static FileInfoDialog show(final File sourceFile, final FragmentManager fragmentManager,
-                                      final GsCallback.a1<Boolean> favouriteChangedCallback) {
         FileInfoDialog dialog = FileInfoDialog.newInstance(sourceFile);
-        dialog._favouriteChangedCallback = favouriteChangedCallback;
         dialog.show(fragmentManager, FileInfoDialog.FRAGMENT_TAG);
         return dialog;
     }
@@ -138,9 +131,7 @@ public class FileInfoDialog extends DialogFragment {
         checkFavorite.setChecked(appSettings.getFavouriteFiles().contains(file));
         checkFavorite.setOnCheckedChangeListener((buttonView, isChecked) -> {
             appSettings.setFavouriteFile(file, isChecked);
-            if (_favouriteChangedCallback != null) {
-                _favouriteChangedCallback.callback(isChecked);
-            }
+            getParentFragmentManager().setFragmentResult(RESULT_FAVOURITE_CHANGED, new Bundle());
         });
 
         return dialogBuilder;

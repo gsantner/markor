@@ -124,6 +124,16 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         _filesystemViewerAdapter = new GsFileBrowserListAdapter(_dopt, activity);
         _recyclerList.setAdapter(_filesystemViewerAdapter);
         setReloadRequiredOnResume(false); // setAdapter will trigger a load
+        getChildFragmentManager().setFragmentResultListener(
+                FileInfoDialog.RESULT_FAVOURITE_CHANGED, getViewLifecycleOwner(), (requestKey, result) -> {
+                    _dopt.favouriteFiles = _appSettings.getFavouriteFiles();
+                    if (GsFileBrowserListAdapter.VIRTUAL_STORAGE_FAVOURITE.equals(getCurrentFolder())) {
+                        _filesystemViewerAdapter.reloadCurrentFolder();
+                    } else {
+                        _filesystemViewerAdapter.notifyDataSetChanged();
+                    }
+                    updateMenuItems();
+                });
 
         _swipe.setOnRefreshListener(() -> {
             _filesystemViewerAdapter.reloadCurrentFolder();
@@ -443,11 +453,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             case R.id.action_info_selected_item: {
                 if (_filesystemViewerAdapter.areItemsSelected()) {
                     File file = new ArrayList<>(currentSelection).get(0);
-                    FileInfoDialog.show(file, getChildFragmentManager(), isFavourite -> {
-                        _dopt.favouriteFiles = _appSettings.getFavouriteFiles();
-                        _filesystemViewerAdapter.notifyDataSetChanged();
-                        updateMenuItems();
-                    });
+                    FileInfoDialog.show(file, getChildFragmentManager());
                 }
                 return true;
             }
