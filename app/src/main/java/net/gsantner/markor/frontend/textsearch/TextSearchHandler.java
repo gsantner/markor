@@ -10,6 +10,7 @@ import net.gsantner.markor.frontend.textview.SyntaxHighlighterBase;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -33,8 +34,10 @@ public class TextSearchHandler {
     public static final int ACTIVE_INDEX_NEARBY = -2;
 
     public static final int RESULT_BAD_PATTERN = -1;
+    public static final int RESULT_BAD_REPLACEMENT = -2;
 
-    private Matcher matcher;
+    private Pattern searchPattern;
+    private String searchedText;
 
     public interface SearchResultChangedListener {
         default void onResultChanged(int active, int count) {
@@ -65,7 +68,8 @@ public class TextSearchHandler {
         }
 
         // Start searching
-        Pattern pattern;
+        searchPattern = null;
+        searchedText = null;
         if (!isUseRegex()) {
             target = Pattern.quote(target);
         }
@@ -76,25 +80,29 @@ public class TextSearchHandler {
 
         try {
             if (isMatchCase()) {
-                pattern = Pattern.compile(target, Pattern.MULTILINE);
+                searchPattern = Pattern.compile(target, Pattern.MULTILINE);
             } else {
-                pattern = Pattern.compile(target, Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
+                searchPattern = Pattern.compile(target, Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
             }
         } catch (PatternSyntaxException e) {
             resultChangedListener.onResultChanged(0, RESULT_BAD_PATTERN, e.getMessage());
             return;
         }
 
-        matcher = null;
+        final int matchOffset;
         if (isFindInSelection()) {
             if (isSearchSelectionActive()) {
-                CharSequence subCharSequence = editable.subSequence(selectionStart, selectionEnd);
-                matcher = pattern.matcher(subCharSequence);
-                loadMatches(matcher, selectionStart);
+                searchedText = editable.subSequence(selectionStart, selectionEnd).toString();
+                matchOffset = selectionStart;
+            } else {
+                matchOffset = 0;
             }
         } else {
-            matcher = pattern.matcher(editable);
-            loadMatches(matcher, 0);
+            searchedText = editable.toString();
+            matchOffset = 0;
+        }
+        if (searchedText != null) {
+            loadMatches(searchPattern.matcher(searchedText), matchOffset);
         }
         // End searching
 
@@ -112,6 +120,7 @@ public class TextSearchHandler {
             Match match = new Match();
             match.setStart(matcher.start() + selectionStart);
             match.setEnd(matcher.end() + selectionStart);
+            match.setSourceRange(matcher.start(), matcher.end());
             match.useMatchColor();
             matches.add(match);
         }
@@ -335,6 +344,12 @@ public class TextSearchHandler {
         }
 
         Match currentMatch = matches.get(currentIndex);
+        try {
+            replacement = getReplacementForMatch(currentMatch, replacement);
+        } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
+            reportBadReplacement(e);
+            return matches.size();
+        }
 
         if (isPreserveCase()) {
             String originalText = editable.subSequence(currentMatch.getStart(), currentMatch.getEnd()).toString();
@@ -380,24 +395,31 @@ public class TextSearchHandler {
             return;
         }
 
-        final TextViewUtils.ChunkedEditable text = TextViewUtils.ChunkedEditable.wrap(editable);
-        if (isPreserveCase()) {
-            for (int i = matches.size() - 1; i >= 0; i--) {
-                Match match = matches.get(i);
-                final int start = match.getStart();
-                final int end = match.getEnd();
-                String originalText = editable.subSequence(start, end).toString();
-                text.replace(start, end, applyPreserveCase(originalText, replacement));
-            }
-        } else {
-            if (matcher != null) {
-                if (isFindInSelection() && isSearchSelectionActive()) {
-                    text.replace(selectionStart, selectionEnd, matcher.replaceAll(getRegexReplacement(replacement)));
-                } else {
-                    text.replace(0, editable.length(), matcher.replaceAll(getRegexReplacement(replacement)));
-                }
-            }
+        final List<String> replacements;
+        try {
+            replacements = getReplacementsForAllMatches(replacement);
+        } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
+            reportBadReplacement(e);
+            return;
         }
+
+        final StringBuilder result = new StringBuilder(editable.length());
+        int previousEnd = 0;
+        for (int i = 0; i < matches.size(); i++) {
+            final Match match = matches.get(i);
+            final int start = match.getStart();
+            final int end = match.getEnd();
+            String matchReplacement = replacements.get(i);
+            if (isPreserveCase()) {
+                final String originalText = editable.subSequence(start, end).toString();
+                matchReplacement = applyPreserveCase(originalText, matchReplacement);
+            }
+            result.append(editable, previousEnd, start).append(matchReplacement);
+            previousEnd = end;
+        }
+        result.append(editable, previousEnd, editable.length());
+        final TextViewUtils.ChunkedEditable text = TextViewUtils.ChunkedEditable.wrap(editable);
+        text.replace(0, editable.length(), result);
         text.applyChanges();
 
         // Clear
@@ -408,8 +430,58 @@ public class TextSearchHandler {
         currentIndex = 0;
     }
 
-    private String getRegexReplacement(String replacement) {
-        return isUseRegex() ? replacement : Matcher.quoteReplacement(replacement);
+    private String getReplacementForMatch(final Match match, final String replacement) {
+        return isUseRegex() && searchPattern != null && searchedText != null
+                ? expandRegexReplacement(searchPattern, searchedText,
+                match.getSourceStart(), match.getSourceEnd(), replacement)
+                : replacement;
+    }
+
+    private List<String> getReplacementsForAllMatches(final String replacement) {
+        if (!isUseRegex() || searchPattern == null || searchedText == null) {
+            return Collections.nCopies(matches.size(), replacement);
+        }
+
+        final List<String> replacements = new ArrayList<>(matches.size());
+        final Matcher replacementMatcher = searchPattern.matcher(searchedText);
+        final StringBuffer result = new StringBuffer();
+        int appendPosition = 0;
+        int matchIndex = 0;
+        while (matchIndex < matches.size() && replacementMatcher.find()) {
+            final Match match = matches.get(matchIndex);
+            if (replacementMatcher.start() == match.getSourceStart()
+                    && replacementMatcher.end() == match.getSourceEnd()) {
+                final int resultStart = result.length() + replacementMatcher.start() - appendPosition;
+                replacementMatcher.appendReplacement(result, replacement);
+                replacements.add(result.substring(resultStart));
+                appendPosition = replacementMatcher.end();
+                matchIndex++;
+            }
+        }
+        if (matchIndex != matches.size()) {
+            throw new IllegalStateException("Original search match is unavailable");
+        }
+        return replacements;
+    }
+
+    static String expandRegexReplacement(final Pattern pattern, final CharSequence text,
+                                         final int start, final int end, final String replacement) {
+        final Matcher replacementMatcher = pattern.matcher(text);
+        while (replacementMatcher.find()) {
+            if (replacementMatcher.start() == start && replacementMatcher.end() == end) {
+                final StringBuffer result = new StringBuffer();
+                replacementMatcher.appendReplacement(result, replacement);
+                return result.substring(start);
+            }
+            if (replacementMatcher.start() > start) {
+                break;
+            }
+        }
+        throw new IllegalStateException("Original search match is unavailable");
+    }
+
+    private void reportBadReplacement(final RuntimeException exception) {
+        resultChangedListener.onResultChanged(0, RESULT_BAD_REPLACEMENT, exception.getMessage());
     }
 
     private void markSelection(EditText editText, int start, int end, boolean setSelection) {

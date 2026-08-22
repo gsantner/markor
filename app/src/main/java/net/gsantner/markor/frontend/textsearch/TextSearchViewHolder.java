@@ -135,6 +135,11 @@ public class TextSearchViewHolder {
                 spannable.setSpan(new ForegroundColorSpan(Color.RED), 0, spannable.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 resultTextView.setText(spannable);
                 Toast.makeText(parentFragment.getContext(), msg, Toast.LENGTH_LONG).show();
+            } else if (count == TextSearchHandler.RESULT_BAD_REPLACEMENT) {
+                SpannableString spannable = new SpannableString(parentFragment.getString(R.string.search_replace_pattern_error_message));
+                spannable.setSpan(new ForegroundColorSpan(Color.RED), 0, spannable.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                resultTextView.setText(spannable);
+                Toast.makeText(parentFragment.getContext(), msg, Toast.LENGTH_LONG).show();
             }
         });
 
