@@ -1083,7 +1083,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         final File dir = getSnippetsDirectory();
         if (dir != null && dir.isDirectory()) {
             final File[] files = dir.listFiles(f -> f.isFile()
-                    && (GsFileUtils.isTextFile(f) || GsFileUtils.isContentsPlainText(f)));
+                    && (GsFileUtils.isContentsPlainText(f) || GsFileUtils.isTextFile(f)));
             if (files != null) {
                 Arrays.sort(files, (f1, f2) -> f1.getName().compareToIgnoreCase(f2.getName()));
                 return Arrays.asList(files);
