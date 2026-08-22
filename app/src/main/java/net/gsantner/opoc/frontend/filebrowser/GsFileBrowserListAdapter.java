@@ -47,6 +47,7 @@ import net.gsantner.opoc.wrapper.GsCallback;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -568,17 +569,27 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     }
 
     private @Nullable File getCurrentParent() {
-        if (_currentFolder == null) {
+        return findBrowsableParent(_currentFolder, _virtualMapping.values(), _dopt.mountedStorageFolder);
+    }
+
+    static @Nullable File findBrowsableParent(final File currentFolder,
+                                              final Collection<File> virtualFolders,
+                                              final File mountedStorageFolder) {
+        if (currentFolder == null) {
             return null;
         }
 
-        final File parent = _currentFolder.getParentFile();
-        if ((parent != null && parent.canWrite()) || GsFileUtils.isChild(VIRTUAL_STORAGE_ROOT, parent)) {
-            return parent;
+        // A mapped folder belongs to the virtual hierarchy, regardless of whether its
+        // physical parent happens to be writable (for example, private AppData).
+        if (virtualFolders.contains(currentFolder)) {
+            return VIRTUAL_STORAGE_ROOT;
         }
 
-        if (VIRTUAL_STORAGE_ROOT.equals(parent) || _virtualMapping.containsValue(_currentFolder)) {
-            return VIRTUAL_STORAGE_ROOT;
+        final File parent = currentFolder.getParentFile();
+        if (VIRTUAL_STORAGE_ROOT.equals(parent)
+                || canWrite(parent, mountedStorageFolder)
+                || GsFileUtils.isChild(VIRTUAL_STORAGE_ROOT, parent)) {
+            return parent;
         }
 
         return null;
