@@ -443,7 +443,11 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             case R.id.action_info_selected_item: {
                 if (_filesystemViewerAdapter.areItemsSelected()) {
                     File file = new ArrayList<>(currentSelection).get(0);
-                    FileInfoDialog.show(file, getChildFragmentManager());
+                    FileInfoDialog.show(file, getChildFragmentManager(), isFavourite -> {
+                        _dopt.favouriteFiles = _appSettings.getFavouriteFiles();
+                        _filesystemViewerAdapter.notifyDataSetChanged();
+                        updateMenuItems();
+                    });
                 }
                 return true;
             }
