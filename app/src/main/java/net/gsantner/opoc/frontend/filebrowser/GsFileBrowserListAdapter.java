@@ -47,7 +47,6 @@ import net.gsantner.opoc.wrapper.GsCallback;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -569,30 +568,46 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     }
 
     private @Nullable File getCurrentParent() {
-        return findBrowsableParent(_currentFolder, _virtualMapping.values(), _dopt.mountedStorageFolder);
+        if (VIRTUAL_STORAGE_ROOT.equals(_currentFolder)) {
+            return null;
+        }
+        return findBrowsableParent(_currentFolder, _dopt.mountedStorageFolder,
+                findVirtualParentFallback(_currentFolder, _virtualMapping));
+    }
+
+    static @Nullable File findVirtualParentFallback(final File currentFolder,
+                                                    final Map<File, File> virtualMapping) {
+        if (currentFolder != null) {
+            for (final Map.Entry<File, File> mapping : virtualMapping.entrySet()) {
+                final File mappedFolder = mapping.getValue();
+                if (currentFolder.equals(mappedFolder) || GsFileUtils.isChild(mappedFolder, currentFolder)) {
+                    return mapping.getKey().getParentFile();
+                }
+            }
+        }
+        return null;
     }
 
     static @Nullable File findBrowsableParent(final File currentFolder,
-                                              final Collection<File> virtualFolders,
-                                              final File mountedStorageFolder) {
+                                              final File mountedStorageFolder,
+                                              final File fallbackFolder) {
         if (currentFolder == null) {
             return null;
         }
 
-        // A mapped folder belongs to the virtual hierarchy, regardless of whether its
-        // physical parent happens to be writable (for example, private AppData).
-        if (virtualFolders.contains(currentFolder)) {
-            return VIRTUAL_STORAGE_ROOT;
+        File parent = currentFolder.getParentFile();
+        if (parent == null) {
+            return null;
+        }
+        while (parent != null) {
+            if (VIRTUAL_STORAGE_ROOT.equals(parent)
+                    || canWrite(parent, mountedStorageFolder)) {
+                return parent;
+            }
+            parent = parent.getParentFile();
         }
 
-        final File parent = currentFolder.getParentFile();
-        if (VIRTUAL_STORAGE_ROOT.equals(parent)
-                || canWrite(parent, mountedStorageFolder)
-                || GsFileUtils.isChild(VIRTUAL_STORAGE_ROOT, parent)) {
-            return parent;
-        }
-
-        return null;
+        return fallbackFolder != null && !fallbackFolder.equals(currentFolder) ? fallbackFolder : null;
     }
 
     @Override
