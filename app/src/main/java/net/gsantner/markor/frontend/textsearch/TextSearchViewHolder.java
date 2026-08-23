@@ -23,7 +23,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListPopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
@@ -134,12 +133,10 @@ public class TextSearchViewHolder {
                 SpannableString spannable = new SpannableString(parentFragment.getString(R.string.bad_pattern));
                 spannable.setSpan(new ForegroundColorSpan(Color.RED), 0, spannable.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 resultTextView.setText(spannable);
-                Toast.makeText(parentFragment.getContext(), R.string.regex_can_not_be_compiled, Toast.LENGTH_SHORT).show();
             } else if (count == TextSearchHandler.RESULT_BAD_REPLACEMENT) {
                 SpannableString spannable = new SpannableString(parentFragment.getString(R.string.search_replace_pattern_error_message));
                 spannable.setSpan(new ForegroundColorSpan(Color.RED), 0, spannable.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 resultTextView.setText(spannable);
-                Toast.makeText(parentFragment.getContext(), R.string.search_replace_pattern_error_message, Toast.LENGTH_SHORT).show();
             }
         });
 
