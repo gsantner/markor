@@ -343,11 +343,13 @@ public class TextSearchHandler {
         }
 
         Match currentMatch = matches.get(currentIndex);
-        try {
-            replacement = getReplacementForMatch(editable, currentMatch, replacement);
-        } catch (IllegalArgumentException | IndexOutOfBoundsException | IllegalStateException ignored) {
-            reportBadReplacement();
-            return matches.size();
+        if (isUseRegex()) {
+            try {
+                replacement = expandRegexReplacement(editable, currentMatch, replacement);
+            } catch (IllegalArgumentException | IndexOutOfBoundsException | IllegalStateException ignored) {
+                reportBadReplacement();
+                return matches.size();
+            }
         }
 
         if (isPreserveCase()) {
@@ -405,7 +407,9 @@ public class TextSearchHandler {
                     final int start = match.getStart();
                     final int end = match.getEnd();
                     final String originalText = editable.subSequence(start, end).toString();
-                    final String expanded = getReplacementForMatch(editable, match, replacement);
+                    final String expanded = isUseRegex()
+                            ? expandRegexReplacement(editable, match, replacement)
+                            : replacement;
                     text.replace(start, end, applyPreserveCase(originalText, expanded));
                 }
             } else {
@@ -431,12 +435,8 @@ public class TextSearchHandler {
         currentIndex = 0;
     }
 
-    private String getReplacementForMatch(final Editable editable, final Match match,
+    private String expandRegexReplacement(final Editable editable, final Match match,
                                           final String replacement) {
-        if (!isUseRegex()) {
-            return replacement;
-        }
-
         final int matchOffset = isFindInSelection() ? searchRegionStart : 0;
         final int start = match.getStart() - matchOffset;
         final int end = match.getEnd() - matchOffset;
