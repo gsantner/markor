@@ -250,6 +250,10 @@ public class SettingsActivity extends MarkorBaseActivity {
         public Boolean onPreferenceClicked(Preference preference, String key, int keyResId) {
             final FragmentManager fragManager = getActivity().getSupportFragmentManager();
             switch (keyResId) {
+                case R.string.pref_key__request_external_storage: {
+                    GsContextUtils.instance.requestExternalStoragePermission(getActivity());
+                    return true;
+                }
                 case R.string.pref_key__snippet_directory_path: {
                     MarkorFileBrowserFactory.showFolderDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
                         @Override

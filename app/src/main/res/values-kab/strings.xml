@@ -135,9 +135,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="space_between_lines_in_percent">Tallunt gar izirigen s ufmiḍi</string>
     <string name="line_spacing">Tallunt n izirigen</string>
     <string name="special_key">Tanast tuzzigt</string>
-    <string name="key_pos_end">Tagara n izirig (Pos End)</string>
-    <string name="key_pos_1_document">Tazwara n isemli</string>
-    <string name="key_pos_end_document">Tagara n isemli</string>
     <string name="key_ctrl_a">Fren akk (Ctrl+A)</string>
     <string name="default_">Amezwer</string>
     <string name="left">Azelmaḍ</string>
