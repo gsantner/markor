@@ -338,41 +338,34 @@ public final class TextViewUtils {
         }
     }
 
-    public static void showSelection(final TextView text, Rect visible, final int start, final int end, int offsetY) {
-        // Get view info
-        // ------------------------------------------------------------
+    public static void showSelection(final TextView text, Rect visibleRect, final int start, final int end) {
         final Layout layout = text.getLayout();
         if (layout == null) {
             return;
         }
 
-        final int _start = Math.min(start, end);
-        final int _end = Math.max(start, end);
-        if (_start < 0 || _end > text.length()) {
+        final int startOffset = Math.min(start, end);
+        final int endOffset = Math.max(start, end);
+        if (startOffset < 0 || endOffset > text.length()) {
             return;
         }
-        final int lineStart = TextViewUtils.getLineStart(text.getText(), _start);
+        final int lineStart = TextViewUtils.getLineStart(text.getText(), startOffset);
 
-        // Region in Y
-        // ------------------------------------------------------------
         final int startLine = layout.getLineForOffset(lineStart);
         final int startLineTop = layout.getLineTop(startLine);
-
-        final int endLine = layout.getLineForOffset(_end);
+        final int endLine = layout.getLineForOffset(endOffset);
         final int endLineBottom = layout.getLineBottom(endLine);
-        final int endLineTop = layout.getLineTop(endLine);
-        final int lineHeight = endLineBottom - endLineTop;
+        final int lineHeight = text.getLineHeight();
+        final int viewportHeight = Math.max(visibleRect.height(), lineHeight);
+        final int contextLines = 2;
+        final int desiredTop = Math.max(startLineTop - contextLines * lineHeight, 0);
 
         final Rect region = new Rect();
-        region.top = Math.max(startLineTop, endLineBottom - visible.height() + lineHeight) + offsetY;
-        region.bottom = endLineBottom + offsetY;
+        region.top = desiredTop;
+        region.bottom = Math.max(desiredTop + viewportHeight, endLineBottom + lineHeight);
 
-        // Region in X - as handling RTL, text alignment, and centred text etc is
-        // a huge pain (see TextView.bringPointIntoView), we use a very simple solution.
-        // ------------------------------------------------------------
-        final int startLeft = (int) layout.getPrimaryHorizontal(_start);
-        final int halfWidth = visible.width() / 2;
-        // Push the start to the middle of the screen
+        final int startLeft = (int) layout.getPrimaryHorizontal(startOffset);
+        final int halfWidth = visibleRect.width() / 2;
         region.left = Math.max(startLeft - halfWidth, 0);
         region.right = Math.min(startLeft + halfWidth, text.getWidth());
 
@@ -382,7 +375,11 @@ public final class TextViewUtils {
     public static void showSelection(final TextView text, final int start, final int end) {
         Rect visible = new Rect();
         text.getLocalVisibleRect(visible);
-        showSelection(text, visible, start, end, visible.height() - text.getLineHeight());
+        showSelection(text, visible, start, end);
+    }
+
+    public static void showSelection(final TextView text, final int selection) {
+        showSelection(text, selection, selection);
     }
 
     public static void showSelection(final TextView text) {
@@ -402,32 +399,9 @@ public final class TextViewUtils {
                 edit.requestFocus();
             }
 
-            edit.setSelection(start, end);
             showSelection(edit, start, end);
-        }
-    }
-
-    /**
-     * Scroll EditText view to the region that contains the start selection and don‘t insert this selection.
-     * If start selection is already in current visible region, it will not scroll EditText view.
-     *
-     * @param editText       EditText view
-     * @param startSelection Start selection
-     */
-    public static void showSelection(final EditText editText, final int startSelection) {
-        Layout layout = editText.getLayout();
-        if (layout == null) {
-            return;
-        }
-
-        Rect visible = new Rect();
-        editText.getLocalVisibleRect(visible);
-        int line = layout.getLineForOffset(startSelection);
-        int lineHeight = editText.getLineHeight();
-        if (layout.getLineTop(line) < visible.top - lineHeight) {
-            showSelection(editText, visible, startSelection, startSelection, -lineHeight * 3);
-        } else if (layout.getLineBottom(line) > visible.bottom - lineHeight) {
-            showSelection(editText, visible, startSelection, startSelection, lineHeight * 2);
+            // Let the reveal request settle before selection handling triggers caret visibility work.
+            edit.post(() -> edit.setSelection(start, end));
         }
     }
 
