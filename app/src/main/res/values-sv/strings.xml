@@ -369,6 +369,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="created">Skapad</string>
     <string name="no_results">Inga resultat</string>
     <string name="toggle_find_replace">Slå på hitta/byt ut</string>
+    <string name="new_line">Ny rad</string>
     <string name="match_case">Matcha gemener/VERSALER</string>
     <string name="match_whole_word">Matcha hela ord</string>
     <string name="file_encryption_password">Lösenord för filkryptering</string>
