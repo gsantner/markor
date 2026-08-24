@@ -168,15 +168,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_does_move_done_tasks">Siirrä tehdyt tehtävät samassa kansiossa olevaan määritettyyn tiedostoon</string>
     <string name="sort_tasks_by_selected_order">Lajittele tehtävät valitun järjestyksen mukaan</string>
     <string name="special_key">Erikoisnäppäin</string>
-    <string name="key_page_up">Sivu ylös (Page Up)</string>
-    <string name="key_page_down">Sivu alas (Page down)</string>
-    <string name="key_pos_1">Rivin alku (Pos Home)</string>
-    <string name="key_pos_end">Rivin loppu (Pos End)</string>
-    <string name="key_pos_1_document">Asiakirjan alku</string>
-    <string name="key_pos_end_document">Asiakirjan loppu</string>
     <string name="key_ctrl_a">Valitse kaikki (Ctrl+A)</string>
-    <string name="key_tab">Sarkain</string>
-    <string name="zero_width_space">Tila nollaleveydelle</string>
     <string name="start_on_bottom">Aloita alhaalta</string>
     <string name="start_on_bottom_when_loading_document">Kun asiakirja ladataan, aseta osoitin sen päähän</string>
     <string name="unordered_list_character">Järjestämättömän listan kirjoitusmerkki</string>

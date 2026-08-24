@@ -174,15 +174,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="sort_tasks_by_selected_order">Organizar tarefas pela ordem selecionada</string>
     <string name="special_key">Tecla Especial</string>
     <string name="asciidoc_special_key">Special AsciiDoc Content</string>
-    <string name="key_page_up">Página anterior (Page Up)</string>
-    <string name="key_page_down">Página seguinte (Page Down)</string>
-    <string name="key_pos_1">Início da linha (Pos Home)</string>
-    <string name="key_pos_end">Fim da linha (Pos End)</string>
-    <string name="key_pos_1_document">Início do documento</string>
-    <string name="key_pos_end_document">Fim do documento</string>
     <string name="key_ctrl_a">Selecionar tudo (Ctrl + A)</string>
-    <string name="key_tab">Tabulação</string>
-    <string name="zero_width_space">Espaço de largura zero (Zero-width)</string>
     <string name="start_on_bottom">Começar na parte inferior</string>
     <string name="start_on_bottom_when_loading_document">Depois que um documento é carregado, posicionar o cursor no final da linha</string>
     <string name="unordered_list_character">Caractere de lista não ordenado</string>

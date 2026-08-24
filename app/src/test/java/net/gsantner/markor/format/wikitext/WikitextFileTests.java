@@ -58,6 +58,14 @@ public class WikitextFileTests {
         }
 
         @Test
+        public void zimHeaderWithNegativeTimezoneOffsetShouldMatch() {
+            pattern = WikitextSyntaxHighlighter.ZIMHEADER;
+            Matcher matcher = pattern.matcher("Content-Type: text/x-zim-wiki\nWiki-Format: zim 0.4\nCreation-Date: 2019-03-31T14:48:06-07:00\nOther content...");
+            assertThat(matcher.find()).isTrue();
+            assertThat(matcher.group()).isEqualTo("Content-Type: text/x-zim-wiki\nWiki-Format: zim 0.4\nCreation-Date: 2019-03-31T14:48:06-07:00");
+        }
+
+        @Test
         public void zimHeaderNotAtBeginningOfTheFileShouldNotMatch() {
             pattern = WikitextSyntaxHighlighter.ZIMHEADER;
             Matcher matcher = pattern.matcher("Blabla\nContent-Type: text/x-zim-wiki\nWiki-Format: zim 0.4\nCreation-Date: 2019-03-31T14:48:06+02:00");

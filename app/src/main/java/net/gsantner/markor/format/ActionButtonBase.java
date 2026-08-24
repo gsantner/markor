@@ -114,6 +114,10 @@ public abstract class ActionButtonBase {
 
     // Overriding this method can implement custom search action
     public boolean onSearch() {
+        return toggleTextSearchUi();
+    }
+
+    public boolean toggleTextSearchUi() {
         if (_textSearchViewHolder != null) {
             if (_textSearchViewHolder.isShow()) {
                 _textSearchViewHolder.close();
@@ -124,6 +128,20 @@ public abstract class ActionButtonBase {
         }
 
         return false;
+    }
+
+    public boolean isSearchActive() {
+        return _textSearchViewHolder != null && _textSearchViewHolder.isShow();
+    }
+
+    public boolean hideTextSearchUi() {
+        if (isSearchActive()) {
+            _textSearchViewHolder.close();
+            if (_activity != null) {
+                _activity.invalidateOptionsMenu();
+            }
+        }
+        return true;
     }
 
     // Override to implement custom title action
@@ -898,7 +916,11 @@ public abstract class ActionButtonBase {
                 return true;
             }
             case R.string.abid_common_web_jump_to_table_of_contents: {
-                runTitleClick();
+                if (_appSettings.isMarkdownTableOfContentsEnabled() && _webView != null) {
+                    _webView.loadUrl("javascript:document.getElementsByClassName('toc')[0].scrollIntoView();");
+                } else {
+                    runTitleClick();
+                }
                 return true;
             }
             case R.string.abid_common_view_file_in_other_app: {

@@ -409,15 +409,18 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         setStringList(R.string.pref_key__favourite_files, GsCollectionUtils.map(set, p -> p));
     }
 
-    public void toggleFavouriteFile(File file) {
-        final List<String> list = new ArrayList<>();
+    public void setFavouriteFile(final File file, final boolean favourite) {
         final Set<File> favourites = getFavouriteFiles();
-        if (favourites.contains(file)) {
-            favourites.remove(file);
-        } else {
+        if (favourite) {
             favourites.add(file);
+        } else {
+            favourites.remove(file);
         }
         setFavouriteFiles(favourites);
+    }
+
+    public void toggleFavouriteFile(final File file) {
+        setFavouriteFile(file, !getFavouriteFiles().contains(file));
     }
 
     private static final String PREF_PREFIX_EDIT_POS_CHAR = "PREF_PREFIX_EDIT_POS_CHAR";
@@ -1078,12 +1081,12 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return templates;
     }
 
-    // Read all files in snippets folder with appropriate extension
-    // Create a map of snippet title -> text
+    // Read all plain text files in the snippets folder
     public List<File> getSnippetFiles() {
         final File dir = getSnippetsDirectory();
         if (dir != null && dir.isDirectory()) {
-            final File[] files = dir.listFiles(f -> f.isFile() && GsFileUtils.isTextFile(f));
+            final File[] files = dir.listFiles(f -> f.isFile()
+                    && (GsFileUtils.isContentsPlainText(f) || GsFileUtils.isTextFile(f)));
             if (files != null) {
                 Arrays.sort(files, (f1, f2) -> f1.getName().compareToIgnoreCase(f2.getName()));
                 return Arrays.asList(files);

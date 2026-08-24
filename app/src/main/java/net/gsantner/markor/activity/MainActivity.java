@@ -476,6 +476,8 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         } else {
             _fab.hide();
         }
+
+        setTitle(getPosTitle(pos));
     }
 
     private GsFileBrowserOptions.Options _filesystemDialogOptions = null;

@@ -170,6 +170,13 @@
                 android:icon="@drawable/ic_open_in_browser_black_24dp"
                 android:key="@string/pref_key__open_links_with_chrome_custom_tabs"
                 android:title="@string/chrome_custom_tabs" />
+
+            <Preference
+                android:defaultValue="true"
+                android:icon="@drawable/ic_settings_black_24dp"
+                android:key="@string/pref_key__request_external_storage"
+                android:title="@string/storage_permission_required" />
+
         </PreferenceCategory>
 
         <PreferenceCategory android:title="@string/file_browser">
