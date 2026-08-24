@@ -12,7 +12,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -57,7 +56,6 @@ public class SettingsActivity extends MarkorBaseActivity {
     }
 
     public static int activityRetVal = RESULT.NOCHANGE;
-    private static int iconColor = Color.WHITE;
 
     protected Toolbar toolbar;
 
@@ -72,7 +70,6 @@ public class SettingsActivity extends MarkorBaseActivity {
 
         // Custom code
         GsFontPreferenceCompat.additionalyCheckedFolder = new File(_appSettings.getNotebookDirectory(), ".app/fonts");
-        iconColor = _cu.rcolor(this, R.color.primary_text);
         toolbar.setTitle(R.string.settings);
         setSupportActionBar(findViewById(R.id.toolbar));
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_white_24dp));
@@ -191,7 +188,6 @@ public class SettingsActivity extends MarkorBaseActivity {
                     R.string.pref_key__swipe_to_change_mode,
                     R.string.pref_key__todotxt__hl_delay,
                     R.string.pref_key__markdown__hl_delay_v2,
-                    R.string.pref_key__theming_hide_system_statusbar,
                     R.string.pref_key__tab_width_v2,
                     R.string.pref_key__editor_line_spacing,
             };
@@ -222,6 +218,13 @@ public class SettingsActivity extends MarkorBaseActivity {
                 }
             } else if (eq(key, R.string.pref_key__theming_hide_system_statusbar)) {
                 activityRetVal = RESULT.RESTART_REQ;
+                _appSettings.setRecreateMainRequired(true);
+            } else if (eq(key, R.string.pref_key__ui_flat_top_bottom_bars)) {
+                final Activity activity = getActivity();
+                if (activity instanceof MarkorBaseActivity) {
+                    ((MarkorBaseActivity) activity).applyActivityBarBackgroundColors();
+                }
+            } else if (eq(key, R.string.pref_key__file_browser_show_dividers)) {
                 _appSettings.setRecreateMainRequired(true);
             } else if (eq(key, R.string.pref_key__is_launcher_for_special_files_enabled)) {
                 boolean extraLaunchersEnabled = prefs.getBoolean(key, false);
