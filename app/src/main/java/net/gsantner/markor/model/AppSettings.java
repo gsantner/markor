@@ -1081,12 +1081,12 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return templates;
     }
 
-    // Read all files in snippets folder with appropriate extension
-    // Create a map of snippet title -> text
+    // Read all plain text files in the snippets folder
     public List<File> getSnippetFiles() {
         final File dir = getSnippetsDirectory();
         if (dir != null && dir.isDirectory()) {
-            final File[] files = dir.listFiles(f -> f.isFile() && GsFileUtils.isTextFile(f));
+            final File[] files = dir.listFiles(f -> f.isFile()
+                    && (GsFileUtils.isContentsPlainText(f) || GsFileUtils.isTextFile(f)));
             if (files != null) {
                 Arrays.sort(files, (f1, f2) -> f1.getName().compareToIgnoreCase(f2.getName()));
                 return Arrays.asList(files);
