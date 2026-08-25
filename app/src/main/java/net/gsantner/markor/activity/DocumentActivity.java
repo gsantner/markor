@@ -41,15 +41,27 @@ import java.io.File;
 import other.so.AndroidBug5497Workaround;
 
 public class DocumentActivity extends MarkorBaseActivity {
-
     private Toolbar _toolbar;
     private FragmentManager _fragManager;
 
-    public static void launch(final Activity activity, final Intent intent) {
-        final File file = MarkorContextUtils.getIntentFile(intent);
+    public static void launch(final Activity activity, final Intent rawIntent) {
+        if (activity == null || rawIntent == null) {
+            return;
+        }
+
+        final Intent intent = DocumentActivity.normalizeIntent(rawIntent, activity);
+        final File file = (File) intent.getSerializableExtra(Document.EXTRA_FILE);
         final Integer lineNumber = intent.hasExtra(Document.EXTRA_FILE_LINE_NUMBER) ? intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, -1) : null;
         final Boolean doPreview = intent.hasExtra(Document.EXTRA_DO_PREVIEW) ? intent.getBooleanExtra(Document.EXTRA_DO_PREVIEW, false) : null;
         launch(activity, file, doPreview, lineNumber);
+    }
+
+    public static void launch(final Activity activity, final Uri uri) {
+        if (activity == null || uri == null) {
+            return;
+        }
+
+        launch(activity, new Intent(Intent.ACTION_VIEW, uri));
     }
 
     public static void launch(
@@ -155,19 +167,17 @@ public class DocumentActivity extends MarkorBaseActivity {
         handleLaunchingIntent(intent);
     }
 
-    private void handleLaunchingIntent(final Intent intent) {
-        if (intent == null) return;
+    private void handleLaunchingIntent(final Intent rawIntent) {
+        if (rawIntent == null) return;
 
+        final Intent intent = normalizeIntent(rawIntent, this);
         final String intentAction = intent.getAction();
-        final Uri intentData = intent.getData();
 
         // Pull the file from the intent
         // -----------------------------------------------------------------------
-        final File file = MarkorContextUtils.getIntentFile(intent, this);
+        final File file = (File) intent.getSerializableExtra(Document.EXTRA_FILE);
 
-        final boolean intentIsView = Intent.ACTION_VIEW.equals(intentAction);
         final boolean intentIsSend = Intent.ACTION_SEND.equals(intentAction) || Intent.ACTION_SEND_MULTIPLE.equals(intentAction);
-        final boolean intentIsEdit = Intent.ACTION_EDIT.equals(intentAction);
 
         if (intentIsSend) {
             showShareInto(intent);
@@ -183,24 +193,23 @@ public class DocumentActivity extends MarkorBaseActivity {
         if (file == null || !_cu.canWriteFile(this, file, false, true)) {
             showNotSupportedMessage();
         } else {
-            Integer startLine = null;
             // Open in editor/viewer
             final Document doc = new Document(file);
+            final Integer startLine;
             if (intent.hasExtra(Document.EXTRA_FILE_LINE_NUMBER)) {
                 startLine = intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, -1);
-            } else if (intentData != null) {
-                final String line = intentData.getQueryParameter("line");
-                if (line != null) {
-                    startLine = GsTextUtils.tryParseInt(line, -1);
-                }
+            } else {
+                startLine = null;
             }
 
             // Start in a specific mode if required. Otherwise let the fragment decide
-            Boolean startInPreview = null;
-            if (intent.getBooleanExtra(Document.EXTRA_DO_PREVIEW, false) ||
-                    file.getName().startsWith("index.")
-            ) {
+            final Boolean startInPreview;
+            if (intent.hasExtra(Document.EXTRA_DO_PREVIEW)) {
+                startInPreview = intent.getBooleanExtra(Document.EXTRA_DO_PREVIEW, false);
+            } else if (file.getName().startsWith("index.")) {
                 startInPreview = true;
+            } else {
+                startInPreview = null;
             }
 
             // Three cases
@@ -231,13 +240,45 @@ public class DocumentActivity extends MarkorBaseActivity {
         }
     }
 
-    private boolean isDocumentAlreadyOpen(final Document doc) {
-        final GsFragmentBase<?, ?> frag = getCurrentVisibleFragment();
-        if (frag instanceof DocumentEditAndViewFragment) {
-            final DocumentEditAndViewFragment editFrag = (DocumentEditAndViewFragment) frag;
-            return editFrag.getDocument().path.equals(doc.path);
+    private static Intent normalizeIntent(final Intent rawIntent, final Activity activity) {
+        final Intent intent = new Intent(rawIntent);
+        final Uri uri = intent.getData();
+
+        if (!intent.hasExtra(Document.EXTRA_FILE)) {
+            final File file = MarkorContextUtils.getIntentFile(intent, activity);
+            if (file != null) {
+                intent.putExtra(Document.EXTRA_FILE, file.getAbsoluteFile());
+            }
         }
-        return false;
+
+        if (!intent.hasExtra(Document.EXTRA_FILE_LINE_NUMBER) && uri != null) {
+            final Integer lineNumber = parseNormalizedLine(uri);
+            if (lineNumber != null) {
+                intent.putExtra(Document.EXTRA_FILE_LINE_NUMBER, lineNumber);
+            }
+        }
+
+        if (!intent.hasExtra(Document.EXTRA_DO_PREVIEW) && uri != null) {
+            final String view = uri.getQueryParameter("view");
+            if (view != null) {
+                final Boolean doPreview = GsTextUtils.tryParseBool(view);
+                if (doPreview != null) {
+                    intent.putExtra(Document.EXTRA_DO_PREVIEW, doPreview);
+                }
+            }
+        }
+
+        return intent;
+    }
+
+    private static Integer parseNormalizedLine(final Uri uri) {
+        final String line = uri != null ? uri.getQueryParameter("line") : null;
+        if (line == null) {
+            return null;
+        }
+
+        final int lineNumber = GsTextUtils.tryParseInt(line, -1);
+        return lineNumber >= -1 ? lineNumber : null;
     }
 
     private void showNotSupportedMessage() {

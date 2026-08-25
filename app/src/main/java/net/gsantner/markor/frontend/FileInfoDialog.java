@@ -38,6 +38,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class FileInfoDialog extends DialogFragment {
     public static final String EXTRA_FILEPATH = "EXTRA_FILEPATH";
     public static final String FRAGMENT_TAG = "fileInfoDialog";
+    public static final String RESULT_FAVOURITE_CHANGED = "FileInfoDialog.RESULT_FAVOURITE_CHANGED";
+
     private GsCallback.a0 refreshCallback;
 
     public void setRefreshCallback(GsCallback.a0 refreshCallback) {
@@ -138,7 +140,9 @@ public class FileInfoDialog extends DialogFragment {
         CheckBox checkFavorite = root.findViewById(R.id.ui__file_info_dialog__favorite);
         checkFavorite.setChecked(appSettings.getFavouriteFiles().contains(file));
         checkFavorite.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            appSettings.toggleFavouriteFile(file);
+            // appSettings.toggleFavouriteFile(file);
+            appSettings.setFavouriteFile(file, isChecked);
+            getParentFragmentManager().setFragmentResult(RESULT_FAVOURITE_CHANGED, new Bundle());
             if (refreshCallback != null) {
                 refreshCallback.callback();
             }

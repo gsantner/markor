@@ -71,10 +71,7 @@ public class Document implements Serializable {
     private int _lastLength = -1;
 
     public Document(@NonNull final File f) {
-        path = GsFileUtils.getPath(f);
-        file = new File(path);
-        title = GsFileUtils.getFilenameWithoutExtension(file);
-        extension = GsFileUtils.getFilenameExtension(file);
+        this(f, FormatRegistry.FORMAT_UNKNOWN);
 
         // Set initial format
         for (final FormatRegistry.Format format : FormatRegistry.FORMATS) {
@@ -90,6 +87,17 @@ public class Document implements Serializable {
         }
 
         setLanguage(_format);
+    }
+
+    /**
+     * Create a document with a known format, skipping automatic format detection.
+     */
+    public Document(@NonNull final File f, @StringRes final int format) {
+        path = GsFileUtils.getPath(f);
+        file = new File(path);
+        title = GsFileUtils.getFilenameWithoutExtension(file);
+        extension = GsFileUtils.getFilenameExtension(file);
+        setFormat(format);
     }
 
     private void initModTimePref() {
