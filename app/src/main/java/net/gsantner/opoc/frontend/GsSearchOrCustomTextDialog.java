@@ -511,7 +511,6 @@ public class GsSearchOrCustomTextDialog {
 
         // Item click action
         if (dopt.selectionMode != DialogOptions.SelectionMode.NONE) {
-
             // Helper function to trigger callback with single item
             final GsCallback.b2<Integer, Boolean> directActivate = (position, isLong) -> {
                 final int index = listAdapter._filteredItems.get(position);

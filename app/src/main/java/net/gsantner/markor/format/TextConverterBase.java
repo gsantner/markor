@@ -134,7 +134,7 @@ public abstract class TextConverterBase {
      * @param context   Android Context
      * @param lightMode light/dark mode
      * @param lineNum   line number
-     * @return html as String
+     * @return HTML as String
      */
     public abstract String convertMarkup(String markup, Context context, boolean lightMode, boolean lineNum, File file);
 

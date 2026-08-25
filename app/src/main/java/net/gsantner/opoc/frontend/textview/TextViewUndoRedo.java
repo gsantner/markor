@@ -139,7 +139,7 @@ public class TextViewUndoRedo {
      * Can undo be performed?
      */
     public boolean getCanUndo() {
-        return (mEditHistory.position > 0);
+        return (mEditHistory.position > 0); // old
     }
 
     /**
