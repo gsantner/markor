@@ -568,20 +568,37 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     }
 
     private @Nullable File getCurrentParent() {
-        if (_currentFolder == null) {
+        if (_currentFolder == null || _currentFolder.getParentFile() == null
+                || VIRTUAL_STORAGE_ROOT.equals(_currentFolder)) {
             return null;
         }
 
-        final File parent = _currentFolder.getParentFile();
-        if ((parent != null && parent.canWrite()) || GsFileUtils.isChild(VIRTUAL_STORAGE_ROOT, parent)) {
-            return parent;
+        final File ancestor = writableAncestor(_currentFolder);
+        if (ancestor != null) {
+            return ancestor;
         }
 
-        if (VIRTUAL_STORAGE_ROOT.equals(parent) || _virtualMapping.containsValue(_currentFolder)) {
-            return VIRTUAL_STORAGE_ROOT;
-        }
+        return GsFileUtils.isChild(VIRTUAL_STORAGE_ROOT, _currentFolder)
+                || isInVirtualMappingTree(_currentFolder) ? VIRTUAL_STORAGE_ROOT : null;
+    }
 
-        return null;
+    private @Nullable File writableAncestor(final File file) {
+        File ancestor = file.getParentFile();
+        while (ancestor != null && !canWrite(ancestor)) {
+            ancestor = ancestor.getParentFile();
+        }
+        return ancestor;
+    }
+
+    private boolean isInVirtualMappingTree(final File file) {
+        for (final File mapped : _virtualMapping.values()) {
+            if (file.equals(mapped)
+                    || GsFileUtils.isChild(file, mapped)
+                    || GsFileUtils.isChild(mapped, file)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
