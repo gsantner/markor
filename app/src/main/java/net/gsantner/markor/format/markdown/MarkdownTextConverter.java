@@ -18,6 +18,7 @@ import com.vladsch.flexmark.ext.emoji.EmojiImageType;
 import com.vladsch.flexmark.ext.footnotes.FootnoteExtension;
 import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughSubscriptExtension;
 import com.vladsch.flexmark.ext.gfm.tasklist.TaskListExtension;
+import com.vladsch.flexmark.ext.gfm.tasklist.TaskListItem;
 import com.vladsch.flexmark.ext.gitlab.GitLabExtension;
 import com.vladsch.flexmark.ext.ins.InsExtension;
 import com.vladsch.flexmark.ext.jekyll.front.matter.JekyllFrontMatterExtension;
@@ -41,6 +42,7 @@ import com.vladsch.flexmark.util.ast.Document;
 import com.vladsch.flexmark.util.ast.Node;
 import com.vladsch.flexmark.util.builder.Extension;
 import com.vladsch.flexmark.util.html.Attributes;
+import com.vladsch.flexmark.util.options.DataKey;
 import com.vladsch.flexmark.util.options.MutableDataHolder;
 import com.vladsch.flexmark.util.options.MutableDataSet;
 
@@ -153,6 +155,7 @@ public class MarkdownTextConverter extends TextConverterBase {
     //########################
     // private static final String toDashChars = " -_"; // See HtmlRenderer.HEADER_ID_GENERATOR_TO_DASH_CHARS.getFrom(document)
     private static final Pattern linkPattern = Pattern.compile("\\[(.*?)\\]\\((.*?)(\\s+\".*\")?\\)");
+    private static final DataKey<List<Integer>> CHECKBOX_SOURCE_INDICES = new DataKey<>("CHECKBOX_SOURCE_INDICES", Collections.emptyList());
 
 
     //########################
@@ -165,6 +168,10 @@ public class MarkdownTextConverter extends TextConverterBase {
         final MutableDataSet options = new MutableDataSet();
 
         options.set(Parser.EXTENSIONS, flexmarkExtensions);
+        final String sourceMarkup = markup;
+        final Document sourceDocument = flexmarkParser.parse(sourceMarkup);
+        final List<Integer> checkboxSourceIndices = getCheckboxSourceIndices(sourceDocument);
+        options.set(CHECKBOX_SOURCE_INDICES, checkboxSourceIndices);
 
         options.set(Parser.SPACE_IN_LINK_URLS, true); // Allow links like [this](some filename with spaces.md)
 
@@ -179,6 +186,13 @@ public class MarkdownTextConverter extends TextConverterBase {
         final String checkedCheckbox = "<input type=checkbox class=task-list-item-checkbox checked=checked style='accent-color: #F04B4B;' />";
         options.set(TaskListExtension.ITEM_NOT_DONE_MARKER, checkedCheckbox.replace("checked=checked", ""))
                 .set(TaskListExtension.ITEM_DONE_MARKER, checkedCheckbox);
+        if (!checkboxSourceIndices.isEmpty()) {
+            onLoadJs += "var boxes=document.querySelectorAll('input.task-list-item-checkbox');"
+                    + "for(var i=0;i<boxes.length;i++){var source=boxes[i].parentElement;"
+                    + "while(source&&!source.hasAttribute('data-checkbox-source-index')){source=source.parentElement;}"
+                    + "if(source){boxes[i].setAttribute('data-checkbox-source-index',source.getAttribute('data-checkbox-source-index'));"
+                    + "boxes[i].addEventListener('change',function(){Android.webViewJavascriptCallback(['markdown-checkbox',String(markorRenderGeneration),this.getAttribute('data-checkbox-source-index'),this.checked?'true':'false']);});}}";
+        }
 
         // GFM table parsing
         options.set(TablesExtension.WITH_CAPTION, false)
@@ -318,7 +332,7 @@ public class MarkdownTextConverter extends TextConverterBase {
 
         ////////////
         // Markup parsing - afterwards = HTML
-        Document document = flexmarkParser.parse(markup);
+        Document document = sourceMarkup.equals(markup) ? sourceDocument : flexmarkParser.parse(markup);
         converted = fmaText + flexmarkRenderer.withOptions(options).render(document);
 
         // After render changes: Fixes for Footnotes (converter creates footnote + <br> + ref#(click) --> remove line break)
@@ -373,6 +387,38 @@ public class MarkdownTextConverter extends TextConverterBase {
         sb.append(markup.substring(previousEnd));
 
         return sb.toString();
+    }
+
+    private static List<Integer> getCheckboxSourceIndices(final Document document) {
+        final List<Integer> indices = new ArrayList<>();
+        collectCheckboxSourceIndices(document, indices);
+        return indices;
+    }
+
+    public static boolean isCheckboxSourceIndex(final String markup, final int sourceIndex) {
+        return isCheckboxSourceIndex(flexmarkParser.parse(markup), sourceIndex);
+    }
+
+    private static boolean isCheckboxSourceIndex(final Node parent, final int sourceIndex) {
+        for (Node node = parent.getFirstChild(); node != null; node = node.getNext()) {
+            if (node instanceof TaskListItem
+                    && ((TaskListItem) node).getMarkerSuffix().getStartOffset() + 1 == sourceIndex) {
+                return true;
+            }
+            if (isCheckboxSourceIndex(node, sourceIndex)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static void collectCheckboxSourceIndices(final Node parent, final List<Integer> indices) {
+        for (Node node = parent.getFirstChild(); node != null; node = node.getNext()) {
+            if (node instanceof TaskListItem) {
+                indices.add(((TaskListItem) node).getMarkerSuffix().getStartOffset() + 1);
+            }
+            collectCheckboxSourceIndices(node, indices);
+        }
     }
 
     private String getViewHlPrismIncludes(final String theme) {
@@ -445,11 +491,21 @@ public class MarkdownTextConverter extends TextConverterBase {
     // ---------------------------------------------------------------------------------------------
 
     private static class LineNumberIdProvider implements AttributeProvider {
+        private final List<Integer> checkboxSourceIndices;
+        private int checkboxIndex;
+
+        private LineNumberIdProvider(final List<Integer> checkboxSourceIndices) {
+            this.checkboxSourceIndices = checkboxSourceIndices;
+        }
+
         @Override
         public void setAttributes(Node node, AttributablePart part, Attributes attributes) {
             final Document document = node.getDocument();
             final int lineNumber = document.getLineNumber(node.getStartOffset());
             attributes.addValue("line", "" + lineNumber);
+            if (node instanceof TaskListItem && checkboxIndex < checkboxSourceIndices.size()) {
+                attributes.addValue("data-checkbox-source-index", "" + checkboxSourceIndices.get(checkboxIndex++));
+            }
         }
     }
 
@@ -472,7 +528,7 @@ public class MarkdownTextConverter extends TextConverterBase {
 
         @Override
         public AttributeProvider create(LinkResolverContext context) {
-            return new LineNumberIdProvider();
+            return new LineNumberIdProvider(CHECKBOX_SOURCE_INDICES.getFrom(context.getOptions()));
         }
     }
 
