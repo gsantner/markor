@@ -101,8 +101,7 @@ public abstract class TextConverterBase {
             final Activity context,
             final WebView webView,
             final boolean lightMode,
-            final boolean lineNum,
-            final int renderGeneration
+            final boolean lineNum
     ) {
         final AppSettings as = AppSettings.get(context);
 
@@ -111,13 +110,6 @@ public abstract class TextConverterBase {
             html = convertMarkup(content, context, lightMode, lineNum, document.file);
         } catch (Exception e) {
             html = "Please report at project issue tracker: " + e;
-        }
-
-        final int headEnd = html.indexOf("</head>");
-        if (headEnd >= 0) {
-            html = html.substring(0, headEnd)
-                    + JS_S + "var markorRenderGeneration=" + renderGeneration + ";" + JS_E
-                    + html.substring(headEnd);
         }
 
         String parent = document.file.getParent();

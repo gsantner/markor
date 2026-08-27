@@ -191,7 +191,7 @@ public class MarkdownTextConverter extends TextConverterBase {
                     + "for(var i=0;i<boxes.length;i++){var source=boxes[i].parentElement;"
                     + "while(source&&!source.hasAttribute('data-checkbox-source-index')){source=source.parentElement;}"
                     + "if(source){boxes[i].setAttribute('data-checkbox-source-index',source.getAttribute('data-checkbox-source-index'));"
-                    + "boxes[i].addEventListener('change',function(){Android.webViewJavascriptCallback(['markdown-checkbox',String(markorRenderGeneration),this.getAttribute('data-checkbox-source-index'),this.checked?'true':'false']);});}}";
+                    + "boxes[i].addEventListener('change',function(){Android.webViewJavascriptCallback(['markdown-checkbox',this.getAttribute('data-checkbox-source-index'),this.checked?'true':'false']);});}}";
         }
 
         // GFM table parsing
@@ -393,23 +393,6 @@ public class MarkdownTextConverter extends TextConverterBase {
         final List<Integer> indices = new ArrayList<>();
         collectCheckboxSourceIndices(document, indices);
         return indices;
-    }
-
-    public static boolean isCheckboxSourceIndex(final String markup, final int sourceIndex) {
-        return isCheckboxSourceIndex(flexmarkParser.parse(markup), sourceIndex);
-    }
-
-    private static boolean isCheckboxSourceIndex(final Node parent, final int sourceIndex) {
-        for (Node node = parent.getFirstChild(); node != null; node = node.getNext()) {
-            if (node instanceof TaskListItem
-                    && ((TaskListItem) node).getMarkerSuffix().getStartOffset() + 1 == sourceIndex) {
-                return true;
-            }
-            if (isCheckboxSourceIndex(node, sourceIndex)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     private static void collectCheckboxSourceIndices(final Node parent, final List<Integer> indices) {

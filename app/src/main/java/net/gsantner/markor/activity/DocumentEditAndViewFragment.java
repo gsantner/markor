@@ -16,7 +16,6 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
@@ -54,7 +53,6 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.format.ActionButtonBase;
 import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.format.TextConverterBase;
-import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.frontend.DraggableScrollbarScrollView;
 import net.gsantner.markor.frontend.FileInfoDialog;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
@@ -112,7 +110,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     private DraggableScrollbarScrollView _verticalScrollView;
     private HorizontalScrollView _horizontalScrollView;
     private LineNumbersView _lineNumbersView;
-    private int _webViewRenderGeneration;
     private TextView _searchResultTextView;
     private Document _document;
     private FormatRegistry _format;
@@ -1144,12 +1141,11 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         if (_webView == null) {
             return;
         }
-        final int renderGeneration = ++_webViewRenderGeneration;
         // Don't let text to view mode crash app
         try {
-            _format.getConverter().convertMarkupShowInWebView(_document, getTextString(), getActivity(), _webView, _nextConvertToPrintMode, _lineNumbersView.isLineNumbersEnabled(), renderGeneration);
+            _format.getConverter().convertMarkupShowInWebView(_document, getTextString(), getActivity(), _webView, _nextConvertToPrintMode, _lineNumbersView.isLineNumbersEnabled());
         } catch (OutOfMemoryError e) {
-            _format.getConverter().convertMarkupShowInWebView(_document, "updateViewModeText getTextString(): OutOfMemory  " + e, getActivity(), _webView, _nextConvertToPrintMode, _lineNumbersView.isLineNumbersEnabled(), renderGeneration);
+            _format.getConverter().convertMarkupShowInWebView(_document, "updateViewModeText getTextString(): OutOfMemory  " + e, getActivity(), _webView, _nextConvertToPrintMode, _lineNumbersView.isLineNumbersEnabled());
         }
     }
 
@@ -1265,48 +1261,13 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     @JavascriptInterface
     public void webViewJavascriptCallback(final String[] jsArgs) {
         final String[] args = (jsArgs == null || jsArgs.length == 0 || jsArgs[0] == null) ? new String[0] : jsArgs;
-        final String type = args.length == 0 || TextUtils.isEmpty(args[0]) ? "" : args[0];
-        if (type.equalsIgnoreCase("toast") && args.length == 2) {
-            Toast.makeText(getActivity(), args[1], Toast.LENGTH_SHORT).show();
-        } else if (type.equals("markdown-checkbox") && args.length == 4
-                && ("true".equals(args[3]) || "false".equals(args[3]))) {
-            final Activity activity = getActivity();
-            if (activity != null) {
-                try {
-                    final int renderGeneration = Integer.parseInt(args[1]);
-                    final int sourceIndex = Integer.parseInt(args[2]);
-                    final boolean checked = args[3].equals("true");
-                    activity.runOnUiThread(() -> setMarkdownCheckboxState(renderGeneration, sourceIndex, checked));
-                } catch (NumberFormatException ignored) {
+        final Activity activity = getActivity();
+        if (activity != null) {
+            activity.runOnUiThread(() -> {
+                if (_format != null) {
+                    _format.getActions().onWebViewJavascriptCallback(args);
                 }
-            }
-        }
-    }
-
-    private void setMarkdownCheckboxState(final int renderGeneration, final int sourceIndex, final boolean checked) {
-        if (renderGeneration != _webViewRenderGeneration || !_isPreviewVisible || _format == null
-                || _format.getFormatId() != FormatRegistry.FORMAT_MARKDOWN || _hlEditor == null) {
-            return;
-        }
-
-        final Editable text = _hlEditor.getText();
-        if (sourceIndex <= 0 || sourceIndex >= text.length() - 1
-                || text.charAt(sourceIndex - 1) != '[' || text.charAt(sourceIndex + 1) != ']') {
-            return;
-        }
-
-        final char current = text.charAt(sourceIndex);
-        if (current != ' ' && current != 'x' && current != 'X') {
-            return;
-        }
-        if (!MarkdownTextConverter.isCheckboxSourceIndex(text.toString(), sourceIndex)) {
-            return;
-        }
-
-        final char replacement = checked ? 'x' : ' ';
-        if (current != replacement) {
-            _hlEditor.withAutoFormatDisabled(() -> text.replace(sourceIndex, sourceIndex + 1, String.valueOf(replacement)));
-            checkTextChangeState();
+            });
         }
     }
 

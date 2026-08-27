@@ -58,6 +58,33 @@ public class MarkdownActionButtons extends ActionButtonBase {
     }
 
     @Override
+    public boolean onWebViewJavascriptCallback(final String[] args) {
+        if (super.onWebViewJavascriptCallback(args)) {
+            return true;
+        }
+        if (args.length != 3 || !"markdown-checkbox".equals(args[0])
+                || !("true".equals(args[2]) || "false".equals(args[2])) || _hlEditor == null) {
+            return false;
+        }
+
+        try {
+            final int sourceIndex = Integer.parseInt(args[1]);
+            final Editable text = _hlEditor.getText();
+            if (sourceIndex <= 0 || sourceIndex >= text.length() - 1
+                    || text.charAt(sourceIndex - 1) != '[' || text.charAt(sourceIndex + 1) != ']') {
+                return true;
+            }
+
+            final char replacement = "true".equals(args[2]) ? 'x' : ' ';
+            if (text.charAt(sourceIndex) != replacement) {
+                _hlEditor.withAutoFormatDisabled(() -> text.replace(sourceIndex, sourceIndex + 1, String.valueOf(replacement)));
+            }
+        } catch (NumberFormatException ignored) {
+        }
+        return true;
+    }
+
+    @Override
     protected @StringRes
     int getFormatActionsKey() {
         return R.string.pref_key__markdown__action_keys;
