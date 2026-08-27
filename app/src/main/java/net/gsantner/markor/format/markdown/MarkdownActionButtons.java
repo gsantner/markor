@@ -72,8 +72,13 @@ public class MarkdownActionButtons extends ActionButtonBase {
                     return true;
                 }
 
+                final char current = text.charAt(sourceIndex);
+                if (current != ' ' && current != 'x' && current != 'X') {
+                    return true;
+                }
+
                 final char replacement = "true".equals(args[2]) ? 'x' : ' ';
-                if (text.charAt(sourceIndex) != replacement) {
+                if (current != replacement) {
                     _hlEditor.withAutoFormatDisabled(() -> text.replace(sourceIndex, sourceIndex + 1, String.valueOf(replacement)));
                 }
             } catch (NumberFormatException ignored) {
