@@ -107,12 +107,10 @@ public abstract class ActionButtonBase {
     }
 
     // Override to implement custom callbacks from view-mode JavaScript
-    public boolean onWebViewJavascriptCallback(final String[] args) {
+    public void onWebViewJavascriptCallback(final String[] args) {
         if (args.length == 2 && "toast".equalsIgnoreCase(args[0]) && _activity != null) {
             Toast.makeText(_activity, args[1], Toast.LENGTH_SHORT).show();
-            return true;
         }
-        return false;
     }
 
     private TextSearchViewHolder _textSearchViewHolder;
