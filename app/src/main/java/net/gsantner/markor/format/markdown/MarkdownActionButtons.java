@@ -60,7 +60,7 @@ public class MarkdownActionButtons extends ActionButtonBase {
     @Override
     public void onWebViewJavascriptCallback(final String[] args) {
         if (isMarkdownCheckboxAction(args)) {
-            runMarkdownCheckboxAction(args);
+            runViewModeCheckboxAction(args);
             return;
         }
         super.onWebViewJavascriptCallback(args);
@@ -73,7 +73,7 @@ public class MarkdownActionButtons extends ActionButtonBase {
                 _hlEditor != null;
     }
 
-    private void runMarkdownCheckboxAction(final String[] args) {
+    private void runViewModeCheckboxAction(final String[] args) {
         final int sourceIndex = GsTextUtils.tryParseInt(args[1], -1);
         final Editable text = _hlEditor.getText();
         if (sourceIndex <= 0 ||
