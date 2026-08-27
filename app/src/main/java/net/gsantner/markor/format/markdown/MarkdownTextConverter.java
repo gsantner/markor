@@ -42,7 +42,6 @@ import com.vladsch.flexmark.util.ast.Document;
 import com.vladsch.flexmark.util.ast.Node;
 import com.vladsch.flexmark.util.builder.Extension;
 import com.vladsch.flexmark.util.html.Attributes;
-import com.vladsch.flexmark.util.options.DataKey;
 import com.vladsch.flexmark.util.options.MutableDataHolder;
 import com.vladsch.flexmark.util.options.MutableDataSet;
 
@@ -155,9 +154,6 @@ public class MarkdownTextConverter extends TextConverterBase {
     //########################
     // private static final String toDashChars = " -_"; // See HtmlRenderer.HEADER_ID_GENERATOR_TO_DASH_CHARS.getFrom(document)
     private static final Pattern linkPattern = Pattern.compile("\\[(.*?)\\]\\((.*?)(\\s+\".*\")?\\)");
-    private static final DataKey<List<Integer>> CHECKBOX_SOURCE_INDICES = new DataKey<>("CHECKBOX_SOURCE_INDICES", Collections.emptyList());
-
-
     //########################
     //## Methods
     //########################
@@ -171,7 +167,6 @@ public class MarkdownTextConverter extends TextConverterBase {
         final String sourceMarkup = markup;
         final Document sourceDocument = flexmarkParser.parse(sourceMarkup);
         final List<Integer> checkboxSourceIndices = getCheckboxSourceIndices(sourceDocument);
-        options.set(CHECKBOX_SOURCE_INDICES, checkboxSourceIndices);
 
         options.set(Parser.SPACE_IN_LINK_URLS, true); // Allow links like [this](some filename with spaces.md)
 
@@ -187,11 +182,11 @@ public class MarkdownTextConverter extends TextConverterBase {
         options.set(TaskListExtension.ITEM_NOT_DONE_MARKER, checkedCheckbox.replace("checked=checked", ""))
                 .set(TaskListExtension.ITEM_DONE_MARKER, checkedCheckbox);
         if (!checkboxSourceIndices.isEmpty()) {
-            onLoadJs += "var boxes=document.querySelectorAll('input.task-list-item-checkbox');"
-                    + "for(var i=0;i<boxes.length;i++){var source=boxes[i].parentElement;"
-                    + "while(source&&!source.hasAttribute('data-checkbox-source-index')){source=source.parentElement;}"
-                    + "if(source){boxes[i].setAttribute('data-checkbox-source-index',source.getAttribute('data-checkbox-source-index'));"
-                    + "boxes[i].addEventListener('change',function(){Android.webViewJavascriptCallback(['markdown-checkbox',this.getAttribute('data-checkbox-source-index'),this.checked?'true':'false']);});}}";
+            onLoadJs += "var checkboxSourceIndices=" + checkboxSourceIndices + ";"
+                    + "var boxes=document.querySelectorAll('input.task-list-item-checkbox');"
+                    + "for(var i=0;i<boxes.length&&i<checkboxSourceIndices.length;i++){"
+                    + "boxes[i].markorSourceIndex=checkboxSourceIndices[i];"
+                    + "boxes[i].addEventListener('change',function(){Android.webViewJavascriptCallback(['markdown-checkbox',String(this.markorSourceIndex),this.checked?'true':'false']);});}";
         }
 
         // GFM table parsing
@@ -474,21 +469,11 @@ public class MarkdownTextConverter extends TextConverterBase {
     // ---------------------------------------------------------------------------------------------
 
     private static class LineNumberIdProvider implements AttributeProvider {
-        private final List<Integer> checkboxSourceIndices;
-        private int checkboxIndex;
-
-        private LineNumberIdProvider(final List<Integer> checkboxSourceIndices) {
-            this.checkboxSourceIndices = checkboxSourceIndices;
-        }
-
         @Override
         public void setAttributes(Node node, AttributablePart part, Attributes attributes) {
             final Document document = node.getDocument();
             final int lineNumber = document.getLineNumber(node.getStartOffset());
             attributes.addValue("line", "" + lineNumber);
-            if (node instanceof TaskListItem && checkboxIndex < checkboxSourceIndices.size()) {
-                attributes.addValue("data-checkbox-source-index", "" + checkboxSourceIndices.get(checkboxIndex++));
-            }
         }
     }
 
@@ -511,7 +496,7 @@ public class MarkdownTextConverter extends TextConverterBase {
 
         @Override
         public AttributeProvider create(LinkResolverContext context) {
-            return new LineNumberIdProvider(CHECKBOX_SOURCE_INDICES.getFrom(context.getOptions()));
+            return new LineNumberIdProvider();
         }
     }
 
