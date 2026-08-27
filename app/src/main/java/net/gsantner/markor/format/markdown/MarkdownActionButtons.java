@@ -67,29 +67,30 @@ public class MarkdownActionButtons extends ActionButtonBase {
     }
 
     private boolean isMarkdownCheckboxAction(final String[] args) {
-        return args.length == 3 && "markdown-checkbox".equals(args[0])
-                && ("true".equals(args[2]) || "false".equals(args[2])) && _hlEditor != null;
+        return args.length == 3 &&
+                "markdown-checkbox".equals(args[0]) &&
+                ("true".equals(args[2]) || "false".equals(args[2])) &&
+                _hlEditor != null;
     }
 
     private void runMarkdownCheckboxAction(final String[] args) {
-        try {
-            final int sourceIndex = Integer.parseInt(args[1]);
-            final Editable text = _hlEditor.getText();
-            if (sourceIndex <= 0 || sourceIndex >= text.length() - 1
-                    || text.charAt(sourceIndex - 1) != '[' || text.charAt(sourceIndex + 1) != ']') {
-                return;
-            }
+        final int sourceIndex = GsTextUtils.tryParseInt(args[1], -1);
+        final Editable text = _hlEditor.getText();
+        if (sourceIndex <= 0 ||
+                sourceIndex >= text.length() - 1 ||
+                text.charAt(sourceIndex - 1) != '[' ||
+                text.charAt(sourceIndex + 1) != ']') {
+            return;
+        }
 
-            final char current = text.charAt(sourceIndex);
-            if (current != ' ' && current != 'x' && current != 'X') {
-                return;
-            }
+        final char current = text.charAt(sourceIndex);
+        if (current != ' ' && current != 'x' && current != 'X') {
+            return;
+        }
 
-            final char replacement = "true".equals(args[2]) ? 'x' : ' ';
-            if (current != replacement) {
-                _hlEditor.withAutoFormatDisabled(() -> text.replace(sourceIndex, sourceIndex + 1, String.valueOf(replacement)));
-            }
-        } catch (NumberFormatException ignored) {
+        final char replacement = "true".equals(args[2]) ? 'x' : ' ';
+        if (current != replacement) {
+            _hlEditor.withAutoFormatDisabled(() -> text.replace(sourceIndex, sourceIndex + 1, String.valueOf(replacement)));
         }
     }
 
