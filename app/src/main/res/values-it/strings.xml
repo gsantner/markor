@@ -179,6 +179,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="sort_tasks_by_selected_order">Ordina i task secondo l\'ordine selezionato</string>
     <string name="special_key">Tasto speciale</string>
     <string name="asciidoc_special_key">Contenuto speciale AsciiDoc</string>
+    <string name="duplicate_hotkey">Duplica (Ctrl + D)</string>
     <string name="key_ctrl_a">Seleziona tutto (Ctrl + A)</string>
     <string name="em_space">Spaziatura em (&amp;emsp;)</string>
     <string name="start_on_bottom">Inizia dal basso</string>
@@ -207,6 +208,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="center_text">Centra il testo</string>
     <string name="edit_text_in_center_of_screen">Modifica il testo al centro dello schermo</string>
     <string name="clipboard">Appunti</string>
+    <string name="link_copied">Collegamento copiato</string>
     <string name="select_existing_document">Seleziona documento esistente</string>
     <string name="select_create_document">Seleziona o crea un documento</string>
     <string name="select_create_folder">Seleziona o crea cartella</string>
@@ -285,6 +287,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="swipe_to_change_to_edit_or_view_mode">Scorri per modificare o visualizzare la modalità (opposta alla modalità corrente)</string>
     <string name="folder_first">Prima le cartelle</string>
     <string name="go_to">Vai a</string>
+    <string name="go_to_line">Vai a una riga specifica</string>
+    <string name="select_lines">Seleziona righe</string>
+    <string name="current_line">Riga corrente</string>
+    <string name="select_lines_sample">es. 1:2, 1:, :2, :, 1</string>
     <string name="line_number">Numero di riga</string>
     <string name="appdata_public">AppData (pubblico)</string>
     <string name="appdata_private">AppData (privato)</string>
@@ -312,6 +318,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Il file selezionato può essere un file di testo normale. Vuoi aprirlo nell\'editor o in un\'altra app?\n\nNon provare ad aprire file binari. Se non sei sicuro, apri con un\'altra app.</string>
     <string name="list_in_recent_files">Lista nei file recenti</string>
     <string name="reload">Ricarica</string>
+    <string name="line_numbers">Numeri di riga</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Manda a capo il testo se supera la dimensione della riga; altrimenti abilita lo scorrimento orizzontale.</string>
     <string name="recursive_search_in_location">Ricerca ricorsiva in %s</string>
     <string name="always_open_with_this_app">Apri sempre con quest\'app</string>
@@ -364,6 +371,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Aggiungi contesto</string>
     <string name="add_project">Aggiungi progetto</string>
     <string name="archive_completed_tasks">Archivia attività completate</string>
+    <string name="superscript">Apice</string>
+    <string name="subscript">Pedice</string>
     <string name="create_new_file_or_folder">Crea un nuovo file o cartella</string>
     <string name="choose_format">Scegli il formato</string>
     <string name="clear_selection">Cancella selezione</string>
@@ -378,6 +387,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="drag">Trascina</string>
     <string name="created">Creato</string>
     <string name="no_results">Nessun risultato</string>
+    <string name="new_line">Nuova riga</string>
+    <string name="use_regular_expression">Usa espressione regolare</string>
+    <string name="find_in_selection">Trova nella selezione</string>
     <string name="file_encryption_password">Password di cifratura file</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Nessuna password impostata, impossibile cifrare o decifrare.\nVai a Impostazioni -&gt; Generale -&gt; Password per impostare una password.</string>
     <string name="encrypt_file_content">Crittografa il contenuto del file</string>
@@ -391,7 +403,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Formato descrizione file</string>
     <string name="file_description_format_dialog">Formato per la descrizione sotto ogni file nel file browser. Segue le regole SimpleDateFormat di Android, con l\'aggiunta di FS per mostrare le dimensioni del file. Lasciare vuoto per usare il formato predefinito per il tuo locale.\n\nEsempio di input:\nFS yyyy MMM dd hh:mm:ss aa\nFormato di output:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">Caricamento valore predefinito</string>
+    <string name="file_settings">Impostazioni file</string>
     <string name="search_and_replace">Cerca / Sostituisci</string>
+    <string name="replace">Sostituisci</string>
     <string name="search_for">Cerca per</string>
     <string name="replace_with">Sostituisci con</string>
     <string name="replace_once">Sostituisci (1)</string>
