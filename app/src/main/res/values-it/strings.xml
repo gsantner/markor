@@ -38,6 +38,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Condividi con…</string>
     <string name="share">Condividi</string>
     <string name="search">Cerca</string>
+    <string name="previous_match">Corrispondenza precedente</string>
+    <string name="next_match">Corrispondenza successiva</string>
     <string name="display_converted_markup">Mostra il markup convertito</string>
     <string name="editor">Modifica</string>
     <string name="folders">Cartelle</string>
@@ -115,6 +117,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_task">Aggiungi attività</string>
     <string name="add_x_witharg">Aggiungi %s</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">Documento da caricare e salvare come \"%s\"</string>
+    <string name="save_or_not">Salvare le modifiche effettuate?</string>
+    <string name="reload_or_not">Scartare le modifiche e ricaricare?</string>
     <string name="refresh">Ricarica</string>
     <string name="create_shortcut">Crea scorciatoia</string>
     <string name="tried_to_create_shortcut_for_this_notice">La scorciatoia per modificare la nota è stata creata. Qualche lanciatore di applicazioni potrebbe non supportare tale funzione.</string>
@@ -137,6 +141,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="main_view">Visualizzazione principale</string>
     <string name="overall_theme_used_in_app">Tema complessivo usato nell\'applicazione</string>
     <string name="remember_last_directory">Ricorda l\'ultima cartella</string>
+    <string name="syntax_highlighting">Evidenziazione sintassi</string>
     <string name="highlighting_delay">Ritardo dell\'evidenziazione</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Ritardo in millisecondi per l\'aggiornamento dell\'evidenziazione. Un valore basso evidenzierà prima, ma consumerà più batteria e potrà diminuire le prestazioni nei dispositivi più vecchi.</string>
     <string name="highlighting_enabled_or_not__appspecific">Controlla quando il testo deve essere evidenziato o meno</string>
@@ -280,6 +285,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="swipe_to_change_to_edit_or_view_mode">Scorri per modificare o visualizzare la modalità (opposta alla modalità corrente)</string>
     <string name="folder_first">Prima le cartelle</string>
     <string name="go_to">Vai a</string>
+    <string name="line_number">Numero di riga</string>
     <string name="appdata_public">AppData (pubblico)</string>
     <string name="appdata_private">AppData (privato)</string>
     <string name="appdata_sdcard">AppData (scheda SD)</string>
@@ -292,6 +298,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">Nero</string>
     <string name="white">Bianco</string>
     <string name="view">Vedi</string>
+    <string name="view_mode">Modalità visualizzazione</string>
+    <string name="edit_mode">Modalità modifica</string>
     <string name="mount_storage">Monta spazio di archiviazione</string>
     <string name="application_needs_access_to_storage_mount_it">È richiesto un permesso per accedere a questo spazio di archiviazione. Monta lo spazio per dare l\'accesso, quindi dai conferma per far comparire una finestra popup. A questo punto seleziona lo spazio di archiviazione e premi \"Seleziona\".</string>
     <string name="share_into">Condividi con</string>
@@ -369,6 +377,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="load_default_settings">Carica impostazioni predefinite</string>
     <string name="drag">Trascina</string>
     <string name="created">Creato</string>
+    <string name="no_results">Nessun risultato</string>
     <string name="file_encryption_password">Password di cifratura file</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Nessuna password impostata, impossibile cifrare o decifrare.\nVai a Impostazioni -&gt; Generale -&gt; Password per impostare una password.</string>
     <string name="encrypt_file_content">Crittografa il contenuto del file</string>
