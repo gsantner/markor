@@ -438,6 +438,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     private static final String PREF_PREFIX_TODO_DONE_NAME = "PREF_PREFIX_TODO_DONE_NAME";
     private static final String PREF_PREFIX_LINE_NUM_STATE = "PREF_PREFIX_LINE_NUM_STATE";
     private static final String PREF_PREFIX_VIEW_FONT_SIZE = "PREF_PREFIX_VIEW_FONT_SIZE";
+    private static final String PREF_PREFIX_RTL_STATE = "PREF_PREFIX_RTL_STATE";
 
     public void setLastTodoDoneName(final String path, final String name) {
         if (fexists(path)) {
@@ -586,6 +587,21 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
             return _default;
         } else {
             return getBool(PREF_PREFIX_AUTO_FORMAT + path, _default);
+        }
+    }
+
+    public void setDocumentRtlEnabled(final String path, final boolean enabled) {
+        if (fexists(path)) {
+            setBool(PREF_PREFIX_RTL_STATE + path, enabled);
+        }
+    }
+
+    public boolean getDocumentRtlEnabled(final String path) {
+        final boolean _default = isRenderRtl();
+        if (!fexists(path)) {
+            return _default;
+        } else {
+            return getBool(PREF_PREFIX_RTL_STATE + path, _default);
         }
     }
 
