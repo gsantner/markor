@@ -52,7 +52,7 @@ public class AttachLinkOrFileDialog {
             return "{{%LINK%}}";
         } else if (textFormatId == FormatRegistry.FORMAT_ASCIIDOC) {
             return "image::%LINK%[\"%TITLE%\"]";
-        } else if (textFormatId == FormatRegistry.FORMAT_ORGMODE) {
+        } else if (textFormatId == FormatRegistry.FORMAT_ORG_MODE) {
             return "#+CAPTION: %TITLE%\n[[file:%LINK%]]";
         } else {
             return "<img style='width:auto;max-height:256px;' alt='%TITLE%' src='%LINK%' />";
@@ -66,9 +66,9 @@ public class AttachLinkOrFileDialog {
             return "[[%LINK%|%TITLE%]]";
         } else if (textFormatId == FormatRegistry.FORMAT_ASCIIDOC) {
             return "link:%LINK%[%TITLE%]";
-        } else if (textFormatId == FormatRegistry.FORMAT_TODOTXT) {
+        } else if (textFormatId == FormatRegistry.FORMAT_TODO_TXT) {
             return "%TITLE% link:%LINK%";
-        } else if (textFormatId == FormatRegistry.FORMAT_ORGMODE) {
+        } else if (textFormatId == FormatRegistry.FORMAT_ORG_MODE) {
             return "[[file:%LINK%][%TITLE%]]";
         } else {
             return "<a href=\"%LINK%\">%TITLE%</a>";
@@ -251,7 +251,7 @@ public class AttachLinkOrFileDialog {
             newText = newText.replaceFirst("\\|]]$", "]]");
         }
 
-        if (textFormatId == FormatRegistry.FORMAT_TODOTXT) {
+        if (textFormatId == FormatRegistry.FORMAT_TODO_TXT) {
             newText = newText.replaceAll("\\n", " ");
         }
 

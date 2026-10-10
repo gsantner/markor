@@ -18,8 +18,8 @@ public class DocumentConstructionTests {
 
     @Test
     public void knownFormatConstructorSetsFormatForAmbiguousFilename() {
-        final Document document = new Document(new File("archive.txt"), FormatRegistry.FORMAT_TODOTXT);
+        final Document document = new Document(new File("archive.txt"), FormatRegistry.FORMAT_TODO_TXT);
 
-        assertThat(document.getFormat()).isEqualTo(FormatRegistry.FORMAT_TODOTXT);
+        assertThat(document.getFormat()).isEqualTo(FormatRegistry.FORMAT_TODO_TXT);
     }
 }

@@ -69,29 +69,24 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
         [Project page](https://github.com/gsantner/markor#readme) | [Source code](https://github.com/gsantner/markor) | [F-Droid](https://f-droid.org/repository/browse/?fdid=net.gsantner.markor)
     ]]></string>
 
-    <string name="inject_to_head" translatable="false">Inject -> head</string>
-    <string name="inject_to_body" translatable="false">Inject -> body</string>
-    <string name="js_css" translatable="false"><![CDATA[html: <head>CSS, JavaScript</head>]]></string>
-    <string name="inject_to_head_default" translatable="false"><![CDATA[
-    <style>
-    \nhtml, body {
-    \n/*
-    \nfont-family: sans-serif-condensed;
-    \nfont-size: 80%;
-    \n*/
-    \n}
-    \n</style>
-    \n
-    \n<script type=\"text/javascript\">
-    \nfunction onPageLoaded() {
-    \n/*
-    \nif (\'{{ post.text_converter_name }}\' == \'MarkdownTextConverter\') {
-    \n  window.scrollTo(0, document.body.scrollHeight);
-    \n}
-    \n*/
-    \n}
-    \n</script>
-    ]]></string>
+    <string name="inject_to_head" translatable="false">Inject → head</string>
+    <string name="inject_to_body" translatable="false">Inject → body</string>
+    <string name="js_css" translatable="false"><![CDATA[HTML: <head>CSS, JavaScript</head>]]></string>
+    <string name="inject_to_head_default" translatable="false"><![CDATA[<style>\n
+    html, body {\n
+    \t/*\n
+    \tfont-family: sans-serif-condensed;\n
+    \tfont-size: 80%;\n
+    \t*/\n
+    }\n</style>\n\n<script type=\"text/javascript\">\n
+    function onPageLoaded() {\n
+    \t/*\n
+    \talert(\'Page loaded.\');\n
+    \tif (\'{{ post.text_converter_name }}\'.includes(\'format-markdown\')) {\n
+    \t\twindow.scrollTo(0, document.body.scrollHeight);\n
+    \t}\n
+    \t*/\n
+    }\n</script>]]></string>
 
 
     <plurals name="item_selected" translatable="false">
@@ -427,6 +422,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__todotxt__due_date_offset" translatable="false">pref_key__todotxt_due_date_offset</string>
     <string name="action_format_keyvalue" translatable="false">action_format_keyvalue</string>
     <string name="action_format_plaintext" translatable="false">action_format_plaintext</string>
+    <string name="action_format_code" translatable="false">action_format_code</string>
     <string name="action_format_csv" translatable="false">action_format_csv</string>
     <string name="action_format_asciidoc" translatable="false">action_format_asciidoc</string>
     <string name="action_format_embedbinary" translatable="false">action_format_embedbinary</string>
@@ -434,6 +430,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="action_format_todotxt" translatable="false">action_format_todotxt</string>
     <string name="action_format_wikitext" translatable="false">action_format_wikitext</string>
     <string name="action_format_orgmode" translatable="false">action_format_orgmode</string>
+    <string name="action_language_java" translatable="false">action_language_java</string>
+    <string name="action_language_python" translatable="false">action_language_python</string>
+    <string name="language_java" translatable="false">Java</string>
+    <string name="language_python" translatable="false">Python</string>
+    <string name="csv" translatable="false">CSV</string>
+    <string name="orgmode" translatable="false">OrgMode</string>
     <string name="pref_key__share_into_format" translatable="false">pref_key__share_into_format</string>
     <string name="pref_key__attachment_folder_name" translatable="false">pref_key__attachment_directory_name</string>
     <string name="pref_key__filetype_template_map" translatable="false">pref_key__filetype_template_map</string>
@@ -441,7 +443,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__title_format_list" translatable="false">pref_key__title_format_list</string>
     <string name="pref_key__format_share_as_link" translatable="false">pref_key__format_share_as_link</string>
     <string name="squarebrackets" translatable="false">Square Brackets</string>
-    <string name="csv" translatable="false">CSV</string>
-    <string name="orgmode" translatable="false">OrgMode</string>
     <string name="option_select_lines" translatable="false">option_select_lines</string>
 </resources>

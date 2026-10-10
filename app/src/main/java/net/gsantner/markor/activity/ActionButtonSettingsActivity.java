@@ -117,7 +117,7 @@ public class ActionButtonSettingsActivity extends MarkorBaseActivity {
 
     private void onActionDataExtracted(@NonNull final ActionButtonBase textActions) {
         final Switch showActionBarSwitch = findViewById(R.id.showActionBarSwitch);
-        showActionBarSwitch.setChecked(textActions.loadActionBarVisible());
+        showActionBarSwitch.setChecked(textActions.isActionBarVisible());
         showActionBarSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> textActions.saveActionBarVisible(isChecked));
     }
 

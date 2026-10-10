@@ -42,7 +42,7 @@ public class AsciidocActionButtons extends ActionButtonBase {
                 new ActionItem(R.string.abid_common_deindent, R.drawable.ic_format_indent_decrease_black_24dp, R.string.deindent),
                 new ActionItem(R.string.abid_asciidoc_squarebrackets, R.drawable.ic_baseline_data_array_24, R.string.squarebrackets),
                 // similar to abid_common_special_key, but separate menu
-                new ActionItem(R.string.abid_asciidoc_special_key, R.drawable.asciidoc_icon_black_24dp, R.string.asciidoc_special_key),
+                new ActionItem(R.string.abid_asciidoc_special_key, R.drawable.ic_asciidoc_black_24dp, R.string.asciidoc_special_key),
                 new ActionItem(R.string.abid_asciidoc_h1, R.drawable.format_header_1, R.string.heading_1),
                 new ActionItem(R.string.abid_asciidoc_h2, R.drawable.format_header_2, R.string.heading_2),
                 new ActionItem(R.string.abid_asciidoc_h3, R.drawable.format_header_3, R.string.heading_3),

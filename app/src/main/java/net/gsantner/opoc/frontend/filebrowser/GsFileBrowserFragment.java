@@ -310,6 +310,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         if (_filesystemViewerAdapter != null && _filesystemViewerAdapter.goBack()) {
             return true;
         }
+
         return super.onBackPressed();
     }
 
@@ -453,7 +454,13 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             case R.id.action_info_selected_item: {
                 if (_filesystemViewerAdapter.areItemsSelected()) {
                     File file = new ArrayList<>(currentSelection).get(0);
-                    FileInfoDialog.show(file, getChildFragmentManager());
+                    FileInfoDialog.show(file, getChildFragmentManager(), () -> {
+                        int position = _filesystemViewerAdapter.getPosition(file);
+                        if (position >= 0) {
+                            _dopt.favouriteFiles = _appSettings.getFavouriteFiles();
+                            _filesystemViewerAdapter.notifyItemChanged(position);
+                        }
+                    });
                 }
                 return true;
             }
@@ -577,14 +584,19 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                 });
     }
 
-    public void clearSelection() {
-        if (_filesystemViewerAdapter != null) { // Happens when restoring after rotation etc
+    /**
+     * Clear file selection.
+     *
+     * @return true if it has selection and clear
+     */
+    public boolean clearSelection() {
+        if (_filesystemViewerAdapter != null && _filesystemViewerAdapter.getCurrentSelectionSize() > 0) {
+            // Happens when restoring after rotation etc
             _filesystemViewerAdapter.unselectAll();
+            return true;
         }
+        return false;
     }
-
-
-    /// ////////////
 
     private void askForMoveOrCopy(final boolean isMove) {
         final List<File> files = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection());

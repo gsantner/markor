@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -24,6 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.documentfile.provider.DocumentFile;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentActivity;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.MarkorContextUtils;
@@ -108,16 +110,25 @@ public class WrRenameDialog extends DialogFragment {
     private AlertDialog.Builder setUpDialog(final File file, LayoutInflater inflater) {
         View root;
         AlertDialog.Builder dialogBuilder;
-        dialogBuilder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_DayNight_Dialog_Rounded);
+        FragmentActivity activity = getActivity();
+        dialogBuilder = new AlertDialog.Builder(activity, R.style.Theme_AppCompat_DayNight_Dialog_Rounded);
         root = inflater.inflate(R.layout.rename__dialog, null);
+        DisplayMetrics displayMetrics = GsContextUtils.getDisplayMetrics(activity);
+        root.setMinimumWidth(GsContextUtils.calculateWidth(displayMetrics, 0.8f, 1000));
 
         dialogBuilder.setTitle(getResources().getString(R.string.rename));
         dialogBuilder.setView(root);
 
         EditText editText = root.findViewById(R.id.new_name);
         editText.setFilters(new InputFilter[]{GsContextUtils.instance.makeFilenameInputFilter()});
+        String name = file.getName();
+        editText.setText(name);
+        int start = name.lastIndexOf('.');
+        if (start < 0) {
+            start = name.length();
+        }
+        editText.setSelection(start);
         editText.requestFocus();
-        editText.setText(file.getName());
 
         dialogBuilder.setPositiveButton(getString(android.R.string.ok), null);
         dialogBuilder.setNegativeButton(getString(R.string.cancel), null);

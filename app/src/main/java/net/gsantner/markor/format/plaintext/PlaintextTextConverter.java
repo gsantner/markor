@@ -66,7 +66,7 @@ public class PlaintextTextConverter extends TextConverterBase {
             converted += markup;
         } else if (extWithDot.matches(EmbedBinaryTextConverter.EXT_MATCHES_M3U_PLAYLIST) || extWithDot.matches(EmbedBinaryTextConverter.EXT_IMAGE_TEXTUAL)) {
             // Playlist: Load in Embed-Binary view-mode
-            return FormatRegistry.CONVERTER_EMBEDBINARY.convertMarkup(markup, context, lightMode, lineNum, file);
+            return FormatRegistry.CONVERTER_EMBED_BINARY.convertMarkup(markup, context, lightMode, lineNum, file);
         } else if (EXT_CODE_HL.contains(extWithDot) || (this instanceof KeyValueTextConverter)) {
             // Source code: Load in Markdown view-mode & utilize code block highlighting
             final String hlLang = extWithDot.replace(".sh", ".bash").replace(".", "");

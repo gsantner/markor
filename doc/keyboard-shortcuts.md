@@ -6,7 +6,7 @@
 
 ### Edit
 
-| Shortcut Keys    | Action                                  |
+| Shortcut Key     | Action                                  |
 | ---------------- | --------------------------------------- |
 | Ctrl + A         | Select all                              |
 | Ctrl + C         | Copy                                    |
@@ -45,17 +45,17 @@
 
 ### Edit & View
 
-| Shortcut Keys | Action                                           |
-| ------------- | ------------------------------------------------ |
-| Ctrl + F      | Search                                           |
-| Ctrl + P      | Print                                            |
-| Ctrl + /      | Toggle to preview/edit                           |
-| Ctrl + ;      | Show more menu options                           |
-| Ctrl + '      | Run title click (to show table of contents, ...) |
+| Shortcut Key | Action                                           |
+| ------------ | ------------------------------------------------ |
+| Ctrl + F     | Search                                           |
+| Ctrl + P     | Print                                            |
+| Ctrl + /     | Toggle to preview/edit                           |
+| Ctrl + ;     | Show more menu options                           |
+| Ctrl + '     | Run title click (to show table of contents, ...) |
 
 ## Markdown
 
-| Shortcut Keys    | Action            |
+| Shortcut Key     | Action            |
 | ---------------- | ----------------- |
 | Ctrl + 1 ~ 3     | Heading 1 ~ 3     |
 | Ctrl + B         | Bold              |
@@ -71,18 +71,18 @@
 
 ## AsciiDoc
 
-| Shortcut Keys | Action |
-| ------------- | ------ |
-| Ctrl + I      | Italic |
+| Shortcut Key | Action |
+| ------------ | ------ |
+| Ctrl + I     | Italic |
 
 ## Org Mode
 
-| Shortcut Keys | Action |
-| ------------- | ------ |
-| Ctrl + I      | Italic |
+| Shortcut Key | Action |
+| ------------ | ------ |
+| Ctrl + I     | Italic |
 
 ## Zim Wiki
 
-| Shortcut Keys | Action |
-| ------------- | ------ |
-| Ctrl + I      | Italic |
+| Shortcut Key | Action |
+| ------------ | ------ |
+| Ctrl + I     | Italic |
