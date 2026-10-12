@@ -41,45 +41,60 @@
             android:inputType="textUri|textMultiLine"
             android:maxLines="3" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/ui__select_path_dialog__browse_filesystem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:drawableStart="@drawable/ic_insert_drive_file_black_24dp"
             android:drawableLeft="@drawable/ic_insert_drive_file_black_24dp"
             android:text="@string/browse_filesystem" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/ui__select_path_dialog__record_audio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:drawableStart="@drawable/ic_keyboard_voice_black_24dp"
+            android:drawableLeft="@drawable/ic_keyboard_voice_black_24dp"
+            android:visibility="gone"
+            android:text="@string/record_audio" />
+
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/ui__select_path_dialog__search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:drawableStart="@drawable/ic_search_black_24dp"
             android:drawableLeft="@drawable/ic_search_black_24dp"
             android:visibility="gone"
             android:text="@string/search_documents" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/ui__select_path_dialog__camera_picture"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:drawableStart="@drawable/ic_photo_camera_black_24dp"
             android:drawableLeft="@drawable/ic_photo_camera_black_24dp"
             android:visibility="gone"
             android:text="@string/camera_picture" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/ui__select_path_dialog__gallery_picture"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:drawableStart="@drawable/ic_image_black_24dp"
             android:drawableLeft="@drawable/ic_image_black_24dp"
             android:visibility="gone"
             android:text="@string/gallery_picture" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/ui__select_path_dialog__edit_picture"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:drawableStart="@drawable/ic_crop_black_24dp"
             android:drawableLeft="@drawable/ic_crop_black_24dp"
             android:visibility="gone"
