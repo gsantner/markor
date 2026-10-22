@@ -448,6 +448,10 @@ public class MarkdownTextConverter extends TextConverterBase {
         @Override
         public void setAttributes(Node node, AttributablePart part, Attributes attributes) {
             final Document document = node.getDocument();
+            if (document == null) {
+                // Flexmark can render detached nodes in task lists.
+                return;
+            }
             final int lineNumber = document.getLineNumber(node.getStartOffset());
             attributes.addValue("line", "" + lineNumber);
         }
