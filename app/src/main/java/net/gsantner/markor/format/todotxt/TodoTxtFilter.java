@@ -97,14 +97,21 @@ public class TodoTxtFilter {
     }
 
     public static List<SttFilterKey> getDueKeys(final Context context, final List<TodoTxtTask> tasks) {
+        return getDueKeys(tasks, context.getString(R.string.due_future), context.getString(R.string.due_today), context.getString(R.string.due_overdue));
+    }
+
+    @VisibleForTesting
+    static List<SttFilterKey> getDueKeys(final List<TodoTxtTask> tasks, final String futureTitle, final String todayTitle, final String overdueTitle) {
         final List<TodoTxtTask.TodoDueState> all = new ArrayList<>();
         for (final TodoTxtTask task : tasks) {
-            all.add(task.getDueStatus());
+            if (!task.isDone()) {
+                all.add(task.getDueStatus());
+            }
         }
         final List<SttFilterKey> keys = new ArrayList<>();
-        keys.add(new SttFilterKey(context.getString(R.string.due_future), Collections.frequency(all, TodoDueState.FUTURE), QUERY_DUE_FUTURE));
-        keys.add(new SttFilterKey(context.getString(R.string.due_today), Collections.frequency(all, TodoDueState.TODAY), QUERY_DUE_TODAY));
-        keys.add(new SttFilterKey(context.getString(R.string.due_overdue), Collections.frequency(all, TodoDueState.OVERDUE), QUERY_DUE_OVERDUE));
+        keys.add(new SttFilterKey(futureTitle, Collections.frequency(all, TodoDueState.FUTURE), QUERY_DUE_FUTURE));
+        keys.add(new SttFilterKey(todayTitle, Collections.frequency(all, TodoDueState.TODAY), QUERY_DUE_TODAY));
+        keys.add(new SttFilterKey(overdueTitle, Collections.frequency(all, TodoDueState.OVERDUE), QUERY_DUE_OVERDUE));
         keys.add(new SttFilterKey(STRING_NONE, Collections.frequency(all, TodoDueState.NONE), null));
 
         return keys;
