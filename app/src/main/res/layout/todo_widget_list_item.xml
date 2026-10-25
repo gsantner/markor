@@ -3,6 +3,6 @@
     android:id="@+id/todo_widget_item_text"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="3dp"
+    android:padding="2dp"
     android:textSize="15sp"
     android:textColor="@color/primary_text" />
