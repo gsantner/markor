@@ -36,6 +36,8 @@ import java.util.regex.Pattern;
  */
 @SuppressWarnings("WeakerAccess")
 public class WikitextTextConverter extends TextConverterBase {
+    private static final Pattern ZIMHEADER_CONTENT_TYPE_ONLY = Pattern.compile("^\\s*Content-Type:\\s*text/x-zim-wiki");
+
     // Zim Source View plugin: {{{code: lang="..." ...\n...\n}}}
     private static final Pattern CODE_BLOCK_SOURCE_VIEW = Pattern.compile(
             "(?ms)^\\{\\{\\{code:([^\\r\\n]*)(?:\\r\\n?|\\n)(.*?)^\\}\\}\\}[ \\t]*$");
@@ -270,7 +272,7 @@ public class WikitextTextConverter extends TextConverterBase {
     protected boolean isFileOutOfThisFormat(final File file, final String name, final String ext) {
         if (ext.equals(".txt")) {
             try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-                return WikitextSyntaxHighlighter.ZIMHEADER_CONTENT_TYPE_ONLY.matcher(reader.readLine()).find();
+                return ZIMHEADER_CONTENT_TYPE_ONLY.matcher(reader.readLine()).find();
             } catch (Exception ignored) {
             }
         }
