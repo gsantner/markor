@@ -157,6 +157,7 @@ public class MarkdownTextConverter extends TextConverterBase {
     //########################
     // private static final String toDashChars = " -_"; // See HtmlRenderer.HEADER_ID_GENERATOR_TO_DASH_CHARS.getFrom(document)
     private static final Pattern linkPattern = Pattern.compile("\\[(.*?)\\]\\((.*?)(\\s+\".*\")?\\)");
+
     //########################
     //## Methods
     //########################
