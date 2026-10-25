@@ -10,6 +10,7 @@
 package net.gsantner.markor.frontend;
 
 import android.app.Activity;
+import android.content.res.ColorStateList;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.text.Editable;
@@ -24,6 +25,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.core.widget.TextViewCompat;
 import androidx.fragment.app.FragmentManager;
 
 import net.gsantner.markor.R;
@@ -97,10 +100,12 @@ public class AttachLinkOrFileDialog {
         final EditText inputPathName = view.findViewById(R.id.ui__select_path_dialog__name);
         final EditText inputPathUrl = view.findViewById(R.id.ui__select_path_dialog__url);
         final Button buttonBrowseFilesystem = view.findViewById(R.id.ui__select_path_dialog__browse_filesystem);
+        final Button buttonRecordAudio = view.findViewById(R.id.ui__select_path_dialog__record_audio);
         final Button buttonSearch = view.findViewById(R.id.ui__select_path_dialog__search);
         final Button buttonPictureGallery = view.findViewById(R.id.ui__select_path_dialog__gallery_picture);
         final Button buttonPictureCamera = view.findViewById(R.id.ui__select_path_dialog__camera_picture);
         final Button buttonPictureEdit = view.findViewById(R.id.ui__select_path_dialog__edit_picture);
+        styleActionButtons(activity, buttonBrowseFilesystem, buttonRecordAudio, buttonSearch, buttonPictureCamera, buttonPictureGallery, buttonPictureEdit);
 
         builder.setCancelable(true);
         builder.setNegativeButton(android.R.string.cancel, (di, b) -> di.dismiss());
@@ -140,6 +145,7 @@ public class AttachLinkOrFileDialog {
             browseType = InsertType.IMAGE_BROWSE;
             okType = InsertType.IMAGE_DIALOG;
         } else if (action == AUDIO_ACTION) {
+            buttonRecordAudio.setVisibility(View.VISIBLE);
             dialog.setTitle(R.string.audio);
             browseType = InsertType.AUDIO_BROWSE;
             okType = InsertType.AUDIO_DIALOG;
@@ -153,6 +159,7 @@ public class AttachLinkOrFileDialog {
         final String ok = activity.getString(android.R.string.ok);
         dialog.setButton(DialogInterface.BUTTON_POSITIVE, ok, (di, b) -> _insertItem.callback(okType));
         buttonBrowseFilesystem.setOnClickListener(v -> _insertItem.callback(browseType));
+        buttonRecordAudio.setOnClickListener(v -> _insertItem.callback(InsertType.AUDIO_RECORDING));
         buttonSearch.setOnClickListener(v -> _insertItem.callback(InsertType.LINK_SEARCH));
         buttonPictureCamera.setOnClickListener(b -> _insertItem.callback(InsertType.IMAGE_CAMERA));
         buttonPictureGallery.setOnClickListener(v -> _insertItem.callback(InsertType.IMAGE_GALLERY));
@@ -165,6 +172,27 @@ public class AttachLinkOrFileDialog {
             win.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
             inputPathName.requestFocus();
         }
+    }
+
+    private static void styleActionButtons(final Context context, final Button... buttons) {
+        final int textColor = ContextCompat.getColor(context, R.color.primary_text);
+        final ColorStateList textColorList = ColorStateList.valueOf(textColor);
+        final int horizontalPadding = dpToPx(context, 16);
+        final int verticalPadding = dpToPx(context, 10);
+
+        for (Button button : buttons) {
+            button.setAllCaps(false);
+            button.setMinHeight(dpToPx(context, 48));
+            button.setTextColor(textColorList);
+            button.setCompoundDrawablePadding(dpToPx(context, 12));
+            button.setBackgroundResource(R.drawable.attachment_dialog_action_button_background);
+            button.setPadding(horizontalPadding, verticalPadding, horizontalPadding, verticalPadding);
+            TextViewCompat.setCompoundDrawableTintList(button, textColorList);
+        }
+    }
+
+    private static int dpToPx(final Context context, final int dp) {
+        return Math.round(dp * context.getResources().getDisplayMetrics().density);
     }
 
     private enum InsertType {
