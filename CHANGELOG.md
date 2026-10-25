@@ -2,10 +2,68 @@
 - See [Discussions](https://github.com/gsantner/markor/discussions), [Issues](https://github.com/gsantner/markor/issues) and [Project news](https://github.com/gsantner/markor/blob/master/NEWS.md) to see what is going on.
 - New Updates also visible here: <https://github.com/gsantner/markor/releases>
 
+### v2026.10
+- [2.16.1 - 2026.10.0](https://github.com/gsantner/markor/compare/v2.16.1...v2026.10.0)
+- markor:// deep link scheme, Improvements to opening external links (PR #2842 by @harshad1)
+- Improve the interface of keyboard shortcuts and implement many essential shortcuts, fixes #154 fixes #2768 fixes #2613 fixes #2818 (#2733 by @guanglinn)
+- Markdown: ToDo/CheckBox state ViewMode to Edit - Closes #497, #504, #997, #1320, #1506, #1926 (PR #2886 by @harshad1)
+- Add options for app appearance (PR #2803 by @harshad1)
+- ViewMode: Update Mermaid from 11.6.0 to 11.17.2, closes #2874 (#2882)
+- Editor: Non-blinking (static) cursor settings option, closes #2525 #2790 #2792 (PR #2807 by @guanglinn)
+- ViewMode: Add support for viewing link addresses (PR #2798 closes #2800 #2749 by @guanglinn)
+- Fix newline indentation before nested list items (Fixes #2884, PR #2887)
+- Improvements to search / replace dialog (PR #2821 by @harshad1)
+- Search/Replace: Fix regex capture replacement, closes #2872 (PR #2879 by @harshad1)
+- Zim (view mode): Support negative timezone offsets (PR #2852 by @bruvellu)
+- WikiText/Zim: Fix multiline code block rendering (PR #2808 by Self-Perfection)
+- GsFileBrowserFragment: auto-refresh on filesystem changes (FileObserver) (#2823 by @dsremo)
+- Natural sort order default for filenames (PR #2779 closes #2734 by @Hill134Z)
+- Show toast notification when opening a large file (PR #2778 by @lrq3000)
+- Fix webview jumping + other improvements (closes #2726, PR #2736 by @harshad1)
+- Allow starting on TV device, by @gsantner
+- MainActivity FAB LongPress: Switch between directory and storage location instead of favorites, by @gsantner
+- Fix document creation (PR #2858 by @harshad1)
+- Snippets: Support extensionless snippets, closes #2875 (PR #2876 by @harshad1)
+- FileManager: Fix Favourite state not in sync, closes #2786 (PR #2878 by @harshad1)
+- FileManager: Allows navigation up even if the parent isn't writable, closes #2859 (PR #2877 by @harshad1)
+- Markdown format: View-Mode Checkboxes toggleable temporary (drop default disabled flag) - makes it usable for holiday pack lists :) (by @gsantner)
+- Disable invalid attachment save targets (PR #2799 by @harshad1)
+- Fix line number misalignment when syntax highlighting is switched, closes #2810 (PR #2811 by @guanglinn)
+- Due Android minSdk21 update, Remove multiDex (by default in 21+) - drop dependency androidx.multidex:multidex, remove androidx.multidex.MultiDexApplication
+- Update Android minSdk to 21 (dep requires), update dependencies to recent versions, by @gsantner
+- Update Markdown parser dependency flexmark 0.64.8, fix build errors due library API changes (#2407)
+- Project configuration: Update to latest AGP (9.4.1), Gradle (9.6.0)
+- [Android16/SDK36,GsActivityBase] Keep onBackPressed working - by default not called anymore but needs dedicated callback registration (PR #2927)
+- Settings->Other: Add button to view Android storage permission settings again for Markor (by @gsantner closes #2719)
+- Adjust large file toast - disable for EMBEDBINARY, lower threshold (by @gsantner #2778)
+- Add Markor settings shortcut to Android system settings, by @gsantner
+- Minor spelling corrections, by @gsantner based on #2806 @dvmukul
+- Update translations (PR #2929, #2883, #2864, #2835, #2831, #2828, #2784)
+
 ### v2.16 series
 - [2.16.0 - 2.16.1](https://github.com/gsantner/markor/compare/v2.16.0...v2.16.1)
 - [2.15.0 - 2.16.0](https://github.com/gsantner/markor/compare/v2.15.0...v2.16.0)
 - [2.15.2 - 2.16.0](https://github.com/gsantner/markor/compare/v2.15.2...v2.16.0)
+
+- fix: stabilize editor layout sizing to prevent large-file open slowdown (PR #2769, closes #2739 #2652 #2716)
+- View-Mode: Improve user experience of code blocks, add View-Mode highlighters for Visual Basic, Zig and more (PR #2698, #2697)
+- View-Mode: Improve text search (PR #2709 by @guanglinn)
+- Add standard text search and replace (#2559)
+- Faster start times (PR #2700)
+- AsciiDoc: Fix cursor being hidden;  Copy links in view-mode by long press (PR #2730)
+- Asciidoc: Correct button labels (PR #2754)
+- Fix unable to open links in custom tabs, falling back to the browser instead (PR #2764)
+- Partially revert WebView: disable file access - commit c25fc505e080d90dea8a3171f0849e3ce55f3bfc, closes #2759
+- ViewMode converter: Explicitly set utf-8 charset, closes #2707, by @gsantner
+- Filemanager: Disallow delete/move on special files (QuickNote, ToDo, Notebook), closes #2720, by @gsantner
+- Cleaner UI update (PR #2725 by @harshad1)
+- ShareInto: Fix crash getRecentFiles() on nullptr, closes #2672, by @gsantner
+- v2.16.0: text area behind bar (at least in todo.txt), rudimentary fix #2757 by @gsantner
+- Increase AGP version to 8.13.2, by @gsantner
+- ActionButtonBase _webView null check, by @gsantner
+- Add filepath to file not found toast, #2719 by @gsantner
+- Slovenian translation (PR #2745)
+- Update translations (PR #2758, #2752, #2729, #2724, #2712, #2695)
 
 ### v2.15 series
 - [2.14.0 - 2.14.1](https://github.com/gsantner/markor/compare/v2.14.0...v2.14.1)

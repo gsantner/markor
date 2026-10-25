@@ -37,7 +37,9 @@ If you have questions or found an issue please head to the [Markor project](http
   * [Using Markor to Write (and More) on an Android Device (The Plain Text Project)](doc/2019-07-16-using-markor-to-write-on-an-android-device-plaintextproject.md#readme)
   * [How I Take Notes With Vim, Markdown, and Pandoc (Vaughan)](doc/2018-05-15-pandoc-vim-markdown-how-i-take-notes-vaughan.md#readme)
 * [**NEWS**](NEWS.md)
-  * [Markor v2.11 - AsciiDoc, CSV and Org-Mode, Todo.txt advanced search](NEWS.md#markor-v211---asciidoc-csv-and-org-mode-todotxt-advanced-search-line-numbers) 
+  * [Markor v2026.10 - Deep links, keyboard shortcuts, ViewMode improvements](NEWS.md#markor-v202610---deep-links-keyboard-shortcuts-viewmode-improvements)
+  * [Markor v2.16 - ViewMode enhancements, Search & Replace, AsciiDoc fixes](NEWS.md#markor-v216---viewmode-enhancements-search--replace-asciidoc-fixes)
+  * [Markor v2.11 - AsciiDoc, CSV and Org-Mode, Todo.txt advanced search](NEWS.md#markor-v211---asciidoc-csv-and-org-mode-todotxt-advanced-search-line-numbers)
   * [Markor v2.10 - Custom file templates, Share Into automatically remove URL tracking parameters](NEWS.md#markor-v210---custom-file-templates-share-into-automatically-remove-url-tracking-parameters)
   * [Markor v2.9 - Snippets, Templates, Graphs, Charts, Diagrams, YAML front-matter, Chemistry](NEWS.md#markor-v29---snippets-templates-graphs-charts-diagrams-yaml-front-matter-chemistry)
   * [Markor v2.8 - Multi-selection for todo.txt dialogs](NEWS.md#markor-v28---multi-selection-for-todotxt-dialogs)
@@ -59,6 +61,94 @@ If you have questions or found an issue please head to the [Markor project](http
   * [Markor v0.3 - Faster loading, LinkBox added, Open link in browser TextAction](NEWS.md#markor-v03---faster-loading-linkbox-added-open-link-in-browser-textaction)
 
 
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+# Markor v2026.10 - Deep links, keyboard shortcuts, ViewMode improvements
+
+## Deep links and keyboard shortcuts
+Markor now supports the `markor://` deep link scheme, allowing external apps and bookmarks to directly open files or perform actions in Markor. Additionally, a comprehensive keyboard shortcut system was added, with many essential shortcuts implemented and an improved shortcuts settings interface.
+
+## Markdown ToDo/CheckBox editing in ViewMode
+Markdown ToDo items and CheckBoxes can now be toggled directly in ViewMode - no longer requiring edit mode. This makes quick checklists (like holiday pack lists) much more convenient.
+
+## App appearance options
+New settings allow customizing the app's visual appearance, giving users more control over Markor's look and feel.
+
+## Mermaid update to 11.17.2
+The Mermaid diagram library was updated from 11.6.0 to 11.17.2, bringing improved rendering and new diagram types.
+
+## Editor: static cursor option
+A new settings option lets users disable the blinking cursor, showing a static (non-blinking) cursor instead - useful for users who find the blink distracting.
+
+## ViewMode improvements
+- Link addresses can now be viewed in ViewMode by long-pressing a link
+- Newline indentation before nested list items is now fixed
+- Webview jumping issues were resolved
+
+## Search & Replace enhancements
+The search and replace dialog received multiple improvements, including fixes for regex capture group replacement.
+
+## File manager improvements
+- Natural sort order is now the default for filenames
+- File browser auto-refreshes on filesystem changes (FileObserver)
+- Favorites state sync was fixed
+- Navigation up is allowed even when the parent folder isn't writable
+- Toast notification when opening large files, with configurable threshold
+
+## TV device support
+Markor can now be launched on Android TV devices.
+
+## Other changes
+- Snippets: support for extensionless snippets
+- Zim view mode: support for negative timezone offsets
+- WikiText/Zim: fixed multiline code block rendering
+- Fixed line number misalignment when syntax highlighting is switched
+- Disabled invalid attachment save targets
+- Settings shortcut to Android system settings added
+- Updated Android minSdk to 21, removed multiDex dependency
+- Updated Markdown parser (flexmark 0.64.8)
+- Updated AGP to 9.4.1 and Gradle to 9.6.0
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+# Markor v2.16 - ViewMode enhancements, Search & Replace, AsciiDoc fixes
+
+## ViewMode: Code block improvements
+ViewMode received significant improvements for code blocks, including better user experience and new syntax highlighters for Visual Basic, Zig, and more languages.
+
+## ViewMode: Text search
+Text search within ViewMode was improved for better usability.
+
+## Standard text search and replace
+A built-in standard text search and replace dialog was added, making it easy to find and replace text across documents without needing external tools.
+
+## Large file performance fix
+Editor layout sizing was stabilized to prevent slowdowns when opening large files, addressing issues #2739, #2652, and #2716.
+
+## AsciiDoc fixes
+- Fixed cursor being hidden in AsciiDoc editor
+- Corrected button labels in AsciiDoc toolbar
+- Links can now be copied in ViewMode by long press
+
+## Link handling improvements
+Links in custom tabs now open correctly instead of falling back to the browser. The WebView file access restriction was also partially reverted for better compatibility.
+
+## UI cleanup
+A cleaner UI update improved the overall look and feel of the app.
+
+## File manager: special file protection
+Delete and move operations are now disallowed on special files like QuickNote, ToDo, and Notebook, preventing accidental data loss.
+
+## Other changes
+- ViewMode converter now explicitly sets UTF-8 charset
+- ShareInto crash fix for null recent files
+- Added filepath to file-not-found toast messages
+- Various translation updates
 
 ------------------------------------------------------------------------------------------------------------------------------------
 
