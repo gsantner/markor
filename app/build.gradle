@@ -25,7 +25,6 @@ android {
         versionName "2.16.1"
         versionCode 163
 
-        multiDexEnabled true
         minSdkVersion rootProject.ext.version_minSdk
         targetSdkVersion rootProject.ext.version_compileSdk
         buildConfigField "boolean", "IS_TEST_BUILD", "false"
@@ -96,7 +95,6 @@ dependencies {
     testImplementation 'org.assertj:assertj-core:3.27.7'
 
     // Android standard libs
-    implementation "androidx.multidex:multidex:2.0.1"
     implementation 'androidx.appcompat:appcompat:1.7.1'          // 1.8+    -> minSdk23
     implementation 'com.google.android.material:material:1.13.0' // 1.14.0+ -> minSdk23
     implementation 'androidx.browser:browser:1.8.0'             // 1.10.0+ -> minSdk23
