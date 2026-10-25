@@ -1261,9 +1261,13 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     @JavascriptInterface
     public void webViewJavascriptCallback(final String[] jsArgs) {
         final String[] args = (jsArgs == null || jsArgs.length == 0 || jsArgs[0] == null) ? new String[0] : jsArgs;
-        final String type = args.length == 0 || TextUtils.isEmpty(args[0]) ? "" : args[0];
-        if (type.equalsIgnoreCase("toast") && args.length == 2) {
-            Toast.makeText(getActivity(), args[1], Toast.LENGTH_SHORT).show();
+        final Activity activity = getActivity();
+        if (activity != null) {
+            activity.runOnUiThread(() -> {
+                if (_format != null) {
+                    _format.getActions().onWebViewJavascriptCallback(args);
+                }
+            });
         }
     }
 

@@ -15,9 +15,6 @@ if (enable_plugin_kotlin) {
 
 rootProject.ext.version_minSdk = 21
 
-// https://github.com/vsch/flexmark-java/releases
-ext.version_library_flexmark = "0.64.8"
-
 android {
 
     defaultConfig {
@@ -36,9 +33,10 @@ android {
         buildConfigField "String", "BUILD_DATE", "\"${getBuildDate()}\""
         buildConfigField "String", "GITHASH", "\"${getGitHash}\""
         buildConfigField "String", "GITMSG", "\"${getGitLastCommitMessage}\""
-        setProperty("archivesBaseName", applicationId + "-v" + versionCode + "-" + versionName)
     }
-
+    base {
+        archivesName = "${defaultConfig.applicationId}-v${defaultConfig.versionCode}-${defaultConfig.versionName}"
+    }
     flavorDimensions = ["default"]
     productFlavors {
         flavorAtest {
@@ -67,8 +65,11 @@ android {
     buildTypes {
         release {
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    buildFeatures {
+        buildConfig = true
     }
     packagingOptions {
         resources {
@@ -79,8 +80,6 @@ android {
 
     compileOptions {
         encoding = 'UTF-8'
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
     }
     namespace 'net.gsantner.markor'
     lint {
@@ -93,19 +92,20 @@ android {
 dependencies {
     // Testing
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.assertj:assertj-core:3.13.1'
+    testImplementation 'org.assertj:assertj-core:3.27.7'
 
     // Android standard libs
     implementation "androidx.multidex:multidex:2.0.1"
-    implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.appcompat:appcompat:1.7.1'          // 1.8+    -> minSdk23
+    implementation 'com.google.android.material:material:1.13.0' // 1.14.0+ -> minSdk23
+    implementation 'androidx.browser:browser:1.8.0'             // 1.10.0+ -> minSdk23
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.3.2'
-    implementation 'androidx.preference:preference-ktx:1.2.1'
+    implementation 'androidx.recyclerview:recyclerview:1.4.0'
+    implementation 'androidx.preference:preference:1.2.1'
     implementation 'androidx.legacy:legacy-preference-v14:1.0.0'
-    implementation 'androidx.browser:browser:1.8.0'
 
-    // Markdown convertor (Flexmark)
+    // Markdown convertor (Flexmark) - https://github.com/vsch/flexmark-java/releases
+    ext.version_library_flexmark = "0.64.8"
     implementation "com.vladsch.flexmark:flexmark:${version_library_flexmark}"
     implementation "com.vladsch.flexmark:flexmark-util:${version_library_flexmark}"
     implementation "com.vladsch.flexmark:flexmark-ext-emoji:${version_library_flexmark}"
@@ -136,13 +136,13 @@ dependencies {
 
     // UI libs
     implementation 'com.github.Pixplicity:gene-rate:v1.1.8'
-    implementation 'com.github.AppIntro:AppIntro:6.2.0'
+    implementation 'com.github.AppIntro:AppIntro:6.3.1'
     implementation 'com.github.mertakdut:EpubParser:1.0.95'
     implementation 'com.github.martin-stone:hsv-alpha-color-picker-android:3.1.0'
 
     // Tool libraries
     //noinspection AnnotationProcessorOnCompilePath
-    implementation 'commons-io:commons-io:2.13.0'
+    implementation 'commons-io:commons-io:2.22.0'
     if (enable_plugin_kotlin) {
         implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${version_plugin_kotlin}"
     }

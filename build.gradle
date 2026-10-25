@@ -10,13 +10,13 @@ import java.text.SimpleDateFormat
 
 buildscript {
     ext {
-        version_gradle_tools = '8.13.2'
+        version_gradle_tools = '9.4.1'
         version_plugin_kotlin = "1.3.72"
         enable_plugin_kotlin = false
 
         version_compileSdk = 35
         version_buildTools = "35.0.0"
-        version_minSdk = 17
+        version_minSdk = 21
     }
 
     repositories {
