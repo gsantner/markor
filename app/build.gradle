@@ -16,6 +16,8 @@ if (enable_plugin_kotlin) {
 rootProject.ext.version_minSdk = 21
 
 android {
+    buildToolsVersion rootProject.ext.version_buildTools
+    compileSdkVersion rootProject.ext.version_compileSdk
 
     defaultConfig {
         resValue "string", "manifest_package_id", "net.gsantner.markor"
