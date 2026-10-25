@@ -27,6 +27,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
@@ -103,6 +104,13 @@ public abstract class ActionButtonBase {
     // Override to implement custom onLongClick
     public boolean onActionLongClick(final @StringRes int action) {
         return runCommonLongPressAction(action);
+    }
+
+    // Override to implement custom callbacks from view-mode JavaScript
+    public void onWebViewJavascriptCallback(final String[] args) {
+        if (args.length == 2 && "toast".equalsIgnoreCase(args[0]) && _activity != null) {
+            Toast.makeText(_activity, args[1], Toast.LENGTH_SHORT).show();
+        }
     }
 
     private TextSearchViewHolder _textSearchViewHolder;
