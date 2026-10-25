@@ -91,7 +91,6 @@ import java.util.Set;
 @SuppressWarnings({"WeakerAccess", "unused", "UnusedReturnValue"})
 public abstract class GsPreferenceFragmentBase<AS extends GsSharedPreferencesPropertyBackend> extends PreferenceFragmentCompat
         implements SharedPreferences.OnSharedPreferenceChangeListener, PreferenceFragmentCompat.OnPreferenceStartScreenCallback {
-    private static final int DEFAULT_ICON_TINT_DELAY = 200;
     protected boolean _isDividerVisible = false;
 
     //
@@ -167,23 +166,27 @@ public abstract class GsPreferenceFragmentBase<AS extends GsSharedPreferencesPro
 
         // on bottom
         afterOnCreate(savedInstanceState, activity);
+        tintPreferenceIcons();
     }
 
-    public final GsCallback.a1<PreferenceFragmentCompat> updatePreferenceIcons = (frag) -> {
+    private void tintPreferenceIcons() {
         try {
-            View view = frag.getView();
             final Integer color = getIconTintColor();
-            if (view != null && color != null) {
-                Runnable r = () -> tintAllPrefIcons(frag, color);
-                for (long delayFactor : new int[]{1, 10, 50, 100, 500}) {
-                    view.postDelayed(r, delayFactor * DEFAULT_ICON_TINT_DELAY);
-                }
+            if (color == null) {
+                return;
+            }
+
+            tintAllPrefIcons(color);
+
+            final View view = getView();
+            if (view != null) {
+                view.post(() -> tintAllPrefIcons(color));
             }
         } catch (Exception ignored) {
         }
-    };
+    }
 
-    public void tintAllPrefIcons(PreferenceFragmentCompat preferenceFragment, @ColorInt int iconColor) {
+    public void tintAllPrefIcons(@ColorInt int iconColor) {
         tintPrefIconsRecursive(getPreferenceScreen(), iconColor);
     }
 
@@ -231,7 +234,6 @@ public abstract class GsPreferenceFragmentBase<AS extends GsSharedPreferencesPro
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        updatePreferenceIcons.callback(this);
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             view.postDelayed(() -> {
@@ -343,7 +345,7 @@ public abstract class GsPreferenceFragmentBase<AS extends GsSharedPreferencesPro
     public boolean onPreferenceStartScreen(PreferenceFragmentCompat preferenceFragmentCompat, PreferenceScreen preferenceScreen) {
         _prefScreenBackstack.add(getPreferenceScreen());
         preferenceFragmentCompat.setPreferenceScreen(preferenceScreen);
-        updatePreferenceIcons.callback(this);
+        tintPreferenceIcons();
         onPreferenceScreenChangedPriv(preferenceFragmentCompat, preferenceScreen);
         return true;
     }
