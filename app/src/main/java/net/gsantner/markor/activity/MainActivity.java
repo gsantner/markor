@@ -364,8 +364,8 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
             final File current = _notebook.getCurrentFolder();
             final File dest;
             if (GsFileBrowserListAdapter.VIRTUAL_STORAGE_RECENTS.equals(current)) {
-                dest = GsFileBrowserListAdapter.VIRTUAL_STORAGE_FAVOURITE;
-            } else if (GsFileBrowserListAdapter.VIRTUAL_STORAGE_FAVOURITE.equals(current)) {
+                dest = GsFileBrowserListAdapter.VIRTUAL_STORAGE_ROOT;
+            } else if (GsFileBrowserListAdapter.VIRTUAL_STORAGE_ROOT.equals(current)) {
                 if (_quickSwitchPrevFolder != null) {
                     dest = _quickSwitchPrevFolder;
                 } else {
@@ -373,7 +373,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
                 }
             } else {
                 _quickSwitchPrevFolder = current;
-                dest = GsFileBrowserListAdapter.VIRTUAL_STORAGE_FAVOURITE;
+                dest = GsFileBrowserListAdapter.VIRTUAL_STORAGE_ROOT;
             }
             _notebook.getAdapter().setCurrentFolder(dest);
         }
