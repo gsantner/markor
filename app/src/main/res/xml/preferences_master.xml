@@ -180,6 +180,13 @@
                 android:key="@string/pref_key__is_disallow_screenshots"
                 android:title="@string/disallow_screenshots" />
 
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:icon="@drawable/ic_list_black_24dp"
+                android:key="@string/pref_key__is_title_click_action_enabled"
+                android:summary="@string/title_click_action_summary"
+                android:title="@string/title_click_action" />
+
             <androidx.preference.EditTextPreference
                 android:defaultValue="\\n----\\n{{text}}"
                 android:dialogMessage="@string/share_into_format_prefix_for_text_shared"
