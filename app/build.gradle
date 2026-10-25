@@ -37,9 +37,10 @@ android {
         buildConfigField "String", "BUILD_DATE", "\"${getBuildDate()}\""
         buildConfigField "String", "GITHASH", "\"${getGitHash}\""
         buildConfigField "String", "GITMSG", "\"${getGitLastCommitMessage}\""
-        setProperty("archivesBaseName", applicationId + "-v" + versionCode + "-" + versionName)
     }
-
+    base {
+        archivesName = "${defaultConfig.applicationId}-v${defaultConfig.versionCode}-${defaultConfig.versionName}"
+    }
     flavorDimensions "default"
     productFlavors {
         flavorAtest {
@@ -68,8 +69,11 @@ android {
     buildTypes {
         release {
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    buildFeatures {
+        buildConfig = true
     }
     packagingOptions {
         resources {
