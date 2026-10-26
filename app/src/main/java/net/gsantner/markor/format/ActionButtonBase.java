@@ -981,7 +981,7 @@ public abstract class ActionButtonBase {
                 }
                 return true;
             }
-            case R.string.abid_common_html_tag: {
+            case R.string.abid_common_insert_html_tag: {
                 _hlEditor.insertOrReplaceTextOnCursor("<>");
                 return true;
             }

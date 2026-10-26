@@ -120,7 +120,7 @@ public class MarkorDialogFactory {
         options.titleText = title;
         options.searchHintText = hint;
         options.searchInputType = InputType.TYPE_CLASS_TEXT;
-        options.isSoftInputVisible = false;
+        options.isSoftInputVisible = true;
         options.callback = text -> callback.callback(text);
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, options);
     }
