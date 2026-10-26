@@ -92,6 +92,7 @@ public class MarkdownTextConverter extends TextConverterBase {
 
     public static final String MD_EXTENSIONS_PATTERN_LIST = "((md)|(markdown)|(mkd)|(mdown)|(mkdn)|(txt)|(mdwn)|(mdx)|(text)|(rmd))";
     public static final Pattern PATTERN_HAS_FILE_EXTENSION_FOR_THIS_FORMAT = Pattern.compile("((?i).*\\." + MD_EXTENSIONS_PATTERN_LIST + "$)");
+
     /**
      * Unused
      * public static final Pattern MD_EXTENSION_PATTERN = Pattern.compile("((?i)\\." + MD_EXTENSIONS_PATTERN_LIST + "$)");
@@ -275,7 +276,7 @@ public class MarkdownTextConverter extends TextConverterBase {
                     if (!(fmaAllowedAttributes.contains(attrName) || fmaAllowedAttributes.contains("*"))) {
                         continue;
                     }
-                    //noinspection StringConcatenationInLoop
+                    // noinspection StringConcatenationInLoop
                     fmaText += HTML_FRONTMATTER_ITEM_CONTAINER_S.replace("{{ attrName }}", attrName) + "{{ post." + attrName + " }}\n" + HTML_FRONTMATTER_ITEM_CONTAINER_E + "\n";
                 }
                 if (!fmaText.isEmpty()) {
@@ -323,7 +324,7 @@ public class MarkdownTextConverter extends TextConverterBase {
         // Enable code block (view mode) syntax highlighting
         if (markup.contains("```")) {
             head += getViewHlPrismIncludes(GsContextUtils.instance.isDarkModeEnabled(context) ? "-tomorrow" : "");
-            onLoadJs += "usePrism('" + (file != null && as.getDocumentWrapState(file.getAbsolutePath())) + "', '" + enableLineNumbers + "');";
+            onLoadJs += "usePrism('" + (file == null ? "false" : as.getDocumentWrapState(file.getAbsolutePath())) + "', '" + enableLineNumbers + "');";
         }
 
         // Enable Mermaid
