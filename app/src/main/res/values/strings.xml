@@ -79,6 +79,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_link">Insert link</string>
     <string name="format_link">Format link</string>
     <string name="insert_image">Insert Image</string>
+    <string name="insert_html_tag">Insert HTML tag</string>
 
     <string name="contributors">Contributors</string>
     <string name="save_location">Save location</string>

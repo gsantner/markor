@@ -233,6 +233,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="abid_common_web_jump_to_table_of_contents" translatable="false">abid_common_web_jump_to_table_of_contents</string>
     <string name="abid_common_view_file_in_other_app" translatable="false">abid_common_view_file_in_other_app</string>
     <string name="abid_common_rotate_screen" translatable="false">abid_common_rotate_screen</string>
+    <string name="abid_common_insert_html_tag" translatable="false">abid_common_insert_html_tag</string>
     <string name="abid_common_accordion" translatable="false">abid_common_accordion</string>
     <string name="abid_common_indent" translatable="false">abid_common_indent</string>
     <string name="abid_common_set_indent_size" translatable="false">abid_common_set_indent_size</string>

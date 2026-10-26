@@ -50,7 +50,7 @@ public class PlaintextActionButtons extends ActionButtonBase {
 
     @Override
     protected void renumberOrderedList() {
-        // Use markdown format for plain text too
+        // Use Markdown format for plain text too
         AutoTextFormatter.renumberOrderedList(_hlEditor.getText(), MarkdownReplacePatternGenerator.formatPatterns);
     }
 }
