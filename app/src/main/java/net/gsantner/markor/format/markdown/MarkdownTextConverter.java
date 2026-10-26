@@ -344,7 +344,7 @@ public class MarkdownTextConverter extends TextConverterBase {
         // Jekyll: Replace {{ site.baseurl }} with ..--> usually used in Jekyll blog _posts folder which is one folder below repository root, for reference to e.g. pictures in assets folder
         markup = markup.replace("{{ site.baseurl }}", "..").replace(TOKEN_SITE_DATE_JEKYLL, TOKEN_POST_TODAY_DATE);
 
-        // Notable: They use a home brewed syntax for referencing attachments: @attachment/f.png = ../attachements/f.jpg -- https://github.com/gsantner/markor/issues/1252
+        // Notable: They use a home-brewed syntax for referencing attachments: @attachment/f.png = ../attachements/f.jpg -- https://github.com/gsantner/markor/issues/1252
         markup = markup.replace("](@attachment/", "](../attachements/");
 
         if (as.isMarkdownNewlineNewparagraphEnabled()) {
@@ -362,9 +362,9 @@ public class MarkdownTextConverter extends TextConverterBase {
         }
 
         ////////////
-        // Markup parsing - afterwards = HTML
+        // Markup parsing - afterward = HTML
         Document document = sourceMarkup.equals(markup) ? sourceDocument : flexmarkParser.parse(markup);
-        converted = fmaText + flexmarkRenderer.builder(options).build().render(document);
+        converted = fmaText + HtmlRenderer.builder(options).build().render(document);
 
         // After render changes: Fixes for Footnotes (converter creates footnote + <br> + ref#(click) --> remove line break)
         if (converted.contains("footnote-")) {
