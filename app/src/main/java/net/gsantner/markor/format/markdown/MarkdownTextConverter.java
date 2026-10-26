@@ -102,9 +102,6 @@ public class MarkdownTextConverter extends TextConverterBase {
      * };
      */
 
-    public static final String MD_EXTENSIONS_PATTERN_LIST = "((md)|(markdown)|(mkd)|(mdown)|(mkdn)|(txt)|(mdwn)|(mdx)|(text)|(rmd))";
-    public static final Pattern PATTERN_HAS_FILE_EXTENSION_FOR_THIS_FORMAT = Pattern.compile("((?i).*\\." + MD_EXTENSIONS_PATTERN_LIST + "$)");
-
     //########################
     //## Injected CSS / JS / HTML
     //########################
@@ -448,6 +445,21 @@ public class MarkdownTextConverter extends TextConverterBase {
         sb.append(markup.substring(previousEnd));
 
         return sb.toString();
+    }
+
+    private static List<Integer> getCheckboxSourceIndices(final Document document) {
+        final List<Integer> indices = new ArrayList<>();
+        collectCheckboxSourceIndices(document, indices);
+        return indices;
+    }
+
+    private static void collectCheckboxSourceIndices(final Node parent, final List<Integer> indices) {
+        for (Node node = parent.getFirstChild(); node != null; node = node.getNext()) {
+            if (node instanceof TaskListItem) {
+                indices.add(((TaskListItem) node).getMarkerSuffix().getStartOffset() + 1);
+            }
+            collectCheckboxSourceIndices(node, indices);
+        }
     }
 
     private String getViewHlPrismIncludes(final String theme) {
