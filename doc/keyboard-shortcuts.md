@@ -63,7 +63,7 @@
 
 | Shortcut Keys    | Action            |
 | ---------------- | ----------------- |
-| Ctrl + 1 ~ 5     | Heading 1 ~ 5     |
+| Ctrl + 1 ~ 6     | Heading 1 ~ 6     |
 | Ctrl + B         | Bold              |
 | Ctrl + I         | Italic            |
 | Ctrl + M         | Mark text         |
