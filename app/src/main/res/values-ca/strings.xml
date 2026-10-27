@@ -372,7 +372,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_link">Obre l\'enllaç</string>
     <string name="common_color_picker">Selector de colors</string>
     <string name="date_and_time">Data i hora</string>
-    <string name="jump_to_bottom">Vés al final</string>
+    <string name="jump">Vés al final</string>
     <string name="quote">Cita</string>
     <string name="heading">Capçalera</string>
     <string name="heading_1">Títol 1</string>

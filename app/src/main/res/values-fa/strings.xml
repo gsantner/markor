@@ -320,7 +320,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_link">باز کردن پیوند</string>
     <string name="common_color_picker">انتخابگر رنگ</string>
     <string name="date_and_time">تاریخ و زمان</string>
-    <string name="jump_to_bottom">پرش به ماه</string>
+    <string name="jump">پرش به ماه</string>
     <string name="quote">نقل قول</string>
     <string name="heading">عنوان</string>
     <string name="heading_1">عنوان ۱</string>

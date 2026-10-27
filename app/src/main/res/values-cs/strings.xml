@@ -366,7 +366,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_link">Otevřít odkaz</string>
     <string name="common_color_picker">Výběr barvy</string>
     <string name="date_and_time">Datum a čas</string>
-    <string name="jump_to_bottom">Přejít na konec</string>
+    <string name="jump">Přejít na konec</string>
     <string name="quote">Citace</string>
     <string name="heading">Nadpis</string>
     <string name="heading_1">Nadpis 1</string>

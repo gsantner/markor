@@ -366,7 +366,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_link">Link megnyitása</string>
     <string name="common_color_picker">Színválasztó</string>
     <string name="date_and_time">Dátum és idő</string>
-    <string name="jump_to_bottom">Végére ugrás</string>
+    <string name="jump">Végére ugrás</string>
     <string name="quote">Idézet</string>
     <string name="heading">Címsor</string>
     <string name="heading_1">Címsor 1</string>

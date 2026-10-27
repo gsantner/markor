@@ -320,7 +320,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_link">Buka tautan</string>
     <string name="common_color_picker">Pemilih warna</string>
     <string name="date_and_time">Tanggal dan waktu</string>
-    <string name="jump_to_bottom">Lompat ke bawah</string>
+    <string name="jump">Lompat ke bawah</string>
     <string name="quote">Kutipan</string>
     <string name="heading">Judul</string>
     <string name="heading_1">Judul 1</string>

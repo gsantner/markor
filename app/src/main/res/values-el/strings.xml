@@ -322,7 +322,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_link">Άνοιγμα συνδέσμου</string>
     <string name="common_color_picker">Επιλογέας χρώματος</string>
     <string name="date_and_time">Ημερομηνία και ώρα</string>
-    <string name="jump_to_bottom">Μετάβαση στο κάτω μέρος</string>
+    <string name="jump">Μετάβαση στο κάτω μέρος</string>
     <string name="quote">Παράθεση</string>
     <string name="heading">Επικεφαλίδα</string>
     <string name="heading_1">Επικεφαλίδα 1</string>

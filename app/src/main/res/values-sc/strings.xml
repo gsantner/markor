@@ -333,7 +333,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_link">Aberi su ligàmene</string>
     <string name="common_color_picker">Ischertadore de colores</string>
     <string name="date_and_time">Data e ora</string>
-    <string name="jump_to_bottom">Brinca a giosso</string>
+    <string name="jump">Brinca a giosso</string>
     <string name="quote">Tzita</string>
     <string name="heading">Tìtulu</string>
     <string name="heading_1">Tìtulu 1</string>

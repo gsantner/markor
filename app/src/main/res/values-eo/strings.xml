@@ -193,7 +193,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_link">Malfermi ligilon</string>
     <string name="common_color_picker">Kolora elektilo</string>
     <string name="date_and_time">Dato kaj tempo</string>
-    <string name="jump_to_bottom">Salti al malsupro</string>
+    <string name="jump">Salti al malsupro</string>
     <string name="quote">Citaĵo</string>
     <string name="heading">Titolo</string>
     <string name="heading_1">Titolo 1</string>

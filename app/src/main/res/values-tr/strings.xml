@@ -338,7 +338,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_link">Bağlantıyı aç</string>
     <string name="common_color_picker">Renk seçici</string>
     <string name="date_and_time">Tarih ve zaman</string>
-    <string name="jump_to_bottom">En alta git</string>
+    <string name="jump">En alta git</string>
     <string name="quote">Tırnak içine al</string>
     <string name="heading">Başlık</string>
     <string name="heading_1">Başlık 1</string>

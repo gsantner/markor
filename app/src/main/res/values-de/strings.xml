@@ -335,7 +335,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_link">Link öffnen</string>
     <string name="common_color_picker">Farbpipette</string>
     <string name="date_and_time">Datum und Uhrzeit</string>
-    <string name="jump_to_bottom">Nach unten springen</string>
+    <string name="jump">Nach unten springen</string>
     <string name="quote">Zitat</string>
     <string name="heading">Überschrift</string>
     <string name="heading_1">Überschrift 1</string>

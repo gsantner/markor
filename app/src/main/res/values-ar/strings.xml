@@ -332,7 +332,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_link">فتح الرابط</string>
     <string name="common_color_picker">منتقي الألوان</string>
     <string name="date_and_time">التاريخ والوقت</string>
-    <string name="jump_to_bottom">الانتقال إلى الأسفل</string>
+    <string name="jump">الانتقال إلى الأسفل</string>
     <string name="quote">اقتباس</string>
     <string name="heading">العنوان</string>
     <string name="heading_1">العنوان 1</string>

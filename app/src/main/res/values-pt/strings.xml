@@ -366,7 +366,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_link">Abrir ligação</string>
     <string name="common_color_picker">Seletor de cores</string>
     <string name="date_and_time">Data e hora</string>
-    <string name="jump_to_bottom">Ir para o fundo</string>
+    <string name="jump">Ir para o fundo</string>
     <string name="quote">Citação</string>
     <string name="heading">Título</string>
     <string name="heading_1">Título 1</string>

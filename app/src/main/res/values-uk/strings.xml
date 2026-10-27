@@ -330,7 +330,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_link">Відкрити посилання</string>
     <string name="common_color_picker">Вибір кольору</string>
     <string name="date_and_time">Дата та час</string>
-    <string name="jump_to_bottom">Перейти до кінця</string>
+    <string name="jump">Перейти до кінця</string>
     <string name="quote">Цитата</string>
     <string name="heading">Заголовок</string>
     <string name="heading_1">Заголовок 1</string>
