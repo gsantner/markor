@@ -88,65 +88,49 @@ public class AsciidocActionButtons extends ActionButtonBase {
     public boolean onActionClick(final @StringRes int action) {
         switch (action) {
             case R.string.abid_asciidoc_h1: {
-                runRegexReplaceAction(
-                        AsciidocReplacePatternGenerator.setOrUnsetHeadingWithLevel(1));
+                runRegexReplaceAction(AsciidocReplacePatternGenerator.setOrUnsetHeadingWithLevel(1));
                 return true;
             }
             case R.string.abid_asciidoc_h2: {
-                runRegexReplaceAction(
-                        AsciidocReplacePatternGenerator.setOrUnsetHeadingWithLevel(2));
+                runRegexReplaceAction(AsciidocReplacePatternGenerator.setOrUnsetHeadingWithLevel(2));
                 return true;
             }
             case R.string.abid_asciidoc_h3: {
-                runRegexReplaceAction(
-                        AsciidocReplacePatternGenerator.setOrUnsetHeadingWithLevel(3));
+                runRegexReplaceAction(AsciidocReplacePatternGenerator.setOrUnsetHeadingWithLevel(3));
                 return true;
             }
             case R.string.abid_asciidoc_h4: {
-                runRegexReplaceAction(
-                        AsciidocReplacePatternGenerator.setOrUnsetHeadingWithLevel(4));
+                runRegexReplaceAction(AsciidocReplacePatternGenerator.setOrUnsetHeadingWithLevel(4));
                 return true;
             }
             case R.string.abid_asciidoc_h5: {
-                runRegexReplaceAction(
-                        AsciidocReplacePatternGenerator.setOrUnsetHeadingWithLevel(5));
+                runRegexReplaceAction(AsciidocReplacePatternGenerator.setOrUnsetHeadingWithLevel(5));
                 return true;
             }
-
             case R.string.abid_asciidoc_indent_level: {
-                runRegexReplaceAction(
-                        AsciidocReplacePatternGenerator.indentLevel());
+                runRegexReplaceAction(AsciidocReplacePatternGenerator.indentLevel());
                 return true;
             }
             case R.string.abid_asciidoc_deindent_level: {
-                runRegexReplaceAction(
-                        AsciidocReplacePatternGenerator.deindentLevel());
+                runRegexReplaceAction(AsciidocReplacePatternGenerator.deindentLevel());
                 return true;
             }
-
             // TODO: could be improved to keep level, will be done only on request to keep it simple for now
             case R.string.abid_asciidoc_checkbox_list: {
                 final String listChar = "*";
-                runRegexReplaceAction(
-                        AsciidocReplacePatternGenerator.toggleToCheckedOrUncheckedListPrefix(
-                                listChar));
+                runRegexReplaceAction(AsciidocReplacePatternGenerator.toggleToCheckedOrUncheckedListPrefix(listChar));
                 return true;
             }
             case R.string.abid_asciidoc_unordered_list_char: {
                 final String listChar = "*";
-                runRegexReplaceAction(
-                        AsciidocReplacePatternGenerator.replaceWithUnorderedListPrefixOrRemovePrefix(
-                                listChar));
+                runRegexReplaceAction(AsciidocReplacePatternGenerator.replaceWithUnorderedListPrefixOrRemovePrefix(listChar));
                 return true;
             }
             case R.string.abid_asciidoc_ordered_list_char: {
                 final String listChar = ".";
-                runRegexReplaceAction(
-                        AsciidocReplacePatternGenerator.replaceWithOrderedListPrefixOrRemovePrefix(
-                                listChar));
+                runRegexReplaceAction(AsciidocReplacePatternGenerator.replaceWithOrderedListPrefixOrRemovePrefix(listChar));
                 return true;
             }
-
             // runAsciidocInlineAction works fine
             case R.string.abid_asciidoc_squarebrackets: {
                 runAsciidocInlineAction("", "[", "]");
@@ -177,7 +161,6 @@ public class AsciidocActionButtons extends ActionButtonBase {
                 runAsciidocInlineAction("#", "", "");
                 return true;
             }
-
             // https://docs.asciidoctor.org/asciidoc/latest/text/text-span-built-in-roles/
             // roles are like highlight, but with a prefix like: [.underline]#underline me#
             case R.string.abid_asciidoc_underline: {
@@ -204,7 +187,6 @@ public class AsciidocActionButtons extends ActionButtonBase {
                 runAsciidocInlineAction("#", "[.pre-wrap]", "");
                 return true;
             }
-
             // https://docs.asciidoctor.org/asciidoc/latest/text/subscript-and-superscript/
             // ~ ^
             case R.string.abid_asciidoc_subscript: {
@@ -215,7 +197,6 @@ public class AsciidocActionButtons extends ActionButtonBase {
                 runAsciidocInlineAction("^", "", "");
                 return true;
             }
-
             // https://docs.asciidoctor.org/asciidoc/latest/blocks/breaks/#page-breaks
             case R.string.abid_asciidoc_break_thematic: {
                 runAsciidocInlineAction("", "'''\n", "");
@@ -225,13 +206,11 @@ public class AsciidocActionButtons extends ActionButtonBase {
                 runAsciidocInlineAction("", "<<<\n", "");
                 return true;
             }
-
             // https://docs.asciidoctor.org/asciidoc/latest/blocks/blockquotes/
             case R.string.abid_asciidoc_block_quote: {
                 runAsciidocInlineAction("\n____\n", "", "");
                 return true;
             }
-
             //this is an additional extra menu, analogous to special_key menu
             case R.string.abid_asciidoc_special_key: {
                 runAsciidocSpecialKeyAction();
@@ -241,7 +220,6 @@ public class AsciidocActionButtons extends ActionButtonBase {
                 return runCommonAction(action);
             }
         }
-
     }
 
     private String rstr(@StringRes int resKey) {
@@ -250,7 +228,6 @@ public class AsciidocActionButtons extends ActionButtonBase {
 
     // idea based on runSpecialKeyAction()
     private void runAsciidocSpecialKeyAction() {
-
         // showAsciidocSpecialKeyDialog is used instead of showSpecialKeyDialog
         MarkorDialogFactory.showAsciidocSpecialKeyDialog(getActivity(), (callbackPayload) -> {
             if (!_hlEditor.hasSelection() && _hlEditor.length() > 0) {
@@ -297,14 +274,12 @@ public class AsciidocActionButtons extends ActionButtonBase {
                 runAsciidocInlineAction("~", "", "");
             } else if (callbackPayload.equals(rstr(R.string.asciidoc_superscript))) {
                 runAsciidocInlineAction("^", "", "");
-
             } else if (callbackPayload.equals(rstr(R.string.asciidoc_nobreak))) {
                 runAsciidocInlineAction("#", "[.nobreak]", "");
             } else if (callbackPayload.equals(rstr(R.string.asciidoc_nowrap))) {
                 runAsciidocInlineAction("#", "[.nowrap]", "");
             } else if (callbackPayload.equals(rstr(R.string.asciidoc_prewrap))) {
                 runAsciidocInlineAction("#", "[.pre-wrap]", "");
-
                 // TODO: How to insert visual row delimiter?
                 // breaks
                 // https://docs.asciidoctor.org/asciidoc/latest/blocks/breaks/#page-breaks
@@ -321,7 +296,7 @@ public class AsciidocActionButtons extends ActionButtonBase {
             return;
         }
         if (_hlEditor.hasSelection()) {
-            //Condition for non empty Selection
+            //Condition for non-empty Selection
             String text = _hlEditor.getText().toString();
             int selectionStart = _hlEditor.getSelectionStart();
             int selectionEnd = _hlEditor.getSelectionEnd();
@@ -364,7 +339,6 @@ public class AsciidocActionButtons extends ActionButtonBase {
                                     selectionStart + _prefix.length() + _action.length(), "")
                             .replace(selectionEnd - _suffix.length() - _action.length(),
                                     selectionEnd, "");
-
                 } else {
                     //add surrounding
                     // insert _prefix + _action before and _action + _suffix after selection
@@ -384,7 +358,6 @@ public class AsciidocActionButtons extends ActionButtonBase {
                 _hlEditor.setSelection(selectionStart + _action.length() + _prefix.length(),
                         selectionEnd + _action.length() + _prefix.length());
             }
-
         } else {
             //Condition for empty Selection
             // insert _prefix + _action before and _action after current cursor (empty
@@ -397,7 +370,6 @@ public class AsciidocActionButtons extends ActionButtonBase {
         }
     }
 
-
     @Override
     protected @StringRes
     int getFormatActionsKey() {
@@ -408,6 +380,10 @@ public class AsciidocActionButtons extends ActionButtonBase {
     public boolean onKeyPress(Object source, int keyCode, KeyEvent event, DocumentEditAndViewFragment fragment) {
         if (source instanceof HighlightingEditor) {
             if (event.isCtrlPressed()) {
+                if (keyCode == KeyEvent.KEYCODE_B) {
+                    onActionClick(R.string.abid_asciidoc_bold);
+                    return true;
+                }
                 if (keyCode == KeyEvent.KEYCODE_I) {
                     onActionClick(R.string.abid_asciidoc_italic);
                     return true;

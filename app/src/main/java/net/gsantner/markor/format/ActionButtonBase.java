@@ -1290,6 +1290,12 @@ public abstract class ActionButtonBase {
                     } else if (keyCode == KeyEvent.KEYCODE_Z) {
                         fragment.redo();
                         return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
+                        goToLine(true);
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
+                        goToLine(false);
+                        return true;
                     }
                 } else if (keyCode == KeyEvent.KEYCODE_D) { // Ctrl + ordinary key
                     duplicate(false);

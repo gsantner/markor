@@ -199,8 +199,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="asciidoc_special_key">Special AsciiDoc Content</string>
     <string name="key_page_up">Page up (PgUp)</string>
     <string name="key_page_down">Page down (PgDn)</string>
-    <string name="key_pos_1">Line start (Home)</string>
-    <string name="key_pos_end">Line end (End)</string>
+    <string name="key_pos_1">Line start (Ctrl + Shift + ←)</string>
+    <string name="key_pos_end">Line end (Ctrl + Shift + →)</string>
     <string name="key_pos_1_document">Document start (Alt + ↑)</string>
     <string name="key_pos_end_document">Document end (Alt + ↓)</string>
     <string name="duplicate_hotkey">Duplicate (Ctrl + D)</string>

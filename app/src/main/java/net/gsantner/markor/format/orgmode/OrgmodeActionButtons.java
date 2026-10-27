@@ -115,6 +115,10 @@ public class OrgmodeActionButtons extends ActionButtonBase {
     public boolean onKeyPress(Object source, int keyCode, KeyEvent event, DocumentEditAndViewFragment fragment) {
         if (source instanceof HighlightingEditor) {
             if (event.isCtrlPressed()) {
+                if (keyCode == KeyEvent.KEYCODE_B) {
+                    onActionClick(R.string.abid_orgmode_bold);
+                    return true;
+                }
                 if (keyCode == KeyEvent.KEYCODE_I) {
                     onActionClick(R.string.abid_orgmode_italic);
                     return true;

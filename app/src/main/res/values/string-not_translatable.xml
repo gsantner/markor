@@ -247,6 +247,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="abid_markdown_h1" translatable="false">abid_markdown_h1</string>
     <string name="abid_markdown_h2" translatable="false">abid_markdown_h2</string>
     <string name="abid_markdown_h3" translatable="false">abid_markdown_h3</string>
+    <string name="abid_markdown_h4" translatable="false">abid_markdown_h4</string>
+    <string name="abid_markdown_h5" translatable="false">abid_markdown_h5</string>
+    <string name="abid_markdown_h6" translatable="false">abid_markdown_h6</string>
     <string name="abid_markdown_bold" translatable="false">abid_markdown_bold</string>
     <string name="abid_markdown_italic" translatable="false">abid_markdown_italic</string>
     <string name="abid_markdown_strikeout" translatable="false">abid_markdown_strikeout</string>

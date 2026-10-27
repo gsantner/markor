@@ -145,6 +145,18 @@ public class MarkdownActionButtons extends ActionButtonBase {
                 runRegexReplaceAction(MarkdownReplacePatternGenerator.setOrUnsetHeadingWithLevel(3));
                 return true;
             }
+            case R.string.abid_markdown_h4: {
+                runRegexReplaceAction(MarkdownReplacePatternGenerator.setOrUnsetHeadingWithLevel(4));
+                return true;
+            }
+            case R.string.abid_markdown_h5: {
+                runRegexReplaceAction(MarkdownReplacePatternGenerator.setOrUnsetHeadingWithLevel(5));
+                return true;
+            }
+            case R.string.abid_markdown_h6: {
+                runRegexReplaceAction(MarkdownReplacePatternGenerator.setOrUnsetHeadingWithLevel(6));
+                return true;
+            }
             case R.string.abid_common_unordered_list_char: {
                 final String listChar = _appSettings.getUnorderedListCharacter();
                 runRegexReplaceAction(MarkdownReplacePatternGenerator.replaceWithUnorderedListPrefixOrRemovePrefix(listChar));
@@ -432,6 +444,15 @@ public class MarkdownActionButtons extends ActionButtonBase {
                         return true;
                     } else if (keyCode == KeyEvent.KEYCODE_3) {
                         onActionClick(R.string.abid_markdown_h3);
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_4) {
+                        onActionClick(R.string.abid_markdown_h4);
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_5) {
+                        onActionClick(R.string.abid_markdown_h5);
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_6) {
+                        onActionClick(R.string.abid_markdown_h6);
                         return true;
                     } else if (keyCode == KeyEvent.KEYCODE_B) {
                         onActionClick(R.string.abid_markdown_bold);
