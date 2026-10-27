@@ -192,7 +192,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_pos_end">Final de línia (Final)</string>
     <string name="key_pos_1_document">Inici del document (Alt + ↑)</string>
     <string name="key_pos_end_document">Final del document (Alt + ↓)</string>
-    <string name="jump_to_cursor">Salta al cursor</string>
+    <string name="go_to_cursor_hotkey">Salta al cursor</string>
     <string name="duplicate_hotkey">Duplica (Ctrl + D)</string>
     <string name="move_text_one_line_up">Mou la línia cap amunt (Ctrl + ↑)</string>
     <string name="move_text_one_line_down">Moure la línia cap avall (Ctrl + ↓)</string>

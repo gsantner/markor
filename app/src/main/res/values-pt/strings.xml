@@ -186,7 +186,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_pos_end">Fim de linha (Fim)</string>
     <string name="key_pos_1_document">Início do documento (Alt + ↑)</string>
     <string name="key_pos_end_document">Fim do documento (Alt + ↓)</string>
-    <string name="jump_to_cursor">Ir para posição do cursor</string>
+    <string name="go_to_cursor_hotkey">Ir para posição do cursor</string>
     <string name="duplicate_hotkey">Duplicar (Ctrl + D)</string>
     <string name="move_text_one_line_up">Mover linha para cima (Ctrl + ↑)</string>
     <string name="move_text_one_line_down">Mover linha para baixo (Ctrl + ↓)</string>

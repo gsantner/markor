@@ -683,9 +683,20 @@ public abstract class ActionButtonBase {
     }
 
     /**
-     * Jump to the position of current cursor.
+     * Move cursor to current line start/end.
      */
-    public void jumpToCursor() {
+    public void goToLine(boolean start) {
+        final int[] lineCursor = TextViewUtils.getLineSelection(_hlEditor);
+        if (lineCursor[0] > -1) {
+            int cursor = start ? lineCursor[0] : lineCursor[1];
+            _hlEditor.setSelection(cursor);
+        }
+    }
+
+    /**
+     * Go/jump to the position of current cursor.
+     */
+    public void goToCursor() {
         int cursor = _hlEditor.getSelectionStart();
         TextViewUtils.showSelection(_hlEditor, cursor);
     }
@@ -961,7 +972,7 @@ public abstract class ActionButtonBase {
                 return true;
             }
             case R.string.abid_common_special_key: {
-                jumpToCursor();
+                goToCursor();
                 return true;
             }
             case R.string.abid_common_time: {
@@ -1139,9 +1150,9 @@ public abstract class ActionButtonBase {
             } else if (callbackPayload.equals(getResString(R.string.key_page_up))) {
                 _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_PAGE_UP);
             } else if (callbackPayload.equals(getResString(R.string.key_pos_1))) {
-                _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_MOVE_HOME);
+                goToLine(true);
             } else if (callbackPayload.equals(getResString(R.string.key_pos_end))) {
-                _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_MOVE_END);
+                goToLine(false);
             } else if (callbackPayload.equals(getResString(R.string.key_pos_1_document))) {
                 _hlEditor.setSelection(0);
             } else if (callbackPayload.equals(getResString(R.string.key_pos_end_document))) {
@@ -1152,8 +1163,8 @@ public abstract class ActionButtonBase {
                 ActionButtonBase.moveLineSelectionBy1(_hlEditor, true);
             } else if (callbackPayload.equals(getResString(R.string.move_text_one_line_down))) {
                 ActionButtonBase.moveLineSelectionBy1(_hlEditor, false);
-            } else if (callbackPayload.equals(getResString(R.string.jump_to_cursor))) {
-                jumpToCursor();
+            } else if (callbackPayload.equals(getResString(R.string.go_to_cursor_hotkey))) {
+                goToCursor();
             } else if (callbackPayload.equals(getResString(R.string.duplicate_hotkey))) {
                 duplicate(false);
             } else if (callbackPayload.equals(getResString(R.string.select_current_line))) {
@@ -1285,6 +1296,9 @@ public abstract class ActionButtonBase {
                     return true;
                 } else if (keyCode == KeyEvent.KEYCODE_G) {
                     MarkorDialogFactory.showGoToLineDialog(getActivity(), _hlEditor);
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_H) {
+                    goToCursor();
                     return true;
                 } else if (keyCode == KeyEvent.KEYCODE_K) {
                     deleteToLineEnd();
