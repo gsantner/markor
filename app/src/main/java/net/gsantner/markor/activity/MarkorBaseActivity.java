@@ -8,7 +8,6 @@ import android.view.WindowManager;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.AppSettings;
@@ -45,10 +44,7 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
 
     @Override
     public Integer getNewNavigationBarColor() {
-        if (_appSettings.getAppThemeName().contains("black")) {
-            return Color.BLACK;
-        }
-        return ContextCompat.getColor(this, R.color.background);
+        return Color.BLACK;
     }
 
     @Override
