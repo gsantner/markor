@@ -97,6 +97,13 @@
                 app:showAsAction="never" />
 
             <item
+                android:id="@+id/action_enable_rtl"
+                android:checkable="true"
+                android:icon="@drawable/ic_format_textdirection_r_to_l_black_24dp"
+                android:title="@string/rtl_rendering"
+                app:showAsAction="never" />
+
+            <item
                 android:id="@+id/action_set_font_size"
                 android:checkable="false"
                 android:icon="@drawable/ic_format_size_black_24dp"
