@@ -23,9 +23,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Add HTML rendering support for a custom text highlight token,
- * {@code '##'} which is HTML rendered using the {@code mark} tag,
- * to implement the feature of using ==text== to highlight the text.
+ * Add HTML rendering support for the custom text token {@code '=='},
+ * which will be rendered as HTML {@code mark} tag,
+ * to implement the extended syntax ==text== used to highlight/mark the text.
  */
 public class TextHighlight {
 
