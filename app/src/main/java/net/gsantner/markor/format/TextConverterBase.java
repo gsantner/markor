@@ -138,6 +138,10 @@ public abstract class TextConverterBase {
      */
     public abstract String convertMarkup(String markup, Context context, boolean lightMode, boolean lineNum, File file);
 
+    /**
+     * Builds the shared preview/export HTML, applying theme colors before user styles so black previews
+     * match the app while print and image exports retain their light background.
+     */
     protected String putContentIntoTemplate(Context context, String content, boolean isExportInLightMode, File file, String onLoadJs, String head) {
         final AppSettings as = AppSettings.get(context);
         final String contentLower = content.toLowerCase();
@@ -145,6 +149,8 @@ public abstract class TextConverterBase {
         String html = HTML_DOCTYPE + HTML001_HEAD_WITH_BASESTYLE.replace(TOKEN_POST_LANG, Locale.getDefault().getLanguage()) + (darkTheme ? HTML002_HEAD_WITH_STYLE_DARK : HTML002_HEAD_WITH_STYLE_LIGHT);
         if (isExportInLightMode) {
             html = html.replace("html,body{color:#303030;}", "html,body{color: black !important; background-color: white !important;}");
+        } else if (darkTheme && as.getAppThemeName().contains("black")) {
+            html = html.replace("background-color:#303030;", "background-color:#000000;");
         }
         html += HTML004_HEAD_META_VIEWPORT_MOBILE + CSS_TABLE_STYLE + CSS_CLASS_FLOAT + CSS_BUTTON_STYLE_MATERIAL + CSS_BUTTON_STYLE_EMOJIBTN + CSS_CLASS_STICKY;
         if (as.isRenderRtl()) {
