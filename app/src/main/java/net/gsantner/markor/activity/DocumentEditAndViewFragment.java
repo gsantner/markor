@@ -265,13 +265,13 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             final int lastViewHeight = _appSettings.getLastViewHeight(_document.path, 0);
             final int lastViewScrollY = _appSettings.getLastViewScrollY(_document.path, 0);
             if (lastViewScrollY > 0 && lastViewHeight == _webView.getHeight()) {
-                _verticalScrollView.post(() -> _webView.scrollTo(0, lastViewScrollY));
+                _verticalScrollView.postDelayed(() -> _webView.scrollTo(0, lastViewScrollY), 500);
             }
         }
 
         _hlEditor.recomputeHighlighting();
         // Defer initial placement until after the highlight-triggered reflow work has run.
-        _hlEditor.post(() -> {
+        _hlEditor.postDelayed(() -> {
             if (!hasLineNumber) {
                 final int lastEditHeight = _appSettings.getLastEditHeight(_document.path, 0);
                 if (lastEditHeight > 0 && lastEditHeight == _verticalScrollView.getHeight()) {
@@ -282,7 +282,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 }
             }
             _hlEditor.post(() -> TextViewUtils.setSelectionAndShow(_hlEditor, targetSelection));
-        });
+        }, 300);
 
         // Fade in to hide initial jank
         _hlEditor.post(() -> _hlEditor.animate().alpha(1).setDuration(250).start());
