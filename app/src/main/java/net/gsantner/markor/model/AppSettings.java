@@ -219,6 +219,10 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return getBool(R.string.pref_key__is_render_rtl, false);
     }
 
+    public boolean isMarkdownExtendHighlightEnabled() {
+        return getBool(R.string.pref_key__markdown_extended_highlight, false);
+    }
+
     public boolean isMarkdownMathEnabled() {
         return getBool(R.string.pref_key__markdown_render_math, false);
     }

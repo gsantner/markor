@@ -115,6 +115,16 @@ public class MarkorDialogFactory {
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
+    public static void showInputDialog(final Activity activity, @StringRes final int title, @StringRes final int hint, GsCallback.a1<String> callback) {
+        final DialogOptions options = baseConf(activity);
+        options.titleText = title;
+        options.searchHintText = hint;
+        options.searchInputType = InputType.TYPE_CLASS_TEXT;
+        options.isSoftInputVisible = true;
+        options.callback = text -> callback.callback(text);
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, options);
+    }
+
     public static void showInsertTableRowDialog(final Activity activity, final boolean isHeader, GsCallback.a2<Integer, Boolean> callback) {
         final AppSettings as = AppSettings.get(activity);
         final DialogOptions dopt = baseConf(activity);

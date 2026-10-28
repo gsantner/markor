@@ -79,6 +79,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_link">Insert link</string>
     <string name="format_link">Format link</string>
     <string name="insert_image">Insert Image</string>
+    <string name="insert_html_tag">Insert HTML tag</string>
 
     <string name="contributors">Contributors</string>
     <string name="save_location">Save location</string>
@@ -283,6 +284,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="enable_undo_and_redo_be_patient">Enable undo and redo actions. Only suited for advanced use, be patient to not delete something important. Close and open editor to clear history.</string>
     <string name="description">Description</string>
     <string name="edit_picture">Edit picture</string>
+    <string name="extended_highlight">Extended Highlight</string>
+    <string name="extended_highlight_summary">Use ==text== to highlight the text</string>
     <string name="math">Math</string>
     <string name="enter_yaml_front_matter_attributes_to_show">Display entered YAML Front Matter attributes on top at viewed documents. Enter keys separated by commas. Leave empty for none or use \'*\' for all. \n\nIf any attribute is defined in the document (i.e. title: \'Hello\') and there is {{ post.title }} in your document too it is replaced. You can make a custom Front Matter heading this way.</string>
     <string name="table_of_contents">Table of contents</string>

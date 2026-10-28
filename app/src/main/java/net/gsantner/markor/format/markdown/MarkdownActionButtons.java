@@ -121,6 +121,7 @@ public class MarkdownActionButtons extends ActionButtonBase {
                 new ActionItem(R.string.abid_markdown_horizontal_line, R.drawable.ic_more_horiz_black_24dp, R.string.horizontal_line),
                 new ActionItem(R.string.abid_common_indent, R.drawable.ic_format_indent_increase_black_24dp, R.string.indent),
                 new ActionItem(R.string.abid_common_deindent, R.drawable.ic_format_indent_decrease_black_24dp, R.string.deindent),
+                new ActionItem(R.string.abid_common_insert_html_tag, R.drawable.ic_price_tag_line_black_24dp, R.string.insert_html_tag),
                 new ActionItem(R.string.abid_common_accordion, R.drawable.ic_arrow_drop_down_black_24dp, R.string.accordion)
         );
     }
@@ -198,7 +199,7 @@ public class MarkdownActionButtons extends ActionButtonBase {
     /**
      * Used to surround selected text with a given delimiter (and remove it if present)
      * <p>
-     * Not super intelligent about how patterns can be combined.
+     * Not super-intelligent about how patterns can be combined.
      * Current regexes just look for the literal delimiters.
      *
      * @param pattern   - the pattern to match if delimiter is present

@@ -815,16 +815,20 @@ public abstract class ActionButtonBase {
                 runRegularPrefixAction("1. ");
                 return true;
             }
+            case R.string.abid_common_ordered_list_renumber: {
+                renumberOrderedList();
+                return true;
+            }
             case R.string.abid_common_time: {
                 DatetimeFormatDialog.showDatetimeFormatDialog(_activity, _hlEditor);
                 return true;
             }
-            case R.string.abid_common_accordion: {
-                _hlEditor.insertOrReplaceTextOnCursor("<details markdown='1'><summary>" + getResString(R.string.expand_collapse) + "</summary>\n" + HighlightingEditor.PLACE_CURSOR_HERE_TOKEN + "\n\n</details>");
+            case R.string.abid_common_insert_html_tag: {
+                MarkorDialogFactory.showInputDialog(_activity, R.string.insert_html_tag, R.string.name, tag -> _hlEditor.insertOrReplaceTextOnCursor(String.format("<%s></%s>", tag, tag)));
                 return true;
             }
-            case R.string.abid_common_insert_audio: {
-                AttachLinkOrFileDialog.showInsertImageOrLinkDialog(AttachLinkOrFileDialog.AUDIO_ACTION, _document.getFormat(), _activity, text, _document.file);
+            case R.string.abid_common_accordion: {
+                _hlEditor.insertOrReplaceTextOnCursor("<details markdown='1'><summary>" + getResString(R.string.expand_collapse) + "</summary>\n" + HighlightingEditor.PLACE_CURSOR_HERE_TOKEN + "\n\n</details>");
                 return true;
             }
             case R.string.abid_common_insert_link: {
@@ -835,8 +839,8 @@ public abstract class ActionButtonBase {
                 AttachLinkOrFileDialog.showInsertImageOrLinkDialog(AttachLinkOrFileDialog.IMAGE_ACTION, _document.getFormat(), _activity, text, _document.file);
                 return true;
             }
-            case R.string.abid_common_ordered_list_renumber: {
-                renumberOrderedList();
+            case R.string.abid_common_insert_audio: {
+                AttachLinkOrFileDialog.showInsertImageOrLinkDialog(AttachLinkOrFileDialog.AUDIO_ACTION, _document.getFormat(), _activity, text, _document.file);
                 return true;
             }
             case R.string.abid_common_move_text_one_line_up:
@@ -975,6 +979,10 @@ public abstract class ActionButtonBase {
                     }
                 } catch (Exception ignored) {
                 }
+                return true;
+            }
+            case R.string.abid_common_insert_html_tag: {
+                _hlEditor.insertOrReplaceTextOnCursor("<>");
                 return true;
             }
             case R.string.abid_common_ordered_list_number: {
