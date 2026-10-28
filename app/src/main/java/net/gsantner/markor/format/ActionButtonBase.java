@@ -1202,29 +1202,17 @@ public abstract class ActionButtonBase {
         }
     }
 
-    private boolean webViewJumpForward;
-
     public void runJumpBottomTopAction(ActionItem.DisplayMode displayMode) {
         if (displayMode == ActionItem.DisplayMode.EDIT) {
             int pos = _hlEditor.getSelectionStart();
             _hlEditor.setSelection(pos == 0 ? _hlEditor.length() : 0);
         } else if (displayMode == ActionItem.DisplayMode.VIEW && _webView != null) {
-            _webView.post(() -> _webView.evaluateJavascript("[window.scrollY, document.body.scrollHeight, window.innerHeight]", value -> {
+            _webView.post(() -> _webView.evaluateJavascript("[window.scrollY, document.body.scrollHeight]", value -> {
                 String[] array = value.substring(1, value.length() - 1).split(",");
                 double scrollY = Double.parseDouble(array[0]);
                 double scrollHeight = Double.parseDouble(array[1]);
-                double innerHeight = Double.parseDouble(array[2]);
-                double maxScrollY = scrollHeight - innerHeight + 20;
-                if (scrollY < 100) { // at the top
-                    _webView.evaluateJavascript(String.format("window.scrollTo(0, %.4f)", maxScrollY / 2), null);
-                    webViewJumpForward = true;
-                } else if (scrollY < maxScrollY - 100) { // at the middle
-                    String js = String.format("window.scrollTo(0, %.4f)", webViewJumpForward ? maxScrollY : 0);
-                    _webView.evaluateJavascript(js, null);
-                } else { // at the bottom
-                    _webView.evaluateJavascript(String.format("window.scrollTo(0, %.4f)", maxScrollY / 2), null);
-                    webViewJumpForward = false;
-                }
+                double targetPosition = scrollY < 100 ? scrollHeight : 0;
+                _webView.evaluateJavascript(String.format("window.scrollTo({top: %.4f, behavior: 'smooth'})", targetPosition), null);
             }));
         }
     }
