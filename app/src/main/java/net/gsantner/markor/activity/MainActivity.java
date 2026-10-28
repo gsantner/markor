@@ -646,14 +646,6 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         _cu.extractResultFromActivityResult(this, requestCode, resultCode, data);
-
-        if (requestCode == REQUEST_CODE_SETTINGS) {
-            if (resultCode == SettingsActivity.RESULT.CHANGED) {
-                if (data != null && data.hasExtra(SettingsActivity.INTENT_NAME_THEME_CHANGED)) {
-                    recreate();
-                }
-            }
-        }
     }
 
     @Override
