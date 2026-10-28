@@ -254,9 +254,11 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         final int targetSelection;
         if (hasLineNumber) {
             final int lineNumber = args.getInt(Document.EXTRA_FILE_LINE_NUMBER);
-            targetSelection = lineNumber >= 0
-                    ? TextViewUtils.getIndexFromLineOffset(_hlEditor.getText(), lineNumber, 0)
-                    : _hlEditor.length();
+            if (lineNumber > -1) {
+                targetSelection = TextViewUtils.getIndexFromLineOffset(_hlEditor.getText(), lineNumber, 0);
+            } else {
+                targetSelection = _hlEditor.length();
+            }
         } else {
             targetSelection = _appSettings.getLastEditPosition(_document.path, _hlEditor.length());
         }
@@ -270,19 +272,20 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         }
 
         _hlEditor.recomputeHighlighting();
-        // Defer initial placement until after the highlight-triggered reflow work has run.
+        // Defer initial placement until after the highlight-triggered reflow work has run
         _hlEditor.postDelayed(() -> {
             if (!hasLineNumber) {
                 final int lastEditHeight = _appSettings.getLastEditHeight(_document.path, 0);
                 if (lastEditHeight > 0 && lastEditHeight == _verticalScrollView.getHeight()) {
                     final int lastEditScrollY = _appSettings.getLastEditScrollY(_document.path, 0);
-                    _hlEditor.setSelection(targetSelection);
                     _verticalScrollView.scrollTo(0, lastEditScrollY);
-                    return;
+                    _hlEditor.setSelection(targetSelection);
+                    _hlEditor.requestFocus();
                 }
+            } else {
+                _hlEditor.post(() -> TextViewUtils.setSelectionAndShow(_hlEditor, targetSelection));
             }
-            _hlEditor.post(() -> TextViewUtils.setSelectionAndShow(_hlEditor, targetSelection));
-        }, 300);
+        }, 200);
 
         // Fade in to hide initial jank
         _hlEditor.post(() -> _hlEditor.animate().alpha(1).setDuration(250).start());
