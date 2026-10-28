@@ -6,10 +6,12 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.text.Editable;
+import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -46,7 +48,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class TextSearchViewHolder {
+public class TextSearchViewHandler {
     private static final String RECENT_SEARCH_STRING = "text_search_view_holder__recent_search_history";
     private static final String RECENT_SEARCH_REPLACE_STRING = "text_search_view_holder__recent_search_replace_history";
     private static final int MAX_RECENT_ITEMS = 10;
@@ -55,7 +57,7 @@ public class TextSearchViewHolder {
     private EditText searchEditText;
     private EditText replaceEditText;
     private TextView resultTextView;
-    private ImageButton findInSelectionImageButton;
+    // private ImageButton findInSelectionImageButton;
     private ImageButton matchCaseImageButton;
     private ImageButton matchWholeWordImageButton;
     private ImageButton useRegexImageButton;
@@ -63,7 +65,6 @@ public class TextSearchViewHolder {
     private ImageButton toggleImageButton;
 
     private boolean initialized;
-    private boolean findInSelection;
     private boolean matchCase;
     private boolean matchWholeWord;
     private boolean useRegex;
@@ -72,12 +73,12 @@ public class TextSearchViewHolder {
     private int activeColor;
     private int inactiveColor;
     private View textSearchView;
-    private TextSearchHandler textSearchHandler;
+    private TextSearchEngine textSearchHandler;
 
     private final int containerViewId;
     private final DocumentEditAndViewFragment parentFragment;
 
-    public TextSearchViewHolder(DocumentEditAndViewFragment parentFragment, @IdRes int containerViewId) {
+    public TextSearchViewHandler(DocumentEditAndViewFragment parentFragment, @IdRes int containerViewId) {
         this.containerViewId = containerViewId;
         this.parentFragment = parentFragment;
     }
@@ -110,14 +111,13 @@ public class TextSearchViewHolder {
             return;
         }
 
-        textSearchHandler = new TextSearchHandler();
+        textSearchHandler = new TextSearchEngine();
         activeColor = ContextCompat.getColor(parentFragment.requireContext(), R.color.accent);
         inactiveColor = ContextCompat.getColor(parentFragment.requireContext(), R.color.primary_text);
 
         searchEditText = textSearchView.findViewById(R.id.searchEditText);
         replaceEditText = textSearchView.findViewById(R.id.replaceEditText);
         resultTextView = textSearchView.findViewById(R.id.resultTextView);
-        findInSelectionImageButton = textSearchView.findViewById(R.id.findInSelectionImageButton);
         matchCaseImageButton = textSearchView.findViewById(R.id.matchCaseImageButton);
         matchWholeWordImageButton = textSearchView.findViewById(R.id.matchWholeWordImageButton);
         useRegexImageButton = textSearchView.findViewById(R.id.useRegexImageButton);
@@ -129,11 +129,11 @@ public class TextSearchViewHolder {
                 resultTextView.setText((current + 1) + "/" + count);
             } else if (count == 0) {
                 resultTextView.setText(R.string.no_results);
-            } else if (count == TextSearchHandler.RESULT_BAD_PATTERN) {
+            } else if (count == TextSearchEngine.RESULT_BAD_PATTERN) {
                 SpannableString spannable = new SpannableString(parentFragment.getString(R.string.bad_pattern));
                 spannable.setSpan(new ForegroundColorSpan(Color.RED), 0, spannable.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 resultTextView.setText(spannable);
-            } else if (count == TextSearchHandler.RESULT_BAD_REPLACEMENT) {
+            } else if (count == TextSearchEngine.RESULT_BAD_REPLACEMENT) {
                 SpannableString spannable = new SpannableString(parentFragment.getString(R.string.search_replace_pattern_error_message));
                 spannable.setSpan(new ForegroundColorSpan(Color.RED), 0, spannable.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 resultTextView.setText(spannable);
@@ -164,13 +164,6 @@ public class TextSearchViewHolder {
                 return true;
             }
             return false;
-        });
-
-        setFindInSelection(findInSelection);
-        findInSelectionImageButton.setOnClickListener(view -> {
-            setFindInSelection(!findInSelection);
-            textSearchHandler.handleSearchSelection(editText, null);
-            find();
         });
 
         setMatchCase(matchCase);
@@ -216,45 +209,58 @@ public class TextSearchViewHolder {
         textSearchView.findViewById(R.id.clearSearchImageButton).setOnClickListener(view -> searchEditText.setText(""));
         textSearchView.findViewById(R.id.clearReplaceImageButton).setOnClickListener(view -> replaceEditText.setText(""));
         textSearchView.findViewById(R.id.historyImageButton).setOnClickListener(this::showHistoryPopup);
-        textSearchView.findViewById(R.id.newLineSearchTextView).setOnClickListener(view -> TextViewUtils.replaceSelection(searchEditText.getText(), "\n"));
+        textSearchView.findViewById(R.id.newLineImageButton).setOnClickListener(view -> {
+            TextViewUtils.replaceSelection(searchEditText.getText(), "\n");
+            highlightNewLine(searchEditText);
+        });
 
         initialized = true;
     }
 
-    private void setIconActive(ImageView view, boolean active) {
+    private void highlightNewLine(EditText editText) {
+        final Spannable spannable = editText.getText();
+        for (int i = 0; i < spannable.length(); i++) {
+            if (spannable.charAt(i) == '\n') {
+                spannable.setSpan(new BackgroundColorSpan(0x80FFFF00), i, i + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+        }
+    }
+
+    private void switchColorFilter(ImageView view, boolean active) {
         if (view != null) {
             view.setColorFilter(active ? activeColor : inactiveColor, PorterDuff.Mode.SRC_IN);
         }
     }
 
-    private void setFindInSelection(boolean checked) {
-        findInSelection = checked;
-        textSearchHandler.setFindInSelection(checked);
-        setIconActive(findInSelectionImageButton, checked);
+    private void switchToggleButtonIcon(boolean down) {
+        if (toggleImageButton != null) {
+            int icon = down ? R.drawable.ic_arrow_down_s_line_24dp : R.drawable.ic_arrow_right_s_line_24dp;
+            toggleImageButton.setImageResource(icon);
+        }
     }
 
     private void setMatchCase(boolean checked) {
         matchCase = checked;
         textSearchHandler.setMatchCase(checked);
-        setIconActive(matchCaseImageButton, checked);
+        switchColorFilter(matchCaseImageButton, checked);
     }
 
     private void setMatchWholeWord(boolean checked) {
         matchWholeWord = checked;
         textSearchHandler.setMatchWholeWord(checked);
-        setIconActive(matchWholeWordImageButton, checked);
+        switchColorFilter(matchWholeWordImageButton, checked);
     }
 
     private void setUseRegex(boolean checked) {
         useRegex = checked;
         textSearchHandler.setUseRegex(checked);
-        setIconActive(useRegexImageButton, checked);
+        switchColorFilter(useRegexImageButton, checked);
     }
 
     private void setPreserveCase(boolean checked) {
         preserveCase = checked;
         textSearchHandler.setPreserveCase(checked);
-        setIconActive(preserveCaseImageButton, checked);
+        switchColorFilter(preserveCaseImageButton, checked);
     }
 
     private void setReplaceLayoutVisibility(boolean visible) {
@@ -268,7 +274,8 @@ public class TextSearchViewHolder {
         }
         replaceVisible = visible;
         replaceLinearLayout.setVisibility(visible ? View.VISIBLE : View.GONE);
-        setIconActive(toggleImageButton, visible);
+        switchToggleButtonIcon(visible);
+        switchColorFilter(toggleImageButton, visible);
     }
 
     private void toggleFindReplaceLayout() {
@@ -283,7 +290,7 @@ public class TextSearchViewHolder {
 
     public void find() {
         if (initialized) {
-            textSearchHandler.find(editText, searchEditText.getText().toString(), TextSearchHandler.ACTIVE_INDEX_NEARBY);
+            textSearchHandler.find(editText, searchEditText.getText().toString(), TextSearchEngine.ACTIVE_INDEX_NEARBY);
         }
     }
 
@@ -293,7 +300,7 @@ public class TextSearchViewHolder {
         }
         String searchText = searchEditText.getText().toString();
         if (!searchText.isEmpty()) {
-            textSearchHandler.find(editText, searchText, TextSearchHandler.ACTIVE_INDEX_KEEP);
+            textSearchHandler.find(editText, searchText, TextSearchEngine.ACTIVE_INDEX_KEEP);
         }
     }
 
@@ -315,7 +322,6 @@ public class TextSearchViewHolder {
 
     private void requestEditTextFocus() {
         if (initialized) {
-            textSearchHandler.handleSearchSelection(editText, searchEditText);
             searchEditText.requestFocus();
             searchEditText.selectAll();
         }
@@ -347,7 +353,6 @@ public class TextSearchViewHolder {
     private void clear() {
         if (initialized) {
             clearMatches();
-            textSearchHandler.clearSearchSelection(editText, false);
             editText.removeTextChangedListener(editTextChangedListener);
         }
     }
@@ -375,7 +380,6 @@ public class TextSearchViewHolder {
                 matchCase,
                 matchWholeWord,
                 useRegex,
-                findInSelection,
                 preserveCase
         );
         saveHistoryEntry(RECENT_SEARCH_STRING, entry, false);
@@ -450,7 +454,6 @@ public class TextSearchViewHolder {
             replaceEditText.setText(entry.replace);
             setReplaceLayoutVisibility(true);
         }
-        setFindInSelection(entry.findInSelection);
         setMatchCase(entry.matchCase);
         setMatchWholeWord(entry.matchWholeWord);
         setUseRegex(entry.useRegex);
@@ -495,7 +498,6 @@ public class TextSearchViewHolder {
             row.addView(label, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
 
             if (entry != null) {
-                addHistoryIcon(row, entry.findInSelection, R.drawable.ic_list_selection_24dp);
                 addHistoryIcon(row, entry.matchCase, R.drawable.outline_match_case_24);
                 addHistoryIcon(row, entry.matchWholeWord, R.drawable.outline_match_word_24);
                 addHistoryIcon(row, entry.useRegex, R.drawable.ic_regex_24dp);
@@ -530,9 +532,6 @@ public class TextSearchViewHolder {
         private String getAccessibilityLabel(SearchHistoryEntry entry) {
             final ArrayList<String> parts = new ArrayList<>();
             parts.add(entry.getLabel(includeReplace));
-            if (entry.findInSelection) {
-                parts.add(parentFragment.getString(R.string.find_in_selection));
-            }
             if (entry.matchCase) {
                 parts.add(parentFragment.getString(R.string.match_case));
             }
@@ -555,7 +554,6 @@ public class TextSearchViewHolder {
         final boolean matchCase;
         final boolean matchWholeWord;
         final boolean useRegex;
-        final boolean findInSelection;
         final boolean preserveCase;
 
         private static final String SEARCH_KEY = "search";
@@ -563,16 +561,14 @@ public class TextSearchViewHolder {
         private static final String MATCH_CASE_KEY = "match_case";
         private static final String MATCH_WHOLE_WORD_KEY = "match_whole_word";
         private static final String USE_REGEX_KEY = "use_regex";
-        private static final String FIND_IN_SELECTION_KEY = "find_in_selection";
         private static final String PRESERVE_CASE_KEY = "preserve_case";
 
-        SearchHistoryEntry(String search, String replace, boolean matchCase, boolean matchWholeWord, boolean useRegex, boolean findInSelection, boolean preserveCase) {
+        SearchHistoryEntry(String search, String replace, boolean matchCase, boolean matchWholeWord, boolean useRegex, boolean preserveCase) {
             this.search = search == null ? "" : search;
             this.replace = replace == null ? "" : replace;
             this.matchCase = matchCase;
             this.matchWholeWord = matchWholeWord;
             this.useRegex = useRegex;
-            this.findInSelection = findInSelection;
             this.preserveCase = preserveCase;
         }
 
@@ -592,7 +588,6 @@ public class TextSearchViewHolder {
                 object.put(MATCH_CASE_KEY, matchCase);
                 object.put(MATCH_WHOLE_WORD_KEY, matchWholeWord);
                 object.put(USE_REGEX_KEY, useRegex);
-                object.put(FIND_IN_SELECTION_KEY, findInSelection);
                 object.put(PRESERVE_CASE_KEY, preserveCase);
             } catch (JSONException ignored) {
             }
@@ -606,7 +601,6 @@ public class TextSearchViewHolder {
                     object.optBoolean(MATCH_CASE_KEY, false),
                     object.optBoolean(MATCH_WHOLE_WORD_KEY, false),
                     object.optBoolean(USE_REGEX_KEY, false),
-                    object.optBoolean(FIND_IN_SELECTION_KEY, false),
                     object.optBoolean(PRESERVE_CASE_KEY, false)
             );
         }

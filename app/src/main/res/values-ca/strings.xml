@@ -412,7 +412,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="line_based_search">Cerca basada en línies</string>
     <string name="no_results">Sense resultats</string>
     <string name="bad_pattern">Patró no vàlid</string>
-    <string name="toggle_find_replace">Commuta cerca/substitueix</string>
+    <string name="toggle_replace">Commuta cerca/substitueix</string>
     <string name="new_line">Nova línia</string>
     <string name="match_case">Coincidència de majúscules</string>
     <string name="match_whole_word">Coincideix amb la paraula sencera</string>

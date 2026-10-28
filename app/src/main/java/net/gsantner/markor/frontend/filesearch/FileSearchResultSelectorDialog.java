@@ -218,9 +218,9 @@ public class FileSearchResultSelectorDialog {
             if (groupInfo.isDirectory || groupInfo.children.isEmpty()) {
                 iconResId = 0;
             } else if (isExpanded) {
-                iconResId = R.drawable.ic_baseline_keyboard_arrow_up_24;
+                iconResId = R.drawable.ic_arrow_up_s_line_24dp;
             } else {
-                iconResId = R.drawable.ic_baseline_keyboard_arrow_down_24;
+                iconResId = R.drawable.ic_arrow_down_s_line_24dp;
             }
             textView.setCompoundDrawablesWithIntrinsicBounds(iconResId, 0, 0, 0);
             return textView;

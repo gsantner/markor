@@ -43,7 +43,7 @@ import net.gsantner.markor.frontend.AttachLinkOrFileDialog;
 import net.gsantner.markor.frontend.DatetimeFormatDialog;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.MarkorDialogFactory.Heading;
-import net.gsantner.markor.frontend.textsearch.TextSearchViewHolder;
+import net.gsantner.markor.frontend.textsearch.TextSearchViewHandler;
 import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
@@ -113,10 +113,10 @@ public abstract class ActionButtonBase {
         }
     }
 
-    private TextSearchViewHolder _textSearchViewHolder;
+    private TextSearchViewHandler _textSearchViewHandler;
 
     public ActionButtonBase initTextSearch(DocumentEditAndViewFragment fragment) {
-        _textSearchViewHolder = new TextSearchViewHolder(fragment, R.id.topViewContainer);
+        _textSearchViewHandler = new TextSearchViewHandler(fragment, R.id.topViewContainer);
         return this;
     }
 
@@ -126,11 +126,11 @@ public abstract class ActionButtonBase {
     }
 
     public boolean toggleTextSearchUi() {
-        if (_textSearchViewHolder != null) {
-            if (_textSearchViewHolder.isShow()) {
-                _textSearchViewHolder.close();
+        if (_textSearchViewHandler != null) {
+            if (_textSearchViewHandler.isShow()) {
+                _textSearchViewHandler.close();
             } else {
-                _textSearchViewHolder.show();
+                _textSearchViewHandler.show();
             }
             return true;
         }
@@ -139,12 +139,12 @@ public abstract class ActionButtonBase {
     }
 
     public boolean isSearchActive() {
-        return _textSearchViewHolder != null && _textSearchViewHolder.isShow();
+        return _textSearchViewHandler != null && _textSearchViewHandler.isShow();
     }
 
     public boolean hideTextSearchUi() {
         if (isSearchActive()) {
-            _textSearchViewHolder.close();
+            _textSearchViewHandler.close();
             if (_activity != null) {
                 _activity.invalidateOptionsMenu();
             }

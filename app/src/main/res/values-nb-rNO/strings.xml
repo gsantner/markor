@@ -399,7 +399,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="created">Opprettet</string>
     <string name="no_results">Ingen resultat</string>
     <string name="bad_pattern">Ugyldig mønster</string>
-    <string name="toggle_find_replace">Velg finn/erstatt</string>
+    <string name="toggle_replace">Velg finn/erstatt</string>
     <string name="new_line">Ny linje</string>
     <string name="match_case">Finn lik bokstav</string>
     <string name="match_whole_word">Finn likt ord</string>

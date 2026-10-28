@@ -406,7 +406,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="line_based_search">Vyhledávání po řádcích</string>
     <string name="no_results">Žádné výsledky</string>
     <string name="bad_pattern">Neplatný výraz</string>
-    <string name="toggle_find_replace">Přepnout Najít/Nahradit</string>
+    <string name="toggle_replace">Přepnout Najít/Nahradit</string>
     <string name="match_case">Rozlišovat velikost písmen</string>
     <string name="match_whole_word">Hledat pouze celá slova</string>
     <string name="use_regular_expression">Použít regulární výraz</string>

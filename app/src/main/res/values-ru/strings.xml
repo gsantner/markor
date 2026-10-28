@@ -380,7 +380,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="created">Создано</string>
     <string name="no_results">Нет результатов</string>
     <string name="bad_pattern">Неверный шаблон</string>
-    <string name="toggle_find_replace">Переключить режим поиска/замены</string>
+    <string name="toggle_replace">Переключить режим поиска/замены</string>
     <string name="new_line">Новая строка</string>
     <string name="match_case">Учитывать регистр</string>
     <string name="match_whole_word">Учитывать всё слово</string>
