@@ -188,7 +188,6 @@ public class SettingsActivity extends MarkorBaseActivity {
                     R.string.pref_key__swipe_to_change_mode,
                     R.string.pref_key__todotxt__hl_delay,
                     R.string.pref_key__markdown__hl_delay_v2,
-                    R.string.pref_key__theming_hide_system_statusbar,
                     R.string.pref_key__tab_width_v2,
                     R.string.pref_key__editor_line_spacing,
             };

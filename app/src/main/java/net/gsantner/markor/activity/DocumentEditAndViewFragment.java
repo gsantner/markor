@@ -806,7 +806,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
         final ViewGroup contentLayout = view.findViewById(R.id.content_layout);
         if (contentLayout != null) {
-
             actionsBarScrollView.setVisibility(visible ? View.VISIBLE : View.GONE);
             final int marginBottom = visible ? (int) getResources().getDimension(R.dimen.text_actions_bar_height) : 0;
             setMarginBottom(contentLayout, marginBottom);
