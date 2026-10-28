@@ -19,9 +19,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_web_url" translatable="false">https://github.com/gsantner/markor</string>
     <string name="sync_client_support_issue_url" translatable="false">https://github.com/gsantner/markor/discussions/1381</string>
     <string name="app_source_code_url" translatable="false">https://github.com/gsantner/markor</string>
-    <string name="huuid" translatable="false">hUUID</string>
+    <string name="h_uuid" translatable="false">hUUID</string>
     <string name="embed_binary" translatable="false">Embed binary</string>
-    <string name="actionbutton" translatable="false">ActionButton</string>
+    <string name="action_button" translatable="false">Action Button</string>
 
 
     <string name="checkmark_symbol" translatable="false">\u2301</string>

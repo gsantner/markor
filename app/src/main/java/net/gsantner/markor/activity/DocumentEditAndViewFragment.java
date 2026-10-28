@@ -791,15 +791,26 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             return;
         }
 
-        final View parent = view.findViewById(R.id.document__fragment__edit__text_actions_bar__scrolling_parent);
-        if (parent == null) {
+        final View actionsBarScrollView = view.findViewById(R.id.document__fragment__edit__text_actions_bar__scrolling_parent);
+        if (actionsBarScrollView == null) {
             return;
         }
 
-        final View bar = view.findViewById(R.id.document__fragment__edit__text_actions_bar);
-        if (bar != null && _verticalScrollView != null) {
-            final boolean visible = _format.getActions().loadActionBarVisible() && _textActionsBar.getChildCount() > 0;
-            parent.setVisibility(visible ? View.VISIBLE : View.GONE);
+        final boolean visible = _format.getActions().isActionBarVisible() && _textActionsBar.getChildCount() > 0;
+        if (visible && actionsBarScrollView.getVisibility() == View.VISIBLE) {
+            return;
+        }
+
+        final ViewGroup contentLayout = view.findViewById(R.id.content_layout);
+        if (contentLayout != null) {
+
+            actionsBarScrollView.setVisibility(visible ? View.VISIBLE : View.GONE);
+            final int marginBottom = visible ? (int) getResources().getDimension(R.dimen.text_actions_bar_height) : 0;
+            setMarginBottom(contentLayout, marginBottom);
+            final View webView = view.findViewById(R.id.document__fragment_view_webview);
+            if (webView != null) {
+                setMarginBottom(webView, marginBottom);
+            }
         }
     }
 
@@ -991,6 +1002,14 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             return true;
         } else {
             return searchView.isIconified();
+        }
+    }
+
+    private void setMarginBottom(final View view, final int marginBottom) {
+        final ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+        if (params != null) {
+            params.setMargins(params.leftMargin, params.topMargin, params.rightMargin, marginBottom);
+            view.setLayoutParams(params);
         }
     }
 

@@ -544,7 +544,7 @@
                     android:key="@string/pref_key__markdown_always_shown_yaml_front_matter_keys"
                     android:title="@string/front_matter" />
             </PreferenceCategory>
-            <PreferenceCategory android:title="@string/actionbutton">
+            <PreferenceCategory android:title="@string/action_button">
                 <Preference
                     android:icon="@drawable/ic_reorder_black_24dp"
                     android:key="@string/pref_key__markdown__reorder_actions"
@@ -557,7 +557,7 @@
         <PreferenceScreen
             android:icon="@drawable/ic_assignment_turned_in_black_24dp"
             android:title="@string/todo_txt">
-            <PreferenceCategory android:title="@string/actionbutton">
+            <PreferenceCategory android:title="@string/action_button">
                 <CheckBoxPreference
                     android:defaultValue="true"
                     android:icon="@drawable/ic_date_range_black_24dp"
@@ -599,7 +599,7 @@
         <PreferenceScreen
             android:icon="@drawable/fountain_pen"
             android:title="@string/wikitext">
-            <PreferenceCategory android:title="@string/actionbutton">
+            <PreferenceCategory android:title="@string/action_button">
                 <Preference
                     android:icon="@drawable/ic_reorder_black_24dp"
                     android:key="@string/pref_key__wikitext_reorder_actions"
@@ -618,7 +618,7 @@
             android:icon="@drawable/ic_text_fields_black_24dp"
             android:title="@string/plaintext">
 
-            <PreferenceCategory android:title="@string/actionbutton">
+            <PreferenceCategory android:title="@string/action_button">
                 <Preference
                     android:icon="@drawable/ic_reorder_black_24dp"
                     android:key="@string/pref_key__plaintext__reorder_actions"
@@ -649,7 +649,7 @@
                     android:summary="@string/highlight_line_ending_if_two_or_more_spaces"
                     android:title="@string/highlight_line_ending" />
             </PreferenceCategory>
-            <PreferenceCategory android:title="@string/actionbutton">
+            <PreferenceCategory android:title="@string/action_button">
                 <Preference
                     android:icon="@drawable/ic_reorder_black_24dp"
                     android:key="@string/pref_key__asciidoc__reorder_actions"
@@ -675,7 +675,7 @@
 
             </PreferenceCategory>
 
-            <PreferenceCategory android:title="@string/actionbutton">
+            <PreferenceCategory android:title="@string/action_button">
                 <Preference
                     android:icon="@drawable/ic_reorder_black_24dp"
                     android:key="@string/pref_key__orgmode__reorder_actions"
