@@ -50,12 +50,16 @@ public class SettingsActivity extends MarkorBaseActivity {
 
     @SuppressWarnings("WeakerAccess")
     public static class RESULT {
-        public static final int NOCHANGE = -1;
+        public static final int NO_CHANGE = -1;
         public static final int CHANGED = 1;
         public static final int RESTART_REQ = 2;
     }
 
-    public static int activityRetVal = RESULT.NOCHANGE;
+    public static int activityRetVal = RESULT.NO_CHANGE;
+
+    // To fix cannot go back previous screen when theme is changed
+    private boolean themeChanged = false;
+    public static final String INTENT_NAME_THEME_CHANGED = "theme_changed";
 
     protected Toolbar toolbar;
 
@@ -134,7 +138,15 @@ public class SettingsActivity extends MarkorBaseActivity {
             prefFrag.goBack();
             return;
         }
-        super.onBackPressed();
+
+        if (themeChanged) {
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra(INTENT_NAME_THEME_CHANGED, true);
+            setResult(RESULT.CHANGED, resultIntent);
+            finish();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     public static class SettingsFragmentMaster extends MarkorSettingsFragment {
@@ -188,6 +200,7 @@ public class SettingsActivity extends MarkorBaseActivity {
                     R.string.pref_key__swipe_to_change_mode,
                     R.string.pref_key__todotxt__hl_delay,
                     R.string.pref_key__markdown__hl_delay_v2,
+                    R.string.pref_key__theming_hide_system_statusbar,
                     R.string.pref_key__tab_width_v2,
                     R.string.pref_key__editor_line_spacing,
             };
@@ -212,19 +225,11 @@ public class SettingsActivity extends MarkorBaseActivity {
                 _appSettings.setRecreateMainRequired(true);
             } else if (eq(key, R.string.pref_key__app_theme)) {
                 _appSettings.applyAppTheme();
-                _appSettings.setRecreateMainRequired(true);
-                if (getActivity() != null) {
-                    getActivity().recreate();
+                if (getActivity() instanceof SettingsActivity) {
+                    ((SettingsActivity) getActivity()).themeChanged = true;
                 }
             } else if (eq(key, R.string.pref_key__theming_hide_system_statusbar)) {
                 activityRetVal = RESULT.RESTART_REQ;
-                _appSettings.setRecreateMainRequired(true);
-            } else if (eq(key, R.string.pref_key__ui_flat_top_bottom_bars)) {
-                final Activity activity = getActivity();
-                if (activity instanceof MarkorBaseActivity) {
-                    ((MarkorBaseActivity) activity).applyActivityBarBackgroundColors();
-                }
-            } else if (eq(key, R.string.pref_key__file_browser_show_dividers)) {
                 _appSettings.setRecreateMainRequired(true);
             } else if (eq(key, R.string.pref_key__is_launcher_for_special_files_enabled)) {
                 boolean extraLaunchersEnabled = prefs.getBoolean(key, false);
@@ -253,10 +258,6 @@ public class SettingsActivity extends MarkorBaseActivity {
         public Boolean onPreferenceClicked(Preference preference, String key, int keyResId) {
             final FragmentManager fragManager = getActivity().getSupportFragmentManager();
             switch (keyResId) {
-                case R.string.pref_key__request_external_storage: {
-                    GsContextUtils.instance.requestExternalStoragePermission(getActivity());
-                    return true;
-                }
                 case R.string.pref_key__snippet_directory_path: {
                     MarkorFileBrowserFactory.showFolderDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
                         @Override
