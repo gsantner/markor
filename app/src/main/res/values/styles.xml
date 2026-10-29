@@ -7,7 +7,7 @@
  *
 #########################################################*/
 -->
-<resources xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
 
     <style name="AppTheme.Unified.StartupFlash" parent="AppTheme.Unified">
         <item name="android:windowBackground">@color/dark__background</item>
@@ -34,15 +34,22 @@
 
         <!-- Android V21 options; ignore IDE warnings -->
         <item name="android:windowContentTransitions" tools:targetApi="lollipop">true</item>
-        <item name="android:windowAllowEnterTransitionOverlap" tools:targetApi="lollipop">true</item>
-        <item name="android:windowAllowReturnTransitionOverlap" tools:targetApi="lollipop">true</item>
-        <item name="android:windowSharedElementEnterTransition" tools:targetApi="lollipop">@android:transition/move</item>
-        <item name="android:windowSharedElementExitTransition" tools:targetApi="lollipop">@android:transition/move</item>
+        <item name="android:windowAllowEnterTransitionOverlap" tools:targetApi="lollipop">true
+        </item>
+        <item name="android:windowAllowReturnTransitionOverlap" tools:targetApi="lollipop">true
+        </item>
+        <item name="android:windowSharedElementEnterTransition" tools:targetApi="lollipop">
+            @android:transition/move
+        </item>
+        <item name="android:windowSharedElementExitTransition" tools:targetApi="lollipop">
+            @android:transition/move
+        </item>
         <item name="android:statusBarColor" tools:targetApi="lollipop">@color/primary</item>
         <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/primary</item>
 
         <!-- Android V28 options; ignore IDE warnings -->
-        <item name="android:dialogCornerRadius" tools:targetApi="p">@dimen/dialog_corner_radius</item>
+        <item name="android:dialogCornerRadius" tools:targetApi="p">@dimen/dialog_corner_radius
+        </item>
 
         <!-- android-35 Disable window size overlap -->
         <item name="android:windowOptOutEdgeToEdgeEnforcement" tools:targetApi="35">true</item>
@@ -86,5 +93,6 @@
         <item name="android:textColorPrimary">@color/primary_text</item>
         <item name="android:textColorSecondary">@color/secondary_text</item>
         <item name="colorAccent">@color/accent</item>
+        <item name="android:windowMinWidthMinor">98%</item>
     </style>
 </resources>
