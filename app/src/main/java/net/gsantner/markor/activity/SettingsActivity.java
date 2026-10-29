@@ -211,7 +211,13 @@ public class SettingsActivity extends MarkorBaseActivity {
                 activityRetVal = RESULT.RESTART_REQ;
                 _appSettings.setRecreateMainRequired(true);
             } else if (eq(key, R.string.pref_key__app_theme)) {
-                _appSettings.applyAppTheme();
+                // Don't apply theme immediately to avoid interfering with Activity stack
+                // Theme will be applied when MainActivity recreates itself (in MarkorBaseActivity.onCreate)
+                activityRetVal = RESULT.RESTART_REQ;
+                _appSettings.setRecreateMainRequired(true);
+
+                // Show a toast to inform the user
+                Toast.makeText(context, R.string.theme_will_apply_after_returning, Toast.LENGTH_SHORT).show();
             } else if (eq(key, R.string.pref_key__theming_hide_system_statusbar)) {
                 activityRetVal = RESULT.RESTART_REQ;
                 _appSettings.setRecreateMainRequired(true);
