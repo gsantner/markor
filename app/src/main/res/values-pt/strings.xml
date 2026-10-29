@@ -141,6 +141,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_wide">Global</string>
     <string name="main_view">Vista principal</string>
     <string name="overall_theme_used_in_app">O tema utilizado na aplicação</string>
+    <string name="flat_top_bottom_bars">Barras planas na parte superior e inferior</string>
+    <string name="flat_top_bottom_bars_description">Utilize a cor de fundo da aplicação para as barras superior e inferior</string>
+    <string name="show_tab_titles">Exibir títulos das abas</string>
+    <string name="show_tab_titles_description">Exibir etiquetas de texto na barra inferior principal</string>
+    <string name="file_browser_divider_lines">Linhas divisórias do navegador de ficheiros</string>
+    <string name="file_browser_divider_lines_description">Mostrar linhas divisórias entre as entradas do navegador de ficheiros</string>
     <string name="remember_last_directory">Memorizar último diretório</string>
     <string name="syntax_highlighting">Destaque de sintaxe</string>
     <string name="highlighting_delay">Atraso de destaque</string>
