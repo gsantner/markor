@@ -476,6 +476,9 @@ public class MarkdownTextConverter extends TextConverterBase {
         @Override
         public void setAttributes(@NotNull Node node, @NotNull AttributablePart part, @NotNull MutableAttributes attributes) {
             final Document document = node.getDocument();
+            if (document == null) {
+                return;
+            }
             final int lineNumber = document.getLineNumber(node.getStartOffset());
             attributes.addValue("line", "" + lineNumber);
         }
