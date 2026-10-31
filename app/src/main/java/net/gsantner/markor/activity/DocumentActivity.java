@@ -51,6 +51,10 @@ public class DocumentActivity extends MarkorBaseActivity {
 
         final Intent intent = DocumentActivity.normalizeIntent(rawIntent, activity);
         final File file = (File) intent.getSerializableExtra(Document.EXTRA_FILE);
+        if (file != null && shouldShowInFileBrowser(intent)) {
+            MainActivity.launch(activity, file, false);
+            return;
+        }
         final Integer lineNumber = intent.hasExtra(Document.EXTRA_FILE_LINE_NUMBER) ? intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, -1) : null;
         final Boolean doPreview = intent.hasExtra(Document.EXTRA_DO_PREVIEW) ? intent.getBooleanExtra(Document.EXTRA_DO_PREVIEW, false) : null;
         launch(activity, file, doPreview, lineNumber);
@@ -190,7 +194,9 @@ public class DocumentActivity extends MarkorBaseActivity {
 
         // Decide what to do with the file
         // -----------------------------------------------------------------------
-        if (file == null || !_cu.canWriteFile(this, file, false, true)) {
+        if (file != null && shouldShowInFileBrowser(intent)) {
+            MainActivity.launch(this, file, getCurrentVisibleFragment() == null);
+        } else if (file == null || !_cu.canWriteFile(this, file, false, true)) {
             showNotSupportedMessage();
         } else {
             // Open in editor/viewer
@@ -269,6 +275,11 @@ public class DocumentActivity extends MarkorBaseActivity {
         }
 
         return intent;
+    }
+
+    private static boolean shouldShowInFileBrowser(final Intent intent) {
+        final Uri uri = intent.getData();
+        return uri != null && Boolean.TRUE.equals(GsTextUtils.tryParseBool(uri.getQueryParameter("show")));
     }
 
     private static Integer parseNormalizedLine(final Uri uri) {
