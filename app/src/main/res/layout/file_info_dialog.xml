@@ -70,7 +70,7 @@
             tools:text="/sdcard/Documents/somewhere" />
 
         <LinearLayout
-            android:id="@+id/ui__file_info_dialog__file_info"
+            android:id="@+id/ui__fileinfodialog__fileinfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -135,13 +135,13 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/ui__file_info_dialog__text_info"
+            android:id="@+id/ui__fileinfodialog__textinfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/ui__file_info_dialog__text_info_caption"
+                android:id="@+id/ui__fileinfodialog__textinfo_caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -153,7 +153,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/ui__file_info_dialog__text_info_description"
+                android:id="@+id/ui__fileinfodialog__textinfo_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -182,7 +182,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/ui__file_info_dialog__file_settings"
+            android:id="@+id/ui__fileinfodialog__filesettings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">

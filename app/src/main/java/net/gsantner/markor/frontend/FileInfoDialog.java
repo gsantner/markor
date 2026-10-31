@@ -100,20 +100,19 @@ public class FileInfoDialog extends DialogFragment {
                 }
         );
 
-        // Number of lines and character count only apply for files
-        root.findViewById(R.id.ui__file_info_dialog__text_info).setVisibility(View.GONE);
-        root.findViewById(R.id.ui__file_info_dialog__file_info).setVisibility(file.isFile() ? View.VISIBLE : View.GONE);
-        root.findViewById(R.id.ui__file_info_dialog__file_settings).setVisibility(file.isFile() ? View.VISIBLE : View.GONE);
+        // Number of lines and character count only apply for files.
+        root.findViewById(R.id.ui__fileinfodialog__textinfo).setVisibility(View.GONE);
+        root.findViewById(R.id.ui__fileinfodialog__fileinfo).setVisibility(file.isFile() ? View.VISIBLE : View.GONE);
+        root.findViewById(R.id.ui__fileinfodialog__filesettings).setVisibility(file.isFile() ? View.VISIBLE : View.GONE);
         if (GsFileUtils.isTextFile(file)) {
-            root.findViewById(R.id.ui__file_info_dialog__text_info).setVisibility(View.VISIBLE);
+            root.findViewById(R.id.ui__fileinfodialog__textinfo).setVisibility(View.VISIBLE);
             AtomicInteger valLines = new AtomicInteger(0);
             AtomicInteger valChars = new AtomicInteger(0);
             AtomicInteger valWords = new AtomicInteger(0);
             GsFileUtils.retrieveTextFileSummary(file, valChars, valLines, valWords);
 
-            tv(root, R.id.ui__file_info_dialog__text_info_caption).setText(getString(R.string.text_lines) + String.format(" / %s / %s", getString(R.string.text_words), getString(R.string.text_characters)).replace("Text ", ""));
-            tv(root, R.id.ui__file_info_dialog__text_info_description).setText(String.format(Locale.ENGLISH, "%d / %d / %d", valLines.intValue(), valWords.intValue(), valChars.intValue()));
-
+            tv(root, R.id.ui__fileinfodialog__textinfo_caption).setText(getString(R.string.text_lines) + String.format(" / %s / %s", getString(R.string.text_words), getString(R.string.text_characters)).replace("Text ", ""));
+            tv(root, R.id.ui__fileinfodialog__textinfo_description).setText(String.format(Locale.ENGLISH, "%d / %d / %d", valLines.intValue(), valWords.intValue(), valChars.intValue()));
         }
         dialogBuilder.setPositiveButton(getString(android.R.string.ok), (dialogInterface, i) -> dialogInterface.dismiss());
 
