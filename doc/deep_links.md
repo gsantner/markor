@@ -4,8 +4,7 @@ Use `markor://open?path=...` to open a file or folder in Markor. Absolute paths
 are supported; relative paths are resolved against the notebook directory.
 URL-encode the path when it contains spaces or other reserved characters.
 
-Add `show=true` to show the target in Markor's file browser. Files are revealed
-in their containing folder; folders are opened in the browser. The target is
+Add `show=true` to show the target in Markor's file browser. The target is
 not opened in the editor, and editor options such as `line` and `view` are ignored.
 
 ```text

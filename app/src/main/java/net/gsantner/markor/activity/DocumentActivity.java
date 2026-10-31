@@ -51,13 +51,10 @@ public class DocumentActivity extends MarkorBaseActivity {
 
         final Intent intent = DocumentActivity.normalizeIntent(rawIntent, activity);
         final File file = (File) intent.getSerializableExtra(Document.EXTRA_FILE);
-        if (file != null && shouldShowInFileBrowser(intent)) {
-            MainActivity.launch(activity, file, false);
-            return;
-        }
         final Integer lineNumber = intent.hasExtra(Document.EXTRA_FILE_LINE_NUMBER) ? intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, -1) : null;
         final Boolean doPreview = intent.hasExtra(Document.EXTRA_DO_PREVIEW) ? intent.getBooleanExtra(Document.EXTRA_DO_PREVIEW, false) : null;
-        launch(activity, file, doPreview, lineNumber);
+        final boolean showInFileBrowser = intent.hasExtra(Document.EXTRA_SHOW_IN_FILEBROWSER) && intent.getBooleanExtra(Document.EXTRA_SHOW_IN_FILEBROWSER, false);
+        launch(activity, file, doPreview, lineNumber, false, showInFileBrowser);
     }
 
     public static void launch(final Activity activity, final Uri uri) {
@@ -74,7 +71,7 @@ public class DocumentActivity extends MarkorBaseActivity {
             final Boolean doPreview,
             final Integer lineNumber
     ) {
-        launch(activity, file, doPreview, lineNumber, false);
+        launch(activity, file, doPreview, lineNumber, false, false);
     }
 
     private static void launch(
@@ -82,38 +79,35 @@ public class DocumentActivity extends MarkorBaseActivity {
             final File file,
             final Boolean doPreview,
             final Integer lineNumber,
-            final boolean forceOpenInThisApp
+            final boolean forceOpenInThisApp,
+            final boolean showInFileBrowser
     ) {
         if (activity == null || file == null) {
             return;
         }
 
-        if (GsFileUtils.getFilenameExtension(file).equals(".apk")) {
+        if (!showInFileBrowser && GsFileUtils.getFilenameExtension(file).equals(".apk")) {
             GsContextUtils.instance.requestApkInstallation(activity, file);
             return;
         }
 
-        if (!forceOpenInThisApp && file.isFile() && !FormatRegistry.isFileSupported(file)) {
+        if (!showInFileBrowser && !forceOpenInThisApp && file.isFile() && !FormatRegistry.isFileSupported(file)) {
             askUserIfWantsToOpenFileInThisApp(activity, file);
             return;
         }
 
-        final AppSettings as = AppSettings.get(activity);
-
         final Intent intent;
-        if (GsFileUtils.isDirectory(file)) {
+        if (GsFileUtils.isDirectory(file) || showInFileBrowser) {
             intent = new Intent(activity, MainActivity.class);
+            intent.putExtra(Document.EXTRA_SHOW_IN_FILEBROWSER, showInFileBrowser);
         } else {
             intent = new Intent(activity, DocumentActivity.class);
 
-            final boolean lollipop = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
             final boolean fromDocumentActivity = activity instanceof DocumentActivity;
-            final boolean isMultiWindow = as.isMultiWindowEnabled();
-            if (lollipop && isMultiWindow) {
+            final boolean isMultiWindow = AppSettings.get(activity).isMultiWindowEnabled();
+            if (isMultiWindow) {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-            } else if (isMultiWindow) {
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-            } else if (lollipop && !fromDocumentActivity) {
+            } else if (!fromDocumentActivity) {
                 // So we can potentially not open duplicate documents
                 intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             }
@@ -138,7 +132,7 @@ public class DocumentActivity extends MarkorBaseActivity {
                     .setTitle(R.string.open_with)
                     .setMessage(R.string.selected_file_may_be_a_textfile_want_to_open_in_editor)
                     .setIcon(R.drawable.ic_open_in_browser_black_24dp)
-                    .setPositiveButton(R.string.app_name, (dialog1, which) -> DocumentActivity.launch(activity, file, null, null, true))
+                    .setPositiveButton(R.string.app_name, (dialog1, which) -> DocumentActivity.launch(activity, file, null, null, true, false))
                     .setNegativeButton(R.string.other, (dialog1, which) -> new MarkorContextUtils(activity).viewFileInOtherApp(activity, file, null))
                     .create()
                     .show();
@@ -192,10 +186,15 @@ public class DocumentActivity extends MarkorBaseActivity {
             return;
         }
 
+        final GsFragmentBase<?, ?> frag = getCurrentVisibleFragment();
+
         // Decide what to do with the file
         // -----------------------------------------------------------------------
-        if (file != null && shouldShowInFileBrowser(intent)) {
-            MainActivity.launch(this, file, getCurrentVisibleFragment() == null);
+        if (file != null && intent.getBooleanExtra(Document.EXTRA_SHOW_IN_FILEBROWSER, false)) {
+            launch(this, file, null, null, false, true);
+            if (frag == null) {
+                finish();
+            }
         } else if (file == null || !_cu.canWriteFile(this, file, false, true)) {
             showNotSupportedMessage();
         } else {
@@ -208,7 +207,7 @@ public class DocumentActivity extends MarkorBaseActivity {
                 startLine = null;
             }
 
-            // Start in a specific mode if required. Otherwise let the fragment decide
+            // Start in a specific mode if required. Otherwise, let the fragment decide
             final Boolean startInPreview;
             if (intent.hasExtra(Document.EXTRA_DO_PREVIEW)) {
                 startInPreview = intent.getBooleanExtra(Document.EXTRA_DO_PREVIEW, false);
@@ -222,7 +221,6 @@ public class DocumentActivity extends MarkorBaseActivity {
             // 1. We have an editor open and it is the same document - show the requested line
             // 2. We have an editor open and it is a different document - open the new document
             // 3. We do not have a current fragment - open the document here
-            final GsFragmentBase<?, ?> frag = getCurrentVisibleFragment();
             if (frag != null) {
                 if (frag instanceof DocumentEditAndViewFragment) {
                     final DocumentEditAndViewFragment editFrag = (DocumentEditAndViewFragment) frag;
@@ -274,12 +272,14 @@ public class DocumentActivity extends MarkorBaseActivity {
             }
         }
 
-        return intent;
-    }
+        if (!intent.hasExtra(Document.EXTRA_SHOW_IN_FILEBROWSER) && uri != null) {
+            final String show = uri.getQueryParameter("show");
+            if (show != null && show.equalsIgnoreCase("true")) {
+                intent.putExtra(Document.EXTRA_SHOW_IN_FILEBROWSER, true);
+            }
+        }
 
-    private static boolean shouldShowInFileBrowser(final Intent intent) {
-        final Uri uri = intent.getData();
-        return uri != null && Boolean.TRUE.equals(GsTextUtils.tryParseBool(uri.getQueryParameter("show")));
+        return intent;
     }
 
     private static Integer parseNormalizedLine(final Uri uri) {
@@ -379,11 +379,7 @@ public class DocumentActivity extends MarkorBaseActivity {
         }
 
         // Handle in this activity
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            finishAndRemoveTask();
-        } else {
-            finish();
-        }
+        finishAndRemoveTask();
     }
 
     @Override
