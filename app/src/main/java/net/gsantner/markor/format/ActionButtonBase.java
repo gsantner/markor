@@ -685,11 +685,13 @@ public abstract class ActionButtonBase {
     /**
      * Move cursor to current line start/end.
      */
-    public void goToLine(boolean start) {
+    public void goToLineStart(boolean start) {
         final int[] lineCursor = TextViewUtils.getLineSelection(_hlEditor);
         if (lineCursor[0] > -1) {
             int cursor = start ? lineCursor[0] : lineCursor[1];
+            // It's bad to use TextViewUtils#setSelectionAndShow, which will trigger large scrolling
             _hlEditor.setSelection(cursor);
+            // setSelection works well, it triggers moderate scrolling for a wrap line
         }
     }
 
@@ -1150,9 +1152,9 @@ public abstract class ActionButtonBase {
             } else if (callbackPayload.equals(getResString(R.string.key_page_up))) {
                 _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_PAGE_UP);
             } else if (callbackPayload.equals(getResString(R.string.key_pos_1))) {
-                goToLine(true);
+                goToLineStart(true);
             } else if (callbackPayload.equals(getResString(R.string.key_pos_end))) {
-                goToLine(false);
+                goToLineStart(false);
             } else if (callbackPayload.equals(getResString(R.string.key_pos_1_document))) {
                 _hlEditor.setSelection(0);
             } else if (callbackPayload.equals(getResString(R.string.key_pos_end_document))) {
@@ -1279,10 +1281,10 @@ public abstract class ActionButtonBase {
                         fragment.redo();
                         return true;
                     } else if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
-                        goToLine(true);
+                        goToLineStart(true);
                         return true;
                     } else if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
-                        goToLine(false);
+                        goToLineStart(false);
                         return true;
                     }
                 } else if (keyCode == KeyEvent.KEYCODE_D) { // Ctrl + ordinary key
