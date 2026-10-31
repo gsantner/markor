@@ -1,6 +1,6 @@
 # Keyboard shortcuts for Markor
 
-> Last modified: 2026.02.21
+> Last modified: 2026.10.27
 
 ## Common
 
@@ -19,6 +19,7 @@
 | Ctrl + Shift + U | Change case                             |
 | Ctrl + D         | Duplicate current line or selected text |
 | Ctrl + G         | Go to a specific line                   |
+| Ctrl + H         | Go to the position of current cursor    |
 | Ctrl + K         | Delete from cursor to the end of line   |
 | Ctrl + Alt + K   | Delete current line                     |
 | Ctrl + W         | Select word                             |
@@ -29,19 +30,24 @@
 | Ctrl + Alt + ↓   | Duplicate line down                     |
 | Ctrl + ↑         | Move line up                            |
 | Ctrl + ↓         | Move line down                          |
-| Ctrl + ←         | Move to word start                      |
-| Ctrl + →         | Move to word end                        |
-| Alt + ←          | Move to line start                      |
-| Alt + →          | Move to line end                        |
-| Alt + ↑          | Move to document start                  |
-| Alt + ↓          | Move to document end                    |
-| Home             | Move to line start                      |
-| End              | Move to line end                        |
+| Ctrl + ←         | Go to word start                        |
+| Ctrl + →         | Go to word end                          |
+| Alt + ↑          | Go to document start                    |
+| Alt + ↓          | Go to document end                      |
+| Ctrl + Shift + ← | Go to line start                        |
+| Ctrl + Shift + → | Go to line end                          |
 | Page Up          | Page up                                 |
 | Page Down        | Page down                               |
 | Shift + Enter    | Insert new line below                   |
 | Ctrl + .         | Let the editor get focus                |
 | Ctrl + ,         | Show special key dialog                 |
+
+### View
+
+| Shortcut Keys | Action                 |
+| ------------- | ---------------------- |
+| Home          | Move to document start |
+| End           | Move to document end   |
 
 ### Edit & View
 
@@ -57,7 +63,7 @@
 
 | Shortcut Keys    | Action            |
 | ---------------- | ----------------- |
-| Ctrl + 1 ~ 3     | Heading 1 ~ 3     |
+| Ctrl + 1 ~ 6     | Heading 1 ~ 6     |
 | Ctrl + B         | Bold              |
 | Ctrl + I         | Italic            |
 | Ctrl + M         | Mark text         |
@@ -73,16 +79,19 @@
 
 | Shortcut Keys | Action |
 | ------------- | ------ |
+| Ctrl + B      | Bold   |
 | Ctrl + I      | Italic |
 
 ## Org Mode
 
 | Shortcut Keys | Action |
 | ------------- | ------ |
+| Ctrl + B      | Bold   |
 | Ctrl + I      | Italic |
 
 ## Zim Wiki
 
 | Shortcut Keys | Action |
 | ------------- | ------ |
+| Ctrl + B      | Bold   |
 | Ctrl + I      | Italic |

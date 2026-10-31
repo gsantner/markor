@@ -335,7 +335,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_link">링크 열기</string>
     <string name="common_color_picker">색상 선택기</string>
     <string name="date_and_time">날짜와 시간</string>
-    <string name="jump_to_bottom">맨 하단으로 이동</string>
+    <string name="jump">맨 하단으로 이동</string>
     <string name="quote">인용</string>
     <string name="heading">제목(머리말)</string>
     <string name="heading_1">제목(머리말) 1단계</string>

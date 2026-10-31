@@ -333,7 +333,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_link">Open link</string>
     <string name="common_color_picker">Kleurkiezer</string>
     <string name="date_and_time">Datum en tijd</string>
-    <string name="jump_to_bottom">Ga naar onder</string>
+    <string name="jump">Ga naar onder</string>
     <string name="quote">Offerte</string>
     <string name="heading">Richting</string>
     <string name="heading_1">Kop 1</string>

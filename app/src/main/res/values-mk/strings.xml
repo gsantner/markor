@@ -211,7 +211,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_link">Отвори линк</string>
     <string name="common_color_picker">Бирач на боја</string>
     <string name="date_and_time">Датум и време</string>
-    <string name="jump_to_bottom">Оди на дното</string>
+    <string name="jump">Оди на дното</string>
     <string name="quote">Цитат</string>
     <string name="heading">Заглавје</string>
     <string name="heading_1">Заглавје 1</string>

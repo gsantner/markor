@@ -192,7 +192,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_pos_end">Final de línia (Final)</string>
     <string name="key_pos_1_document">Inici del document (Alt + ↑)</string>
     <string name="key_pos_end_document">Final del document (Alt + ↓)</string>
-    <string name="jump_to_cursor">Salta al cursor</string>
+    <string name="go_to_cursor_hotkey">Salta al cursor</string>
     <string name="duplicate_hotkey">Duplica (Ctrl + D)</string>
     <string name="move_text_one_line_up">Mou la línia cap amunt (Ctrl + ↑)</string>
     <string name="move_text_one_line_down">Moure la línia cap avall (Ctrl + ↓)</string>
@@ -372,7 +372,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_link">Obre l\'enllaç</string>
     <string name="common_color_picker">Selector de colors</string>
     <string name="date_and_time">Data i hora</string>
-    <string name="jump_to_bottom">Vés al final</string>
+    <string name="jump">Vés al final</string>
     <string name="quote">Cita</string>
     <string name="heading">Capçalera</string>
     <string name="heading_1">Títol 1</string>
@@ -412,7 +412,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="line_based_search">Cerca basada en línies</string>
     <string name="no_results">Sense resultats</string>
     <string name="bad_pattern">Patró no vàlid</string>
-    <string name="toggle_find_replace">Commuta cerca/substitueix</string>
+    <string name="toggle_replace">Commuta cerca/substitueix</string>
     <string name="new_line">Nova línia</string>
     <string name="match_case">Coincidència de majúscules</string>
     <string name="match_whole_word">Coincideix amb la paraula sencera</string>

@@ -306,7 +306,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_link">இணைப்பைத் திற</string>
     <string name="common_color_picker">வண்ண தேர்வு</string>
     <string name="date_and_time">தேதி மற்றும் நேரம்</string>
-    <string name="jump_to_bottom">கீழ் பகுதிக்கு செல்லவும்</string>
+    <string name="jump">கீழ் பகுதிக்கு செல்லவும்</string>
     <string name="quote">மேற்கோளிடு</string>
     <string name="heading">தலைப்பு</string>
     <string name="heading_1">தலைப்பு 1</string>
