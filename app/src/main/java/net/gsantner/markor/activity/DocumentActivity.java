@@ -187,15 +187,21 @@ public class DocumentActivity extends MarkorBaseActivity {
         }
 
         final GsFragmentBase<?, ?> frag = getCurrentVisibleFragment();
-
-        // Decide what to do with the file
-        // -----------------------------------------------------------------------
-        if (file != null && intent.getBooleanExtra(Document.EXTRA_SHOW_IN_FILEBROWSER, false)) {
-            launch(this, file, null, null, false, true);
+        final Runnable finishIfNull = () -> {
             if (frag == null) {
                 finish();
             }
-        } else if (file == null || !_cu.canWriteFile(this, file, false, true)) {
+        };
+
+        // Decide what to do with the file
+        // -----------------------------------------------------------------------
+        if (file == null) {
+            launch(this, AppSettings.get(this).getNotebookDirectory(), false, -1);
+            finishIfNull.run();
+        } else if (intent.getBooleanExtra(Document.EXTRA_SHOW_IN_FILEBROWSER, false)) {
+            launch(this, file, null, null, false, true);
+            finishIfNull.run();
+        } else if (!_cu.canWriteFile(this, file, false, true)) {
             showNotSupportedMessage();
         } else {
             // Open in editor/viewer
