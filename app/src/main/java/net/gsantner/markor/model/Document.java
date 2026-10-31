@@ -52,6 +52,8 @@ public class Document implements Serializable {
     public static final String EXTRA_FILE = "EXTRA_FILE"; // java.io.File
     public static final String EXTRA_FILE_LINE_NUMBER = "EXTRA_FILE_LINE_NUMBER"; // int
     public static final String EXTRA_DO_PREVIEW = "EXTRA_DO_PREVIEW";
+    public static final String EXTRA_SHOW_IN_FILEBROWSER = "EXTRA_SHOW_IN_FILEBROWSER";
+
 
     // Exposed properties
     public final File file;
