@@ -254,9 +254,11 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         final int targetSelection;
         if (hasLineNumber) {
             final int lineNumber = args.getInt(Document.EXTRA_FILE_LINE_NUMBER);
-            targetSelection = lineNumber >= 0
-                    ? TextViewUtils.getIndexFromLineOffset(_hlEditor.getText(), lineNumber, 0)
-                    : _hlEditor.length();
+            if (lineNumber > -1) {
+                targetSelection = TextViewUtils.getIndexFromLineOffset(_hlEditor.getText(), lineNumber, 0);
+            } else {
+                targetSelection = _hlEditor.length();
+            }
         } else {
             targetSelection = _appSettings.getLastEditPosition(_document.path, _hlEditor.length());
         }
@@ -265,23 +267,24 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             final int lastViewHeight = _appSettings.getLastViewHeight(_document.path, 0);
             final int lastViewScrollY = _appSettings.getLastViewScrollY(_document.path, 0);
             if (lastViewScrollY > 0 && lastViewHeight == _webView.getHeight()) {
-                _verticalScrollView.post(() -> _webView.scrollTo(0, lastViewScrollY));
+                _verticalScrollView.postDelayed(() -> _webView.scrollTo(0, lastViewScrollY), 500);
             }
         }
 
         _hlEditor.recomputeHighlighting();
-        // Defer initial placement until after the highlight-triggered reflow work has run.
+        // Defer initial placement until after the highlight-triggered reflow work has run
         _hlEditor.post(() -> {
             if (!hasLineNumber) {
                 final int lastEditHeight = _appSettings.getLastEditHeight(_document.path, 0);
                 if (lastEditHeight > 0 && lastEditHeight == _verticalScrollView.getHeight()) {
                     final int lastEditScrollY = _appSettings.getLastEditScrollY(_document.path, 0);
-                    _hlEditor.setSelection(targetSelection);
                     _verticalScrollView.scrollTo(0, lastEditScrollY);
-                    return;
+                    _hlEditor.setSelection(targetSelection);
+                    _hlEditor.requestFocus();
                 }
+            } else {
+                _hlEditor.post(() -> TextViewUtils.setSelectionAndShow(_hlEditor, targetSelection));
             }
-            _hlEditor.post(() -> TextViewUtils.setSelectionAndShow(_hlEditor, targetSelection));
         });
 
         // Fade in to hide initial jank
@@ -787,19 +790,32 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     private void setActionBarVisibility() {
         final View view = getView();
-        if (view == null) {
-            return;
+        if (view == null) return;
+
+        final View actionsBarScrollView = view.findViewById(R.id.document__fragment__edit__text_actions_bar__scrolling_parent);
+        if (actionsBarScrollView == null) return;
+
+        final boolean visible = _format.getActions().isActionBarVisible() && _textActionsBar.getChildCount() > 0;
+        if (visible && actionsBarScrollView.getVisibility() == View.VISIBLE) return;
+
+        final ViewGroup contentLayout = view.findViewById(R.id.content_layout);
+        if (contentLayout == null) return;
+
+        actionsBarScrollView.setVisibility(visible ? View.VISIBLE : View.GONE);
+        final int marginBottom = visible ? (int) getResources().getDimension(R.dimen.text_actions_bar_height) : 0;
+        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) contentLayout.getLayoutParams();
+        if (params != null) {
+            params.setMargins(params.leftMargin, params.topMargin, params.rightMargin, marginBottom);
+            contentLayout.setLayoutParams(params);
         }
 
-        final View parent = view.findViewById(R.id.document__fragment__edit__text_actions_bar__scrolling_parent);
-        if (parent == null) {
-            return;
-        }
-
-        final View bar = view.findViewById(R.id.document__fragment__edit__text_actions_bar);
-        if (bar != null && _verticalScrollView != null) {
-            final boolean visible = _format.getActions().loadActionBarVisible() && _textActionsBar.getChildCount() > 0;
-            parent.setVisibility(visible ? View.VISIBLE : View.GONE);
+        final View webView = view.findViewById(R.id.document__fragment_view_webview);
+        if (webView != null) {
+            params = (ViewGroup.MarginLayoutParams) webView.getLayoutParams();
+            if (params != null) {
+                params.setMargins(params.leftMargin, params.topMargin, params.rightMargin, marginBottom);
+                webView.setLayoutParams(params);
+            }
         }
     }
 

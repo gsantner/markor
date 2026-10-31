@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:ellipsize="middle"
-            android:lines="1"
+            android:singleLine="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             tools:text="cool document.md" />
 
@@ -85,7 +85,7 @@
                 android:lines="1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 android:textStyle="bold"
-                tools:text="@string/last_modified_witharg" />
+                tools:text="@string/last_modified_with_arg" />
 
             <TextView
                 android:id="@+id/ui__fileinfodialog__last_modified"
@@ -191,28 +191,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/settings"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
             <CheckBox
-                android:id="@+id/ui__fileinfodialog__recents"
+                android:id="@+id/ui__file_info_dialog__recents"
                 android:layout_width="wrap_content"
-                android:layout_height="48dp"
+                android:layout_height="32dp"
                 android:layout_gravity="center_vertical"
                 android:text="@string/list_in_recent_files" />
 
             <CheckBox
-                android:id="@+id/ui__fileinfodialog__favorite"
+                android:id="@+id/ui__file_info_dialog__favorite"
                 android:layout_width="wrap_content"
-                android:layout_height="48dp"
+                android:layout_height="32dp"
                 android:text="@string/favourite" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/tagging"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 android:visibility="gone" />
