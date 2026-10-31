@@ -1128,7 +1128,8 @@ public class MarkorDialogFactory {
             final Activity activity,
             final GsFileUtils.SortOrder currentOrder,
             final GsFileUtils.SortOrder globalOrder,
-            final GsCallback.a1<GsFileUtils.SortOrder> callback) {
+            final GsCallback.a1<GsFileUtils.SortOrder> callback
+    ) {
         final DialogOptions dopt = new DialogOptions();
         baseConf(activity, dopt);
 

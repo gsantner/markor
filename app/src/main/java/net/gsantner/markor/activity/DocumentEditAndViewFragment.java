@@ -273,7 +273,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
         _hlEditor.recomputeHighlighting();
         // Defer initial placement until after the highlight-triggered reflow work has run
-        _hlEditor.postDelayed(() -> {
+        _hlEditor.post(() -> {
             if (!hasLineNumber) {
                 final int lastEditHeight = _appSettings.getLastEditHeight(_document.path, 0);
                 if (lastEditHeight > 0 && lastEditHeight == _verticalScrollView.getHeight()) {
@@ -285,7 +285,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             } else {
                 _hlEditor.post(() -> TextViewUtils.setSelectionAndShow(_hlEditor, targetSelection));
             }
-        }, 200);
+        });
 
         // Fade in to hide initial jank
         _hlEditor.post(() -> _hlEditor.animate().alpha(1).setDuration(250).start());
@@ -790,28 +790,31 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     private void setActionBarVisibility() {
         final View view = getView();
-        if (view == null) {
-            return;
-        }
+        if (view == null) return;
 
         final View actionsBarScrollView = view.findViewById(R.id.document__fragment__edit__text_actions_bar__scrolling_parent);
-        if (actionsBarScrollView == null) {
-            return;
-        }
+        if (actionsBarScrollView == null) return;
 
         final boolean visible = _format.getActions().isActionBarVisible() && _textActionsBar.getChildCount() > 0;
-        if (visible && actionsBarScrollView.getVisibility() == View.VISIBLE) {
-            return;
-        }
+        if (visible && actionsBarScrollView.getVisibility() == View.VISIBLE) return;
 
         final ViewGroup contentLayout = view.findViewById(R.id.content_layout);
-        if (contentLayout != null) {
-            actionsBarScrollView.setVisibility(visible ? View.VISIBLE : View.GONE);
-            final int marginBottom = visible ? (int) getResources().getDimension(R.dimen.text_actions_bar_height) : 0;
-            setMarginBottom(contentLayout, marginBottom);
-            final View webView = view.findViewById(R.id.document__fragment_view_webview);
-            if (webView != null) {
-                setMarginBottom(webView, marginBottom);
+        if (contentLayout == null) return;
+
+        actionsBarScrollView.setVisibility(visible ? View.VISIBLE : View.GONE);
+        final int marginBottom = visible ? (int) getResources().getDimension(R.dimen.text_actions_bar_height) : 0;
+        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) contentLayout.getLayoutParams();
+        if (params != null) {
+            params.setMargins(params.leftMargin, params.topMargin, params.rightMargin, marginBottom);
+            contentLayout.setLayoutParams(params);
+        }
+
+        final View webView = view.findViewById(R.id.document__fragment_view_webview);
+        if (webView != null) {
+            params = (ViewGroup.MarginLayoutParams) webView.getLayoutParams();
+            if (params != null) {
+                params.setMargins(params.leftMargin, params.topMargin, params.rightMargin, marginBottom);
+                webView.setLayoutParams(params);
             }
         }
     }
@@ -1004,14 +1007,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             return true;
         } else {
             return searchView.isIconified();
-        }
-    }
-
-    private void setMarginBottom(final View view, final int marginBottom) {
-        final ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
-        if (params != null) {
-            params.setMargins(params.leftMargin, params.topMargin, params.rightMargin, marginBottom);
-            view.setLayoutParams(params);
         }
     }
 

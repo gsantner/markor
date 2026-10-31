@@ -80,20 +80,20 @@ public class FileInfoDialog extends DialogFragment {
 
         dialogBuilder.setView(root);
 
-        tv(root, R.id.ui__file_info_dialog__name).setText(file.getName());
-        tv(root, R.id.ui__file_info_dialog__location).setText(file.getParentFile().getAbsolutePath());
-        tv(root, R.id.ui__file_info_dialog__last_modified).setText(DateUtils.formatDateTime(root.getContext(), file.lastModified(), (DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_NUMERIC_DATE)));
-        tv(root, R.id.ui__file_info_dialog__last_modified_caption).setText(getString(R.string.last_modified_with_arg, "").replace(":", "").trim());
-        tv(root, R.id.ui__file_info_dialog__size_description).setText(GsFileUtils.getReadableFileSize(file.length(), false));
-        tv(root, R.id.ui__file_info_dialog__mimetype_description).setText(GsFileUtils.getMimeType(file));
-        tv(root, R.id.ui__file_info_dialog__sha_256).setText(GsFileUtils.sha256(file));
-        tv(root, R.id.ui__file_info_dialog__location).setOnLongClickListener(v -> {
+        tv(root, R.id.ui__fileinfodialog__name).setText(file.getName());
+        tv(root, R.id.ui__fileinfodialog__location).setText(file.getParentFile().getAbsolutePath());
+        tv(root, R.id.ui__fileinfodialog__last_modified).setText(DateUtils.formatDateTime(root.getContext(), file.lastModified(), (DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_NUMERIC_DATE)));
+        tv(root, R.id.ui__fileinfodialog__last_modified_caption).setText(getString(R.string.last_modified_with_arg, "").replace(":", "").trim());
+        tv(root, R.id.ui__fileinfodialog__size_description).setText(GsFileUtils.getReadableFileSize(file.length(), false));
+        tv(root, R.id.ui__fileinfodialog__mimetype_description).setText(GsFileUtils.getMimeType(file));
+        tv(root, R.id.ui__fileinfodialog__sha_256).setText(GsFileUtils.sha256(file));
+        tv(root, R.id.ui__fileinfodialog__location).setOnLongClickListener(v -> {
                     GsContextUtils.instance.setClipboard(v.getContext(), file.getAbsolutePath());
                     Toast.makeText(v.getContext(), R.string.copied, Toast.LENGTH_SHORT).show();
                     return true;
                 }
         );
-        tv(root, R.id.ui__file_info_dialog__sha_256).setOnLongClickListener(v -> {
+        tv(root, R.id.ui__fileinfodialog__sha_256).setOnLongClickListener(v -> {
                     GsContextUtils.instance.setClipboard(v.getContext(), GsFileUtils.sha256(file));
                     Toast.makeText(v.getContext(), R.string.copied, Toast.LENGTH_SHORT).show();
                     return true;
