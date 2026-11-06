@@ -38,6 +38,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">مشاركة مع…</string>
     <string name="share">مشاركة</string>
     <string name="search">بحث</string>
+    <string name="previous_match">المطابقة السابقة</string>
+    <string name="next_match">المطابقة التالية</string>
     <string name="display_converted_markup">عرض النصوص المنسقة</string>
     <string name="editor">المحرر</string>
     <string name="folders">مجلدات</string>
@@ -115,6 +117,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_task">إضافة مهمة</string>
     <string name="add_x_witharg">إضافة %s</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">تحميل وحفظ المستند كـ \"%s\"</string>
+    <string name="save_or_not">هل تريد حفظ التغييرات التي أجريتها؟</string>
+    <string name="reload_or_not">هل تريد تجاهل التغييرات وإعادة التحميل؟</string>
     <string name="refresh">تحديث</string>
     <string name="create_shortcut">إنشاء اختصار</string>
     <string name="tried_to_create_shortcut_for_this_notice">محاولة إنشاء رابط مختصر في الشاشة الرئيسية. تذكر أنها قد تكون غير مدعومة في نظامك.</string>
@@ -122,6 +126,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_current_folder_do_copy__appspecific">الملف غير موجود في المجلد الحالي. هل تريد نسخه إلى المجلد الحالي؟ سيؤدي هذا إلى استبدال أي ملف موجود بنفس الاسم.</string>
     <string name="files_and_folders">الملفات والمجلدات</string>
     <string name="document_browser">متصفح المستندات</string>
+    <string name="file_browser">متصفح الملفات</string>
     <string name="set_due_date">تعيين تاريخ الاستحقاق</string>
     <string name="insert_replace_date">Insert date</string>
     <string name="create_note" needed="false">إنشاء ملاحظة</string>
@@ -136,7 +141,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_wide">إعدادات عامة</string>
     <string name="main_view">العرض العام</string>
     <string name="overall_theme_used_in_app">الشكل العام للتطبيق</string>
+    <string name="flat_top_bottom_bars">شريطان علوي وسفلي مسطحان</string>
+    <string name="flat_top_bottom_bars_description">استخدام لون خلفية التطبيق للشريطين العلوي والسفلي</string>
+    <string name="show_tab_titles">إظهار عناوين علامات التبويب</string>
+    <string name="show_tab_titles_description">إظهار التسميات النصية في الشريط السفلي الرئيسي</string>
+    <string name="file_browser_divider_lines">خطوط فاصلة في متصفح الملفات</string>
+    <string name="file_browser_divider_lines_description">إظهار خطوط فاصلة بين عناصر متصفح الملفات</string>
     <string name="remember_last_directory">تذكر آخر مجلد</string>
+    <string name="syntax_highlighting">تظليل بناء الجملة</string>
     <string name="highlighting_delay">تأخر التظليل</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">تأخر التظليل بالمللي ثانية. القيمة الأقل ستفعل التظليل أسرع، ولكن قد تستهلك البطارية أكثر أو تبطئ التطبيق في الهواتف القديمة.</string>
     <string name="highlighting_enabled_or_not__appspecific">اختيار تظليل النص من عدمه</string>
@@ -174,7 +186,23 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="sort_tasks_by_selected_order">فرز المهام حسب نظام معين</string>
     <string name="special_key">مفتاح خاص</string>
     <string name="asciidoc_special_key">محتوى AsciiDoc المميز</string>
+    <string name="key_page_up">صفحة لأعلى (PgUp)</string>
+    <string name="key_page_down">صفحة لأسفل (PgDn)</string>
+    <string name="key_pos_1">بداية السطر (Home)</string>
+    <string name="key_pos_end">نهاية السطر (End)</string>
+    <string name="key_pos_1_document">بداية المستند (Alt + ↑)</string>
+    <string name="key_pos_end_document">نهاية المستند (Alt + ↓)</string>
+    <string name="jump_to_cursor">الانتقال إلى مؤشر الكتابة</string>
+    <string name="duplicate_hotkey">تكرار (Ctrl + D)</string>
+    <string name="move_text_one_line_up">نقل السطر لأعلى (Ctrl + ↑)</string>
+    <string name="move_text_one_line_down">نقل السطر لأسفل (Ctrl + ↓)</string>
+    <string name="go_to_line_hotkey">الذهاب إلى سطر (Ctrl + G)</string>
+    <string name="start_new_line_below">بدء سطر جديد (Shift + Enter)</string>
+    <string name="select_current_line">تحديد السطر الحالي (Ctrl + L)</string>
+    <string name="select_lines_hotkey">تحديد الأسطر (Ctrl + Alt + L)</string>
     <string name="key_ctrl_a">اختيار الكل (Ctrl + A)</string>
+    <string name="key_tab">مفتاح الجدولة (Tab)</string>
+    <string name="zero_width_space">مسافة بعرض صفر (&amp;#8203;)</string>
     <string name="em_space">مساحة Em (&amp;emsp;)</string>
     <string name="start_on_bottom">البدء في نهاية الوثيقة</string>
     <string name="start_on_bottom_when_loading_document">عند فتح وثيقة، يتم توجيه مؤشر الكتابة عند نهاية النص</string>
@@ -184,6 +212,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_asterisk">النجمة (*)</string>
     <string name="unordered_list_char_plus">زائد (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">يمكن للعلامة فقط تعديل المستندات المحلية المتاحة دون اتصال ولا تدعم مديري الملفات الذين لا يوفرون مسار الملف الكامل.</string>
+    <string name="file_does_not_exist_and_cant_be_created">الملف أو المجلد غير موجود ولا يمكن إنشاؤه</string>
     <string name="permissions">الأذونات</string>
     <string name="permission_paths_revert">العودة إلى المسارات الافتراضية؟</string>
     <string name="permission_not_granted">لم يمنح الإذن</string>
@@ -201,6 +230,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="center_text">توسيط النص</string>
     <string name="edit_text_in_center_of_screen">تحرير النص في منتصف الشاشة</string>
     <string name="clipboard">الحافظة</string>
+    <string name="link_copied">تم نسخ الرابط!</string>
     <string name="select_existing_document">اختيار مستند موجود</string>
     <string name="select_create_document">تحديد مستند أو إنشاؤه</string>
     <string name="select_create_folder">تحديد مجلد أو إنشاؤه</string>
@@ -277,6 +307,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="swipe_to_change_to_edit_or_view_mode">اسحب للتغيير إلى وضع التحرير أو العرض (عكس الوضع الحالي)</string>
     <string name="folder_first">المجلدات أوّلا</string>
     <string name="go_to">ذهاب إلى</string>
+    <string name="go_to_line">الذهاب إلى سطر محدد</string>
+    <string name="select_lines">تحديد الأسطر</string>
+    <string name="current_line">السطر الحالي</string>
+    <string name="select_lines_sample">مثال: 1:2, 1:, :2, :, 1</string>
+    <string name="line_number">رقم السطر</string>
     <string name="appdata_public">AppData (public)</string>
     <string name="appdata_private">بيانات التطبيقات (خاصة)</string>
     <string name="appdata_sdcard">بيانات التطبيقات (بطاقة SD)</string>
@@ -288,18 +323,23 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">أسود</string>
     <string name="white">أبيض</string>
     <string name="view">عرض</string>
+    <string name="view_mode">وضع العرض</string>
+    <string name="edit_mode">وضع التحرير</string>
     <string name="mount_storage">تحميل التخزين</string>
     <string name="application_needs_access_to_storage_mount_it">مطلوب إذن للوصول إلى هذه التخزين. قم بتحميل وحدة التخزين لمنح حق الوصول. تأكيد مربع الحوار هذا للحصول على منبثق. حدد وحدة التخزين هناك واضغط على التحديد.</string>
     <string name="share_into">شارك في</string>
     <string name="favourite">المفضلة</string>
     <string name="favourites">المفضلة</string>
     <string name="please_wait">يُرجى الانتظار</string>
+    <string name="loading_large_file_may_take_a_moment_witharg">جارٍ فتح ملف كبير (%s)، قد يستغرق هذا بعض الوقت.</string>
     <string name="app_start_folder">مجلد بدء التطبيق</string>
     <string name="tab_width">عرض اللسان</string>
     <string name="amount_of_space_for_tab">كمية الحروف الفضائية لعرض الجدول</string>
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">قد يكون الملف المحدد ملفا ملصقا. هل تريد فتحه في المحرر أو في تطبيق آخر؟\n\nلا تحاول فتح ملفات ثنائية. إذا كنت غير متأكد، قم بفتح التطبيق الآخر.</string>
     <string name="list_in_recent_files">ادرجه في الملفات الحديثة</string>
     <string name="reload">إنعاش</string>
+    <string name="wrap_words">التفاف الكلمات</string>
+    <string name="line_numbers">أرقام الأسطر</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">استراحة ناعمة إذا كان النص غير مناسب لعرض الشاشة. وإلا تمكين التمرير الأفقي.</string>
     <string name="recursive_search_in_location">البحث المتكرر في%s</string>
     <string name="always_open_with_this_app">افتحه دائما بهذا التطبيق</string>
@@ -352,6 +392,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">إضافة سياق</string>
     <string name="add_project">إضافة مشروع</string>
     <string name="archive_completed_tasks">أرشيف المهام المكتملة</string>
+    <string name="overline">خط فوق النص</string>
+    <string name="superscript">نص مرتفع</string>
+    <string name="subscript">نص منخفض</string>
     <string name="create_new_file_or_folder">إنشاء ملف أو مجلد جديد</string>
     <string name="choose_format">اختيار التنسيق</string>
     <string name="clear_selection">إزالة التحديد</string>
@@ -361,10 +404,21 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="essential">جوهري</string>
     <string name="append_human_readable_uuid_to_new_tasks">إلحاق UUID مقروء بشر إلى مهام جديدة</string>
     <string name="action_order">أمر العمل</string>
+    <string name="show_bottom_action_bar">إظهار شريط الإجراءات السفلي</string>
     <string name="toggle_action_visibility">تبديل رؤية الإجراء</string>
     <string name="load_default_settings">تحميل الإعدادات الافتراضية</string>
     <string name="drag">اسحب</string>
     <string name="created">أنشئ</string>
+    <string name="line_based_search">البحث حسب الأسطر</string>
+    <string name="no_results">لا توجد نتائج</string>
+    <string name="bad_pattern">نمط غير صالح</string>
+    <string name="toggle_find_replace">إظهار/إخفاء البحث والاستبدال</string>
+    <string name="new_line">سطر جديد</string>
+    <string name="match_case">مطابقة حالة الأحرف</string>
+    <string name="match_whole_word">مطابقة الكلمة كاملة</string>
+    <string name="use_regular_expression">استخدام تعبير نمطي</string>
+    <string name="find_in_selection">البحث في التحديد</string>
+    <string name="preserve_case">الحفاظ على حالة الأحرف</string>
     <string name="file_encryption_password">كلمة مرور تشفير الملف</string>
     <string name="no_password_set_cannot_encrypt_decrypt">لا توجد مجموعة كلمة مرور، لا يمكن تشفير أو فك تشفير.\nانتقل إلى الإعدادات -&gt; عام -&gt; كلمة مرور لتعيين كلمة مرور.</string>
     <string name="encrypt_file_content">تشفير محتوى الملف</string>
@@ -378,7 +432,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">تنسيق وصف الملف</string>
     <string name="file_description_format_dialog">تنسيق الوصف تحت كل ملف في متصفح الملفات. يتبع قواعد SimpleDateFormat الخاصة بالأندرويد، مع إضافة FS لعرض حجم الملف. اتركه فارغاً لاستخدام التنسيق الافتراضي للغة الخاصة بك.\n\nمثال المدخلات:\nFS yyyy MMM dd hh:mm:ss aa\nتنسيق المخرج:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">تحميل القيمة الافتراضية</string>
+    <string name="file_settings">إعدادات الملف</string>
     <string name="search_and_replace">البحث / استبدال</string>
+    <string name="replace">استبدال</string>
     <string name="search_for">البحث عن</string>
     <string name="replace_with">استبدل بـ</string>
     <string name="replace_once">استبدال (1)</string>
@@ -438,6 +494,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wont_save_min_length">الملفات التي تحتوي على أقل من %d من الأحرف لا يتم حفظها تلقائياً لمنع فقدان البيانات.</string>
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">بنية التصفية المتقدمة</a></small>]]></string>
     <string name="filter">تصفية</string>
+    <string name="text_case">حالة الأحرف</string>
+    <string name="toggle_case">تبديل حالة الأحرف (Case→CASE→case)</string>
+    <string name="switch_case">عكس حالة الأحرف (CaSe→cAsE)</string>
+    <string name="capitalize_words">تكبير أول حرف من كل كلمة (a note→A Note)</string>
+    <string name="capitalize_sentences">تكبير أول حرف من كل جملة (a note→A note)</string>
     <string name="use_tab_to_indent">وضع مسافة بادئة بين الأسطر باستخدام مفتاح TAB</string>
+    <string name="static_cursor">مؤشر ثابت</string>
+    <string name="disable_cursor_blinking">تعطيل وميض المؤشر</string>
     <string name="folder_local">المجلد المحلي</string>
 </resources>
