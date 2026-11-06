@@ -24,9 +24,9 @@
         android:layout_width="28dp"
         android:layout_height="28dp"
         android:layout_gravity="center_vertical|start"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"
         android:importantForAccessibility="no"
-        tools:ignore="ContentDescription,RtlHardcoded"
+        tools:ignore="ContentDescription"
         tools:src="@android:drawable/btn_radio" />
 
     <LinearLayout
@@ -38,7 +38,7 @@
             android:id="@+id/opoc_filesystem_item__title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_gravity="center_vertical|start"
             android:ellipsize="end"
             android:importantForAccessibility="no"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
@@ -49,7 +49,7 @@
             android:id="@+id/opoc_filesystem_item__description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_gravity="center_vertical|start"
             android:ellipsize="start"
             android:importantForAccessibility="no"
             android:singleLine="true"
