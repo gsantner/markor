@@ -38,6 +38,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Cumpartzi cun…</string>
     <string name="share">Cumpartzi</string>
     <string name="search">Chirca</string>
+    <string name="previous_match">Currispondèntzia anteposta</string>
     <string name="display_converted_markup">Ammustra su markup cunvertidu</string>
     <string name="editor">Editore</string>
     <string name="folders">Cartellas</string>
