@@ -141,6 +141,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_wide">全局</string>
     <string name="main_view">主界面</string>
     <string name="overall_theme_used_in_app">作用于整个应用的主题</string>
+    <string name="flat_top_bottom_bars">扁平化顶部和底部栏</string>
+    <string name="flat_top_bottom_bars_description">顶部和底部栏使用应用背景色</string>
+    <string name="show_tab_titles">显示选项卡标题</string>
+    <string name="show_tab_titles_description">在主底部栏中显示文本标签</string>
+    <string name="file_browser_divider_lines">文件浏览器分隔线</string>
+    <string name="file_browser_divider_lines_description">在文件浏览器条目之间显示分隔线</string>
     <string name="remember_last_directory">记住上次使用的目录</string>
     <string name="syntax_highlighting">语法高亮</string>
     <string name="highlighting_delay">语法高亮延时</string>
@@ -494,5 +500,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="capitalize_words">大写词首字母 (a note→A Note)</string>
     <string name="capitalize_sentences">大写句首字母 (a note→A note)</string>
     <string name="use_tab_to_indent">使用 Tab 键缩进行</string>
+    <string name="static_cursor">静态光标</string>
+    <string name="disable_cursor_blinking">禁用光标闪烁</string>
     <string name="folder_local">本地文件夹</string>
 </resources>
