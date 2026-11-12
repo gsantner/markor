@@ -165,7 +165,7 @@ public class MarkdownTextConverter extends TextConverterBase {
     public String convertMarkup(String markup, Context context, boolean lightMode, boolean enableLineNumbers, File file) {
         final AppSettings as = AppSettings.get(context);
         String converted, onLoadJs = "";
-        final StringBuilder head = new StringBuilder();
+        final StringBuilder head = new StringBuilder(1450);
         final MutableDataSet options = new MutableDataSet();
 
         options.set(Parser.EXTENSIONS, flexmarkExtensions);
