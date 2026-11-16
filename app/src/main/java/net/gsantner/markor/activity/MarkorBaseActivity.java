@@ -7,7 +7,7 @@ import android.view.KeyEvent;
 import android.view.WindowManager;
 
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
+import androidx.appcompat.widget.Toolbar;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.AppSettings;
@@ -32,21 +32,35 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        applyActivityBarBackgroundColors();
+    }
+
     protected boolean onReceiveKeyPress(GsFragmentBase fragment, int keyCode, KeyEvent event) {
         return fragment.onReceiveKeyPress(keyCode, event);
     }
 
     @Override
     public Integer getNewNavigationBarColor() {
-        if (_appSettings.getAppThemeName().contains("black")) {
-            return Color.BLACK;
-        }
-        return ContextCompat.getColor(this, R.color.background);
+        return Color.BLACK;
     }
 
     @Override
     public Integer getNewActivityBackgroundColor() {
         return _appSettings.getAppThemeName().contains("black") ? Color.BLACK : null;
+    }
+
+    public void applyActivityBarBackgroundColors() {
+        final int backgroundColor = _appSettings.getConfiguredBarBackgroundColor();
+
+        final Toolbar toolbar = findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            toolbar.setBackgroundColor(backgroundColor);
+        }
+
+        _cu.setStatusbarColor(this, backgroundColor);
     }
 
     @Override

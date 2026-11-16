@@ -11,11 +11,13 @@ package net.gsantner.opoc.frontend.base;
 
 import static android.view.WindowManager.LayoutParams.FLAG_SECURE;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.window.OnBackInvokedDispatcher;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
@@ -44,6 +46,13 @@ public abstract class GsActivityBase<AS extends GsSharedPreferencesPropertyBacke
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // With targetSdk 36, Android 16 no longer calls onBackPressed() for Back.
+        // Forward Back from the platform dispatcher, so the onBackPressed() overrides keep working.
+        // (androidx.activity forwards it only to OnBackPressedCallbacks, not to these overrides.)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            getOnBackInvokedDispatcher().registerOnBackInvokedCallback(OnBackInvokedDispatcher.PRIORITY_DEFAULT, this::onBackPressed);
+        }
 
         _savedInstanceState = savedInstanceState;
         _appSettings = createAppSettingsInstance();
