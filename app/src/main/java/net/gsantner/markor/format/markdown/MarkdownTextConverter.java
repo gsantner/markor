@@ -473,9 +473,20 @@ public class MarkdownTextConverter extends TextConverterBase {
     // ---------------------------------------------------------------------------------------------
 
     private static class LineNumberIdProvider implements AttributeProvider {
+        private final Document document;
+
+        LineNumberIdProvider(final Document document) {
+            this.document = document;
+        }
+
         @Override
         public void setAttributes(@NotNull Node node, @NotNull AttributablePart part, @NotNull MutableAttributes attributes) {
-            final Document document = node.getDocument();
+            // Use the document being rendered instead of node.getDocument(): flexmark's
+            // Node.takeChildren() only re-parents the first and last child, so when the
+            // TaskList extension converts a list item with 3+ children into a TaskListItem,
+            // the middle children keep pointing to the detached original item and
+            // node.getDocument() returns null (#2596, #2711, #2718).
+            // Offsets of such nodes still refer to the source text, so the line number is correct.
             final int lineNumber = document.getLineNumber(node.getStartOffset());
             attributes.addValue("line", "" + lineNumber);
         }
@@ -500,7 +511,7 @@ public class MarkdownTextConverter extends TextConverterBase {
 
         @Override
         public @NotNull AttributeProvider apply(@NotNull LinkResolverContext context) {
-            return new LineNumberIdProvider();
+            return new LineNumberIdProvider(context.getDocument());
         }
     }
 
