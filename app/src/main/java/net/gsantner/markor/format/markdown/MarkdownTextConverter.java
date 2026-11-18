@@ -164,7 +164,8 @@ public class MarkdownTextConverter extends TextConverterBase {
     @Override
     public String convertMarkup(String markup, Context context, boolean lightMode, boolean enableLineNumbers, File file) {
         final AppSettings as = AppSettings.get(context);
-        String converted, onLoadJs = "", head = "";
+        String converted, onLoadJs = "";
+        final StringBuilder head = new StringBuilder(1450);
         final MutableDataSet options = new MutableDataSet();
 
         options.set(Parser.EXTENSIONS, flexmarkExtensions);
@@ -209,21 +210,21 @@ public class MarkdownTextConverter extends TextConverterBase {
                 .set(AnchorLinkExtension.ANCHORLINKS_SET_ID, false)
                 .set(AnchorLinkExtension.ANCHORLINKS_ANCHOR_CLASS, "header_no_underline");
 
-        head += CSS_BODY;
+        head.append(CSS_BODY);
         // Prepare head and JavaScript calls
-        head += CSS_HEADER_UNDERLINE
-                + CSS_H1_H2_UNDERLINE
-                + CSS_BLOCKQUOTE_VERTICAL_LINE
-                + CSS_INLINE_CODE
-                + CSS_GITLAB_VIDEO_CAPTION
-                + CSS_LIST_TASK_NO_BULLET
-                + CSS_LINK_SOFT_WRAP
-                + CSS_PARAGRAPH_SOFT_WRAP;
+        head.append(CSS_HEADER_UNDERLINE);
+        head.append(CSS_H1_H2_UNDERLINE);
+        head.append(CSS_BLOCKQUOTE_VERTICAL_LINE);
+        head.append(CSS_INLINE_CODE);
+        head.append(CSS_GITLAB_VIDEO_CAPTION);
+        head.append(CSS_LIST_TASK_NO_BULLET);
+        head.append(CSS_LINK_SOFT_WRAP);
+        head.append(CSS_PARAGRAPH_SOFT_WRAP);
 
         // Presentations
         final boolean enablePresentationBeamer = markup.contains("\nclass:beamer") || markup.contains("\nclass: beamer");
         if (enablePresentationBeamer) {
-            head += CSS_PRESENTATION_BEAMER;
+            head.append(CSS_PRESENTATION_BEAMER);
         }
 
         // Front matter
@@ -248,7 +249,7 @@ public class MarkdownTextConverter extends TextConverterBase {
                     fmaText += HTML_FRONTMATTER_ITEM_CONTAINER_S.replace("{{ attrName }}", attrName) + "{{ post." + attrName + " }}\n" + HTML_FRONTMATTER_ITEM_CONTAINER_E + "\n";
                 }
                 if (!fmaText.isEmpty()) {
-                    head += CSS_FRONTMATTER;
+                    head.append(CSS_FRONTMATTER);
                 }
             }
         }
@@ -271,7 +272,7 @@ public class MarkdownTextConverter extends TextConverterBase {
                 }
             }
 
-            head += CSS_TOC_STYLE;
+            head.append(CSS_TOC_STYLE);
             options.set(TocExtension.LEVELS, TocOptions.getLevels(as.getMarkdownTableOfContentLevels()))
                     .set(TocExtension.TITLE, context.getString(R.string.table_of_contents))
                     .set(TocExtension.DIV_CLASS, "markor-table-of-contents toc")
@@ -280,33 +281,29 @@ public class MarkdownTextConverter extends TextConverterBase {
         }
 
         // Enable Math / KaTex
-        if (markup.contains("$")) {
-            if (as.isMarkdownMathEnabled()) {
-                head += HTML_KATEX_INCLUDE;
-                head += CSS_KATEX;
-            } else {
-                markup = markup.replace("$", "\\$");
-            }
+        if (as.isMarkdownMathEnabled() && markup.contains("$")) {
+            head.append(HTML_KATEX_INCLUDE);
+            head.append(CSS_KATEX);
         }
 
         // Enable code block (view mode) syntax highlighting
         if (markup.contains("```")) {
-            head += getViewHlPrismIncludes(GsContextUtils.instance.isDarkModeEnabled(context) ? "-tomorrow" : "");
+            head.append(getViewHlPrismIncludes(GsContextUtils.instance.isDarkModeEnabled(context) ? "-tomorrow" : ""));
             onLoadJs += "usePrism('" + (file == null ? "false" : as.getDocumentWrapState(file.getAbsolutePath())) + "', '" + enableLineNumbers + "');";
         }
 
         // Enable Mermaid
         if (markup.contains("```mermaid")) {
-            head += HTML_MERMAID_INCLUDE
-                    + "<script>mermaid.initialize({theme:'"
-                    + (GsContextUtils.instance.isDarkModeEnabled(context) ? "dark" : "default")
-                    + "',logLevel:5,securityLevel:'loose'});</script>";
+            head.append(HTML_MERMAID_INCLUDE);
+            head.append("<script>mermaid.initialize({theme:'");
+            head.append((GsContextUtils.instance.isDarkModeEnabled(context) ? "dark" : "default"));
+            head.append("',logLevel:5,securityLevel:'loose'});</script>");
         }
 
         // Enable flexmark Admonition support
         if (markup.contains("!!!") || markup.contains("???")) {
-            head += HTML_ADMONITION_INCLUDE;
-            head += CSS_ADMONITION;
+            head.append(HTML_ADMONITION_INCLUDE);
+            head.append(CSS_ADMONITION);
         }
 
         // Jekyll: Replace {{ site.baseurl }} with ..--> usually used in Jekyll blog _posts folder which is one folder below repository root, for reference to e.g. pictures in assets folder
@@ -356,7 +353,7 @@ public class MarkdownTextConverter extends TextConverterBase {
         }
 
         // Deliver result
-        return putContentIntoTemplate(context, converted, lightMode, file, onLoadJs, head);
+        return putContentIntoTemplate(context, converted, lightMode, file, onLoadJs, head.toString());
     }
 
     private String escapeSpacesInLink(final String markup) {
