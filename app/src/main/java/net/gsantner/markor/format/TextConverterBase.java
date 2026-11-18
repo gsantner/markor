@@ -147,7 +147,8 @@ public abstract class TextConverterBase {
             html = html.replace("html,body{color:#303030;}", "html,body{color: black !important; background-color: white !important;}");
         }
         html += HTML004_HEAD_META_VIEWPORT_MOBILE + CSS_TABLE_STYLE + CSS_CLASS_FLOAT + CSS_BUTTON_STYLE_MATERIAL + CSS_BUTTON_STYLE_EMOJIBTN + CSS_CLASS_STICKY;
-        if (as.isRenderRtl()) {
+        final boolean isRtl = as.getDocumentRtlEnabled(file != null ? GsFileUtils.getPath(file) : null);
+        if (isRtl) {
             html += HTML003_RIGHT_TO_LEFT;
         }
 
@@ -185,7 +186,7 @@ public abstract class TextConverterBase {
                 .replace(TOKEN_COLOR_GREY_OF_THEME, darkTheme ? "#393939" : GsTextUtils.colorToHexString(ContextCompat.getColor(context, R.color.lighter_grey)))
                 .replace(TOKEN_LINK_COLOR, as.getViewModeLinkColor())
                 .replace(TOKEN_ACCENT_COLOR, GsTextUtils.colorToHexString(ContextCompat.getColor(context, R.color.accent)))
-                .replace(TOKEN_TEXT_DIRECTION, as.isRenderRtl() ? "right" : "left")
+                .replace(TOKEN_TEXT_DIRECTION, isRtl ? "right" : "left")
                 .replace(TOKEN_FONT, font)
                 .replace(TOKEN_TEXT_CONVERTER_CSS_CLASS, "format-" + getClass().getSimpleName().toLowerCase().replace("textconverter", "").replace("converter", "") + (file == null ? "" : " fileext-" + GsFileUtils.getFilenameExtension(file).replace(".", "")))
                 .replace(TOKEN_POST_TODAY_DATE, DateFormat.getDateFormat(context).format(new Date()))
