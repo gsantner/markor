@@ -60,6 +60,7 @@ import other.writeily.widget.WrMarkorWidgetProvider;
 
 public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFragment.FilesystemFragmentOptionsListener {
 
+    public static final int REQUEST_CODE_SETTINGS = 124;
     public static boolean IS_DEBUG_ENABLED = false;
 
     private BottomNavigationView _bottomNav;
@@ -270,7 +271,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         super.onOptionsItemSelected(item);
         if (item.getItemId() == R.id.action_settings) {
-            _cu.animateToActivity(this, SettingsActivity.class, false, null);
+            _cu.animateToActivity(this, SettingsActivity.class, false, REQUEST_CODE_SETTINGS);
             return true;
         }
         return false;
@@ -425,6 +426,10 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
     @Override
     public void onBackPressed() {
+        if (getNotebook().clearSelection()) {
+            return;
+        }
+
         // Check if fragment handled back press
         final GsFragmentBase<?, ?> frag = getPosFragment(getCurrentPos());
         if (frag == null || !frag.onBackPressed()) {

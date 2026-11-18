@@ -83,23 +83,22 @@ public class FileInfoDialog extends DialogFragment {
         tv(root, R.id.ui__fileinfodialog__name).setText(file.getName());
         tv(root, R.id.ui__fileinfodialog__location).setText(file.getParentFile().getAbsolutePath());
         tv(root, R.id.ui__fileinfodialog__last_modified).setText(DateUtils.formatDateTime(root.getContext(), file.lastModified(), (DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_NUMERIC_DATE)));
-        tv(root, R.id.ui__fileinfodialog__last_modified_caption).setText(getString(R.string.last_modified_witharg, "").replace(":", "").trim());
+        tv(root, R.id.ui__fileinfodialog__last_modified_caption).setText(getString(R.string.last_modified_with_arg, "").replace(":", "").trim());
         tv(root, R.id.ui__fileinfodialog__size_description).setText(GsFileUtils.getReadableFileSize(file.length(), false));
         tv(root, R.id.ui__fileinfodialog__mimetype_description).setText(GsFileUtils.getMimeType(file));
         tv(root, R.id.ui__fileinfodialog__sha_256).setText(GsFileUtils.sha256(file));
         tv(root, R.id.ui__fileinfodialog__location).setOnLongClickListener(v -> {
                     GsContextUtils.instance.setClipboard(v.getContext(), file.getAbsolutePath());
-                    Toast.makeText(v.getContext(), R.string.clipboard, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(), R.string.copied, Toast.LENGTH_SHORT).show();
                     return true;
                 }
         );
         tv(root, R.id.ui__fileinfodialog__sha_256).setOnLongClickListener(v -> {
                     GsContextUtils.instance.setClipboard(v.getContext(), GsFileUtils.sha256(file));
-                    Toast.makeText(v.getContext(), R.string.clipboard, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(), R.string.copied, Toast.LENGTH_SHORT).show();
                     return true;
                 }
         );
-
 
         // Number of lines and character count only apply for files.
         root.findViewById(R.id.ui__fileinfodialog__textinfo).setVisibility(View.GONE);
@@ -114,20 +113,16 @@ public class FileInfoDialog extends DialogFragment {
 
             tv(root, R.id.ui__fileinfodialog__textinfo_caption).setText(getString(R.string.text_lines) + String.format(" / %s / %s", getString(R.string.text_words), getString(R.string.text_characters)).replace("Text ", ""));
             tv(root, R.id.ui__fileinfodialog__textinfo_description).setText(String.format(Locale.ENGLISH, "%d / %d / %d", valLines.intValue(), valWords.intValue(), valChars.intValue()));
-
         }
-        dialogBuilder.setPositiveButton(getString(android.R.string.ok), (dialogInterface, i) -> {
-            dialogInterface.dismiss();
-        });
+        dialogBuilder.setPositiveButton(getString(android.R.string.ok), (dialogInterface, i) -> dialogInterface.dismiss());
 
         // Hide checkbox
         final AppSettings appSettings = AppSettings.get(getContext());
-        CheckBox checkHideInRecents = root.findViewById(R.id.ui__fileinfodialog__recents);
+        CheckBox checkHideInRecents = root.findViewById(R.id.ui__file_info_dialog__recents);
         checkHideInRecents.setChecked(appSettings.listFileInRecents(file));
         checkHideInRecents.setOnCheckedChangeListener((buttonView, isChecked) -> appSettings.setListFileInRecents(file, isChecked));
 
-
-        CheckBox checkFavorite = root.findViewById(R.id.ui__fileinfodialog__favorite);
+        CheckBox checkFavorite = root.findViewById(R.id.ui__file_info_dialog__favorite);
         checkFavorite.setChecked(appSettings.getFavouriteFiles().contains(file));
         checkFavorite.setOnCheckedChangeListener((buttonView, isChecked) -> {
             appSettings.setFavouriteFile(file, isChecked);
