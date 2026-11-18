@@ -258,7 +258,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                     ? TextViewUtils.getIndexFromLineOffset(_hlEditor.getText(), lineNumber, 0)
                     : _hlEditor.length();
         } else {
-            targetSelection = _appSettings.getLastEditPosition(_document.path, _hlEditor.length());
+            targetSelection = _appSettings.getLastEditPosition(
+                    _document.path,
+                    _appSettings.isEditorStartOnBotttom() ? _hlEditor.length() : 0);
         }
 
         if (_webView != null) {
