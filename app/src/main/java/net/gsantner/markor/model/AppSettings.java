@@ -963,6 +963,10 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return getBool(R.string.pref_key__editor_static_cursor, false);
     }
 
+    public boolean isTitleClickActionEnabled() {
+        return getBool(R.string.pref_key__is_title_click_action_enabled, true);
+    }
+
     public boolean isExperimentalFeaturesEnabled() {
         return getBool(R.string.pref_key__is_enable_experimental_features, BuildConfig.IS_TEST_BUILD);
     }

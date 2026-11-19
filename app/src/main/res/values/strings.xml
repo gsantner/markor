@@ -522,4 +522,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="static_cursor">Static cursor</string>
     <string name="disable_cursor_blinking">Disable cursor blinking</string>
     <string name="folder_local">Folder local</string>
+    <string name="title_click_action">Tap title for document overview</string>
+    <string name="title_click_action_summary">Tapping the toolbar title opens the table of contents (Markdown) or filter dialog (todo.txt). When off, they open only with Ctrl+\' on a keyboard</string>
 </resources>
