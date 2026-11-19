@@ -181,6 +181,16 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         _filesystemViewerAdapter = new GsFileBrowserListAdapter(_dopt, activity);
         _recyclerList.setAdapter(_filesystemViewerAdapter);
 
+        _toolBar.getMenu().add(R.string.dotfiles)
+                .setCheckable(true)
+                .setChecked(_dopt.sortOrder.showDotFiles)
+                .setOnMenuItemClickListener(item -> {
+                    _dopt.sortOrder.showDotFiles = !item.isChecked();
+                    item.setChecked(_dopt.sortOrder.showDotFiles);
+                    _filesystemViewerAdapter.reloadCurrentFolder();
+                    return true;
+                });
+
         // Setup callbacks
         _dopt.setSubtitle = _toolBar::setSubtitle;
         _dopt.setTitle = _toolBar::setTitle;
