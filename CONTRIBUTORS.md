@@ -54,5 +54,6 @@ Where:
 * **[Ayowel](https://github.com/ayowel)**<br>~° Mermaid update
 * **[Matthew White](https://github.com/mehw)**<br>~° Zim-Wiki link/attachment conformance
 * **[Markus Paintner](https://github.com/goli4thus)**<br/>~° Added duplicate lines action
+* **[Sebastian Safari](https://ssebs.com/)**<br/>~° Add text styling to the todo widget when using Markdown
 * **[Janez Pavel Žebovec](https://janezpavelzebovec.net/)**<br/>~° Slovenian translation
 * **[Stephen Karl Larroque](https://github.com/lrq3000/)**<br/>~° Bugfixes
