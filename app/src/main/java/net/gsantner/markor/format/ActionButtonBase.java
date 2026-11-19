@@ -43,7 +43,7 @@ import net.gsantner.markor.frontend.AttachLinkOrFileDialog;
 import net.gsantner.markor.frontend.DatetimeFormatDialog;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.MarkorDialogFactory.Heading;
-import net.gsantner.markor.frontend.textsearch.TextSearchViewHolder;
+import net.gsantner.markor.frontend.textsearch.TextSearchViewHandler;
 import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
@@ -113,10 +113,10 @@ public abstract class ActionButtonBase {
         }
     }
 
-    private TextSearchViewHolder _textSearchViewHolder;
+    private TextSearchViewHandler _textSearchViewHandler;
 
     public ActionButtonBase initTextSearch(DocumentEditAndViewFragment fragment) {
-        _textSearchViewHolder = new TextSearchViewHolder(fragment, R.id.topViewContainer);
+        _textSearchViewHandler = new TextSearchViewHandler(fragment, R.id.topViewContainer);
         return this;
     }
 
@@ -126,11 +126,11 @@ public abstract class ActionButtonBase {
     }
 
     public boolean toggleTextSearchUi() {
-        if (_textSearchViewHolder != null) {
-            if (_textSearchViewHolder.isShow()) {
-                _textSearchViewHolder.close();
+        if (_textSearchViewHandler != null) {
+            if (_textSearchViewHandler.isShow()) {
+                _textSearchViewHandler.close();
             } else {
-                _textSearchViewHolder.show();
+                _textSearchViewHandler.show();
             }
             return true;
         }
@@ -139,12 +139,12 @@ public abstract class ActionButtonBase {
     }
 
     public boolean isSearchActive() {
-        return _textSearchViewHolder != null && _textSearchViewHolder.isShow();
+        return _textSearchViewHandler != null && _textSearchViewHandler.isShow();
     }
 
     public boolean hideTextSearchUi() {
         if (isSearchActive()) {
-            _textSearchViewHolder.close();
+            _textSearchViewHandler.close();
             if (_activity != null) {
                 _activity.invalidateOptionsMenu();
             }
@@ -213,8 +213,8 @@ public abstract class ActionButtonBase {
                 new ActionItem(R.string.abid_common_time, R.drawable.ic_access_time_black_24dp, R.string.date_and_time),
                 new ActionItem(R.string.abid_common_open_link_browser, R.drawable.ic_open_in_browser_black_24dp, R.string.open_link),
                 new ActionItem(R.string.abid_common_change_case, R.drawable.ic_format_text_case_black_24dp, R.string.text_case),
-
-                new ActionItem(R.string.abid_common_web_jump_to_very_top_or_bottom, R.drawable.ic_vertical_align_center_black_24dp, R.string.jump_to_bottom).setDisplayMode(ActionItem.DisplayMode.VIEW),
+                // View mode
+                new ActionItem(R.string.abid_common_web_jump_top_bottom, R.drawable.ic_vertical_align_center_black_24dp, R.string.jump).setDisplayMode(ActionItem.DisplayMode.VIEW),
                 new ActionItem(R.string.abid_common_view_file_in_other_app, R.drawable.ic_baseline_open_in_new_24, R.string.open_with).setDisplayMode(ActionItem.DisplayMode.VIEW),
                 new ActionItem(R.string.abid_common_rotate_screen, R.drawable.ic_rotate_left_black_24dp, R.string.rotate).setDisplayMode(ActionItem.DisplayMode.ANY)
         );
@@ -683,9 +683,22 @@ public abstract class ActionButtonBase {
     }
 
     /**
-     * Jump to the position of current cursor.
+     * Move cursor to current line start/end.
      */
-    public void jumpToCursor() {
+    public void goToLineStart(boolean start) {
+        final int[] lineCursor = TextViewUtils.getLineSelection(_hlEditor);
+        if (lineCursor[0] > -1) {
+            int cursor = start ? lineCursor[0] : lineCursor[1];
+            // It's bad to use TextViewUtils#setSelectionAndShow, which will trigger large scrolling
+            _hlEditor.setSelection(cursor);
+            // setSelection works well, it triggers moderate scrolling for a wrap line
+        }
+    }
+
+    /**
+     * Go/jump to the position of current cursor.
+     */
+    public void goToCursor() {
         int cursor = _hlEditor.getSelectionStart();
         TextViewUtils.showSelection(_hlEditor, cursor);
     }
@@ -919,7 +932,7 @@ public abstract class ActionButtonBase {
                 runRenumberOrderedListIfRequired();
                 return true;
             }
-            case R.string.abid_common_web_jump_to_very_top_or_bottom: {
+            case R.string.abid_common_web_jump_top_bottom: {
                 runJumpBottomTopAction(ActionItem.DisplayMode.VIEW);
                 return true;
             }
@@ -961,7 +974,7 @@ public abstract class ActionButtonBase {
                 return true;
             }
             case R.string.abid_common_special_key: {
-                jumpToCursor();
+                goToCursor();
                 return true;
             }
             case R.string.abid_common_time: {
@@ -1139,9 +1152,9 @@ public abstract class ActionButtonBase {
             } else if (callbackPayload.equals(getResString(R.string.key_page_up))) {
                 _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_PAGE_UP);
             } else if (callbackPayload.equals(getResString(R.string.key_pos_1))) {
-                _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_MOVE_HOME);
+                goToLineStart(true);
             } else if (callbackPayload.equals(getResString(R.string.key_pos_end))) {
-                _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_MOVE_END);
+                goToLineStart(false);
             } else if (callbackPayload.equals(getResString(R.string.key_pos_1_document))) {
                 _hlEditor.setSelection(0);
             } else if (callbackPayload.equals(getResString(R.string.key_pos_end_document))) {
@@ -1152,8 +1165,8 @@ public abstract class ActionButtonBase {
                 ActionButtonBase.moveLineSelectionBy1(_hlEditor, true);
             } else if (callbackPayload.equals(getResString(R.string.move_text_one_line_down))) {
                 ActionButtonBase.moveLineSelectionBy1(_hlEditor, false);
-            } else if (callbackPayload.equals(getResString(R.string.jump_to_cursor))) {
-                jumpToCursor();
+            } else if (callbackPayload.equals(getResString(R.string.go_to_cursor_hotkey))) {
+                goToCursor();
             } else if (callbackPayload.equals(getResString(R.string.duplicate_hotkey))) {
                 duplicate(false);
             } else if (callbackPayload.equals(getResString(R.string.select_current_line))) {
@@ -1196,12 +1209,13 @@ public abstract class ActionButtonBase {
             int pos = _hlEditor.getSelectionStart();
             _hlEditor.setSelection(pos == 0 ? _hlEditor.length() : 0);
         } else if (displayMode == ActionItem.DisplayMode.VIEW && _webView != null) {
-            boolean top = _webView.getScrollY() > 100;
-            _webView.scrollTo(0, top ? 0 : _webView.getContentHeight());
-            if (!top) {
-                _webView.scrollBy(0, 1000);
-                _webView.scrollBy(0, 1000);
-            }
+            _webView.post(() -> _webView.evaluateJavascript("[window.scrollY, document.body.scrollHeight]", value -> {
+                String[] array = value.substring(1, value.length() - 1).split(",");
+                double scrollY = Double.parseDouble(array[0]);
+                double scrollHeight = Double.parseDouble(array[1]);
+                double targetPosition = scrollY < 100 ? scrollHeight : 0;
+                _webView.evaluateJavascript(String.format("window.scrollTo({top: %.4f, behavior: 'smooth'})", targetPosition), null);
+            }));
         }
     }
 
@@ -1266,12 +1280,21 @@ public abstract class ActionButtonBase {
                     } else if (keyCode == KeyEvent.KEYCODE_Z) {
                         fragment.redo();
                         return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
+                        goToLineStart(true);
+                        return true;
+                    } else if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
+                        goToLineStart(false);
+                        return true;
                     }
                 } else if (keyCode == KeyEvent.KEYCODE_D) { // Ctrl + ordinary key
                     duplicate(false);
                     return true;
                 } else if (keyCode == KeyEvent.KEYCODE_G) {
                     MarkorDialogFactory.showGoToLineDialog(getActivity(), _hlEditor);
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_H) {
+                    goToCursor();
                     return true;
                 } else if (keyCode == KeyEvent.KEYCODE_K) {
                     deleteToLineEnd();

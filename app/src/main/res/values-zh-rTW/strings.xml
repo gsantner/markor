@@ -331,7 +331,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_link">開啟連結</string>
     <string name="common_color_picker">顏色選擇器</string>
     <string name="date_and_time">日期與時間</string>
-    <string name="jump_to_bottom">跳至底部</string>
+    <string name="jump">跳至底部</string>
     <string name="quote">引用</string>
     <string name="heading">標題</string>
     <string name="heading_1">標題 1</string>

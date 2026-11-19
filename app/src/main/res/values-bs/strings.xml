@@ -312,7 +312,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_link">Otvori link</string>
     <string name="common_color_picker">Odabir boje</string>
     <string name="date_and_time">Datum i vrijeme</string>
-    <string name="jump_to_bottom">Idi na kraj</string>
+    <string name="jump">Idi na kraj</string>
     <string name="quote">Citat</string>
     <string name="heading">Naslov</string>
     <string name="heading_1">Naslov 1</string>

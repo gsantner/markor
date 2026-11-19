@@ -342,7 +342,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_link">Открыть ссылку</string>
     <string name="common_color_picker">Выбор цвета</string>
     <string name="date_and_time">Дата и время</string>
-    <string name="jump_to_bottom">Перейти в конец</string>
+    <string name="jump">Перейти в конец</string>
     <string name="quote">Цитата</string>
     <string name="heading">Заголовок</string>
     <string name="heading_1">Заголовок 1</string>
@@ -380,7 +380,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="created">Создано</string>
     <string name="no_results">Нет результатов</string>
     <string name="bad_pattern">Неверный шаблон</string>
-    <string name="toggle_find_replace">Переключить режим поиска/замены</string>
+    <string name="toggle_replace">Переключить режим поиска/замены</string>
     <string name="new_line">Новая строка</string>
     <string name="match_case">Учитывать регистр</string>
     <string name="match_whole_word">Учитывать всё слово</string>

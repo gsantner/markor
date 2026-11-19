@@ -310,7 +310,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_link">විවෘත ලින්ක්</string>
     <string name="common_color_picker">වර්ණ තෝරන්නා</string>
     <string name="date_and_time">දිනය සහ වේලාව</string>
-    <string name="jump_to_bottom">පහළට පනින්න</string>
+    <string name="jump">පහළට පනින්න</string>
     <string name="quote">උපුටා ගැනීම</string>
     <string name="heading">ශීර්ෂය</string>
     <string name="heading_1">ශීර්ෂය 1</string>

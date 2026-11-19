@@ -186,7 +186,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_pos_end">Sor vége (End)</string>
     <string name="key_pos_1_document">Dokumentum eleje (Alt + ↑)</string>
     <string name="key_pos_end_document">Dokumentum vége (Alt + ↓)</string>
-    <string name="jump_to_cursor">Ugrás a kurzorhoz</string>
+    <string name="go_to_cursor_hotkey">Ugrás a kurzorhoz</string>
     <string name="duplicate_hotkey">Duplikálás (Ctrl + D)</string>
     <string name="move_text_one_line_up">Sor mozgatása fölfelé (Ctrl + ↑)</string>
     <string name="move_text_one_line_down">Sor mozgatása lefelé (Ctrl + ↓)</string>
@@ -366,7 +366,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_link">Link megnyitása</string>
     <string name="common_color_picker">Színválasztó</string>
     <string name="date_and_time">Dátum és idő</string>
-    <string name="jump_to_bottom">Végére ugrás</string>
+    <string name="jump">Végére ugrás</string>
     <string name="quote">Idézet</string>
     <string name="heading">Címsor</string>
     <string name="heading_1">Címsor 1</string>
@@ -406,7 +406,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="line_based_search">Sor alapú keresés</string>
     <string name="no_results">Nincs eredmény</string>
     <string name="bad_pattern">Érvénytelen mintázat</string>
-    <string name="toggle_find_replace">Keresés/Csere</string>
+    <string name="toggle_replace">Keresés/Csere</string>
     <string name="new_line">Új sor</string>
     <string name="match_case">Kis- és nagybetű figyelembevétele</string>
     <string name="match_whole_word">Teljes szó egyezés</string>

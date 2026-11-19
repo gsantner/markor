@@ -328,7 +328,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_link">Ava viide</string>
     <string name="common_color_picker">Värvivalija</string>
     <string name="date_and_time">Kuupäev ja kellaaeg</string>
-    <string name="jump_to_bottom">Hüppa lõppu</string>
+    <string name="jump">Hüppa lõppu</string>
     <string name="quote">Tsiteering</string>
     <string name="heading">Pealkiri</string>
     <string name="heading_1">Pealkiri 1</string>
