@@ -2,6 +2,9 @@ package net.gsantner.markor.widget;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.StrikethroughSpan;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -56,7 +59,15 @@ public class TodoWidgetRemoteViewsFactory implements RemoteViewsService.RemoteVi
     @Override
     public RemoteViews getViewAt(int position) {
         RemoteViews views = new RemoteViews(_context.getPackageName(), R.layout.todo_widget_list_item);
-        views.setTextViewText(R.id.todo_widget_item_text, _tasks.get(position).getDescription());
+
+        final TodoTxtTask curTask = _tasks.get(position);
+        final Spannable desc = new SpannableString(curTask.getDescription());
+        if (curTask.isDone()) {
+            desc.setSpan(new StrikethroughSpan(), 0, desc.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+
+        views.setTextViewText(R.id.todo_widget_item_text, desc);
+
         views.setInt(R.id.todo_widget_item_text, "setTextColor", _appSettings.getEditorForegroundColor());
 
         final Intent fillInIntent = new Intent()
