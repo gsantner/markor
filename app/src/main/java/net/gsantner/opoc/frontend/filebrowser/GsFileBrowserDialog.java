@@ -23,6 +23,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -181,15 +182,15 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         _filesystemViewerAdapter = new GsFileBrowserListAdapter(_dopt, activity);
         _recyclerList.setAdapter(_filesystemViewerAdapter);
 
-        _toolBar.getMenu().add(R.string.dotfiles)
-                .setCheckable(true)
-                .setChecked(_dopt.sortOrder.showDotFiles)
-                .setOnMenuItemClickListener(item -> {
-                    _dopt.sortOrder.showDotFiles = !item.isChecked();
-                    item.setChecked(_dopt.sortOrder.showDotFiles);
-                    _filesystemViewerAdapter.reloadCurrentFolder();
-                    return true;
-                });
+        final MenuItem dotfiles = _toolBar.getMenu().add(R.string.show_dotfiles);
+        dotfiles.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        updateDotfilesAction(dotfiles);
+        dotfiles.setOnMenuItemClickListener(item -> {
+            _dopt.sortOrder.showDotFiles = !_dopt.sortOrder.showDotFiles;
+            updateDotfilesAction(item);
+            _filesystemViewerAdapter.reloadCurrentFolder();
+            return true;
+        });
 
         // Setup callbacks
         _dopt.setSubtitle = _toolBar::setSubtitle;
@@ -201,6 +202,13 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
 
     private int rcolor(@ColorRes int colorRes) {
         return ContextCompat.getColor(getContext(), colorRes);
+    }
+
+    private void updateDotfilesAction(final MenuItem item) {
+        final boolean visible = _dopt.sortOrder.showDotFiles;
+        final int icon = visible ? R.drawable.ic_visibility_black_24dp : R.drawable.ic_visibility_off_black_24dp;
+        item.setIcon(GsContextUtils.instance.tintDrawable(_toolBar.getContext(), icon, rcolor(_dopt.titleTextColor)));
+        item.setTitle(visible ? R.string.hide_dotfiles : R.string.show_dotfiles);
     }
 
     private void setDialogOptions(GsFileBrowserOptions.Options options) {
