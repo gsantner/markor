@@ -64,6 +64,8 @@ public class GsFileBrowserOptions {
                 doSelectFile = false,
                 doSelectMultiple = false;
 
+        public boolean selectVirtualCollections = false;
+
         public boolean descModtimeInsteadOfParent = false;
 
         public int itemSidePadding = 16; // dp

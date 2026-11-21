@@ -262,7 +262,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             final boolean copyable = !notebook.equals(f) && !GsFileBrowserListAdapter.isVirtualFolder(f) && f.canWrite();
             selCopyable &= copyable;
             selWritable &= copyable && !quickNote.equals(f) && !todo.equals(f);
-            selDirectoriesOnly &= f.isDirectory();
+            selDirectoriesOnly &= GsFileUtils.isDirectory(f);
             allSelectedFav &= favFiles.contains(f);
         }
 

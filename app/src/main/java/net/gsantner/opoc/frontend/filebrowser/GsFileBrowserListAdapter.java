@@ -465,7 +465,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     public void selectAll() {
         boolean changed = false;
         for (final File file : _adapterDataFiltered) {
-            if (canSelect(file)) {
+            if (!_virtualMapping.containsKey(file) && canSelect(file)) {
                 changed |= _currentSelection.add(file);
             }
         }
@@ -488,7 +488,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
     public boolean isFilesOnlySelected() {
         for (File f : _currentSelection) {
-            if (f.isDirectory()) {
+            if (GsFileUtils.isDirectory(f)) {
                 return false;
             }
         }
@@ -521,8 +521,11 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     }
 
     private boolean canSelect(final File file) {
-        if (file == null || !_dopt.doSelectMultiple || file.equals(_goUpFile) || _virtualMapping.containsKey(file)) {
+        if (file == null || !_dopt.doSelectMultiple || file.equals(_goUpFile)) {
             return false;
+        }
+        if (_virtualMapping.containsKey(file)) {
+            return _dopt.doSelectFolder && _dopt.selectVirtualCollections && isVirtualCollection(file);
         }
         final boolean isDirectory = file.isDirectory();
         return _dopt.doSelectFile && !isDirectory || _dopt.doSelectFolder && isDirectory;
@@ -1007,11 +1010,13 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
     // Is the folder a virtual folder - does it contain links or other special items
     public static boolean isVirtualFolder(final File file) {
+        return VIRTUAL_STORAGE_SYSTEM.equals(file) || VIRTUAL_STORAGE_ROOT.equals(file) || isVirtualCollection(file);
+    }
+
+    private static boolean isVirtualCollection(final File file) {
         return VIRTUAL_STORAGE_RECENTS.equals(file) ||
                VIRTUAL_STORAGE_FAVOURITE.equals(file) ||
-               VIRTUAL_STORAGE_POPULAR.equals(file) ||
-               VIRTUAL_STORAGE_SYSTEM.equals(file) ||
-               VIRTUAL_STORAGE_ROOT.equals(file);
+               VIRTUAL_STORAGE_POPULAR.equals(file);
     }
 
     public void showFileAfterNextLoad(final File file) {
