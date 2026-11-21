@@ -8,6 +8,7 @@
 package net.gsantner.markor.format.todotxt;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -25,14 +26,18 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.activity.DocumentEditAndViewFragment;
 import net.gsantner.markor.format.ActionButtonBase;
 import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.Document;
+import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.util.GsCollectionUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
+
+import org.json.JSONObject;
 
 import java.io.File;
 import java.text.ParseException;
@@ -43,16 +48,165 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.UUID;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TodoTxtActionButtons extends ActionButtonBase {
 
     private static final String LAST_SORT_ORDER_KEY = TodoTxtActionButtons.class.getCanonicalName() + "_last_sort_order_key";
+    private static final Pattern LINE_BREAK = Pattern.compile("\\r?\\n");
+    private String _previewRevision;
+    private String _previewText;
 
     public TodoTxtActionButtons(@NonNull Context context, Document document) {
         super(context, document);
+    }
+
+    public void showPreview(final String text, final boolean print) {
+        final TodoTxtTextConverter converter = FormatRegistry.CONVERTER_TODOTXT;
+        if (print) {
+            _previewRevision = null;
+            _previewText = null;
+            converter.convertMarkupShowInWebView(_document, text, getActivity(), _webView, true, false);
+        } else {
+            _previewRevision = UUID.randomUUID().toString();
+            _previewText = text;
+            converter.showInteractivePreview(_document, getActivity(), _webView, text, _previewRevision);
+        }
+    }
+
+    public boolean handlePreviewAction(final String[] args, final DocumentEditAndViewFragment fragment) {
+        if (args.length < 2 || !"todotxt-preview".equals(args[0])) {
+            return false;
+        }
+        if (args.length < 3 || !isCurrentPreview(args[1], fragment)) {
+            return true;
+        }
+        if (args.length == 3 && "sort".equals(args[2])) {
+            showSortDialog(args[1], fragment);
+            return true;
+        }
+        if (args.length != 4 && args.length != 5) {
+            return true;
+        }
+        final int line = args[3] == null ? -1 : GsTextUtils.tryParseInt(args[3], -1);
+        final Editable text = _hlEditor.getText();
+        // The utility takes an offset from the end of the line, clamped to its start.
+        final int start = TextViewUtils.getIndexFromLineOffset(text, line, Integer.MAX_VALUE);
+        if (start < 0 || start >= text.length()) {
+            return true;
+        }
+        final int lineEnd = TextViewUtils.getLineEnd(text, start);
+        final int taskEnd = lineEnd > start && text.charAt(lineEnd - 1) == '\r' ? lineEnd - 1 : lineEnd;
+        final String task = text.subSequence(start, taskEnd).toString();
+        if (task.trim().isEmpty()) {
+            return true;
+        }
+        if (args.length == 4 && "edit".equals(args[2])) {
+            fragment.setViewModeVisibility(false);
+            _hlEditor.post(() -> TextViewUtils.setSelectionAndShow(_hlEditor, start));
+        } else if (args.length == 5 && "done".equals(args[2]) && ("true".equals(args[4]) || "false".equals(args[4]))) {
+            final boolean done = Boolean.parseBoolean(args[4]);
+            if (new TodoTxtTask(task).isDone() != done) {
+                for (final ReplacePattern pattern : toggleDonePatterns(false)) {
+                    if (pattern.matcher.reset(task).find()) {
+                        final CharSequence replacement = pattern.replace();
+                        _hlEditor.withAutoFormatDisabled(() -> text.replace(start, taskEnd, replacement));
+                        _previewText = text.toString();
+                        final String row = TodoTxtTextConverter.renderRow(getActivity(), replacement.toString(), line);
+                        _webView.evaluateJavascript("window.markorTodo.updateRow(" + JSONObject.quote(_previewRevision)
+                                + "," + line + "," + JSONObject.quote(row) + ")", null);
+                        break;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    private boolean isCurrentPreview(final String revision, final DocumentEditAndViewFragment fragment) {
+        return fragment.isPreviewing(this) && _webView != null && _hlEditor != null &&
+               _previewRevision != null && _previewRevision.equals(revision) && _previewText.contentEquals(_hlEditor.getText());
+    }
+
+    private ReplacePattern[] toggleDonePatterns(final boolean allowLegacyWhitespace) {
+        final String doneMark = "x" + (_appSettings.isTodoAddCompletionDateEnabled() ? (" " + TodoTxtTask.getToday()) : "") + " ";
+        final String bodyWithPri = "(.*)(\\spri:([A-Z])(?=\\s|$))(.*)"; // +1 = pre, +2 = full tag, +3 = pri, +4 = post
+        final String doneWithDate = "^([Xx]" + (allowLegacyWhitespace ? "\\s" : " ") + "(?:" + TodoTxtTask.PT_DATE + "\\s)?)";
+        final String startingPriority = "^\\(([A-Z])\\)\\s";
+        return new ReplacePattern[]{
+                // Move the leading priority to a pri: tag when completing a task.
+                new ReplacePattern(startingPriority + bodyWithPri, doneMark + "$2 pri:$1$5"),
+                new ReplacePattern(startingPriority + "(.*)(\\s*)", doneMark + "$2 pri:$1"),
+                // Restore the leading priority when reopening a task.
+                new ReplacePattern(doneWithDate + bodyWithPri, "($4) $2$5"),
+                new ReplacePattern(doneWithDate, ""),
+                new ReplacePattern("^", doneMark)
+        };
+    }
+
+    private void showSortDialog(final String revision, final DocumentEditAndViewFragment fragment) {
+        final Activity activity = getActivity();
+        MarkorDialogFactory.showSttSortDialogue(activity, (orderBy, descending) -> {
+            if (fragment != null && !isCurrentPreview(revision, fragment)) {
+                return;
+            }
+            final String source = _hlEditor.getText().toString();
+            final String startingPreviewRevision = _previewRevision;
+            new Thread(() -> {
+                final String sorted = sortTaskText(source, orderBy, descending);
+                final String rows = fragment != null && !source.equals(sorted) ? TodoTxtTextConverter.renderRows(activity, sorted) : "";
+                activity.runOnUiThread(() -> {
+                    final Editable text = _hlEditor.getText();
+                    final boolean sameView = fragment == null ? Objects.equals(startingPreviewRevision, _previewRevision) : isCurrentPreview(revision, fragment);
+                    if (activity.isDestroyed() || !source.contentEquals(text) || !sameView) {
+                        return;
+                    }
+                    _appSettings.setStringList(LAST_SORT_ORDER_KEY, Arrays.asList(orderBy, Boolean.toString(descending)));
+                    if (source.equals(sorted)) {
+                        return;
+                    }
+                    _hlEditor.withAutoFormatDisabled(() -> text.replace(0, text.length(), sorted));
+                    if (fragment != null) {
+                        _previewRevision = UUID.randomUUID().toString();
+                        _previewText = text.toString();
+                        _webView.evaluateJavascript("window.markorTodo.updateRows(" + JSONObject.quote(revision)
+                                + "," + JSONObject.quote(_previewRevision) + "," + JSONObject.quote(rows) + ")", null);
+                    }
+                });
+            }).start();
+        });
+    }
+
+    private static String sortTaskText(final String source, final String orderBy, final boolean descending) {
+        final List<TodoTxtTask> tasks = new ArrayList<>();
+        final Matcher breaks = LINE_BREAK.matcher(source);
+        int start = 0;
+        while (breaks.find()) {
+            tasks.add(new TodoTxtTask(source.substring(start, breaks.start())));
+            start = breaks.end();
+        }
+        tasks.add(new TodoTxtTask(source.substring(start)));
+
+        // Keep trailing blank lines and each original line separator in place.
+        int end = tasks.size();
+        while (end > 0 && tasks.get(end - 1).getLine().isEmpty()) {
+            end--;
+        }
+        TodoTxtTask.sortTasks(tasks.subList(0, end), orderBy, descending);
+        final StringBuilder sorted = new StringBuilder(source.length());
+        breaks.reset();
+        for (final TodoTxtTask task : tasks) {
+            sorted.append(task.getLine());
+            if (breaks.find()) {
+                sorted.append(breaks.group());
+            }
+        }
+        return sorted.toString();
     }
 
     @Override
@@ -84,22 +238,7 @@ public class TodoTxtActionButtons extends ActionButtonBase {
 
         switch (action) {
             case R.string.abid_todotxt_toggle_done: {
-                final String doneMark = "x" + (_appSettings.isTodoAddCompletionDateEnabled() ? (" " + TodoTxtTask.getToday()) : "") + " ";
-                final String bodyWithPri = "(.*)(\\spri:([A-Z])(?=\\s|$))(.*)"; // +1 = pre, +2 = full tag, +3 = pri, +4 = post
-                final String doneWithDate = "^([Xx]\\s(?:" + TodoTxtTask.PT_DATE + "\\s)?)";
-                final String startingPriority = "^\\(([A-Z])\\)\\s";
-                runRegexReplaceAction(
-                        // If task not done and starts with a priority and contains a pri tag
-                        new ReplacePattern(startingPriority + bodyWithPri, doneMark + "$2 pri:$1$5"),
-                        // else if task not done and starts with a priority and does not contain a pri tag
-                        new ReplacePattern(startingPriority + "(.*)(\\s*)", doneMark + "$2 pri:$1"),
-                        // else if task is done and contains a pri tag
-                        new ReplacePattern(doneWithDate + bodyWithPri, "($4) $2$5"),
-                        // else if task is done and does not contain a pri tag
-                        new ReplacePattern(doneWithDate, ""),
-                        // else replace task start with 'x ...'
-                        new ReplacePattern("^", doneMark)
-                );
+                runRegexReplaceAction(toggleDonePatterns(true));
                 return true;
             }
             case R.string.abid_todotxt_add_context: {
@@ -125,15 +264,7 @@ public class TodoTxtActionButtons extends ActionButtonBase {
                 return true;
             }
             case R.string.abid_todotxt_sort_todo: {
-                MarkorDialogFactory.showSttSortDialogue(getActivity(), (orderBy, descending) -> new Thread() {
-                    @Override
-                    public void run() {
-                        final List<TodoTxtTask> tasks = TodoTxtTask.getAllTasks(_hlEditor.getText());
-                        TodoTxtTask.sortTasks(tasks, orderBy, descending);
-                        setEditorTextAsync(TodoTxtTask.tasksToString(tasks));
-                        _appSettings.setStringList(LAST_SORT_ORDER_KEY, Arrays.asList(orderBy, Boolean.toString(descending)));
-                    }
-                }.start());
+                showSortDialog(null, null);
                 return true;
             }
             default: {
@@ -157,9 +288,7 @@ public class TodoTxtActionButtons extends ActionButtonBase {
             case R.string.abid_todotxt_sort_todo: {
                 final List<String> last = _appSettings.getStringList(LAST_SORT_ORDER_KEY);
                 if (last != null && last.size() == 2) {
-                    final List<TodoTxtTask> tasks = TodoTxtTask.getAllTasks(_hlEditor.getText());
-                    TodoTxtTask.sortTasks(tasks, last.get(0), Boolean.parseBoolean(last.get(1)));
-                    setEditorTextAsync(TodoTxtTask.tasksToString(tasks));
+                    setEditorTextAsync(sortTaskText(_hlEditor.getText().toString(), last.get(0), Boolean.parseBoolean(last.get(1))));
                 }
                 return true;
             }

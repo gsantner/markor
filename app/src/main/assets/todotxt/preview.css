@@ -1,0 +1,124 @@
+html,
+body {
+    background: var(--todo-background);
+    color: var(--todo-foreground);
+}
+
+#markor-todo {
+    line-height: 1.45;
+}
+
+#markor-todo [hidden] { display: none; }
+
+.todo-controls {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px 0;
+    background: var(--todo-background);
+    border-bottom: 1px solid var(--todo-divider);
+}
+
+.todo-controls input,
+.todo-controls select,
+#markor-todo #todo-sort {
+    box-sizing: border-box;
+    height: 44px;
+    font: inherit;
+    text-transform: none;
+    color: inherit;
+    margin: 0;
+    padding: 0 10px;
+    border: 1px solid var(--todo-divider);
+    border-radius: 4px;
+    background: var(--todo-control);
+    box-shadow: none;
+    filter: none;
+}
+
+#todo-filter {
+    flex: 1 1 6ch;
+    min-width: 0;
+}
+
+#todo-filter::placeholder {
+    color: var(--todo-muted);
+    opacity: 1;
+}
+
+#todo-status { max-width: 100%; }
+
+#markor-todo #todo-sort:active { background: var(--todo-divider); }
+#markor-todo input { accent-color: var(--todo-accent); }
+
+.todo-row {
+    display: flex;
+    align-items: flex-start;
+    border-bottom: 1px solid var(--todo-divider);
+}
+
+.todo-check {
+    flex: 0 0 44px;
+    min-height: 48px;
+    display: grid;
+    place-items: center;
+}
+
+.todo-check input {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+}
+
+#markor-todo .todo-text {
+    flex: 1;
+    min-width: 0;
+    min-height: 48px;
+    height: auto;
+    margin: 0;
+    padding: 12px 4px;
+    font: inherit;
+    color: inherit;
+    text-align: start;
+    text-transform: none;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    filter: none;
+    touch-action: pan-y pinch-zoom;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+#markor-todo :focus-visible {
+    outline: 2px solid var(--todo-accent);
+    outline-offset: -2px;
+}
+
+#markor-todo .todo-done .todo-text {
+    color: var(--todo-muted);
+    text-decoration: line-through;
+}
+
+/* Match the editor's TodoTxtBasicSyntaxHighlighter palette. */
+.todo-context { color: #88b04b; }
+.todo-project { color: #ef6c00; }
+.todo-date { color: var(--todo-muted); }
+.todo-due, .priority-A { color: #ef2929; }
+.priority-B { color: #d16900; }
+.priority-C { color: #59a112; }
+.priority-D { color: #0091c2; }
+.priority-E { color: #a952cb; }
+.priority-F { color: #878986; }
+.todo-priority { font-weight: bold; }
+.todo-tag { font-style: italic; }
+
+#todo-empty {
+    margin: 16px 4px;
+    opacity: .8;
+}
