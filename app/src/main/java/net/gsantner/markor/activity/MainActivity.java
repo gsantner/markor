@@ -522,6 +522,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
                     dopt.rootFolder = _appSettings.getNotebookDirectory();
                     dopt.startFolder = _startFolder;
                     dopt.doSelectMultiple = dopt.doSelectFolder = dopt.doSelectFile = true;
+                    dopt.selectVirtualCollections = true;
                     dopt.mountedStorageFolder = _cu.getStorageAccessFolder(MainActivity.this);
                 }
 
