@@ -49,6 +49,13 @@ public class DocumentActivity extends MarkorBaseActivity {
             return;
         }
 
+        // Share intents carry no file - forward them as-is so DocumentActivity can show share into
+        final String action = rawIntent.getAction();
+        if (Intent.ACTION_SEND.equals(action) || Intent.ACTION_SEND_MULTIPLE.equals(action)) {
+            activity.startActivity(new Intent(rawIntent).setClass(activity, DocumentActivity.class));
+            return;
+        }
+
         final Intent intent = DocumentActivity.normalizeIntent(rawIntent, activity);
         final File file = (File) intent.getSerializableExtra(Document.EXTRA_FILE);
         final Integer lineNumber = intent.hasExtra(Document.EXTRA_FILE_LINE_NUMBER) ? intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, -1) : null;
