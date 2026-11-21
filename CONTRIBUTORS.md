@@ -56,3 +56,4 @@ Where:
 * **[Markus Paintner](https://github.com/goli4thus)**<br/>~° Added duplicate lines action
 * **[Janez Pavel Žebovec](https://janezpavelzebovec.net/)**<br/>~° Slovenian translation
 * **[Stephen Karl Larroque](https://github.com/lrq3000/)**<br/>~° Bugfixes
+* **[neolabs120](https://github.com/neolabs120-mobile)**<br/>~° Black theme view mode background fix
