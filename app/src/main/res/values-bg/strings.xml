@@ -264,6 +264,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Изберете дата</string>
     <string name="pick_time">Изберете време</string>
     <string name="close">Затвори</string>
+    <string name="select_lines_sample">e.g. 1:2, 1:, :2, :, 1</string>
+    <string name="appdata_sdcard">AppData (SD карта)</string>
     <string name="favourite">Предпочитан</string>
     <string name="rotate">Завъртане</string>
 </resources>

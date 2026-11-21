@@ -23,7 +23,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListPopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
@@ -125,7 +124,7 @@ public class TextSearchViewHolder {
         preserveCaseImageButton = textSearchView.findViewById(R.id.preserveCaseImageButton);
         toggleImageButton = textSearchView.findViewById(R.id.toggleImageButton);
 
-        textSearchHandler.setResultChangedListener((current, count, msg) -> {
+        textSearchHandler.setResultChangedListener((current, count, ignoredMessage) -> {
             if (count > 0) {
                 resultTextView.setText((current + 1) + "/" + count);
             } else if (count == 0) {
@@ -134,7 +133,10 @@ public class TextSearchViewHolder {
                 SpannableString spannable = new SpannableString(parentFragment.getString(R.string.bad_pattern));
                 spannable.setSpan(new ForegroundColorSpan(Color.RED), 0, spannable.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 resultTextView.setText(spannable);
-                Toast.makeText(parentFragment.getContext(), msg, Toast.LENGTH_LONG).show();
+            } else if (count == TextSearchHandler.RESULT_BAD_REPLACEMENT) {
+                SpannableString spannable = new SpannableString(parentFragment.getString(R.string.search_replace_pattern_error_message));
+                spannable.setSpan(new ForegroundColorSpan(Color.RED), 0, spannable.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                resultTextView.setText(spannable);
             }
         });
 

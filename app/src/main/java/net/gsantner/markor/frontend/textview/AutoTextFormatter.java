@@ -47,7 +47,7 @@ public class AutoTextFormatter implements InputFilter {
 
         final OrderedListLine oLine = new OrderedListLine(dest, dstart, _patterns);
         final UnOrderedOrCheckListLine uLine = new UnOrderedOrCheckListLine(dest, dstart, _patterns);
-        final String indent = source + oLine.line.substring(0, oLine.indentEnd);
+        final String indent = source + oLine.line.substring(0, Math.min(oLine.indentEnd, dstart - oLine.lineStart));
 
         final String result;
         if (oLine.isOrderedList && oLine.lineEnd != oLine.groupEnd && dend >= oLine.groupEnd) {

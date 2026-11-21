@@ -31,9 +31,7 @@
 
 package other.com.vladsch.flexmark.ext.katex;
 
-import com.vladsch.flexmark.ast.DelimitedNode;
 import com.vladsch.flexmark.ast.util.ReferenceRepository;
-import com.vladsch.flexmark.html.CustomNodeRenderer;
 import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.html.HtmlWriter;
 import com.vladsch.flexmark.html.renderer.NodeRenderer;
@@ -43,17 +41,22 @@ import com.vladsch.flexmark.html.renderer.NodeRenderingHandler;
 import com.vladsch.flexmark.parser.InlineParser;
 import com.vladsch.flexmark.parser.InlineParserExtension;
 import com.vladsch.flexmark.parser.InlineParserExtensionFactory;
+import com.vladsch.flexmark.parser.LightInlineParser;
 import com.vladsch.flexmark.parser.Parser;
+import com.vladsch.flexmark.util.ast.DelimitedNode;
 import com.vladsch.flexmark.util.ast.Node;
 import com.vladsch.flexmark.util.ast.VisitHandler;
 import com.vladsch.flexmark.util.ast.Visitor;
-import com.vladsch.flexmark.util.builder.Extension;
+import com.vladsch.flexmark.util.data.DataHolder;
+import com.vladsch.flexmark.util.data.DataKey;
+import com.vladsch.flexmark.util.data.MutableDataHolder;
+import com.vladsch.flexmark.util.data.MutableDataSetter;
 import com.vladsch.flexmark.util.html.Attribute;
-import com.vladsch.flexmark.util.options.DataHolder;
-import com.vladsch.flexmark.util.options.DataKey;
-import com.vladsch.flexmark.util.options.MutableDataHolder;
-import com.vladsch.flexmark.util.options.MutableDataSetter;
+import com.vladsch.flexmark.util.misc.Extension;
 import com.vladsch.flexmark.util.sequence.BasedSequence;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -260,7 +263,7 @@ public class FlexmarkKatexExtension {
             private final KatexOptions options;
             Pattern MATH_PATTERN = Pattern.compile("\\$\\$((?:.|\n)+?)\\$\\$");
 
-            public KatexDisplayMathParser(final InlineParser inlineParser) {
+            public KatexDisplayMathParser(final LightInlineParser inlineParser) {
                 options = new KatexOptions(inlineParser.getDocument());
             }
 
@@ -273,7 +276,7 @@ public class FlexmarkKatexExtension {
             }
 
             @Override
-            public boolean parse(final InlineParser inlineParser) {
+            public boolean parse(@NotNull LightInlineParser inlineParser) {
                 if (inlineParser.peek(1) == '$') {
                     BasedSequence input = inlineParser.getInput();
                     Matcher matcher = inlineParser.matcher(MATH_PATTERN);
@@ -292,7 +295,7 @@ public class FlexmarkKatexExtension {
 
             public static class Factory implements InlineParserExtensionFactory {
                 @Override
-                public Set<Class<? extends InlineParserExtensionFactory>> getAfterDependents() {
+                public @Nullable Set<Class<?>> getAfterDependents() {
                     return null;
                 }
 
@@ -302,12 +305,12 @@ public class FlexmarkKatexExtension {
                 }
 
                 @Override
-                public Set<Class<? extends InlineParserExtensionFactory>> getBeforeDependents() {
+                public @Nullable Set<Class<?>> getBeforeDependents() {
                     return null;
                 }
 
                 @Override
-                public InlineParserExtension create(final InlineParser inlineParser) {
+                public @NotNull InlineParserExtension apply(@NotNull LightInlineParser inlineParser) {
                     return new KatexDisplayMathParser(inlineParser);
                 }
 
@@ -322,7 +325,7 @@ public class FlexmarkKatexExtension {
             private final KatexOptions options;
             Pattern MATH_PATTERN = Pattern.compile("(?<!\\$)\\$((?:.|\n)+?)\\$(?!\\$)");
 
-            public KatexInlineMathParser(final InlineParser inlineParser) {
+            public KatexInlineMathParser(final LightInlineParser inlineParser) {
                 options = new KatexOptions(inlineParser.getDocument());
             }
 
@@ -335,7 +338,7 @@ public class FlexmarkKatexExtension {
             }
 
             @Override
-            public boolean parse(final InlineParser inlineParser) {
+            public boolean parse(@NotNull LightInlineParser inlineParser) {
                 if (inlineParser.peek(1) != '$') {
                     BasedSequence input = inlineParser.getInput();
                     Matcher matcher = inlineParser.matcher(MATH_PATTERN);
@@ -354,7 +357,7 @@ public class FlexmarkKatexExtension {
 
             public static class Factory implements InlineParserExtensionFactory {
                 @Override
-                public Set<Class<? extends InlineParserExtensionFactory>> getAfterDependents() {
+                public @Nullable Set<Class<?>> getAfterDependents() {
                     return null;
                 }
 
@@ -364,12 +367,12 @@ public class FlexmarkKatexExtension {
                 }
 
                 @Override
-                public Set<Class<? extends InlineParserExtensionFactory>> getBeforeDependents() {
+                public @Nullable Set<Class<?>> getBeforeDependents() {
                     return null;
                 }
 
                 @Override
-                public InlineParserExtension create(final InlineParser inlineParser) {
+                public @NotNull InlineParserExtension apply(@NotNull LightInlineParser inlineParser) {
                     return new KatexInlineMathParser(inlineParser);
                 }
 
@@ -395,13 +398,13 @@ public class FlexmarkKatexExtension {
             public Set<NodeRenderingHandler<?>> getNodeRenderingHandlers() {
                 Set<NodeRenderingHandler<?>> set = new HashSet<NodeRenderingHandler<?>>();
                 // @formatter:off
-                set.add(new NodeRenderingHandler<KatexInlineMath>(KatexInlineMath.class, new CustomNodeRenderer<KatexInlineMath>() {
+                set.add(new NodeRenderingHandler<KatexInlineMath>(KatexInlineMath.class, new NodeRenderingHandler.CustomNodeRenderer<KatexInlineMath>() {
                     @Override
                     public void render(KatexInlineMath node, NodeRendererContext context, HtmlWriter html) {
                         KatexNodeRenderer.this.render(node, context, html);
                     }
                 }));
-                set.add(new NodeRenderingHandler<KatexDisplayMath>(KatexDisplayMath.class, new CustomNodeRenderer<KatexDisplayMath>() {
+                set.add(new NodeRenderingHandler<KatexDisplayMath>(KatexDisplayMath.class, new NodeRenderingHandler.CustomNodeRenderer<KatexDisplayMath>() {
                     @Override
                     public void render(KatexDisplayMath node, NodeRendererContext context, HtmlWriter html) {
                         KatexNodeRenderer.this.render(node, context, html);
@@ -425,7 +428,7 @@ public class FlexmarkKatexExtension {
 
             public static class Factory implements NodeRendererFactory {
                 @Override
-                public NodeRenderer create(final DataHolder options) {
+                public @NotNull NodeRenderer apply(@NotNull DataHolder options) {
                     return new KatexNodeRenderer(options);
                 }
             }

@@ -119,11 +119,21 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         }
         setDialogOptions(((FilesystemFragmentOptionsListener) activity).getFilesystemFragmentOptions(_dopt));
 
-        addDivider(activity, _recyclerList);
+        addDivider(activity, _recyclerList, _dopt.showDividers);
 
         _filesystemViewerAdapter = new GsFileBrowserListAdapter(_dopt, activity);
         _recyclerList.setAdapter(_filesystemViewerAdapter);
         setReloadRequiredOnResume(false); // setAdapter will trigger a load
+        getChildFragmentManager().setFragmentResultListener(
+                FileInfoDialog.RESULT_FAVOURITE_CHANGED, getViewLifecycleOwner(), (requestKey, result) -> {
+                    _dopt.favouriteFiles = _appSettings.getFavouriteFiles();
+                    if (GsFileBrowserListAdapter.VIRTUAL_STORAGE_FAVOURITE.equals(getCurrentFolder())) {
+                        _filesystemViewerAdapter.reloadCurrentFolder();
+                    } else {
+                        _filesystemViewerAdapter.notifyDataSetChanged();
+                    }
+                    updateMenuItems();
+                });
 
         _swipe.setOnRefreshListener(() -> {
             _filesystemViewerAdapter.reloadCurrentFolder();
@@ -690,8 +700,12 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         return new MarkorContextUtils(context);
     }
 
-    public static void addDivider(final Activity activity, final RecyclerView recyclerView) {
+    public static void addDivider(final Activity activity, final RecyclerView recyclerView, final boolean showDividers) {
         if (recyclerView == null || activity == null) {
+            return;
+        }
+
+        if (!showDividers) {
             return;
         }
 

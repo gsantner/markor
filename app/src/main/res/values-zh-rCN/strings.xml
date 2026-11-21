@@ -147,7 +147,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">刷新高亮的延迟时间（以毫秒为单位）。 较低的值将更早开始高亮，但它会耗尽您的电池，并可能拖慢旧设备上的应用程序速度。</string>
     <string name="highlighting_enabled_or_not__appspecific">控制是否应突出显示输入的文本</string>
     <string name="control_font_size_in_editor">调整编辑器中文字的字体大小</string>
-    <string name="textactions_show_useful_actions_description__appspecific">在底部显示一排快捷按钮。这些文本操作按钮可以修改文字或着对文字进行其他操作。</string>
+    <string name="textactions_show_useful_actions_description__appspecific">在底部显示一排快捷按钮。这些文本操作按钮可以修改文字或者对文字进行其他操作。</string>
     <string name="load_last_opened_folder_at_startup">启动时加载上次打开的目录</string>
     <string name="format">格式</string>
     <string name="contexts">情境</string>
@@ -196,7 +196,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_lines_hotkey">选择行 (Ctrl + Alt + L)</string>
     <string name="key_ctrl_a">全选 (Ctrl + A)</string>
     <string name="key_tab">制表键 (Tab)</string>
-    <string name="zero_width_space">零宽度空格 (&amp;#8203;)</string>
+    <string name="zero_width_space">零宽空格 (&amp;#8203;)</string>
     <string name="em_space">全角空格 (&amp;emsp;)</string>
     <string name="start_on_bottom">从文末开始</string>
     <string name="start_on_bottom_when_loading_document">载入文件时将光标置于文件末尾处</string>
@@ -314,11 +314,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">笔记本是程序启动时 Markor 在文件浏览器中加载的文件夹。它是你的文件的主文件夹。</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote 是写下笔记最快选择。它是一个默认位置为 &gt;Notebook/QuickNote.md&lt; 的 Markdown 格式的文件，您可以在设置中设置一个自定义文件路径。</string>
     <string name="todo_is_the_easiest_way_">使用 ToDo 管理你的任务。它是 todo.txt 格式的文件，默认位置是 &gt;Notebook/todo.txt&lt;，你可以在设置中自定义文件路径。</string>
-    <string name="navigationbar_color">导航栏颜色</string>
     <string name="black">黑色</string>
     <string name="white">白色</string>
     <string name="view">查看</string>
-    <string name="view_mode">视图模式</string>
+    <string name="view_mode">查看模式</string>
     <string name="edit_mode">编辑模式</string>
     <string name="mount_storage">挂载存储</string>
     <string name="application_needs_access_to_storage_mount_it">访问此存储位置需要权限。挂载存储以提供访问权限。确认此对话框将弹出窗口。在那里选择存储位置，然后点按选择。</string>
@@ -399,7 +398,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="essential">基础设置</string>
     <string name="append_human_readable_uuid_to_new_tasks">将人类可读的 UUID 附加到新任务</string>
     <string name="action_order">操作顺序</string>
-    <string name="show_bottom_action_bar">显示底部动作栏</string>
+    <string name="show_bottom_action_bar">显示底部操作栏</string>
     <string name="toggle_action_visibility">切换操作可见性</string>
     <string name="load_default_settings">加载默认设置</string>
     <string name="drag">拖动</string>
@@ -409,7 +408,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="bad_pattern">无效的表达式</string>
     <string name="toggle_find_replace">切换查找/替换</string>
     <string name="new_line">新行</string>
-    <string name="match_case">匹配大小写</string>
+    <string name="match_case">区分大小写</string>
     <string name="match_whole_word">全字匹配</string>
     <string name="use_regular_expression">使用正则表达式</string>
     <string name="find_in_selection">在选中部分查找</string>

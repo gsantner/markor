@@ -1363,7 +1363,7 @@ public class MarkorDialogFactory {
             CharSequence text = editText.getText();
             int selectionStart = startLine == 0 ? 0 : TextViewUtils.getIndexFromLineOffset(text, startLine - 1, 0) + 1;
             int selectionEnd = endLine == -1 ? editText.length() : TextViewUtils.getIndexFromLineOffset(text, endLine, 0);
-            editText.setSelection(selectionStart, selectionEnd);
+            TextViewUtils.setSelectionAndShow(editText, selectionStart, selectionEnd);
         };
 
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, options);

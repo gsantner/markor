@@ -26,6 +26,9 @@ public class TextSearchHandler {
     private boolean preserveCase = false;
     private int selectionStart;
     private int selectionEnd;
+    // selectionStart/End follow the active match; keep the original search scope separately.
+    private int searchRegionStart;
+    private int searchRegionEnd;
 
     private SearchResultChangedListener resultChangedListener;
 
@@ -33,6 +36,7 @@ public class TextSearchHandler {
     public static final int ACTIVE_INDEX_NEARBY = -2;
 
     public static final int RESULT_BAD_PATTERN = -1;
+    public static final int RESULT_BAD_REPLACEMENT = -2;
 
     private Matcher matcher;
 
@@ -86,8 +90,12 @@ public class TextSearchHandler {
         }
 
         matcher = null;
+        searchRegionStart = 0;
+        searchRegionEnd = editable.length();
         if (isFindInSelection()) {
             if (isSearchSelectionActive()) {
+                searchRegionStart = selectionStart;
+                searchRegionEnd = selectionEnd;
                 CharSequence subCharSequence = editable.subSequence(selectionStart, selectionEnd);
                 matcher = pattern.matcher(subCharSequence);
                 loadMatches(matcher, selectionStart);
@@ -335,6 +343,14 @@ public class TextSearchHandler {
         }
 
         Match currentMatch = matches.get(currentIndex);
+        if (isUseRegex()) {
+            try {
+                replacement = expandRegexReplacement(editable, currentMatch, replacement);
+            } catch (IllegalArgumentException | IndexOutOfBoundsException | IllegalStateException ignored) {
+                reportBadReplacement();
+                return matches.size();
+            }
+        }
 
         if (isPreserveCase()) {
             String originalText = editable.subSequence(currentMatch.getStart(), currentMatch.getEnd()).toString();
@@ -349,6 +365,9 @@ public class TextSearchHandler {
         editText.removeSearchMatch(currentMatch.spanGroup);
         final int size = matches.size();
         final int offset = replacement.length() - currentMatch.getLength();
+        if (isFindInSelection()) {
+            searchRegionEnd += offset;
+        }
         for (int i = currentIndex; i < size; i++) {
             Match match = matches.get(i);
             // Shift index by offset
@@ -381,22 +400,30 @@ public class TextSearchHandler {
         }
 
         final TextViewUtils.ChunkedEditable text = TextViewUtils.ChunkedEditable.wrap(editable);
-        if (isPreserveCase()) {
-            for (int i = matches.size() - 1; i >= 0; i--) {
-                Match match = matches.get(i);
-                final int start = match.getStart();
-                final int end = match.getEnd();
-                String originalText = editable.subSequence(start, end).toString();
-                text.replace(start, end, applyPreserveCase(originalText, replacement));
-            }
-        } else {
-            if (matcher != null) {
-                if (isFindInSelection() && isSearchSelectionActive()) {
-                    text.replace(selectionStart, selectionEnd, matcher.replaceAll(getRegexReplacement(replacement)));
+        try {
+            if (isPreserveCase()) {
+                for (int i = matches.size() - 1; i >= 0; i--) {
+                    final Match match = matches.get(i);
+                    final int start = match.getStart();
+                    final int end = match.getEnd();
+                    final String originalText = editable.subSequence(start, end).toString();
+                    final String expanded = isUseRegex()
+                            ? expandRegexReplacement(editable, match, replacement)
+                            : replacement;
+                    text.replace(start, end, applyPreserveCase(originalText, expanded));
+                }
+            } else {
+                final Matcher replacementMatcher = createMatcher(editable);
+                final String replaced = replacementMatcher.replaceAll(getRegexReplacement(replacement));
+                if (isFindInSelection()) {
+                    text.replace(searchRegionStart, searchRegionEnd, replaced);
                 } else {
-                    text.replace(0, editable.length(), matcher.replaceAll(getRegexReplacement(replacement)));
+                    text.replace(0, editable.length(), replaced);
                 }
             }
+        } catch (IllegalArgumentException | IndexOutOfBoundsException | IllegalStateException ignored) {
+            reportBadReplacement();
+            return;
         }
         text.applyChanges();
 
@@ -408,8 +435,35 @@ public class TextSearchHandler {
         currentIndex = 0;
     }
 
-    private String getRegexReplacement(String replacement) {
+    private String expandRegexReplacement(final Editable editable, final Match match,
+                                          final String replacement) {
+        final int matchOffset = isFindInSelection() ? searchRegionStart : 0;
+        final int start = match.getStart() - matchOffset;
+        final int end = match.getEnd() - matchOffset;
+        final Matcher replacementMatcher = createMatcher(editable);
+        if (!replacementMatcher.find(start)
+                || replacementMatcher.start() != start
+                || replacementMatcher.end() != end) {
+            throw new IllegalStateException("Original search match is unavailable");
+        }
+        final StringBuffer result = new StringBuffer();
+        replacementMatcher.appendReplacement(result, replacement);
+        return result.substring(start);
+    }
+
+    private Matcher createMatcher(final Editable editable) {
+        final CharSequence searchText = isFindInSelection()
+                ? editable.subSequence(searchRegionStart, searchRegionEnd)
+                : editable;
+        return matcher.pattern().matcher(searchText);
+    }
+
+    private String getRegexReplacement(final String replacement) {
         return isUseRegex() ? replacement : Matcher.quoteReplacement(replacement);
+    }
+
+    private void reportBadReplacement() {
+        resultChangedListener.onResultChanged(0, RESULT_BAD_REPLACEMENT);
     }
 
     private void markSelection(EditText editText, int start, int end, boolean setSelection) {

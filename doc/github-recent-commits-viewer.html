@@ -1,0 +1,97 @@
+<!--
+# vim: sw=2 ts=2 ft=html expandtab:
+#########################################################
+#
+#  github-master-commits-viewer.html
+#
+#  GitHub commits viewer
+
+# Standalone HTML/JS viewer for GitHub commits on default branch.
+# Fetches commits from the GitHub API (api.github.com) and renders them as a minimalistic list.
+# Groups commits under release version headers using regex matching on subject lines.
+# Shows author avatar, verified-sign badge, localized datetime, short SHA link, and full commit message.
+# Uses vanilla JS only, no external libraries.
+#
+#  Created by gsantner on 18.11.2026
+#
+#########################################################
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=yes">
+  <meta name="referrer" content="no-referrer" />
+  <meta name="theme-color" content="#1EA3FD">
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+</html>
+
+<script>
+class GithubRecentCommitsViewer {
+constructor(args) {
+  // Structure
+  let self = this;
+  let wrapper = document.createElement('div');
+  wrapper.innerHTML = `<h1>${args['ghuser']}/${args['ghrepo']} - recent changes (git default branch)</h1><div class="commit-content" style="display:flex;flex-direction:column;"></div>`;
+  wrapper.style.cssText = 'max-width: 720px; margin: auto; text-align: left;';
+  args['targetEl'].appendChild(wrapper);
+
+  // API request -> parse JSON -> render
+  let urlCommitsjson = true ? `https://api.github.com/repos/${args['ghuser']}/${args['ghrepo']}/commits?per_page=100` : "github-commits.json"
+  fetch(urlCommitsjson)
+    .then(function (response) { return response.json(); })
+    .then(function (commits) { self.render(commits, wrapper.querySelector('.commit-content')); })
+    .catch(function (err) { wrapper.querySelector('.commit-content').innerHTML = `<p>Error: ${self.html_escape_basic(err.message)}</p>`;});
+}
+
+html_escape_basic(unsafe) {
+  return unsafe.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#039;');
+}
+
+render(commits, targetEl) {
+  let self = this
+  for (const commit of commits) {
+    let infos = {
+      datetimeLocalized: new Date(commit.commit.author.date).toLocaleString(),
+      shaShort: commit.sha.substring(0, 7),
+      subject: commit.commit.message.split("\n")[0],
+      isRelease: (/^(\w+ v[0-9]+\.[0-9]+\.)|([Rr]elease)/).test(commit.commit.message.split("\n")[0]),
+      isVerified: commit.commit.verification && commit.commit.verification.verified,
+      msg: commit.commit.message,
+    };
+    console.log(JSON.stringify(infos))
+
+    if (targetEl.children.length === 0 || infos.isRelease) {
+      let h2 = document.createElement('h2');
+      h2.textContent = infos.isRelease ? self.html_escape_basic(infos.subject) : 'Unreleased';
+      h2.style.color = '#ef6D00';
+      targetEl.appendChild(h2);
+    }
+
+    const el = document.createElement('div');
+    el.style.cssText = 'padding:12px 0;border-bottom:1px solid #ccc;display:flex;align-items:flex-start;gap:12px;';
+    el.innerHTML = `
+      <img style="width:36px;height:36px;border-radius:4px;flex-shrink:0;" src="${commit.author.avatar_url}" alt="Avatar">
+      <div style="flex:1;min-width:0;">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:2px;flex-wrap:wrap;">
+          <a style="color:#EF4B4A;font-weight:600;text-decoration:none;" href="${commit.author.html_url}" target="_blank">${commit.author.login}</a>
+          <span title="signed/verified">${infos.isVerified ? '&#x1F512;' : '&#8689;'}</span>
+          <span>${infos.datetimeLocalized}</span>
+          <a style="color:#1EA3FD;text-decoration:none; font-family: monospace;" href="${commit.html_url}" target="_blank">&#10210;${infos.shaShort}</a>
+        </div>
+        <pre style="font-family: serif; word-break:break-word; margin: 0; white-space:pre-wrap;">${self.html_escape_basic(infos.msg)}</pre>
+      </div>
+    `;
+    targetEl.appendChild(el);
+  }
+} // function render
+
+} // class CommitViewer
+
+document.commitViewer = new GithubRecentCommitsViewer({targetEl: document.getElementById('app'), ghuser: "gsantner", ghrepo: "markor"});
+</script>
+

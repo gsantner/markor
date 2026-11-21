@@ -409,15 +409,18 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         setStringList(R.string.pref_key__favourite_files, GsCollectionUtils.map(set, p -> p));
     }
 
-    public void toggleFavouriteFile(File file) {
-        final List<String> list = new ArrayList<>();
+    public void setFavouriteFile(final File file, final boolean favourite) {
         final Set<File> favourites = getFavouriteFiles();
-        if (favourites.contains(file)) {
-            favourites.remove(file);
-        } else {
+        if (favourite) {
             favourites.add(file);
+        } else {
+            favourites.remove(file);
         }
         setFavouriteFiles(favourites);
+    }
+
+    public void toggleFavouriteFile(final File file) {
+        setFavouriteFile(file, !getFavouriteFiles().contains(file));
     }
 
     private static final String PREF_PREFIX_EDIT_POS_CHAR = "PREF_PREFIX_EDIT_POS_CHAR";
@@ -733,6 +736,29 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return getString(R.string.pref_key__app_theme, _context.getString(R.string.app_theme_system));
     }
 
+    public boolean isFlatTopBottomBarColorEnabled() {
+        return getBool(R.string.pref_key__ui_flat_top_bottom_bars, false);
+    }
+
+    public boolean isMainBottomBarTabTitlesShown() {
+        return getBool(R.string.pref_key__main_bottom_bar_show_tab_titles, true);
+    }
+
+    public boolean isFileBrowserDividerEnabled() {
+        return getBool(R.string.pref_key__file_browser_show_dividers, true);
+    }
+
+    public @ColorInt int getUiBackgroundColor() {
+        if (getAppThemeName().contains("black")) {
+            return Color.BLACK;
+        }
+        return rcolor(R.color.background);
+    }
+
+    public @ColorInt int getConfiguredBarBackgroundColor() {
+        return isFlatTopBottomBarColorEnabled() ? getUiBackgroundColor() : rcolor(R.color.primary);
+    }
+
     public void setEditorBasicColor(boolean forDarkMode, @ColorRes int fgColor, @ColorRes int bgColor) {
         int resIdFg = forDarkMode ? R.string.pref_key__basic_color_scheme__fg_dark : R.string.pref_key__basic_color_scheme__fg_light;
         int resIdBg = forDarkMode ? R.string.pref_key__basic_color_scheme__bg_dark : R.string.pref_key__basic_color_scheme__bg_light;
@@ -819,10 +845,6 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
 
     public boolean isFileBrowserSortFolderFirst() {
         return getBool(R.string.pref_key__filesystem_folder_first, true);
-    }
-
-    public String getNavigationBarColor() {
-        return getString(R.string.pref_key__navigationbar_color, "#000000");
     }
 
     public String getAppStartupFolderMenuId() {
@@ -1078,12 +1100,12 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return templates;
     }
 
-    // Read all files in snippets folder with appropriate extension
-    // Create a map of snippet title -> text
+    // Read all plain text files in the snippets folder
     public List<File> getSnippetFiles() {
         final File dir = getSnippetsDirectory();
         if (dir != null && dir.isDirectory()) {
-            final File[] files = dir.listFiles(f -> f.isFile() && GsFileUtils.isTextFile(f));
+            final File[] files = dir.listFiles(f -> f.isFile()
+                    && (GsFileUtils.isContentsPlainText(f) || GsFileUtils.isTextFile(f)));
             if (files != null) {
                 Arrays.sort(files, (f1, f2) -> f1.getName().compareToIgnoreCase(f2.getName()));
                 return Arrays.asList(files);

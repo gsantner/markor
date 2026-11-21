@@ -41,11 +41,10 @@ public class WikitextSyntaxHighlighter extends SyntaxHighlighterBase {
     public final static Pattern CHECKLIST_LEFT_ARROW = Pattern.compile("(?<=(\\n|^))\t*(\\[)(<)(])(?= )");
     public final static Pattern SUBSCRIPT = Pattern.compile("(_\\{(?!~)(.+?)\\})");
     public final static Pattern SUPERSCRIPT = Pattern.compile("(\\^\\{(?!~)(.+?)\\})");
-    public final static Pattern ZIMHEADER_CONTENT_TYPE_ONLY = Pattern.compile("^\\s*Content-Type:\\s*text/x-zim-wiki");
     public final static Pattern ZIMHEADER = Pattern.compile(
             "^Content-Type: text/x-zim-wiki(\r\n|\r|\n)" +
                     "Wiki-Format: zim \\d+\\.\\d+(\r\n|\r|\n)" +
-                    "Creation-Date: \\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}[.+:-\\d]+");
+                    "Creation-Date: \\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}[-.+:\\d]+");
 
     // groups for matching individual parts of the checklist regex
     public static final int CHECKBOX_LEFT_BRACKET_GROUP = 2;
