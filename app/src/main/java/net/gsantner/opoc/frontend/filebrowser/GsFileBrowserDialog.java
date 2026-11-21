@@ -23,6 +23,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -36,6 +37,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -181,6 +183,16 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         _filesystemViewerAdapter = new GsFileBrowserListAdapter(_dopt, activity);
         _recyclerList.setAdapter(_filesystemViewerAdapter);
 
+        final MenuItem dotfiles = _toolBar.getMenu().add(R.string.show_dotfiles);
+        dotfiles.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        updateDotfilesAction(dotfiles);
+        dotfiles.setOnMenuItemClickListener(item -> {
+            _dopt.sortOrder.showDotFiles = !_dopt.sortOrder.showDotFiles;
+            updateDotfilesAction(item);
+            _filesystemViewerAdapter.reloadCurrentFolder();
+            return true;
+        });
+
         // Setup callbacks
         _dopt.setSubtitle = _toolBar::setSubtitle;
         _dopt.setTitle = _toolBar::setTitle;
@@ -191,6 +203,17 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
 
     private int rcolor(@ColorRes int colorRes) {
         return ContextCompat.getColor(getContext(), colorRes);
+    }
+
+    private void updateDotfilesAction(final MenuItem item) {
+        final boolean visible = _dopt.sortOrder.showDotFiles;
+        final int iconColor = rcolor(visible ? _dopt.titleTextColor : _dopt.secondaryTextColor);
+        item.setIcon(GsContextUtils.instance.tintDrawable(_toolBar.getContext(), R.drawable.ic_regex_24dp, iconColor));
+
+        final String label = getString(visible ? R.string.hide_dotfiles : R.string.show_dotfiles);
+        item.setTitle(label);
+        MenuItemCompat.setTooltipText(item, label);
+        MenuItemCompat.setContentDescription(item, label);
     }
 
     private void setDialogOptions(GsFileBrowserOptions.Options options) {
