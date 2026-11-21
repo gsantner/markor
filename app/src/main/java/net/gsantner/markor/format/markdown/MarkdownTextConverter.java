@@ -18,10 +18,12 @@ import com.vladsch.flexmark.ext.emoji.EmojiImageType;
 import com.vladsch.flexmark.ext.footnotes.FootnoteExtension;
 import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughSubscriptExtension;
 import com.vladsch.flexmark.ext.gfm.tasklist.TaskListExtension;
+import com.vladsch.flexmark.ext.gfm.tasklist.TaskListItem;
 import com.vladsch.flexmark.ext.gitlab.GitLabExtension;
 import com.vladsch.flexmark.ext.ins.InsExtension;
 import com.vladsch.flexmark.ext.jekyll.front.matter.JekyllFrontMatterExtension;
 import com.vladsch.flexmark.ext.jekyll.tag.JekyllTagExtension;
+import com.vladsch.flexmark.ext.superscript.SuperscriptExtension;
 import com.vladsch.flexmark.ext.tables.TablesExtension;
 import com.vladsch.flexmark.ext.toc.SimTocExtension;
 import com.vladsch.flexmark.ext.toc.TocExtension;
@@ -36,18 +38,20 @@ import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.html.renderer.AttributablePart;
 import com.vladsch.flexmark.html.renderer.LinkResolverContext;
 import com.vladsch.flexmark.parser.Parser;
-import com.vladsch.flexmark.superscript.SuperscriptExtension;
 import com.vladsch.flexmark.util.ast.Document;
 import com.vladsch.flexmark.util.ast.Node;
-import com.vladsch.flexmark.util.builder.Extension;
-import com.vladsch.flexmark.util.html.Attributes;
-import com.vladsch.flexmark.util.options.MutableDataHolder;
-import com.vladsch.flexmark.util.options.MutableDataSet;
+import com.vladsch.flexmark.util.data.MutableDataHolder;
+import com.vladsch.flexmark.util.data.MutableDataSet;
+import com.vladsch.flexmark.util.html.MutableAttributes;
+import com.vladsch.flexmark.util.misc.Extension;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextConverterBase;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.util.GsContextUtils;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -154,7 +158,6 @@ public class MarkdownTextConverter extends TextConverterBase {
     // private static final String toDashChars = " -_"; // See HtmlRenderer.HEADER_ID_GENERATOR_TO_DASH_CHARS.getFrom(document)
     private static final Pattern linkPattern = Pattern.compile("\\[(.*?)\\]\\((.*?)(\\s+\".*\")?\\)");
 
-
     //########################
     //## Methods
     //########################
@@ -165,6 +168,9 @@ public class MarkdownTextConverter extends TextConverterBase {
         final MutableDataSet options = new MutableDataSet();
 
         options.set(Parser.EXTENSIONS, flexmarkExtensions);
+        final String sourceMarkup = markup;
+        final Document sourceDocument = flexmarkParser.parse(sourceMarkup);
+        final List<Integer> checkboxSourceIndices = getCheckboxSourceIndices(sourceDocument);
 
         options.set(Parser.SPACE_IN_LINK_URLS, true); // Allow links like [this](some filename with spaces.md)
 
@@ -179,6 +185,13 @@ public class MarkdownTextConverter extends TextConverterBase {
         final String checkedCheckbox = "<input type=checkbox class=task-list-item-checkbox checked=checked style='accent-color: #F04B4B;' />";
         options.set(TaskListExtension.ITEM_NOT_DONE_MARKER, checkedCheckbox.replace("checked=checked", ""))
                 .set(TaskListExtension.ITEM_DONE_MARKER, checkedCheckbox);
+        if (!checkboxSourceIndices.isEmpty()) {
+            onLoadJs += "var checkboxSourceIndices=" + checkboxSourceIndices + ";"
+                    + "var boxes=document.querySelectorAll('input.task-list-item-checkbox');"
+                    + "for(var i=0;i<boxes.length&&i<checkboxSourceIndices.length;i++){"
+                    + "boxes[i].markorSourceIndex=checkboxSourceIndices[i];"
+                    + "boxes[i].addEventListener('change',function(){Android.webViewJavascriptCallback(['markdown-checkbox',String(this.markorSourceIndex),this.checked?'true':'false']);});}";
+        }
 
         // GFM table parsing
         options.set(TablesExtension.WITH_CAPTION, false)
@@ -318,8 +331,8 @@ public class MarkdownTextConverter extends TextConverterBase {
 
         ////////////
         // Markup parsing - afterwards = HTML
-        Document document = flexmarkParser.parse(markup);
-        converted = fmaText + flexmarkRenderer.withOptions(options).render(document);
+        Document document = sourceMarkup.equals(markup) ? sourceDocument : flexmarkParser.parse(markup);
+        converted = fmaText + flexmarkRenderer.builder(options).build().render(document);
 
         // After render changes: Fixes for Footnotes (converter creates footnote + <br> + ref#(click) --> remove line break)
         if (converted.contains("footnote-")) {
@@ -373,6 +386,21 @@ public class MarkdownTextConverter extends TextConverterBase {
         sb.append(markup.substring(previousEnd));
 
         return sb.toString();
+    }
+
+    private static List<Integer> getCheckboxSourceIndices(final Document document) {
+        final List<Integer> indices = new ArrayList<>();
+        collectCheckboxSourceIndices(document, indices);
+        return indices;
+    }
+
+    private static void collectCheckboxSourceIndices(final Node parent, final List<Integer> indices) {
+        for (Node node = parent.getFirstChild(); node != null; node = node.getNext()) {
+            if (node instanceof TaskListItem) {
+                indices.add(((TaskListItem) node).getMarkerSuffix().getStartOffset() + 1);
+            }
+            collectCheckboxSourceIndices(node, indices);
+        }
     }
 
     private String getViewHlPrismIncludes(final String theme) {
@@ -446,7 +474,7 @@ public class MarkdownTextConverter extends TextConverterBase {
 
     private static class LineNumberIdProvider implements AttributeProvider {
         @Override
-        public void setAttributes(Node node, AttributablePart part, Attributes attributes) {
+        public void setAttributes(@NotNull Node node, @NotNull AttributablePart part, @NotNull MutableAttributes attributes) {
             final Document document = node.getDocument();
             final int lineNumber = document.getLineNumber(node.getStartOffset());
             attributes.addValue("line", "" + lineNumber);
@@ -456,12 +484,12 @@ public class MarkdownTextConverter extends TextConverterBase {
     private static class LineNumberIdProviderFactory implements AttributeProviderFactory {
 
         @Override
-        public Set<Class<? extends AttributeProviderFactory>> getAfterDependents() {
+        public @Nullable Set<Class<?>> getAfterDependents() {
             return null;
         }
 
         @Override
-        public Set<Class<? extends AttributeProviderFactory>> getBeforeDependents() {
+        public @Nullable Set<Class<?>> getBeforeDependents() {
             return null;
         }
 
@@ -471,7 +499,7 @@ public class MarkdownTextConverter extends TextConverterBase {
         }
 
         @Override
-        public AttributeProvider create(LinkResolverContext context) {
+        public @NotNull AttributeProvider apply(@NotNull LinkResolverContext context) {
             return new LineNumberIdProvider();
         }
     }

@@ -45,37 +45,38 @@ Markor is openly developed free software that accepts community contributions.
 <br/>🔃 Markor is an offline app. It works with sync apps, but they have to do syncing respectively.
 <br/>🔒 Can encrypt your textfiles with AES256. You need to set a password at the settings and use Android device with version Marshmallow or newer. You can use [jpencconverter](https://gitlab.com/opensource21/jpencconverter) to encrypt/decrypt on desktop. Be aware that only the text is encrypted not pictures or attachments.
 
-## New features in the latest update - Markor v2.11 - AsciiDoc, CSV and Org-Mode, Todo.txt advanced search, Line numbers
+## New features in the latest update - Markor v2026.10 - Deep links, keyboard shortcuts, ViewMode improvements
 
-### Line number support
+### Deep links and keyboard shortcuts
+Markor now supports the `markor://` deep link scheme, allowing external apps and bookmarks to directly open files or perform actions in Markor. Additionally, a comprehensive keyboard shortcut system was added, with many essential shortcuts implemented and an improved shortcuts settings interface.
 
-Markor supports showing line numbers now. In the top file menu you can find a new option to enable numbers.
-It is supported in editor as well in view mode of documents (in code blocks).
+### Markdown ToDo/CheckBox editing in ViewMode
+Markdown ToDo items and CheckBoxes can now be toggled directly in ViewMode - no longer requiring edit mode. This makes quick checklists much more convenient.
 
-![Line numbers](doc/assets/2023-10-11-line-numbers.webp)
+### App appearance options
+New settings allow customizing the app's visual appearance, giving users more control over Markor's look and feel.
 
-### New format: AsciiDoc
-AsciiDoc is one of the new formats that are now supported.
-While it might be not as much fleshed out like Markdown, it should fit for general use.
+### Mermaid update to 11.17.2
+The Mermaid diagram library was updated from 11.6.0 to 11.17.2, bringing improved rendering and new diagram types.
 
-![AsciiDoc](doc/assets/2023-10-11-asciidoc.webp)
+### Editor: static cursor option
+A new settings option lets users disable the blinking cursor, showing a static (non-blinking) cursor instead - useful for users who find the blink distracting.
 
-### New format: CSV
-[CSV file](https://en.wikipedia.org/wiki/Comma-separated_values) are supported now (in sense of syntax highlighting and preview). 
-For details see [CSV README](doc/2023-06-02-csv-readme.md), it was implemented in #1988, #1987, #1980, #1667.
+### ViewMode improvements
+- Link addresses can now be viewed in ViewMode by long-pressing a link
+- Newline indentation before nested list items is now fixed
+- Webview jumping issues were resolved
 
-* Editor with SyntaxHighlighter
-* Each csv column is shown in a different unique color to see which csv-data belongs to which colum/header
-* Preview as html-Table with export as pdf
-* A csv column may contain markdown (See Example column in screenshot)
+### Search & Replace enhancements
+The search and replace dialog received multiple improvements, including fixes for regex capture group replacement.
 
-![](doc/assets/csv/2023-06-25-csv-landscape.webp)
+### File manager improvements
+- Natural sort order is now the default for filenames
+- File browser auto-refreshes on filesystem changes
+- Favorites state sync was fixed
 
-### New format: Org-Mode
-The third and last new format newly added is Org-Mode. Note that currently only editor syntax highlighting and action buttons to make editing easier are available.
-There is no dedicated view mode implemented.
-
-![Org-Mode](doc/assets/2023-10-07-orgmode.webp)
+### TV device support
+Markor can now be launched on Android TV devices.
 
 ### Navigation
 * [**README**](README.md)
@@ -94,6 +95,8 @@ There is no dedicated view mode implemented.
   * [Using Markor to Write (and More) on an Android Device (The Plain Text Project)](doc/2019-07-16-using-markor-to-write-on-an-android-device-plaintextproject.md)
   * [How I Take Notes With Vim, Markdown, and Pandoc (Vaughan)](doc/2018-05-15-pandoc-vim-markdown-how-i-take-notes-vaughan.md)
 * [**NEWS**](NEWS.md)
+  * [Markor v2026.10 - Deep links, keyboard shortcuts, ViewMode improvements](NEWS.md#markor-v202610---deep-links-keyboard-shortcuts-viewmode-improvements)
+  * [Markor v2.16 - ViewMode enhancements, Search & Replace, AsciiDoc fixes](NEWS.md#markor-v216---viewmode-enhancements-search--replace-asciidoc-fixes)
   * [Markor v2.11 - AsciiDoc, CSV and Org-Mode, Todo.txt advanced search](NEWS.md#markor-v211---asciidoc-csv-and-org-mode-todotxt-advanced-search-line-numbers) 
   * [Markor v2.10 - Custom file templates, Share Into automatically remove URL tracking parameters](NEWS.md#markor-v210---custom-file-templates-share-into-automatically-remove-url-tracking-parameters)
   * [Markor v2.9 - Snippets, Templates, Graphs, Charts, Diagrams, YAML front-matter, Chemistry](NEWS.md#markor-v29---snippets-templates-graphs-charts-diagrams-yaml-front-matter-chemistry)

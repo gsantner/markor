@@ -306,7 +306,7 @@ public class NewFileDialog extends DialogFragment {
             final File file = new File(basedir, fileName);
 
             // Most of the logic we want is in the document class so we just reuse it
-            final Document document = new Document(file);
+            final Document document = new Document(file, fmt.format);
 
             // These are done even if the file isn't created
             final String titleFormat = formatEdit.getText().toString().trim();

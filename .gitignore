@@ -106,3 +106,4 @@ app/flavor*
 /.vscode
 
 cm-editor/node_modules/
+gradle/gradle-daemon-jvm.properties
