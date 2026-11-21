@@ -662,13 +662,43 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
 
     public ArrayList<String> getRecentDocuments() {
         final ArrayList<String> list = getStringList(R.string.pref_key__recent_documents);
-        for (int i = 0; i < list.size(); i++) {
-            if (!new File(list.get(i)).isFile()) {
+        for (int i = list.size() - 1; i >= 0; i--) {
+            final File file = new File(list.get(i));
+            if (!file.isFile() || hasStaleRecentName(file, list)) {
                 list.remove(i);
-                i--;
             }
         }
         return list;
+    }
+
+    private static boolean hasStaleRecentName(final File file, final List<String> recentPaths) {
+        final File parent = file.getParentFile();
+        if (parent == null) {
+            return false;
+        }
+        final String name = file.getName();
+        List<String> names = null;
+        for (final String path : recentPaths) {
+            final File other = new File(path);
+            final String otherName = other.getName();
+            if (!name.equals(otherName) && name.equalsIgnoreCase(otherName) && parent.equals(other.getParentFile())) {
+                // Compare directory entries because both spellings can resolve to the same file.
+                if (names == null) {
+                    final String[] entries = parent.list((dir, entry) -> name.equalsIgnoreCase(entry));
+                    if (entries == null) {
+                        return false;
+                    }
+                    names = Arrays.asList(entries);
+                    if (names.contains(name)) {
+                        return false;
+                    }
+                }
+                if (names.contains(otherName)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public ArrayList<File> getAsFileList(List<String> list) {
@@ -695,7 +725,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     public Set<File> getRecentFiles() {
-        return getFileSet(getStringList(R.string.pref_key__recent_documents));
+        return getFileSet(getRecentDocuments());
     }
 
     public Set<File> getPopularFiles() {
