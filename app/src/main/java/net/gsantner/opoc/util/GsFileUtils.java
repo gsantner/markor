@@ -23,6 +23,7 @@ import androidx.annotation.RequiresApi;
 
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
+import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -56,6 +57,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -780,33 +782,19 @@ public class GsFileUtils {
     }
 
     public static final String SORT_BY_NAME = "NAME", SORT_BY_FILESIZE = "FILESIZE", SORT_BY_MTIME = "MTIME", SORT_BY_MIMETYPE = "MIMETYPE";
+    private final static AlphanumComparator NATURAL_SORT_COMPARATOR = new AlphanumComparator();
 
-    /**
-     * Get a key which can be use to sort File objects
-     * This is highly performant as each file is processed exactly once.
-     * Inspired by python's sort
-     *
-     * @param sortBy String key of what to sort
-     * @param file   The file object to get the
-     * @return A key which can be used for comparisons / sorting
-     */
-    private static String makeSortKey(final String sortBy, final File file) {
-        final String name = file.getName().toLowerCase();
-        switch (sortBy) {
-            case SORT_BY_MTIME: {
-                return file.lastModified() + name;
-            }
-            case SORT_BY_FILESIZE: {
-                return String.format("%015d", file.length()) + name;
-            }
-            case SORT_BY_MIMETYPE: {
-                return getMimeType(file).toLowerCase() + name;
-            }
-            case SORT_BY_NAME:
-            default: {
-                return name;
-            }
-        }
+    private static <K> void sortFilesByKeyThenName(
+            final List<File> files,
+            final GsCallback.r1<K, File> keyFn,
+            final Comparator<K> keyComparator
+    ) {
+        GsCollectionUtils.keySort(files,
+                file -> Pair.create(keyFn.callback(file), file.getName().toLowerCase()),
+                (left, right) -> {
+                    final int keyResult = keyComparator.compare(left.first, right.first);
+                    return keyResult != 0 ? keyResult : NATURAL_SORT_COMPARATOR.compare(left.second, right.second);
+                });
     }
 
     public static class SortOrder {
@@ -849,7 +837,21 @@ public class GsFileUtils {
                 final boolean copy = !(filesToSort instanceof List);
                 final List<File> sortable = copy ? new ArrayList<>(filesToSort) : (List<File>) filesToSort;
 
-                GsCollectionUtils.keySort(sortable, (f) -> makeSortKey(order.sortByType, f), new AlphanumComparator());
+                switch (order.sortByType) {
+                    case SORT_BY_MTIME:
+                        sortFilesByKeyThenName(sortable, File::lastModified, Long::compareTo);
+                        break;
+                    case SORT_BY_FILESIZE:
+                        sortFilesByKeyThenName(sortable, File::length, Long::compareTo);
+                        break;
+                    case SORT_BY_MIMETYPE:
+                        sortFilesByKeyThenName(sortable, file -> getMimeType(file).toLowerCase(), String::compareTo);
+                        break;
+                    case SORT_BY_NAME:
+                    default:
+                        GsCollectionUtils.keySort(sortable, file -> file.getName().toLowerCase(), NATURAL_SORT_COMPARATOR);
+                        break;
+                }
                 if (order.reverse) {
                     Collections.reverse(sortable);
                 }
