@@ -37,6 +37,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -206,9 +207,13 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
 
     private void updateDotfilesAction(final MenuItem item) {
         final boolean visible = _dopt.sortOrder.showDotFiles;
-        final int icon = visible ? R.drawable.ic_visibility_black_24dp : R.drawable.ic_visibility_off_black_24dp;
-        item.setIcon(GsContextUtils.instance.tintDrawable(_toolBar.getContext(), icon, rcolor(_dopt.titleTextColor)));
-        item.setTitle(visible ? R.string.hide_dotfiles : R.string.show_dotfiles);
+        final int iconColor = rcolor(visible ? _dopt.titleTextColor : _dopt.secondaryTextColor);
+        item.setIcon(GsContextUtils.instance.tintDrawable(_toolBar.getContext(), R.drawable.ic_regex_24dp, iconColor));
+
+        final String label = getString(visible ? R.string.hide_dotfiles : R.string.show_dotfiles);
+        item.setTitle(label);
+        MenuItemCompat.setTooltipText(item, label);
+        MenuItemCompat.setContentDescription(item, label);
     }
 
     private void setDialogOptions(GsFileBrowserOptions.Options options) {
