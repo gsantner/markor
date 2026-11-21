@@ -59,7 +59,6 @@ import net.gsantner.opoc.util.GsFileUtils;
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -251,15 +250,20 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         // Check if is a favourite
         boolean selTextFilesOnly = true;
         boolean selDirectoriesOnly = true;
+        boolean selCopyable = true;
         boolean selWritable = true;
         boolean allSelectedFav = true;
+        final File quickNote = _appSettings.getQuickNoteFile();
+        final File todo = _appSettings.getTodoFile();
+        final File notebook = _appSettings.getNotebookDirectory();
         final Collection<File> favFiles = _dopt.favouriteFiles != null ? _dopt.favouriteFiles : Collections.emptySet();
         for (final File f : selFiles) {
             selTextFilesOnly &= FormatRegistry.isFileSupported(f, true);
-            selWritable &= f.canWrite();
+            final boolean copyable = !notebook.equals(f) && !GsFileBrowserListAdapter.isVirtualFolder(f) && f.canWrite();
+            selCopyable &= copyable;
+            selWritable &= copyable && !quickNote.equals(f) && !todo.equals(f);
             selDirectoriesOnly &= f.isDirectory();
             allSelectedFav &= favFiles.contains(f);
-            selWritable &= !Arrays.asList(_appSettings.getQuickNoteFile(), _appSettings.getTodoFile(), _appSettings.getNotebookDirectory()).contains(f);
         }
 
         if (_fragmentMenu != null && _fragmentMenu.findItem(R.id.action_delete_selected_items) != null) {
@@ -268,7 +272,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             _fragmentMenu.findItem(R.id.action_rename_selected_item).setVisible(selMulti1 && selWritable & !selInVirtualDirectory);
             _fragmentMenu.findItem(R.id.action_info_selected_item).setVisible(selMulti1);
             _fragmentMenu.findItem(R.id.action_move_selected_items).setVisible((selMulti1 || selMultiMore) && selWritable && !selInVirtualDirectory && !_cu.isUnderStorageAccessFolder(getContext(), getCurrentFolder(), true));
-            _fragmentMenu.findItem(R.id.action_copy_selected_items).setVisible((selMulti1 || selMultiMore) && selWritable && !_cu.isUnderStorageAccessFolder(getContext(), getCurrentFolder(), true));
+            _fragmentMenu.findItem(R.id.action_copy_selected_items).setVisible(selMultiAny && selCopyable && !_cu.isUnderStorageAccessFolder(getContext(), getCurrentFolder(), true));
             _fragmentMenu.findItem(R.id.action_share_files).setVisible(selFilesOnly && (selMulti1 || selMultiMore) && !_cu.isUnderStorageAccessFolder(getContext(), getCurrentFolder(), true));
             _fragmentMenu.findItem(R.id.action_go_to).setVisible(!_filesystemViewerAdapter.areItemsSelected());
             _fragmentMenu.findItem(R.id.action_sort).setVisible(_filesystemViewerAdapter.isCurrentFolderSortable() && !_filesystemViewerAdapter.areItemsSelected());
