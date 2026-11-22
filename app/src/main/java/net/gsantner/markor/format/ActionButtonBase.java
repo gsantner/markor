@@ -107,10 +107,19 @@ public abstract class ActionButtonBase {
     }
 
     // Override to implement custom callbacks from view-mode JavaScript
-    public void onWebViewJavascriptCallback(final String[] args) {
-        if (args.length == 2 && "toast".equalsIgnoreCase(args[0]) && _activity != null) {
+    public void onWebViewJavascriptCallback(final String[] args, final DocumentEditAndViewFragment fragment) {
+        if (args.length == 4 && "set-checked".equals(args[0]) && _hlEditor != null && fragment.isPreviewing(this)) {
+            final int index = GsTextUtils.tryParseInt(args[1], -1);
+            final boolean checked = "true".equals(args[2]);
+            if (index >= 0 && (checked || "false".equals(args[2]))) {
+                setPreviewCheckbox(index, checked, args[3], fragment);
+            }
+        } else if (args.length == 2 && "toast".equalsIgnoreCase(args[0]) && _activity != null) {
             Toast.makeText(_activity, args[1], Toast.LENGTH_SHORT).show();
         }
+    }
+
+    protected void setPreviewCheckbox(final int index, final boolean checked, final String revision, final DocumentEditAndViewFragment fragment) {
     }
 
     private TextSearchViewHolder _textSearchViewHolder;

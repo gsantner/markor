@@ -100,55 +100,60 @@ public class TodoTxtActionButtons extends ActionButtonBase {
         });
     }
 
-    public boolean handlePreviewAction(final String[] args, final DocumentEditAndViewFragment fragment) {
-        if (args.length < 2 || !"todotxt-preview".equals(args[0])) {
-            return false;
+    @Override
+    public void onWebViewJavascriptCallback(final String[] args, final DocumentEditAndViewFragment fragment) {
+        if (args.length == 0 || !"todotxt-preview".equals(args[0])) {
+            super.onWebViewJavascriptCallback(args, fragment);
+            return;
         }
         if (args.length < 3 || !isCurrentPreview(args[1], fragment)) {
-            return true;
+            return;
         }
         if (args.length == 3 && "sort".equals(args[2])) {
             showSortDialog(args[1], fragment);
-            return true;
-        }
-        if (args.length != 4 && args.length != 5) {
-            return true;
-        }
-        final int line = args[3] == null ? -1 : GsTextUtils.tryParseInt(args[3], -1);
-        final Editable text = _hlEditor.getText();
-        // The utility takes an offset from the end of the line, clamped to its start.
-        final int start = TextViewUtils.getIndexFromLineOffset(text, line, Integer.MAX_VALUE);
-        if (start < 0 || start >= text.length()) {
-            return true;
-        }
-        final int lineEnd = TextViewUtils.getLineEnd(text, start);
-        final int taskEnd = lineEnd > start && text.charAt(lineEnd - 1) == '\r' ? lineEnd - 1 : lineEnd;
-        final String task = text.subSequence(start, taskEnd).toString();
-        if (task.trim().isEmpty()) {
-            return true;
-        }
-        if (args.length == 4 && "edit".equals(args[2])) {
-            fragment.setViewModeVisibility(false);
-            _hlEditor.post(() -> TextViewUtils.setSelectionAndShow(_hlEditor, start));
-        } else if (args.length == 5 && "done".equals(args[2]) && ("true".equals(args[4]) || "false".equals(args[4]))) {
-            final boolean done = Boolean.parseBoolean(args[4]);
-            if (new TodoTxtTask(task).isDone() != done) {
-                for (final ReplacePattern pattern : toggleDonePatterns(false)) {
-                    if (pattern.matcher.reset(task).find()) {
-                        final CharSequence replacement = pattern.replace();
-                        if (!_hlEditor.replaceIfUnchanged(start, task, replacement)) {
-                            break;
-                        }
-                        _previewText = text.toString();
-                        final String row = TodoTxtTextConverter.renderRow(getActivity(), replacement.toString(), line);
-                        _webView.evaluateJavascript("window.markorTodo.updateRow(" + JSONObject.quote(_previewRevision)
-                                + "," + line + "," + JSONObject.quote(row) + ")", null);
-                        break;
-                    }
-                }
+        } else if (args.length == 4 && "edit".equals(args[2])) {
+            final Editable text = _hlEditor.getText();
+            final int line = GsTextUtils.tryParseInt(args[3], -1);
+            final int start = TextViewUtils.getIndexFromLineOffset(text, line, Integer.MAX_VALUE);
+            if (start >= 0 && start < text.length() && !taskText(text, start).trim().isEmpty()) {
+                fragment.setViewModeVisibility(false);
+                _hlEditor.post(() -> TextViewUtils.setSelectionAndShow(_hlEditor, start));
             }
         }
-        return true;
+    }
+
+    @Override
+    protected void setPreviewCheckbox(final int line, final boolean checked, final String revision, final DocumentEditAndViewFragment fragment) {
+        if (!isCurrentPreview(revision, fragment)) {
+            return;
+        }
+        final Editable text = _hlEditor.getText();
+        final int start = TextViewUtils.getIndexFromLineOffset(text, line, Integer.MAX_VALUE);
+        if (start < 0 || start >= text.length()) {
+            return;
+        }
+        final String task = taskText(text, start);
+        if (task.trim().isEmpty() || new TodoTxtTask(task).isDone() == checked) {
+            return;
+        }
+        for (final ReplacePattern pattern : toggleDonePatterns(false)) {
+            if (pattern.matcher.reset(task).find()) {
+                final CharSequence replacement = pattern.replace();
+                if (_hlEditor.replaceIfUnchanged(start, task, replacement)) {
+                    _previewText = text.toString();
+                    final String row = TodoTxtTextConverter.renderRow(getActivity(), replacement.toString(), line);
+                    _webView.evaluateJavascript("window.markorTodo.updateRow(" + JSONObject.quote(revision)
+                            + "," + line + "," + JSONObject.quote(row) + ")", null);
+                }
+                return;
+            }
+        }
+    }
+
+    private static String taskText(final CharSequence text, final int start) {
+        final int end = TextViewUtils.getLineEnd(text, start);
+        final int taskEnd = end > start && text.charAt(end - 1) == '\r' ? end - 1 : end;
+        return text.subSequence(start, taskEnd).toString();
     }
 
     private boolean isCurrentPreview(final String revision, final DocumentEditAndViewFragment fragment) {

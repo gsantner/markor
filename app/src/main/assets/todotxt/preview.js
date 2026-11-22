@@ -68,7 +68,7 @@
         if (target.matches("input[type=checkbox]")) {
             // Apply the checked state when Markor confirms the source edit.
             event.preventDefault();
-            send("done", target.closest(".todo-row").dataset.line, String(target.checked));
+            Android.webViewJavascriptCallback(["set-checked", target.closest(".todo-row").dataset.line, String(target.checked), revision]);
         } else if (event.detail === 0) {
             const task = target.closest(".todo-text");
             if (task) {

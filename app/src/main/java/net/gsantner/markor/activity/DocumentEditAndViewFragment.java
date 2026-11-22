@@ -1274,11 +1274,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         if (activity != null) {
             activity.runOnUiThread(() -> {
                 if (_format != null) {
-                    final ActionButtonBase actions = _format.getActions();
-                    if (actions instanceof TodoTxtActionButtons && ((TodoTxtActionButtons) actions).handlePreviewAction(args, this)) {
-                        return;
-                    }
-                    actions.onWebViewJavascriptCallback(args);
+                    _format.getActions().onWebViewJavascriptCallback(args, this);
                 }
             });
         }
