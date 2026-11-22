@@ -81,29 +81,21 @@
     status.addEventListener("change", applyFilter);
 
     window.markorTodo = {
-        focusFilter() {
-            filter.focus();
-            return document.activeElement === filter;
-        },
-
         updateRow(expectedRevision, line, html) {
             if (expectedRevision !== revision) {
                 return;
             }
-            const row = rows.querySelector(`[data-line="${line}"]`);
+            const selector = `[data-line="${line}"]`;
+            const row = rows.querySelector(selector);
             if (!row) {
                 return;
             }
             cancelPress();
             const checkboxHadFocus = row.querySelector("input") === document.activeElement;
-            let updated;
-            if (html) {
-                row.insertAdjacentHTML("beforebegin", html);
-                updated = row.previousElementSibling;
-            }
-            row.remove();
+            row.outerHTML = html;
             applyFilter();
-            if (checkboxHadFocus && updated && !updated.hidden) {
+            const updated = checkboxHadFocus && rows.querySelector(selector);
+            if (updated && !updated.hidden) {
                 updated.querySelector("input").focus({preventScroll: true});
             }
         },

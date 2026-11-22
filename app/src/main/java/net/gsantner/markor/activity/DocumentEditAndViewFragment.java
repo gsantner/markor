@@ -1284,15 +1284,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     protected void onToolbarClicked(View v) {
         if (_format != null) {
             final ActionButtonBase actions = _format.getActions();
-            if (_isPreviewVisible && _webView != null && actions instanceof TodoTxtActionButtons) {
-                final WebView webView = _webView;
-                webView.requestFocus();
-                webView.evaluateJavascript("window.markorTodo && window.markorTodo.focusFilter()", result -> {
-                    if (isPreviewing(actions) && _webView == webView && "true".equals(result)) {
-                        _cu.showSoftKeyboard(getActivity(), true, webView);
-                    }
-                });
-            } else {
+            if (!(_isPreviewVisible && actions instanceof TodoTxtActionButtons)) {
                 actions.runTitleClick();
             }
         }

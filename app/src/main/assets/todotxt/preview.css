@@ -1,10 +1,7 @@
-html,
-body {
-    background: var(--todo-background);
-    color: var(--todo-foreground);
-}
+:where(body) { background-color: white; }
 
 #markor-todo {
+    background-color: inherit;
     line-height: 1.45;
 }
 
@@ -18,7 +15,7 @@ body {
     flex-wrap: wrap;
     gap: 6px;
     padding: 8px 0;
-    background: var(--todo-background);
+    background-color: inherit;
     border-bottom: 1px solid var(--todo-divider);
 }
 
@@ -35,7 +32,7 @@ body {
     padding: 8px;
     border: 1px solid var(--todo-divider);
     border-radius: 4px;
-    background: var(--todo-control);
+    background: transparent;
     box-shadow: none;
     filter: none;
 }
@@ -46,8 +43,8 @@ body {
 }
 
 #todo-filter::placeholder {
-    color: var(--todo-muted);
-    opacity: 1;
+    color: inherit;
+    opacity: .65;
 }
 
 #todo-status { max-width: 100%; }
@@ -105,14 +102,14 @@ body {
 }
 
 #markor-todo .todo-done .todo-text {
-    color: var(--todo-muted);
+    opacity: .65;
     text-decoration: line-through;
 }
 
 /* Match the editor's TodoTxtBasicSyntaxHighlighter palette. */
 .todo-context { color: #88b04b; }
 .todo-project { color: #ef6c00; }
-.todo-date { color: var(--todo-muted); }
+.todo-date { opacity: .65; }
 .todo-due, .priority-A { color: #ef2929; }
 .priority-B { color: #d16900; }
 .priority-C { color: #59a112; }

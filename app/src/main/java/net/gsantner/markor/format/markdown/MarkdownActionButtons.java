@@ -59,6 +59,9 @@ public class MarkdownActionButtons extends ActionButtonBase {
 
     @Override
     protected void setPreviewCheckbox(final int sourceIndex, final boolean checked, final String revision, final DocumentEditAndViewFragment fragment) {
+        if (!"".equals(revision)) {
+            return;
+        }
         final Editable text = _hlEditor.getText();
         if (sourceIndex <= 0 ||
                 sourceIndex >= text.length() - 1 ||
