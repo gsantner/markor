@@ -16,6 +16,7 @@ import android.os.Parcelable;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Layout;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -581,6 +582,20 @@ public class HighlightingEditor extends AppCompatEditText {
 
     // Utility functions for interaction
     // ---------------------------------------------------------------------------------------------
+
+    public boolean replaceIfUnchanged(final int start, final String expected, final CharSequence replacement) {
+        final Editable text = getText();
+        if (text == null || start < 0 || expected.length() > text.length() - start || TextUtils.equals(expected, replacement)) {
+            return false;
+        }
+        final int end = start + expected.length();
+        final CharSequence current = start == 0 && end == text.length() ? text : text.subSequence(start, end);
+        if (!expected.contentEquals(current)) {
+            return false;
+        }
+        withAutoFormatDisabled(() -> text.replace(start, end, replacement));
+        return true;
+    }
 
     public void selectLines() {
         final int[] sel = TextViewUtils.getLineSelection(this);

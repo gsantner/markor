@@ -53,6 +53,7 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.format.ActionButtonBase;
 import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.format.TextConverterBase;
+import net.gsantner.markor.format.todotxt.TodoTxtActionButtons;
 import net.gsantner.markor.frontend.DraggableScrollbarScrollView;
 import net.gsantner.markor.frontend.FileInfoDialog;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
@@ -1143,7 +1144,11 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         }
         // Don't let text to view mode crash app
         try {
-            _format.getConverter().convertMarkupShowInWebView(_document, getTextString(), getActivity(), _webView, _nextConvertToPrintMode, _lineNumbersView.isLineNumbersEnabled());
+            if (_format.getActions() instanceof TodoTxtActionButtons) {
+                ((TodoTxtActionButtons) _format.getActions()).showPreview(getTextString(), _nextConvertToPrintMode, this);
+            } else {
+                _format.getConverter().convertMarkupShowInWebView(_document, getTextString(), getActivity(), _webView, _nextConvertToPrintMode, _lineNumbersView.isLineNumbersEnabled());
+            }
         } catch (OutOfMemoryError e) {
             _format.getConverter().convertMarkupShowInWebView(_document, "updateViewModeText getTextString(): OutOfMemory  " + e, getActivity(), _webView, _nextConvertToPrintMode, _lineNumbersView.isLineNumbersEnabled());
         }
@@ -1162,6 +1167,10 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     public boolean isViewModeVisibility() {
         return _isPreviewVisible;
+    }
+
+    public boolean isPreviewing(final ActionButtonBase actions) {
+        return _isPreviewVisible && _format != null && _format.getActions() == actions;
     }
 
     @SuppressLint({"SetJavaScriptEnabled"})
@@ -1265,7 +1274,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         if (activity != null) {
             activity.runOnUiThread(() -> {
                 if (_format != null) {
-                    _format.getActions().onWebViewJavascriptCallback(args);
+                    _format.getActions().onWebViewJavascriptCallback(args, this);
                 }
             });
         }
@@ -1274,7 +1283,10 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     @Override
     protected void onToolbarClicked(View v) {
         if (_format != null) {
-            _format.getActions().runTitleClick();
+            final ActionButtonBase actions = _format.getActions();
+            if (!(_isPreviewVisible && actions instanceof TodoTxtActionButtons)) {
+                actions.runTitleClick();
+            }
         }
     }
 

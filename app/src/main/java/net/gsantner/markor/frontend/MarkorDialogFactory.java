@@ -194,45 +194,34 @@ public class MarkorDialogFactory {
         final DialogOptions dopt = baseConf(activity);
         final List<String> availableData = new ArrayList<>();
         final List<Integer> availableDataToIconMap = new ArrayList<>();
+        final List<String> sortKeys = new ArrayList<>();
 
         final String o_context = activity.getString(R.string.context);
-        final String o_project = activity.getString(R.string.project);
-        final String o_prio = activity.getString(R.string.priority);
-        final String o_date = activity.getString(R.string.date);
-        final String o_textline = activity.getString(R.string.text_lines);
-        final String o_description = activity.getString(R.string.description);
-        final String o_duedate = activity.getString(R.string.due_date);
         final String d_asc = " (" + activity.getString(R.string.ascending) + ")";
         final String d_desc = " (" + activity.getString(R.string.descending) + ")";
         final String optLastSelected = "showSttSortDialogue.last_selected";
 
-        dopt.callback = arg1 -> {
-            as.setString(optLastSelected, arg1);
-            String[] values = arg1
-                    .replace(o_context, BY_CONTEXT)
-                    .replace(o_project, BY_PROJECT)
-                    .replace(o_prio, BY_PRIORITY)
-                    .replace(o_date, BY_CREATION_DATE)
-                    .replace(o_textline, BY_LINE)
-                    .replace(o_description, BY_DESCRIPTION)
-                    .replace(o_duedate, BY_DUE_DATE)
-                    .split(" ");
-            callback.callback(values[0], values[1].contains(d_desc.replace(" ", "")));
+        dopt.positionCallback = selection -> {
+            final int index = selection.get(0);
+            as.setString(optLastSelected, availableData.get(index));
+            callback.callback(sortKeys.get(index / 2), index % 2 == 1);
         };
 
-        final GsCallback.a2<String, Integer> addToList = (o_by, iconRes) -> {
-            availableData.add(o_by + d_asc);
-            availableData.add(o_by + d_desc);
+        final GsCallback.a3<Integer, Integer, String> addToList = (labelRes, iconRes, sortKey) -> {
+            final String label = activity.getString(labelRes);
+            availableData.add(label + d_asc);
+            availableData.add(label + d_desc);
             availableDataToIconMap.add(iconRes);
             availableDataToIconMap.add(iconRes);
+            sortKeys.add(sortKey);
         };
-        addToList.callback(o_prio, R.drawable.ic_star_border_black_24dp);
-        addToList.callback(o_project, R.drawable.ic_new_label_black_24dp);
-        addToList.callback(o_context, R.drawable.gs_email_sign_black_24dp);
-        addToList.callback(o_date, R.drawable.ic_date_range_black_24dp);
-        addToList.callback(o_duedate, R.drawable.ic_date_range_black_24dp);
-        addToList.callback(o_description, R.drawable.ic_text_fields_black_24dp);
-        addToList.callback(o_textline, R.drawable.ic_text_fields_black_24dp);
+        addToList.callback(R.string.priority, R.drawable.ic_star_border_black_24dp, BY_PRIORITY);
+        addToList.callback(R.string.project, R.drawable.ic_new_label_black_24dp, BY_PROJECT);
+        addToList.callback(R.string.context, R.drawable.gs_email_sign_black_24dp, BY_CONTEXT);
+        addToList.callback(R.string.date, R.drawable.ic_date_range_black_24dp, BY_CREATION_DATE);
+        addToList.callback(R.string.due_date, R.drawable.ic_date_range_black_24dp, BY_DUE_DATE);
+        addToList.callback(R.string.description, R.drawable.ic_text_fields_black_24dp, BY_DESCRIPTION);
+        addToList.callback(R.string.text_lines, R.drawable.ic_text_fields_black_24dp, BY_LINE);
 
         dopt.data = availableData;
         dopt.highlightData = Collections.singletonList(as.getString(optLastSelected, o_context + d_desc));

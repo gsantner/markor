@@ -190,7 +190,7 @@ public class MarkdownTextConverter extends TextConverterBase {
                     + "var boxes=document.querySelectorAll('input.task-list-item-checkbox');"
                     + "for(var i=0;i<boxes.length&&i<checkboxSourceIndices.length;i++){"
                     + "boxes[i].markorSourceIndex=checkboxSourceIndices[i];"
-                    + "boxes[i].addEventListener('change',function(){Android.webViewJavascriptCallback(['markdown-checkbox',String(this.markorSourceIndex),this.checked?'true':'false']);});}";
+                    + "boxes[i].addEventListener('change',function(){Android.webViewJavascriptCallback(['set-checked',String(this.markorSourceIndex),String(this.checked),'']);});}";
         }
 
         // GFM table parsing

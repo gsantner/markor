@@ -103,8 +103,6 @@ public abstract class TextConverterBase {
             final boolean lightMode,
             final boolean lineNum
     ) {
-        final AppSettings as = AppSettings.get(context);
-
         String html;
         try {
             html = convertMarkup(content, context, lightMode, lineNum, document.file);
@@ -112,9 +110,13 @@ public abstract class TextConverterBase {
             html = "Please report at project issue tracker: " + e;
         }
 
+        loadHtmlInWebView(document, context, webView, html);
+    }
+
+    protected void loadHtmlInWebView(final Document document, final Activity context, final WebView webView, final String html) {
         String parent = document.file.getParent();
         if (parent == null) {
-            parent = as.getNotebookDirectory().getAbsolutePath();
+            parent = AppSettings.get(context).getNotebookDirectory().getAbsolutePath();
         }
         final String baseFolder = "file://" + parent + "/";
 

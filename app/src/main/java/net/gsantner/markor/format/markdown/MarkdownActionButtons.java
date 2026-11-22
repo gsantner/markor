@@ -58,23 +58,10 @@ public class MarkdownActionButtons extends ActionButtonBase {
     }
 
     @Override
-    public void onWebViewJavascriptCallback(final String[] args) {
-        if (isMarkdownCheckboxAction(args)) {
-            runViewModeCheckboxAction(args);
+    protected void setPreviewCheckbox(final int sourceIndex, final boolean checked, final String revision, final DocumentEditAndViewFragment fragment) {
+        if (!"".equals(revision)) {
             return;
         }
-        super.onWebViewJavascriptCallback(args);
-    }
-
-    private boolean isMarkdownCheckboxAction(final String[] args) {
-        return args.length == 3 &&
-                "markdown-checkbox".equals(args[0]) &&
-                ("true".equals(args[2]) || "false".equals(args[2])) &&
-                _hlEditor != null;
-    }
-
-    private void runViewModeCheckboxAction(final String[] args) {
-        final int sourceIndex = GsTextUtils.tryParseInt(args[1], -1);
         final Editable text = _hlEditor.getText();
         if (sourceIndex <= 0 ||
                 sourceIndex >= text.length() - 1 ||
@@ -88,10 +75,7 @@ public class MarkdownActionButtons extends ActionButtonBase {
             return;
         }
 
-        final char replacement = "true".equals(args[2]) ? 'x' : ' ';
-        if (current != replacement) {
-            _hlEditor.withAutoFormatDisabled(() -> text.replace(sourceIndex, sourceIndex + 1, String.valueOf(replacement)));
-        }
+        _hlEditor.replaceIfUnchanged(sourceIndex, String.valueOf(current), checked ? "x" : " ");
     }
 
     @Override
