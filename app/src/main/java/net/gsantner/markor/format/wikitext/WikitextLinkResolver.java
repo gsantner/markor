@@ -156,8 +156,10 @@ public class WikitextLinkResolver {
      * @return
      */
     private String wikitextPagePathToRelativeFilePath(String wikitextPagePath) {
-        String result = wikitextPagePath.replaceAll(":", File.separator);
-        result = result.replaceAll(" ", "_");
+        // replace() is literal: replaceAll() would treat File.separator "\" on
+        // Windows hosts as a regex escape and throw IllegalArgumentException
+        String result = wikitextPagePath.replace(":", File.separator);
+        result = result.replace(" ", "_");
         result = result + ".txt";
         return result;
     }
