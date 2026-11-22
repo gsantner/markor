@@ -136,8 +136,9 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         // Determine start folder
         final File fallback = _appSettings.getFolderToLoadByMenuId(_appSettings.getAppStartupFolderMenuId());
         final Intent intent = getIntent();
+        final boolean showRequested = intent.getBooleanExtra(Document.EXTRA_SHOW_IN_FILEBROWSER, false);
         _startFolder = MarkorContextUtils.getValidIntentFile(intent, fallback);
-        if (!GsFileUtils.isDirectory(_startFolder)) {
+        if (!GsFileUtils.isDirectory(_startFolder) || showRequested) {
             _showFile = _startFolder;
             _startFolder = _startFolder.getParentFile();
         }
@@ -237,10 +238,11 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         if (_notebook != null && file != null) {
             hideKeyboard();
             _viewPager.setCurrentItem(tabIdToPos(R.id.nav_notebook), false);
-            if (GsFileUtils.isDirectory(file)) {
-                _notebook.getAdapter().setCurrentFolder(file);
-            } else {
+            final boolean showRequested = intent.getBooleanExtra(Document.EXTRA_SHOW_IN_FILEBROWSER, false);
+            if (showRequested || !GsFileUtils.isDirectory(file)) {
                 _notebook.getAdapter().showFile(file);
+            } else {
+                _notebook.getAdapter().setCurrentFolder(file);
             }
             _notebook.setReloadRequiredOnResume(false);
         }
