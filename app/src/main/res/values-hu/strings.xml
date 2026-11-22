@@ -141,6 +141,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_wide">Alkalmazásszintű</string>
     <string name="main_view">Alap nézet</string>
     <string name="overall_theme_used_in_app">Az alkalmazás témája</string>
+    <string name="flat_top_bottom_bars">Lapos felső és alsó sáv</string>
+    <string name="flat_top_bottom_bars_description">Az alkalmazás háttérszínének használata a felső és alsó sávokra</string>
+    <string name="show_tab_titles">Címek megjelenítése a füleken</string>
+    <string name="show_tab_titles_description">Szöveg címkék megjelenítése az alsó sávban</string>
+    <string name="file_browser_divider_lines">Elválasztó vonalak a fájlkezelőben</string>
+    <string name="file_browser_divider_lines_description">Elválasztó vonalak mutatása a fájlkezelő bejegyzései között</string>
     <string name="remember_last_directory">Utoljára használt mappa megjegyzése</string>
     <string name="syntax_highlighting">Szintaxis kiemelés</string>
     <string name="highlighting_delay">Kiemelés késleltetése</string>
