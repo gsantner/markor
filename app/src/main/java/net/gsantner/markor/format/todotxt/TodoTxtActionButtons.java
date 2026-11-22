@@ -17,6 +17,7 @@ import android.text.Editable;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -66,17 +67,37 @@ public class TodoTxtActionButtons extends ActionButtonBase {
         super(context, document);
     }
 
-    public void showPreview(final String text, final boolean print) {
+    public void showPreview(final String text, final boolean print, final DocumentEditAndViewFragment fragment) {
         final TodoTxtTextConverter converter = FormatRegistry.CONVERTER_TODOTXT;
         if (print) {
             _previewRevision = null;
             _previewText = null;
             converter.convertMarkupShowInWebView(_document, text, getActivity(), _webView, true, false);
-        } else {
+        } else if (_previewRevision == null) {
             _previewRevision = UUID.randomUUID().toString();
             _previewText = text;
             converter.showInteractivePreview(_document, getActivity(), _webView, text, _previewRevision);
+        } else {
+            updatePreviewRows(text, _previewText.equals(text) ? null : TodoTxtTextConverter.renderRows(getActivity(), text), fragment);
         }
+    }
+
+    private void updatePreviewRows(final String text, final String rows, final DocumentEditAndViewFragment fragment) {
+        final String previous = _previewRevision;
+        final String revision = rows == null ? previous : UUID.randomUUID().toString();
+        final WebView webView = _webView;
+        _previewRevision = revision;
+        _previewText = text;
+        final String update = "window.markorTodo && window.markorTodo.updateRows("
+                + JSONObject.quote(previous) + "," + JSONObject.quote(revision) + "," + (rows == null ? "null" : JSONObject.quote(rows)) + ")";
+        webView.evaluateJavascript(update, result -> {
+            if (!"true".equals(result) && revision.equals(_previewRevision) && _webView == webView && fragment.isPreviewing(this)) {
+                final Activity activity = getActivity();
+                if (activity != null && !activity.isDestroyed()) {
+                    FormatRegistry.CONVERTER_TODOTXT.showInteractivePreview(_document, activity, webView, _previewText, revision);
+                }
+            }
+        });
     }
 
     public boolean handlePreviewAction(final String[] args, final DocumentEditAndViewFragment fragment) {
@@ -115,7 +136,9 @@ public class TodoTxtActionButtons extends ActionButtonBase {
                 for (final ReplacePattern pattern : toggleDonePatterns(false)) {
                     if (pattern.matcher.reset(task).find()) {
                         final CharSequence replacement = pattern.replace();
-                        _hlEditor.withAutoFormatDisabled(() -> text.replace(start, taskEnd, replacement));
+                        if (!_hlEditor.replaceIfUnchanged(start, task, replacement)) {
+                            break;
+                        }
                         _previewText = text.toString();
                         final String row = TodoTxtTextConverter.renderRow(getActivity(), replacement.toString(), line);
                         _webView.evaluateJavascript("window.markorTodo.updateRow(" + JSONObject.quote(_previewRevision)
@@ -161,21 +184,17 @@ public class TodoTxtActionButtons extends ActionButtonBase {
                 final String sorted = sortTaskText(source, orderBy, descending);
                 final String rows = fragment != null && !source.equals(sorted) ? TodoTxtTextConverter.renderRows(activity, sorted) : "";
                 activity.runOnUiThread(() -> {
+                    if (activity.isDestroyed() || !Objects.equals(startingPreviewRevision, _previewRevision) ||
+                        (fragment != null && (_webView == null || !fragment.isPreviewing(this)))) {
+                        return;
+                    }
                     final Editable text = _hlEditor.getText();
-                    final boolean sameView = fragment == null ? Objects.equals(startingPreviewRevision, _previewRevision) : isCurrentPreview(revision, fragment);
-                    if (activity.isDestroyed() || !source.contentEquals(text) || !sameView) {
+                    if (!source.contentEquals(text)) {
                         return;
                     }
                     _appSettings.setStringList(LAST_SORT_ORDER_KEY, Arrays.asList(orderBy, Boolean.toString(descending)));
-                    if (source.equals(sorted)) {
-                        return;
-                    }
-                    _hlEditor.withAutoFormatDisabled(() -> text.replace(0, text.length(), sorted));
-                    if (fragment != null) {
-                        _previewRevision = UUID.randomUUID().toString();
-                        _previewText = text.toString();
-                        _webView.evaluateJavascript("window.markorTodo.updateRows(" + JSONObject.quote(revision)
-                                + "," + JSONObject.quote(_previewRevision) + "," + JSONObject.quote(rows) + ")", null);
+                    if (_hlEditor.replaceIfUnchanged(0, source, sorted) && fragment != null) {
+                        updatePreviewRows(text.toString(), rows, fragment);
                     }
                 });
             }).start();

@@ -16,7 +16,7 @@ body {
     z-index: 1;
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 6px;
     padding: 8px 0;
     background: var(--todo-background);
     border-bottom: 1px solid var(--todo-divider);
@@ -26,12 +26,13 @@ body {
 .todo-controls select,
 #markor-todo #todo-sort {
     box-sizing: border-box;
-    height: 44px;
+    height: auto;
+    min-height: 44px;
     font: inherit;
     text-transform: none;
     color: inherit;
     margin: 0;
-    padding: 0 10px;
+    padding: 8px;
     border: 1px solid var(--todo-divider);
     border-radius: 4px;
     background: var(--todo-control);
@@ -40,7 +41,7 @@ body {
 }
 
 #todo-filter {
-    flex: 1 1 6ch;
+    flex: 1 1 12ch;
     min-width: 0;
 }
 
@@ -61,7 +62,7 @@ body {
 }
 
 .todo-check {
-    flex: 0 0 44px;
+    flex: 0 0 48px;
     min-height: 48px;
     display: grid;
     place-items: center;
@@ -71,6 +72,8 @@ body {
     width: 18px;
     height: 18px;
     margin: 0;
+    margin-inline-end: 10px;
+    justify-self: end;
 }
 
 #markor-todo .todo-text {
@@ -80,6 +83,7 @@ body {
     height: auto;
     margin: 0;
     padding: 12px 4px;
+    padding-inline-start: 0;
     font: inherit;
     color: inherit;
     text-align: start;

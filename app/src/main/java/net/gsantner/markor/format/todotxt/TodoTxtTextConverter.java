@@ -59,7 +59,7 @@ public class TodoTxtTextConverter extends TextConverterBase {
 
     void showInteractivePreview(final Document document, final Activity activity, final WebView webView, final String text, final String revision) {
         final boolean dark = GsContextUtils.instance.isDarkModeEnabled(activity);
-        final String filter = escapedString(activity, R.string.filter);
+        final String filter = escapedString(activity, R.string.todo_filter_tasks);
         final String rowsMarker = "<!-- " + revision + " -->";
         final String content = "<section id='markor-todo' data-revision='" + revision + "'>"
                 + "<div class='todo-controls'>"

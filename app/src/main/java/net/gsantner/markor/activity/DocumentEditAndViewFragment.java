@@ -1145,7 +1145,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         // Don't let text to view mode crash app
         try {
             if (_format.getActions() instanceof TodoTxtActionButtons) {
-                ((TodoTxtActionButtons) _format.getActions()).showPreview(getTextString(), _nextConvertToPrintMode);
+                ((TodoTxtActionButtons) _format.getActions()).showPreview(getTextString(), _nextConvertToPrintMode, this);
             } else {
                 _format.getConverter().convertMarkupShowInWebView(_document, getTextString(), getActivity(), _webView, _nextConvertToPrintMode, _lineNumbersView.isLineNumbersEnabled());
             }

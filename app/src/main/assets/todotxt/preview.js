@@ -110,7 +110,10 @@
 
         updateRows(expectedRevision, nextRevision, html) {
             if (expectedRevision !== revision) {
-                return;
+                return false;
+            }
+            if (html === null) {
+                return true;
             }
             cancelPress();
             const scrollY = window.scrollY;
@@ -118,6 +121,7 @@
             rows.innerHTML = html;
             applyFilter();
             window.scrollTo(window.scrollX, scrollY);
+            return true;
         }
     };
 
