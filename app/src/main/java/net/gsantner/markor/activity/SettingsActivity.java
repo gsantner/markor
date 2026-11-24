@@ -28,6 +28,7 @@ import androidx.preference.PreferenceScreen;
 import com.rarepebble.colorpicker.ColorPreference;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.model.AppSettings;
@@ -245,6 +246,8 @@ public class SettingsActivity extends MarkorBaseActivity {
             } else if (eq(key, R.string.pref_key__notebook_directory, R.string.pref_key__quicknote_filepath, R.string.pref_key__todo_filepath)) {
                 WrMarkorWidgetProvider.updateLauncherWidgets();
                 TodoWidgetProvider.updateTodoWidgets();
+            } else if (eq(key, R.string.pref_key__markdown_extended_highlight)) {
+                MarkdownTextConverter.setOptionalExtensionUpdate();
             }
         }
 

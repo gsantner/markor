@@ -10,6 +10,8 @@ package net.gsantner.markor.format.markdown;
 import android.content.Context;
 import android.text.TextUtils;
 
+import androidx.annotation.NonNull;
+
 import com.vladsch.flexmark.ext.admonition.AdmonitionExtension;
 import com.vladsch.flexmark.ext.anchorlink.AnchorLinkExtension;
 import com.vladsch.flexmark.ext.autolink.AutolinkExtension;
@@ -47,6 +49,7 @@ import com.vladsch.flexmark.util.misc.Extension;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextConverterBase;
+import net.gsantner.markor.format.markdown.extension.TextHighlight;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.util.GsContextUtils;
 
@@ -57,6 +60,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -72,9 +76,32 @@ public class MarkdownTextConverter extends TextConverterBase {
     //## Extensions
     //########################
     public static final String EXT_MARKDOWN__TXT = ".txt";
+    /**
+     * Unused
+     * public static final String EXT_MARKDOWN__MD_TXT = ".md.txt";
+     * public static final String EXT_MARKDOWN__MD = ".md";
+     * public static final String EXT_MARKDOWN__MARKDOWN = ".markdown";
+     * public static final String EXT_MARKDOWN__MKD = ".mkd";
+     * public static final String EXT_MARKDOWN__MDOWN = ".mdown";
+     * public static final String EXT_MARKDOWN__MKDN = ".mkdn";
+     * public static final String EXT_MARKDOWN__MDWN = ".mdwn";
+     * public static final String EXT_MARKDOWN__MDX = ".mdx";
+     * public static final String EXT_MARKDOWN__TEXT = ".text";
+     * public static final String EXT_MARKDOWN__RMD = ".rmd";
+     */
 
     public static final String MD_EXTENSIONS_PATTERN_LIST = "((md)|(markdown)|(mkd)|(mdown)|(mkdn)|(txt)|(mdwn)|(mdx)|(text)|(rmd))";
     public static final Pattern PATTERN_HAS_FILE_EXTENSION_FOR_THIS_FORMAT = Pattern.compile("((?i).*\\." + MD_EXTENSIONS_PATTERN_LIST + "$)");
+
+    /**
+     * Unused
+     * public static final Pattern MD_EXTENSION_PATTERN = Pattern.compile("((?i)\\." + MD_EXTENSIONS_PATTERN_LIST + "$)");
+     * public static final String[] MD_EXTENSIONS = new String[]{
+     * EXT_MARKDOWN__MD, EXT_MARKDOWN__MARKDOWN, EXT_MARKDOWN__MKD, EXT_MARKDOWN__MDOWN,
+     * EXT_MARKDOWN__MKDN, EXT_MARKDOWN__TXT, EXT_MARKDOWN__MDWN, EXT_MARKDOWN__TEXT,
+     * EXT_MARKDOWN__RMD, EXT_MARKDOWN__MD_TXT, EXT_MARKDOWN__MDX
+     * };
+     */
 
     //########################
     //## Injected CSS / JS / HTML
@@ -127,7 +154,7 @@ public class MarkdownTextConverter extends TextConverterBase {
     //## Converter library
     //########################
     // See https://github.com/vsch/flexmark-java/wiki/Extensions#tables
-    private static final List<Extension> flexmarkExtensions = Arrays.asList(
+    private static final List<Extension> flexmarkExtensions = new ArrayList<>(Arrays.asList(
             StrikethroughSubscriptExtension.create(),
             AutolinkExtension.create(),
             InsExtension.create(),
@@ -148,14 +175,14 @@ public class MarkdownTextConverter extends TextConverterBase {
             AdmonitionExtension.create(),         // https://github.com/vsch/flexmark-java/wiki/Extensions#admonition
             FootnoteExtension.create(),           // https://github.com/vsch/flexmark-java/wiki/Footnotes-Extension#overview
             LineNumberIdExtension.create()
-    );
-    public static final Parser flexmarkParser = Parser.builder().extensions(flexmarkExtensions).build();
+    ));
+    public static Parser flexmarkParser = Parser.builder().extensions(flexmarkExtensions).build();
     public static final HtmlRenderer flexmarkRenderer = HtmlRenderer.builder().extensions(flexmarkExtensions).build();
 
     //########################
     //## Others
     //########################
-    // private static final String toDashChars = " -_"; // See HtmlRenderer.HEADER_ID_GENERATOR_TO_DASH_CHARS.getFrom(document)
+    private static boolean optionalExtensionUpdate = true;
     private static final Pattern linkPattern = Pattern.compile("\\[(.*?)\\]\\((.*?)(\\s+\".*\")?\\)");
 
     //########################
@@ -166,6 +193,11 @@ public class MarkdownTextConverter extends TextConverterBase {
         final AppSettings as = AppSettings.get(context);
         String converted, onLoadJs = "", head = "";
         final MutableDataSet options = new MutableDataSet();
+
+        if (optionalExtensionUpdate) {
+            optionalExtensionUpdate = false;
+            updateOptionalExtensions(as);
+        }
 
         options.set(Parser.EXTENSIONS, flexmarkExtensions);
         final String sourceMarkup = markup;
@@ -244,7 +276,7 @@ public class MarkdownTextConverter extends TextConverterBase {
                     if (!(fmaAllowedAttributes.contains(attrName) || fmaAllowedAttributes.contains("*"))) {
                         continue;
                     }
-                    //noinspection StringConcatenationInLoop
+                    // noinspection StringConcatenationInLoop
                     fmaText += HTML_FRONTMATTER_ITEM_CONTAINER_S.replace("{{ attrName }}", attrName) + "{{ post." + attrName + " }}\n" + HTML_FRONTMATTER_ITEM_CONTAINER_E + "\n";
                 }
                 if (!fmaText.isEmpty()) {
@@ -312,7 +344,7 @@ public class MarkdownTextConverter extends TextConverterBase {
         // Jekyll: Replace {{ site.baseurl }} with ..--> usually used in Jekyll blog _posts folder which is one folder below repository root, for reference to e.g. pictures in assets folder
         markup = markup.replace("{{ site.baseurl }}", "..").replace(TOKEN_SITE_DATE_JEKYLL, TOKEN_POST_TODAY_DATE);
 
-        // Notable: They use a home brewed syntax for referencing attachments: @attachment/f.png = ../attachements/f.jpg -- https://github.com/gsantner/markor/issues/1252
+        // Notable: They use a home-brewed syntax for referencing attachments: @attachment/f.png = ../attachements/f.jpg -- https://github.com/gsantner/markor/issues/1252
         markup = markup.replace("](@attachment/", "](../attachements/");
 
         if (as.isMarkdownNewlineNewparagraphEnabled()) {
@@ -330,9 +362,9 @@ public class MarkdownTextConverter extends TextConverterBase {
         }
 
         ////////////
-        // Markup parsing - afterwards = HTML
+        // Markup parsing - afterward = HTML
         Document document = sourceMarkup.equals(markup) ? sourceDocument : flexmarkParser.parse(markup);
-        converted = fmaText + flexmarkRenderer.builder(options).build().render(document);
+        converted = fmaText + HtmlRenderer.builder(options).build().render(document);
 
         // After render changes: Fixes for Footnotes (converter creates footnote + <br> + ref#(click) --> remove line break)
         if (converted.contains("footnote-")) {
@@ -357,6 +389,34 @@ public class MarkdownTextConverter extends TextConverterBase {
 
         // Deliver result
         return putContentIntoTemplate(context, converted, lightMode, file, onLoadJs, head);
+    }
+
+    public static void setOptionalExtensionUpdate() {
+        optionalExtensionUpdate = true;
+    }
+
+    private static void updateOptionalExtensions(AppSettings appSettings) {
+        HashMap<Class<?>, Extension> checks = new HashMap<>();
+        for (Extension extension : flexmarkExtensions) {
+            if (extension instanceof TextHighlight.TextHighlightExtension) {
+                checks.put(TextHighlight.TextHighlightExtension.class, extension);
+            }
+        }
+
+        // For the feature of using ==text== to highlight the text
+        if (appSettings.isMarkdownExtendHighlightEnabled()) {
+            Extension extension = checks.get(TextHighlight.TextHighlightExtension.class);
+            if (extension == null) {
+                flexmarkExtensions.add(TextHighlight.TextHighlightExtension.create());
+            }
+        } else {
+            Extension extension = checks.get(TextHighlight.TextHighlightExtension.class);
+            if (extension != null) {
+                flexmarkExtensions.remove(extension);
+            }
+        }
+
+        flexmarkParser = Parser.builder().extensions(flexmarkExtensions).build();
     }
 
     private String escapeSpacesInLink(final String markup) {
@@ -404,7 +464,6 @@ public class MarkdownTextConverter extends TextConverterBase {
     }
 
     private String getViewHlPrismIncludes(final String theme) {
-
         return CSS_PREFIX + "prism/themes/prism" + theme + ".min.css" + CSS_POSTFIX +
                 CSS_PREFIX + "prism/prism-markor.css" + CSS_POSTFIX +
                 CSS_PREFIX + "prism/plugins/toolbar/prism-toolbar.css" + CSS_POSTFIX +
@@ -506,11 +565,11 @@ public class MarkdownTextConverter extends TextConverterBase {
 
     private static class LineNumberIdExtension implements HtmlRenderer.HtmlRendererExtension {
         @Override
-        public void rendererOptions(MutableDataHolder options) {
+        public void rendererOptions(@NonNull MutableDataHolder options) {
         }
 
         @Override
-        public void extend(HtmlRenderer.Builder rendererBuilder, String rendererType) {
+        public void extend(HtmlRenderer.Builder rendererBuilder, @NonNull String rendererType) {
             rendererBuilder.attributeProviderFactory(new LineNumberIdProviderFactory());
         }
 

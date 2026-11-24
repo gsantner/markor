@@ -22,13 +22,14 @@ public class MarkdownSyntaxHighlighter extends SyntaxHighlighterBase {
     public final static Pattern BOLD = Pattern.compile("(?<=(\\n|^|\\s|\\[|\\{|\\())(([*_]){2,3})(?=\\S)(.*?)\\S\\2(?=(\\n|$|\\s|\\.|,|:|;|-|\\]|\\}|\\)))");
     public final static Pattern ITALICS = Pattern.compile("(?<=(\\n|^|\\s|\\[|\\{|\\())([*_])(?=((?!\\2)|\\2{2,}))(?=\\S)(.*?)\\S\\2(?=(\\n|$|\\s|\\.|,|:|;|-|\\]|\\}|\\)))");
     public final static Pattern HEADING = Pattern.compile("(?m)((^#{1,6}[^\\S\\n][^\\n]+)|((\\n|^)[^\\s]+.*?\\n(-{2,}|={2,})[^\\S\\n]*$))");
-    public final static Pattern HEADING_SIMPLE = Pattern.compile("(?m)^(#{1,6}\\s.*$)");
+    // public final static Pattern HEADING_SIMPLE = Pattern.compile("(?m)^(#{1,6}\\s.*$)");
     // Group 1 matches image, Group 2 matches text, group 3 matches path
     public static final Pattern LINK = Pattern.compile("(?m)(!)?\\[([^]]*)]\\(([^()]*(?:\\([^()]*\\)[^()]*)*)\\)");
     public final static Pattern LIST_UNORDERED = Pattern.compile("(\\n|^)\\s{0,16}([*+-])( \\[[ xX]\\])?(?= )");
     public final static Pattern LIST_ORDERED = Pattern.compile("(?m)^\\s{0,16}(\\d+)(:?\\.|\\))\\s");
     public final static Pattern QUOTATION = Pattern.compile("(\\n|^)>");
     public final static Pattern STRIKETHROUGH = Pattern.compile("~{2}(.*?)\\S~{2}");
+    public final static Pattern EXTENDED_MARK = Pattern.compile("==(.*?)\\S==");
     public final static Pattern CODE = Pattern.compile("(?m)(`(?!`)(.*?)`)|(^[^\\S\\n]{4}(?![0-9\\-*+]).*$)");
     public final static Pattern DOUBLESPACE_LINE_ENDING = Pattern.compile("(?m)(?<=\\S)([^\\S\\n]{2,})\\n");
 
@@ -37,6 +38,7 @@ public class MarkdownSyntaxHighlighter extends SyntaxHighlighterBase {
     private static final int MD_COLOR_LIST = 0xffdaa521;
     private static final int MD_COLOR_QUOTE = 0xff88b04c;
     private static final int MD_COLOR_CODEBLOCK = 0x60afafaf;
+    private static final int MD_COLOR_MARK = 0x80ffff00;
 
     public MarkdownSyntaxHighlighter(AppSettings as) {
         super(as);
@@ -46,6 +48,7 @@ public class MarkdownSyntaxHighlighter extends SyntaxHighlighterBase {
     private boolean _highlightCodeChangeFont;
     private boolean _highlightBiggerHeadings;
     private boolean _highlightCodeBlock;
+    private boolean _highlightMarkText;
 
     @Override
     public SyntaxHighlighterBase configure(Paint paint) {
@@ -53,13 +56,13 @@ public class MarkdownSyntaxHighlighter extends SyntaxHighlighterBase {
         _highlightCodeChangeFont = _appSettings.isHighlightCodeMonospaceFont();
         _highlightBiggerHeadings = _appSettings.isHighlightBiggerHeadings();
         _highlightCodeBlock = _appSettings.isHighlightCodeBlock();
+        _highlightMarkText = _appSettings.isMarkdownExtendHighlightEnabled();
         _delay = _appSettings.getMarkdownHighlightingDelay();
         return super.configure(paint);
     }
 
     @Override
     protected void generateSpans() {
-
         createTabSpans(_tabSize);
         createUnderlineHexColorsSpans();
         createSmallBlueLinkSpans();
@@ -89,6 +92,10 @@ public class MarkdownSyntaxHighlighter extends SyntaxHighlighterBase {
 
         if (_highlightCodeBlock) {
             createColorBackgroundSpan(CODE, MD_COLOR_CODEBLOCK);
+        }
+
+        if (_highlightMarkText) {
+            createColorBackgroundSpan(EXTENDED_MARK, MD_COLOR_MARK);
         }
     }
 }
