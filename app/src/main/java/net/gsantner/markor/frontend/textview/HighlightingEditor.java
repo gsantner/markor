@@ -83,7 +83,7 @@ public class HighlightingEditor extends AppCompatEditText {
     private final AtomicBoolean _textUnchangedWhileHighlighting = new AtomicBoolean(true);
     private int _textChangedNumber;
     private final Runnable _textChangedRecorder = TextViewUtils.makeDebounced(getHandler(), 1000, () -> _textChangedNumber++);
-    private StaticCursorDrawer _staticCursorDrawer;
+    private CursorDrawer _cursorDrawer;
     private GsCallback.r0<int[]> _getScrollCallback;
     private GsCallback.a2<Integer, Integer> _applyScrollCallback;
     private int[] _savedScrollPosition;
@@ -383,8 +383,8 @@ public class HighlightingEditor extends AppCompatEditText {
         try {
             super.onDraw(canvas);
 
-            if (_staticCursorDrawer != null && hasFocus()) {
-                _staticCursorDrawer.draw(canvas);
+            if (_cursorDrawer != null && hasFocus()) {
+                _cursorDrawer.draw(canvas);
             }
         } catch (Exception e) {
             // Hinder drawing from crashing the app
@@ -420,8 +420,8 @@ public class HighlightingEditor extends AppCompatEditText {
     @Override
     public void setTextSize(int unit, float size) {
         super.setTextSize(unit, size);
-        if (_staticCursorDrawer != null) {
-            _staticCursorDrawer.notifyTextSizeChanged();
+        if (_cursorDrawer != null) {
+            _cursorDrawer.notifyTextSizeChanged();
         }
     }
 
@@ -500,8 +500,8 @@ public class HighlightingEditor extends AppCompatEditText {
             AppSettings.appendDebugLog("Selection changed: " + selStart + "->" + selEnd);
         }
 
-        if (_staticCursorDrawer != null) {
-            _staticCursorDrawer.notifySelectionChanged(selStart, selEnd);
+        if (_cursorDrawer != null) {
+            _cursorDrawer.notifySelectionChanged(selStart, selEnd);
         }
     }
 
@@ -540,6 +540,7 @@ public class HighlightingEditor extends AppCompatEditText {
     // Plain text and rich text pasting
     // ---------------------------------------------------------------------------------------------
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private boolean handlePaste() {
         ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
         if (clipboard != null && clipboard.hasPrimaryClip()) {
@@ -709,13 +710,13 @@ public class HighlightingEditor extends AppCompatEditText {
         return _textChangedNumber;
     }
 
-    // Static cursor (redraw cursor)
+    // Cursor drawer (for drawing custom/static cursor)
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Static cursor drawer for EditText.
+     * Custom cursor drawer for EditText.
      */
-    static class StaticCursorDrawer {
+    static class CursorDrawer {
 
         private final Paint paint = new Paint();
         private final EditText editText;
@@ -725,7 +726,7 @@ public class HighlightingEditor extends AppCompatEditText {
         private final float offsetYBase;
         private boolean paused;
 
-        public StaticCursorDrawer(final @NonNull EditText editText, final @ColorInt int cursorColor) {
+        public CursorDrawer(final @NonNull EditText editText, final @ColorInt int cursorColor) {
             this.editText = editText;
             paint.setColor(cursorColor);
             offsetYBase = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16, editText.getResources().getDisplayMetrics());
@@ -733,7 +734,7 @@ public class HighlightingEditor extends AppCompatEditText {
         }
 
         /**
-         * Draw static cursor.
+         * Draw cursor.
          *
          * @param canvas The canvas of the EditText.
          */
@@ -797,17 +798,17 @@ public class HighlightingEditor extends AppCompatEditText {
         }
     }
 
-    public void setStaticCursorEnabled(boolean staticCursorEnabled) {
-        if (staticCursorEnabled) {
-            if (_staticCursorDrawer == null) {
-                _staticCursorDrawer = new StaticCursorDrawer(this, ContextCompat.getColor(getContext(), R.color.accent));
+    public void setCustomCursorEnabled(boolean enabled) {
+        if (enabled) {
+            if (_cursorDrawer == null) {
+                _cursorDrawer = new CursorDrawer(this, ContextCompat.getColor(getContext(), R.color.accent));
                 setCursorVisible(false);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                     setTextCursorDrawable(R.drawable.cursor_transparent); // Ensure that the default cursor is invisible
                 }
             }
-        } else if (_staticCursorDrawer != null) {
-            _staticCursorDrawer = null;
+        } else if (_cursorDrawer != null) {
+            _cursorDrawer = null;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 setTextCursorDrawable(R.drawable.cursor_accent);
             }
