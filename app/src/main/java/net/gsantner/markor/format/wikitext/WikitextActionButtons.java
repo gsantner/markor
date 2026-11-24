@@ -287,6 +287,10 @@ public class WikitextActionButtons extends ActionButtonBase {
             }
 
             if (event.isCtrlPressed()) { // Ctrl
+                if (keyCode == KeyEvent.KEYCODE_B) {
+                    onActionClick(R.string.abid_wikitext_bold);
+                    return true;
+                }
                 if (keyCode == KeyEvent.KEYCODE_I) {
                     onActionClick(R.string.abid_wikitext_italic);
                     return true;

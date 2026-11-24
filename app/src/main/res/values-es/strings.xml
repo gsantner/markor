@@ -333,7 +333,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_link">Abrir enlace</string>
     <string name="common_color_picker">Selector de color</string>
     <string name="date_and_time">Fecha y hora</string>
-    <string name="jump_to_bottom">Saltar al pie</string>
+    <string name="jump">Saltar al pie</string>
     <string name="quote">Cita</string>
     <string name="heading">Encabezado</string>
     <string name="heading_1">Título 1</string>

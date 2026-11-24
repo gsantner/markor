@@ -909,7 +909,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
             // Add previous match Button
             previousButton = new ImageButton(searchViewContext);
-            previousButton.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24);
+            previousButton.setImageResource(R.drawable.ic_arrow_up_s_line_24dp);
             previousButton.setLayoutParams(makeLayoutParams.callback());
             previousButton.setPadding(24, 24, 24, 24);
             TextViewUtils.setSelectableItemBackgroundBorderless(previousButton, searchViewContext);
@@ -920,7 +920,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
             // Add next match Button
             nextButton = new ImageButton(searchViewContext);
-            nextButton.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24);
+            nextButton.setImageResource(R.drawable.ic_arrow_down_s_line_24dp);
             nextButton.setLayoutParams(makeLayoutParams.callback());
             nextButton.setPadding(24, 24, 24, 24);
             TextViewUtils.setSelectableItemBackgroundBorderless(nextButton, searchViewContext);

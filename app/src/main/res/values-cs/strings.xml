@@ -186,7 +186,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_pos_end">Konec řádku (End)</string>
     <string name="key_pos_1_document">Začátek dokumentu (Alt + ↑)</string>
     <string name="key_pos_end_document">Konec dokumentu (Alt + ↓)</string>
-    <string name="jump_to_cursor">Přejít na kurzor</string>
+    <string name="go_to_cursor_hotkey">Přejít na kurzor</string>
     <string name="duplicate_hotkey">Duplikovat (Ctrl + D)</string>
     <string name="move_text_one_line_up">O řádek nahoru (Ctrl + ↑)</string>
     <string name="move_text_one_line_down">O řádek dolů (Ctrl + ↓)</string>
@@ -366,7 +366,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_link">Otevřít odkaz</string>
     <string name="common_color_picker">Výběr barvy</string>
     <string name="date_and_time">Datum a čas</string>
-    <string name="jump_to_bottom">Přejít na konec</string>
+    <string name="jump">Přejít na konec</string>
     <string name="quote">Citace</string>
     <string name="heading">Nadpis</string>
     <string name="heading_1">Nadpis 1</string>
@@ -406,7 +406,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="line_based_search">Vyhledávání po řádcích</string>
     <string name="no_results">Žádné výsledky</string>
     <string name="bad_pattern">Neplatný výraz</string>
-    <string name="toggle_find_replace">Přepnout Najít/Nahradit</string>
+    <string name="toggle_replace">Přepnout Najít/Nahradit</string>
     <string name="match_case">Rozlišovat velikost písmen</string>
     <string name="match_whole_word">Hledat pouze celá slova</string>
     <string name="use_regular_expression">Použít regulární výraz</string>

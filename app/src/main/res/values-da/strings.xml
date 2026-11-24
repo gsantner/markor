@@ -314,7 +314,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_link">Åbn link</string>
     <string name="common_color_picker">Farve vælger</string>
     <string name="date_and_time">Dato og tid</string>
-    <string name="jump_to_bottom">Hop til bunden</string>
+    <string name="jump">Hop til bunden</string>
     <string name="quote">Tilbud</string>
     <string name="heading">Overskrift</string>
     <string name="heading_1">Overskrift 1</string>

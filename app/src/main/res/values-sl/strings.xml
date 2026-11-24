@@ -335,7 +335,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_link">Odpri povezavo</string>
     <string name="common_color_picker">Izbrinik barv</string>
     <string name="date_and_time">Datum in čas</string>
-    <string name="jump_to_bottom">Skoči na dno</string>
+    <string name="jump">Skoči na dno</string>
     <string name="quote">Navedek</string>
     <string name="heading">Naslov</string>
     <string name="heading_1">Naslov 1</string>
