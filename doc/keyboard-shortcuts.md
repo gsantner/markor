@@ -6,7 +6,7 @@
 
 ### Edit
 
-| Shortcut Keys    | Action                                  |
+| Shortcut Key     | Action                                  |
 | ---------------- | --------------------------------------- |
 | Ctrl + A         | Select all                              |
 | Ctrl + C         | Copy                                    |
@@ -45,7 +45,7 @@
 
 ### Edit & View
 
-| Shortcut Keys | Action                                           |
+| Shortcut Key  | Action                                           |
 | ------------- | ------------------------------------------------ |
 | Ctrl + F      | Search                                           |
 | Ctrl + P      | Print                                            |
@@ -55,7 +55,7 @@
 
 ## Markdown
 
-| Shortcut Keys    | Action            |
+| Shortcut Key     | Action            |
 | ---------------- | ----------------- |
 | Ctrl + 1 ~ 3     | Heading 1 ~ 3     |
 | Ctrl + B         | Bold              |
@@ -71,18 +71,18 @@
 
 ## AsciiDoc
 
-| Shortcut Keys | Action |
+| Shortcut Key  | Action |
 | ------------- | ------ |
 | Ctrl + I      | Italic |
 
 ## Org Mode
 
-| Shortcut Keys | Action |
+| Shortcut Key  | Action |
 | ------------- | ------ |
 | Ctrl + I      | Italic |
 
 ## Zim Wiki
 
-| Shortcut Keys | Action |
+| Shortcut Key  | Action |
 | ------------- | ------ |
 | Ctrl + I      | Italic |

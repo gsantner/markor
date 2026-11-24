@@ -46,7 +46,6 @@ public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFacto
 
     @Override
     public void onDataSetChanged() {
-
         _widgetFilesList.clear();
         final File dir = WrWidgetConfigure.getWidgetDirectory(_context, _appWidgetId);
         final AppSettings as = AppSettings.get(_context);
@@ -63,7 +62,7 @@ public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFacto
             _widgetFilesList.addAll(all != null ? Arrays.asList(all) : Collections.emptyList());
         }
 
-        GsFileUtils.sortFiles(_widgetFilesList, order);
+        GsFileUtils.sortFiles(_widgetFilesList, order, order.favoriteFirst ? AppSettings.get(_context).getFavouriteFiles() : null);
     }
 
     @Override

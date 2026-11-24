@@ -19,9 +19,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_web_url" translatable="false">https://github.com/gsantner/markor</string>
     <string name="sync_client_support_issue_url" translatable="false">https://github.com/gsantner/markor/discussions/1381</string>
     <string name="app_source_code_url" translatable="false">https://github.com/gsantner/markor</string>
-    <string name="huuid" translatable="false">hUUID</string>
+    <string name="h_uuid" translatable="false">hUUID</string>
     <string name="embed_binary" translatable="false">Embed binary</string>
-    <string name="actionbutton" translatable="false">ActionButton</string>
+    <string name="action_button" translatable="false">Action Button</string>
 
 
     <string name="checkmark_symbol" translatable="false">\u2301</string>
@@ -71,27 +71,22 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 
     <string name="inject_to_head" translatable="false">Inject -> head</string>
     <string name="inject_to_body" translatable="false">Inject -> body</string>
-    <string name="js_css" translatable="false"><![CDATA[html: <head>CSS, JavaScript</head>]]></string>
-    <string name="inject_to_head_default" translatable="false"><![CDATA[
-    <style>
-    \nhtml, body {
-    \n/*
-    \nfont-family: sans-serif-condensed;
-    \nfont-size: 80%;
-    \n*/
-    \n}
-    \n</style>
-    \n
-    \n<script type=\"text/javascript\">
-    \nfunction onPageLoaded() {
-    \n/*
-    \nif (\'{{ post.text_converter_name }}\' == \'MarkdownTextConverter\') {
-    \n  window.scrollTo(0, document.body.scrollHeight);
-    \n}
-    \n*/
-    \n}
-    \n</script>
-    ]]></string>
+    <string name="js_css" translatable="false"><![CDATA[HTML: <head>CSS, JavaScript</head>]]></string>
+    <string name="inject_to_head_default" translatable="false"><![CDATA[<style>\n
+    html, body {\n
+    \t/*\n
+    \tfont-family: sans-serif-condensed;\n
+    \tfont-size: 80%;\n
+    \t*/\n
+    }\n</style>\n\n<script type=\"text/javascript\">\n
+    function onPageLoaded() {\n
+    \t/*\n
+    \talert(\'Page loaded.\');\n
+    \tif (\'{{ post.text_converter_name }}\'.includes(\'format-markdown\')) {\n
+    \t\twindow.scrollTo(0, document.body.scrollHeight);\n
+    \t}\n
+    \t*/\n
+    }\n</script>]]></string>
 
 
     <plurals name="item_selected" translatable="false">

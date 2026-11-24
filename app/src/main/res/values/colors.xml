@@ -26,7 +26,7 @@
     <color name="divider">#808080</color>
 
     <color name="accent_light">#FF9800</color>
-    <color name="default_link_color">#388E3C</color>
+    <color name="default_link_text_color">#388E3C</color>
 
     <color name="light__background">#EEEEEE</color>
     <color name="light__primary_text">#DE000000</color>

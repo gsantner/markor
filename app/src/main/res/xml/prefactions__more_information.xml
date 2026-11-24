@@ -16,7 +16,6 @@
     android:layout_height="match_parent"
     android:title="@string/more">
 
-
     <Preference
         android:key="@string/pref_key__more_info__app"
         android:title="@string/app_name"
@@ -88,13 +87,11 @@
             android:summary="@string/contribute_code_to_this_project_anybody_welcome"
             android:title="@string/source_code" />
 
-
         <Preference
             android:icon="@drawable/ic_code_black_24dp"
             android:key="@string/pref_key__more_info__copy_build_information"
-            android:title="Copy build information" />
+            android:title="@string/copy_build_information" />
 
     </PreferenceCategory>
 
-
-</PreferenceScreen> <!-- Screen -->
+</PreferenceScreen>
